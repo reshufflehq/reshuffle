@@ -351,6 +351,10 @@
     {
         "packageName": "@binaris/shift-db",
         "projectFolder": "db",
+    },
+    {
+        "packageName": "@binaris/shift-fetch-runtime",
+        "projectFolder": "fetch-runtime",
     }
   ]
 }
