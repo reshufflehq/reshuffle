@@ -1,11 +1,11 @@
 {
-  "name": "@binaris/shiftdb",
+  "name": "@binaris/shift-db",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist/ && tsc",
     "test": "ava -v dist/test/test_*.js"
   },
   "author": "",
