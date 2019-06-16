@@ -347,6 +347,10 @@
     {
         "packageName": "@binaris/shift-babel-macro",
         "projectFolder": "babel-macro",
+    },
+    {
+        "packageName": "@binaris/shift-fetch-runtime",
+        "projectFolder": "fetch-runtime",
     }
   ]
 }
