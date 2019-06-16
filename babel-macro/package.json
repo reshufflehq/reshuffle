@@ -1,0 +1,25 @@
+{
+  "name": "@binaris/shift-babel-macro",
+  "version": "1.0.0",
+  "files": [
+    "dist",
+    "shift.macro.js"
+  ],
+  "description": "",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@babel/parser": "^7.4.5",
+    "babel-plugin-macros": "^2.6.0"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.4.4",
+    "@types/node": "^10.14.9",
+    "typescript": "^3.5.2"
+  }
+}
