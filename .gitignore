@@ -58,6 +58,8 @@ jspm_packages/
 # Common toolchain intermediate files
 temp
 
+dist/
+
 # Rush files
 common/temp/**
 package-deps.json
