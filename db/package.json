@@ -1,0 +1,27 @@
+{
+  "name": "shiftdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "ava -v dist/test/test_*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/leveldown": "^4.0.0",
+    "@types/levelup": "^3.1.1",
+    "async-mutex": "^0.1.3",
+    "leveldown": "^5.1.0",
+    "levelup": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.9",
+    "@types/rmfr": "^2.0.0",
+    "ava": "^2.1.0",
+    "rmfr": "^2.0.0",
+    "typescript": "^3.5.2"
+  }
+}
