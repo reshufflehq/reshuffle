@@ -1,0 +1,24 @@
+{
+  "name": "@binaris/shift-local-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "@types/http-proxy-middleware": "^0.19.2",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^0.19.1",
+    "nodemon": "git+http://github.com/binaris/nodemon"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.9",
+    "typescript": "^3.5.2"
+  }
+}
