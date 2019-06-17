@@ -6,27 +6,40 @@ import * as babelTypes from '@babel/types';
 import { readFileSync } from 'fs';
 import path from 'path';
 
-function findClassMethods(ast: babelTypes.File, babel: any): string[] {
-  const t: typeof babelTypes = babel.types;
-  const body = ast.program.body;
-  const exportDefaults = body.filter((e): e is babelTypes.ExportDefaultDeclaration => t.isExportDefaultDeclaration(e));
-  if (!exportDefaults.length || !t.isClassDeclaration(exportDefaults[0].declaration)) {
-    return [];
-  }
-  const declaration = exportDefaults[0].declaration;
-  if (!t.isClassBody(declaration.body)) {
-    return [];
-  }
-  const names = declaration.body.body.filter((node): node is babelTypes.ClassMethod => t.isClassMethod(node))
-    .map((node) => (node.key as any).name);
-  return names;
+interface MacrosPluginPass {
+  filename: string;
+  cwd: string;
+  opts: object;
+  file: {
+    ast: babelTypes.File,
+      opts: {
+        root: string,
+        filename: string,
+      },
+  };
+  key: 'macros';
 }
 
-function shiftMacro({ state, babel }: any) {
+interface MacrosBabel {
+  types: typeof babelTypes;
+}
+
+function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel): string[] {
+  const body = ast.program.body;
+  // support ExportDefaultDeclaration (ExportAllDeclaration too for re-exporting ?)
+  const namedExports = body.filter((e): e is babelTypes.ExportNamedDeclaration => t.isExportNamedDeclaration(e));
+  const exposedExports = namedExports.filter(
+    (e) => e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
+  const functions = exposedExports.map((e) => e.declaration).filter(
+    (e): e is babelTypes.FunctionDeclaration => t.isFunctionDeclaration(e));
+  return functions.filter((f) => !!f.id).map((f) => f.id!.name);
+}
+
+function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBabel }) {
   // not using passed references from arguments since doing whole file pass
   interface ShiftReplacement {
     idx: number;
-    name: string;
+    names: string[];
     methods: string[];
     importedPath: string;
   }
@@ -37,34 +50,46 @@ function shiftMacro({ state, babel }: any) {
   body.forEach((node, idx) => {
     if (t.isImportDeclaration(node)) {
       // skip absolute paths (modules)
-      if (!node.source.value.startsWith('.')) return;
-      // support not only ImportDefaultSpecifier in the future
-      if (node.specifiers.length !== 1 || !t.isImportDefaultSpecifier(node.specifiers[0])) {
+      if (!node.source.value.startsWith('.')) {
         return;
       }
-      const name = node.specifiers[0].local.name;
-      const dir = path.dirname(state.file.opts.filename);
+      if (!node.specifiers.length ) {
+        return;
+      }
+      // support ImportDefaultSpecifier (together with default export in the future)
+      if (node.specifiers.some((specifier) => t.isImportDefaultSpecifier(specifier))) {
+        return;
+      }
+      const names = node.specifiers.map((specifier) => specifier.local.name);
+      const dir = path.dirname(state.filename);
       const importedFile = path.join(dir, node.source.value);
       const backendRoot = path.join(state.file.opts.root, 'backend');
       const relative = path.relative(backendRoot, importedFile);
       const isSubPath = relative && !relative.startsWith('..') && !path.isAbsolute(relative);
       if (isSubPath) {
+        let resolvedImportedPath: string;
+        let content: string;
         try {
-          const resolvedImportedPath = require.resolve(importedFile);
-          const content = readFileSync(resolvedImportedPath, 'utf8');
-          const zz = parse(content, { sourceType: 'module' });
-          const methods = findClassMethods(zz, babel);
-          found.push({ idx, name, methods, importedPath: resolvedImportedPath });
+          resolvedImportedPath = require.resolve(importedFile);
+          content = readFileSync(resolvedImportedPath, 'utf8');
         } catch (err) {
-          console.error('File not found huh', err);
-          throw new Error(`File ${node.source.value} not found`);
+          throw new Error(`File ${node.source.value} could not be read ${err}`);
           // handle this error somehow
         }
+        const importedFileAst = parse(content, { sourceType: 'module' });
+        const methods = findExportedMethods(importedFileAst, babel);
+        const namesSet = new Set(names);
+        const methodsSet = new Set(methods);
+        const difference = [...namesSet].filter((name) => !methodsSet.has(name));
+        if (difference.length) {
+          throw new Error(`Not found imported ${difference}, did you forget to @expose`);
+        }
+        found.push({ idx, names, methods, importedPath: resolvedImportedPath });
       }
     }
   });
   if (found.length) {
-    found.forEach(({ name, idx, methods, importedPath }) => {
+    found.forEach(({ names, idx, methods, importedPath }) => {
       body.splice(idx, 1,
         t.importDeclaration(
           [t.importSpecifier(t.identifier('createRuntime'), t.identifier('createRuntime'))],
@@ -73,7 +98,13 @@ function shiftMacro({ state, babel }: any) {
         t.variableDeclaration(
           'const',
           [
-            t.variableDeclarator(t.identifier(name),
+            t.variableDeclarator(
+              t.objectPattern(names.map((name) => t.objectProperty(
+                t.identifier(name),
+                t.identifier(name),
+                false,
+                true,
+              ))),
               t.callExpression(t.identifier('createRuntime'), [
                 t.arrayExpression(methods.map((m) => t.stringLiteral(m))),
                 t.objectExpression([
