@@ -93,7 +93,7 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
       body.splice(idx, 1,
         t.importDeclaration(
           [t.importSpecifier(t.identifier('createRuntime'), t.identifier('createRuntime'))],
-          t.stringLiteral('shift-fetch-runtime'),
+          t.stringLiteral('@binaris/shift-fetch-runtime'),
         ),
         t.variableDeclaration(
           'const',
