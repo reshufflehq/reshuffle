@@ -36,8 +36,7 @@ export class DB {
    * Creates a document, throws `KeyAlreadyExistsError if key already exists.
    */
   public async create(key: string, value: object): Promise<void> {
-    const release = await this.writeLock.acquire();
-    try {
+    await this.writeLock.runExclusive(async () => {
       try {
         await this.get(key);
       } catch (err) {
@@ -48,9 +47,7 @@ export class DB {
         return;
       }
       throw new KeyAlreadyExistsError(`${key} aleady exists`);
-    } finally {
-      release();
-    }
+    });
   }
 
   /**
@@ -62,8 +59,7 @@ export class DB {
   public async update<T extends object, R extends object>(
     key: string, updater: (state?: T) => R, initializer?: T
   ): Promise<void> {
-    const release = await this.writeLock.acquire();
-    try {
+    await this.writeLock.runExclusive(async () => {
       let prev: any = initializer;
       try {
         prev = await this.get(key);
@@ -74,21 +70,16 @@ export class DB {
       }
       const next = updater(prev);
       await this.db.put(key, JSON.stringify(next));
-    } finally {
-      release();
-    }
+    });
   }
 
   /**
    * Removes a single document or throws KeyError in case key does not exist.
    */
   public async remove(key: string): Promise<void> {
-    const release = await this.writeLock.acquire();
-    try {
+    await this.writeLock.runExclusive(async () => {
       await this.get(key);
       await this.db.del(key);
-    } finally {
-      release();
-    }
+    });
   }
 }
