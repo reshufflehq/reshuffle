@@ -5,14 +5,15 @@ function createRuntime(methodNames, fileId, urlOptions) {
       throw new Error(`Can not redefine ${method}`);
     }
     runtime[method] = (...args) => {
-      return fetch('/__shift__', {
+      // TODO: allow customizing URL
+      return fetch('/invoke', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          method,
-          fileId,
+          handler: method,
+          path: fileId.filename,
           args,
         }),
       }).then(response => {
