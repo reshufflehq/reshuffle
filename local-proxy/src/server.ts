@@ -8,9 +8,16 @@ const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH;
 if (!basePath) {
   throw new Error('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH env var not defined');
 }
+const localToken = process.env.SHIFT_LOCAL_TOKEN;
+if (!localToken) {
+  throw new Error('SHIFT_LOCAL_TOKEN env var not defined');
+}
 const app = express();
 
 app.post('/invoke', json(), async (req, res) => {
+  if (req.headers['x-shift-local-token'] !== localToken) {
+    return res.sendStatus(403);
+  }
   try {
     // TODO: validate request
     const { path, handler, args } = req.body;
