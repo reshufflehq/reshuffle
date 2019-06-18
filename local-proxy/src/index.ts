@@ -4,8 +4,9 @@ import net from 'net';
 import nodemon from 'nodemon';
 import proxy from 'http-proxy-middleware';
 import { Application } from 'express';
+import nanoid from 'nanoid';
 
-export async function startProxy(rootDir: string) {
+export async function startProxy(rootDir: string, localToken: string) {
   const server = net.createServer();
 
   await new Promise((resolve, reject) => {
@@ -26,6 +27,7 @@ export async function startProxy(rootDir: string) {
     env: {
       SHIFT_DB_PATH: path.join(rootDir, 'shift.db'),
       SHIFT_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
+      SHIFT_LOCAL_TOKEN: localToken,
     },
   });
 
@@ -48,8 +50,9 @@ export async function startProxy(rootDir: string) {
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
+  const localToken = nanoid();
   return async (app: Application) => {
-    const port = await startProxy(rootDir);
-    app.use(proxy('/invoke', { target: `http://localhost:${port}/` }));
+    const port = await startProxy(rootDir, localToken);
+    app.use(proxy('/invoke', { target: `http://localhost:${port}/`, headers: { 'x-shift-local-token': localToken } }));
   };
 }
