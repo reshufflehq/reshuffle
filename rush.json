@@ -355,6 +355,10 @@
     {
         "packageName": "@binaris/shift-fetch-runtime",
         "projectFolder": "fetch-runtime",
+    },
+    {
+        "packageName": "@binaris/shift-local-proxy",
+        "projectFolder": "local-proxy",
     }
   ]
 }
