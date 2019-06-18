@@ -10,7 +10,7 @@ export async function startProxy(rootDir: string, localToken: string) {
   const server = net.createServer();
 
   await new Promise((resolve, reject) => {
-    server.listen(0, resolve);
+    server.listen(0, '127.0.0.1', resolve);
     server.once('error',  reject);
     return server;
   });
