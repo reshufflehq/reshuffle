@@ -84,7 +84,7 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
         if (difference.length) {
           throw new Error(`Not found imported ${difference}, did you forget to @expose`);
         }
-        found.push({ idx, names, methods, importedPath: resolvedImportedPath });
+        found.push({ idx, names, methods, importedPath: path.relative(backendRoot, resolvedImportedPath) });
       }
     }
   });
