@@ -15,11 +15,11 @@
     "@types/http-proxy-middleware": "^0.19.2",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.19.1",
-    "nanoid": "~2.0.3",
+    "nanoid": "^2.0.3",
     "nodemon": "git+http://github.com/binaris/nodemon"
   },
   "devDependencies": {
-    "@types/nanoid": "~2.0.0",
+    "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
     "typescript": "^3.5.2"
   }
