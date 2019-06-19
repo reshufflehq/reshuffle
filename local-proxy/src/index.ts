@@ -27,7 +27,7 @@ export async function startProxy(rootDir: string, localToken: string) {
     env: {
       SHIFT_DB_PATH: path.join(rootDir, 'shift.db'),
       SHIFT_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
-      SHIFT_LOCAL_TOKEN: localToken,
+      SHIFT_DEV_SERVER_LOCAL_TOKEN: localToken,
     },
   });
 
@@ -53,6 +53,9 @@ export function setupProxy(sourceDir: string) {
   const localToken = nanoid();
   return async (app: Application) => {
     const port = await startProxy(rootDir, localToken);
-    app.use(proxy('/invoke', { target: `http://localhost:${port}/`, headers: { 'x-shift-local-token': localToken } }));
+    app.use(proxy('/invoke', {
+      target: `http://localhost:${port}/`,
+      headers: { 'x-shift-dev-server-local-token': localToken },
+    }));
   };
 }
