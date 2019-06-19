@@ -5,6 +5,7 @@ function createRuntime(methodNames, fileId, urlOptions) {
       throw new Error(`Can not redefine ${method}`);
     }
     runtime[method] = (...args) => {
+      let response;
       // TODO: allow customizing URL
       return fetch('/invoke', {
         method: 'POST',
@@ -16,12 +17,20 @@ function createRuntime(methodNames, fileId, urlOptions) {
           path: fileId.filename,
           args,
         }),
-      }).then(response => {
-        if (response.status >= 200 && response.status < 300) {
+      }).then(_response => {
+        response = _response;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.startsWith('application/json')) {
           return response.json();
         }
       }).then(jsonMessage => {
-        return jsonMessage;
+        if (response.status >= 200 && response.status < 300) {
+          return jsonMessage;
+        }
+        if (jsonMessage && jsonMessage.error) {
+          throw new Error(`Error calling ${method}: ${jsonMessage.error}`);
+        }
+        throw new Error(`Error calling ${method}: status ${response.status}`);
       });
     };
   }

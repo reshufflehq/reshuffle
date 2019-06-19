@@ -46,6 +46,9 @@ app.post('/invoke', json(), async (req, res) => {
     const fn = mod[handler];
     // TODO: check function is exposed
     const ret = await fn(...args);
+    if (ret === undefined) {
+      return res.sendStatus(204);
+    }
     res.json(ret);
   } catch (err) {
     // tslint:disable-next-line:no-console
