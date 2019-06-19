@@ -13,6 +13,7 @@ dependencies:
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
   '@types/mkdirp': 0.5.2
+  '@types/nanoid': 2.0.0
   '@types/node': 10.14.9
   '@types/rimraf': 2.0.2
   '@types/rmfr': 2.0.0
@@ -24,6 +25,7 @@ dependencies:
   leveldown: 5.1.0
   levelup: 4.0.2
   mkdirp: 0.5.1
+  nanoid: 2.0.3
   nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
   rimraf: 2.6.3
   rmfr: 2.0.0
@@ -473,6 +475,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-U5icWpv7YnZYGsN4/cmh3WD2onMY0aJIiTE6+51TwJCttdHvtCYmkBNOobHlXwrJRL0nkH9jH4kD+1FAdMN4Tg==
+  /@types/nanoid/2.0.0:
+    dependencies:
+      '@types/node': 10.14.9
+    dev: false
+    resolution:
+      integrity: sha512-NtwPHfAyU3IDXdKAB2OMPpAauHBg9gUjpOYr3FAzI84D70nWdS8k5mryteLvT/s1ACeAFAkGg132/XJVN4qx/w==
   /@types/node/10.14.9:
     dev: false
     resolution:
@@ -3030,6 +3038,10 @@ packages:
     optional: true
     resolution:
       integrity: sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
+  /nanoid/2.0.3:
+    dev: false
+    resolution:
+      integrity: sha512-NbaoqdhIYmY6FXDRB4eYtDVC9Z9eCbn8TyaiC16LNKtpPv/aqa0tOPD8y6gNE4yUNnaZ7LLhYtXOev/6+cBtfw==
   /nanomatch/1.2.13:
     dependencies:
       arr-diff: 4.0.0
@@ -4597,11 +4609,13 @@ packages:
       '@types/express': 4.17.0
       '@types/http-proxy-middleware': 0.19.2
       '@types/mkdirp': 0.5.2
+      '@types/nanoid': 2.0.0
       '@types/node': 10.14.9
       '@types/rimraf': 2.0.2
       express: 4.17.1
       http-proxy-middleware: 0.19.1
       mkdirp: 0.5.1
+      nanoid: 2.0.3
       nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
       rimraf: 2.6.3
       typescript: 3.5.2
@@ -4609,7 +4623,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-YapvOfOJeYFhWacPYtoulWU24T36jTIdhKJY7NOc45XdpuarwjiYkORQAqGs7RXvmjEPC9NdygL5P/jYO0X1bw==
+      integrity: sha512-Un1aNCDDJn2tvgXiCZr7A31W7lOABp6iadfmwsbmYJRFXq6GKOjEvRJf2yvP3cGTn8dQ8BPZv7Dm6utJmwJUEA==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -4639,22 +4653,23 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  '@babel/core': ~7.4.5
+  '@babel/core': ^7.4.5
   '@babel/parser': ^7.4.5
-  '@babel/plugin-transform-modules-commonjs': ~7.4.4
+  '@babel/plugin-transform-modules-commonjs': ^7.4.4
   '@babel/types': ^7.4.4
   '@rush-temp/shift-babel-macro': 'file:./projects/shift-babel-macro.tgz'
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
-  '@types/babel__core': ~7.1.2
+  '@types/babel__core': ^7.1.2
   '@types/express': ^4.17.0
   '@types/http-proxy-middleware': ^0.19.2
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
-  '@types/mkdirp': ~0.5.2
+  '@types/mkdirp': ^0.5.2
+  '@types/nanoid': ^2.0.0
   '@types/node': ^10.14.9
-  '@types/rimraf': ~2.0.2
+  '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
   async-mutex: ^0.1.3
   ava: ^2.1.0
@@ -4663,9 +4678,10 @@ specifiers:
   http-proxy-middleware: ^0.19.1
   leveldown: ^5.1.0
   levelup: ^4.0.2
-  mkdirp: ~0.5.1
+  mkdirp: ^0.5.1
+  nanoid: ^2.0.3
   nodemon: 'git+http://github.com/binaris/nodemon'
-  rimraf: ~2.6.3
+  rimraf: ^2.6.3
   rmfr: ^2.0.0
   typescript: ^3.5.2
-  walkdir: ~0.4.0
+  walkdir: ^0.4.0
