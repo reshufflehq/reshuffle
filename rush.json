@@ -185,6 +185,7 @@
   },
 
   "repository": {
+    "url": "git@github.com:binaris/shiftjs.git"
     /**
      * The URL of this Git repository, used by "rush change" to determine the base branch for your PR.
      *
@@ -200,7 +201,6 @@
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
      * to retrieve the latest activity for the remote master branch.
      */
-    // "url": "https://github.com/Microsoft/rush-example"
   },
 
   /**
