@@ -185,6 +185,7 @@
   },
 
   "repository": {
+    "url": "git@github.com:binaris/shiftjs.git"
     /**
      * The URL of this Git repository, used by "rush change" to determine the base branch for your PR.
      *
@@ -200,7 +201,6 @@
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
      * to retrieve the latest activity for the remote master branch.
      */
-    // "url": "https://github.com/Microsoft/rush-example"
   },
 
   /**
@@ -347,18 +347,22 @@
     {
         "packageName": "@binaris/shift-babel-macro",
         "projectFolder": "babel-macro",
+        "shouldPublish": true,
     },
     {
         "packageName": "@binaris/shift-db",
         "projectFolder": "db",
+        "shouldPublish": true,
     },
     {
         "packageName": "@binaris/shift-fetch-runtime",
         "projectFolder": "fetch-runtime",
+        "shouldPublish": true,
     },
     {
         "packageName": "@binaris/shift-local-proxy",
         "projectFolder": "local-proxy",
+        "shouldPublish": true,
     }
   ]
 }
