@@ -10,9 +10,8 @@
   "private": true,
   "author": "",
   "license": "UNLICENSED",
-  "private": true,
   "dependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
     "@babel/plugin-transform-modules-commonjs": "^7.4.4",
     "@types/express": "^4.17.0",
     "@types/http-proxy-middleware": "^0.19.2",
@@ -20,16 +19,11 @@
     "http-proxy-middleware": "^0.19.1",
     "mkdirp": "^0.5.1",
     "nanoid": "^2.0.3",
-    "nodemon": "git+http://github.com/binaris/nodemon",
-    "rimraf": "^2.6.3",
-    "walkdir": "^0.4.0"
+    "nodemon": "git+http://github.com/binaris/nodemon"
   },
   "devDependencies": {
-    "@types/babel__core": "^7.1.2",
-    "@types/mkdirp": "^0.5.2",
     "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
-    "@types/rimraf": "^2.0.2",
     "typescript": "^3.5.2"
   }
 }
