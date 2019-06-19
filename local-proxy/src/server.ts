@@ -3,9 +3,6 @@ import { inspect } from 'util';
 import net from 'net';
 import http from 'http';
 import express, { json } from 'express';
-import { mkdtempSync } from 'fs';
-import { walk } from './walker';
-import * as rimraf from 'rimraf';
 
 const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH;
 if (!basePath) {
@@ -17,32 +14,15 @@ if (!localToken) {
 }
 const app = express();
 
-let transpiled = false;
-let transpilePromise: Promise<void>;
-const readyTranspile = async () => {
-  if (transpiled) {
-    return;
-  }
-  if (transpilePromise) {
-    return await transpilePromise;
-  }
-  transpilePromise = walk(basePath, tmpDir);
-  await transpilePromise;
-  transpiled = true;
-};
-
-const tmpDir = mkdtempSync(pathJoin(basePath, '..', '.shift_local_proxy_'));
-
 app.post('/invoke', json(), async (req, res) => {
-  if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
-    return res.sendStatus(403);
-  }
+  // if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
+  //   return res.sendStatus(403);
+  // }
   try {
     // TODO: validate request
     const { path, handler, args } = req.body;
-    await readyTranspile();
     // Make sure we use tmpDir as absolute path
-    const mod = require(pathJoin(tmpDir, path));
+    const mod = require(pathJoin(basePath, path));
     const fn = mod[handler];
     // TODO: check function is exposed
     const ret = await fn(...args);
@@ -55,12 +35,6 @@ app.post('/invoke', json(), async (req, res) => {
     console.error('Failed to invoke function', err);
     res.status(500).json({ error: inspect(err) });
   }
-});
-
-// nodemon uses SIGUSR2
-process.once('SIGUSR2', () => {
-  rimraf.sync(tmpDir);
-  process.kill(process.pid, 'SIGUSR2');
 });
 
 process.on('message', (m, netServer) => {
