@@ -15,13 +15,13 @@ if (!localToken) {
 const app = express();
 
 app.post('/invoke', json(), async (req, res) => {
-  // if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
-  //   return res.sendStatus(403);
-  // }
+  if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
+    return res.sendStatus(403);
+  }
   try {
     // TODO: validate request
     const { path, handler, args } = req.body;
-    // Make sure we use tmpDir as absolute path
+    // Make sure we use basePath as absolute path
     const mod = require(pathJoin(basePath, path));
     const fn = mod[handler];
     // TODO: check function is exposed
