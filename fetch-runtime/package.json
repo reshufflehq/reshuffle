@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-fetch-runtime",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,5 @@
     "build": "echo \"nothing to do\""
   },
   "author": "",
-  "license": "UNLICENSED",
-  "private": true
+  "license": "UNLICENSED"
 }
