@@ -8,3 +8,7 @@ declare module 'nodemon' {
   const nodemon: Nodemon;
   export default nodemon;
 }
+declare module '@babel/cli/lib/babel/dir' {
+  const dir: any;
+  export default dir;
+}

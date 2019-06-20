@@ -1,13 +1,27 @@
 // tslint:disable:no-console
 import path from 'path';
 import net from 'net';
+import { spawnSync } from 'child_process';
 import nodemon from 'nodemon';
 import proxy from 'http-proxy-middleware';
 import { Application } from 'express';
 import nanoid from 'nanoid';
+import babel from '@babel/cli/lib/babel/dir';
 
 export async function startProxy(rootDir: string, localToken: string) {
   const server = net.createServer();
+
+  const sourcePath = path.resolve(rootDir, 'backend');
+  const compiledPath = path.resolve(rootDir, '.shift.backend.compiled');
+
+  const { status, stderr } = spawnSync('node', [
+    path.join(__dirname, 'babelWrapper.js'),
+    sourcePath,
+    compiledPath,
+  ]);
+  if (status !== 0) {
+    throw new Error(`Initial backend compilation failed:\n${stderr}`);
+  }
 
   await new Promise((resolve, reject) => {
     server.listen(0, '127.0.0.1', resolve);
@@ -18,16 +32,27 @@ export async function startProxy(rootDir: string, localToken: string) {
 
   console.log(`Dev server listening on port: ${port}`);
 
+  babel({
+    cliOptions: {
+      filenames: [sourcePath],
+      watch: true,
+      skipInitialBuild: true,
+      outDir: compiledPath,
+    },
+    babelOptions: {
+      plugins: ['@babel/plugin-transform-modules-commonjs'],
+    },
+  });
+
   nodemon({
     watch: [
-      path.join(rootDir, 'backend'),
+      compiledPath,
     ],
-    script: path.join(__dirname, '..', 'node_modules', '@babel', 'node', 'bin', 'babel-node.js'),
-    args: [path.join(__dirname, 'server.js'), ''],
+    script: path.join(__dirname, 'server.js'),
     delay: 100,
     env: {
       SHIFT_DB_PATH: path.join(rootDir, '.shift.db'),
-      SHIFT_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
+      SHIFT_DEV_SERVER_BASE_REQUIRE_PATH: compiledPath,
       SHIFT_DEV_SERVER_LOCAL_TOKEN: localToken,
     },
   });

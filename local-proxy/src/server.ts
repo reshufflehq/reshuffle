@@ -12,16 +12,17 @@ const localToken = process.env.SHIFT_DEV_SERVER_LOCAL_TOKEN;
 if (!localToken) {
   throw new Error('SHIFT_DEV_SERVER_LOCAL_TOKEN env var not defined');
 }
+
 const app = express();
 
 app.post('/invoke', json(), async (req, res) => {
-  // if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
-  //   return res.sendStatus(403);
-  // }
+  if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
+    return res.sendStatus(403);
+  }
   try {
     // TODO: validate request
     const { path, handler, args } = req.body;
-    // Make sure we use tmpDir as absolute path
+    // TODO: Make sure we use basePath as absolute path, and it's a child of basePath
     const mod = require(pathJoin(basePath, path));
     const fn = mod[handler];
     // TODO: check function is exposed
