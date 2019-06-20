@@ -1,1 +1,53 @@
 # shiftjs
+
+Shiftjs works best with a new Create-React-App project:
+
+```shell
+$ npx create-react-app my-new-app
+$ cd my-new-app
+```
+
+From here to help installing Shift.js you can use the install_script.sh script found in the repository.
+
+```shell
+$ ../path/to/shiftjs/install_script.sh
+```
+
+From now you can begin using Shift.js by launching
+
+```shell
+$ npm start
+```
+
+For using backend functions inside a frontend file you need to import the Shift macro first like this.
+
+```javascript
+import '@binaris/shift-babel-macro/macro';
+```
+
+You can create a backend file in the backend directory, for example `backend/HelloBackend.js`
+
+```javascript
+// @expose
+export async function hello(name) {
+  return 'hello ' + name;
+}
+```
+
+You can call get a reference to this function by importing it from a front-end code like
+
+```javascript
+import { hello } from '../backend/HelloBackend';
+```
+
+Now you can call the function as usual by using:
+
+```javascript
+hello('World');
+```
+
+The `@binaris/shift-db` package was installed, you can require it in backend code like:
+
+```javascript
+import { create } from '@binaris/shift-db';
+```
