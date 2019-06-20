@@ -1,0 +1,17 @@
+{
+  "name": "@binaris/shift-fetch-runtime",
+  "entries": [
+    {
+      "version": "0.0.1",
+      "tag": "@binaris/shift-fetch-runtime_v0.0.1",
+      "date": "Thu, 20 Jun 2019 15:03:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Initial version"
+          }
+        ]
+      }
+    }
+  ]
+}
