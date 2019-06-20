@@ -1,6 +1,6 @@
 // tslint:disable:no-console
 import * as walkdir from 'walkdir';
-import { transformFileAsync } from '@babel/core';
+import { transformFileAsync, BabelFileResult } from '@babel/core';
 import { dirname, relative, join as pathJoin } from 'path';
 import { writeFileSync } from 'fs';
 import * as mkdirp from 'mkdirp';
@@ -8,19 +8,29 @@ import * as mkdirp from 'mkdirp';
 export async function walk(basePath: string, targetPath: string) {
   const taskTracker = {
     subscribed: () => { /* nothing */ },
+    subscribedErr: (_err: any) => { /* nothing */ },
     count: 0,
+    lastError: null,
     add() {
       this.count++;
     },
     remove() {
       this.count--;
       if (!this.count) {
-        this.subscribed();
+        this.onEnd();
       }
     },
-    subscribe(fn: () => void) {
+    subscribe(fn: () => void, errFn: () => void) {
       this.subscribed = fn;
+      this.subscribedErr = errFn;
       if (!this.count) {
+        this.onEnd();
+      }
+    },
+    onEnd() {
+      if (this.lastError) {
+        this.subscribedErr(this.lastError);
+      } else {
         this.subscribed();
       }
     },
@@ -38,10 +48,16 @@ export async function walk(basePath: string, targetPath: string) {
       const relName = relative(basePath, f);
       const relDir = dirname(relName);
       taskTracker.add();
-      const result = await transformFileAsync(f, {
-        filename: f,
-        plugins: ['@babel/plugin-transform-modules-commonjs'],
-      });
+      let result: BabelFileResult | null;
+      try {
+        result = await transformFileAsync(f, {
+          filename: f,
+          plugins: ['@babel/plugin-transform-modules-commonjs'],
+        });
+      } catch (err) {
+        taskTracker.lastError = err;
+        result = null;
+      }
       if (!result) {
         taskTracker.remove();
         return;
@@ -55,7 +71,7 @@ export async function walk(basePath: string, targetPath: string) {
     emitter.on('end', resolve);
     emitter.on('error', reject);
   });
-  await new Promise((resolve) => {
-    taskTracker.subscribe(resolve);
+  await new Promise((resolve, reject) => {
+    taskTracker.subscribe(resolve, reject);
   });
 }
