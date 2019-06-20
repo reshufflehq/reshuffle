@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db",
+      "comment": "Initial version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-db",
+  "email": "vladimir@binaris.com"
+}
