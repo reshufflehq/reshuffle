@@ -57,7 +57,12 @@ app.post('/invoke', json(), async (req, res) => {
   }
 });
 
-if (process.send) process.send('ready');
+// nodemon uses SIGUSR2
+process.once('SIGUSR2', () => {
+  rimraf.sync(tmpDir);
+  process.kill(process.pid, 'SIGUSR2');
+});
+
 process.on('message', (m, netServer) => {
   if (m === 'server') {
     const httpServer = http.createServer(app);
@@ -65,8 +70,4 @@ process.on('message', (m, netServer) => {
   }
 });
 
-// nodemon uses SIGUSR2
-process.once('SIGUSR2', () => {
-  rimraf.sync(tmpDir);
-  process.kill(process.pid, 'SIGUSR2');
-});
+if (process.send) process.send('ready');
