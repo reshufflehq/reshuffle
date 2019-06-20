@@ -2,6 +2,18 @@
   "name": "@binaris/shift-babel-macro",
   "entries": [
     {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-babel-macro_v0.0.2",
+      "date": "Thu, 20 Jun 2019 16:32:38 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix published macro file name"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.1",
       "tag": "@binaris/shift-babel-macro_v0.0.1",
       "date": "Thu, 20 Jun 2019 15:03:42 GMT",
