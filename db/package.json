@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-db",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -10,7 +10,6 @@
   },
   "author": "",
   "license": "UNLICENSED",
-  "private": true,
   "dependencies": {
     "@types/leveldown": "^4.0.0",
     "@types/levelup": "^3.1.1",

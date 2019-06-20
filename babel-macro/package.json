@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-babel-macro",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "files": [
     "dist",
     "shift.macro.js"
@@ -12,7 +12,6 @@
   },
   "author": "",
   "license": "UNLICENSED",
-  "private": true,
   "dependencies": {
     "@babel/parser": "^7.4.5",
     "babel-plugin-macros": "^2.6.0"
