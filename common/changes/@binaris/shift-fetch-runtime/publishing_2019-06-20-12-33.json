@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-fetch-runtime",
+      "comment": "Initial version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-fetch-runtime",
+  "email": "vladimir@binaris.com"
+}
