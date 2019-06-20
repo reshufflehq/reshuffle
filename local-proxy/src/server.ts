@@ -31,7 +31,7 @@ const readyTranspile = async () => {
   transpiled = true;
 };
 
-const tmpDir = mkdtempSync(pathJoin(basePath, '.local_proxy_'));
+const tmpDir = mkdtempSync(pathJoin(basePath, '..', '.shift_local_proxy_'));
 
 app.post('/invoke', json(), async (req, res) => {
   if (req.headers['x-shift-dev-server-local-token'] !== localToken) {

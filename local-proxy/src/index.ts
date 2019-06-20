@@ -25,7 +25,7 @@ export async function startProxy(rootDir: string, localToken: string) {
     script: path.join(__dirname, 'server.js'),
     delay: 100,
     env: {
-      SHIFT_DB_PATH: path.join(rootDir, 'shift.db'),
+      SHIFT_DB_PATH: path.join(rootDir, '.shift.db'),
       SHIFT_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
       SHIFT_DEV_SERVER_LOCAL_TOKEN: localToken,
     },
