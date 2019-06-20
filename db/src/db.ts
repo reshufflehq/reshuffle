@@ -2,12 +2,14 @@ import LevelUpCtor, { LevelUp } from 'levelup';
 import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
 
-export class KeyError extends Error {
-  public readonly name = 'KeyError';
+export class ValueError extends Error {
+  public readonly name = 'ValueError';
 }
 
-export class KeyAlreadyExistsError extends Error {
-  public readonly name = 'KeyAlreadyExistsError';
+function checkValue(value: object) {
+  if (typeof value !== 'object') {
+    throw new ValueError('Value must be an object');
+  }
 }
 
 export class DB {
@@ -18,68 +20,69 @@ export class DB {
   }
 
   /**
-   * Gets a single document, throws KeyError in case key does not exist.
+   * Gets a single document.
+   * @return - value or undefined if key doesn’t exist.
    */
-  public async get(key: string): Promise<object> {
+  public async get(key: string): Promise<object | undefined> {
     try {
       const val = await this.db.get(key);
       return JSON.parse(val.toString());
     } catch (err) {
       if (err.name === 'NotFoundError') {
-        throw new KeyError(`${key} not found`);
+        return undefined;
       }
       throw err;
     }
   }
 
   /**
-   * Creates a document, throws `KeyAlreadyExistsError if key already exists.
+	 * Creates a document for given key.
+	 * @param value - Cannot be undefined, must be an object
+	 * @return - true if document was created, false if key already exists.
    */
-  public async create(key: string, value: object): Promise<void> {
-    await this.writeLock.runExclusive(async () => {
-      try {
-        await this.get(key);
-      } catch (err) {
-        if (err.name !== 'KeyError') {
-          throw err;
-        }
-        await this.db.put(key, JSON.stringify(value));
-        return;
+  public async create(key: string, value: object): Promise<boolean> {
+    checkValue(value);
+    return await this.writeLock.runExclusive(async () => {
+      const prev =  await this.get(key);
+      if (prev !== undefined) {
+        return false;
       }
-      throw new KeyAlreadyExistsError(`${key} aleady exists`);
+      await this.db.put(key, JSON.stringify(value));
+      return true;
     });
   }
 
   /**
-   * Updates a single document.
-   *
-   * @param updater - Function that gets the previous value and returns the next value.
-   * @param initializer - `updater` will get this value if no document exists for `key`.
+	 * Removes a single document.
+	 * @return - true if document was deleted, false if key doesn’t exist.
+   */
+  public async remove(key: string): Promise<boolean> {
+    return await this.writeLock.runExclusive(async () => {
+      const prev = await this.get(key);
+      if (prev === undefined) {
+        return false;
+      }
+      await this.db.del(key);
+      return true;
+    });
+  }
+
+  /**
+	 * Updates a single document.
+   * @param updater - Function that gets the previous value and returns the next value
+   *                  to update the DB with, updater cannot return undefined.
+	 * @param initializer - `updater` will get this value if no document exists for `key`.
+	 * @return - The new value returned from updater
    */
   public async update<T extends object, R extends object>(
     key: string, updater: (state?: T) => R, initializer?: T
-  ): Promise<void> {
-    await this.writeLock.runExclusive(async () => {
-      let prev: any = initializer;
-      try {
-        prev = await this.get(key);
-      } catch (err) {
-        if (err.name !== 'KeyError') {
-          throw err;
-        }
-      }
-      const next = updater(prev);
+  ): Promise<R> {
+    return await this.writeLock.runExclusive(async () => {
+      let prev = await this.get(key) || initializer;
+      const next = updater(prev as T);
+      checkValue(next);
       await this.db.put(key, JSON.stringify(next));
-    });
-  }
-
-  /**
-   * Removes a single document or throws KeyError in case key does not exist.
-   */
-  public async remove(key: string): Promise<void> {
-    await this.writeLock.runExclusive(async () => {
-      await this.get(key);
-      await this.db.del(key);
+      return next;
     });
   }
 }

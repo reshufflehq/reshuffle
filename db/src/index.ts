@@ -1,5 +1,5 @@
 import { DB } from './db';
-export { KeyError, KeyAlreadyExistsError } from './db';
+export { ValueError } from './db';
 
 const dbPath = process.env.SHIFT_DB_PATH;
 if (!dbPath) {
@@ -9,34 +9,39 @@ if (!dbPath) {
 const db = new DB(dbPath);
 
 /**
- * Gets a single document, throws KeyError in case key does not exist.
+ * Gets a single document.
+ * @return - value or undefined if key doesn’t exist.
  */
-export async function get(key: string): Promise<object> {
+export async function get(key: string): Promise<object | undefined> {
   return await db.get(key);
 }
 
 /**
- * Creates a document, throws `KeyAlreadyExistsError if key already exists.
+ * Creates a document for given key.
+ * @param value - Cannot be undefined, must be an object
+ * @return - true if document was created, false if key already exists.
  */
-export async function create(key: string, value: object): Promise<void> {
+export async function create(key: string, value: object): Promise<boolean> {
   return await db.create(key, value);
 }
 
 /**
- * Updates a single document.
- *
- * @param updater - Function that gets the previous value and returns the next value.
- * @param initializer - `updater` will get this value if no document exists for `key`.
+ * Removes a single document.
+ * @return - true if document was deleted, false if key doesn’t exist.
  */
-export async function update<T extends object, R extends object>(
-  key: string, updater: (state?: T) => R, initializer?: T
-): Promise<void> {
-  return await db.update(key, updater, initializer);
+export async function remove(key: string): Promise<boolean> {
+  return await db.remove(key);
 }
 
 /**
- * Removes a single document or throws KeyError in case key does not exist.
+ * Updates a single document.
+ * @param updater - Function that gets the previous value and returns the next value
+ *                  to update the DB with, updater cannot return undefined.
+ * @param initializer - `updater` will get this value if no document exists for `key`.
+ * @return - The new value returned from updater
  */
-export async function remove(key: string): Promise<void> {
-  return await db.remove(key);
+export async function update<T extends object, R extends object>(
+  key: string, updater: (state?: T) => R, initializer?: T
+): Promise<R> {
+  return await db.update(key, updater, initializer);
 }
