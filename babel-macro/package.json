@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "files": [
     "dist",
-    "shift.macro.js"
+    "macro.js"
   ],
   "description": "",
   "scripts": {
