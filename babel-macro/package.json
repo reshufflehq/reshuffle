@@ -8,7 +8,7 @@
   "description": "",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -18,7 +18,10 @@
   },
   "devDependencies": {
     "@babel/types": "^7.4.4",
+    "@types/jest": "^24.0.15",
     "@types/node": "^10.14.9",
+    "babel-plugin-tester": "^6.4.0",
+    "jest": "^24.8.0",
     "typescript": "^3.5.2"
   }
 }
