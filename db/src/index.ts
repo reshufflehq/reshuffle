@@ -1,5 +1,5 @@
-import { DB } from './db';
-export { ValueError } from './db';
+import { DB, Serializable } from './db';
+export { ValueError, Serializable } from './db';
 
 const dbPath = process.env.SHIFT_DB_PATH;
 if (!dbPath) {
@@ -12,7 +12,7 @@ const db = new DB(dbPath);
  * Gets a single document.
  * @return - value or undefined if key doesn’t exist.
  */
-export async function get(key: string): Promise<object | undefined> {
+export async function get(key: string): Promise<Serializable | undefined> {
   return await db.get(key);
 }
 
@@ -21,7 +21,7 @@ export async function get(key: string): Promise<object | undefined> {
  * @param value - Cannot be undefined, must be an object
  * @return - true if document was created, false if key already exists.
  */
-export async function create(key: string, value: object): Promise<boolean> {
+export async function create(key: string, value: Serializable): Promise<boolean> {
   return await db.create(key, value);
 }
 
@@ -40,7 +40,7 @@ export async function remove(key: string): Promise<boolean> {
  * @param initializer - `updater` will get this value if no document exists for `key`.
  * @return - The new value returned from updater
  */
-export async function update<T extends object, R extends object>(
+export async function update<T extends Serializable, R extends Serializable>(
   key: string, updater: (state?: T) => R, initializer?: T
 ): Promise<R> {
   return await db.update(key, updater, initializer);

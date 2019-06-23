@@ -6,9 +6,14 @@ export class ValueError extends Error {
   public readonly name = 'ValueError';
 }
 
-function checkValue(value: object) {
-  if (typeof value !== 'object') {
-    throw new ValueError('Value must be an object');
+export type Primitive = string | number | boolean | Date | null;
+export interface SerializableArray extends Array<SerializableArray | SerializableObject | Primitive | undefined> {}
+export interface SerializableObject { [key: string]: SerializableArray | SerializableObject | Primitive | undefined }
+export type Serializable = Primitive | SerializableArray | SerializableObject;
+
+function checkValue(value: Serializable) {
+  if (typeof value === 'undefined') {
+    throw new ValueError('Value must be not be undefined');
   }
 }
 
@@ -23,7 +28,7 @@ export class DB {
    * Gets a single document.
    * @return - value or undefined if key doesn’t exist.
    */
-  public async get(key: string): Promise<object | undefined> {
+  public async get(key: string): Promise<Serializable | undefined> {
     try {
       const val = await this.db.get(key);
       return JSON.parse(val.toString());
@@ -40,7 +45,7 @@ export class DB {
    * @param value - Cannot be undefined, must be an object
    * @return - true if document was created, false if key already exists.
    */
-  public async create(key: string, value: object): Promise<boolean> {
+  public async create(key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
     return await this.writeLock.runExclusive(async () => {
       const prev =  await this.get(key);
@@ -74,7 +79,7 @@ export class DB {
    * @param initializer - `updater` will get this value if no document exists for `key`.
    * @return - The new value returned from updater
    */
-  public async update<T extends object, R extends object>(
+  public async update<T extends Serializable, R extends Serializable>(
     key: string, updater: (state?: T) => R, initializer?: T
   ): Promise<R> {
     return await this.writeLock.runExclusive(async () => {
