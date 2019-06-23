@@ -4,8 +4,8 @@ import net from 'net';
 import http from 'http';
 import express, { json } from 'express';
 import { mkdtempSync } from 'fs';
-import { walk } from './walker';
 import * as rimraf from 'rimraf';
+import babel from '@babel/cli/lib/babel/dir';
 
 const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH;
 if (!basePath) {
@@ -17,21 +17,19 @@ if (!localToken) {
 }
 const app = express();
 
-let transpiled = false;
-let transpilePromise: Promise<void>;
-const readyTranspile = async () => {
-  if (transpiled) {
-    return;
-  }
-  if (transpilePromise) {
-    return await transpilePromise;
-  }
-  transpilePromise = walk(basePath, tmpDir);
-  await transpilePromise;
-  transpiled = true;
-};
-
 const tmpDir = mkdtempSync(pathJoin(basePath, '..', '.shift_local_proxy_'));
+
+const transpilePromise = babel({
+  cliOptions: {
+    filenames: [basePath],
+    outDir: tmpDir,
+  },
+  babelOptions: {
+    plugins: ['@babel/plugin-transform-modules-commonjs'],
+  },
+});
+
+transpilePromise.catch((error: Error) => console.error(error));
 
 app.post('/invoke', json(), async (req, res) => {
   if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
@@ -40,7 +38,7 @@ app.post('/invoke', json(), async (req, res) => {
   try {
     // TODO: validate request
     const { path, handler, args } = req.body;
-    await readyTranspile();
+    await transpilePromise;
     // Make sure we use tmpDir as absolute path
     const mod = require(pathJoin(tmpDir, path));
     const fn = mod[handler];

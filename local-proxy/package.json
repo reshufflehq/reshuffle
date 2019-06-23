@@ -10,6 +10,7 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/plugin-transform-modules-commonjs": "^7.4.4",
     "@types/express": "^4.17.0",
