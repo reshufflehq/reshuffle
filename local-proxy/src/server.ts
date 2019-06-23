@@ -5,7 +5,7 @@ import http from 'http';
 import express, { json } from 'express';
 import { mkdtempSync } from 'fs';
 import * as rimraf from 'rimraf';
-import babel from '@babel/cli/lib/babel/dir';
+import babelDir from '@babel/cli/lib/babel/dir';
 
 const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH;
 if (!basePath) {
@@ -19,7 +19,7 @@ const app = express();
 
 const tmpDir = mkdtempSync(pathJoin(basePath, '..', '.shift_local_proxy_'));
 
-const transpilePromise = babel({
+const transpilePromise = babelDir({
   cliOptions: {
     filenames: [basePath],
     outDir: tmpDir,
