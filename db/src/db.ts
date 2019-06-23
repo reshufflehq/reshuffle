@@ -47,12 +47,13 @@ export class DB {
    */
   public async create(key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
+    const serialized = JSON.stringify(value);
     return await this.writeLock.runExclusive(async () => {
       const prev =  await this.get(key);
       if (prev !== undefined) {
         return false;
       }
-      await this.db.put(key, JSON.stringify(value));
+      await this.db.put(key, serialized);
       return true;
     });
   }
