@@ -89,12 +89,20 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
     }
   });
   if (found.length) {
+    let insertedRuntime = false;
     found.forEach(({ names, idx, methods, importedPath }) => {
-      body.splice(idx, 1,
-        t.importDeclaration(
-          [t.importSpecifier(t.identifier('createRuntime'), t.identifier('createRuntime'))],
-          t.stringLiteral('@binaris/shift-fetch-runtime'),
-        ),
+      const replaceImport = !insertedRuntime;
+      if (replaceImport) {
+        body.splice(idx, 1,
+          t.importDeclaration(
+            [t.importSpecifier(t.identifier('createRuntime'), t.identifier('createRuntime'))],
+            t.stringLiteral('@binaris/shift-fetch-runtime'),
+          ),
+        );
+        insertedRuntime = true;
+      }
+      // all previously computed indices need to be shifted by 1 due to createRuntime import
+      body.splice(idx + 1, replaceImport ? 0 : 1,
         t.variableDeclaration(
           'const',
           [
