@@ -1,4 +1,4 @@
-const pluginTester = require('babel-plugin-tester') as any;
+import pluginTester from 'babel-plugin-tester';
 import plugin from 'babel-plugin-macros';
 import { join } from 'path';
 
@@ -10,11 +10,11 @@ pluginTester({
     filename: join(__filename, 'tested-file.js'),
   },
   tests: {
-    "Import line is removed from output": {
+    'Import line is removed from output': {
       code: 'import "../../macro";',
       output: '',
     },
-    "Transforms backend imports to createRuntime calls": {
+    'Transforms backend imports to createRuntime calls': {
       code: `
         import "../../macro";
         import { foo, bar } from '../backend/mockBackend';
@@ -29,28 +29,28 @@ pluginTester({
         });
       `,
     },
-    "Throws if function is not exposed": {
+    'Throws if function is not exposed': {
       code: `
         import "../../macro";
         import { notExposed } from '../backend/mockBackend';
       `,
       error: 'Not found imported notExposed, did you forget to @expose',
     },
-    "Throws if function is missing": {
+    'Throws if function is missing': {
       code: `
         import "../../macro";
         import { missingFunction } from '../backend/mockBackend';
       `,
       error: 'Not found imported missingFunction, did you forget to @expose',
     },
-    "Throws if function file not exists": {
+    'Throws if function file not exists': {
       code: `
         import "../../macro";
         import { notThere } from '../backend/missingFile';
       `,
       error: /Cannot find module/,
     },
-    "Support importing from a backend file in a sub directory": {
+    'Support importing from a backend file in a sub directory': {
       code: `
         import "../../macro";
         import { foo, bar } from '../backend/subdir/mockBackendInSubdir';
@@ -65,7 +65,7 @@ pluginTester({
         });
       `,
     },
-    "Support importing from multiple files": {
+    'Support importing from multiple files': {
       code: `
         import "../../macro";
         import { foo, bar } from '../backend/mockBackend';
@@ -88,4 +88,4 @@ pluginTester({
       `,
     },
   },
-})
+});
