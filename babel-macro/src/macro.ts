@@ -27,12 +27,17 @@ interface MacrosBabel {
 function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel): string[] {
   const body = ast.program.body;
   // support ExportDefaultDeclaration (ExportAllDeclaration too for re-exporting ?)
-  const namedExports = body.filter((e): e is babelTypes.ExportNamedDeclaration => t.isExportNamedDeclaration(e));
-  const exposedExports = namedExports.filter(
-    (e) => e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
-  const functions = exposedExports.map((e) => e.declaration).filter(
-    (e): e is babelTypes.FunctionDeclaration => t.isFunctionDeclaration(e));
-  return functions.filter((f) => !!f.id).map((f) => f.id!.name);
+  const exposedStatements = body.filter((e) => e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
+  const exposedFunctions = exposedStatements.reduce((ret: babelTypes.FunctionDeclaration[], e) => {
+    if (t.isFunctionDeclaration(e)) {
+      ret.push(e);
+    } else if (t.isExportNamedDeclaration(e) && t.isFunctionDeclaration(e.declaration)) {
+      ret.push(e.declaration)
+    }
+    return ret;
+  }, []);
+
+  return exposedFunctions.filter((f) => !!f.id).map((f) => f.id!.name);
 }
 
 function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBabel }) {
