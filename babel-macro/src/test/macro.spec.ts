@@ -66,7 +66,6 @@ pluginTester({
       `,
     },
     "Support importing from multiple files": {
-      skip: true,
       code: `
         import "../../macro";
         import { foo, bar } from '../backend/mockBackend';
