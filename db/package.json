@@ -9,7 +9,7 @@
     "test": "ava -v dist/test/test_*.js"
   },
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "@types/leveldown": "^4.0.0",
     "@types/levelup": "^3.1.1",
