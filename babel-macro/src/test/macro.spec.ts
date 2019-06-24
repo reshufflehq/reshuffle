@@ -87,5 +87,20 @@ pluginTester({
         });
       `,
     },
+    "Supports TypeScript output": {
+      code: `
+        import "../../macro";
+        import { foo, bar } from '../backend/mockTypeScriptBackend';
+      `,
+      output: `
+        import { createRuntime } from "@binaris/shift-fetch-runtime";
+        const {
+          foo,
+          bar
+        } = createRuntime(["foo", "bar"], {
+          "filename": "mockTypeScriptBackend.js"
+        });
+      `,
+    }
   },
 });
