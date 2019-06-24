@@ -50,18 +50,18 @@ pluginTester({
       `,
       error: /Cannot find module/,
     },
-    "Support importing from nested backend file": {
+    "Support importing from a backend file in a sub directory": {
       code: `
         import "../../macro";
-        import { nestedFoo, nestedBar } from '../backend/nested/nestedMockBackend';
+        import { foo, bar } from '../backend/subdir/mockBackendInSubdir';
       `,
       output: `
         import { createRuntime } from "@binaris/shift-fetch-runtime";
         const {
-          nestedFoo,
-          nestedBar
-        } = createRuntime(["nestedFoo", "nestedBar"], {
-          "filename": "nested/nestedMockBackend.js"
+          foo,
+          bar
+        } = createRuntime(["foo", "bar"], {
+          "filename": "subdir/mockBackendInSubdir.js"
         });
       `,
     },
