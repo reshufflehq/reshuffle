@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-babel-macro",
+      "comment": "Support import from multiple backend files",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-babel-macro",
+  "email": "vladimir@binaris.com"
+}
