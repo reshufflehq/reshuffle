@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  build_and_test:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      - run:
+          name: Check for missing change logs
+          command: |
+            git fetch origin master:refs/remotes/origin/master -a
+            node common/scripts/install-run-rush.js change --verify
+      - restore_cache:
+          key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
+      - run:
+          name: Install dependencies
+          command: node common/scripts/install-run-rush.js install
+      - save_cache:
+          key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
+          paths:
+            - common/temp
+      - run:
+          name: Build source
+          command: node common/scripts/install-run-rush.js rebuild --verbose
+      # - run:
+      #     name: Run lint
+      #     command: npm run lint
+      - run:
+          name: Run tests
+          command: |
+            for f in $(find . -maxdepth 2 -name package.json); do
+              project=$(dirname $f)
+              echo Testing $project
+              (cd $project && npm test) || exit 1
+            done
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_and_test
