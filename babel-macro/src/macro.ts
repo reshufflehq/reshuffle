@@ -24,20 +24,48 @@ interface MacrosBabel {
   types: typeof babelTypes;
 }
 
-function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel): string[] {
+function getFunctionName(e: babelTypes.FunctionDeclaration, t: typeof babelTypes): string | undefined {
+  return t.isIdentifier(e.id) ? e.id.name : undefined;
+}
+
+function verifyExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcName: string): void {
+  const body = ast.program.body;
+  const isFunctionExported = body.some((e) =>
+    t.isExpressionStatement(e) &&
+    t.isAssignmentExpression(e.expression) &&
+    e.expression.operator === '=' &&
+    t.isMemberExpression(e.expression.left) &&
+    t.isIdentifier(e.expression.left.object) &&
+    e.expression.left.object.name === 'exports' &&
+    t.isIdentifier(e.expression.left.property) &&
+    e.expression.left.property.name === funcName &&
+    t.isIdentifier(e.expression.right) &&
+    e.expression.right.name === funcName
+  );
+  if (!isFunctionExported) {
+    throw new Error(`${funcName} has @expose decorator but it is not exported`);
+  }
+}
+
+function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel, importedNames: string[]): string[] {
   const body = ast.program.body;
   // support ExportDefaultDeclaration (ExportAllDeclaration too for re-exporting ?)
   const exposedStatements = body.filter((e) => e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
-  const exposedFunctions = exposedStatements.reduce((ret: babelTypes.FunctionDeclaration[], e) => {
+  return exposedStatements.reduce((ret: string[], e) => {
     if (t.isFunctionDeclaration(e)) {
-      ret.push(e);
+      const funcName = getFunctionName(e, t);
+      if (funcName && importedNames.includes(funcName)) {
+        verifyExportedMember(ast, t, funcName);
+        ret.push(funcName);
+      }
     } else if (t.isExportNamedDeclaration(e) && t.isFunctionDeclaration(e.declaration)) {
-      ret.push(e.declaration)
+      const funcName = getFunctionName(e.declaration, t);
+      if (funcName) {
+        ret.push(funcName);
+      }
     }
     return ret;
   }, []);
-
-  return exposedFunctions.filter((f) => !!f.id).map((f) => f.id!.name);
 }
 
 function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBabel }) {
@@ -82,7 +110,7 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
           // handle this error somehow
         }
         const importedFileAst = parse(content, { sourceType: 'module' });
-        const methods = findExportedMethods(importedFileAst, babel);
+        const methods = findExportedMethods(importedFileAst, babel, names);
         const namesSet = new Set(names);
         const methodsSet = new Set(methods);
         const difference = [...namesSet].filter((name) => !methodsSet.has(name));
