@@ -50,6 +50,13 @@ pluginTester({
       `,
       error: /Cannot find module/,
     },
+    'Throws if function is not exported and has @expose decorator': {
+      code: `
+        import "../../macro";
+        import { notExported } from '../backend/mockBackend';
+      `,
+      error: 'notExported has @expose decorator but it is not exported',
+    },
     'Support importing from a backend file in a sub directory': {
       code: `
         import "../../macro";

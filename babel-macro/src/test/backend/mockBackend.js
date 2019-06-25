@@ -11,3 +11,8 @@ export function bar() {
 export function notExposed() {
   console.log('notExposed() was called');
 }
+
+// @expose
+function notExported() {
+  console.log('notExposed() was called');
+}
