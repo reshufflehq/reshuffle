@@ -29,7 +29,7 @@ function getFunctionName(e: babelTypes.FunctionDeclaration, t: typeof babelTypes
 }
 
 function verifyExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcName: string): void {
-  const body = ast.program.body;
+  const { body } = ast.program;
   const isFunctionExported = body.some((e) =>
     t.isExpressionStatement(e) &&
     t.isAssignmentExpression(e.expression) &&
@@ -48,7 +48,7 @@ function verifyExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcNa
 }
 
 function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel, importedNames: string[]): string[] {
-  const body = ast.program.body;
+  const { body } = ast.program;
   // support ExportDefaultDeclaration (ExportAllDeclaration too for re-exporting ?)
   const exposedStatements = body.filter((e) => e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
   return exposedStatements.reduce((ret: string[], e) => {
