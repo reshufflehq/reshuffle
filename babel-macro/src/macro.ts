@@ -28,7 +28,7 @@ function getFunctionName(e: babelTypes.FunctionDeclaration, t: typeof babelTypes
   return t.isIdentifier(e.id) ? e.id.name : undefined;
 }
 
-function verifyExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcName: string): void {
+function assertExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcName: string): void {
   const { body } = ast.program;
   const isFunctionExported = body.some((e) =>
     t.isExpressionStatement(e) &&
@@ -55,7 +55,7 @@ function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel, im
     if (t.isFunctionDeclaration(e)) {
       const funcName = getFunctionName(e, t);
       if (funcName && importedNames.includes(funcName)) {
-        verifyExportedMember(ast, t, funcName);
+        assertExportedMember(ast, t, funcName);
         ret.push(funcName);
       }
     } else if (t.isExportNamedDeclaration(e) && t.isFunctionDeclaration(e.declaration)) {
