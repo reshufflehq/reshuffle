@@ -12,10 +12,10 @@ interface MacrosPluginPass {
   opts: object;
   file: {
     ast: babelTypes.File,
-      opts: {
-        root: string,
-        filename: string,
-      },
+    opts: {
+      root: string,
+      filename: string,
+    },
   };
   key: 'macros';
 }
