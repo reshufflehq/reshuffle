@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/binaris/shiftjs.svg?style=svg)](https://circleci.com/gh/binaris/shiftjs)
 # shiftjs
 
 Shiftjs works best with a new Create-React-App project:
