@@ -29,6 +29,9 @@ function getFunctionName(e: babelTypes.FunctionDeclaration, t: typeof babelTypes
 }
 
 function assertExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcName: string): void {
+  // This function is looking for this line in the file
+  // exports.funcName = funcName
+  // we support this because this is the TypeScript's generated pattern for named exports
   const { body } = ast.program;
   const isFunctionExported = body.some((e) =>
     t.isExpressionStatement(e) &&
