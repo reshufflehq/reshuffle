@@ -7,7 +7,7 @@ process.chdir(__dirname);
 pluginTester({
   plugin,
   babelOptions: {
-    filename: join(__filename, 'tested-file.js'),
+    filename: join(__dirname, 'babel-output', 'tested-file.js'),
   },
   tests: {
     'Import line is removed from output': {
