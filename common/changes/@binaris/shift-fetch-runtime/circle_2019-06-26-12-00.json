@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-fetch-runtime",
+      "comment": "Don't fail npm test",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-fetch-runtime",
+  "email": "roey.berman@gmail.com"
+}
