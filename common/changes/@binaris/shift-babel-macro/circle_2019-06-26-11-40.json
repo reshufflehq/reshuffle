@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-babel-macro",
+      "comment": "Add circleCI integration",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-babel-macro",
+  "email": "roey.berman@gmail.com"
+}
