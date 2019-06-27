@@ -34,14 +34,14 @@ pluginTester({
         import "../../macro";
         import { notExposed } from '../backend/mockBackend';
       `,
-      error: 'Not found imported notExposed, did you forget to @expose',
+      error: '"notExposed" is missing from "../backend/mockBackend", did you forget to @expose ?',
     },
     'Throws if function is missing': {
       code: `
         import "../../macro";
         import { missingFunction } from '../backend/mockBackend';
       `,
-      error: 'Not found imported missingFunction, did you forget to @expose',
+      error: '"missingFunction" is missing from "../backend/mockBackend", did you forget to @expose ?',
     },
     'Throws if function file not exists': {
       code: `
