@@ -118,7 +118,7 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
         const methodsSet = new Set(methods);
         const difference = [...namesSet].filter((name) => !methodsSet.has(name));
         if (difference.length) {
-          throw new Error(`Not found imported ${difference}, did you forget to @expose`);
+          throw new Error(`"${difference}" is missing from "${node.source.value}", did you forget to @expose ?`);
         }
         found.push({ idx, names, methods, importedPath: path.relative(backendRoot, resolvedImportedPath) });
       }
