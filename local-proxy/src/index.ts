@@ -1,22 +1,14 @@
 // tslint:disable:no-console
 import path from 'path';
-import net from 'net';
 import nodemon from 'nodemon';
 import proxy from 'http-proxy-middleware';
 import { Application } from 'express';
 import nanoid from 'nanoid';
 
-export async function startProxy(rootDir: string, localToken: string) {
-  const server = net.createServer();
-
-  await new Promise((resolve, reject) => {
-    server.listen(0, '127.0.0.1', resolve);
-    server.once('error',  reject);
-    return server;
-  });
-  const { port } = server.address() as net.AddressInfo;
-
-  console.log(`Dev server listening on port: ${port}`);
+// TODO(vladimir): allow overriding dev server port
+const port = 19291;
+export function startProxy(rootDir: string, localToken: string) {
+  console.log(`Dev server starting on port: ${port}`);
 
   nodemon({
     watch: [
@@ -31,28 +23,24 @@ export async function startProxy(rootDir: string, localToken: string) {
     },
   });
 
-  let handle: any;
-
   nodemon.on('quit', () => {
     process.exit();
-  }).on('start', (child) => {
-    handle = child;
+  }).on('start', (_child) => {
+    // this child is started
   }).on('message', (message) => {
-    if (message === 'ready' && handle !== undefined) {
-      handle.send('server', server);
+    if (message === 'ready') {
+      // this child is ready
     }
   }).on('restart', (files) => {
     console.log('Local dev server restarted due to changes in: ', files);
   });
-
-  return port;
 }
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
   const localToken = nanoid();
-  return async (app: Application) => {
-    const port = await startProxy(rootDir, localToken);
+  return (app: Application) => {
+    startProxy(rootDir, localToken);
     app.use(proxy('/invoke', {
       target: `http://localhost:${port}/`,
       headers: { 'x-shift-dev-server-local-token': localToken },

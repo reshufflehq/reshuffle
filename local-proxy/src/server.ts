@@ -1,6 +1,5 @@
 import { join as pathJoin } from 'path';
 import { inspect } from 'util';
-import net from 'net';
 import http from 'http';
 import express, { json } from 'express';
 import { mkdtempSync } from 'fs';
@@ -62,11 +61,6 @@ process.once('SIGUSR2', () => {
   process.kill(process.pid, 'SIGUSR2');
 });
 
-process.on('message', (m, netServer) => {
-  if (m === 'server') {
-    const httpServer = http.createServer(app);
-    (netServer as net.Server).on('connection', (socket) => httpServer.emit('connection', socket));
-  }
-});
+http.createServer(app).listen(19291, '127.0.0.1');
 
 if (process.send) process.send('ready');
