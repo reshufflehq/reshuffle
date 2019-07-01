@@ -10,6 +10,7 @@ dependencies:
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@types/babel__core': 7.1.2
   '@types/express': 4.17.0
+  '@types/got': 9.6.0
   '@types/http-proxy-middleware': 0.19.2
   '@types/jest': 24.0.15
   '@types/leveldown': 4.0.0
@@ -24,6 +25,7 @@ dependencies:
   babel-plugin-macros: 2.6.1
   babel-plugin-tester: 6.4.0
   express: 4.17.1
+  got: 9.6.0
   http-proxy-middleware: 0.19.1
   jest: 24.8.0
   jest-standard-reporter: 1.0.1
@@ -645,6 +647,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
+  /@types/got/9.6.0:
+    dependencies:
+      '@types/node': 10.14.10
+      '@types/tough-cookie': 2.3.5
+    dev: false
+    resolution:
+      integrity: sha512-t00QebxBllcawe7uMxi9jsfWfbki4+/zpJEPyoGWjUvnFOy4EkAzoYOI2UJt2+Fx0yIcDX2+us93k6ensKTddA==
   /@types/http-proxy-middleware/0.19.2:
     dependencies:
       '@types/connect': 3.4.32
@@ -752,6 +761,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+  /@types/tough-cookie/2.3.5:
+    dev: false
+    resolution:
+      integrity: sha512-SCcK7mvGi3+ZNz833RRjFIxrn4gI1PPR3NtuIS+6vMkvmsGjosqTJwRt5bAEFLRz+wtJMWv8+uOnZf2hi2QXTg==
   /@types/yargs/12.0.12:
     dev: false
     resolution:
@@ -1112,7 +1125,7 @@ packages:
       trim-off-newlines: 1.0.1
       trim-right: 1.0.1
       unique-temp-dir: 1.0.0
-      update-notifier: 3.0.0
+      update-notifier: 3.0.1
       write-file-atomic: 3.0.0
     dev: false
     engines:
@@ -3424,7 +3437,7 @@ packages:
       '@babel/traverse': 7.4.5
       '@babel/types': 7.4.4
       istanbul-lib-coverage: 2.0.5
-      semver: 6.1.3
+      semver: 6.2.0
     dev: false
     engines:
       node: '>=6'
@@ -4242,7 +4255,7 @@ packages:
       integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==
   /make-dir/3.0.0:
     dependencies:
-      semver: 6.1.3
+      semver: 6.2.0
     dev: false
     engines:
       node: '>=8'
@@ -4891,7 +4904,7 @@ packages:
       got: 9.6.0
       registry-auth-token: 3.4.0
       registry-url: 5.1.0
-      semver: 6.1.3
+      semver: 6.2.0
     dev: false
     engines:
       node: '>=8'
@@ -5141,10 +5154,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
-  /psl/1.1.33:
+  /psl/1.2.0:
     dev: false
     resolution:
-      integrity: sha512-LTDP2uSrsc7XCb5lO7A8BI1qYxRe/8EqlRvMeEl6rsnYAqDOl8xHR+8lSAIVfrNaSAlTPTNOCgNjWcoUL3AZsw==
+      integrity: sha512-GEn74ZffufCmkDDLNcl3uuyF/aSD6exEyh1v/ZSdAomB82t6G9hzJVRx0jBmLDW+VfZqks3aScmMw9DszwUalA==
   /pstree.remy/1.1.7:
     dev: false
     resolution:
@@ -5616,11 +5629,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Ya52jSX2u7QKghxeoFGpLwCtGlt7j0oY9DYb5apt9nPlJ42ID+ulTXESnt/qAQcoSERyZ5sl3LDIOw0nAn/5DA==
-  /semver/6.1.3:
+  /semver/6.2.0:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-aymF+56WJJMyXQHcd4hlK4N75rwj5RQpfW8ePlQnJsTYOBLlLbcIErR/G1s9SkIvKBqOudR3KAx4wEqP+F1hNQ==
+      integrity: sha512-jdFC1VdUGT/2Scgbimf7FSx9iJLXoqfglSF+gJeuNWVpiE37OIbc1jywR/GJyFdz3mnkz2/id0L0J/cr0izR5A==
   /send/0.17.1:
     dependencies:
       debug: 2.6.9
@@ -6113,7 +6126,7 @@ packages:
       integrity: sha512-WBx8Uy5TLtOSRtIq+M03/sKDrXCLHxwDcquSP2c43Le03/9serjQBIztjRz6FkJez9D/hleyAXTBGLwwZUw9lA==
   /tough-cookie/2.4.3:
     dependencies:
-      psl: 1.1.33
+      psl: 1.2.0
       punycode: 1.4.1
     dev: false
     engines:
@@ -6122,7 +6135,7 @@ packages:
       integrity: sha512-Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==
   /tough-cookie/2.5.0:
     dependencies:
-      psl: 1.1.33
+      psl: 1.2.0
       punycode: 2.1.1
     dev: false
     engines:
@@ -6396,7 +6409,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-gwMdhgJHGuj/+wHJJs9e6PcCszpxR1b236igrOkUofGhqJuG+amlIKwApH1IW1WWl7ovZxsX49lMBWLxSdm5Dw==
-  /update-notifier/3.0.0:
+  /update-notifier/3.0.1:
     dependencies:
       boxen: 3.2.0
       chalk: 2.4.2
@@ -6414,7 +6427,7 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-6Xe3oF2bvuoj4YECUc52yxVs94yWrxwqHbzyveDktTS1WhnlTRpNcQMxUshcB7nRVGi1jEXiqL5cW1S5WSyzKg==
+      integrity: sha512-grrmrB6Zb8DUiyDIaeRTBCkgISYUgETNe7NglEbVsrLWXeESnlCSP50WfRSj/GmzMPl6Uchj24S/p80nP/ZQrQ==
   /uri-js/4.2.2:
     dependencies:
       punycode: 2.1.1
@@ -6748,12 +6761,15 @@ packages:
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.4.4/@babel!core@7.4.5
       '@types/babel__core': 7.1.2
       '@types/express': 4.17.0
+      '@types/got': 9.6.0
       '@types/http-proxy-middleware': 0.19.2
       '@types/mkdirp': 0.5.2
       '@types/nanoid': 2.0.0
       '@types/node': 10.14.10
       '@types/rimraf': 2.0.2
+      ava: 2.1.0
       express: 4.17.1
+      got: 9.6.0
       http-proxy-middleware: 0.19.1
       mkdirp: 0.5.1
       nanoid: 2.0.3
@@ -6765,7 +6781,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-IrmoUlrI5hL3J0SBS9rM9hrHYDvu0J5+uQpcsTD6qjdFLXGoQdKspu2oPtxoE7mW4CgEGtnt1oeCZXAAfrQKsA==
+      integrity: sha512-M3FGTX3EJqRNp6vngmMh9Ui9e6u9UQ8vmw1bOBofbaeG9CtLyDcJr0GhU5vkoBUhoidzUF01m1dKHtctGfrrrg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -6806,6 +6822,7 @@ specifiers:
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@types/babel__core': ^7.1.2
   '@types/express': ^4.17.0
+  '@types/got': ^9.6.0
   '@types/http-proxy-middleware': ^0.19.2
   '@types/jest': ^24.0.15
   '@types/leveldown': ^4.0.0
@@ -6820,6 +6837,7 @@ specifiers:
   babel-plugin-macros: ^2.6.0
   babel-plugin-tester: ^6.4.0
   express: ^4.17.1
+  got: ^9.6.0
   http-proxy-middleware: ^0.19.1
   jest: ^24.8.0
   jest-standard-reporter: ^1.0.1
