@@ -7,9 +7,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"No test specified\"",
+    "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "build": "rm -rf dist/ && tsc"
+    "test": "ava -v dist/test/test_*.js"
   },
   "author": "",
   "license": "MIT",
@@ -29,10 +29,13 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.2",
+    "@types/got": "^9.6.0",
     "@types/mkdirp": "^0.5.2",
     "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
     "@types/rimraf": "^2.0.2",
+    "ava": "^2.1.0",
+    "got": "^9.6.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }
