@@ -148,6 +148,11 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
                 false,
                 true,
               ))),
+              /*
+               * WARNING
+               * Do not change the following call expression without changing the signature in
+               * fetch-runtime/src/index.ts
+               */
               t.callExpression(t.identifier('createRuntime'), [
                 t.arrayExpression(methods.map((m) => t.stringLiteral(m))),
                 t.objectExpression([
