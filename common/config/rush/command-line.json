@@ -132,6 +132,12 @@
         // 3. Testing frameworks (Jest, AVA) have number-of-cores parallelism, allowing parallelism between projects
         //    might result in additional flakiness due to starvation
         "enableParallelism": false
+    },
+    {
+      "commandKind": "bulk",
+      "name": "lint",
+      "summary": "bulk lint command",
+      "enableParallelism": true
     }
   ],
 

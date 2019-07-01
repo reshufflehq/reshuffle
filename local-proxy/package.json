@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
+    "lint": "tslint -c ../common/tslint.yml -p .",
     "build": "rm -rf dist/ && tsc"
   },
   "author": "",
@@ -29,6 +30,7 @@
     "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
     "@types/rimraf": "^2.0.2",
+    "tslint": "~5.18.0",
     "typescript": "^3.5.2"
   }
 }

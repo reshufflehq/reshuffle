@@ -8,6 +8,7 @@
   "description": "",
   "scripts": {
     "build": "rm -rf dist && tsc && cp -r src/test/backend dist/test/",
+    "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "jest"
   },
   "author": "",
@@ -23,6 +24,7 @@
     "babel-plugin-tester": "^6.4.0",
     "jest": "^24.8.0",
     "jest-standard-reporter": "^1.0.1",
+    "tslint": "~5.18.0",
     "typescript": "^3.5.2"
   }
 }

@@ -29,6 +29,7 @@ const transpilePromise = babelDir({
   },
 });
 
+// tslint:disable-next-line:no-console
 transpilePromise.catch((error: Error) => console.error(error));
 
 app.post('/invoke', json(), async (req, res) => {

@@ -22,9 +22,9 @@ jobs:
       - run:
           name: Build source
           command: node common/scripts/install-run-rush.js rebuild --verbose
-      # - run:
-      #     name: Run lint
-      #     command: npm run lint
+      - run:
+          name: Run lint
+          command: node common/scripts/install-run-rush.js lint
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
