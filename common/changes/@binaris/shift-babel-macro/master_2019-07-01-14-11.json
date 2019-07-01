@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-babel-macro",
+      "comment": "Add linting",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-babel-macro",
+  "email": "michael@binaris.com"
+}

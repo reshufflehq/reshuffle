@@ -5,8 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
+    "lint": "eslint -c ../common/eslintrc.js .",
     "build": "echo \"nothing to do\""
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "~6.0.1",
+    "eslint-config-airbnb-base": "~13.1.0",
+    "eslint-plugin-import": "~2.18.0"
+  }
 }

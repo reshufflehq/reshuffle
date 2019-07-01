@@ -94,7 +94,7 @@ pluginTester({
         });
       `,
     },
-    "Supports TypeScript output": {
+    'Supports TypeScript output': {
       code: `
         import "../../macro";
         import { foo, bar } from '../backend/mockTypeScriptBackend';
@@ -108,6 +108,6 @@ pluginTester({
           "filename": "mockTypeScriptBackend.js"
         });
       `,
-    }
+    },
   },
 });

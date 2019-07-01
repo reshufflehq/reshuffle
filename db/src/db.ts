@@ -36,9 +36,9 @@ export class DB {
   }
 
   /**
-	 * Creates a document for given key.
-	 * @param value - Cannot be undefined, must be an object
-	 * @return - true if document was created, false if key already exists.
+   * Creates a document for given key.
+   * @param value - Cannot be undefined, must be an object
+   * @return - true if document was created, false if key already exists.
    */
   public async create(key: string, value: object): Promise<boolean> {
     checkValue(value);
@@ -53,8 +53,8 @@ export class DB {
   }
 
   /**
-	 * Removes a single document.
-	 * @return - true if document was deleted, false if key doesn’t exist.
+   * Removes a single document.
+   * @return - true if document was deleted, false if key doesn’t exist.
    */
   public async remove(key: string): Promise<boolean> {
     return await this.writeLock.runExclusive(async () => {
@@ -68,17 +68,17 @@ export class DB {
   }
 
   /**
-	 * Updates a single document.
+   * Updates a single document.
    * @param updater - Function that gets the previous value and returns the next value
    *                  to update the DB with, updater cannot return undefined.
-	 * @param initializer - `updater` will get this value if no document exists for `key`.
-	 * @return - The new value returned from updater
+   * @param initializer - `updater` will get this value if no document exists for `key`.
+   * @return - The new value returned from updater
    */
   public async update<T extends object, R extends object>(
     key: string, updater: (state?: T) => R, initializer?: T
   ): Promise<R> {
     return await this.writeLock.runExclusive(async () => {
-      let prev = await this.get(key) || initializer;
+      const prev = await this.get(key) || initializer;
       const next = updater(prev as T);
       checkValue(next);
       await this.db.put(key, JSON.stringify(next));

@@ -1,3 +1,5 @@
+// tslint:disable:no-console
+
 // @expose
 export function foo() {
   console.log('foo() was called');

@@ -6,6 +6,7 @@
   "types": "dist/index.d.js",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "ava -v dist/test/test_*.js"
   },
   "author": "",
@@ -22,6 +23,7 @@
     "@types/rmfr": "^2.0.0",
     "ava": "^2.1.0",
     "rmfr": "^2.0.0",
+    "tslint": "~5.18.0",
     "typescript": "^3.5.2"
   }
 }

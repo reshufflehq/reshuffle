@@ -53,7 +53,8 @@ function assertExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcNa
 function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel, importedNames: string[]): string[] {
   const { body } = ast.program;
   // support ExportDefaultDeclaration (ExportAllDeclaration too for re-exporting ?)
-  const exposedStatements = body.filter((e) => e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
+  const exposedStatements = body.filter((e) =>
+    e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
   return exposedStatements.reduce((ret: string[], e) => {
     if (t.isFunctionDeclaration(e)) {
       const funcName = getFunctionName(e, t);
