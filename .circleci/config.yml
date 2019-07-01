@@ -27,12 +27,7 @@ jobs:
       #     command: npm run lint
       - run:
           name: Run tests
-          command: |
-            for f in $(find . -maxdepth 2 -name package.json); do
-              project=$(dirname $f)
-              echo Testing $project
-              (cd $project && npm test) || exit 1
-            done
+          command: node common/scripts/install-run-rush.js test --verbose
 workflows:
   version: 2
   build_and_test:
