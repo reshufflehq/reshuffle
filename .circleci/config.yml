@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build_and_test:
     docker:
@@ -28,8 +28,33 @@ jobs:
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
+  update_npm_dependencies:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-tmp-1
+      - run:
+          name: Install needed npm packages
+          command: npm install npm-check-updates @octokit/rest --no-save
+      - save_cache:
+          key: dependency-cache-tmp-1
+          paths:
+            - node_modules
+      - run:
+          name: Configure git
+          command: |
+            git config user.email "auto-npm-dep-update@shiftjs.com"
+            git config user.name "autoupdate"
+      - run:
+          name: Update npm dependencies
+          command: node common/scripts/update-npm-dependencies.js
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build_and_test
+  nightly:
+    jobs:
+      - update_npm_dependencies
