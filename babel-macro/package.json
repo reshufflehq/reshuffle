@@ -24,7 +24,7 @@
     "babel-plugin-tester": "^6.4.0",
     "jest": "^24.8.0",
     "jest-standard-reporter": "^1.0.1",
-    "tslint": "~5.18.0",
+    "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }
 }
