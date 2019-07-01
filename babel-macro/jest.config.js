@@ -2,6 +2,7 @@ module.exports = {
   "roots": [
     "<rootDir>/dist/test"
   ],
+  "reporters": ["jest-standard-reporter"],
   "modulePaths": [
     "<rootDir>/dist/"
   ],
