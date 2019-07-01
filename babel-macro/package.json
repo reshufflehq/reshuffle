@@ -7,7 +7,7 @@
   ],
   "description": "",
   "scripts": {
-    "build": "rm -rf dist && tsc && cp -r src/test/backend/ dist/test/",
+    "build": "rm -rf dist && tsc && cp -r src/test/backend dist/test/",
     "test": "jest"
   },
   "author": "",
