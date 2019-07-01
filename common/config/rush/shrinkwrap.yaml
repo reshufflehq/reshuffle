@@ -26,6 +26,7 @@ dependencies:
   express: 4.17.1
   http-proxy-middleware: 0.19.1
   jest: 24.8.0
+  jest-standard-reporter: 1.0.1
   leveldown: 5.1.0
   levelup: 4.0.2
   mkdirp: 0.5.1
@@ -76,27 +77,6 @@ packages:
       source-map: 0.5.7
     dev: false
     hasBin: true
-    optionalDependencies:
-      chokidar: 2.1.6
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    resolution:
-      integrity: sha512-XGr5YjQSjgTa6OzQZY57FAJsdeVSAKR/u/KA5exWIz66IKtv/zXtHy+fIZcMry/EgYegwuHE7vzGnrFhjdIAsQ==
-  /@babel/cli/7.4.4/@babel!core@7.4.5:
-    dependencies:
-      '@babel/core': 7.4.5
-      commander: 2.20.0
-      convert-source-map: 1.6.0
-      fs-readdir-recursive: 1.1.0
-      glob: 7.1.4
-      lodash: 4.17.11
-      mkdirp: 0.5.1
-      output-file-sync: 2.0.1
-      slash: 2.0.0
-      source-map: 0.5.7
-    dev: false
-    hasBin: true
-    id: registry.npmjs.org/@babel/cli/7.4.4
     optionalDependencies:
       chokidar: 2.1.6
     peerDependencies:
@@ -321,7 +301,6 @@ packages:
       integrity: sha512-4sfBOJt58sEo9a2BQXnZq+Q3ZTSAUXyK3E30o36BOGnJ+tvJ6YSxF0PG6kERvbeISgProodWuI9UVG3/FMY6iw==
   /@babel/plugin-transform-modules-commonjs/7.4.4/@babel!core@7.4.5:
     dependencies:
-      '@babel/core': 7.4.5
       '@babel/helper-module-transforms': 7.4.4
       '@babel/helper-plugin-utils': 7.0.0
       '@babel/helper-simple-access': 7.1.0
@@ -481,7 +460,7 @@ packages:
   /@jest/source-map/24.3.0:
     dependencies:
       callsites: 3.1.0
-      graceful-fs: 4.1.15
+      graceful-fs: 4.2.0
       source-map: 0.6.1
     dev: false
     engines:
@@ -1221,7 +1200,7 @@ packages:
       component-emitter: 1.3.0
       define-property: 1.0.0
       isobject: 3.0.1
-      mixin-deep: 1.3.1
+      mixin-deep: 1.3.2
       pascalcase: 0.1.1
     dev: false
     engines:
@@ -1361,9 +1340,9 @@ packages:
       get-value: 2.0.6
       has-value: 1.0.0
       isobject: 3.0.1
-      set-value: 2.0.0
+      set-value: 2.0.1
       to-object-path: 0.3.0
-      union-value: 1.0.0
+      union-value: 1.0.1
       unset-value: 1.0.0
     dev: false
     engines:
@@ -2738,6 +2717,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
+  /graceful-fs/4.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-jpSvDPV4Cq/bgtpndIWbI5hmYxhQGHPC4d4cqBPb4DLniCfhJokdXhwhaDuLBGLQdvvRum/UiX6ECVIPvDXqdg==
   /growly/1.3.0:
     dev: false
     resolution:
@@ -3759,6 +3742,16 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-5ehtWoc8oU9/cAPe6fez6QofVJLBKyqkY2+TlKTOf0VllBB/mqUNdARdcjlZrs9F1Cv+/HKoCS/BknT0+tmfPg==
+  /jest-standard-reporter/1.0.1:
+    dependencies:
+      chalk: 2.4.2
+      jest-util: 24.8.0
+      path: 0.12.7
+      slash: 2.0.0
+      string-length: 2.0.0
+    dev: false
+    resolution:
+      integrity: sha512-m+85eu8KNp3fLpMMyS6Kx+Tbt3j6ZjhcUvQvN1Jk+uvaskpKBb0Cle+vIwhqzLNQps2XymrdEQcy3weM1kvLYQ==
   /jest-util/24.8.0:
     dependencies:
       '@jest/console': 24.7.1
@@ -3768,7 +3761,7 @@ packages:
       '@jest/types': 24.8.0
       callsites: 3.1.0
       chalk: 2.4.2
-      graceful-fs: 4.1.15
+      graceful-fs: 4.2.0
       is-ci: 2.0.0
       mkdirp: 0.5.1
       slash: 2.0.0
@@ -4431,16 +4424,15 @@ packages:
     dev: false
     resolution:
       integrity: sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
-  /mixin-deep/1.3.1:
+  /mixin-deep/1.3.2:
     dependencies:
       for-in: 1.0.2
       is-extendable: 1.0.1
-    deprecated: 'Critical bug fixed in v2.0.1, please upgrade to the latest version.'
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha512-8ZItLHeEgaqEvd5lYBXfm4EZSFCX29Jb9K+lAHhDKzReKBQKj3R+7NOF6tjqYi9t4oI8VUfaWITJQm86wnXGNQ==
+      integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
   /mkdirp/0.5.1:
     dependencies:
       minimist: 0.0.8
@@ -4937,6 +4929,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-T2ZUsdZFHgA3u4e5PfPbjd7HDDpxPnQb5jN0SrDsjNSuVXHJqtwTnWqG0B1jZrgmJ/7lj1EmVIByWt1gxGkWvg==
+  /path/0.12.7:
+    dependencies:
+      process: 0.11.10
+      util: 0.10.4
+    dev: false
+    resolution:
+      integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
   /performance-now/2.1.0:
     dev: false
     resolution:
@@ -5063,6 +5062,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+  /process/0.11.10:
+    dev: false
+    engines:
+      node: '>= 0.6.0'
+    resolution:
+      integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
   /prompts/2.1.0:
     dependencies:
       kleur: 3.0.3
@@ -5610,30 +5615,17 @@ packages:
     dev: false
     resolution:
       integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=
-  /set-value/0.4.3:
-    dependencies:
-      extend-shallow: 2.0.1
-      is-extendable: 0.1.1
-      is-plain-object: 2.0.4
-      to-object-path: 0.3.0
-    deprecated: 'Critical bug fixed in v3.0.1, please upgrade to the latest version.'
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-fbCPnT0i3H945Trzw79GZuzfzPE=
-  /set-value/2.0.0:
+  /set-value/2.0.1:
     dependencies:
       extend-shallow: 2.0.1
       is-extendable: 0.1.1
       is-plain-object: 2.0.4
       split-string: 3.1.0
-    deprecated: 'Critical bug fixed in v3.0.1, please upgrade to the latest version.'
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha512-hw0yxk9GT/Hr5yJEYnHNKYXkIA8mVJgd9ditYZCe16ZczcaELYYcfvaXesNACk2O8O0nTiPQcQhGUQj8JLzeeg==
+      integrity: sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==
   /setprototypeof/1.1.1:
     dev: false
     resolution:
@@ -6214,17 +6206,17 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-L5RAqCfXqAwR3RriF8pM0lU0w4Ryf/GgzONwi6KnL1taJQa7x1TCxdJnILX59WIGOwR57IVxn7Nej0fz1Ny6fw==
-  /union-value/1.0.0:
+  /union-value/1.0.1:
     dependencies:
       arr-union: 3.1.0
       get-value: 2.0.6
       is-extendable: 0.1.1
-      set-value: 0.4.3
+      set-value: 2.0.1
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha1-XHHDTLW61dzr4+oM0IIHulqhrqQ=
+      integrity: sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg==
   /unique-string/1.0.0:
     dependencies:
       crypto-random-string: 1.0.0
@@ -6349,6 +6341,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-i+6qA2MPhvoKLuxnJNpXAGhg7HphQOSUq2LKMZD0m15EiskXUkMvKdF4Uui0WYeCUGea+o2cw/ZuwehtfsrNkA==
+  /util/0.10.4:
+    dependencies:
+      inherits: 2.0.3
+    dev: false
+    resolution:
+      integrity: sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
   /utils-merge/1.0.1:
     dev: false
     engines:
@@ -6588,11 +6586,12 @@ packages:
       babel-plugin-macros: 2.6.1
       babel-plugin-tester: 6.4.0
       jest: 24.8.0
+      jest-standard-reporter: 1.0.1
       typescript: 3.5.2
     dev: false
     name: '@rush-temp/shift-babel-macro'
     resolution:
-      integrity: sha512-0eCTeD0ffHhmpZ8/oDyBLmr4rxofgrdaiNYWy+4tOsKRDEYLg+NcszWrQbwEk5M5RHmX7627s7QGXfoRJKRtnA==
+      integrity: sha512-17wB8yfeaUyWU6WlHCib/YP4fMR//rSqnxVCTt78zEy3zgXfkWhQxs2J/phOW88xdH+6qvmqjn6GZBC566768g==
       tarball: 'file:projects/shift-babel-macro.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
@@ -6622,9 +6621,9 @@ packages:
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
     dependencies:
-      '@babel/cli': /@babel/cli/7.4.4/@babel!core@7.4.5
+      '@babel/cli': 7.4.4
       '@babel/core': 7.4.5
-      '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.4.4/@babel!core@7.4.5
+      '@babel/plugin-transform-modules-commonjs': 7.4.4
       '@types/babel__core': 7.1.2
       '@types/express': 4.17.0
       '@types/http-proxy-middleware': 0.19.2
@@ -6700,6 +6699,7 @@ specifiers:
   express: ^4.17.1
   http-proxy-middleware: ^0.19.1
   jest: ^24.8.0
+  jest-standard-reporter: ^1.0.1
   leveldown: ^5.1.0
   levelup: ^4.0.2
   mkdirp: ^0.5.1
