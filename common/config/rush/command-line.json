@@ -126,6 +126,11 @@
         "commandKind": "bulk",
         "name": "test",
         "summary": "Run all tests",
+        // disable parallelism for tests
+        // 1. Test output becomes interleaved and harder to search for errors
+        // 2. Microsoft example uses parallelism of 1 (possibly due to 1.)
+        // 3. Testing frameworks (Jest, AVA) have number-of-cores parallelism, allowing parallelism between projects
+        //    might result in additional flakiness due to starvation
         "enableParallelism": false
     }
   ],
