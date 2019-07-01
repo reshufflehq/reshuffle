@@ -122,6 +122,12 @@
     //    */
     //   "shellCommand": "node common/scripts/my-global-command.js"
     // }
+    {
+        "commandKind": "bulk",
+        "name": "test",
+        "summary": "Run all tests",
+        "enableParallelism": false
+    }
   ],
 
   /**
