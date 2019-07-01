@@ -1,13 +1,16 @@
-/* global fetch */
-
-function createRuntime(methodNames, fileId, _urlOptions) {
-  const runtime = {};
+/*
+ * WARNING:
+ * Do not change the following signature without changing the call
+ * inside shiftMacro in babel-macro/src/macro.ts
+ */
+export function createRuntime(methodNames: string[], fileId: Record<'filename', string>) {
+  const runtime: Record<string, (...args: any[]) => any> = {};
   for (const method of methodNames) {
     if (runtime[method]) {
       throw new Error(`Can not redefine ${method}`);
     }
     runtime[method] = (...args) => {
-      let response;
+      let response: Response;
       // TODO: allow customizing URL
       return fetch('/invoke', {
         method: 'POST',
@@ -37,5 +40,3 @@ function createRuntime(methodNames, fileId, _urlOptions) {
   }
   return runtime;
 }
-
-module.exports = { createRuntime };

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-babel-macro",
+      "comment": "Add warning",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-babel-macro",
+  "email": "michael@binaris.com"
+}

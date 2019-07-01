@@ -1,0 +1,22 @@
+{
+    "version": "2.4.2",
+    "compilerOptions": {
+        "lib": ["esnext", "DOM", "DOM.Iterable"],
+        "target": "esnext",
+        "module": "commonjs",
+        "alwaysStrict": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "sourceMap": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "./dist"
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}

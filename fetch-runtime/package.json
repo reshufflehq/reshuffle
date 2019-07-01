@@ -2,17 +2,16 @@
   "name": "@binaris/shift-fetch-runtime",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
-    "lint": "eslint -c ../common/eslintrc.js .",
-    "build": "echo \"nothing to do\""
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "build": "rm -rf dist/ && tsc"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.18.0"
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.2"
   }
 }
