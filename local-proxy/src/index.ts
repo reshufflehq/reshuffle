@@ -1,9 +1,10 @@
 // tslint:disable:no-console
 import path from 'path';
 import nodemon from 'nodemon';
-import proxy from 'http-proxy-middleware';
+import proxy from 'http-proxy';
 import { Application } from 'express';
 import nanoid from 'nanoid';
+import { EventEmitter } from 'events';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -13,8 +14,8 @@ function log(message?: any, ...optionalParams: any[]) {
   }
 }
 
-// TODO(vladimir): allow overriding dev server port
-const port = 19291;
+let port: number | undefined;
+const readyEmitter = new EventEmitter().setMaxListeners(1000);
 export function startProxy(rootDir: string, localToken: string) {
   if (process.env.NODE_ENV !== 'test') {
     log(`Dev server starting on port: ${port}`);
@@ -44,12 +45,13 @@ export function startProxy(rootDir: string, localToken: string) {
     if (process.env.NODE_ENV !== 'test') {
       log('Local dev server started');
     }
-    // this child is started
   }).on('message', (message) => {
-    if (message === 'ready') {
-      // this child is ready
+    if (message.type === 'ready') {
+      port = message.port;
+      readyEmitter.emit('ready');
     }
   }).on('restart', (files) => {
+    port = undefined;
     log('Local dev server restarted due to changes in: ', files);
   });
 }
@@ -57,12 +59,21 @@ export function startProxy(rootDir: string, localToken: string) {
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
   const localToken = nanoid();
+  const httpProxy = new proxy();
+  httpProxy.on('error', (err: any) => console.error(err.stack));
   return (app: Application) => {
     startProxy(rootDir, localToken);
-    app.use(proxy('/invoke', {
-      target: `http://localhost:${port}/`,
-      headers: { 'x-shift-dev-server-local-token': localToken },
-      logLevel: 'error',
-    }));
+    app.use(async (req, res, next) => {
+      if (req.url !== '/invoke') {
+        return next();
+      }
+      if (!port) {
+        await new Promise((resolve) => readyEmitter.once('ready', resolve));
+      }
+      httpProxy.web(req, res, {
+        target: `http://localhost:${port}/`,
+        headers: { 'x-shift-dev-server-local-token': localToken },
+      });
+    });
   };
 }

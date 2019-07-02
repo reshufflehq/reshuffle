@@ -5,6 +5,7 @@ import express, { json } from 'express';
 import { mkdtempSync } from 'fs';
 import * as rimraf from 'rimraf';
 import babelDir from '@babel/cli/lib/babel/dir';
+import { AddressInfo } from 'net';
 
 const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH;
 if (!basePath) {
@@ -61,6 +62,8 @@ process.once('SIGUSR2', () => {
   process.kill(process.pid, 'SIGUSR2');
 });
 
-http.createServer(app).listen(19291, '127.0.0.1');
-
-if (process.send) process.send('ready');
+const server = http.createServer(app);
+server.listen(0, '127.0.0.1', () => {
+  const { port } = server.address() as AddressInfo;
+  if (process.send) process.send({ type: 'ready', port });
+});
