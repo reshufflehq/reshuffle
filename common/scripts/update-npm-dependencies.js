@@ -3,12 +3,27 @@ const { installAndRun, findRushJsonFolder, RUSH_JSON_FILENAME } = require("./ins
 const fs = require('fs');
 const { join } = require('path');
 const { promisify } = require('util');
+const { spawnSync } = require('child_process');
 const readdir = promisify(fs.readdir);
 const exists = promisify(fs.exists);
 
+const BRANCH_NAME = 'update-npm-dependencies';
+const COMMIT_MESSAGE = 'Update npm dependencies';
 const IGNORED_PACKAGES = [
   '@types/node'
-]
+];
+
+function shellExec(command, args) {
+  const commandString = `${command} ${args.join(' ')}`;
+  console.log(commandString);
+  const { status } = spawnSync(command, args, {
+    stdio: 'inherit'
+  });
+
+  if (status !== 0) {
+    throw new Error(`'${commandString}' exited with code ${status}`);
+  }
+}
 
 async function getPackageFiles() {
   const allSubDirs = await readdir(process.cwd(), { withFileTypes: true });
@@ -74,6 +89,12 @@ function updateRushShrinkwrapFile() {
   }
 }
 
+async function pushChanges() {
+  await shellExec('git', [ 'checkout', '-b', BRANCH_NAME ]);
+  await shellExec('git', [ 'commit', '-a', '-m', COMMIT_MESSAGE ]);
+  await shellExec('git', [ 'push', '--set-upstream', 'origin', BRANCH_NAME ]);
+}
+
 async function run() {
   const shouldUpdateShrinkwrapFile = await updatePackageFiles();
   if (!shouldUpdateShrinkwrapFile) {
@@ -82,6 +103,9 @@ async function run() {
   }
 
   updateRushShrinkwrapFile();
+
+  await pushChanges();
+
   console.info('Done!');
 }
 
