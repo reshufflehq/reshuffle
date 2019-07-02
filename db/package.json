@@ -8,7 +8,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
-    "build": "rm -rf dist/ && tsc",
+    "build": "tsc",
+    "clean": "rm -rf dist",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "ava -v dist/test/test_*.js"
   },

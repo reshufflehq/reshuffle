@@ -7,9 +7,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"No test specified\"",
+    "build": "tsc",
+    "clean": "rm -rf dist",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "build": "rm -rf dist/ && tsc"
+    "test": "echo \"No test specified\""
   },
   "author": "",
   "license": "MIT",

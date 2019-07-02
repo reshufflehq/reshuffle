@@ -135,6 +135,12 @@
     },
     {
       "commandKind": "bulk",
+      "name": "clean",
+      "summary": "bulk clean command",
+      "enableParallelism": true
+    },
+    {
+      "commandKind": "bulk",
       "name": "lint",
       "summary": "bulk lint command",
       "enableParallelism": true

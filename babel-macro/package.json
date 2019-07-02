@@ -7,7 +7,8 @@
   ],
   "description": "",
   "scripts": {
-    "build": "rm -rf dist && tsc && cp -r src/test/backend dist/test/",
+    "build": "tsc && cp -r src/test/backend dist/test/",
+    "clean": "rm -rf dist",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "jest"
   },
