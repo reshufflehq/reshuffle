@@ -1,6 +1,9 @@
 {
   "name": "@binaris/shift-local-proxy",
   "version": "0.0.2",
+  "files": [
+    "dist"
+  ],
   "description": "",
   "main": "dist/index.js",
   "scripts": {

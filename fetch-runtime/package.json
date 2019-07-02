@@ -1,6 +1,9 @@
 {
   "name": "@binaris/shift-fetch-runtime",
   "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
   "description": "",
   "main": "dist/index.js",
   "scripts": {
