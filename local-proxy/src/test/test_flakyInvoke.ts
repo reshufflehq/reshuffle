@@ -17,8 +17,6 @@ test('Flaky http proxy', async (t) => {
     server.once('error', reject);
     server.listen(0, '127.0.0.1', resolve);
   });
-  // TODO(vladimir): remove wait for child process
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const { port } = server.address() as AddressInfo;
   const requests = [];
   for (let i = 0; i < 100; i++) {

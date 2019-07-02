@@ -11,7 +11,7 @@ dependencies:
   '@types/babel__core': 7.1.2
   '@types/express': 4.17.0
   '@types/got': 9.6.0
-  '@types/http-proxy-middleware': 0.19.2
+  '@types/http-proxy': 1.17.0
   '@types/jest': 24.0.15
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
@@ -26,7 +26,7 @@ dependencies:
   babel-plugin-tester: 6.4.0
   express: 4.17.1
   got: 9.6.0
-  http-proxy-middleware: 0.19.1
+  http-proxy: 1.17.0
   jest: 24.8.0
   jest-standard-reporter: 1.0.1
   leveldown: 5.1.1
@@ -654,14 +654,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-t00QebxBllcawe7uMxi9jsfWfbki4+/zpJEPyoGWjUvnFOy4EkAzoYOI2UJt2+Fx0yIcDX2+us93k6ensKTddA==
-  /@types/http-proxy-middleware/0.19.2:
-    dependencies:
-      '@types/connect': 3.4.32
-      '@types/http-proxy': 1.17.0
-      '@types/node': 10.14.10
-    dev: false
-    resolution:
-      integrity: sha512-aXcAs2VEaiHwlFlEqMJ+sNSFCO+wuWXcvdBk5Un7f0tUv1eTIIAmkd4S5D/Yi5JI0xofPpm9h3017TngbrLh7A==
   /@types/http-proxy/1.17.0:
     dependencies:
       '@types/node': 10.14.10
@@ -2904,17 +2896,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-ZTTX0MWrsQ2ZAhA1cejAwDLycFsd7I7nVtnkT3Ol0aqodaKW+0CTZDQ1uBv5whptCnc8e8HeRRJxRs0kmm/Qfw==
-  /http-proxy-middleware/0.19.1:
-    dependencies:
-      http-proxy: 1.17.0
-      is-glob: 4.0.1
-      lodash: 4.17.11
-      micromatch: 3.1.10
-    dev: false
-    engines:
-      node: '>=4.0.0'
-    resolution:
-      integrity: sha512-yHYTgWMQO8VvwNS22eLLloAkvungsKdKTLO8AJlftYIKNfJr3GK3zK0ZCfzDDGUBttdGc8xFy1mCitvNKQtC3Q==
   /http-proxy/1.17.0:
     dependencies:
       eventemitter3: 3.1.2
@@ -6762,7 +6743,7 @@ packages:
       '@types/babel__core': 7.1.2
       '@types/express': 4.17.0
       '@types/got': 9.6.0
-      '@types/http-proxy-middleware': 0.19.2
+      '@types/http-proxy': 1.17.0
       '@types/mkdirp': 0.5.2
       '@types/nanoid': 2.0.0
       '@types/node': 10.14.10
@@ -6770,7 +6751,7 @@ packages:
       ava: 2.1.0
       express: 4.17.1
       got: 9.6.0
-      http-proxy-middleware: 0.19.1
+      http-proxy: 1.17.0
       mkdirp: 0.5.1
       nanoid: 2.0.3
       nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
@@ -6781,7 +6762,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-M3FGTX3EJqRNp6vngmMh9Ui9e6u9UQ8vmw1bOBofbaeG9CtLyDcJr0GhU5vkoBUhoidzUF01m1dKHtctGfrrrg==
+      integrity: sha512-bC7QEvptz1GUXjCWxNYzL2aJ60a5zSImofMeN+rEYlv6M9pZ+uhGpbmn0B/ktv0ylvJE2yb/tlw60depMKR2Sg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -6823,7 +6804,7 @@ specifiers:
   '@types/babel__core': ^7.1.2
   '@types/express': ^4.17.0
   '@types/got': ^9.6.0
-  '@types/http-proxy-middleware': ^0.19.2
+  '@types/http-proxy': ^1.17.0
   '@types/jest': ^24.0.15
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
@@ -6838,7 +6819,7 @@ specifiers:
   babel-plugin-tester: ^6.4.0
   express: ^4.17.1
   got: ^9.6.0
-  http-proxy-middleware: ^0.19.1
+  http-proxy: ^1.17.0
   jest: ^24.8.0
   jest-standard-reporter: ^1.0.1
   leveldown: ^5.1.0
