@@ -92,7 +92,7 @@ function updateRushShrinkwrapFile() {
 async function pushChanges() {
   await shellExec('git', [ 'checkout', '-b', BRANCH_NAME ]);
   await shellExec('git', [ 'commit', '-a', '-m', COMMIT_MESSAGE ]);
-  await shellExec('git', [ 'push', '--set-upstream', 'origin', BRANCH_NAME ]);
+  //await shellExec('git', [ 'push', '--set-upstream', 'origin', BRANCH_NAME ]);
 }
 
 async function run() {
