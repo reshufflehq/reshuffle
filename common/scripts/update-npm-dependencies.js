@@ -1,4 +1,5 @@
 const ncu = require('npm-check-updates');
+const Octokit = require('@octokit/rest');
 const { installAndRun, findRushJsonFolder, RUSH_JSON_FILENAME } = require("./install-run");
 const fs = require('fs');
 const { join } = require('path');
@@ -9,6 +10,12 @@ const exists = promisify(fs.exists);
 
 const BRANCH_NAME = 'update-npm-dependencies';
 const COMMIT_MESSAGE = 'Update npm dependencies';
+// const PR_TITLE = 'Update npm dependencies';
+const PR_TITLE = 'TEST PR IGNORE';
+const PR_BODY = `
+  This PR was auto-generated.
+  see common/scripts/update-npm-dependencies.js
+`
 const IGNORED_PACKAGES = [
   '@types/node'
 ];
@@ -92,7 +99,21 @@ function updateRushShrinkwrapFile() {
 async function pushChanges() {
   await shellExec('git', [ 'checkout', '-b', BRANCH_NAME ]);
   await shellExec('git', [ 'commit', '-a', '-m', COMMIT_MESSAGE ]);
-  //await shellExec('git', [ 'push', '--set-upstream', 'origin', BRANCH_NAME ]);
+  await shellExec('git', [ 'push', '--set-upstream', 'origin', BRANCH_NAME ]);
+}
+
+async function createPullRequest() {
+  const octokit = new Octokit()
+
+  console.log('Creating PR...');
+  await octokit.pullRequests.create({
+    owner: 'binaris',
+    repo: 'shiftjs',
+    title: PR_TITLE,
+    base: 'master',
+    head: BRANCH_NAME,
+    body: PR_BODY,
+  });
 }
 
 async function run() {
@@ -105,6 +126,7 @@ async function run() {
   updateRushShrinkwrapFile();
 
   await pushChanges();
+  await createPullRequest();
 
   console.info('Done!');
 }
