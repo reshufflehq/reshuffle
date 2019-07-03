@@ -14,12 +14,21 @@ function log(message?: any, ...optionalParams: any[]) {
   }
 }
 
-let port: number | undefined;
-const readyEmitter = new EventEmitter().setMaxListeners(1000);
-export function startProxy(rootDir: string, localToken: string) {
-  if (process.env.NODE_ENV !== 'test') {
-    log(`Dev server starting on port: ${port}`);
-  }
+function makePortPromise(portEmitter: EventEmitter): Promise<number> {
+  return new Promise((resolve) => portEmitter.once('port', (port: number) => resolve(port)));
+}
+
+interface PortPromiseHolder {
+  portPromise: Promise<number>;
+}
+
+export function startProxy(
+  rootDir: string,
+  localToken: string,
+): PortPromiseHolder {
+  log('Dev server starting');
+  const portEmitter = new EventEmitter();
+  const promiseHolder = { portPromise: makePortPromise(portEmitter) };
 
   nodemon({
     watch: [
@@ -36,24 +45,25 @@ export function startProxy(rootDir: string, localToken: string) {
     // server.js uses babel/dir which has a console.log
     // AVA transaltes console.log to stderr
     // Rush detects stderr as warnings and returns an exit code
-    stdout: process.env.NODE_ENV !== 'test',
+    stdout: !isTestEnv,
   });
 
   nodemon.on('quit', () => {
     process.exit();
-  }).on('start', (_child) => {
-    if (process.env.NODE_ENV !== 'test') {
-      log('Local dev server started');
-    }
-  }).on('message', (message) => {
+  }).on('start', (_child: any) => {
+    log('Local dev server started');
+  }).on('message', (message: any) => {
     if (message.type === 'ready') {
-      port = message.port;
-      readyEmitter.emit('ready');
+      portEmitter.emit('port', message.port);
     }
-  }).on('restart', (files) => {
-    port = undefined;
+  }).on('crash', () => {
+    log('Local dev server crashed');
+    process.exit(1);
+  }).on('restart', (files: string[]) => {
+    promiseHolder.portPromise = makePortPromise(portEmitter);
     log('Local dev server restarted due to changes in: ', files);
   });
+  return promiseHolder;
 }
 
 export function setupProxy(sourceDir: string) {
@@ -62,14 +72,12 @@ export function setupProxy(sourceDir: string) {
   const httpProxy = new proxy();
   httpProxy.on('error', (err: any) => console.error(err.stack));
   return (app: Application) => {
-    startProxy(rootDir, localToken);
+    const promiseHolder = startProxy(rootDir, localToken);
     app.use(async (req, res, next) => {
       if (req.url !== '/invoke') {
         return next();
       }
-      if (!port) {
-        await new Promise((resolve) => readyEmitter.once('ready', resolve));
-      }
+      const port = await promiseHolder.portPromise;
       httpProxy.web(req, res, {
         target: `http://localhost:${port}/`,
         headers: { 'x-shift-dev-server-local-token': localToken },
