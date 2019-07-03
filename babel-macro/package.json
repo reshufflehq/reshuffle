@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.4.5",
-    "babel-plugin-macros": "^2.6.0"
+    "babel-plugin-macros": "^2.6.1"
   },
   "devDependencies": {
     "@babel/types": "^7.4.4",
