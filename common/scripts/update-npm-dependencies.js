@@ -1,11 +1,18 @@
 const ncu = require('npm-check-updates');
+const Octokit = require('@octokit/rest');
 const { installAndRun, findRushJsonFolder, RUSH_JSON_FILENAME } = require("./install-run");
 const { readdirSync, existsSync } = require('fs');
 const { join } = require('path');
 const { spawnSync } = require('child_process');
 
+const { GITHUB_USERNAME, GITHUB_API_KEY } = process.env;
 const BRANCH_NAME = 'update-npm-dependencies';
 const COMMIT_MESSAGE = 'Update npm dependencies';
+const PR_TITLE = 'Update npm dependencies';
+const PR_BODY = `
+  This PR was auto-generated.
+  see https://github.com/binaris/shiftjs/blob/master/common/scripts/update-npm-dependencies.js
+`
 const IGNORED_PACKAGES = [
   '@types/node'
 ];
@@ -80,6 +87,25 @@ async function pushChanges() {
   await shellExec('git', [ 'push', '--set-upstream', 'origin', BRANCH_NAME ]);
 }
 
+async function createPullRequest() {
+  const octokit = new Octokit({
+    auth: {
+      username: GITHUB_USERNAME,
+      password: GITHUB_API_KEY,
+    },
+  });
+
+  console.log('Creating PR...');
+  await octokit.pullRequests.create({
+    owner: 'binaris',
+    repo: 'shiftjs',
+    title: PR_TITLE,
+    base: 'master',
+    head: BRANCH_NAME,
+    body: PR_BODY,
+  });
+}
+
 async function run() {
   const shouldUpdateShrinkwrapFile = await updatePackageFiles();
   if (!shouldUpdateShrinkwrapFile) {
@@ -88,8 +114,8 @@ async function run() {
   }
 
   updateRushShrinkwrapFile();
-
   await pushChanges();
+  await createPullRequest();
 
   console.info('Done!');
 }
