@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "ava -v dist/test/test_*.js"
+    "test": "ava -v dist/test/*.js"
   },
   "author": "",
   "license": "MIT",
