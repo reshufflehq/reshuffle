@@ -34,16 +34,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install needed npm packages
-          command: npm install npm-check-updates @octokit/rest --no-save
-      - run:
           name: Configure git
           command: |
             git config user.email "auto-npm-dep-update@shiftjs.com"
             git config user.name "autoupdate"
       - run:
           name: Update npm dependencies
-          command: node common/scripts/update-npm-dependencies.js
+          command: node common/scripts/install-run.js rush-update@beta rush-update --pr-title \"TEST - IGNORE THIS PR\" --repo-owner binaris --repo-name shiftjs
 workflows:
   version: 2
   build_and_test:
