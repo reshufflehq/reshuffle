@@ -30,12 +30,14 @@
     "@types/babel__core": "^7.1.2",
     "@types/got": "^9.6.0",
     "@types/http-proxy": "^1.17.0",
+    "@types/lodash": "^4.14.135",
     "@types/mkdirp": "^0.5.2",
     "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
     "@types/rimraf": "^2.0.2",
     "ava": "^2.1.0",
     "got": "^9.6.0",
+    "lodash": "^4.17.11",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }
