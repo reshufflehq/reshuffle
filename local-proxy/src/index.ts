@@ -43,7 +43,7 @@ export function startProxy(
     },
     // Workaround for tests:
     // server.js uses babel/dir which has a console.log
-    // AVA transaltes console.log to stderr
+    // AVA translates console.log to stderr
     // Rush detects stderr as warnings and returns an exit code
     stdout: !isTestEnv,
   });
