@@ -11,6 +11,7 @@ dependencies:
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@types/babel__core': 7.1.2
+  '@types/bunyan': 1.8.6
   '@types/express': 4.17.0
   '@types/got': 9.6.0
   '@types/http-proxy': 1.17.0
@@ -29,6 +30,8 @@ dependencies:
   ava: 2.1.0
   babel-plugin-macros: 2.6.1
   babel-plugin-tester: 6.4.0
+  bunyan: 1.8.12
+  bunyan-rotating-file-stream: 1.6.3
   express: 4.17.1
   got: 9.6.0
   http-proxy: 1.17.0
@@ -672,6 +675,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-a2+YeUjPkztKJu5aIF2yArYFQQp8d51wZ7DavSHjFuY1mqVgidGyzEQ41JIVNy82fXj8yPgy2vJmfIywgESW6w==
+  /@types/bunyan/1.8.6:
+    dependencies:
+      '@types/node': 12.0.12
+    dev: false
+    resolution:
+      integrity: sha512-YiozPOOsS6bIuz31ilYqR5SlLif4TBWsousN2aCWLi5233nZSX19tFbcQUPdR7xJ8ypPyxkCGNxg0CIV5n9qxQ==
   /@types/connect/3.4.32:
     dependencies:
       '@types/node': 12.0.12
@@ -1158,6 +1167,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Cq0hEjaXlas/F+M3RFVtLs9UdWY=
+  /async/1.5.2:
+    dev: false
+    resolution:
+      integrity: sha1-7GphrlZIDAw8skHJVhjiCJL5Zyo=
   /asynckit/0.4.0:
     dev: false
     resolution:
@@ -1511,6 +1524,29 @@ packages:
     dev: false
     resolution:
       integrity: sha1-y5T662HIaWRR2zZTThQi+U8K7og=
+  /bunyan-rotating-file-stream/1.6.3:
+    dependencies:
+      async: 1.5.2
+      lodash: 4.17.11
+      semver: 5.7.0
+      strftime: 0.9.2
+    dev: false
+    engines:
+      '0': node >=0.10.0
+    resolution:
+      integrity: sha512-pJFBvosqXjYXsOtDr72SDhZr3d+1ADDBO8TiU0ju0DbNBS4+vjI3GatczzB7LCcBWqWevQ91j1HYsl8cgnI+HQ==
+  /bunyan/1.8.12:
+    dev: false
+    engines:
+      '0': node >=0.10.0
+    hasBin: true
+    optionalDependencies:
+      dtrace-provider: 0.8.7
+      moment: 2.24.0
+      mv: 2.1.1
+      safe-json-stringify: 1.2.0
+    resolution:
+      integrity: sha1-8VDw9nSKvdcq6uhPBEA74u8RN5c=
   /bytes/3.1.0:
     dev: false
     engines:
@@ -2340,6 +2376,16 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-n1oC6NBF+KM9oVXtjmen4Yo7HyAVWV2UUl50dCYJdw2924K6dX9bf9TTTWaKtYlRn0FEtxG27KS80ayVLixxJA==
+  /dtrace-provider/0.8.7:
+    dependencies:
+      nan: 2.14.0
+    dev: false
+    engines:
+      node: '>=0.10'
+    optional: true
+    requiresBuild: true
+    resolution:
+      integrity: sha1-3JObTT4GIM/gwc2APQ0tftBP/QQ=
   /duplexer3/0.1.4:
     dev: false
     resolution:
@@ -2994,6 +3040,17 @@ packages:
     dev: false
     resolution:
       integrity: sha1-jFoUlNIGbFcMw7/kSWF1rMTVAqs=
+  /glob/6.0.4:
+    dependencies:
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.0.4
+      once: 1.4.0
+      path-is-absolute: 1.0.1
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha1-DwiGD2oVUSey+t1PnOJLGqtuTSI=
   /glob/7.1.4:
     dependencies:
       fs.realpath: 1.0.0
@@ -4960,6 +5017,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
+  /moment/2.24.0:
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
   /move-concurrently/1.0.1:
     dependencies:
       aproba: 1.2.0
@@ -4983,6 +5045,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
+  /mv/2.1.1:
+    dependencies:
+      mkdirp: 0.5.1
+      ncp: 2.0.0
+      rimraf: 2.4.5
+    dev: false
+    engines:
+      node: '>=0.8.0'
+    optional: true
+    resolution:
+      integrity: sha1-rmzg1vbV4KT32JN5jQPB6pVZtqI=
   /nan/2.14.0:
     dev: false
     optional: true
@@ -5018,6 +5091,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+  /ncp/2.0.0:
+    dev: false
+    hasBin: true
+    optional: true
+    resolution:
+      integrity: sha1-GVoh1sRuNh0vsSgbo4uR6d9727M=
   /negotiator/0.6.2:
     dev: false
     engines:
@@ -6298,6 +6377,14 @@ packages:
     dev: false
     resolution:
       integrity: sha1-52OI0heZLCUnUCQdPTlW/tmNj/Q=
+  /rimraf/2.4.5:
+    dependencies:
+      glob: 6.0.4
+    dev: false
+    hasBin: true
+    optional: true
+    resolution:
+      integrity: sha1-7nEM5dk6j9uFb7Xqj/Di11k0sto=
   /rimraf/2.6.3:
     dependencies:
       glob: 7.1.4
@@ -6335,6 +6422,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
+  /safe-json-stringify/1.2.0:
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-gH8eh2nZudPQO6TytOvbxnuhYBOvDBBLW52tz5q6X58lJcd/tkmqFR+5Z9adS8aJtURSXWThWy/xJtJwixErvg==
   /safe-regex/1.1.0:
     dependencies:
       ret: 0.1.15
@@ -6683,6 +6775,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-1cdSgl5TZ+eG944Y5EXqIjoVWVI=
+  /strftime/0.9.2:
+    dev: false
+    engines:
+      node: '>=0.2.0'
+    resolution:
+      integrity: sha1-vMooYfKUVtNyqvaheBHIvG859YM=
   /string-length/2.0.0:
     dependencies:
       astral-regex: 1.0.0
@@ -7690,6 +7788,7 @@ packages:
       '@babel/core': 7.5.0
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.5.0/@babel!core@7.5.0
       '@types/babel__core': 7.1.2
+      '@types/bunyan': 1.8.6
       '@types/express': 4.17.0
       '@types/got': 9.6.0
       '@types/http-proxy': 1.17.0
@@ -7699,6 +7798,8 @@ packages:
       '@types/node': 10.14.12
       '@types/rimraf': 2.0.2
       ava: 2.1.0
+      bunyan: 1.8.12
+      bunyan-rotating-file-stream: 1.6.3
       express: 4.17.1
       got: 9.6.0
       http-proxy: 1.17.0
@@ -7713,7 +7814,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-F2t7GD2TlvuR83J0xR6//VCXX97LWOq6TKEJXkxQ4SsfTjxur2HTC99SjYdvQI8/eNGtc/AWuKdmk+PZamcsYQ==
+      integrity: sha512-YRjIsomdMF0t5wazU4otLSM6PGzqlhMhzVGCBsV+cGrUU4RvFX4xBMSHFiN0fiLqtdScmT7uiN3nzDbZCR0aKQ==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -7755,6 +7856,7 @@ specifiers:
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@types/babel__core': ^7.1.2
+  '@types/bunyan': ^1.8.6
   '@types/express': ^4.17.0
   '@types/got': ^9.6.0
   '@types/http-proxy': ^1.17.0
@@ -7773,6 +7875,8 @@ specifiers:
   ava: ^2.1.0
   babel-plugin-macros: ^2.6.0
   babel-plugin-tester: ^6.4.0
+  bunyan: ^1.8.12
+  bunyan-rotating-file-stream: ^1.6.3
   express: ^4.17.1
   got: ^9.6.0
   http-proxy: ^1.17.0
