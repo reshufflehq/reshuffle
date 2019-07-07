@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-local-proxy",
+      "comment": "Add logging to ~/.shiftjs/logs",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-local-proxy",
+  "email": "vladimir@binaris.com"
+}
