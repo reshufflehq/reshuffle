@@ -39,7 +39,7 @@ export default async function main({
   prTitle?: string,
   prBody?: string,
 }) {
-  const projectFolders = await getProjectFolders()
+  const projectFolders = await getProjectFolders();
   const shouldUpdateShrinkwrapFile = await updatePackageFiles(projectFolders, ncuParams || {});
   if (!shouldUpdateShrinkwrapFile) {
     console.info('All dependencies are up to date!');
@@ -91,4 +91,3 @@ export default async function main({
 
   console.info('Done!');
 }
-
