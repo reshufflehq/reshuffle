@@ -14,6 +14,12 @@ function log(message?: any, ...optionalParams: any[]) {
   }
 }
 
+function logError(message?: any, ...optionalParams: any[]) {
+  if (!isTestEnv) {
+    console.error(message, ...optionalParams);
+  }
+}
+
 function makePortPromise(portEmitter: EventEmitter): Promise<number> {
   return new Promise((resolve) => portEmitter.once('port', (port: number) => resolve(port)));
 }
@@ -43,7 +49,7 @@ export function startProxy(
     },
     // Workaround for tests:
     // server.js uses babel/dir which has a console.log
-    // AVA translates console.log to stderr
+    // AVA (#1849) translates console.log to stderr
     // Rush detects stderr as warnings and returns an exit code
     stdout: !isTestEnv,
   });
@@ -51,13 +57,13 @@ export function startProxy(
   nodemon.on('quit', () => {
     process.exit();
   }).on('start', (_child: any) => {
-    log('Local dev server started');
+    logError('Local dev server started');
   }).on('message', (message: any) => {
     if (message.type === 'ready') {
       portEmitter.emit('port', message.port);
     }
   }).on('crash', () => {
-    log('Local dev server crashed');
+    logError('Local dev server crashed');
     process.exit(1);
   }).on('restart', (files: string[]) => {
     promiseHolder.portPromise = makePortPromise(portEmitter);
