@@ -6,7 +6,7 @@ import once from 'lodash.once';
 interface RushConfig {
   rushVersion: string;
   projects: Array<{
-    projectFolder: string
+    projectFolder: string,
   }>;
 }
 
@@ -17,7 +17,7 @@ const getRushConfig = once(async () => {
   return parse(rushConfigContent) as RushConfig;
 });
 
-const getRushVersion = once(() => getRushConfig().then(cfg => cfg.rushVersion));
+const getRushVersion = once(() => getRushConfig().then((cfg) => cfg.rushVersion));
 export const getProjectFolders = once(() => getRushConfig()
   .then(({projects}) => projects.map((p) => p.projectFolder))
 );

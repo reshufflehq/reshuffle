@@ -9,8 +9,8 @@ export async function createPullRequest(
     auth: {
       username: ghUsername,
       password: ghApikey,
-      on2fa: async () => ''
-    }
+      on2fa: async () => '',
+    },
   });
 
   console.info('Creating PR...');
