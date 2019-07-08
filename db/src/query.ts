@@ -157,15 +157,18 @@ export function not(f: Filter): Filter {
   return new Filter(undefined, 'not', f);
 }
 
+export type Direction = 'ASC' | 'DESC';
 export const ASC: 'ASC' = 'ASC';
 export const DESC: 'DESC' = 'DESC';
+
+export type Order = [string[], Direction];
 
 export class Query {
   protected constructor(
     protected readonly _filter: Filter,
     protected readonly _limit?: number,
     protected readonly _skip?: number,
-    protected readonly _order?: Array<[string[], 'ASC' | 'DESC']>,
+    protected readonly _order?: Order[],
   ) {}
 
   public filter(f: Filter): Query {
@@ -186,7 +189,7 @@ export class Query {
     return new Query(this._filter, this._limit, s, this._order);
   }
 
-  public orderBy(path: Path | Doc<any>, order: ('ASC' | 'DESC') = ASC): Query {
+  public orderBy(path: Path | Doc<any>, order: Direction = ASC): Query {
     const { parts } = (path as any);
     for (const [p] of (this._order || [])) {
       if (equals(p, parts)) {
@@ -213,7 +216,7 @@ export class Query {
     return this._skip;
   }
 
-  public getOrderBy(): Array<[string[], 'ASC' | 'DESC']> | undefined {
+  public getOrderBy(): Order[] | undefined {
     return this._order;
   }
 }
