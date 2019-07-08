@@ -102,3 +102,24 @@ test('exists is available on non optional fields', (t) => {
     val.x.y.exists().toJSON(),
     { path: ['value', 'x', 'y'], operator: 'exists', value: undefined });
 });
+
+test('match builds a match filter', (t) => {
+  t.deepEqual(
+    typedValue<string>().matches('abc').toJSON(),
+    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: false } });
+  t.deepEqual(
+    typedValue<string>().matches('abc', true).toJSON(),
+    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: true } });
+  t.deepEqual(
+    typedValue<string>().matches(/abc/).toJSON(),
+    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: false } });
+  t.deepEqual(
+    typedValue<string>().matches(/abc/i).toJSON(),
+    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: true } });
+});
+
+test('startsWith builds a startsWith filter', (t) => {
+  t.deepEqual(
+    typedValue<string>().startsWith('abc').toJSON(),
+    { path: ['value'], operator: 'startsWith', value: 'abc' });
+});

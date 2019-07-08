@@ -4,7 +4,8 @@ import { promisify } from 'util';
 import { tmpdir } from 'os';
 import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
-import { DB, ValueError } from '../db';
+import { DB } from '../db';
+import { ValueError } from '../errors';
 
 interface Context {
   dbDir: string;

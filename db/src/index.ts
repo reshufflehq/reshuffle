@@ -1,5 +1,6 @@
 import { DB, Serializable } from './db';
-export { ValueError, Serializable } from './db';
+export { Serializable };
+export { ValueError } from './errors';
 
 const dbPath = process.env.SHIFT_DB_PATH;
 if (!dbPath) {

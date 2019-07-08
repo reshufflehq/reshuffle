@@ -1,10 +1,7 @@
 import LevelUpCtor, { LevelUp } from 'levelup';
 import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
-
-export class ValueError extends Error {
-  public readonly name = 'ValueError';
-}
+import { ValueError } from './errors';
 
 export type Primitive = string | number | boolean | Date | null;
 export interface SerializableArray extends Array<SerializableArray | SerializableObject | Primitive | undefined> {}
