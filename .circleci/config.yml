@@ -19,6 +19,7 @@ jobs:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
           paths:
             - common/temp
+            - ~/.rush
       - run:
           name: Build source
           command: node common/scripts/install-run-rush.js rebuild --verbose
