@@ -1,11 +1,12 @@
 import { updatePackageFiles } from './update-npm';
-import { getProjectFolders, updateRushShrinkwrapFile } from './rush';
-import { commitCurrentChangesToBranch, pushToRemoteBranch } from './git';
+import { getProjectFolders, updateRushShrinkwrapFile, generateRushChangeFiles } from './rush';
+import { switchToNewBranch, commitChanges, pushToRemoteBranch } from './git';
 import { createPullRequest } from './github';
 import { NCUParams } from 'npm-check-updates';
 
 export const DEFAULT_BRANCH = 'update-npm-dependencies';
 export const DEFAULT_COMMIT_MESSAGE = 'Update npm dependencies';
+export const DEFAULT_CHANGE_COMMIT_MESSAGE = 'Generate change files';
 export const DEFAULT_PR_TITLE = 'Update npm dependencies';
 export const DEFAULT_PR_BODY = 'This PR was auto-generated with rush-update.';
 export const DEFAULT_PR_BASE_BRANCH = 'master';
@@ -15,6 +16,8 @@ export default async function main({
   noCommit,
   branch,
   commitMessage,
+  noChangeFile,
+  changeCommitMessage,
   noPush,
   noPr,
   ghUsername = process.env.GITHUB_USERNAME,
@@ -29,6 +32,8 @@ export default async function main({
   noCommit?: boolean,
   branch?: string,
   commitMessage?: string,
+  noChangeFile?: boolean,
+  changeCommitMessage?: string,
   noPush?: boolean,
   noPr?: boolean,
   ghUsername?: string,
@@ -52,7 +57,13 @@ export default async function main({
     return;
   }
   const actualBranch = branch || DEFAULT_BRANCH;
-  commitCurrentChangesToBranch(actualBranch, commitMessage || DEFAULT_COMMIT_MESSAGE);
+  switchToNewBranch(actualBranch);
+  commitChanges(commitMessage || DEFAULT_COMMIT_MESSAGE);
+
+  if (!noChangeFile) {
+    generateRushChangeFiles();
+    commitChanges(changeCommitMessage || DEFAULT_CHANGE_COMMIT_MESSAGE);
+  }
 
   if (noPush) {
     return;

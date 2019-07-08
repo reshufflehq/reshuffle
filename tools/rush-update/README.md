@@ -9,19 +9,21 @@ Meant to be used in CI/CD for repo using `@microsoft/rush`
 rush-update [options]
 
 Options:
-  --ignore-packages, -x  Packages to ignore           [default: []]
-  --branch, -b           Branch for commiting changes [default: "update-npm-dependencies"]
-  --commit-message       Commit message               [default: "Update npm dependencies"]
-  --repo-owner           Username or Organization name on github
-  --repo-name            Name of the repository on github
-  --pr-base              Base branch for pull-request [default: "master"]
-  --pr-title             Pull request title           [default: "Update npm dependencies"]
-  --pr-body              Pull request body            [default: "This PR was auto-generated with rush-update."]
-  --gh-username          Github username (for authentication)
-  --gh-apikey            Github apikey
-  --no-commit            Doesn't commit changes
-  --no-push              Commit changes but don't push to remote
-  --no-pr                Commit and push to remote but don't create a pull request
+  --ignore-packages, -x    Packages to ignore                [default: []]
+  --branch, -b             Branch for commiting changes      [default: "update-npm-dependencies"]
+  --commit-message         Commit message for npm updates    [default: "Update npm dependencies"]
+  --change-commit-message  Commit message for 'rush change'  [default: "Generate change files"]
+  --repo-owner             Username or Organization name on github
+  --repo-name              Name of the repository on github
+  --pr-base                Base branch for pull-request      [default: "master"]
+  --pr-title               Pull request title                [default: "Update npm dependencies"]
+  --pr-body                Pull request body                 [default: "This PR was auto-generated with rush-update."]
+  --gh-username            Github username (for authentication)
+  --gh-apikey              Github apikey
+  --no-commit              Doesn't commit changes
+  --no-change-file         Doesn't create a change file (rush change)
+  --no-push                Commit changes but don't push to remote
+  --no-pr                  Commit and push to remote but don't create a pull request
 
 # example with rush script
 node common/scripts/install-run.js rush-update@latest -x @types/node --repo-owner binaris --repo-name shiftjs --gh-apikey 1234qweasd --gh-username shift-circleci

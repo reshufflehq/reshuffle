@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { parse } from 'jju';
 import once from 'lodash.once';
+import { execSync } from 'child_process';
 
 interface RushConfig {
   rushVersion: string;
@@ -22,10 +23,16 @@ export const getProjectFolders = once(() => getRushConfig()
   .then(({projects}) => projects.map((p) => p.projectFolder))
 );
 
-export async function updateRushShrinkwrapFile() {
+export async function updateRushShrinkwrapFile(): Promise<void> {
   const { installAndRun } = await importInstallRunScript();
   const statusCode = installAndRun('@microsoft/rush', await getRushVersion(), 'rush', ['update', '--full']);
   if (statusCode !== 0) {
     throw new Error(`'rush update' exited with code ${statusCode}`);
   }
+}
+
+export function generateRushChangeFiles(): void {
+  execSync('yes "" | rush change', {
+    stdio: 'inherit',
+  });
 }

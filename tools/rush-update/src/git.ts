@@ -11,11 +11,15 @@ function runGit(...args: string[]): void {
   }
 }
 
-export function commitCurrentChangesToBranch(branchName: string, commitMessage: string) {
+export function switchToNewBranch(branchName: string): void {
   runGit('checkout', '-b', branchName);
-  runGit('commit', '-a', '-m', commitMessage);
 }
 
-export function pushToRemoteBranch(remoteBranch: string) {
+export function commitChanges(commitMessage: string): void {
+  runGit('add', '--all');
+  runGit('commit', '-m', commitMessage);
+}
+
+export function pushToRemoteBranch(remoteBranch: string): void {
   runGit('push', '--set-upstream', 'origin', remoteBranch);
 }
