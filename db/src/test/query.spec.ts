@@ -43,6 +43,26 @@ test('typedValue proxy builds a complex nested filter on document value', (t) =>
     { path: ['value', 'z', '0', 'x', '5'], operator: 'eq', value: true });
 });
 
+test('typedValue proxy supports optional fields', (t) => {
+  t.deepEqual(
+    typedValue<{ z?: number }>().z.exists().toJSON(),
+    { path: ['value', 'z'], operator: 'exists', value: undefined });
+
+  t.deepEqual(
+    typedValue<{ z?: number }>().z.eq(3).toJSON(),
+    { path: ['value', 'z'], operator: 'eq', value: 3 });
+});
+
+test('typedValue proxy supports optional array values', (t) => {
+  t.deepEqual(
+    typedValue<Array<number | undefined>>()[0].exists().toJSON(),
+    { path: ['value', '0'], operator: 'exists', value: undefined });
+
+  t.deepEqual(
+    typedValue<Array<number | undefined>>()[0].eq(3).toJSON(),
+    { path: ['value', '0'], operator: 'eq', value: 3 });
+});
+
 test('ne builds a gt filter', (t) => {
   t.deepEqual(
     typedValue<boolean>().ne(false).toJSON(),
@@ -71,4 +91,14 @@ test('lte builds an lte filter', (t) => {
   t.deepEqual(
     typedValue<string>().lte('abc').toJSON(),
     { path: ['value'], operator: 'lte', value: 'abc' });
+});
+
+test('exists is available on non optional fields', (t) => {
+  const val = typedValue<{ x: { y: string } }>();
+  t.deepEqual(
+    val.x.exists().toJSON(),
+    { path: ['value', 'x'], operator: 'exists', value: undefined });
+  t.deepEqual(
+    val.x.y.exists().toJSON(),
+    { path: ['value', 'x', 'y'], operator: 'exists', value: undefined });
 });
