@@ -11,6 +11,10 @@ export type Primitive = string | number | boolean | Date | null;
 export interface SerializableArray extends Array<SerializableArray | SerializableObject | Primitive | undefined> {}
 export interface SerializableObject { [key: string]: SerializableArray | SerializableObject | Primitive | undefined; }
 export type Serializable = Primitive | SerializableArray | SerializableObject;
+export interface Document {
+  key: string;
+  value: Serializable;
+};
 
 function checkValue(value: Serializable) {
   if (typeof value === 'undefined') {
@@ -98,8 +102,8 @@ export class DB {
    * @param query - a query constructed with Q methods.
    * @return - an array of documents
    **/
-  public async find(query: Q.Query): Promise<Array<{ key: string; value: object }>> {
-    const results: Array<{ key: string; value: object }> = [];
+  public async find(query: Q.Query): Promise<Array<Document>> {
+    const results: Array<Document> = [];
     await new Promise((resolve, reject) => {
       const it = this.db.iterator({
         keyAsBuffer: false,
@@ -138,7 +142,7 @@ export function buildComparator(orderBy: [string[], 'ASC' | 'DESC'][] = []) {
   });
 }
 
-export function match(doc: { key: string; value: object }, filter: Q.Filter): boolean {
+export function match(doc: Document, filter: Q.Filter): boolean {
   switch (filter.operator) {
     case 'and':
       return (filter.value as Q.Filter[]).every((f) => match(doc, f));
