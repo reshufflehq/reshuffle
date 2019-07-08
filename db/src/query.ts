@@ -61,6 +61,23 @@ class Path {
   exists(): Filter {
     return new Filter(this.parts, 'exists');
   }
+
+  matches(pattern: string, caseInsensitive?: boolean): Filter;
+
+  matches(pattern: RegExp): Filter;
+
+  matches(pattern: RegExp | string, caseInsensitive: boolean = false): Filter {
+    if (typeof pattern === 'string') {
+      return new Filter(this.parts, 'matches', { pattern, caseInsensitive });
+    } else if (pattern instanceof RegExp) {
+      return new Filter(this.parts, 'matches', { pattern: pattern.source, caseInsensitive: pattern.flags.includes('i') });
+    }
+    throw new TypeError('Expected pattern to be a RegExp or string');
+  }
+
+  startsWith(prefix: string): Filter {
+    return new Filter(this.parts, 'startsWith', prefix);
+  }
 }
 
 type PathProxy = Path & Record<Key, Path>;
@@ -77,10 +94,16 @@ interface ComparablePath<T extends Comparable> extends EquatablePath<T> {
   lte(x: T): Filter;
 }
 
-type BooleanPath = EquatablePath<boolean>;
-type StringPath = ComparablePath<string>;
+interface StringPath extends ComparablePath<string> {
+  matches(pattern: string, caseInsensitive?: boolean): Filter;
+  matches(pattern: RegExp): Filter;
+  startsWith(prefix: string): Filter;
+}
+
 type NumberPath = ComparablePath<number>;
 type DatePath = ComparablePath<Date>;
+
+type BooleanPath = EquatablePath<boolean>;
 
 interface MaybePath {
   exists(): Filter;
