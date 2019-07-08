@@ -1,8 +1,11 @@
 version: 2.1
+aliases:
+  &docker
+    docker:
+      - image: circleci/node:10
 jobs:
   build_and_test:
-    docker:
-      - image: circleci/node:10-browsers
+    <<: *docker
     steps:
       - checkout
       - restore_cache:
@@ -25,8 +28,7 @@ jobs:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
   verify_change_logs:
-    docker:
-      - image: circleci/node:10
+    <<: *docker
     steps:
       - checkout
       - run:
@@ -36,8 +38,7 @@ jobs:
             node common/scripts/install-run-rush.js change --verify
 
   update_npm_dependencies:
-    docker:
-      - image: circleci/node:10
+    <<: *docker
     steps:
       - checkout
       - run:
