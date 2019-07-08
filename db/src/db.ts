@@ -8,7 +8,7 @@ export class ValueError extends Error {
 
 export type Primitive = string | number | boolean | Date | null;
 export interface SerializableArray extends Array<SerializableArray | SerializableObject | Primitive | undefined> {}
-export interface SerializableObject { [key: string]: SerializableArray | SerializableObject | Primitive | undefined }
+export interface SerializableObject { [key: string]: SerializableArray | SerializableObject | Primitive | undefined; }
 export type Serializable = Primitive | SerializableArray | SerializableObject;
 
 function checkValue(value: Serializable) {
