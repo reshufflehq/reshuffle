@@ -1,10 +1,13 @@
 version: 2.1
 aliases:
-  &docker
+  - &docker
     docker:
       - image: circleci/node:10
+  - &attach_workspace
+    - attach_workspace:
+        at: .
 jobs:
-  build_and_test:
+  build:
     <<: *docker
     steps:
       - checkout
@@ -21,9 +24,26 @@ jobs:
       - run:
           name: Build source
           command: node common/scripts/install-run-rush.js rebuild --verbose
+      - persist_to_workspace:
+          root: .
+          paths:
+            - '*/dist'
+            - '*/node_modules'
+            - common/temp
+
+  lint:
+    <<: *docker
+    steps:
+      - checkout
+      - <<: *attach_workspace
       - run:
           name: Run lint
           command: node common/scripts/install-run-rush.js lint
+  test:
+    <<: *docker
+    steps:
+      - checkout
+      - <<: *attach_workspace
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
@@ -36,7 +56,6 @@ jobs:
           command: |
             git fetch origin master:refs/remotes/origin/master -a
             node common/scripts/install-run-rush.js change --verify
-
   update_npm_dependencies:
     <<: *docker
     steps:
@@ -53,7 +72,13 @@ workflows:
   version: 2
   commit:
     jobs:
-      - build_and_test
+      - build
+      - lint:
+          requires:
+            - build
+      - test:
+          requires:
+            - build
       - verify_change_logs
   nightly:
     triggers:
