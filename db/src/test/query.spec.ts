@@ -1,6 +1,6 @@
 import test from 'ava';
 import { IllegalArgumentError } from '../errors';
-import { key, all, any, not, value, typedValue } from '../query';
+import { key, all, any, not, value, typedValue, filter, ASC, DESC } from '../query';
 
 function stringifyParse(value: any) {
   return JSON.parse(JSON.stringify(value));
@@ -180,4 +180,91 @@ test('not builds a valid filter', (t) => {
 
 test('not throws a TypeError if not given a filter', (t) => {
   t.throws(() => not('a' as any), TypeError);
+});
+
+test('filter builds a new query', (t) => {
+  t.deepEqual(stringifyParse(filter(key.startsWith('/games/'))), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+  });
+});
+
+test('filter throws if not given a Filter', (t) => {
+  t.throws(() => filter('abc' as any), TypeError);
+});
+
+test('Query.filter combines filters with logical AND', (t) => {
+  t.deepEqual(stringifyParse(filter(key.startsWith('/games/')).filter(value.eq(7))), {
+    _filter: {
+      operator: 'and',
+      value: [
+        { path: ['key'], operator: 'startsWith', value: '/games/' },
+        { path: ['value'], operator: 'eq', value: 7 },
+      ],
+    },
+  });
+});
+
+test('Query.filter throws if not given a Filter', (t) => {
+  const q = filter(key.eq('abc'));
+  t.throws(() => q.filter('abc' as any), TypeError);
+});
+
+const baseQ = filter(key.startsWith('/games/'));
+const limitQ = baseQ.limit(7);
+
+test('Query.limit sets a limit', (t) => {
+  t.deepEqual(stringifyParse(limitQ), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _limit: 7,
+  });
+});
+
+test('Query.limit overrides if current limit > new limit l', (t) => {
+  t.deepEqual(stringifyParse(limitQ.limit(6)), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _limit: 6,
+  });
+});
+
+test('Query.limit does nothing if current limit = new limit', (t) => {
+  t.deepEqual(stringifyParse(limitQ.limit(7)), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _limit: 7,
+  });
+});
+
+test('Query.limit throws an IllegalArgumentError if increasing current limit', (t) => {
+  t.throws(() => limitQ.limit(8), IllegalArgumentError);
+});
+
+test('Query.skip sets skip', (t) => {
+  t.deepEqual(stringifyParse(baseQ.skip(3)), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _skip: 3,
+  });
+});
+
+test('Query.orderBy sets order', (t) => {
+  t.deepEqual(stringifyParse(baseQ.orderBy(value.x)), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _order: [[['value', 'x'], ASC]],
+  });
+});
+
+test('Query.orderBy sets DESC order', (t) => {
+  t.deepEqual(stringifyParse(baseQ.orderBy(value.x, DESC)), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _order: [[['value', 'x'], DESC]],
+  });
+});
+
+test('Query.orderBy sets secondary order', (t) => {
+  t.deepEqual(stringifyParse(baseQ.orderBy(value.x).orderBy(key)), {
+    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    _order: [[['value', 'x'], ASC], [['key'], ASC]],
+  });
+});
+
+test('Query.orderBy throws an IllegalArgumentError when ordering by same path twice', (t) => {
+  t.throws(() => baseQ.orderBy(value.x).orderBy(value.x), IllegalArgumentError);
 });
