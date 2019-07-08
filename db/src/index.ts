@@ -1,6 +1,6 @@
-import { DB, Q, Serializable } from './db';
+import { DB, Q, Serializable, Document } from './db';
 
-export { Serializable, Q };
+export { Serializable, Q, Document };
 export { ValueError } from './errors';
 
 const dbPath = process.env.SHIFT_DB_PATH;
@@ -53,6 +53,6 @@ export async function update<T extends Serializable, R extends Serializable>(
  * @param query - a query constructed with Q methods.
  * @return - an array of documents
  **/
-export async function find(query: Q.Query): Promise<Array<{ key: string; value: object }>> {
+export async function find(query: Q.Query): Promise<Array<Document>> {
   return await db.find(query);
 }
