@@ -2,8 +2,8 @@ import test from 'ava';
 import { IllegalArgumentError } from '../errors';
 import { key, all, any, not, value, typedValue, filter, ASC, DESC } from '../query';
 
-function stringifyParse(value: any) {
-  return JSON.parse(JSON.stringify(value));
+function stringifyParse(v: any) {
+  return JSON.parse(JSON.stringify(v));
 }
 
 test('key builds a filter on document key', (t) => {
@@ -39,7 +39,9 @@ test('typedValue proxy builds a nested filter on document value', (t) => {
 });
 
 test('typedValue proxy builds an array filter on document value', (t) => {
-  t.deepEqual(stringifyParse(typedValue<string[]>()[0].eq('abc')), { path: ['value', '0'], operator: 'eq', value: 'abc' });
+  t.deepEqual(
+    stringifyParse(typedValue<string[]>()[0].eq('abc')),
+    { path: ['value', '0'], operator: 'eq', value: 'abc' });
 });
 
 test('typedValue proxy builds a complex nested filter on document value', (t) => {

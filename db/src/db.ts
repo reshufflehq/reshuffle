@@ -14,7 +14,7 @@ export type Serializable = Primitive | SerializableArray | SerializableObject;
 export interface Document {
   key: string;
   value: Serializable;
-};
+}
 
 function checkValue(value: Serializable) {
   if (typeof value === 'undefined') {
@@ -101,9 +101,9 @@ export class DB {
    * Find documents matching query.
    * @param query - a query constructed with Q methods.
    * @return - an array of documents
-   **/
-  public async find(query: Q.Query): Promise<Array<Document>> {
-    const results: Array<Document> = [];
+   */
+  public async find(query: Q.Query): Promise<Document[]> {
+    const results: Document[] = [];
     await new Promise((resolve, reject) => {
       const it = this.db.iterator({
         keyAsBuffer: false,
@@ -134,7 +134,7 @@ export class DB {
   }
 }
 
-export function buildComparator(orderBy: [string[], 'ASC' | 'DESC'][] = []) {
+export function buildComparator(orderBy: Array<[string[], 'ASC' | 'DESC']> = []) {
   return (a: any, b: any) => orderBy.every(([p, direction]) => {
     const vA = path(p, a) as any;
     const vB = path(p, b) as any;
@@ -165,7 +165,8 @@ export function match(doc: Document, filter: Q.Filter): boolean {
     case 'exists':
       return path(filter.path!, doc) !== undefined;
     case 'matches':
-      return new RegExp(filter.value.pattern, filter.value.caseInsensitive ? 'i' : undefined).test(path(filter.path!, doc) as string);
+      const regexp = new RegExp(filter.value.pattern, filter.value.caseInsensitive ? 'i' : undefined);
+      return regexp.test(path(filter.path!, doc) as string);
     case 'startsWith':
       return (path(filter.path!, doc) as string).startsWith(filter.value);
     default:
