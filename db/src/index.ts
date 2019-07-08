@@ -52,7 +52,7 @@ export async function update<T extends Serializable, R extends Serializable>(
  * Find documents matching query.
  * @param query - a query constructed with Q methods.
  * @return - an array of documents
- **/
-export async function find(query: Q.Query): Promise<Array<Document>> {
+ */
+export async function find(query: Q.Query): Promise<Document[]> {
   return await db.find(query);
 }
