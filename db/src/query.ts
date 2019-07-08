@@ -1,3 +1,4 @@
+import { equals } from 'ramda';
 import { IllegalArgumentError } from './errors';
 
 type Key = string | number;
@@ -150,4 +151,46 @@ export function any(...filters: NonEmptyArray<Filter>): Filter {
 export function not(filter: Filter): Filter {
   checkFilters(filter);
   return new Filter(undefined, 'not', filter);
+}
+
+export const ASC: 'ASC' = 'ASC';
+export const DESC: 'DESC' = 'DESC';
+
+export class Query {
+  constructor(
+    protected readonly _filter?: Filter,
+    protected readonly _limit?: number,
+    protected readonly _skip?: number,
+    protected readonly _order?: [Path, 'ASC' | 'DESC'][],
+  ) {}
+
+  filter(f: Filter): Query {
+    return new Query(typeof this._filter === 'undefined' ? f : all(this._filter, f), this._limit, this._skip, this._order);
+  }
+
+  limit(l: number): Query {
+    if (this._limit !== undefined && l > this._limit) {
+      throw new IllegalArgumentError(`Given limit (${l}) is greater than current limit (${this._limit})`);
+    }
+    return new Query(this._filter, l, this._skip, this._order);
+  }
+
+  skip(s: number): Query {
+    return new Query(this._filter, this._limit, s, this._order);
+  }
+
+  orderBy(path: Path | Doc<any>, order: ('ASC' | 'DESC') = ASC): Query {
+    const { parts } = (path as any);
+    for (const [path] of (this._order || [])) {
+      if (equals(path, parts)) {
+        throw new IllegalArgumentError(`Query already ordered by path: ${path}`);
+      }
+    }
+    return new Query(this._filter, this._limit, this._skip, [...(this._order || []), [parts, order]]);
+  }
+}
+
+export function filter(f: Filter): Query {
+  checkFilters(f);
+  return new Query(f);
 }

@@ -23,6 +23,7 @@ dependencies:
   '@types/lodash.once': 4.1.6
   '@types/mkdirp': 0.5.2
   '@types/nanoid': 2.0.0
+  '@types/ramda': 0.26.15
   '@types/rimraf': 2.0.2
   '@types/rmfr': 2.0.0
   '@types/yargs': 13.0.0
@@ -46,6 +47,7 @@ dependencies:
   nanoid: 2.0.3
   nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
   npm-check-updates: 3.1.17
+  ramda: 0.26.1
   rimraf: 2.6.3
   rmfr: 2.0.0
   tslint: 5.18.0
@@ -810,6 +812,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-rp7La3m845mSESCgsJePNL/JQyhkOJA6G4vcwvVgkDAwHhGdq5GCumxmPjEk1MZf+8p5ZQAUE7tqgQRQTXN7uQ==
+  /@types/ramda/0.26.15:
+    dev: false
+    resolution:
+      integrity: sha512-kmIO8GVOLv0A8UxFr5lJaqp4g8jbXNhH0grBaPL6NgkOqSirRKpV9+5DTmIDXTyq2G18YMdxDhnScEZtY4brtQ==
   /@types/range-parser/1.2.3:
     dev: false
     resolution:
@@ -5962,6 +5968,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
+  /ramda/0.26.1:
+    dev: false
+    resolution:
+      integrity: sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
   /range-parser/1.2.1:
     dev: false
     engines:
@@ -7719,7 +7729,7 @@ packages:
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.1.17
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
       yargs: 13.2.4
     dev: false
@@ -7738,7 +7748,7 @@ packages:
       babel-plugin-tester: 6.4.0
       jest: 24.8.0
       jest-standard-reporter: 1.0.1
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-babel-macro'
@@ -7751,23 +7761,25 @@ packages:
       '@types/leveldown': 4.0.0
       '@types/levelup': 3.1.1
       '@types/node': 10.14.12
+      '@types/ramda': 0.26.15
       '@types/rmfr': 2.0.0
       async-mutex: 0.1.3
       ava: 2.1.0
       leveldown: 5.1.1
       levelup: 4.1.0
+      ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-fjBaijxX6FnozPCj0RYrIthnCqGPHtkCBOTgC6ciXiecu4ONGF3HaP9SBKsGmloxUCUtvkWXKMjoVRHgXIybcA==
+      integrity: sha512-ziPhJlE6/wKIwSFlydwjraubLHg2QE7aoPXSqAEMw3Yy64sOafF6O4iD6w17gKZk4cvxvaC7CQrxWTPDtWFwtA==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
     dependencies:
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
@@ -7861,6 +7873,7 @@ specifiers:
   '@types/lodash.once': ^4.1.6
   '@types/mkdirp': ^0.5.2
   '@types/nanoid': ^2.0.0
+  '@types/ramda': ^0.26.15
   '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
   '@types/yargs': ^13.0.0
@@ -7884,6 +7897,7 @@ specifiers:
   nanoid: ^2.0.3
   nodemon: 'git+http://github.com/binaris/nodemon'
   npm-check-updates: ^3.1.17
+  ramda: ^0.26.1
   rimraf: ^2.6.3
   rmfr: ^2.0.0
   tslint: ^5.18.0
