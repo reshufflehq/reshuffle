@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
-import main, { DEFAULT_BRANCH, DEFAULT_COMMIT_MESSAGE, DEFAULT_PR_TITLE, DEFAULT_PR_BODY } from './main';
+import main, {
+  DEFAULT_BRANCH,
+  DEFAULT_COMMIT_MESSAGE,
+  DEFAULT_PR_TITLE,
+  DEFAULT_PR_BODY,
+  DEFAULT_CHANGE_COMMIT_MESSAGE
+} from './main';
 
 const { argv } = yargs
   .usage('$0 [options]')
@@ -22,6 +28,11 @@ const { argv } = yargs
     describe: 'Commit message',
     type: 'string',
     default: DEFAULT_COMMIT_MESSAGE,
+  })
+  .option('change-commit-message', {
+    describe: 'Commit message for generate rush change files',
+    type: 'string',
+    default: DEFAULT_CHANGE_COMMIT_MESSAGE,
   })
   .option('repo-owner', {
     describe: 'Username or Organization name on github',
@@ -59,6 +70,11 @@ const { argv } = yargs
     type: 'boolean',
     default: true,
   })
+  .option('change-file', {
+    hidden: true,
+    type: 'boolean',
+    default: true,
+  })
   .option('push', {
     hidden: true,
     type: 'boolean',
@@ -74,6 +90,7 @@ const {
   'ignore-packages': reject,
   branch,
   'commit-message': commitMessage,
+  'change-commit-message': changeCommitMessage,
   'gh-username': ghUsername,
   'gh-apikey': ghApikey,
   'repo-owner': repoOwner,
@@ -82,6 +99,7 @@ const {
   'pr-title': prTitle,
   'pr-body': prBody,
   commit,
+  'change-file': changeFile,
   push,
   pr,
 } = argv;
@@ -89,8 +107,10 @@ const {
 main({
   ncuParams: { reject },
   noCommit: !commit,
+  noChangeFile: !changeFile,
   branch,
   commitMessage,
+  changeCommitMessage,
   noPush: !push,
   noPr: !pr,
   ghUsername: ghUsername || process.env.GITHUB_USERNAME,
