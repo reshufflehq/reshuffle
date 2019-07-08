@@ -1,7 +1,11 @@
+import { path, comparator } from 'ramda';
 import LevelUpCtor, { LevelUp } from 'levelup';
 import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
 import { ValueError } from './errors';
+import * as Q from './query';
+
+export { Q };
 
 export type Primitive = string | number | boolean | Date | null;
 export interface SerializableArray extends Array<SerializableArray | SerializableObject | Primitive | undefined> {}
@@ -87,5 +91,80 @@ export class DB {
       await this.db.put(key, JSON.stringify(next));
       return next;
     });
+  }
+
+  /**
+   * Find documents matching query.
+   * @param query - a query constructed with Q methods.
+   * @return - an array of documents
+   **/
+  public async find(query: Q.Query): Promise<Array<{ key: string; value: object }>> {
+    const results: Array<{ key: string; value: object }> = [];
+    await new Promise((resolve, reject) => {
+      const it = this.db.iterator({
+        keyAsBuffer: false,
+        valueAsBuffer: false,
+      });
+      const next = (err: any, key: string, rawValue: string) => {
+        if (err) {
+          return reject(err);
+        }
+        if (!key) {
+          // Iteration complete
+          return it.end(resolve);
+        }
+        const value = JSON.parse(rawValue);
+        if (!match({ key, value }, query.getFilter())) {
+          return it.next(next);
+        }
+        results.push({ key, value });
+        const limit = query.getLimit();
+        if (limit !== undefined && results.length >= (query.getSkip() || 0) + limit) {
+          return it.end(resolve);
+        }
+        return it.next(next);
+      };
+      it.next(next);
+    });
+    return results.sort(comparator(buildComparator(query.getOrderBy()))).slice(query.getSkip());
+  }
+}
+
+export function buildComparator(orderBy: [string[], 'ASC' | 'DESC'][] = []) {
+  return (a: any, b: any) => orderBy.every(([p, direction]) => {
+    const vA = path(p, a) as any;
+    const vB = path(p, b) as any;
+    return direction === 'ASC' ? vA <= vB : vA >= vB;
+  });
+}
+
+export function match(doc: { key: string; value: object }, filter: Q.Filter): boolean {
+  switch (filter.operator) {
+    case 'and':
+      return (filter.value as Q.Filter[]).every((f) => match(doc, f));
+    case 'or':
+      return (filter.value as Q.Filter[]).some((f) => match(doc, f));
+    case 'not':
+      return !match(doc, filter.value as Q.Filter);
+    case 'eq':
+      return path(filter.path!, doc) === filter.value;
+    case 'ne':
+      return path(filter.path!, doc) !== filter.value;
+    case 'gt':
+      return path(filter.path!, doc) as any > filter.value;
+    case 'gte':
+      return path(filter.path!, doc) as any >= filter.value;
+    case 'lt':
+      return path(filter.path!, doc) as any < filter.value;
+    case 'lte':
+      return path(filter.path!, doc) as any <= filter.value;
+    case 'exists':
+      return path(filter.path!, doc) !== undefined;
+    case 'matches':
+      return new RegExp(filter.value.pattern, filter.value.caseInsensitive ? 'i' : undefined).test(path(filter.path!, doc) as string);
+    case 'startsWith':
+      return (path(filter.path!, doc) as string).startsWith(filter.value);
+    default:
+      throw new ValueError(`Unknown filter operator: ${filter.operator}`);
   }
 }

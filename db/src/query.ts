@@ -5,11 +5,11 @@ type Key = string | number;
 type Comparable = string | number | Date;
 type Equatable = Comparable | boolean;
 
-class Filter {
+export class Filter {
   constructor(
-    protected readonly path: Key[] | undefined,
-    protected readonly operator: string,
-    protected readonly value?: any,
+    public readonly path: Key[] | undefined,
+    public readonly operator: string,
+    public readonly value?: any,
   ) {}
 }
 
@@ -157,18 +157,21 @@ export const ASC: 'ASC' = 'ASC';
 export const DESC: 'DESC' = 'DESC';
 
 export class Query {
-  constructor(
-    protected readonly _filter?: Filter,
+  protected constructor(
+    protected readonly _filter: Filter,
     protected readonly _limit?: number,
     protected readonly _skip?: number,
-    protected readonly _order?: [Path, 'ASC' | 'DESC'][],
+    protected readonly _order?: [string[], 'ASC' | 'DESC'][],
   ) {}
 
   filter(f: Filter): Query {
-    return new Query(typeof this._filter === 'undefined' ? f : all(this._filter, f), this._limit, this._skip, this._order);
+    return new Query(all(this._filter, f), this._limit, this._skip, this._order);
   }
 
   limit(l: number): Query {
+    if (l < 1) {
+      throw new IllegalArgumentError(`Given limit (${l}) is less than 1`);
+    }
     if (this._limit !== undefined && l > this._limit) {
       throw new IllegalArgumentError(`Given limit (${l}) is greater than current limit (${this._limit})`);
     }
@@ -188,9 +191,27 @@ export class Query {
     }
     return new Query(this._filter, this._limit, this._skip, [...(this._order || []), [parts, order]]);
   }
+
+  static fromFilter(f: Filter): Query {
+    checkFilters(f);
+    return new this(f);
+  }
+
+  public getFilter(): Filter {
+    return this._filter;
+  }
+
+  public getLimit(): number | undefined {
+    return this._limit;
+  }
+
+  public getSkip(): number | undefined {
+    return this._skip;
+  }
+
+  public getOrderBy(): [string[], 'ASC' | 'DESC'][] | undefined {
+    return this._order;
+  }
 }
 
-export function filter(f: Filter): Query {
-  checkFilters(f);
-  return new Query(f);
-}
+export const filter = Query.fromFilter.bind(Query);
