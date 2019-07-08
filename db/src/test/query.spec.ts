@@ -237,6 +237,10 @@ test('Query.limit throws an IllegalArgumentError if increasing current limit', (
   t.throws(() => limitQ.limit(8), IllegalArgumentError);
 });
 
+test('Query.limit throws an IllegalArgumentError if setting limit to a value less than 1', (t) => {
+  t.throws(() => limitQ.limit(0), IllegalArgumentError);
+});
+
 test('Query.skip sets skip', (t) => {
   t.deepEqual(stringifyParse(baseQ.skip(3)), {
     _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
