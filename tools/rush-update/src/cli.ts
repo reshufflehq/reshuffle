@@ -23,16 +23,6 @@ const { argv } = yargs
     type: 'string',
     default: DEFAULT_COMMIT_MESSAGE,
   })
-  .option('commit', {
-    hidden: true,
-    type: 'boolean',
-    default: true,
-  })
-  .option('push', {
-    hidden: true,
-    type: 'boolean',
-    default: true,
-  })
   .option('repo-owner', {
     describe: 'Username or Organization name on github',
     type: 'string',
