@@ -134,11 +134,11 @@ export class DB {
   }
 }
 
-export function buildComparator(orderBy: Array<[string[], 'ASC' | 'DESC']> = []) {
+export function buildComparator(orderBy: Q.Order[] = []) {
   return (a: any, b: any) => orderBy.every(([p, direction]) => {
     const vA = path(p, a) as any;
     const vB = path(p, b) as any;
-    return direction === 'ASC' ? vA <= vB : vA >= vB;
+    return direction === Q.ASC ? vA <= vB : vA >= vB;
   });
 }
 
