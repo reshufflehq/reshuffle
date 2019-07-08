@@ -5,11 +5,6 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - checkout
-      - run:
-          name: Check for missing change logs
-          command: |
-            git fetch origin master:refs/remotes/origin/master -a
-            node common/scripts/install-run-rush.js change --verify
       - restore_cache:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
       - run:
@@ -29,6 +24,17 @@ jobs:
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
+  verify_change_logs:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run:
+          name: Check for missing change logs
+          command: |
+            git fetch origin master:refs/remotes/origin/master -a
+            node common/scripts/install-run-rush.js change --verify
+
   update_npm_dependencies:
     docker:
       - image: circleci/node:10
@@ -44,9 +50,10 @@ jobs:
           command: node common/scripts/install-run.js rush-update@latest rush-update -x @types/node --repo-owner binaris --repo-name shiftjs
 workflows:
   version: 2
-  build_and_test:
+  commit:
     jobs:
       - build_and_test
+      - verify_change_logs
   nightly:
     triggers:
        - schedule:
