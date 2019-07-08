@@ -6,7 +6,7 @@ class Filter {
   constructor(
     protected readonly path: Key[],
     protected readonly operator: string,
-    protected readonly value: any,
+    protected readonly value?: any,
   ) {}
 
   toJSON() {
@@ -57,6 +57,10 @@ class Path {
   lte(x: Comparable): Filter {
     return new Filter(this.parts, 'lte', x);
   }
+
+  exists(): Filter {
+    return new Filter(this.parts, 'exists');
+  }
 }
 
 type PathProxy = Path & Record<Key, Path>;
@@ -78,16 +82,20 @@ type StringPath = ComparablePath<string>;
 type NumberPath = ComparablePath<number>;
 type DatePath = ComparablePath<Date>;
 
-type Doc<T> = T extends Record<string, any> ? {
+interface MaybePath {
+  exists(): Filter;
+}
+
+type Doc<T> = T extends Record<string, unknown> ? Required<{
   // technically type should have field(P) => Doc<T[P]> but that's not supported in typescript
-  [P in keyof T]: Doc<T[P]>;
-} : T extends (infer U)[] ? { [idx: number]: Doc<U> }
-  : T extends string ? StringPath
+  [P in keyof T]: Doc<T[P]> & MaybePath;
+}>
+  : T extends (infer U)[] ? { [idx: number]: Doc<U> & MaybePath }
   : T extends number ? NumberPath
+  : T extends string ? StringPath
   : T extends boolean ? BooleanPath
   : T extends Date ? DatePath
   : never;
-
 
 export function typedValue<T>() {
   return Path.proxied(['value']) as unknown as Doc<T>;
