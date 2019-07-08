@@ -1,18 +1,15 @@
+import { IllegalArgumentError } from './errors';
+
 type Key = string | number;
 type Comparable = string | number | Date;
 type Equatable = Comparable | boolean;
 
 class Filter {
   constructor(
-    protected readonly path: Key[],
+    protected readonly path: Key[] | undefined,
     protected readonly operator: string,
     protected readonly value?: any,
   ) {}
-
-  toJSON() {
-    const { path, operator, value } = this;
-    return { path, operator, value };
-  }
 }
 
 const proxyHandler = {
@@ -126,6 +123,31 @@ export function typedValue<T>() {
 
 export const key = Path.proxied(['key']) as unknown as Doc<string>;
 export const value = Path.proxied(['value']);
-//
-// export function all() {
-// }
+
+type NonEmptyArray<T> = [T, ...T[]];
+
+function checkFilters(...filters: any[]) {
+  if (filters.length === 0) {
+    throw new IllegalArgumentError('Expected at least 1 filter');
+  }
+  for (const f of filters) {
+    if (!(f instanceof Filter)) {
+      throw new TypeError('Given filter is not an instance of Filter');
+    }
+  }
+}
+
+export function all(...filters: NonEmptyArray<Filter>): Filter {
+  checkFilters(...filters);
+  return new Filter(undefined, 'and', filters);
+}
+
+export function any(...filters: NonEmptyArray<Filter>): Filter {
+  checkFilters(...filters);
+  return new Filter(undefined, 'or', filters);
+}
+
+export function not(filter: Filter): Filter {
+  checkFilters(filter);
+  return new Filter(undefined, 'not', filter);
+}
