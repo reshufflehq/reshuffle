@@ -49,6 +49,10 @@ interface ExistsFilter extends PathFilter {
   readonly operator: 'exists';
 }
 
+interface IsNullFilter extends PathFilter {
+  readonly operator: 'isNull';
+}
+
 interface MatchesFilter extends PathFilter {
   readonly operator: 'matches';
   readonly pattern: string;
@@ -77,7 +81,8 @@ interface NotFilter extends BaseFilter {
 
 export type Filter = EqFilter | NeFilter
   | GtFilter | GteFilter | LtFilter | LteFilter
-  | ExistsFilter | MatchesFilter | StartsWithFilter
+  | ExistsFilter | IsNullFilter
+  | MatchesFilter | StartsWithFilter
   | AndFilter | OrFilter | NotFilter;
 
 const proxyHandler = {
@@ -97,6 +102,10 @@ class Path {
   public field(k: Key): PathProxy {
     // When using proxy, paths will be converted to string, field() replicates this behavior
     return Path.proxied([...this.parts, k.toString()]);
+  }
+
+  public typedField<T>(k: Key): Doc<T> {
+    return this.field(k) as any;
   }
 
   public eq(x: Equatable): EqFilter {
@@ -161,6 +170,14 @@ class Path {
     };
   }
 
+  public isNull(): IsNullFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'isNull',
+      path: this.parts,
+    };
+  }
+
   public matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
 
   public matches(pattern: RegExp): MatchesFilter;
@@ -194,11 +211,49 @@ class Path {
       value: prefix,
     };
   }
+
+  public asString(): StringPath {
+    return this;
+  }
+
+  public asNumber(): NumberPath {
+    return this;
+  }
+
+  public asDate(): DatePath {
+    return this;
+  }
+
+  public asBoolean(): BooleanPath {
+    return this;
+  }
+
+  public asObject<T>(): Doc<T> {
+    return Path.proxied(this.parts) as any;
+  }
+
+  public asArray<T extends Array<any>>(): Doc<T> {
+    return Path.proxied(this.parts) as any;
+  }
+
+  public asNull(): NullPath {
+    return this;
+  }
 }
 
 type PathProxy = Path & Record<Key, Path>;
 
-interface EquatablePath<T extends Equatable> {
+interface CastablePath {
+  asString(): StringPath;
+  asNumber(): NumberPath;
+  asDate(): DatePath;
+  asBoolean(): BooleanPath;
+  asObject<T>(): Doc<T>;
+  asArray<T extends Array<any>>(): Doc<T>;
+  asNull(): NullPath;
+}
+
+interface EquatablePath<T extends Equatable> extends CastablePath {
   eq(x: T): EqFilter;
   ne(x: T): NeFilter;
 }
@@ -221,7 +276,11 @@ type DatePath = ComparablePath<Date>;
 
 type BooleanPath = EquatablePath<boolean>;
 
-interface MaybePath {
+interface NullPath extends CastablePath {
+  isNull(): IsNullFilter;
+}
+
+interface MaybePath extends CastablePath {
   exists(): Filter;
 }
 
@@ -230,6 +289,7 @@ type Doc<T> = T extends Record<string, unknown> ? Required<{
   [P in keyof T]: Doc<T[P]> & MaybePath;
 }>
   : T extends Array<infer U> ? { [idx: number]: Doc<U> & MaybePath }
+  : T extends null ? NullPath
   : T extends number ? NumberPath
   : T extends string ? StringPath
   : T extends boolean ? BooleanPath

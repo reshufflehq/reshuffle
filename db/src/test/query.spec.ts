@@ -30,6 +30,12 @@ test('value proxy builds a nested filter on document value', (t) => {
   t.deepEqual(stringifyParse(value.x.eq('abc')), { path: ['value', 'x'], operator: 'eq', value: 'abc' });
 });
 
+test('typedField builds a filter on document value', (t) => {
+  t.deepEqual(
+    stringifyParse(value.typedField<string>('a').eq('abc')),
+    { path: ['value', 'a'], operator: 'eq', value: 'abc' });
+});
+
 test('typedValue builds a filter on document value', (t) => {
   t.deepEqual(stringifyParse(typedValue<string>().eq('abc')), { path: ['value'], operator: 'eq', value: 'abc' });
 });
@@ -68,6 +74,20 @@ test('typedValue proxy supports optional array values', (t) => {
   t.deepEqual(
     stringifyParse(typedValue<Array<number | undefined>>()[0].eq(3)),
     { path: ['value', '0'], operator: 'eq', value: 3 });
+});
+
+test('typedValue supports null', (t) => {
+  t.deepEqual(
+    stringifyParse(typedValue<{ z: null }>().z.isNull()),
+    { path: ['value', 'z'], operator: 'isNull' });
+
+  t.deepEqual(
+    stringifyParse(typedValue<{ z: number | null }>().z.asNull().isNull()),
+    { path: ['value', 'z'], operator: 'isNull' });
+
+  t.deepEqual(
+    stringifyParse(typedValue<{ z: number | null }>().z.asNumber().eq(3)),
+    { path: ['value', 'z'], operator: 'eq', value: 3 });
 });
 
 test('ne builds a gt filter', (t) => {
