@@ -11,7 +11,6 @@ export const DEFAULT_PR_TITLE = 'Update npm dependencies';
 export const DEFAULT_PR_BODY = 'This PR was auto-generated with rush-update.';
 export const DEFAULT_PR_BASE_BRANCH = 'master';
 
-
 export default async function main({
   ncuParams,
   noCommit,
