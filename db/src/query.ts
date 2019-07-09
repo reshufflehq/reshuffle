@@ -232,7 +232,7 @@ class Path {
     return Path.proxied(this.parts) as any;
   }
 
-  public asArray<T extends Array<any>>(): Doc<T> {
+  public asArray<T extends any[]>(): Doc<T> {
     return Path.proxied(this.parts) as any;
   }
 
@@ -249,7 +249,7 @@ interface CastablePath {
   asDate(): DatePath;
   asBoolean(): BooleanPath;
   asObject<T>(): Doc<T>;
-  asArray<T extends Array<any>>(): Doc<T>;
+  asArray<T extends any[]>(): Doc<T>;
   asNull(): NullPath;
 }
 
