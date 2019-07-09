@@ -1,6 +1,13 @@
 # Change Log - rush-update
 
-This log was last generated on Tue, 09 Jul 2019 07:53:17 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Jul 2019 08:43:43 GMT and should not be manually modified.
+
+## 1.2.1
+Tue, 09 Jul 2019 08:43:43 GMT
+
+### Patches
+
+- Fix bug in rush-update
 
 ## 1.2.0
 Tue, 09 Jul 2019 07:53:17 GMT
