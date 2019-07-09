@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Tue, 09 Jul 2019 07:26:14 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Jul 2019 13:02:12 GMT and should not be manually modified.
+
+## 0.0.4
+Tue, 09 Jul 2019 13:02:12 GMT
+
+### Patches
+
+- Downgrade AVA dependency
 
 ## 0.0.3
 Tue, 09 Jul 2019 07:26:14 GMT

@@ -2,6 +2,18 @@
   "name": "@binaris/shift-db",
   "entries": [
     {
+      "version": "0.1.1",
+      "tag": "@binaris/shift-db_v0.1.1",
+      "date": "Tue, 09 Jul 2019 13:02:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Downgrade AVA dependency"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.0",
       "tag": "@binaris/shift-db_v0.1.0",
       "date": "Tue, 09 Jul 2019 07:46:16 GMT",

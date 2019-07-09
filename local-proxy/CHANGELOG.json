@@ -2,6 +2,18 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.4",
+      "tag": "@binaris/shift-local-proxy_v0.0.4",
+      "date": "Tue, 09 Jul 2019 13:02:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Downgrade AVA dependency"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.3",
       "tag": "@binaris/shift-local-proxy_v0.0.3",
       "date": "Tue, 09 Jul 2019 07:26:14 GMT",
