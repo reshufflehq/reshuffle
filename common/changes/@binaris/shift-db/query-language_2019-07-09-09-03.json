@@ -3,7 +3,7 @@
     {
       "packageName": "@binaris/shift-db",
       "comment": "Implement query language",
-      "type": "major"
+      "type": "patch"
     }
   ],
   "packageName": "@binaris/shift-db",
