@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-db
 
-This log was last generated on Tue, 09 Jul 2019 07:26:14 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Jul 2019 07:46:16 GMT and should not be manually modified.
+
+## 0.1.0
+Tue, 09 Jul 2019 07:46:16 GMT
+
+### Minor changes
+
+- Accept any JSONable as DB value
 
 ## 0.0.2
 Tue, 09 Jul 2019 07:26:14 GMT
