@@ -12,6 +12,7 @@ export const DEFAULT_PR_BODY = 'This PR was auto-generated with rush-update.';
 export const DEFAULT_PR_BASE_BRANCH = 'master';
 
 export default async function main({
+  checkUpdates,
   ncuParams,
   noCommit,
   branch,
@@ -28,6 +29,7 @@ export default async function main({
   prTitle,
   prBody,
 }: {
+  checkUpdates: boolean,
   ncuParams?: Partial<NCUParams>
   noCommit?: boolean,
   branch?: string,
@@ -45,10 +47,9 @@ export default async function main({
   prBody?: string,
 }) {
   const projectFolders = await getProjectFolders();
-  const shouldUpdateShrinkwrapFile = await updatePackageFiles(projectFolders, ncuParams || {});
-  if (!shouldUpdateShrinkwrapFile) {
+  if (checkUpdates) {
+    await updatePackageFiles(projectFolders, ncuParams || {});
     console.info('All dependencies are up to date!');
-    return;
   }
 
   await updateRushShrinkwrapFile();

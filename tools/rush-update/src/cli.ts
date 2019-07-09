@@ -11,6 +11,11 @@ import main, {
 
 const { argv } = yargs
   .usage('$0 [options]')
+  .option('check-updates', {
+    describe: 'Check and update dependency versions in package.json files',
+    type: 'boolean',
+    default: false,
+  })
   .option('ignore-packages', {
     describe: 'Packages to ignore',
     alias: 'x',
@@ -87,6 +92,7 @@ const { argv } = yargs
   });
 
 const {
+  'check-updates': checkUpdates,
   'ignore-packages': reject,
   branch,
   'commit-message': commitMessage,
@@ -105,6 +111,7 @@ const {
 } = argv;
 
 main({
+  checkUpdates,
   ncuParams: { reject },
   noCommit: !commit,
   noChangeFile: !changeFile,
