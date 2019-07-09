@@ -150,24 +150,35 @@ export function match(doc: Document, filter: Q.Filter): boolean {
       return filter.filters.some((f) => match(doc, f));
     case 'not':
       return !match(doc, filter.filter);
+  }
+
+  const value = path(filter.path, doc);
+
+  switch (filter.operator) {
     case 'eq':
-      return path(filter.path, doc) === filter.value;
+      return value === filter.value;
     case 'ne':
-      return path(filter.path, doc) !== filter.value;
+      return value !== filter.value;
     case 'gt':
-      return path(filter.path, doc) as any > filter.value;
+      return typeof value === typeof filter.value && value as any > filter.value;
     case 'gte':
-      return path(filter.path, doc) as any >= filter.value;
+      return typeof value === typeof filter.value && value as any >= filter.value;
     case 'lt':
-      return path(filter.path, doc) as any < filter.value;
+      return typeof value === typeof filter.value && value as any < filter.value;
     case 'lte':
-      return path(filter.path, doc) as any <= filter.value;
+      return typeof value === typeof filter.value && value as any <= filter.value;
     case 'exists':
-      return path(filter.path, doc) !== undefined;
+      return value !== undefined;
     case 'matches':
+      if (typeof value !== 'string') {
+        return false;
+      }
       const regexp = new RegExp(filter.pattern, filter.caseInsensitive ? 'i' : undefined);
-      return regexp.test(path(filter.path, doc) as string);
+      return regexp.test(value);
     case 'startsWith':
-      return (path(filter.path, doc) as string).startsWith(filter.value);
+      if (typeof value !== 'string') {
+        return false;
+      }
+      return value.startsWith(filter.value);
   }
 }
