@@ -1,4 +1,4 @@
-import { path, comparator } from 'ramda';
+import { path, sortWith, ascend, descend } from 'ramda';
 import LevelUpCtor, { LevelUp } from 'levelup';
 import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
@@ -126,18 +126,13 @@ export class DB {
       };
       it.next(next);
     });
-    return results
-    .sort(comparator(buildComparator(orderBy)))
-    .slice(skip, limit === undefined ? undefined : (skip || 0) + limit);
+    const sortedResults = orderBy ? sortWith(orderBy.map(buildComparator), results) : results;
+    return sortedResults.slice(skip, limit === undefined ? undefined : (skip || 0) + limit);
   }
 }
 
-export function buildComparator(orderBy: Q.Order[] = []) {
-  return (a: any, b: any) => orderBy.every(([p, direction]) => {
-    const vA = path(p, a) as any;
-    const vB = path(p, b) as any;
-    return direction === Q.ASC ? vA <= vB : vA >= vB;
-  });
+export function buildComparator([p, direction]: Q.Order) {
+  return direction === Q.ASC ? ascend(path(p)) : descend(path(p));
 }
 
 export function match(doc: Document, filter: Q.Filter): boolean {
