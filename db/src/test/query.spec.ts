@@ -186,7 +186,7 @@ test('not throws a TypeError if not given a filter', (t) => {
 
 test('filter builds a new query', (t) => {
   t.deepEqual(stringifyParse(filter(key.startsWith('/games/'))), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
   });
 });
 
@@ -196,7 +196,7 @@ test('filter throws if not given a Filter', (t) => {
 
 test('Query.filter combines filters with logical AND', (t) => {
   t.deepEqual(stringifyParse(filter(key.startsWith('/games/')).filter(value.eq(7))), {
-    _filter: {
+    filter: {
       operator: 'and',
       filters: [
         { path: ['key'], operator: 'startsWith', value: '/games/' },
@@ -216,22 +216,22 @@ const limitQ = baseQ.limit(7);
 
 test('Query.limit sets a limit', (t) => {
   t.deepEqual(stringifyParse(limitQ), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _limit: 7,
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    limit: 7,
   });
 });
 
 test('Query.limit overrides if current limit > new limit l', (t) => {
   t.deepEqual(stringifyParse(limitQ.limit(6)), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _limit: 6,
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    limit: 6,
   });
 });
 
 test('Query.limit does nothing if current limit = new limit', (t) => {
   t.deepEqual(stringifyParse(limitQ.limit(7)), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _limit: 7,
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    limit: 7,
   });
 });
 
@@ -245,29 +245,29 @@ test('Query.limit throws an IllegalArgumentError if setting limit to a value les
 
 test('Query.skip sets skip', (t) => {
   t.deepEqual(stringifyParse(baseQ.skip(3)), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _skip: 3,
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    skip: 3,
   });
 });
 
 test('Query.orderBy sets order', (t) => {
   t.deepEqual(stringifyParse(baseQ.orderBy(value.x)), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _order: [[['value', 'x'], ASC]],
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    orderBy: [[['value', 'x'], ASC]],
   });
 });
 
 test('Query.orderBy sets DESC order', (t) => {
   t.deepEqual(stringifyParse(baseQ.orderBy(value.x, DESC)), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _order: [[['value', 'x'], DESC]],
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    orderBy: [[['value', 'x'], DESC]],
   });
 });
 
 test('Query.orderBy sets secondary order', (t) => {
   t.deepEqual(stringifyParse(baseQ.orderBy(value.x).orderBy(key)), {
-    _filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    _order: [[['value', 'x'], ASC], [['key'], ASC]],
+    filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
+    orderBy: [[['value', 'x'], ASC], [['key'], ASC]],
   });
 });
 
