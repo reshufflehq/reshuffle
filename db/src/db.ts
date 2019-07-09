@@ -103,6 +103,7 @@ export class DB {
    * @return - an array of documents
    */
   public async find(query: Q.Query): Promise<Document[]> {
+    const { filter, limit, skip, orderBy } = query.toJSON();
     const results: Document[] = [];
     await new Promise((resolve, reject) => {
       const it = this.db.iterator({
@@ -118,19 +119,18 @@ export class DB {
           return it.end(resolve);
         }
         const value = JSON.parse(rawValue);
-        if (!match({ key, value }, query.getFilter())) {
+        if (!match({ key, value }, filter)) {
           return it.next(next);
         }
         results.push({ key, value });
-        const limit = query.getLimit();
-        if (limit !== undefined && results.length >= (query.getSkip() || 0) + limit) {
+        if (limit !== undefined && results.length >= (skip || 0) + limit) {
           return it.end(resolve);
         }
         return it.next(next);
       };
       it.next(next);
     });
-    return results.sort(comparator(buildComparator(query.getOrderBy()))).slice(query.getSkip());
+    return results.sort(comparator(buildComparator(orderBy))).slice(skip);
   }
 }
 
