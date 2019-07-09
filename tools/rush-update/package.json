@@ -23,7 +23,7 @@
     "@octokit/rest": "^16.28.2",
     "jju": "^1.4.0",
     "lodash.once": "^4.1.1",
-    "npm-check-updates": "^3.1.15",
+    "npm-check-updates": "^3.1.17",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
@@ -32,6 +32,6 @@
     "@types/node": "^12.0.12",
     "@types/yargs": "^13.0.0",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   }
 }

@@ -14,9 +14,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@types/express": "^4.17.0",
     "bunyan": "^1.8.12",
     "bunyan-rotating-file-stream": "^1.6.3",
@@ -33,15 +33,15 @@
     "@types/bunyan": "^1.8.6",
     "@types/got": "^9.6.0",
     "@types/http-proxy": "^1.17.0",
-    "@types/lodash": "^4.14.135",
+    "@types/lodash": "^4.14.136",
     "@types/mkdirp": "^0.5.2",
     "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
     "@types/rimraf": "^2.0.2",
-    "ava": "^2.1.0",
+    "ava": "^2.2.0",
     "got": "^9.6.0",
     "lodash": "^4.17.11",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   }
 }
