@@ -5,14 +5,80 @@ type Key = string | number;
 type Comparable = string | number | Date;
 type Equatable = Comparable | boolean;
 
-export class Filter {
-  constructor(
-    public readonly path: Key[] | undefined,
-    public readonly operator: string,
-    // tslint:disable-next-line:no-shadowed-variable
-    public readonly value?: any,
-  ) {}
+const filterSymbol = Symbol('shiftjs/filter');
+
+interface BaseFilter {
+  [filterSymbol]: true;
 }
+
+interface PathFilter extends BaseFilter {
+  readonly path: string[];
+}
+
+interface EqFilter extends PathFilter {
+  readonly operator: 'eq';
+  readonly value: Equatable;
+}
+
+interface NeFilter extends PathFilter {
+  readonly operator: 'ne';
+  readonly value: Equatable;
+}
+
+interface ComparableFilter extends PathFilter {
+  readonly value: Comparable;
+}
+
+interface GtFilter extends ComparableFilter {
+  readonly operator: 'gt';
+}
+
+interface GteFilter extends ComparableFilter {
+  readonly operator: 'gte';
+}
+
+interface LtFilter extends ComparableFilter {
+  readonly operator: 'lt';
+}
+
+interface LteFilter extends ComparableFilter {
+  readonly operator: 'lte';
+}
+
+interface ExistsFilter extends PathFilter {
+  readonly operator: 'exists';
+}
+
+interface MatchesFilter extends PathFilter {
+  readonly operator: 'matches';
+  readonly pattern: string;
+  readonly caseInsensitive: boolean;
+}
+
+interface StartsWithFilter extends PathFilter {
+  readonly operator: 'startsWith';
+  readonly value: string;
+}
+
+interface AndFilter extends BaseFilter {
+  readonly operator: 'and';
+  readonly filters: Filter[];
+}
+
+interface OrFilter extends BaseFilter {
+  readonly operator: 'or';
+  readonly filters: Filter[];
+}
+
+interface NotFilter extends BaseFilter {
+  readonly operator: 'not';
+  readonly filter: Filter;
+}
+
+export type Filter = EqFilter | NeFilter
+  | GtFilter | GteFilter | LtFilter | LteFilter
+  | ExistsFilter | MatchesFilter | StartsWithFilter
+  | AndFilter | OrFilter | NotFilter;
 
 const proxyHandler = {
   get(obj: Path, prop: string) {
@@ -21,10 +87,10 @@ const proxyHandler = {
 };
 
 class Path {
-  constructor(protected readonly parts: Key[]) {
+  constructor(protected readonly parts: string[]) {
   }
 
-  public static proxied(parts: Key[]): PathProxy {
+  public static proxied(parts: string[]): PathProxy {
     return new Proxy(new this(parts), proxyHandler) as any;
   }
 
@@ -33,73 +99,121 @@ class Path {
     return Path.proxied([...this.parts, k.toString()]);
   }
 
-  public eq(x: Equatable): Filter {
-    return new Filter(this.parts, 'eq', x);
+  public eq(x: Equatable): EqFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'eq',
+      path: this.parts,
+      value: x,
+    };
   }
 
-  public ne(x: Equatable): Filter {
-    return new Filter(this.parts, 'ne', x);
+  public ne(x: Equatable): NeFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'ne',
+      path: this.parts,
+      value: x,
+    };
   }
 
-  public gt(x: Comparable): Filter {
-    return new Filter(this.parts, 'gt', x);
+  public gt(x: Comparable): GtFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'gt',
+      path: this.parts,
+      value: x,
+    };
   }
 
-  public gte(x: Comparable): Filter {
-    return new Filter(this.parts, 'gte', x);
+  public gte(x: Comparable): GteFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'gte',
+      path: this.parts,
+      value: x,
+    };
   }
 
-  public lt(x: Comparable): Filter {
-    return new Filter(this.parts, 'lt', x);
+  public lt(x: Comparable): LtFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'lt',
+      path: this.parts,
+      value: x,
+    };
   }
 
-  public lte(x: Comparable): Filter {
-    return new Filter(this.parts, 'lte', x);
+  public lte(x: Comparable): LteFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'lte',
+      path: this.parts,
+      value: x,
+    };
   }
 
-  public exists(): Filter {
-    return new Filter(this.parts, 'exists');
+  public exists(): ExistsFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'exists',
+      path: this.parts,
+    };
   }
 
-  public matches(pattern: string, caseInsensitive?: boolean): Filter;
+  public matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
 
-  public matches(pattern: RegExp): Filter;
+  public matches(pattern: RegExp): MatchesFilter;
 
-  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): Filter {
+  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): MatchesFilter {
     if (typeof pattern === 'string') {
-      return new Filter(this.parts, 'matches', { pattern, caseInsensitive });
+      return {
+        [filterSymbol]: true,
+        operator: 'matches',
+        path: this.parts,
+        pattern,
+        caseInsensitive,
+      };
     } else if (pattern instanceof RegExp) {
-      return new Filter(this.parts, 'matches', {
+      return {
+        [filterSymbol]: true,
+        operator: 'matches',
+        path: this.parts,
         pattern: pattern.source,
         caseInsensitive: pattern.flags.includes('i'),
-      });
+      };
     }
     throw new TypeError('Expected pattern to be a RegExp or string');
   }
 
-  public startsWith(prefix: string): Filter {
-    return new Filter(this.parts, 'startsWith', prefix);
+  public startsWith(prefix: string): StartsWithFilter {
+    return {
+      [filterSymbol]: true,
+      operator: 'startsWith',
+      path: this.parts,
+      value: prefix,
+    };
   }
 }
 
 type PathProxy = Path & Record<Key, Path>;
 
 interface EquatablePath<T extends Equatable> {
-  eq(x: T): Filter;
-  ne(x: T): Filter;
+  eq(x: T): EqFilter;
+  ne(x: T): NeFilter;
 }
 
 interface ComparablePath<T extends Comparable> extends EquatablePath<T> {
-  gt(x: T): Filter;
-  gte(x: T): Filter;
-  lt(x: T): Filter;
-  lte(x: T): Filter;
+  gt(x: T): GtFilter;
+  gte(x: T): GteFilter;
+  lt(x: T): LtFilter;
+  lte(x: T): LteFilter;
 }
 
 interface StringPath extends ComparablePath<string> {
-  matches(pattern: string, caseInsensitive?: boolean): Filter;
-  matches(pattern: RegExp): Filter;
-  startsWith(prefix: string): Filter;
+  matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
+  matches(pattern: RegExp): MatchesFilter;
+  startsWith(prefix: string): StartsWithFilter;
 }
 
 type NumberPath = ComparablePath<number>;
@@ -136,25 +250,37 @@ function checkFilters(...filters: any[]) {
     throw new IllegalArgumentError('Expected at least 1 filter');
   }
   for (const f of filters) {
-    if (!(f instanceof Filter)) {
-      throw new TypeError('Given filter is not an instance of Filter');
+    if (!f[filterSymbol]) {
+      throw new TypeError('Given filter is invalid');
     }
   }
 }
 
-export function all(...filters: NonEmptyArray<Filter>): Filter {
+export function all(...filters: NonEmptyArray<Filter>): AndFilter {
   checkFilters(...filters);
-  return new Filter(undefined, 'and', filters);
+  return {
+    [filterSymbol]: true,
+    operator: 'and',
+    filters,
+  };
 }
 
-export function any(...filters: NonEmptyArray<Filter>): Filter {
+export function any(...filters: NonEmptyArray<Filter>): OrFilter {
   checkFilters(...filters);
-  return new Filter(undefined, 'or', filters);
+  return {
+    [filterSymbol]: true,
+    operator: 'or',
+    filters,
+  };
 }
 
-export function not(f: Filter): Filter {
+export function not(f: Filter): NotFilter {
   checkFilters(f);
-  return new Filter(undefined, 'not', f);
+  return {
+    [filterSymbol]: true,
+    operator: 'not',
+    filter: f,
+  };
 }
 
 export type Direction = 'ASC' | 'DESC';
