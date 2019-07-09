@@ -395,7 +395,7 @@ export class Query {
     protected readonly _filter: Filter,
     protected readonly _limit?: number,
     protected readonly _skip?: number,
-    protected readonly _orderBy?: Order[],
+    protected readonly _orderBy?: ReadonlyArray<Order>,
   ) {}
 
   public filter(f: Filter): Query {

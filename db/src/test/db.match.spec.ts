@@ -76,14 +76,14 @@ test('startsWith matches string', (t) => {
   t.false(match({ key: 'abc', value: 'ABC' }, Q.value.startsWith('ab')));
 });
 
-test('and applies all filters', (t) => {
+test('any applies all filters', (t) => {
   t.true(match({ key: 'abc', value: 0 }, Q.all(Q.key.startsWith('ab'), Q.value.eq(0))));
   t.false(match({ key: 'abc', value: 0 }, Q.all(Q.key.startsWith('ab'), Q.value.eq(1))));
   t.false(match({ key: 'abc', value: 0 }, Q.all(Q.key.eq('ab'), Q.value.eq(0))));
   t.false(match({ key: 'abc', value: 0 }, Q.all(Q.key.eq('ab'), Q.value.eq(1))));
 });
 
-test('or applies all filters', (t) => {
+test('any applies all filters', (t) => {
   t.true(match({ key: 'abc', value: 0 }, Q.any(Q.key.startsWith('ab'), Q.value.eq(0))));
   t.true(match({ key: 'abc', value: 0 }, Q.any(Q.key.startsWith('ab'), Q.value.eq(1))));
   t.true(match({ key: 'abc', value: 0 }, Q.any(Q.key.eq('ab'), Q.value.eq(0))));
