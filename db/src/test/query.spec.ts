@@ -15,7 +15,9 @@ test('value builds a filter on document value', (t) => {
 });
 
 test('value.field() builds a nested filter on document value', (t) => {
-  t.deepEqual(stringifyThenParse(value.field('a.b').eq('abc')), { path: ['value', 'a.b'], operator: 'eq', value: 'abc' });
+  t.deepEqual(
+    stringifyThenParse(value.field('a.b').eq('abc')),
+    { path: ['value', 'a.b'], operator: 'eq', value: 'abc' });
 });
 
 test('value.field(number) casts path to string', (t) => {
@@ -41,7 +43,9 @@ test('typedValue builds a filter on document value', (t) => {
 });
 
 test('typedValue proxy builds a nested filter on document value', (t) => {
-  t.deepEqual(stringifyThenParse(typedValue<{ a: number }>().a.eq(6)), { path: ['value', 'a'], operator: 'eq', value: 6 });
+  t.deepEqual(
+    stringifyThenParse(typedValue<{ a: number }>().a.eq(6)),
+    { path: ['value', 'a'], operator: 'eq', value: 6 });
 });
 
 test('typedValue proxy builds an array filter on document value', (t) => {
