@@ -145,31 +145,29 @@ export function buildComparator(orderBy: Q.Order[] = []) {
 export function match(doc: Document, filter: Q.Filter): boolean {
   switch (filter.operator) {
     case 'and':
-      return (filter.value as Q.Filter[]).every((f) => match(doc, f));
+      return filter.filters.every((f) => match(doc, f));
     case 'or':
-      return (filter.value as Q.Filter[]).some((f) => match(doc, f));
+      return filter.filters.some((f) => match(doc, f));
     case 'not':
-      return !match(doc, filter.value as Q.Filter);
+      return !match(doc, filter.filter);
     case 'eq':
-      return path(filter.path!, doc) === filter.value;
+      return path(filter.path, doc) === filter.value;
     case 'ne':
-      return path(filter.path!, doc) !== filter.value;
+      return path(filter.path, doc) !== filter.value;
     case 'gt':
-      return path(filter.path!, doc) as any > filter.value;
+      return path(filter.path, doc) as any > filter.value;
     case 'gte':
-      return path(filter.path!, doc) as any >= filter.value;
+      return path(filter.path, doc) as any >= filter.value;
     case 'lt':
-      return path(filter.path!, doc) as any < filter.value;
+      return path(filter.path, doc) as any < filter.value;
     case 'lte':
-      return path(filter.path!, doc) as any <= filter.value;
+      return path(filter.path, doc) as any <= filter.value;
     case 'exists':
-      return path(filter.path!, doc) !== undefined;
+      return path(filter.path, doc) !== undefined;
     case 'matches':
-      const regexp = new RegExp(filter.value.pattern, filter.value.caseInsensitive ? 'i' : undefined);
-      return regexp.test(path(filter.path!, doc) as string);
+      const regexp = new RegExp(filter.pattern, filter.caseInsensitive ? 'i' : undefined);
+      return regexp.test(path(filter.path, doc) as string);
     case 'startsWith':
-      return (path(filter.path!, doc) as string).startsWith(filter.value);
-    default:
-      throw new ValueError(`Unknown filter operator: ${filter.operator}`);
+      return (path(filter.path, doc) as string).startsWith(filter.value);
   }
 }

@@ -113,16 +113,16 @@ test('exists is available on non optional fields', (t) => {
 test('match builds a match filter', (t) => {
   t.deepEqual(
     stringifyParse(typedValue<string>().matches('abc')),
-    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: false } });
+    { path: ['value'], operator: 'matches', pattern: 'abc', caseInsensitive: false });
   t.deepEqual(
     stringifyParse(typedValue<string>().matches('abc', true)),
-    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: true } });
+    { path: ['value'], operator: 'matches', pattern: 'abc', caseInsensitive: true });
   t.deepEqual(
     stringifyParse(typedValue<string>().matches(/abc/)),
-    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: false } });
+    { path: ['value'], operator: 'matches', pattern: 'abc', caseInsensitive: false });
   t.deepEqual(
     stringifyParse(typedValue<string>().matches(/abc/i)),
-    { path: ['value'], operator: 'matches', value: { pattern: 'abc', caseInsensitive: true } });
+    { path: ['value'], operator: 'matches', pattern: 'abc', caseInsensitive: true });
 });
 
 test('startsWith builds a startsWith filter', (t) => {
@@ -136,7 +136,7 @@ test('all builds a valid filter', (t) => {
     stringifyParse(all(key.startsWith('/games/'), value.x.eq(5))),
     {
       operator: 'and',
-      value: [
+      filters: [
         { path: ['key'], operator: 'startsWith', value: '/games/' },
         { path: ['value', 'x'], operator: 'eq', value: 5 },
       ],
@@ -156,7 +156,7 @@ test('any builds a valid filter', (t) => {
     stringifyParse(any(key.startsWith('/games/'), value.y.gt(7))),
     {
       operator: 'or',
-      value: [
+      filters: [
         { path: ['key'], operator: 'startsWith', value: '/games/' },
         { path: ['value', 'y'], operator: 'gt', value: 7 },
       ],
@@ -176,7 +176,7 @@ test('not builds a valid filter', (t) => {
     stringifyParse(not(key.startsWith('/games/'))),
     {
       operator: 'not',
-      value: { path: ['key'], operator: 'startsWith', value: '/games/' },
+      filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
     });
 });
 
@@ -198,7 +198,7 @@ test('Query.filter combines filters with logical AND', (t) => {
   t.deepEqual(stringifyParse(filter(key.startsWith('/games/')).filter(value.eq(7))), {
     _filter: {
       operator: 'and',
-      value: [
+      filters: [
         { path: ['key'], operator: 'startsWith', value: '/games/' },
         { path: ['value'], operator: 'eq', value: 7 },
       ],
