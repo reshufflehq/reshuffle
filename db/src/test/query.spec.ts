@@ -82,11 +82,11 @@ test('typedValue supports null', (t) => {
     { path: ['value', 'z'], operator: 'isNull' });
 
   t.deepEqual(
-    stringifyParse(typedValue<{ z: number | null }>().z.asNull().isNull()),
+    stringifyParse(typedValue<{ z: number | null }>().z.as<null>().isNull()),
     { path: ['value', 'z'], operator: 'isNull' });
 
   t.deepEqual(
-    stringifyParse(typedValue<{ z: number | null }>().z.asNumber().eq(3)),
+    stringifyParse(typedValue<{ z: number | null }>().z.as<number>().eq(3)),
     { path: ['value', 'z'], operator: 'eq', value: 3 });
 });
 
