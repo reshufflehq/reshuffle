@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "rush-update",
+      "comment": "Creating rush change commit",
+      "type": "minor"
+    }
+  ],
+  "packageName": "rush-update",
+  "email": "arik@binaris.com"
+}
