@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "rush-update",
+      "comment": "Disable auto updates of package.json dependencies",
+      "type": "minor"
+    }
+  ],
+  "packageName": "rush-update",
+  "email": "roey.berman@gmail.com"
+}
