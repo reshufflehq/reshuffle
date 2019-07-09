@@ -119,18 +119,16 @@ export class DB {
           return it.end(resolve);
         }
         const value = JSON.parse(rawValue);
-        if (!match({ key, value }, filter)) {
-          return it.next(next);
-        }
-        results.push({ key, value });
-        if (limit !== undefined && results.length >= (skip || 0) + limit) {
-          return it.end(resolve);
+        if (match({ key, value }, filter)) {
+          results.push({ key, value });
         }
         return it.next(next);
       };
       it.next(next);
     });
-    return results.sort(comparator(buildComparator(orderBy))).slice(skip);
+    return results
+    .sort(comparator(buildComparator(orderBy)))
+    .slice(skip, limit === undefined ? undefined : (skip || 0) + limit);
   }
 }
 
