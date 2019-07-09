@@ -252,6 +252,9 @@ class Path {
         caseInsensitive,
       };
     } else if (pattern instanceof RegExp) {
+      if (/[^i]/.test(pattern.flags)) {
+        throw new TypeError('Given RegExp flags not supported');
+      }
       return {
         [filterSymbol]: true,
         operator: 'matches',
