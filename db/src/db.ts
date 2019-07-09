@@ -167,6 +167,8 @@ export function match(doc: Document, filter: Q.Filter): boolean {
       return typeof value === typeof filter.value && value as any <= filter.value;
     case 'exists':
       return value !== undefined;
+    case 'isNull':
+      return value === null;
     case 'matches':
       if (typeof value !== 'string') {
         return false;

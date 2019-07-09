@@ -54,6 +54,13 @@ test('exists checks for undefined', (t) => {
   t.false(match({ key: 'abc', value: {} }, Q.value.a.exists()));
 });
 
+test('isNull checks for null', (t) => {
+  t.true(match({ key: 'abc', value: null }, Q.value.isNull()));
+  t.false(match({ key: 'abc', value: 0 }, Q.value.isNull()));
+  t.false(match({ key: 'abc', value: 'a' }, Q.value.isNull()));
+  t.false(match({ key: 'abc', value: {} }, Q.value.a.isNull()));
+});
+
 test('matches matches string', (t) => {
   t.false(match({ key: 'abc', value: null }, Q.value.matches(/abc/i)));
   t.false(match({ key: 'abc', value: 0 }, Q.value.matches(/abc/i)));
