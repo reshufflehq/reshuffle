@@ -99,15 +99,31 @@ class Path {
     return new Proxy(new this(parts), proxyHandler) as any;
   }
 
+  /**
+   * Returns a subpath at given key.
+   * @param key - object key or array index
+   * @return - subpath of document
+   */
   public field(k: Key): PathProxy {
     // When using proxy, paths will be converted to string, field() replicates this behavior
     return Path.proxied([...this.parts, k.toString()]);
   }
 
+  /**
+   * Returns a subpath at given key.
+   * Has a template parameter for improved type safety when using typescript.
+   * @param key - object key or array index
+   * @return - subpath of document
+   */
   public typedField<T>(k: Key): Doc<T> {
     return this.field(k) as any;
   }
 
+  /**
+   * Equals
+   * @param x - value for comparison
+   * @return - a filter
+   */
   public eq(x: Equatable): EqFilter {
     return {
       [filterSymbol]: true,
@@ -117,6 +133,11 @@ class Path {
     };
   }
 
+  /**
+   * Not equals
+   * @param x - value for comparison
+   * @return - a filter
+   */
   public ne(x: Equatable): NeFilter {
     return {
       [filterSymbol]: true,
@@ -126,6 +147,11 @@ class Path {
     };
   }
 
+  /**
+   * Greater than
+   * @param x - value for comparison
+   * @return - a filter
+   */
   public gt(x: Comparable): GtFilter {
     return {
       [filterSymbol]: true,
@@ -135,6 +161,11 @@ class Path {
     };
   }
 
+  /**
+   * Greater than or equals
+   * @param x - value for comparison
+   * @return - a filter
+   */
   public gte(x: Comparable): GteFilter {
     return {
       [filterSymbol]: true,
@@ -144,6 +175,11 @@ class Path {
     };
   }
 
+  /**
+   * Less than
+   * @param x - value for comparison
+   * @return - a filter
+   */
   public lt(x: Comparable): LtFilter {
     return {
       [filterSymbol]: true,
@@ -153,6 +189,11 @@ class Path {
     };
   }
 
+  /**
+   * Less than or equals
+   * @param x - value for comparison
+   * @return - a filter
+   */
   public lte(x: Comparable): LteFilter {
     return {
       [filterSymbol]: true,
@@ -162,6 +203,10 @@ class Path {
     };
   }
 
+  /**
+   * Does path exist?
+   * @return - a filter
+   */
   public exists(): ExistsFilter {
     return {
       [filterSymbol]: true,
@@ -170,6 +215,10 @@ class Path {
     };
   }
 
+  /**
+   * Is value at path null?
+   * @return - a filter
+   */
   public isNull(): IsNullFilter {
     return {
       [filterSymbol]: true,
@@ -178,8 +227,19 @@ class Path {
     };
   }
 
+  /**
+   * String matches pattern.
+   * @param pattern regular expression
+   * @param caseInsensitive should the check be case insensitive?
+   * @return - a filter
+   */
   public matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
 
+  /**
+   * String matches pattern.
+   * @param pattern - regular expression, if the RegExp object has the 'i' flag, perform a case insensitive match.
+   * @return - a filter
+   */
   public matches(pattern: RegExp): MatchesFilter;
 
   public matches(pattern: RegExp | string, caseInsensitive: boolean = false): MatchesFilter {
@@ -203,6 +263,10 @@ class Path {
     throw new TypeError('Expected pattern to be a RegExp or string');
   }
 
+  /**
+   * String starts with prefix
+   * @return - a filter
+   */
   public startsWith(prefix: string): StartsWithFilter {
     return {
       [filterSymbol]: true,
@@ -212,45 +276,19 @@ class Path {
     };
   }
 
-  public asString(): StringPath {
-    return this;
-  }
-
-  public asNumber(): NumberPath {
-    return this;
-  }
-
-  public asDate(): DatePath {
-    return this;
-  }
-
-  public asBoolean(): BooleanPath {
-    return this;
-  }
-
-  public asObject<T>(): Doc<T> {
+  /**
+   * Casts to a specific doc type. Use for typed paths with typescript.
+   * @return - a filter
+   */
+  public as<T>(): Doc<T> {
     return Path.proxied(this.parts) as any;
-  }
-
-  public asArray<T extends any[]>(): Doc<T> {
-    return Path.proxied(this.parts) as any;
-  }
-
-  public asNull(): NullPath {
-    return this;
   }
 }
 
 type PathProxy = Path & Record<Key, Path>;
 
 interface CastablePath {
-  asString(): StringPath;
-  asNumber(): NumberPath;
-  asDate(): DatePath;
-  asBoolean(): BooleanPath;
-  asObject<T>(): Doc<T>;
-  asArray<T extends any[]>(): Doc<T>;
-  asNull(): NullPath;
+  as<T>(): Doc<T>;
 }
 
 interface EquatablePath<T extends Equatable> extends CastablePath {
