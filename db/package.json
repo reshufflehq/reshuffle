@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/node": "^10.14.9",
     "@types/rmfr": "^2.0.0",
-    "ava": "^2.2.0",
+    "ava": "~2.1.0",
     "rmfr": "^2.0.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
