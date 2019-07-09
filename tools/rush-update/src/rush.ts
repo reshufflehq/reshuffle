@@ -33,7 +33,7 @@ export async function updateRushShrinkwrapFile(): Promise<void> {
 
 export function generateRushChangeFiles(): void {
   // yes "" is for answering all the "Describe changes, or ENTER if no changes" questions with ENTER
-  execSync('yes "" | rush change', {
+  execSync('yes "" | node common/scripts/install-run-rush.js change', {
     stdio: 'inherit',
   });
 }
