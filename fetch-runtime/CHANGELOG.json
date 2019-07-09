@@ -2,6 +2,27 @@
   "name": "@binaris/shift-fetch-runtime",
   "entries": [
     {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-fetch-runtime_v0.0.2",
+      "date": "Tue, 09 Jul 2019 07:26:14 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Don't fail npm test"
+          },
+          {
+            "comment": "Add linting"
+          },
+          {
+            "comment": "Use typescript"
+          },
+          {
+            "comment": "Limit distributed files"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.1",
       "tag": "@binaris/shift-fetch-runtime_v0.0.1",
       "date": "Thu, 20 Jun 2019 15:03:42 GMT",

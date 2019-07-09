@@ -2,6 +2,30 @@
   "name": "@binaris/shift-babel-macro",
   "entries": [
     {
+      "version": "0.0.3",
+      "tag": "@binaris/shift-babel-macro_v0.0.3",
+      "date": "Tue, 09 Jul 2019 07:26:14 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Change babel macro error text"
+          },
+          {
+            "comment": "Add circleCI integration"
+          },
+          {
+            "comment": "Support import from multiple backend files"
+          },
+          {
+            "comment": "Add linting"
+          },
+          {
+            "comment": "Add warning"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.2",
       "tag": "@binaris/shift-babel-macro_v0.0.2",
       "date": "Thu, 20 Jun 2019 16:32:38 GMT",
