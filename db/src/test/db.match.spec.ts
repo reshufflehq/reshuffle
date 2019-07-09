@@ -76,7 +76,7 @@ test('startsWith matches string', (t) => {
   t.false(match({ key: 'abc', value: 'ABC' }, Q.value.startsWith('ab')));
 });
 
-test('any applies all filters', (t) => {
+test('all applies all filters', (t) => {
   t.true(match({ key: 'abc', value: 0 }, Q.all(Q.key.startsWith('ab'), Q.value.eq(0))));
   t.false(match({ key: 'abc', value: 0 }, Q.all(Q.key.startsWith('ab'), Q.value.eq(1))));
   t.false(match({ key: 'abc', value: 0 }, Q.all(Q.key.eq('ab'), Q.value.eq(0))));
