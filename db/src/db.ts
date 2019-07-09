@@ -8,8 +8,8 @@ import * as Q from './query';
 export { Q };
 
 export type Primitive = string | number | boolean | Date | null;
-export interface SerializableArray extends Array<SerializableArray | SerializableObject | Primitive | undefined> {}
-export interface SerializableObject { [key: string]: SerializableArray | SerializableObject | Primitive | undefined; }
+export interface SerializableArray extends Array<Serializable | undefined> {}
+export interface SerializableObject { [key: string]: Serializable | undefined; }
 export type Serializable = Primitive | SerializableArray | SerializableObject;
 export interface Document {
   key: string;
