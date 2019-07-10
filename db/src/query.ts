@@ -87,6 +87,7 @@ export type Filter = EqFilter | NeFilter
 
 const proxyHandler = {
   get(obj: Path, prop: string) {
+    // Known properties such as `field` and `eq` are used as defined, unknown properties are used as fields.
     return prop in obj ? obj[prop as keyof Path] : obj.field(prop);
   },
 };
