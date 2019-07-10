@@ -27,6 +27,7 @@ export default async function main({
   baseBranch,
   prTitle,
   prBody,
+  prReviewers,
 }: {
   ncuParams?: Partial<NCUParams>
   noCommit?: boolean,
@@ -43,6 +44,7 @@ export default async function main({
   baseBranch?: string,
   prTitle?: string,
   prBody?: string,
+  prReviewers?: string[],
 }) {
   const projectFolders = await getProjectFolders();
   const shouldUpdateShrinkwrapFile = await updatePackageFiles(projectFolders, ncuParams || {});
@@ -97,7 +99,8 @@ export default async function main({
       base: baseBranch || DEFAULT_PR_BASE_BRANCH,
       title: prTitle || DEFAULT_PR_TITLE,
       body: prBody || DEFAULT_PR_BODY,
-    }
+    },
+    prReviewers
   );
 
   console.info('Done!');

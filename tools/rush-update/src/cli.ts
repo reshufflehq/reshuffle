@@ -57,6 +57,12 @@ const { argv } = yargs
     type: 'string',
     default: DEFAULT_PR_BODY,
   })
+  .option('pr-reviewers', {
+    describe: 'Pull request reviewers',
+    type: 'string',
+    array: true,
+    default: [],
+  })
   .option('gh-username', {
     describe: 'Github username (for authentication)',
     type: 'string',
@@ -98,6 +104,7 @@ const {
   'pr-base': baseBranch,
   'pr-title': prTitle,
   'pr-body': prBody,
+  'pr-reviewers': prReviewers,
   commit,
   'change-file': changeFile,
   push,
@@ -120,6 +127,7 @@ main({
   baseBranch,
   prTitle,
   prBody,
+  prReviewers,
 }).catch((error) => {
   console.error(error);
   process.exit(1);
