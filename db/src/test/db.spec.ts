@@ -75,33 +75,19 @@ test('DB.remove removes existing key from DB and returns true', async (t) => {
 
 test('DB.update creates a new document if key does not exist and returns it', async (t) => {
   const { db } = t.context;
-  const next = await db.update<any, { a: number }>('test', (prev) => ({ ...prev, a: 1 }));
+  const next = await db.update('test', (prev) => ({ ...prev, a: 1 }));
   const val = await db.get('test');
   t.deepEqual(val, { a: 1 });
-  t.deepEqual(val, next);
-});
-
-test('DB.update uses initializer if key does not exist', async (t) => {
-  const { db } = t.context;
-  await db.update('test', (prev) => ({ ...prev, a: 1 }), { b: 2 });
-  const val = await db.get('test');
-  t.deepEqual(val, { a: 1, b: 2 });
+  t.deepEqual(next, val);
 });
 
 test('DB.update updates an existing document', async (t) => {
   const { db } = t.context;
   await db.create('test', { b: 2 });
-  await db.update<{ b: number }, { a: number; b: number }>('test', (prev = { b: 3 }) => ({ ...prev, a: 1 }));
+  const next = await db.update('test', (prev) => ({ ...prev, a: 1 }));
   const val = await db.get('test');
   t.deepEqual(val, { a: 1, b: 2 });
-});
-
-test('DB.update ignores initializer on an existing document', async (t) => {
-  const { db } = t.context;
-  await db.create('test', { b: 2 });
-  await db.update('test', (prev) => ({ ...prev, a: 1 }), { c: 3 });
-  const val = await db.get('test');
-  t.deepEqual(val, { a: 1, b: 2 });
+  t.deepEqual(next, val);
 });
 
 test('DB.update throws ValueError if updater returned undefined', async (t) => {
