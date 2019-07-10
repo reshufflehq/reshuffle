@@ -81,12 +81,5 @@ workflows:
             - build
       - verify_change_logs
   weekly:
-    triggers:
-       - schedule:
-           cron: "0 0 * * 5"
-           filters:
-             branches:
-               only:
-                 - master
     jobs:
       - update_npm_dependencies
