@@ -2,6 +2,18 @@
   "name": "rush-update",
   "entries": [
     {
+      "version": "1.2.2",
+      "tag": "rush-update_v1.2.2",
+      "date": "Wed, 10 Jul 2019 12:29:59 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Introduced new flag --pr-reviewers"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.1",
       "tag": "rush-update_v1.2.1",
       "date": "Tue, 09 Jul 2019 08:43:43 GMT",

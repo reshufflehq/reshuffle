@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-db
 
-This log was last generated on Tue, 09 Jul 2019 13:02:12 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Jul 2019 12:29:59 GMT and should not be manually modified.
+
+## 0.1.2
+Wed, 10 Jul 2019 12:29:59 GMT
+
+### Patches
+
+- Implement query language
 
 ## 0.1.1
 Tue, 09 Jul 2019 13:02:12 GMT

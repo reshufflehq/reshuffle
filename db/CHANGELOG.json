@@ -2,6 +2,18 @@
   "name": "@binaris/shift-db",
   "entries": [
     {
+      "version": "0.1.2",
+      "tag": "@binaris/shift-db_v0.1.2",
+      "date": "Wed, 10 Jul 2019 12:29:59 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Implement query language"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.1",
       "tag": "@binaris/shift-db_v0.1.1",
       "date": "Tue, 09 Jul 2019 13:02:12 GMT",
