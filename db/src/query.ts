@@ -253,7 +253,7 @@ class Path {
       };
     } else if (pattern instanceof RegExp) {
       if (/[^i]/.test(pattern.flags)) {
-        throw new TypeError('Given RegExp flags not supported');
+        throw new TypeError('Only /i RegExp flag supported');
       }
       return {
         [filterSymbol]: true,
