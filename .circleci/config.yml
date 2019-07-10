@@ -67,7 +67,7 @@ jobs:
             git config user.name "autoupdate"
       - run:
           name: Update npm dependencies
-          command: node common/scripts/install-run.js rush-update@latest rush-update -x @types/node -x ava --repo-owner binaris --repo-name shiftjs --pr-reviewers michaeladda
+          command: node common/scripts/install-run.js rush-update@beta rush-update -x @types/node -x ava --repo-owner binaris --repo-name shiftjs --pr-reviewers michaeladda
 workflows:
   version: 2
   commit:
@@ -81,12 +81,5 @@ workflows:
             - build
       - verify_change_logs
   weekly:
-    triggers:
-       - schedule:
-           cron: "0 0 * * 5"
-           filters:
-             branches:
-               only:
-                 - master
     jobs:
       - update_npm_dependencies
