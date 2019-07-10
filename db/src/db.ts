@@ -119,7 +119,7 @@ export class DB {
           return it.end(resolve);
         }
         const value = JSON.parse(rawValue);
-        if (match({ key, value }, filter)) {
+        if (wrappedMatch({ key, value }, filter)) {
           results.push({ key, value });
         }
         return it.next(next);
@@ -135,14 +135,22 @@ export function buildComparator([p, direction]: Q.Order) {
   return direction === Q.ASC ? ascend(path(p)) : descend(path(p));
 }
 
+export function wrappedMatch(doc: Document, filter: Q.Filter): boolean {
+  const isMatch = match(doc, filter);
+  if (isMatch === undefined) {
+    throw new ValueError(`Got an unsupported filter operator: ${filter.operator}`);
+  }
+  return isMatch;
+}
+
 export function match(doc: Document, filter: Q.Filter): boolean {
   switch (filter.operator) {
     case 'and':
-      return filter.filters.every((f) => match(doc, f));
+      return filter.filters.every((f) => wrappedMatch(doc, f));
     case 'or':
-      return filter.filters.some((f) => match(doc, f));
+      return filter.filters.some((f) => wrappedMatch(doc, f));
     case 'not':
-      return !match(doc, filter.filter);
+      return !wrappedMatch(doc, filter.filter);
   }
 
   const value = path(filter.path, doc);
@@ -175,5 +183,7 @@ export function match(doc: Document, filter: Q.Filter): boolean {
         return false;
       }
       return value.startsWith(filter.value);
+    // We don't add a default case here to let typescript catch when new operators are added and not implemented here.
+    // (see wrappedMatch)
   }
 }
