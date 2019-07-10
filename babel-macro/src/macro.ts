@@ -3,6 +3,7 @@ import { parse } from '@babel/parser';
 // not using since not sure if babel.types is the very same babel.types or a different version
 // import * as t from '@babel/types';
 import * as babelTypes from '@babel/types';
+import { getFunctionName, isExposedStatement } from '@binaris/shift-babel-common';
 import { readFileSync } from 'fs';
 import path from 'path';
 
@@ -22,10 +23,6 @@ interface MacrosPluginPass {
 
 interface MacrosBabel {
   types: typeof babelTypes;
-}
-
-function getFunctionName(e: babelTypes.FunctionDeclaration, t: typeof babelTypes): string | undefined {
-  return t.isIdentifier(e.id) ? e.id.name : undefined;
 }
 
 function assertExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcName: string): void {
@@ -53,8 +50,7 @@ function assertExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcNa
 function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel, importedNames: string[]): string[] {
   const { body } = ast.program;
   // support ExportDefaultDeclaration (ExportAllDeclaration too for re-exporting ?)
-  const exposedStatements = body.filter((e) =>
-    e.leadingComments && e.leadingComments.some((comment) => /@expose/.test(comment.value)));
+  const exposedStatements = body.filter(isExposedStatement);
   return exposedStatements.reduce((ret: string[], e) => {
     if (t.isFunctionDeclaration(e)) {
       const funcName = getFunctionName(e, t);

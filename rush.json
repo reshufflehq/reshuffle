@@ -370,9 +370,19 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-babel-plugin",
+        "projectFolder": "babel-plugin",
+        "shouldPublish": true
+    },
+    {
+        "packageName": "@binaris/shift-babel-common",
+        "projectFolder": "babel-common",
+        "shouldPublish": true
+    },
+    {
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true
-    }
+    },
   ]
 }
