@@ -80,10 +80,10 @@ workflows:
           requires:
             - build
       - verify_change_logs
-  nightly:
+  weekly:
     triggers:
        - schedule:
-           cron: "0 0 * * *"
+           cron: "0 0 * * 5"
            filters:
              branches:
                only:
