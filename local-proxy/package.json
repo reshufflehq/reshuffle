@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.4",
     "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@types/express": "^4.17.0",
     "bunyan": "^1.8.12",
@@ -40,7 +40,7 @@
     "@types/rimraf": "^2.0.2",
     "ava": "~2.1.0",
     "got": "^9.6.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   }
