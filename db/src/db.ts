@@ -202,7 +202,7 @@ export class DB extends EventEmitter {
   }
 
   /**
-   * Poll on updates to specified keys since specified versions.
+   * Polls on updates to specified keys since specified versions.
    * @see KeyedVersions
    * @see KeyedPatches
    * @throws TimeoutError if no updates found in time.

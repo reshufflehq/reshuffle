@@ -66,10 +66,15 @@ app.post('/invoke', json(), async (req, res) => {
   const { path, handler, args } = req.body;
   registry.register(requestId);
   try {
-    await transpilePromise;
-    // Make sure we use tmpDir as absolute path
-    const mod = require(pathJoin(tmpDir, path));
-    const fn = mod[handler];
+    let fn: (...args: any[]) => any;
+    if (path === '@binaris/shift-db' && (handler === 'getVersioned' || handler === 'poll')) {
+      fn = require(path)[handler];
+    } else {
+      await transpilePromise;
+      // Make sure we use tmpDir as absolute path
+      const mod = require(pathJoin(tmpDir, path));
+      fn = mod[handler];
+    }
     // TODO: check function is exposed
     const ret = await fn(...args);
     // Not logging args to avoid sensitive info log (?)
