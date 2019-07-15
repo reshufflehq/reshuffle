@@ -1,6 +1,16 @@
-import { DB, Q, Serializable, Document, DeepReadonly, UpdateOptions } from './db';
+import {
+  DB,
+  Q,
+  Serializable,
+  Document,
+  DeepReadonly,
+  UpdateOptions,
+  KeyedPatches,
+  KeyedVersions,
+  Versioned,
+} from './db';
 
-export { Serializable, Q, Document, DeepReadonly, UpdateOptions };
+export { Serializable, Q, Document, DeepReadonly, UpdateOptions, Versioned };
 export { ValueError } from './errors';
 
 const dbPath = process.env.SHIFT_DB_PATH;
@@ -54,4 +64,25 @@ export async function update<T extends Serializable = any>(
  */
 export async function find(query: Q.Query): Promise<Document[]> {
   return await db.find(query);
+}
+
+/**
+ * Polls on updates to specified keys since specified versions.
+ */
+export async function poll(keysToVersions: KeyedVersions): Promise<KeyedPatches> {
+  return await db.poll(keysToVersions);
+}
+
+/**
+ * Gets a single document by key including its version.
+ */
+export async function getVersioned<T extends Serializable = any>(key: string): Promise<Versioned<T> | undefined> {
+  const doc = await db.getWithMeta<T>(key);
+  if (doc === undefined || doc.value === undefined) {
+    return undefined;
+  }
+  return {
+    version: doc.version,
+    value: doc.value,
+  };
 }
