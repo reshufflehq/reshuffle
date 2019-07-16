@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-babel-common",
+      "comment": "Use common module for some babel code",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-babel-common",
+  "email": "vladimir@binaris.com"
+}
