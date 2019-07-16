@@ -7,11 +7,12 @@ type Equatable = Comparable | boolean;
 
 const filterSymbol = Symbol('shiftjs/filter');
 
-interface BaseFilter {
-  [filterSymbol]: true;
-}
+// To avoid injection filters are marked during *construction*, but
+// that marking is not required for use.  The DB code is on the other
+// side of a serialization barrier.
+export type Marked<T extends {}> = T & { [filterSymbol]: true };
 
-interface PathFilter extends BaseFilter {
+interface PathFilter {
   readonly path: string[];
 }
 
@@ -64,17 +65,17 @@ interface StartsWithFilter extends PathFilter {
   readonly value: string;
 }
 
-interface AndFilter extends BaseFilter {
+interface AndFilter {
   readonly operator: 'and';
   readonly filters: Filter[];
 }
 
-interface OrFilter extends BaseFilter {
+interface OrFilter {
   readonly operator: 'or';
   readonly filters: Filter[];
 }
 
-interface NotFilter extends BaseFilter {
+interface NotFilter {
   readonly operator: 'not';
   readonly filter: Filter;
 }
@@ -125,7 +126,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public eq(x: Equatable): EqFilter {
+  public eq(x: Equatable): Marked<EqFilter> {
     return {
       [filterSymbol]: true,
       operator: 'eq',
@@ -139,7 +140,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public ne(x: Equatable): NeFilter {
+  public ne(x: Equatable): Marked<NeFilter> {
     return {
       [filterSymbol]: true,
       operator: 'ne',
@@ -153,7 +154,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gt(x: Comparable): GtFilter {
+  public gt(x: Comparable): Marked<GtFilter> {
     return {
       [filterSymbol]: true,
       operator: 'gt',
@@ -167,7 +168,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gte(x: Comparable): GteFilter {
+  public gte(x: Comparable): Marked<GteFilter> {
     return {
       [filterSymbol]: true,
       operator: 'gte',
@@ -181,7 +182,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lt(x: Comparable): LtFilter {
+  public lt(x: Comparable): Marked<LtFilter> {
     return {
       [filterSymbol]: true,
       operator: 'lt',
@@ -195,7 +196,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lte(x: Comparable): LteFilter {
+  public lte(x: Comparable): Marked<LteFilter> {
     return {
       [filterSymbol]: true,
       operator: 'lte',
@@ -208,7 +209,7 @@ class Path {
    * Does path exist?
    * @return - a filter
    */
-  public exists(): ExistsFilter {
+  public exists(): Marked<ExistsFilter> {
     return {
       [filterSymbol]: true,
       operator: 'exists',
@@ -220,7 +221,7 @@ class Path {
    * Is value at path null?
    * @return - a filter
    */
-  public isNull(): IsNullFilter {
+  public isNull(): Marked<IsNullFilter> {
     return {
       [filterSymbol]: true,
       operator: 'isNull',
@@ -243,7 +244,7 @@ class Path {
    */
   public matches(pattern: RegExp): MatchesFilter;
 
-  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): MatchesFilter {
+  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): Marked<MatchesFilter> {
     if (typeof pattern === 'string') {
       return {
         [filterSymbol]: true,
@@ -271,7 +272,7 @@ class Path {
    * String starts with prefix
    * @return - a filter
    */
-  public startsWith(prefix: string): StartsWithFilter {
+  public startsWith(prefix: string): Marked<StartsWithFilter> {
     return {
       [filterSymbol]: true,
       operator: 'startsWith',
@@ -358,7 +359,7 @@ function checkFilters(...filters: any[]) {
   }
 }
 
-export function all(...filters: NonEmptyArray<Filter>): AndFilter {
+export function all(...filters: NonEmptyArray<Filter>): Marked<AndFilter> {
   checkFilters(...filters);
   return {
     [filterSymbol]: true,
@@ -367,7 +368,7 @@ export function all(...filters: NonEmptyArray<Filter>): AndFilter {
   };
 }
 
-export function any(...filters: NonEmptyArray<Filter>): OrFilter {
+export function any(...filters: NonEmptyArray<Filter>): Marked<OrFilter> {
   checkFilters(...filters);
   return {
     [filterSymbol]: true,
@@ -376,7 +377,7 @@ export function any(...filters: NonEmptyArray<Filter>): OrFilter {
   };
 }
 
-export function not(f: Filter): NotFilter {
+export function not(f: Filter): Marked<NotFilter> {
   checkFilters(f);
   return {
     [filterSymbol]: true,
