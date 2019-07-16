@@ -1,17 +1,17 @@
 import { EventEmitter } from 'events';
 import { pair, path, sortWith, ascend, descend } from 'ramda';
-import deepFreeze from 'deep-freeze';
+import deepFreeze, { DeepReadonly } from 'deep-freeze';
 import { compare, Operation } from 'fast-json-patch';
 import LevelUpCtor, { LevelUp } from 'levelup';
 import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
 import { ValueError } from './errors';
 import * as Q from './query';
-import { withTimeout } from './utils';
+import { withTimeout, deferred, hrnano } from './utils';
 
-export { Q };
+export { Q, DeepReadonly };
 
-const NUM_PATCHES_TO_KEEP = 10;
+const NUM_PATCHES_TO_KEEP = 20;
 const DEFAULT_READ_BLOCK_TIME_MS = 50000;
 
 // Typescript's way of defining any - undefined
@@ -19,32 +19,51 @@ const DEFAULT_READ_BLOCK_TIME_MS = 50000;
 export type Serializable = {} | null;
 
 export interface UpdateOptions {
-  operationId: string;
+  /**
+   * Used to mark an update originated from a specific operation (useful for optimistic UI).
+   */
+  readonly operationId?: string;
+}
+
+export type Version = [number, number];
+
+export function incrVersion([x, y]: Version, amount: number = 1): Version {
+  return [x, y + amount];
+}
+
+export function decrVersion([x, y]: Version, amount: number = 1): Version {
+  return [x, y - amount];
 }
 
 export interface Versioned<T> {
-  version: number;
-  value: T;
+  /**
+   * A document starts with version 1, each time a document is updated the version is incremented.
+   */
+  readonly version: Version;
+  readonly value: T;
 }
 
 export interface Patch {
-  readonly version: number;
+  readonly version: Version;
+  /**
+   * Used to mark an update originated from a specific operation (useful for optimistic UI).
+   */
   readonly operationId?: string;
   readonly ops: Operation[];
 }
 
 export type KeyedPatches = Array<[string, ReadonlyArray<Patch>]>;
-export type KeyedVersions = Array<[string, number]>;
+export type KeyedVersions = Array<[string, Version]>;
 
+/**
+ * value here refers to the *current* value
+ */
 interface StoredDocument<T> extends Versioned<T> {
-  patches: ReadonlyArray<Patch>;
-  updatedAt: number;
+  readonly patches: ReadonlyArray<Patch>;
+  readonly updatedAt: number;
 }
 
-interface Tombstone extends Versioned<undefined> {
-  patches: ReadonlyArray<Patch>;
-  updatedAt: number;
-}
+type Tombstone = StoredDocument<undefined>;
 
 export interface PollOptions {
   readBlockTimeMs: number;
@@ -57,7 +76,7 @@ export interface Document {
 
 function checkValue(value: Serializable) {
   if (typeof value === 'undefined') {
-    throw new ValueError('Value must be not be undefined');
+    throw new TypeError('Value must be not be undefined');
   }
 }
 
@@ -67,6 +86,31 @@ export class DB extends EventEmitter {
   constructor(protected readonly dbPath: string) {
     super();
     this.db = new LevelUpCtor(new LevelDown(dbPath));
+  }
+
+  protected async put(
+    key: string, prev: StoredDocument<any> | undefined, value: any, options?: UpdateOptions
+  ): Promise<void> {
+    if (prev === undefined) {
+      prev = { version: [hrnano(), 0], value: undefined, patches: [], updatedAt: 0 };
+    }
+    const {
+      value: prevValue,
+      version: prevVersion,
+      patches,
+    } = prev;
+    const nextVersion = incrVersion(prevVersion);
+    const ops = compare({ root: prevValue }, { root: value });
+    if (ops.length > 0) {
+      const patch = { version: nextVersion, ops, ...options };
+      await this.db.put(key, JSON.stringify({
+        version: nextVersion,
+        value,
+        patches: patches.slice(-NUM_PATCHES_TO_KEEP).concat(patch),
+        updatedAt: hrnano(),
+      }));
+      this.emit('patch', key, patch);
+    }
   }
 
   /**
@@ -85,7 +129,9 @@ export class DB extends EventEmitter {
    * Gets a single document with its version.
    * @return - { version, value } or undefined if key doesn’t exist.
    */
-  public async getWithMeta<T extends Serializable = Serializable>(key: string): Promise<StoredDocument<T> | undefined> {
+  public async getWithMeta<T extends Serializable = any>(
+    key: string
+  ): Promise<StoredDocument<T> | Tombstone | undefined> {
     try {
       const val = await this.db.get(key);
       return JSON.parse(val.toString());
@@ -104,13 +150,12 @@ export class DB extends EventEmitter {
    */
   public async create(key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
-    const serialized = JSON.stringify({ version: 1, value, patches: [], updatedAt: Date.now() });
     return await this.writeLock.runExclusive(async () => {
-      const prev =  await this.get(key);
-      if (prev !== undefined) {
+      const prev = await this.getWithMeta(key);
+      if (prev !== undefined && prev.value !== undefined) {
         return false;
       }
-      await this.db.put(key, serialized);
+      await this.put(key, prev, value);
       return true;
     });
   }
@@ -122,20 +167,11 @@ export class DB extends EventEmitter {
   public async remove(key: string): Promise<boolean> {
     return await this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(key);
-      if (prev === undefined) {
+      if (prev === undefined || prev.value === undefined) {
         return false;
       }
-      const ops = compare({ root: prev.value }, { root: undefined });
-      if (ops.length > 0) {
-        const patch = { version: prev.version + 1, ops };
-        // TODO: Schedule periodic DB vaccum and delete old tombstones
-        await this.db.put(key, JSON.stringify({
-          version: prev.version + 1,
-          patches: prev.patches.slice(-NUM_PATCHES_TO_KEEP).concat(patch),
-          updatedAt: Date.now(),
-        }));
-        this.emit('patch', key, patch);
-      }
+      // TODO: Schedule periodic DB vaccum and delete old tombstones
+      await this.put(key, prev, undefined);
       return true;
     });
   }
@@ -147,53 +183,49 @@ export class DB extends EventEmitter {
    * @return - The new value returned from updater
    */
   public async update<T extends Serializable = any>(
-    key: string, updater: (state?: T) => T, options?: Partial<UpdateOptions>,
+    key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
   ): Promise<T> {
     return await this.writeLock.runExclusive(async () => {
-      let prev: StoredDocument<T> | Tombstone | undefined = await this.getWithMeta<T>(key);
-      if (prev === undefined) {
-        prev = { version: 0, value: undefined, patches: [], updatedAt: 0 };
-      }
-      const { version: prevVersion, value: prevValue, patches } = prev;
-      deepFreeze(prev);
-      const nextValue = updater(prevValue);
+      const prev = await this.getWithMeta<T>(key);
+      const frozen = deepFreeze({ value: prev && prev.value });
+      const nextValue = updater(frozen.value);
       checkValue(nextValue);
-      const nextVersion = prevVersion + 1;
-      const ops = compare({ root: prevValue }, { root: nextValue });
-      if (ops.length > 0) {
-        const patch = { version: nextVersion, ops, ...options };
-        await this.db.put(key, JSON.stringify({
-          version: nextVersion,
-          value: nextValue,
-          patches: patches.slice(-NUM_PATCHES_TO_KEEP).concat(patch),
-          updatedAt: Date.now(),
-        }));
-        this.emit('patch', key, patch);
-      }
+      await this.put(key, prev, nextValue, options);
       return nextValue;
     });
   }
 
   public async poll(keysToVersions: KeyedVersions, opts: Partial<PollOptions> = {}): Promise<KeyedPatches> {
-    const patchPromise = new Promise<KeyedPatches>((resolve) =>
-      this.once('patch', (key, patch) => resolve([[key, [patch]]])));
-    const keyedPatchesOrUndef = await Promise.all(keysToVersions.map(async ([key, version]) => {
-      const doc = await this.getWithMeta(key);
-      if (doc === undefined) {
-        return undefined;
+    const keysToVersionsMap = new Map(keysToVersions);
+    const { promise, resolve } = deferred<KeyedPatches>();
+    const patchHandler = (key: string, patch: Patch) => {
+      const subscribedVersion = keysToVersionsMap.get(key);
+      if (subscribedVersion !== undefined && patch.version > subscribedVersion) {
+        resolve([[key, [patch]]]);
       }
-      const patches = doc.patches.filter((patch) => patch.version > version);
-      if (patches.length === 0) {
-        return undefined;
+    };
+    this.on('patch', patchHandler);
+    try {
+      const keyedPatchesOrUndef = await Promise.all(keysToVersions.map(async ([key, version]) => {
+        const doc = await this.getWithMeta(key);
+        if (doc === undefined) {
+          return undefined;
+        }
+        const patches = doc.patches.filter((patch) => patch.version > version);
+        if (patches.length === 0) {
+          return undefined;
+        }
+        return pair(key, patches);
+      }));
+      const keyedPatches = keyedPatchesOrUndef.filter(
+        (patch: [string, Patch[]] | undefined): patch is [string, Patch[]] => patch !== undefined);
+      if (keyedPatches.length > 0) {
+        return keyedPatches;
       }
-      return pair(key, patches);
-    }));
-    const keyedPatches = keyedPatchesOrUndef.filter(
-      (patch: [string, Patch[]] | undefined): patch is [string, Patch[]] => patch !== undefined);
-    if (keyedPatches.length > 0) {
-      return keyedPatches;
+      return await withTimeout(promise, opts.readBlockTimeMs || DEFAULT_READ_BLOCK_TIME_MS);
+    } finally {
+      this.off('patch', patchHandler);
     }
-    return withTimeout(patchPromise, opts.readBlockTimeMs || DEFAULT_READ_BLOCK_TIME_MS);
   }
 
   /**

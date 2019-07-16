@@ -1,6 +1,6 @@
-import { DB, Q, Serializable, Document } from './db';
+import { DB, Q, Serializable, Document, DeepReadonly, UpdateOptions } from './db';
 
-export { Serializable, Q, Document };
+export { Serializable, Q, Document, DeepReadonly, UpdateOptions };
 export { ValueError } from './errors';
 
 const dbPath = process.env.SHIFT_DB_PATH;
@@ -42,9 +42,9 @@ export async function remove(key: string): Promise<boolean> {
  * @return - The new value returned from updater
  */
 export async function update<T extends Serializable = any>(
-  key: string, updater: (state?: T) => T
+  key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
 ): Promise<T> {
-  return await db.update(key, updater);
+  return await db.update(key, updater, options);
 }
 
 /**
