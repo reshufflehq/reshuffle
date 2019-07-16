@@ -37,15 +37,14 @@ export async function remove(key: string): Promise<boolean> {
 
 /**
  * Updates a single document.
- * @param updater - Function that gets the previous value and returns the next value
- *                  to update the DB with, updater cannot return undefined.
- * @param initializer - `updater` will get this value if no document exists for `key`.
+ * @param updater - Function that gets the previous value and returns the next value to update the DB with.
+ *                  Cannot return undefined, receives undefined in case key doesn’t already exist in the DB.
  * @return - The new value returned from updater
  */
-export async function update<T extends Serializable, R extends Serializable>(
-  key: string, updater: (state?: T) => R, initializer?: T
-): Promise<R> {
-  return await db.update(key, updater, initializer);
+export async function update<T extends Serializable = any>(
+  key: string, updater: (state?: T) => T
+): Promise<T> {
+  return await db.update(key, updater);
 }
 
 /**

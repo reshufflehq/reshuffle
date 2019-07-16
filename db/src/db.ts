@@ -7,10 +7,10 @@ import * as Q from './query';
 
 export { Q };
 
-export type Primitive = string | number | boolean | Date | null;
-export interface SerializableArray extends Array<Serializable | undefined> {}
-export interface SerializableObject { [key: string]: Serializable | undefined; }
-export type Serializable = Primitive | SerializableArray | SerializableObject;
+// Typescript's way of defining any - undefined
+// see: https://github.com/Microsoft/TypeScript/issues/7648
+export type Serializable = {} | null;
+
 export interface Document {
   key: string;
   value: Serializable;
@@ -80,16 +80,15 @@ export class DB {
 
   /**
    * Updates a single document.
-   * @param updater - Function that gets the previous value and returns the next value
-   *                  to update the DB with, updater cannot return undefined.
-   * @param initializer - `updater` will get this value if no document exists for `key`.
+   * @param updater - Function that gets the previous value and returns the next value to update the DB with.
+   *                  Cannot return undefined, receives undefined in case key doesn’t already exist in the DB.
    * @return - The new value returned from updater
    */
-  public async update<T extends Serializable, R extends Serializable>(
-    key: string, updater: (state?: T) => R, initializer?: T
-  ): Promise<R> {
+  public async update<T extends Serializable = any>(
+    key: string, updater: (state?: T) => T
+  ): Promise<T> {
     return await this.writeLock.runExclusive(async () => {
-      const prev = await this.get(key) || initializer;
+      const prev = await this.get(key);
       const next = updater(prev as T);
       checkValue(next);
       await this.db.put(key, JSON.stringify(next));
