@@ -11,6 +11,37 @@ const filterSymbol = Symbol('shiftjs/filter');
 // side of a serialization barrier.
 export type Marked<T extends {}> = T & { [filterSymbol]: true };
 
+export type EqFilter = Marked<dbi.EqFilter>;
+export type NeFilter = Marked<dbi.NeFilter>;
+export type GtFilter = Marked<dbi.GtFilter>;
+export type GteFilter = Marked<dbi.GteFilter>;
+export type LtFilter = Marked<dbi.LtFilter>;
+export type LteFilter = Marked<dbi.LteFilter>;
+export type ExistsFilter = Marked<dbi.ExistsFilter>;
+export type IsNullFilter = Marked<dbi.IsNullFilter>;
+export type MatchesFilter = Marked<dbi.MatchesFilter>;
+export type StartsWithFilter = Marked<dbi.StartsWithFilter>;
+
+export type Order = dbi.Order;
+export const ASC = dbi.ASC;
+export const DESC = dbi.DESC;
+
+interface AndFilter extends Marked<dbi.AndFilter> {
+  readonly filters: Filter[];
+}
+interface OrFilter extends Marked<dbi.OrFilter> {
+  readonly filters: Filter[];
+}
+interface NotFilter extends Marked<dbi.NotFilter> {
+  readonly filter: Filter;
+}
+
+export type Filter = EqFilter | NeFilter
+  | GtFilter | GteFilter | LtFilter | LteFilter
+  | ExistsFilter | IsNullFilter
+  | MatchesFilter | StartsWithFilter
+  | AndFilter | OrFilter | NotFilter;
+
 const proxyHandler = {
   get(obj: Path, prop: string) {
     // Known properties such as `field` and `eq` are used as defined, unknown properties are used as fields.
@@ -51,7 +82,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public eq(x: dbi.Equatable): Marked<dbi.EqFilter> {
+  public eq(x: dbi.Equatable): EqFilter {
     return {
       [filterSymbol]: true,
       operator: 'eq',
@@ -65,7 +96,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public ne(x: dbi.Equatable): Marked<dbi.NeFilter> {
+  public ne(x: dbi.Equatable): NeFilter {
     return {
       [filterSymbol]: true,
       operator: 'ne',
@@ -79,7 +110,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gt(x: dbi.Comparable): Marked<dbi.GtFilter> {
+  public gt(x: dbi.Comparable): GtFilter {
     return {
       [filterSymbol]: true,
       operator: 'gt',
@@ -93,7 +124,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gte(x: dbi.Comparable): Marked<dbi.GteFilter> {
+  public gte(x: dbi.Comparable): GteFilter {
     return {
       [filterSymbol]: true,
       operator: 'gte',
@@ -107,7 +138,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lt(x: dbi.Comparable): Marked<dbi.LtFilter> {
+  public lt(x: dbi.Comparable): LtFilter {
     return {
       [filterSymbol]: true,
       operator: 'lt',
@@ -121,7 +152,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lte(x: dbi.Comparable): Marked<dbi.LteFilter> {
+  public lte(x: dbi.Comparable): LteFilter {
     return {
       [filterSymbol]: true,
       operator: 'lte',
@@ -134,7 +165,7 @@ class Path {
    * Does path exist?
    * @return - a filter
    */
-  public exists(): Marked<dbi.ExistsFilter> {
+  public exists(): ExistsFilter {
     return {
       [filterSymbol]: true,
       operator: 'exists',
@@ -146,7 +177,7 @@ class Path {
    * Is value at path null?
    * @return - a filter
    */
-  public isNull(): Marked<dbi.IsNullFilter> {
+  public isNull(): IsNullFilter {
     return {
       [filterSymbol]: true,
       operator: 'isNull',
@@ -169,7 +200,7 @@ class Path {
    */
   public matches(pattern: RegExp): dbi.MatchesFilter;
 
-  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): Marked<dbi.MatchesFilter> {
+  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): MatchesFilter {
     if (typeof pattern === 'string') {
       return {
         [filterSymbol]: true,
@@ -197,7 +228,7 @@ class Path {
    * String starts with prefix
    * @return - a filter
    */
-  public startsWith(prefix: string): Marked<dbi.StartsWithFilter> {
+  public startsWith(prefix: string): StartsWithFilter {
     return {
       [filterSymbol]: true,
       operator: 'startsWith',
@@ -273,41 +304,42 @@ export const value = Path.proxied(['value']);
 
 type NonEmptyArray<T> = [T, ...T[]];
 
-function checkFilters(...filters: any[]) {
+function checkFilter(filter: any): Filter {
+  if (!filter[filterSymbol]) {
+    throw new TypeError('Given filter is invalid');
+  }
+  return filter;
+}
+
+function checkFilters(...filters: any[]): Filter[] {
   if (filters.length === 0) {
     throw new IllegalArgumentError('Expected at least 1 filter');
   }
-  for (const f of filters) {
-    if (!f[filterSymbol]) {
-      throw new TypeError('Given filter is invalid');
-    }
-  }
+  filters.forEach(checkFilter);
+  return filters;
 }
 
-export function all(...filters: NonEmptyArray<dbi.Filter>): Marked<dbi.AndFilter> {
-  checkFilters(...filters);
+export function all(...filters: NonEmptyArray<dbi.Filter>): AndFilter {
   return {
     [filterSymbol]: true,
     operator: 'and',
-    filters,
+    filters: checkFilters(...filters),
   };
 }
 
-export function any(...filters: NonEmptyArray<dbi.Filter>): Marked<dbi.OrFilter> {
-  checkFilters(...filters);
+export function any(...filters: NonEmptyArray<dbi.Filter>): OrFilter {
   return {
     [filterSymbol]: true,
     operator: 'or',
-    filters,
+    filters: checkFilters(...filters),
   };
 }
 
-export function not(f: dbi.Filter): Marked<dbi.NotFilter> {
-  checkFilters(f);
+export function not(f: dbi.Filter): NotFilter {
   return {
     [filterSymbol]: true,
     operator: 'not',
-    filter: f,
+    filter: checkFilter(f),
   };
 }
 
