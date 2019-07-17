@@ -380,6 +380,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-subscriptions",
+        "projectFolder": "subscriptions",
+        "shouldPublish": true
+    },
+    {
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true

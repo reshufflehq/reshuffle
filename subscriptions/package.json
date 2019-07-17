@@ -1,0 +1,34 @@
+{
+  "name": "@binaris/shift-subscriptions",
+  "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
+  "description": "Frontend subscriptions library",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "ava -v dist/test/*.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@binaris/shift-interfaces": "0.1.0",
+    "@binaris/shift-fetch-runtime": "0.0.2",
+    "fast-json-patch": "^2.1.0",
+    "immutable": "^4.0.0-rc.12",
+    "react": "^16.8.6",
+    "rxjs": "^6.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.9",
+    "@types/react": "^16.8.23",
+    "@types/sinon": "^7.0.13",
+    "@types/uuid": "^3.4.5",
+    "ava": "~2.1.0",
+    "sinon": "^7.3.2",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
+}
