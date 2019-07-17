@@ -173,7 +173,7 @@ export class DB extends EventEmitter {
       if (prev === undefined || prev.value === undefined) {
         return false;
       }
-      // TODO: Schedule periodic DB vaccum and delete old tombstones
+      // TODO: Schedule periodic DB vacuum and delete old tombstones
       await this.put(key, prev, undefined);
       return true;
     });
