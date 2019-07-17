@@ -243,7 +243,7 @@ test('DB.poll times out when patches emitted on different key', async (t) => {
 test('DB.poll times out when patches emitted on old version', async (t) => {
   const { db } = t.context;
   await t.throwsAsync(Promise.all([
-    db.poll([['test1', [hrnano() * 2, 1]]], { readBlockTimeMs: 100 }),
+    db.poll([['test1', [hrnano() + 10_000_000_000, 0]]], { readBlockTimeMs: 100 }),
     db.create('test1', 'a'),
   ]), TimeoutError);
 });
