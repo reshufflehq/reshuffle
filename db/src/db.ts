@@ -120,7 +120,7 @@ export class DB extends EventEmitter {
    * Gets a single document.
    * @return - value or undefined if key doesn’t exist.
    */
-  public async get(key: string): Promise<Serializable | undefined> {
+  public async get<T extends Serializable = any>(key: string): Promise<T | undefined> {
     const versioned = await this.getWithMeta(key);
     if (versioned === undefined) {
       return undefined;
