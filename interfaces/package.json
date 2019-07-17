@@ -6,10 +6,10 @@
   ],
   "description": "interfaces for serving ShiftJS",
   "main": "dist/index.js",
-  "types": "dist/index.d.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && tsc && npm run compile-schema",
-    "compile-schema": "typescript-json-schema -o dist/schema.json --required --include src/db.ts --noExtraProps tsconfig.json '*'",
+    "compile-schema": "typescript-json-schema -o dist/schema.json --required --noExtraProps tsconfig.json '*'",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "echo interface needs no tests"
   },
