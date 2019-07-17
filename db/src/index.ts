@@ -14,7 +14,7 @@ const db = new DB(dbPath);
  * Gets a single document.
  * @return - value or undefined if key doesn’t exist.
  */
-export async function get(key: string): Promise<Serializable | undefined> {
+export async function get<T extends Serializable = any>(key: string): Promise<T | undefined> {
   return await db.get(key);
 }
 
