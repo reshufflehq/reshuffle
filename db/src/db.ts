@@ -201,9 +201,16 @@ export class DB extends EventEmitter {
     });
   }
 
+  /**
+   * Poll on updates to specified keys since specified versions.
+   * @see KeyedVersions
+   * @see KeyedPatches
+   * @throws TimeoutError if no updates found in time.
+   */
   public async poll(keysToVersions: KeyedVersions, opts: Partial<PollOptions> = {}): Promise<KeyedPatches> {
     const keysToVersionsMap = new Map(keysToVersions);
     const { promise, resolve } = deferred<KeyedPatches>();
+    // Make sure we don't miss any live updates in case the initial scan (below) comes back empty.
     const patchHandler = (key: string, patch: Patch) => {
       const subscribedVersion = keysToVersionsMap.get(key);
       if (subscribedVersion !== undefined && patch.version > subscribedVersion) {
@@ -212,6 +219,7 @@ export class DB extends EventEmitter {
     };
     this.on('patch', patchHandler);
     try {
+      // Scan the DB for matching patches
       const keyedPatchesOrUndef = await Promise.all(keysToVersions.map(async ([key, version]) => {
         const doc = await this.getWithMeta(key);
         if (doc === undefined) {
