@@ -1,6 +1,9 @@
 {
   "name": "@binaris/shift-babel-common",
   "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
   "description": "Common babel code for transforming ShiftJS exposed functions",
   "main": "dist/index.js",
   "scripts": {

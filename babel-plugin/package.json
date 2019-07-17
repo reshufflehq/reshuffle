@@ -1,6 +1,9 @@
 {
   "name": "@binaris/shift-backend-babel-plugin",
   "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
   "description": "Babel plugin for marking exposed functions",
   "main": "dist/index.js",
   "scripts": {
