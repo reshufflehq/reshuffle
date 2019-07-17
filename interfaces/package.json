@@ -15,7 +15,9 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "fast-json-patch": "^2.1.0"
+  },
   "devDependencies": {
     "@types/node": "^10.14.9",
     "tslint": "^5.18.0",
