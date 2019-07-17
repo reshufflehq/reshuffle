@@ -3,7 +3,7 @@ import plugin from '../';
 
 pluginTester({
   plugin,
-  pluginName: '@binaris/shift-babel-plugin',
+  pluginName: '@binaris/shift-backend-babel-plugin',
   tests: {
     'Mark @exposed functions as exposed': {
       code: `
