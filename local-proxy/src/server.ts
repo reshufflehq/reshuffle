@@ -1,4 +1,4 @@
-import { join as pathJoin } from 'path';
+import { join as pathJoin, resolve as pathResolve } from 'path';
 import { inspect } from 'util';
 import http from 'http';
 import express, { json } from 'express';
@@ -21,7 +21,7 @@ if (!localToken) {
 }
 const app = express();
 
-const tmpDir = mkdtempSync(pathJoin(basePath, '..', '.shift_local_proxy_'));
+const tmpDir = mkdtempSync(pathResolve(basePath, '..', '.shift_local_proxy_'));
 
 const transpilePromise = babelDir({
   cliOptions: {
@@ -71,8 +71,13 @@ app.post('/invoke', json(), async (req, res) => {
       fn = require(path)[handler];
     } else {
       await transpilePromise;
-      // Make sure we use tmpDir as absolute path
-      const mod = require(pathJoin(tmpDir, path));
+      const joinedDir = pathResolve(tmpDir, path);
+      if (!joinedDir.startsWith(tmpDir)) {
+        return res.status(403).send({
+          error: 'Tried to reference path outside of root dir',
+        });
+      }
+      const mod = require(joinedDir);
       fn = mod[handler];
     }
     // TODO: check function is exposed
