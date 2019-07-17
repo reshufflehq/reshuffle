@@ -43,7 +43,7 @@ export async function remove(key: string): Promise<boolean> {
  */
 export async function update<T extends Serializable = any>(
   key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
-): Promise<T> {
+): Promise<DeepReadonly<T>> {
   return await db.update(key, updater, options);
 }
 

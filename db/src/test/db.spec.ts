@@ -5,7 +5,7 @@ import { promisify } from 'util';
 import { tmpdir } from 'os';
 import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
-import { DB, incrVersion, decrVersion } from '../db';
+import { DB, incrVersion } from '../db';
 import { TimeoutError, hrnano } from '../utils';
 
 interface Context {
@@ -250,20 +250,21 @@ test('DB.poll times out when patches emitted on old version', async (t) => {
 
 test('DB.create works after remove', async (t) => {
   const { db } = t.context;
-  const t0 = hrnano();
   await db.create('test', 7);
+  const { version: initialVersion } = (await db.getWithMeta('test'))!;
   await db.remove('test');
+  const t0 = hrnano();
   t.true(await db.create('test', 8));
   const doc = await db.getWithMeta('test');
   t.deepEqual(omit(['updatedAt', 'version'], doc), {
     value: 8,
     patches: [
       {
-        version: decrVersion(doc!.version, 2),
+        version: initialVersion,
         ops: [{ op: 'replace', path: '/root', value: 7 }],
       },
       {
-        version: decrVersion(doc!.version),
+        version: incrVersion(initialVersion),
         ops: [{ op: 'remove', path: '/root' }],
       },
       {
@@ -274,14 +275,15 @@ test('DB.create works after remove', async (t) => {
   });
   t.true(doc!.updatedAt >= t0);
   t.true(doc!.version[0] >= t0);
-  t.is(doc!.version[1], 3);
+  t.is(doc!.version[1], 1);
 });
 
 test('DB.update works after remove but increments version and includes tombstone\'s patches', async (t) => {
   const { db } = t.context;
-  const t0 = hrnano();
   await db.create('test', 7);
+  const { version: initialVersion } = (await db.getWithMeta('test'))!;
   await db.remove('test');
+  const t0 = hrnano();
   const val = await db.update('test', () => 8);
   t.is(val, 8);
   const doc = await db.getWithMeta('test');
@@ -289,11 +291,11 @@ test('DB.update works after remove but increments version and includes tombstone
     value: 8,
     patches: [
       {
-        version: decrVersion(doc!.version, 2),
+        version: initialVersion,
         ops: [{ op: 'replace', path: '/root', value: 7 }],
       },
       {
-        version: decrVersion(doc!.version),
+        version: incrVersion(initialVersion),
         ops: [{ op: 'remove', path: '/root' }],
       },
       {
@@ -304,7 +306,7 @@ test('DB.update works after remove but increments version and includes tombstone
   });
   t.true(doc!.updatedAt >= t0);
   t.true(doc!.version[0] >= t0);
-  t.is(doc!.version[1], 3);
+  t.is(doc!.version[1], 1);
 });
 
 test('DB.update throws TypeError if updater returned undefined', async (t) => {
