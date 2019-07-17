@@ -1,10 +1,21 @@
 import * as BabelTypes from '@babel/types';
-// tslint:disable-next-line:no-implicit-dependencies only used for Visitor type
-import { Visitor } from '@babel/traverse';
-import { getFunctionName, isExposedStatement } from '@binaris/shift-babel-common';
+// tslint:disable-next-line:no-implicit-dependencies only used for Visitor and NodePath types
+import { Visitor, NodePath } from '@babel/traverse';
+import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from '@binaris/shift-babel-common';
 
 interface Babel {
   types: typeof BabelTypes;
+}
+
+function insertExpose(path: NodePath<BabelTypes.Node>, t: typeof BabelTypes, funcName: string) {
+  path.insertAfter(
+    t.expressionStatement(
+      t.assignmentExpression('=',
+        t.memberExpression(t.identifier(funcName), t.identifier('__shiftjs__')),
+        t.stringLiteral('exposed')
+      )
+    )
+  );
 }
 
 export default function({ types: t }: Babel): { visitor: Visitor<object> } {
@@ -23,14 +34,23 @@ export default function({ types: t }: Babel): { visitor: Visitor<object> } {
         if (!funcName) {
           return;
         }
-        path.insertAfter(
-          t.expressionStatement(
-            t.assignmentExpression('=',
-              t.memberExpression(t.identifier(funcName), t.identifier('__shiftjs__')),
-              t.stringLiteral('exposed')
-            )
-          )
-        );
+        insertExpose(path, t, funcName);
+      },
+      FunctionDeclaration(path) {
+        if (!t.isProgram(path.parent)) return;
+        const { node } = path;
+        if (!isExposedStatement(node)) {
+          return;
+        }
+        const funcName = getFunctionName(node, t);
+        if (!funcName) {
+          return;
+        }
+        const sibling = path.getSibling(path.key as number + 1);
+        if (!isTypeScriptGeneratedExport(sibling.node, t, funcName)) {
+          throw new Error(`${funcName} has @expose decorator but it is not exported`);
+        }
+        insertExpose(path, t, funcName);
       },
     },
   };

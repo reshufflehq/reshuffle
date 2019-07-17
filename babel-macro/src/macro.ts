@@ -3,7 +3,7 @@ import { parse } from '@babel/parser';
 // not using since not sure if babel.types is the very same babel.types or a different version
 // import * as t from '@babel/types';
 import * as babelTypes from '@babel/types';
-import { getFunctionName, isExposedStatement } from '@binaris/shift-babel-common';
+import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from '@binaris/shift-babel-common';
 import { readFileSync } from 'fs';
 import path from 'path';
 
@@ -30,18 +30,7 @@ function assertExportedMember(ast: babelTypes.File, t: typeof babelTypes, funcNa
   // exports.funcName = funcName
   // we support this because this is the TypeScript's generated pattern for named exports
   const { body } = ast.program;
-  const isFunctionExported = body.some((e) =>
-    t.isExpressionStatement(e) &&
-    t.isAssignmentExpression(e.expression) &&
-    e.expression.operator === '=' &&
-    t.isMemberExpression(e.expression.left) &&
-    t.isIdentifier(e.expression.left.object) &&
-    e.expression.left.object.name === 'exports' &&
-    t.isIdentifier(e.expression.left.property) &&
-    e.expression.left.property.name === funcName &&
-    t.isIdentifier(e.expression.right) &&
-    e.expression.right.name === funcName
-  );
+  const isFunctionExported = body.some((e) => isTypeScriptGeneratedExport(e, t, funcName));
   if (!isFunctionExported) {
     throw new Error(`${funcName} has @expose decorator but it is not exported`);
   }
