@@ -1,0 +1,16 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-local-proxy",
+      "comment": "Expose shift-db subscription functions",
+      "type": "patch"
+    },
+    {
+      "packageName": "@binaris/shift-local-proxy",
+      "comment": "Disallow requiring files outside of root dir",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-local-proxy",
+  "email": "roey.berman@gmail.com"
+}
