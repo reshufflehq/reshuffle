@@ -1,9 +1,8 @@
 import { equals } from 'ramda';
 import { IllegalArgumentError } from './errors';
+import { db as dbi } from '@binaris/shift-interfaces';
 
 type Key = string | number;
-type Comparable = string | number | Date;
-type Equatable = Comparable | boolean;
 
 const filterSymbol = Symbol('shiftjs/filter');
 
@@ -11,80 +10,6 @@ const filterSymbol = Symbol('shiftjs/filter');
 // that marking is not required for use.  The DB code is on the other
 // side of a serialization barrier.
 export type Marked<T extends {}> = T & { [filterSymbol]: true };
-
-interface PathFilter {
-  readonly path: string[];
-}
-
-interface EqFilter extends PathFilter {
-  readonly operator: 'eq';
-  readonly value: Equatable;
-}
-
-interface NeFilter extends PathFilter {
-  readonly operator: 'ne';
-  readonly value: Equatable;
-}
-
-interface ComparableFilter extends PathFilter {
-  readonly value: Comparable;
-}
-
-interface GtFilter extends ComparableFilter {
-  readonly operator: 'gt';
-}
-
-interface GteFilter extends ComparableFilter {
-  readonly operator: 'gte';
-}
-
-interface LtFilter extends ComparableFilter {
-  readonly operator: 'lt';
-}
-
-interface LteFilter extends ComparableFilter {
-  readonly operator: 'lte';
-}
-
-interface ExistsFilter extends PathFilter {
-  readonly operator: 'exists';
-}
-
-interface IsNullFilter extends PathFilter {
-  readonly operator: 'isNull';
-}
-
-interface MatchesFilter extends PathFilter {
-  readonly operator: 'matches';
-  readonly pattern: string;
-  readonly caseInsensitive: boolean;
-}
-
-interface StartsWithFilter extends PathFilter {
-  readonly operator: 'startsWith';
-  readonly value: string;
-}
-
-interface AndFilter {
-  readonly operator: 'and';
-  readonly filters: Filter[];
-}
-
-interface OrFilter {
-  readonly operator: 'or';
-  readonly filters: Filter[];
-}
-
-interface NotFilter {
-  readonly operator: 'not';
-  readonly filter: Filter;
-}
-
-export type Filter = EqFilter | NeFilter
-  | GtFilter | GteFilter | LtFilter | LteFilter
-  | ExistsFilter | IsNullFilter
-  | MatchesFilter | StartsWithFilter
-  | AndFilter | OrFilter | NotFilter;
 
 const proxyHandler = {
   get(obj: Path, prop: string) {
@@ -126,7 +51,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public eq(x: Equatable): Marked<EqFilter> {
+  public eq(x: dbi.Equatable): Marked<dbi.EqFilter> {
     return {
       [filterSymbol]: true,
       operator: 'eq',
@@ -140,7 +65,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public ne(x: Equatable): Marked<NeFilter> {
+  public ne(x: dbi.Equatable): Marked<dbi.NeFilter> {
     return {
       [filterSymbol]: true,
       operator: 'ne',
@@ -154,7 +79,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gt(x: Comparable): Marked<GtFilter> {
+  public gt(x: dbi.Comparable): Marked<dbi.GtFilter> {
     return {
       [filterSymbol]: true,
       operator: 'gt',
@@ -168,7 +93,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gte(x: Comparable): Marked<GteFilter> {
+  public gte(x: dbi.Comparable): Marked<dbi.GteFilter> {
     return {
       [filterSymbol]: true,
       operator: 'gte',
@@ -182,7 +107,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lt(x: Comparable): Marked<LtFilter> {
+  public lt(x: dbi.Comparable): Marked<dbi.LtFilter> {
     return {
       [filterSymbol]: true,
       operator: 'lt',
@@ -196,7 +121,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lte(x: Comparable): Marked<LteFilter> {
+  public lte(x: dbi.Comparable): Marked<dbi.LteFilter> {
     return {
       [filterSymbol]: true,
       operator: 'lte',
@@ -209,7 +134,7 @@ class Path {
    * Does path exist?
    * @return - a filter
    */
-  public exists(): Marked<ExistsFilter> {
+  public exists(): Marked<dbi.ExistsFilter> {
     return {
       [filterSymbol]: true,
       operator: 'exists',
@@ -221,7 +146,7 @@ class Path {
    * Is value at path null?
    * @return - a filter
    */
-  public isNull(): Marked<IsNullFilter> {
+  public isNull(): Marked<dbi.IsNullFilter> {
     return {
       [filterSymbol]: true,
       operator: 'isNull',
@@ -235,16 +160,16 @@ class Path {
    * @param caseInsensitive should the check be case insensitive?
    * @return - a filter
    */
-  public matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
+  public matches(pattern: string, caseInsensitive?: boolean): dbi.MatchesFilter;
 
   /**
    * String matches pattern.
    * @param pattern - regular expression, if the RegExp object has the 'i' flag, perform a case insensitive match.
    * @return - a filter
    */
-  public matches(pattern: RegExp): MatchesFilter;
+  public matches(pattern: RegExp): dbi.MatchesFilter;
 
-  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): Marked<MatchesFilter> {
+  public matches(pattern: RegExp | string, caseInsensitive: boolean = false): Marked<dbi.MatchesFilter> {
     if (typeof pattern === 'string') {
       return {
         [filterSymbol]: true,
@@ -272,7 +197,7 @@ class Path {
    * String starts with prefix
    * @return - a filter
    */
-  public startsWith(prefix: string): Marked<StartsWithFilter> {
+  public startsWith(prefix: string): Marked<dbi.StartsWithFilter> {
     return {
       [filterSymbol]: true,
       operator: 'startsWith',
@@ -296,22 +221,22 @@ interface CastablePath {
   as<T>(): Doc<T>;
 }
 
-interface EquatablePath<T extends Equatable> extends CastablePath {
-  eq(x: T): EqFilter;
-  ne(x: T): NeFilter;
+interface EquatablePath<T extends dbi.Equatable> extends CastablePath {
+  eq(x: T): dbi.EqFilter;
+  ne(x: T): dbi.NeFilter;
 }
 
-interface ComparablePath<T extends Comparable> extends EquatablePath<T> {
-  gt(x: T): GtFilter;
-  gte(x: T): GteFilter;
-  lt(x: T): LtFilter;
-  lte(x: T): LteFilter;
+interface ComparablePath<T extends dbi.Comparable> extends EquatablePath<T> {
+  gt(x: T): dbi.GtFilter;
+  gte(x: T): dbi.GteFilter;
+  lt(x: T): dbi.LtFilter;
+  lte(x: T): dbi.LteFilter;
 }
 
 interface StringPath extends ComparablePath<string> {
-  matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
-  matches(pattern: RegExp): MatchesFilter;
-  startsWith(prefix: string): StartsWithFilter;
+  matches(pattern: string, caseInsensitive?: boolean): dbi.MatchesFilter;
+  matches(pattern: RegExp): dbi.MatchesFilter;
+  startsWith(prefix: string): dbi.StartsWithFilter;
 }
 
 type NumberPath = ComparablePath<number>;
@@ -320,11 +245,11 @@ type DatePath = ComparablePath<Date>;
 type BooleanPath = EquatablePath<boolean>;
 
 interface NullPath extends CastablePath {
-  isNull(): IsNullFilter;
+  isNull(): dbi.IsNullFilter;
 }
 
 interface MaybePath extends CastablePath {
-  exists(): Filter;
+  exists(): dbi.Filter;
 }
 
 type Doc<T> = T extends Record<string, unknown> ? Required<{
@@ -359,7 +284,7 @@ function checkFilters(...filters: any[]) {
   }
 }
 
-export function all(...filters: NonEmptyArray<Filter>): Marked<AndFilter> {
+export function all(...filters: NonEmptyArray<dbi.Filter>): Marked<dbi.AndFilter> {
   checkFilters(...filters);
   return {
     [filterSymbol]: true,
@@ -368,7 +293,7 @@ export function all(...filters: NonEmptyArray<Filter>): Marked<AndFilter> {
   };
 }
 
-export function any(...filters: NonEmptyArray<Filter>): Marked<OrFilter> {
+export function any(...filters: NonEmptyArray<dbi.Filter>): Marked<dbi.OrFilter> {
   checkFilters(...filters);
   return {
     [filterSymbol]: true,
@@ -377,7 +302,7 @@ export function any(...filters: NonEmptyArray<Filter>): Marked<OrFilter> {
   };
 }
 
-export function not(f: Filter): Marked<NotFilter> {
+export function not(f: dbi.Filter): Marked<dbi.NotFilter> {
   checkFilters(f);
   return {
     [filterSymbol]: true,
@@ -386,21 +311,15 @@ export function not(f: Filter): Marked<NotFilter> {
   };
 }
 
-export type Direction = 'ASC' | 'DESC';
-export const ASC: 'ASC' = 'ASC';
-export const DESC: 'DESC' = 'DESC';
-
-export type Order = [string[], Direction];
-
 export class Query {
   protected constructor(
-    protected readonly _filter: Filter,
+    protected readonly _filter: dbi.Filter,
     protected readonly _limit?: number,
     protected readonly _skip?: number,
-    protected readonly _orderBy?: ReadonlyArray<Order>,
+    protected readonly _orderBy?: ReadonlyArray<dbi.Order>,
   ) {}
 
-  public filter(f: Filter): Query {
+  public filter(f: dbi.Filter): Query {
     return new Query(all(this._filter, f), this._limit, this._skip, this._orderBy);
   }
 
@@ -418,7 +337,7 @@ export class Query {
     return new Query(this._filter, this._limit, s, this._orderBy);
   }
 
-  public orderBy(path: Path | Doc<any>, order: Direction = ASC): Query {
+  public orderBy(path: Path | Doc<any>, order: dbi.Direction = dbi.ASC): Query {
     const { parts } = (path as any);
     for (const [p] of (this._orderBy || [])) {
       if (equals(p, parts)) {
@@ -428,12 +347,12 @@ export class Query {
     return new Query(this._filter, this._limit, this._skip, [...(this._orderBy || []), [parts, order]]);
   }
 
-  public static fromFilter(f: Filter): Query {
+  public static fromFilter(f: dbi.Filter): Query {
     checkFilters(f);
     return new this(f);
   }
 
-  public toJSON() {
+  public toJSON(): dbi.QueryData {
     return {
       filter: this._filter,
       limit: this._limit,

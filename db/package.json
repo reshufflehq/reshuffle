@@ -15,6 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@binaris/shift-interfaces": "0.0.1",
     "@types/deep-freeze": "^0.1.1",
     "@types/leveldown": "^4.0.0",
     "@types/levelup": "^3.1.1",
