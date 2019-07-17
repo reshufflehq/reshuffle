@@ -304,11 +304,11 @@ export const value = Path.proxied(['value']);
 
 type NonEmptyArray<T> = [T, ...T[]];
 
-function checkFilter(filter: any): Filter {
-  if (!filter[filterSymbol]) {
+function checkFilter(f: any): Filter {
+  if (!f[filterSymbol]) {
     throw new TypeError('Given filter is invalid');
   }
-  return filter;
+  return f;
 }
 
 function checkFilters(...filters: any[]): Filter[] {
