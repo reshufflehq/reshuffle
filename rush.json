@@ -365,6 +365,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-interfaces",
+        "projectFolder": "interfaces",
+        "shouldPublish": true
+    },
+    {
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true

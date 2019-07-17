@@ -1,6 +1,7 @@
 import test from 'ava';
 import { IllegalArgumentError } from '../errors';
-import { key, all, any, not, value, typedValue, filter, ASC, DESC } from '../query';
+import { key, all, any, not, value, typedValue, filter } from '../query';
+import { db as dbi } from '@binaris/shift-interfaces';
 
 function stringifyThenParse(v: any) {
   return JSON.parse(JSON.stringify(v));
@@ -281,21 +282,21 @@ test('Query.skip sets skip', (t) => {
 test('Query.orderBy sets order', (t) => {
   t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x)), {
     filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    orderBy: [[['value', 'x'], ASC]],
+    orderBy: [[['value', 'x'], dbi.ASC]],
   });
 });
 
 test('Query.orderBy sets DESC order', (t) => {
-  t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x, DESC)), {
+  t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x, dbi.DESC)), {
     filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    orderBy: [[['value', 'x'], DESC]],
+    orderBy: [[['value', 'x'], dbi.DESC]],
   });
 });
 
 test('Query.orderBy sets secondary order', (t) => {
   t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x).orderBy(key)), {
     filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    orderBy: [[['value', 'x'], ASC], [['key'], ASC]],
+    orderBy: [[['value', 'x'], dbi.ASC], [['key'], dbi.ASC]],
   });
 });
 

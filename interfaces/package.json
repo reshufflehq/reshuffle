@@ -1,0 +1,26 @@
+{
+  "name": "@binaris/shift-interfaces",
+  "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
+  "description": "interfaces for serving ShiftJS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc && npm run compile-schema",
+    "compile-schema": "typescript-json-schema -o dist/schema.json --required --include src/db.ts --noExtraProps tsconfig.json '*'",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "echo interface needs no tests"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.9",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3",
+    "typescript-json-schema": "^0.38.3"
+  }
+}
