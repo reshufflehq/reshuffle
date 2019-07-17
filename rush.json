@@ -370,7 +370,7 @@
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-babel-plugin",
+        "packageName": "@binaris/shift-backend-babel-plugin",
         "projectFolder": "babel-plugin",
         "shouldPublish": true
     },
@@ -383,6 +383,6 @@
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true
-    },
+    }
   ]
 }

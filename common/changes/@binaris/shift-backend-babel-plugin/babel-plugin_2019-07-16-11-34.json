@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "packageName": "@binaris/shift-babel-plugin",
+      "packageName": "@binaris/shift-backend-babel-plugin",
       "comment": "Add initial babel backend plugin",
       "type": "patch"
     }
   ],
-  "packageName": "@binaris/shift-babel-plugin",
+  "packageName": "@binaris/shift-backend-babel-plugin",
   "email": "vladimir@binaris.com"
 }
