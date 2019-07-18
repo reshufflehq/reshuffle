@@ -22,6 +22,10 @@ export type IsNullFilter = Marked<dbi.IsNullFilter>;
 export type MatchesFilter = Marked<dbi.MatchesFilter>;
 export type StartsWithFilter = Marked<dbi.StartsWithFilter>;
 
+export type Equatable = dbi.Equatable;
+export type Comparable = dbi.Comparable;
+
+export type Direction = dbi.Direction;
 export type Order = dbi.Order;
 export const ASC = dbi.ASC;
 export const DESC = dbi.DESC;
@@ -82,7 +86,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public eq(x: dbi.Equatable): EqFilter {
+  public eq(x: Equatable): EqFilter {
     return {
       [filterSymbol]: true,
       operator: 'eq',
@@ -96,7 +100,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public ne(x: dbi.Equatable): NeFilter {
+  public ne(x: Equatable): NeFilter {
     return {
       [filterSymbol]: true,
       operator: 'ne',
@@ -110,7 +114,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gt(x: dbi.Comparable): GtFilter {
+  public gt(x: Comparable): GtFilter {
     return {
       [filterSymbol]: true,
       operator: 'gt',
@@ -124,7 +128,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public gte(x: dbi.Comparable): GteFilter {
+  public gte(x: Comparable): GteFilter {
     return {
       [filterSymbol]: true,
       operator: 'gte',
@@ -138,7 +142,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lt(x: dbi.Comparable): LtFilter {
+  public lt(x: Comparable): LtFilter {
     return {
       [filterSymbol]: true,
       operator: 'lt',
@@ -152,7 +156,7 @@ class Path {
    * @param x - value for comparison
    * @return - a filter
    */
-  public lte(x: dbi.Comparable): LteFilter {
+  public lte(x: Comparable): LteFilter {
     return {
       [filterSymbol]: true,
       operator: 'lte',
@@ -191,14 +195,14 @@ class Path {
    * @param caseInsensitive should the check be case insensitive?
    * @return - a filter
    */
-  public matches(pattern: string, caseInsensitive?: boolean): dbi.MatchesFilter;
+  public matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
 
   /**
    * String matches pattern.
    * @param pattern - regular expression, if the RegExp object has the 'i' flag, perform a case insensitive match.
    * @return - a filter
    */
-  public matches(pattern: RegExp): dbi.MatchesFilter;
+  public matches(pattern: RegExp): MatchesFilter;
 
   public matches(pattern: RegExp | string, caseInsensitive: boolean = false): MatchesFilter {
     if (typeof pattern === 'string') {
@@ -252,22 +256,22 @@ interface CastablePath {
   as<T>(): Doc<T>;
 }
 
-interface EquatablePath<T extends dbi.Equatable> extends CastablePath {
-  eq(x: T): dbi.EqFilter;
-  ne(x: T): dbi.NeFilter;
+interface EquatablePath<T extends Equatable> extends CastablePath {
+  eq(x: T): EqFilter;
+  ne(x: T): NeFilter;
 }
 
-interface ComparablePath<T extends dbi.Comparable> extends EquatablePath<T> {
-  gt(x: T): dbi.GtFilter;
-  gte(x: T): dbi.GteFilter;
-  lt(x: T): dbi.LtFilter;
-  lte(x: T): dbi.LteFilter;
+interface ComparablePath<T extends Comparable> extends EquatablePath<T> {
+  gt(x: T): GtFilter;
+  gte(x: T): GteFilter;
+  lt(x: T): LtFilter;
+  lte(x: T): LteFilter;
 }
 
 interface StringPath extends ComparablePath<string> {
-  matches(pattern: string, caseInsensitive?: boolean): dbi.MatchesFilter;
-  matches(pattern: RegExp): dbi.MatchesFilter;
-  startsWith(prefix: string): dbi.StartsWithFilter;
+  matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
+  matches(pattern: RegExp): MatchesFilter;
+  startsWith(prefix: string): StartsWithFilter;
 }
 
 type NumberPath = ComparablePath<number>;
@@ -276,11 +280,11 @@ type DatePath = ComparablePath<Date>;
 type BooleanPath = EquatablePath<boolean>;
 
 interface NullPath extends CastablePath {
-  isNull(): dbi.IsNullFilter;
+  isNull(): IsNullFilter;
 }
 
 interface MaybePath extends CastablePath {
-  exists(): dbi.Filter;
+  exists(): Filter;
 }
 
 type Doc<T> = T extends Record<string, unknown> ? Required<{
@@ -319,7 +323,7 @@ function checkFilters(...filters: any[]): Filter[] {
   return filters;
 }
 
-export function all(...filters: NonEmptyArray<dbi.Filter>): AndFilter {
+export function all(...filters: NonEmptyArray<Filter>): AndFilter {
   return {
     [filterSymbol]: true,
     operator: 'and',
@@ -327,7 +331,7 @@ export function all(...filters: NonEmptyArray<dbi.Filter>): AndFilter {
   };
 }
 
-export function any(...filters: NonEmptyArray<dbi.Filter>): OrFilter {
+export function any(...filters: NonEmptyArray<Filter>): OrFilter {
   return {
     [filterSymbol]: true,
     operator: 'or',
@@ -335,7 +339,7 @@ export function any(...filters: NonEmptyArray<dbi.Filter>): OrFilter {
   };
 }
 
-export function not(f: dbi.Filter): NotFilter {
+export function not(f: Filter): NotFilter {
   return {
     [filterSymbol]: true,
     operator: 'not',
@@ -345,13 +349,13 @@ export function not(f: dbi.Filter): NotFilter {
 
 export class Query {
   protected constructor(
-    protected readonly _filter: dbi.Filter,
+    protected readonly _filter: Filter,
     protected readonly _limit?: number,
     protected readonly _skip?: number,
-    protected readonly _orderBy?: ReadonlyArray<dbi.Order>,
+    protected readonly _orderBy?: ReadonlyArray<Order>,
   ) {}
 
-  public filter(f: dbi.Filter): Query {
+  public filter(f: Filter): Query {
     return new Query(all(this._filter, f), this._limit, this._skip, this._orderBy);
   }
 
@@ -369,7 +373,7 @@ export class Query {
     return new Query(this._filter, this._limit, s, this._orderBy);
   }
 
-  public orderBy(path: Path | Doc<any>, order: dbi.Direction = dbi.ASC): Query {
+  public orderBy(path: Path | Doc<any>, order: Direction = ASC): Query {
     const { parts } = (path as any);
     for (const [p] of (this._orderBy || [])) {
       if (equals(p, parts)) {
@@ -379,7 +383,7 @@ export class Query {
     return new Query(this._filter, this._limit, this._skip, [...(this._orderBy || []), [parts, order]]);
   }
 
-  public static fromFilter(f: dbi.Filter): Query {
+  public static fromFilter(f: Filter): Query {
     checkFilters(f);
     return new this(f);
   }
