@@ -72,6 +72,7 @@ export async function find(query: Q.Query): Promise<Document[]> {
 export async function poll(keysToVersions: KeyedVersions): Promise<KeyedPatches> {
   return await db.poll(keysToVersions);
 }
+poll.__shiftjs__ = 'exposed';
 
 /**
  * Gets a single document by key including its version.
@@ -86,3 +87,4 @@ export async function getVersioned<T extends Serializable = any>(key: string): P
     value: doc.value,
   };
 }
+getVersioned.__shiftjs__ = 'exposed';
