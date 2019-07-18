@@ -120,6 +120,12 @@ process.once('SIGUSR2', () => {
   process.kill(process.pid, 'SIGUSR2');
 });
 
+// Handle Ctrl-C in terminal
+process.once('SIGINT', () => {
+  rimraf.sync(tmpDir);
+  process.kill(process.pid, 'SIGINT');
+});
+
 const server = http.createServer(app);
 server.listen(0, '127.0.0.1', () => {
   const { port } = server.address() as AddressInfo;
