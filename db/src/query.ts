@@ -308,18 +308,15 @@ export const value = Path.proxied(['value']);
 
 type NonEmptyArray<T> = [T, ...T[]];
 
-function checkFilter(f: any): Filter {
-  if (!f[filterSymbol]) {
-    throw new TypeError('Given filter is invalid');
-  }
-  return f;
-}
-
 function checkFilters(...filters: any[]): Filter[] {
   if (filters.length === 0) {
     throw new IllegalArgumentError('Expected at least 1 filter');
   }
-  filters.forEach(checkFilter);
+  for (const f of filters) {
+    if (!f[filterSymbol]) {
+      throw new TypeError('Given filter is invalid');
+    }
+  }
   return filters;
 }
 
@@ -343,7 +340,7 @@ export function not(f: Filter): NotFilter {
   return {
     [filterSymbol]: true,
     operator: 'not',
-    filter: checkFilter(f),
+    filter: checkFilters(f)[0],
   };
 }
 
