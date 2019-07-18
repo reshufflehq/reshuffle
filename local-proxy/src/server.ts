@@ -19,6 +19,22 @@ const localToken = process.env.SHIFT_DEV_SERVER_LOCAL_TOKEN;
 if (!localToken) {
   throw new Error('SHIFT_DEV_SERVER_LOCAL_TOKEN env var not defined');
 }
+
+const whitelistedModulesArr = (process.env.SHIFT_DEV_SERVER_MODULES_WHITELIST || '@binaris/shift-db').split(',');
+
+const whitelistedModules = new Map(
+  whitelistedModulesArr.map((name) => {
+    try {
+      const mod = require(name);
+      return [name, mod] as [string, any];
+    } catch (err) {
+      // tslint:disable-next-line:no-console
+      console.error('Could not require whitelisted module', name);
+      return undefined;
+    }
+  }).filter((pair): pair is [string, any] => pair !== undefined)
+);
+
 const app = express();
 
 const tmpDir = mkdtempSync(pathResolve(basePath, '..', '.shift_local_proxy_'));
@@ -67,14 +83,14 @@ app.post('/invoke', json(), async (req, res) => {
   registry.register(requestId);
   try {
     let fn: (...args: any[]) => any;
-    if (path === '@binaris/shift-db' && (handler === 'getVersioned' || handler === 'poll')) {
-      fn = require(path)[handler];
+    if (whitelistedModules.has(path)) {
+      fn = whitelistedModules.get(path)[handler];
     } else {
       await transpilePromise;
       const joinedDir = pathResolve(tmpDir, path);
       if (!joinedDir.startsWith(tmpDir)) {
         return res.status(403).send({
-          error: 'Tried to reference path outside of root dir',
+          error: `Cannot reference path outside of root dir: ${path}`,
         });
       }
       const mod = require(joinedDir);
