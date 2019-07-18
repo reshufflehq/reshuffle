@@ -385,6 +385,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-react-app",
+        "projectFolder": "shift-react-app",
+        "shouldPublish": true
+    },
+    {
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true

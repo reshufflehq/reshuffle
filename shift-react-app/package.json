@@ -1,0 +1,44 @@
+{
+  "name": "@binaris/shift-react-app",
+  "version": "0.0.1",
+  "keywords": [
+    "shiftjs",
+    "react"
+  ],
+  "description": "Shift React App",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/binaris/shiftjs.git",
+    "directory": "shift-react-app"
+  },
+  "bugs": {
+    "url": "https://github.com/binaris/shiftjs/issues"
+  },
+  "bin": {
+    "shift-react-app": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "jest"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/lodash.findlastindex": "^4.6.6",
+    "@types/node": "^10.14.6",
+    "@types/rmfr": "^2.0.0",
+    "fixture-stdout": "^0.2.1",
+    "jest": "^24.8.0",
+    "rmfr": "^2.0.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "lodash.findlastindex": "^4.6.0"
+  }
+}

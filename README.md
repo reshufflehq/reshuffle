@@ -8,10 +8,10 @@ $ npx create-react-app my-new-app
 $ cd my-new-app
 ```
 
-From here to help installing Shift.js you can use the install_script.sh script found in the repository.
+From the app directory you can install Shift.js with:
 
 ```shell
-$ ../path/to/shiftjs/install_script.sh
+$ npx @binaris/shift-react-app
 ```
 
 From now you can begin using Shift.js by launching
