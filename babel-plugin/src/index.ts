@@ -12,7 +12,9 @@ function insertExpose(path: NodePath<BabelTypes.Node>, t: typeof BabelTypes, fun
     t.expressionStatement(
       t.assignmentExpression('=',
         t.memberExpression(t.identifier(funcName), t.identifier('__shiftjs__')),
-        t.stringLiteral('exposed')
+        t.objectExpression([
+          t.objectProperty(t.identifier('exposed'), t.booleanLiteral(true)),
+        ]),
       )
     )
   );
