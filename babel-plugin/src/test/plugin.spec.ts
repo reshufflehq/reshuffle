@@ -17,7 +17,9 @@ pluginTester({
         export async function hello() {
           return 42;
         }
-        hello.__shiftjs__ = "exposed";
+        hello.__shiftjs__ = {
+          exposed: true
+        };
       `,
     },
     'Mark @exposed TypeScript output functions as exposed': {
@@ -34,7 +36,9 @@ pluginTester({
           return 42;
         }
 
-        hello.__shiftjs__ = "exposed";
+        hello.__shiftjs__ = {
+          exposed: true
+        };
         exports.hello = hello;
       `,
     },
