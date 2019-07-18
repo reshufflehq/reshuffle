@@ -308,7 +308,7 @@ export const value = Path.proxied(['value']);
 
 type NonEmptyArray<T> = [T, ...T[]];
 
-function checkFilters(...filters: any[]): Filter[] {
+function checkFilters(...filters: any[]): void {
   if (filters.length === 0) {
     throw new IllegalArgumentError('Expected at least 1 filter');
   }
@@ -317,31 +317,37 @@ function checkFilters(...filters: any[]): Filter[] {
       throw new TypeError('Given filter is invalid');
     }
   }
-  return filters;
 }
 
 export function all(...filters: NonEmptyArray<Filter>): AndFilter {
+  checkFilters(...filters);
   return {
     [filterSymbol]: true,
     operator: 'and',
-    filters: checkFilters(...filters),
+    filters,
   };
 }
 
 export function any(...filters: NonEmptyArray<Filter>): OrFilter {
+  checkFilters(...filters);
   return {
     [filterSymbol]: true,
     operator: 'or',
-    filters: checkFilters(...filters),
+    filters,
   };
 }
 
 export function not(f: Filter): NotFilter {
+  checkFilters(f);
   return {
     [filterSymbol]: true,
     operator: 'not',
-    filter: checkFilters(f)[0],
+    filter: f,
   };
+}
+
+export interface QueryData extends dbi.Query {
+  filter: Filter;
 }
 
 export class Query {
@@ -385,11 +391,11 @@ export class Query {
     return new this(f);
   }
 
-  public toJSON(): dbi.QueryData {
+  public toJSON(): QueryData {
     return this.getParts();
   }
 
-  public getParts(): { filter: Filter, limit?: number, skip?: number, orderBy?: ReadonlyArray<Order> } {
+  public getParts(): QueryData {
     return {
       filter: this._filter,
       limit: this._limit,
