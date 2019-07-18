@@ -389,6 +389,10 @@ export class Query {
   }
 
   public toJSON(): dbi.QueryData {
+    return this.getParts();
+  }
+
+  public getParts(): { filter: Filter, limit?: number, skip?: number, orderBy?: ReadonlyArray<Order> } {
     return {
       filter: this._filter,
       limit: this._limit,
