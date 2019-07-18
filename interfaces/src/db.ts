@@ -81,7 +81,7 @@ export const DESC: 'DESC' = 'DESC';
 
 export type Order = [string[], Direction];
 
-export interface QueryData {
+export interface Query {
   filter: Filter;
   limit?: number;
   skip?: number;
