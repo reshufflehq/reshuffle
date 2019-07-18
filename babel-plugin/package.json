@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-backend-babel-plugin",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "files": [
     "dist"
   ],
@@ -14,7 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-babel-common": "0.0.0"
+    "@binaris/shift-babel-common": "0.0.1"
   },
   "devDependencies": {
     "@babel/types": "^7.5.0",

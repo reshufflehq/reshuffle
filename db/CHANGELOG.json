@@ -2,6 +2,40 @@
   "name": "@binaris/shift-db",
   "entries": [
     {
+      "version": "0.2.0",
+      "tag": "@binaris/shift-db_v0.2.0",
+      "date": "Thu, 18 Jul 2019 12:48:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Change db.update API and Serializable type"
+          },
+          {
+            "comment": "Refactor exportable interfaces into shift-interfaces."
+          },
+          {
+            "comment": "Change db.get() return type"
+          },
+          {
+            "comment": "Export getVersioned() and poll()"
+          },
+          {
+            "comment": "Properly export types"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Implement subscription functions"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.0.1` to `0.1.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.2",
       "tag": "@binaris/shift-db_v0.1.2",
       "date": "Wed, 10 Jul 2019 12:29:59 GMT",

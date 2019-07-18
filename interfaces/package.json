@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-interfaces",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "files": [
     "dist"
   ],
@@ -15,8 +15,7 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^10.14.9",
     "tslint": "^5.18.0",

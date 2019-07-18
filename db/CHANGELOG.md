@@ -1,6 +1,21 @@
 # Change Log - @binaris/shift-db
 
-This log was last generated on Wed, 10 Jul 2019 12:29:59 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jul 2019 12:48:13 GMT and should not be manually modified.
+
+## 0.2.0
+Thu, 18 Jul 2019 12:48:13 GMT
+
+### Minor changes
+
+- Implement subscription functions
+
+### Patches
+
+- Change db.update API and Serializable type
+- Refactor exportable interfaces into shift-interfaces.
+- Change db.get() return type
+- Export getVersioned() and poll()
+- Properly export types
 
 ## 0.1.2
 Wed, 10 Jul 2019 12:29:59 GMT

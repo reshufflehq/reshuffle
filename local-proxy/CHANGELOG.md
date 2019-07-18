@@ -1,6 +1,14 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Tue, 09 Jul 2019 13:02:12 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jul 2019 12:48:13 GMT and should not be manually modified.
+
+## 0.0.5
+Thu, 18 Jul 2019 12:48:13 GMT
+
+### Patches
+
+- Expose shift-db subscription functions
+- Disallow requiring files outside of root dir
 
 ## 0.0.4
 Tue, 09 Jul 2019 13:02:12 GMT

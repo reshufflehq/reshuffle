@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-babel-macro
 
-This log was last generated on Tue, 09 Jul 2019 07:26:14 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jul 2019 12:48:13 GMT and should not be manually modified.
+
+## 0.0.4
+Thu, 18 Jul 2019 12:48:13 GMT
+
+### Patches
+
+- Use common module for some babel code
 
 ## 0.0.3
 Tue, 09 Jul 2019 07:26:14 GMT

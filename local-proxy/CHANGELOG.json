@@ -2,6 +2,26 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.5",
+      "tag": "@binaris/shift-local-proxy_v0.0.5",
+      "date": "Thu, 18 Jul 2019 12:48:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Expose shift-db subscription functions"
+          },
+          {
+            "comment": "Disallow requiring files outside of root dir"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-db\" from `0.1.2` to `0.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.4",
       "tag": "@binaris/shift-local-proxy_v0.0.4",
       "date": "Tue, 09 Jul 2019 13:02:12 GMT",

@@ -1,0 +1,17 @@
+{
+  "name": "@binaris/shift-interfaces",
+  "entries": [
+    {
+      "version": "0.1.0",
+      "tag": "@binaris/shift-interfaces_v0.1.0",
+      "date": "Thu, 18 Jul 2019 12:48:13 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "New package: exports types and their schemata for use elsewhere.  Start it with DB queries."
+          }
+        ]
+      }
+    }
+  ]
+}
