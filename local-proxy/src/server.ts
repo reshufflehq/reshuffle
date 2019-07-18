@@ -1,4 +1,4 @@
-import { join as pathJoin, resolve as pathResolve } from 'path';
+import { resolve as resolvePath, relative as relativePath } from 'path';
 import { inspect } from 'util';
 import http from 'http';
 import express, { json } from 'express';
@@ -37,7 +37,7 @@ const whitelistedModules = new Map(
 
 const app = express();
 
-const tmpDir = mkdtempSync(pathResolve(basePath, '..', '.shift_local_proxy_'));
+const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.shift_local_proxy_'));
 
 const transpilePromise = babelDir({
   cliOptions: {
@@ -52,8 +52,8 @@ const transpilePromise = babelDir({
 // tslint:disable-next-line:no-console
 transpilePromise.catch((error: Error) => console.error(error));
 
-const logDir = process.env.NODE_ENV === 'test' ? pathJoin(basePath, '.shiftjs/logs') :
-  pathJoin(os.homedir(), '.shiftjs/logs');
+const logDir = process.env.NODE_ENV === 'test' ? resolvePath(basePath, '.shiftjs/logs') :
+  resolvePath(os.homedir(), '.shiftjs/logs');
 mkdirp.sync(logDir);
 const registry = initRegistry(logDir);
 
@@ -87,8 +87,8 @@ app.post('/invoke', json(), async (req, res) => {
       fn = whitelistedModules.get(path)[handler];
     } else {
       await transpilePromise;
-      const joinedDir = pathResolve(tmpDir, path);
-      if (!joinedDir.startsWith(tmpDir)) {
+      const joinedDir = resolvePath(tmpDir, path);
+      if (relativePath(tmpDir, joinedDir).startsWith('..')) {
         return res.status(403).send({
           error: `Cannot reference path outside of root dir: ${path}`,
         });
