@@ -8,7 +8,6 @@ import { Mutex } from 'async-mutex';
 import { ValueError } from './errors';
 import * as Q from './query';
 import { withTimeout, deferred, hrnano } from './utils';
-import { db as dbi } from '@binaris/shift-interfaces';
 
 export { Q, DeepReadonly };
 
@@ -249,7 +248,7 @@ export class DB extends EventEmitter {
    * @return - an array of documents
    */
   public async find(query: Q.Query): Promise<Document[]> {
-    const { filter, limit, skip, orderBy } = query.toJSON();
+    const { filter, limit, skip, orderBy } = query.getParts();
     const results: Document[] = [];
     await new Promise((resolve, reject) => {
       const it = this.db.iterator({
@@ -277,11 +276,11 @@ export class DB extends EventEmitter {
   }
 }
 
-export function buildComparator([p, direction]: dbi.Order) {
-  return direction === dbi.ASC ? ascend(path(p)) : descend(path(p));
+export function buildComparator([p, direction]: Q.Order) {
+  return direction === Q.ASC ? ascend(path(p)) : descend(path(p));
 }
 
-export function wrappedMatch(doc: Document, filter: dbi.Filter): boolean {
+export function wrappedMatch(doc: Document, filter: Q.Filter): boolean {
   const isMatch = match(doc, filter);
   if (isMatch === undefined) {
     throw new ValueError(`Got an unsupported filter operator: ${filter.operator}`);
@@ -289,7 +288,7 @@ export function wrappedMatch(doc: Document, filter: dbi.Filter): boolean {
   return isMatch;
 }
 
-export function match(doc: Document, filter: dbi.Filter): boolean {
+export function match(doc: Document, filter: Q.Filter): boolean {
   switch (filter.operator) {
     case 'and':
       return filter.filters.every((f) => wrappedMatch(doc, f));
