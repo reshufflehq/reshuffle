@@ -14,8 +14,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
     "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@binaris/shift-db": "0.2.0",
     "@types/express": "^4.17.0",
@@ -27,12 +27,12 @@
     "nanoid": "^2.0.3",
     "nodemon": "git+http://github.com/binaris/nodemon",
     "rimraf": "^2.6.3",
-    "walkdir": "^0.4.0"
+    "walkdir": "^0.4.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.2",
     "@types/bunyan": "^1.8.6",
-    "@types/got": "^9.6.0",
+    "@types/got": "^9.6.2",
     "@types/http-proxy": "^1.17.0",
     "@types/lodash": "^4.14.136",
     "@types/mkdirp": "^0.5.2",

@@ -14,7 +14,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@babel/types": "^7.5.0",
+    "@babel/types": "^7.5.5",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   }
