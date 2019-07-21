@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactElement } from 'react';
 import { createRuntime } from '@binaris/shift-fetch-runtime';
 import { SubscriptionManager } from './subscriptions';
 
@@ -40,4 +40,14 @@ export function useSubscription<T = any>(key: string): SubscriptionState<T> {
   }, [key]);
 
   return state;
+}
+
+interface SubscriptionProps<T> {
+  keyName: string;
+  children: (arg: SubscriptionState<T>) => ReactElement<any>;
+}
+
+export function Subscription<T = any>({ keyName, children }: SubscriptionProps<T>) {
+  const subState = useSubscription<T>(keyName);
+  return children(subState);
 }
