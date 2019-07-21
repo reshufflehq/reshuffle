@@ -77,11 +77,11 @@ poll.__shiftjs__ = { exposed: true };
 /**
  * Gets a initial document in an intent to for poll on it.
  */
-export async function getForPoll<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
+export async function startPolling<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
   const doc = await db.getWithMeta<T>(key);
   if (doc === undefined) {
     return {
-      version: [0, 0],
+      version: [0, 0], // Once a document is created its version is bound to be greater than this.
       value: undefined,
     };
   }
@@ -90,4 +90,4 @@ export async function getForPoll<T extends Serializable = any>(key: string): Pro
     value: doc.value,
   };
 }
-getForPoll.__shiftjs__ = { exposed: true };
+startPolling.__shiftjs__ = { exposed: true };
