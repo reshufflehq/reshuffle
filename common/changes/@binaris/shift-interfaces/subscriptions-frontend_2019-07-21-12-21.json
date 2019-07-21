@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-interfaces",
+      "comment": "Expose subscriptions interfaces",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-interfaces",
+  "email": "roey.berman@gmail.com"
+}
