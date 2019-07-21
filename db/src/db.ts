@@ -205,7 +205,6 @@ export class DB extends EventEmitter {
    * Polls on updates to specified keys since specified versions.
    * @see KeyedVersions
    * @see KeyedPatches
-   * @throws TimeoutError if no updates found in time.
    */
   public async poll(keysToVersions: KeyedVersions, opts: Partial<PollOptions> = {}): Promise<KeyedPatches> {
     const keysToVersionsMap = new Map(keysToVersions);
@@ -236,7 +235,14 @@ export class DB extends EventEmitter {
       if (keyedPatches.length > 0) {
         return keyedPatches;
       }
-      return await withTimeout(promise, opts.readBlockTimeMs || DEFAULT_READ_BLOCK_TIME_MS);
+      try {
+        return await withTimeout(promise, opts.readBlockTimeMs || DEFAULT_READ_BLOCK_TIME_MS);
+      } catch (err) {
+        if (err.name === 'TimeoutError') {
+          return [];
+        }
+        throw err;
+      }
     } finally {
       this.off('patch', patchHandler);
     }
