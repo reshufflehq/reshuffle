@@ -4,7 +4,7 @@ dependencies:
   '@babel/parser': 7.5.5
   '@babel/plugin-transform-modules-commonjs': 7.5.0
   '@babel/types': 7.5.5
-  '@octokit/rest': 16.28.4
+  '@octokit/rest': 16.28.5
   '@rush-temp/rush-update': 'file:projects/rush-update.tgz'
   '@rush-temp/shift-babel-common': 'file:projects/shift-babel-common.tgz'
   '@rush-temp/shift-babel-macro': 'file:projects/shift-babel-macro.tgz'
@@ -60,7 +60,7 @@ dependencies:
   tslint: 5.18.0
   typescript: 3.5.3
   typescript-json-schema: 0.38.3
-  walkdir: 0.4.0
+  walkdir: 0.4.1
   yargs: 13.3.0
 packages:
   /@ava/babel-plugin-throws-helper/3.0.0:
@@ -585,7 +585,7 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
-  /@octokit/endpoint/5.3.0:
+  /@octokit/endpoint/5.3.1:
     dependencies:
       deepmerge: 4.0.0
       is-plain-object: 3.0.0
@@ -593,7 +593,7 @@ packages:
       url-template: 2.0.8
     dev: false
     resolution:
-      integrity: sha512-D7u80EdZHlHzYl81PgoKXFFIl121eLahKI6WFvuhwE4ih+U+YWrE1fGiH9eybr8l3mGgZ9iITYGBR+7UR5S9QA==
+      integrity: sha512-4mKqSQfeTRFpQMUGIUG1ewdQT64b2YpvjG2dE1x7nhQupdI/AjdgdcIsmPtRFEXlih/uLQLRWJL4FrivpQdC7A==
   /@octokit/request-error/1.0.4:
     dependencies:
       deprecation: 2.3.1
@@ -603,7 +603,7 @@ packages:
       integrity: sha512-L4JaJDXn8SGT+5G0uX79rZLv0MNJmfGa4vb4vy1NnpjSnWDLJRy6m90udGwvMmavwsStgbv2QNkPzzTCMmL+ig==
   /@octokit/request/5.0.1:
     dependencies:
-      '@octokit/endpoint': 5.3.0
+      '@octokit/endpoint': 5.3.1
       '@octokit/request-error': 1.0.4
       deprecation: 2.3.1
       is-plain-object: 3.0.0
@@ -613,7 +613,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-SHOk/APYpfrzV1RNf7Ux8SZi+vZXhMIB2dBr4TQR6ExMX8R4jcy/0gHw26HLe1dWV7Wxe9WzYyDSEC0XwnoCSQ==
-  /@octokit/rest/16.28.4:
+  /@octokit/rest/16.28.5:
     dependencies:
       '@octokit/request': 5.0.1
       '@octokit/request-error': 1.0.4
@@ -630,7 +630,7 @@ packages:
       url-template: 2.0.8
     dev: false
     resolution:
-      integrity: sha512-ZBsfD46t3VNkwealxm5zloVgQta8d8o4KYBR/hMAZ582IgjmSDKZdkjyv5w37IUCM3tcPZWKUT+kml9pEIC2GA==
+      integrity: sha512-W8hHSm6103c+lNdTuQBMKdZNDCOFFXJdatj92g2d6Hqk134EMDHRc02QWI/Fs1WGnWZ8Leb0QFbXPKO2njeevQ==
   /@sindresorhus/is/0.14.0:
     dev: false
     engines:
@@ -7538,12 +7538,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-gqwr/2PZUOqeMYmlimViX+3xkEU=
-  /walkdir/0.4.0:
+  /walkdir/0.4.1:
     dev: false
     engines:
       node: '>=6.0.0'
     resolution:
-      integrity: sha512-Ps0LSr9doEPbF4kEQi6sk5RgzIGLz9+OroGj1y2osIVnufjNQWSLEGIbZwW5V+j/jK8lCj/+8HSWs+6Q/rnViA==
+      integrity: sha512-3eBwRyEln6E1MSzcxcVpQIhRG8Q1jLvEqRmCZqS3dsfXEDR/AhOF4d+jHg1qvDCpYaVRZjENPQyrVxAkQqxPgQ==
   /walker/1.0.7:
     dependencies:
       makeerror: 1.0.11
@@ -7765,7 +7765,7 @@ packages:
       integrity: sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
   'file:projects/rush-update.tgz':
     dependencies:
-      '@octokit/rest': 16.28.4
+      '@octokit/rest': 16.28.5
       '@types/jju': 1.4.1
       '@types/lodash.once': 4.1.6
       '@types/node': 12.6.8
@@ -7779,7 +7779,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-INBFn7pX5xucqNGWf1Iz0u1oo9P1Mo6GWKi8WeFdo0RBFr3oaGFVljfGh/K1aFd2awKCBOWFs+OevnhDbrrWPA==
+      integrity: sha512-x9zfaqWPMqgWJObJKhJVpBNZcxA1FciY2QXyiWHSmZxl7tWO00g3a2z5va+ybW6dfQiW04gWmyWdPUCA9zbr7g==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/shift-babel-common.tgz':
@@ -7790,7 +7790,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-common'
     resolution:
-      integrity: sha512-TOsoyH5Jc/zPZfwr0Ww/atH6w7wBOiN4YmvnR3OAbPMBx90xkd82sTHGbWMwjTyuBXjtop0mPtHViJX27PoKSQ==
+      integrity: sha512-GCMwhbMXe7Nf2qMIVaSl90AyGTB+c+RHXrZql9mcFnHUDe2LUsh6yTg2ZoCAG53HevSvLne0oHfXwhktiGIahQ==
       tarball: 'file:projects/shift-babel-common.tgz'
     version: 0.0.0
   'file:projects/shift-babel-macro.tgz':
@@ -7808,7 +7808,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-macro'
     resolution:
-      integrity: sha512-m/HpCcwcStFbg1l3i6rcoo+VqI32r3IoeVeiocr2Fu7FFwFr5x+Bhr/IMHaUrRO3OYv4PDdi8BOCdKz7XO7y2w==
+      integrity: sha512-Oi77IpK2dF8fI63qARMrfFrILTdfDPRFnAxr4vap0duQfOrydounzxPwTGZu262Iuuuuuo02ta0XK906zgfeVA==
       tarball: 'file:projects/shift-babel-macro.tgz'
     version: 0.0.0
   'file:projects/shift-backend-babel-plugin.tgz':
@@ -7822,7 +7822,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-backend-babel-plugin'
     resolution:
-      integrity: sha512-2+IfPI7w79T82TxUMyTDaDV2kfOPwfRlnUgvBlXXxlbSyLLTCAWQKlhsb2G83M6mY8HsuxVddmOPMSDgpU+GKA==
+      integrity: sha512-8FHof/riLFKhspSXw53W3VHsbxZlIz+G/ayD/ZTTp+j3Kz2xyXBRDdPdgX4Mgnn8bzXxUpsGF0PzNF/YNK6erA==
       tarball: 'file:projects/shift-backend-babel-plugin.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
@@ -7846,7 +7846,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-r1LTXkzTQBpoM/1i64+kyHnexHpdAC8pxIODjBOPaoMcAJEUPT+wie9zvrbkJFDDR3FQ/82Wwg3B6cBh60VHyQ==
+      integrity: sha512-0EgPME2KfKJ2+JTqgZE79v3XVGXcvTOKcKHovSoNPUfD9upwPMGjh4NZRvn5rE5T88jDrQIrG57qVCn0rV4cgQ==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -7856,7 +7856,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
     resolution:
-      integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
+      integrity: sha512-7pn6OQg9LLHbH+oaqRqS/dJWO2zTNsdYpLCQii0KSpzzQcFX26Zh9ipDrknojhm+DuzXb169RWjb95xJkHNzBw==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/shift-interfaces.tgz':
@@ -7868,7 +7868,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-5W2JNQ22YHrTYM/LRA50XTNn7kDejPOOqLAmjhFVl//KgpLWJmuht8E2D2QSblNZOGmL728blTXnWC6kii1B9g==
+      integrity: sha512-3vxXD/sAl5j6aYxVjUf0MOWqcwPhh4MnKX4K0fvPh9m/Z2b1IM8/vcu3tjl4TZGCyukIqRDjXTaycElT7RMyVw==
       tarball: 'file:projects/shift-interfaces.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -7899,11 +7899,11 @@ packages:
       rimraf: 2.6.3
       tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
-      walkdir: 0.4.0
+      walkdir: 0.4.1
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-UjH6E5Tz4dw2J/nZcphLQ8cHgs3RG7wjecWHKi0lj3epHzFdQUVE5Y2xxUma80nhQFvb54TLtMsRxSLm5JWCdA==
+      integrity: sha512-ph6gZpMUoQBGJo+C2gwzT+WKcnNvoo8LjX/yDjQkgE0vW1NywHYSLE7+MalWmvrQs12A70ijYuIwPyIkpC3iSg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -7933,12 +7933,12 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  '@babel/cli': ^7.5.0
-  '@babel/core': ^7.5.4
-  '@babel/parser': ^7.5.0
+  '@babel/cli': ^7.5.5
+  '@babel/core': ^7.5.5
+  '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
-  '@babel/types': ^7.5.0
-  '@octokit/rest': ^16.28.3
+  '@babel/types': ^7.5.5
+  '@octokit/rest': ^16.28.5
   '@rush-temp/rush-update': 'file:./projects/rush-update.tgz'
   '@rush-temp/shift-babel-common': 'file:./projects/shift-babel-common.tgz'
   '@rush-temp/shift-babel-macro': 'file:./projects/shift-babel-macro.tgz'
@@ -7952,7 +7952,7 @@ specifiers:
   '@types/bunyan': ^1.8.6
   '@types/deep-freeze': ^0.1.1
   '@types/express': ^4.17.0
-  '@types/got': ^9.6.0
+  '@types/got': ^9.6.2
   '@types/http-proxy': ^1.17.0
   '@types/jest': ^24.0.15
   '@types/jju': ^1.4.1
@@ -7962,7 +7962,7 @@ specifiers:
   '@types/lodash.once': ^4.1.6
   '@types/mkdirp': ^0.5.2
   '@types/nanoid': ^2.0.0
-  '@types/ramda': ^0.26.15
+  '@types/ramda': ^0.26.16
   '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
   '@types/yargs': ^13.0.0
@@ -7987,12 +7987,12 @@ specifiers:
   mkdirp: ^0.5.1
   nanoid: ^2.0.3
   nodemon: 'git+http://github.com/binaris/nodemon'
-  npm-check-updates: ^3.1.18
+  npm-check-updates: ^3.1.20
   ramda: ^0.26.1
   rimraf: ^2.6.3
   rmfr: ^2.0.0
   tslint: ^5.18.0
   typescript: ^3.5.3
   typescript-json-schema: ^0.38.3
-  walkdir: ^0.4.0
-  yargs: ^13.2.4
+  walkdir: ^0.4.1
+  yargs: ^13.3.0
