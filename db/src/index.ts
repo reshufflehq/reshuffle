@@ -75,9 +75,9 @@ export async function poll(keysToVersions: KeyedVersions): Promise<KeyedPatches>
 poll.__shiftjs__ = { exposed: true };
 
 /**
- * Gets a single document by key including its version.
+ * Gets a initial document in an intent to for poll on it.
  */
-export async function getVersioned<T extends Serializable = any>(key: string): Promise<Versioned<T> | undefined> {
+export async function getForPoll<T extends Serializable = any>(key: string): Promise<Versioned<T> | undefined> {
   const doc = await db.getWithMeta<T>(key);
   if (doc === undefined || doc.value === undefined) {
     return undefined;
@@ -87,4 +87,4 @@ export async function getVersioned<T extends Serializable = any>(key: string): P
     value: doc.value,
   };
 }
-getVersioned.__shiftjs__ = { exposed: true };
+getForPoll.__shiftjs__ = { exposed: true };
