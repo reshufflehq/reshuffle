@@ -2,7 +2,12 @@
   "changes": [
     {
       "packageName": "@binaris/shift-db",
-      "comment": "Rename getVersioned to getForPoll",
+      "comment": "Rename getVersioned to startPolling",
+      "type": "patch"
+    },
+    {
+      "packageName": "@binaris/shift-db",
+      "comment": "Change return types of exposed subscription functions",
       "type": "patch"
     }
   ],
