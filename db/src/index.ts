@@ -77,10 +77,13 @@ poll.__shiftjs__ = { exposed: true };
 /**
  * Gets a initial document in an intent to for poll on it.
  */
-export async function getForPoll<T extends Serializable = any>(key: string): Promise<Versioned<T> | undefined> {
+export async function getForPoll<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
   const doc = await db.getWithMeta<T>(key);
-  if (doc === undefined || doc.value === undefined) {
-    return undefined;
+  if (doc === undefined) {
+    return {
+      version: [0, 0],
+      value: undefined,
+    };
   }
   return {
     version: doc.version,

@@ -6,7 +6,7 @@ import { tmpdir } from 'os';
 import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
 import { DB, incrVersion } from '../db';
-import { TimeoutError, hrnano } from '../utils';
+import { hrnano } from '../utils';
 
 interface Context {
   dbDir: string;
@@ -227,25 +227,28 @@ test('DB.poll returns on create if no new patches stored', async (t) => {
   ]);
 });
 
-test('DB.poll times out when no patches emitted', async (t) => {
+test('DB.poll returns empty array when no patches emitted', async (t) => {
   const { db } = t.context;
-  await t.throwsAsync(db.poll([['test1', [0, 0]]], { readBlockTimeMs: 100 }), TimeoutError);
+  const patches = await db.poll([['test1', [0, 0]]], { readBlockTimeMs: 100 });
+  t.deepEqual(patches, []);
 });
 
-test('DB.poll times out when patches emitted on different key', async (t) => {
+test('DB.poll returns empty array when patches emitted on different key', async (t) => {
   const { db } = t.context;
-  await t.throwsAsync(Promise.all([
+  const [patches] = await Promise.all([
     db.poll([['test1', [0, 0]]], { readBlockTimeMs: 100 }),
     db.create('test2', 'a'),
-  ]), TimeoutError);
+  ]);
+  t.deepEqual(patches, []);
 });
 
-test('DB.poll times out when patches emitted on old version', async (t) => {
+test('DB.poll returns empty array when patches emitted on old version', async (t) => {
   const { db } = t.context;
-  await t.throwsAsync(Promise.all([
+  const [patches] = await Promise.all([
     db.poll([['test1', [hrnano() + 10_000_000_000, 0]]], { readBlockTimeMs: 100 }),
     db.create('test1', 'a'),
-  ]), TimeoutError);
+  ]);
+  t.deepEqual(patches, []);
 });
 
 test('DB.create works after remove', async (t) => {
