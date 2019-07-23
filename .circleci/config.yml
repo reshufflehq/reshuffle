@@ -44,6 +44,9 @@ jobs:
     steps:
       - checkout
       - <<: *attach_workspace
+      - run: # Once the packages are pubic this can be removed
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
