@@ -4,7 +4,7 @@ dependencies:
   '@babel/parser': 7.5.5
   '@babel/plugin-transform-modules-commonjs': 7.5.0
   '@babel/types': 7.5.5
-  '@octokit/rest': 16.28.6
+  '@octokit/rest': 16.28.7
   '@rush-temp/rush-update': 'file:projects/rush-update.tgz'
   '@rush-temp/shift-babel-common': 'file:projects/shift-babel-common.tgz'
   '@rush-temp/shift-babel-macro': 'file:projects/shift-babel-macro.tgz'
@@ -13,6 +13,7 @@ dependencies:
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
+  '@rush-temp/shift-react-app': 'file:projects/shift-react-app.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
   '@types/babel__core': 7.1.2
   '@types/babel__traverse': 7.0.7
@@ -26,6 +27,7 @@ dependencies:
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
   '@types/lodash': 4.14.136
+  '@types/lodash.findlastindex': 4.6.6
   '@types/lodash.once': 4.1.6
   '@types/mkdirp': 0.5.2
   '@types/nanoid': 2.0.0
@@ -45,6 +47,7 @@ dependencies:
   deep-freeze: 0.0.1
   express: 4.17.1
   fast-json-patch: 2.1.0
+  fixture-stdout: 0.2.1
   got: 9.6.0
   http-proxy: 1.17.0
   immutable: 4.0.0-rc.12
@@ -54,6 +57,7 @@ dependencies:
   leveldown: 5.1.1
   levelup: 4.1.0
   lodash: 4.17.15
+  lodash.findlastindex: 4.6.0
   lodash.once: 4.1.1
   mkdirp: 0.5.1
   nanoid: 2.0.3
@@ -621,7 +625,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-z1BQr43g4kOL4ZrIVBMHwi68Yg9VbkRUyuAgqCp1rU3vbYa69+2gIld/+gHclw15bJWQnhqqyEb7h5a5EqgZ0A==
-  /@octokit/rest/16.28.6:
+  /@octokit/rest/16.28.7:
     dependencies:
       '@octokit/request': 5.0.2
       '@octokit/request-error': 1.0.4
@@ -638,7 +642,7 @@ packages:
       url-template: 2.0.8
     dev: false
     resolution:
-      integrity: sha512-ERfzS6g6ZNPJkEUclxLenr+UEncbymCe//IBrWWdp59nslYDeJboq07Ue9brX05Uv0+SY3kwA33cdiVBVPAOMQ==
+      integrity: sha512-cznFSLEhh22XD3XeqJw51OLSfyL2fcFKUO+v2Ep9MTAFfFLS1cK1Zwd1yEgQJmJoDnj4/vv3+fGGZweG+xsbIA==
   /@sindresorhus/is/0.14.0:
     dev: false
     engines:
@@ -820,6 +824,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LjvlfctJYj23Xuqq3jCT8ZPSUSSgDcRJg8+XFDBasoYzefFbB4cHzlDmBVjc2rBOYvklpYHJRayD0jBsbJLD9w==
+  /@types/lodash.findlastindex/4.6.6:
+    dependencies:
+      '@types/lodash': 4.14.136
+    dev: false
+    resolution:
+      integrity: sha512-UD9ru/tc7pFmybsJcSznqa0dmvWnQ/Zejj/fozEIWXfgvExQPl7s5ouJ2Yw3xIsj4U6Sbq2ApEeN/7ZL9CrGcg==
   /@types/lodash.once/4.1.6:
     dependencies:
       '@types/lodash': 4.14.136
@@ -2944,6 +2954,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==
+  /fixture-stdout/0.2.1:
+    dev: false
+    resolution:
+      integrity: sha1-C3lmU1q4fPA/jcvvq9rD7/4ZWiQ=
   /flush-write-stream/1.1.1:
     dependencies:
       inherits: 2.0.4
@@ -4735,6 +4749,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
+  /lodash.findlastindex/4.6.0:
+    dev: false
+    resolution:
+      integrity: sha1-uDdawPAum5Jjdc343D6oFKv5xqw=
   /lodash.flattendeep/4.4.0:
     dev: false
     resolution:
@@ -7926,7 +7944,7 @@ packages:
       integrity: sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
   'file:projects/rush-update.tgz':
     dependencies:
-      '@octokit/rest': 16.28.6
+      '@octokit/rest': 16.28.7
       '@types/jju': 1.4.1
       '@types/lodash.once': 4.1.6
       '@types/node': 12.6.8
@@ -7940,7 +7958,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-r8HNnOHLoYr4UywwZy80HaDiRcZxFk6VqhImUAJS0SUwdTNwnrWFYwJFFIDusfrziUiXSv6RfpaehSuqmi+hMA==
+      integrity: sha512-Pg87VF/Qk3B4ZUCT8oTt4W8i8yRqEwhL8RMWzhhIcu2x0iOAk3XxkejeOOVVPCI1vsmccZBDf9o2XCQ+oc0vFg==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/shift-babel-common.tgz':
@@ -7951,7 +7969,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-common'
     resolution:
-      integrity: sha512-GCMwhbMXe7Nf2qMIVaSl90AyGTB+c+RHXrZql9mcFnHUDe2LUsh6yTg2ZoCAG53HevSvLne0oHfXwhktiGIahQ==
+      integrity: sha512-5WqpFDprvbZjovcvgUwbiPKhji3LF2hRd69UQ6FgsayE0dm2+Tn6t6xwxEihNrBXIxbt/j01sFSDYsPTcGXFmg==
       tarball: 'file:projects/shift-babel-common.tgz'
     version: 0.0.0
   'file:projects/shift-babel-macro.tgz':
@@ -7969,7 +7987,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-macro'
     resolution:
-      integrity: sha512-Oi77IpK2dF8fI63qARMrfFrILTdfDPRFnAxr4vap0duQfOrydounzxPwTGZu262Iuuuuuo02ta0XK906zgfeVA==
+      integrity: sha512-gv5swv4rdKfdZalnE51ko7d1Gytz+xIxPW+pdyQbtW46LT7mG737CDqE4LMA+717wfvLCJqGTzgxmfsTQDEccA==
       tarball: 'file:projects/shift-babel-macro.tgz'
     version: 0.0.0
   'file:projects/shift-backend-babel-plugin.tgz':
@@ -7983,7 +8001,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-backend-babel-plugin'
     resolution:
-      integrity: sha512-8FHof/riLFKhspSXw53W3VHsbxZlIz+G/ayD/ZTTp+j3Kz2xyXBRDdPdgX4Mgnn8bzXxUpsGF0PzNF/YNK6erA==
+      integrity: sha512-pDm2NCk9bZlHthogKUnUN2Uke4mwQKwC6mcbG+E79C7AvwtGV54RmKctfEWkm4LkWYYOMzpfgdePfZxdb+Ycow==
       tarball: 'file:projects/shift-backend-babel-plugin.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
@@ -8007,7 +8025,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-OrP4lxpxCfjEi9l7zh4KYw50vueQgzCiKW0aiSHRpmc6tIAlNZnLcMFM0oc3e79WvtWPn2vW5fdCBa455LBfQA==
+      integrity: sha512-J9DN9LDCptqt+Pr+HRy5HeTGVVArgDWZAdegC/30IWZTxWICqS6Qe8jS8TZ2MtgJt/QRcks1gdJ7xhIqTLCn4g==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -8017,7 +8035,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
     resolution:
-      integrity: sha512-7pn6OQg9LLHbH+oaqRqS/dJWO2zTNsdYpLCQii0KSpzzQcFX26Zh9ipDrknojhm+DuzXb169RWjb95xJkHNzBw==
+      integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/shift-interfaces.tgz':
@@ -8030,7 +8048,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-g7HxG8pg6nx+800MtPpM+iBXlDaTKNYwKh2wsBvlMD37bnoeKZmlr+Pq/rXNqbJqcH+PH93Iov33/RFNciTobA==
+      integrity: sha512-R80rUbELkJgBkVIHbL3gh6OAwwaysq+oPP23x+6foT7dLUPzYcFnkuWr/H9ZbVbpMULuP19/Aq6jbniTtO1/vw==
       tarball: 'file:projects/shift-interfaces.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -8065,8 +8083,26 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-d0EDutab9Gt2bbnouMmaIGVuhKSmEQhmpgKWnj6Pen+TMmll00D5tP4055Lsf8UktyARjdyg504XTCUJ93IKKg==
+      integrity: sha512-0xJhJTl+ycxNxTOX29xgvPumlJV+reQnTxnniMI5ge8S36vCkPn0Kwr3D8FCrqEdmnd9DnDCyLFlWZ305VrR2w==
       tarball: 'file:projects/shift-local-proxy.tgz'
+    version: 0.0.0
+  'file:projects/shift-react-app.tgz':
+    dependencies:
+      '@types/jest': 24.0.15
+      '@types/lodash.findlastindex': 4.6.6
+      '@types/node': 10.14.13
+      '@types/rmfr': 2.0.0
+      fixture-stdout: 0.2.1
+      jest: 24.8.0
+      lodash.findlastindex: 4.6.0
+      rmfr: 2.0.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shift-react-app'
+    resolution:
+      integrity: sha512-ueEqqVcynyOoE5F/3pqHc2tcwfrVowpHeNhWaRg8XIOKXmVFvW/jvZI59/1v6/DpFZowfZKHpH+u+/fMl87VGQ==
+      tarball: 'file:projects/shift-react-app.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
     dependencies:
@@ -8085,7 +8121,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-NLPG+I2SDumJwIqH8+XOBBl4IE8zCkx/ktaQq7TWEIo9FtpfLndZNb9RLPklxxNcP7cSbeftNZE6DBZRG7RWgQ==
+      integrity: sha512-mxYGz60is2pbma8+AJ3PuXDdiaOx3A84L33B6qUSi3c2D51yu/MERz04xDw3+GM/RVlHqWHRdMvwLcUZG9lJSw==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -8129,6 +8165,7 @@ specifiers:
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
+  '@rush-temp/shift-react-app': 'file:./projects/shift-react-app.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
   '@types/babel__core': ^7.1.2
   '@types/babel__traverse': ^7.0.7
@@ -8142,6 +8179,7 @@ specifiers:
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
   '@types/lodash': ^4.14.136
+  '@types/lodash.findlastindex': ^4.6.6
   '@types/lodash.once': ^4.1.6
   '@types/mkdirp': ^0.5.2
   '@types/nanoid': ^2.0.0
@@ -8161,6 +8199,7 @@ specifiers:
   deep-freeze: ^0.0.1
   express: ^4.17.1
   fast-json-patch: ^2.1.0
+  fixture-stdout: ^0.2.1
   got: ^9.6.0
   http-proxy: ^1.17.0
   immutable: ^4.0.0-rc.12
@@ -8170,6 +8209,7 @@ specifiers:
   leveldown: ^5.1.1
   levelup: ^4.1.0
   lodash: ^4.17.15
+  lodash.findlastindex: ^4.6.0
   lodash.once: ^4.1.1
   mkdirp: ^0.5.1
   nanoid: ^2.0.3
