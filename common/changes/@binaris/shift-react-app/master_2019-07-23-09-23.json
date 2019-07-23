@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-react-app",
+      "comment": "Initial version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-react-app",
+  "email": "michael@shiftjs.com"
+}
