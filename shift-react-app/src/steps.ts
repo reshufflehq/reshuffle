@@ -3,8 +3,8 @@ import {
   writeFileSync,
 } from 'fs';
 import { join } from 'path';
-import findLastIndex from 'lodash.findlastindex';
 import { spawn } from 'child_process';
+import { EOL } from 'os';
 
 export function setupProxy(): string {
   const pjsonBuffer = readFileSync('./package.json');
@@ -62,20 +62,19 @@ Modified package.json, please commit this file`);
 export function ignoreShift(): string {
   const gitIgnoreFile = '.gitignore';
   const ignorePattern = '.shift*';
+  const ignoreText = '# The following line was added by ShiftJS' + EOL + ignorePattern;
   let initialContent;
   try {
     initialContent = readFileSync(gitIgnoreFile, { encoding: 'utf8' });
   } catch (e) {
     return `Did not update ${gitIgnoreFile}`;
   }
-  const lines: string[] = initialContent.split('\n');
-  const found = lines.find((line) => line === ignorePattern);
+  const lines: string[] = initialContent.split(EOL);
+  const found = lines.find((line) => line && line.replace(/ +$/, '') === ignorePattern);
   if (found) {
     return `Did not need to update ${gitIgnoreFile}`;
   }
-  const lastIndex = findLastIndex(lines, (line: string) => !!line.trim ().length ) || 0;
-  lines.splice(lastIndex + 1, 0, ignorePattern);
-  const newContent = lines.join('\n');
+  const newContent = initialContent ?  initialContent + EOL + ignoreText : ignoreText;
   writeFileSync(gitIgnoreFile, newContent);
   return `Updated ${gitIgnoreFile}, please commit this file`;
 }
