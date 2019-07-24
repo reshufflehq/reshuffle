@@ -37,8 +37,5 @@
     "rmfr": "^2.0.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
-  },
-  "dependencies": {
-    "lodash.findlastindex": "^4.6.0"
   }
 }

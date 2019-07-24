@@ -118,17 +118,45 @@ test('ignore edits .gitignore', async () => {
   const testCases = [
     {
       initial: '',
-      expected: `.shift*
-`,
+      expected: `# The following line was added by ShiftJS
+.shift*`,
     },
     {
       initial: 'foo',
       expected: `foo
+# The following line was added by ShiftJS
 .shift*`,
     },
     {
       initial: '.shift*',
       expected: '.shift*',
+    },
+    {
+      initial: '.shift* ',
+      expected: '.shift* ',
+    },
+    {
+      initial: '.shift*  ',
+      expected: '.shift*  ',
+    },
+    {
+      initial: 'x.shift*',
+      expected: `x.shift*
+# The following line was added by ShiftJS
+.shift*`,
+    },
+    {
+      initial: '.shift*x',
+      expected: `.shift*x
+# The following line was added by ShiftJS
+.shift*`,
+    },
+    {
+      initial: '.shift*\\ ',
+      // tslint:disable-next-line:no-trailing-whitespace
+      expected: `.shift*\\ 
+# The following line was added by ShiftJS
+.shift*`,
     },
     {
       initial: `foo
@@ -151,8 +179,9 @@ bar`,
 bar`,
     },
     {
-      initial: '.shifter',
-      expected: `.shifter
+      initial: '.shift*\t',
+      expected: `.shift*\t
+# The following line was added by ShiftJS
 .shift*`,
     },
   ];
