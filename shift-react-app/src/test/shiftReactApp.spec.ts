@@ -33,6 +33,7 @@ beforeEach(async () => {
 
 async function fakeApp() {
   await promisify(mkdir)('src');
+  await promiseWriteFile('./package.json', JSON.stringify({ scripts: { eject: 'react-scripts eject' } }));
 }
 
 afterEach(async () => {
@@ -40,7 +41,42 @@ afterEach(async () => {
   await rmrf(testDir);
 });
 
+test('setup proxy fails without package json', async () => {
+  expect(() => {
+    setupProxy();
+  }).toThrow("ENOENT: no such file or directory, open './package.json'");
+});
+
+test('setup proxy fails without unparsable package json', async () => {
+  await promiseWriteFile('./package.json', 'xxx');
+  expect(() => {
+    setupProxy();
+  }).toThrow('Cannot parse package.json');
+});
+
+test('setup proxy fails without scripts', async () => {
+  await promiseWriteFile('./package.json', JSON.stringify({ foo: { eject: 'xxx' } }));
+  expect(() => {
+    setupProxy();
+  }).toThrow('Can not run outside of a create-react-app or an ejected project');
+});
+
+test('setup proxy fails without eject', async () => {
+  await promiseWriteFile('./package.json', JSON.stringify({ scripts: { noteject: 'xxx' } }));
+  expect(() => {
+    setupProxy();
+  }).toThrow('Can not run outside of a create-react-app or an ejected project');
+});
+
+test('setup proxy fails without proper eject', async () => {
+  await promiseWriteFile('./package.json', JSON.stringify({ scripts: { eject: 'xxx' } }));
+  expect(() => {
+    setupProxy();
+  }).toThrow('Can not run outside of a create-react-app or an ejected project');
+});
+
 test('setup proxy fails without src dir', async () => {
+  await promiseWriteFile('./package.json', JSON.stringify({ scripts: { eject: 'react-scripts eject' } }));
   expect(() => {
     setupProxy();
   }).toThrow("ENOENT: no such file or directory, open 'src/setupProxy.js'");
