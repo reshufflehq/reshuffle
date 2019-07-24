@@ -24,7 +24,7 @@ import {
 import { mapWithState, StateAndOutput, takeUntilLast } from './rxutils';
 
 interface SubscriptionState<T> extends Versioned<T> {
-  readonly patches?: ReadonlyArray<Patch>;
+  readonly patches?: Patch[];
 }
 
 type VersionedStateGetter<T> = (key: string) => Promise<Versioned<T>>;
@@ -34,23 +34,23 @@ export const DEREGISTER: 'deregister' = 'deregister';
 const UPDATE: 'update' = 'update';
 
 interface RegisterPollerInput {
-  readonly action: 'register';
+  readonly action: typeof REGISTER;
   readonly key: string;
   readonly version: Version;
 }
 interface DeregisterPollerInput {
-  readonly action: 'deregister';
+  readonly action: typeof DEREGISTER;
   readonly key: string;
 }
 interface UpdatePollerInput {
-  readonly action: 'update';
+  readonly action: typeof UPDATE;
   readonly keysToVersions: Array<[string, Version]>;
 }
 type PollerInput = RegisterPollerInput | DeregisterPollerInput;
 
 export type NonEmptyArray<T> = [T, ...T[]];
 
-export function isNonEmptyArray<T>(arr: ReadonlyArray<T>): arr is NonEmptyArray<T> {
+export function isNonEmptyArray<T>(arr: T[]): arr is NonEmptyArray<T> {
   return arr.length > 0;
 }
 
@@ -161,7 +161,7 @@ export function serverUpdates<T>(
   getInitialState: VersionedStateGetter<T>,
   pollerInputSubject: Observer<PollerInputWithObserver>,
 ) {
-  const patchesSubject = new Subject<ReadonlyArray<Patch>>();
+  const patchesSubject = new Subject<Patch[]>();
 
   return from(getInitialState(key)).pipe(
     map((versioned): SubscriptionState<T> => ({ ...versioned, patches: [] })),

@@ -32,4 +32,4 @@ export interface Patch {
   readonly ops: Operation[];
 }
 
-export type KeyedPatches = Array<[string, ReadonlyArray<Patch>]>;
+export type KeyedPatches = Array<[string, Patch[]]>;

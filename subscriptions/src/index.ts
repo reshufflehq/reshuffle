@@ -24,6 +24,17 @@ interface DataSubscriptionState<T> {
   readonly data: T | undefined;
 }
 
+/**
+ * The lifetime of a subscription goes through 3 different states.
+ * LoadingSubscriptionState is the initial state, it never returns to it.
+ * ErrorSubscriptionState is an absorbing state, it'll never recover.
+ * DataSubscriptionState is the "normal" state, you're usually in this state.
+ * Possible transitions are:
+ * Loading -> Data
+ * Loading -> Error
+ * Data -> Data
+ * Data -> Error
+ */
 type SubscriptionState<T> = LoadingSubscriptionState | ErrorSubscriptionState | DataSubscriptionState<T>;
 
 export function useSubscription<T = any>(key: string): SubscriptionState<T> {
