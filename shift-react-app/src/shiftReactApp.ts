@@ -8,9 +8,12 @@ import {
 
 async function shiftReactApp() {
   try {
-    setupProxy();
-    await installPackages();
-    ignoreShift();
+    let msg = setupProxy();
+    console.log(msg);
+    msg = await installPackages();
+    console.log(msg);
+    msg = ignoreShift();
+    console.log(msg);
   } catch (e) {
     console.log(e.message);
     process.exit(1);
