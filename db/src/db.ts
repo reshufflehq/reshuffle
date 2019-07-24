@@ -254,7 +254,7 @@ export class DB extends EventEmitter {
           return it.end(resolve);
         }
         const { value } = JSON.parse(rawValue);
-        if (wrappedMatch({ key, value }, filter)) {
+        if (value !== undefined /* Not a tombstone */ && wrappedMatch({ key, value }, filter)) {
           results.push({ key, value });
         }
         return it.next(next);
