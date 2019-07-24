@@ -53,20 +53,22 @@ export function installPackages() {
 export function ignoreShift() {
   const gitIgnoreFile = '.gitignore';
   const ignorePattern = '.shift*';
+  let initialContent;
   try {
-    const initialContent = readFileSync(gitIgnoreFile, { encoding: 'utf8' });
-    const lines: string[] = initialContent.split('\n');
-    const found = lines.find((line) => line === ignorePattern);
-    if (found) {
-      console.log(`Did not need to update ${gitIgnoreFile}`);
-    } else {
-      const lastIndex = findLastIndex(lines, (line: string) => !!line.trim ().length ) || 0;
-      lines.splice(lastIndex + 1, 0, ignorePattern);
-      const newContent = lines.join('\n');
-      writeFileSync(gitIgnoreFile, newContent);
-      console.log(`Updated ${gitIgnoreFile}, please commit this file`);
-    }
+    initialContent = readFileSync(gitIgnoreFile, { encoding: 'utf8' });
   } catch (e) {
     console.log(`Did not update ${gitIgnoreFile}`);
+    return;
   }
+  const lines: string[] = initialContent.split('\n');
+  const found = lines.find((line) => line === ignorePattern);
+  if (found) {
+    console.log(`Did not need to update ${gitIgnoreFile}`);
+    return;
+  }
+  const lastIndex = findLastIndex(lines, (line: string) => !!line.trim ().length ) || 0;
+  lines.splice(lastIndex + 1, 0, ignorePattern);
+  const newContent = lines.join('\n');
+  writeFileSync(gitIgnoreFile, newContent);
+  console.log(`Updated ${gitIgnoreFile}, please commit this file`);
 }
