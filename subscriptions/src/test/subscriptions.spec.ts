@@ -42,14 +42,18 @@ test('poll stops polling when asked to deregister key', async (t) => {
   ).pipe(
     poll(poller),
   ).toPromise();
-  t.is(poller.args.length, 3);
-  t.deepEqual(poller.args[0][0].toJS(), { test1: Version(1, 1) });
-  t.deepEqual(poller.args[1][0].toJS(), { test1: Version(1, 1), test2: Version(1, 2) });
-  t.deepEqual(poller.args[2][0].toJS(), { test2: Version(1, 2) });
+  t.deepEqual(poller.args.map(([versions]) => versions.toJS()), [
+    { test1: Version(1, 1) },
+    { test1: Version(1, 1), test2: Version(1, 2) },
+    { test2: Version(1, 2) },
+  ]);
 });
 
 test('poll updates version on poll result', async (t) => {
-  const poller = mockPoller().resolves([['test', [{ version: Version(1, 2), ops: [] }]]]);
+  const poller = mockPoller().resolves([['test', [{
+    version: Version(1, 2),
+    ops: [{ op: 'replace', path: '/root', value: 7 }],
+  }]]]);
   await concat(
     of({ action: REGISTER, key: 'test', version: Version(1, 1) }),
     NEVER,
