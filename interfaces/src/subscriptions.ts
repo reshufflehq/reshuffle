@@ -1,5 +1,7 @@
 import { Operation } from 'fast-json-patch';
 
+export type Version = [number, number];
+
 export interface UpdateOptions {
   /**
    * Used to mark an update originated from a specific operation (useful for optimistic UI).
@@ -7,8 +9,6 @@ export interface UpdateOptions {
    */
   readonly operationId?: string;
 }
-
-export type Version = [number, number];
 
 export interface Versioned<T> {
   /**

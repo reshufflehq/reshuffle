@@ -1,0 +1,26 @@
+{
+  "name": "@binaris/shift-interfaces-node-client",
+  "private": true,
+  "version": "0.2.0-rc.0",
+  "files": [
+    "gen/"
+  ],
+  "description": "fake client interfaces wrapper",
+  "main": "gen/client.js",
+  "types": "gen/client.d.ts",
+  "scripts": {
+    "build": "npm run really-build",
+    "really-build": "rm -fr gen/ && concord 2>&1 --allow-extra-props node --client fetch -o gen ${npm_package_name}@${npm_package_version} ../interfaces/src/*.ts",
+    "lint": "echo generated client does not lint",
+    "test": "echo generated client needs no tests"
+  },
+  "devDependencies": {
+    "@binaris/shift-interfaces": "~0.2.0-rc.0",
+    "@types/node": "^10.14.9",
+    "concord": "~0.2.0",
+    "typescript": "^3.5.3"
+  },
+  "author": "Future Concord Piskie",
+  "repository": "undefined",
+  "license": "MIT"
+}

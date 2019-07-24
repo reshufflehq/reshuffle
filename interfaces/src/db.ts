@@ -1,5 +1,11 @@
+import { Patch } from './subscriptions';
+
 export type Comparable = string | number | Date;
 export type Equatable = Comparable | boolean;
+
+// Typescript's way of defining any - undefined
+// see: https://github.com/Microsoft/TypeScript/issues/7648
+export type Serializable = {} | null;
 
 export interface PathFilter {
   readonly path: string[];
@@ -86,4 +92,56 @@ export interface Query {
   limit?: number;
   skip?: number;
   orderBy?: ReadonlyArray<Order>;
+}
+
+export interface ClientContext {
+  debugId: string;
+}
+
+export interface ServerOnlyContext {
+  tags?: { [key: string]: string };
+  logLevel?: string;
+  logExtra?: { [key: string]: any };
+  sampleRate?: number;
+}
+
+export type Version = [number, number];
+
+export interface VersionedObject {
+  version: Version;
+  value: Serializable;
+}
+
+interface Patches {
+  /**
+   * Stores changes made to the document, meant to be used internally by poll().
+   */
+  patches: ReadonlyArray<Patch>;
+  updatedAt: number;
+}
+
+export interface StoredDocument extends VersionedObject, Patches {}
+
+export interface Tombstone extends Patches {
+  version: Version;
+}
+
+export interface DB {
+  /**
+   * Gets a single document.
+   * @return - value or undefined if key doesn’t exist.
+   */
+  get: {
+    params: { key: string; };
+    returns: Serializable | undefined;
+  };
+
+  /**
+   * Gets a single document with its version.
+   * @return - { version, value } or undefined if key doesn’t exist.
+   */
+  getWithMeta: {
+    params: { key: string; }
+    returns: StoredDocument | Tombstone | undefined;
+  };
 }

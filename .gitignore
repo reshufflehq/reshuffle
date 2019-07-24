@@ -63,3 +63,7 @@ dist/
 # Rush files
 common/temp/**
 package-deps.json
+
+# Fake generated packages for in-rush development
+interfaces-client/gen/
+interfaces-server/gen/

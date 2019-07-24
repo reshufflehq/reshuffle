@@ -9,9 +9,12 @@ import {
   UpdateOptions,
   Version,
   Versioned,
-  Patch,
   KeyedPatches,
 } from '@binaris/shift-interfaces/dist/subscriptions';
+import {
+  Patch,
+  Serializable,
+} from '@binaris/shift-interfaces-node-client/gen/interfaces';
 import { ValueError } from './errors';
 import * as Q from './query';
 import { withTimeout, deferred, hrnano } from './utils';
@@ -22,14 +25,11 @@ export {
   Versioned,
   KeyedPatches,
   UpdateOptions,
+  Serializable,
 };
 
 const NUM_PATCHES_TO_KEEP = 20;
 const DEFAULT_READ_BLOCK_TIME_MS = 50000;
-
-// Typescript's way of defining any - undefined
-// see: https://github.com/Microsoft/TypeScript/issues/7648
-export type Serializable = {} | null;
 
 export function incrVersion([x, y]: Version, amount: number = 1): Version {
   return [x, y + amount];
