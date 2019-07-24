@@ -13,7 +13,6 @@ import {
   cwd,
 } from 'process';
 import rmrf from 'rmfr';
-// const spy = jest.spyOn(console, 'log').mockImplementation();
 jest.spyOn(console, 'log').mockImplementation();
 import {
   setupProxy,
