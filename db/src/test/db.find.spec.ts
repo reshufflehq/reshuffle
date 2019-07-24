@@ -87,3 +87,13 @@ test('DB.find applies orderBy', async (t) => {
     { key: 'a', value: { a: 1, b: 6 } },
   ]);
 });
+
+test('DB.find ignores tombstones', async (t) => {
+  const { db } = t.context;
+  await db.create('a', { a: 1, b: 6 });
+  await db.remove('a');
+
+  t.deepEqual(await db.find(
+    Q.filter(Q.key.eq('a'))
+  ), []);
+});
