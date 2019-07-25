@@ -7,15 +7,21 @@ import {
   ignoreShift,
 } from './steps';
 
+const steps = [
+  sanityCheck,
+  setupProxy,
+  installPackages,
+  ignoreShift,
+];
+
 async function shiftReactApp() {
   try {
-    sanityCheck();
-    let msg = setupProxy();
-    console.log(msg);
-    msg = await installPackages();
-    console.log(msg);
-    msg = ignoreShift();
-    console.log(msg);
+    for (const step of steps) {
+      const msg = await step();
+      if (msg !== undefined) {
+        console.log(msg);
+      }
+    }
   } catch (e) {
     console.log(e.message);
     process.exit(1);
