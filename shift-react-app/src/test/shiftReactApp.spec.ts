@@ -14,6 +14,7 @@ import {
 } from 'process';
 import rmrf from 'rmfr';
 import {
+  sanityCheck,
   setupProxy,
   installPackages,
   ignoreShift,
@@ -41,42 +42,41 @@ afterEach(async () => {
   await rmrf(testDir);
 });
 
-test('setup proxy fails without package json', async () => {
+test('sanity check fails without package json', async () => {
   expect(() => {
-    setupProxy();
+    sanityCheck();
   }).toThrow("ENOENT: no such file or directory, open './package.json'");
 });
 
-test('setup proxy fails without unparsable package json', async () => {
+test('sanity check fails without unparsable package json', async () => {
   await promiseWriteFile('./package.json', 'xxx');
   expect(() => {
-    setupProxy();
+    sanityCheck();
   }).toThrow('Cannot parse package.json');
 });
 
-test('setup proxy fails without scripts', async () => {
+test('sanity check fails without scripts', async () => {
   await promiseWriteFile('./package.json', JSON.stringify({ foo: { eject: 'xxx' } }));
   expect(() => {
-    setupProxy();
+    sanityCheck();
   }).toThrow('Can not run outside of a create-react-app or an ejected project');
 });
 
-test('setup proxy fails without eject', async () => {
+test('sanity check fails without eject', async () => {
   await promiseWriteFile('./package.json', JSON.stringify({ scripts: { noteject: 'xxx' } }));
   expect(() => {
-    setupProxy();
+    sanityCheck();
   }).toThrow('Can not run outside of a create-react-app or an ejected project');
 });
 
-test('setup proxy fails without proper eject', async () => {
+test('sanity check fails without proper eject', async () => {
   await promiseWriteFile('./package.json', JSON.stringify({ scripts: { eject: 'xxx' } }));
   expect(() => {
-    setupProxy();
+    sanityCheck();
   }).toThrow('Can not run outside of a create-react-app or an ejected project');
 });
 
 test('setup proxy fails without src dir', async () => {
-  await promiseWriteFile('./package.json', JSON.stringify({ scripts: { eject: 'react-scripts eject' } }));
   expect(() => {
     setupProxy();
   }).toThrow("ENOENT: no such file or directory, open 'src/setupProxy.js'");
