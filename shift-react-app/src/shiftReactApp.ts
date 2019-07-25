@@ -23,7 +23,7 @@ async function shiftReactApp() {
       }
     }
   } catch (e) {
-    console.log(e.message);
+    console.log('ABORTED:', e.message);
     process.exit(1);
   }
 }
