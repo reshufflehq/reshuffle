@@ -7,10 +7,10 @@ import { spawn } from 'child_process';
 import { EOL } from 'os';
 
 export function sanityCheck() {
-  const pjsonBuffer = readFileSync('./package.json');
+  const pjsonBuffer = readFileSync('./package.json', 'utf8');
   let pjson;
   try {
-    pjson = JSON.parse(pjsonBuffer.toString());
+    pjson = JSON.parse(pjsonBuffer);
   } catch (e) {
     throw new Error('Cannot parse package.json');
   }
@@ -32,6 +32,14 @@ export function setupProxy(): string {
 const { setupProxy } = require('@binaris/shift-local-proxy');
 module.exports = setupProxy(__dirname);
 `;
+  try {
+    const existingCode = readFileSync(proxyFile, 'utf8');
+    if (existingCode === proxyCode) {
+      return `Left ${proxyFile} as is`;
+    }
+  } catch (e) {
+      // ignore read errors
+  }
   writeFileSync(proxyFile, proxyCode, { flag: 'wx' });
   return `Created ${proxyFile}, please commit this file`;
 }
