@@ -90,12 +90,19 @@ test('setup proxy works with src dir', async () => {
   await promiseAccess('setupProxy.js');
 });
 
-test('setup proxy fails if called twice', async () => {
+test('setup proxy fails if different proxy exists', async () => {
   await fakeApp();
-  await setupProxy();
+  await promiseWriteFile('src/setupProxy.js', 'xxx');
   expect(() => {
     setupProxy();
   }).toThrow("EEXIST: file already exists, open 'src/setupProxy.js'");
+});
+
+test('setup proxy works if called twice', async () => {
+  await fakeApp();
+  await setupProxy();
+  const msg = await setupProxy();
+  expect(msg).toBe('Left src/setupProxy.js as is');
 });
 
 test('install creates node_modules', async () => {
