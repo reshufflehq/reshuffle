@@ -1,6 +1,7 @@
 // tslint:disable:no-console
 
 import {
+  sanityCheck,
   setupProxy,
   installPackages,
   ignoreShift,
@@ -8,6 +9,7 @@ import {
 
 async function shiftReactApp() {
   try {
+    sanityCheck();
     let msg = setupProxy();
     console.log(msg);
     msg = await installPackages();
