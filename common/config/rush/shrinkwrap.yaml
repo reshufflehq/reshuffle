@@ -27,7 +27,6 @@ dependencies:
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
   '@types/lodash': 4.14.136
-  '@types/lodash.findlastindex': 4.6.6
   '@types/lodash.once': 4.1.6
   '@types/mkdirp': 0.5.2
   '@types/nanoid': 2.0.0
@@ -57,7 +56,6 @@ dependencies:
   leveldown: 5.1.1
   levelup: 4.1.0
   lodash: 4.17.15
-  lodash.findlastindex: 4.6.0
   lodash.once: 4.1.1
   mkdirp: 0.5.1
   nanoid: 2.0.3
@@ -824,12 +822,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LjvlfctJYj23Xuqq3jCT8ZPSUSSgDcRJg8+XFDBasoYzefFbB4cHzlDmBVjc2rBOYvklpYHJRayD0jBsbJLD9w==
-  /@types/lodash.findlastindex/4.6.6:
-    dependencies:
-      '@types/lodash': 4.14.136
-    dev: false
-    resolution:
-      integrity: sha512-UD9ru/tc7pFmybsJcSznqa0dmvWnQ/Zejj/fozEIWXfgvExQPl7s5ouJ2Yw3xIsj4U6Sbq2ApEeN/7ZL9CrGcg==
   /@types/lodash.once/4.1.6:
     dependencies:
       '@types/lodash': 4.14.136
@@ -4749,10 +4741,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
-  /lodash.findlastindex/4.6.0:
-    dev: false
-    resolution:
-      integrity: sha1-uDdawPAum5Jjdc343D6oFKv5xqw=
   /lodash.flattendeep/4.4.0:
     dev: false
     resolution:
@@ -8089,19 +8077,17 @@ packages:
   'file:projects/shift-react-app.tgz':
     dependencies:
       '@types/jest': 24.0.15
-      '@types/lodash.findlastindex': 4.6.6
       '@types/node': 10.14.13
       '@types/rmfr': 2.0.0
       fixture-stdout: 0.2.1
       jest: 24.8.0
-      lodash.findlastindex: 4.6.0
       rmfr: 2.0.0
       tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-react-app'
     resolution:
-      integrity: sha512-ueEqqVcynyOoE5F/3pqHc2tcwfrVowpHeNhWaRg8XIOKXmVFvW/jvZI59/1v6/DpFZowfZKHpH+u+/fMl87VGQ==
+      integrity: sha512-cv4nQpEzmU0d3WN2CMY4cun1Zcyl/f6TH/a3TjF7xczDkU9Hggh4FuIAgo9DiQfTN5CXp0yUbkomw2dTRWA7dg==
       tarball: 'file:projects/shift-react-app.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
@@ -8179,7 +8165,6 @@ specifiers:
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
   '@types/lodash': ^4.14.136
-  '@types/lodash.findlastindex': ^4.6.6
   '@types/lodash.once': ^4.1.6
   '@types/mkdirp': ^0.5.2
   '@types/nanoid': ^2.0.0
@@ -8209,7 +8194,6 @@ specifiers:
   leveldown: ^5.1.1
   levelup: ^4.1.0
   lodash: ^4.17.15
-  lodash.findlastindex: ^4.6.0
   lodash.once: ^4.1.1
   mkdirp: ^0.5.1
   nanoid: ^2.0.3
