@@ -24,6 +24,7 @@ dependencies:
   '@rush-temp/shift-interfaces-koa-server': 'file:projects/shift-interfaces-koa-server.tgz'
   '@rush-temp/shift-interfaces-node-client': 'file:projects/shift-interfaces-node-client.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
+  '@rush-temp/shift-server-function': 'file:projects/shift-server-function.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
   '@rush-temp/shiftjs-react-app': 'file:projects/shiftjs-react-app.tgz'
   '@types/babel__core': 7.1.2
@@ -42,8 +43,10 @@ dependencies:
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
   '@types/lodash.once': 4.1.6
+  '@types/mime-types': 2.1.0
   '@types/mkdirp': 0.5.2
   '@types/ms': 0.7.30
+  '@types/mz': 0.0.32
   '@types/nanoid': 2.0.0
   '@types/node-fetch': 2.5.0
   '@types/ramda': 0.26.19
@@ -81,8 +84,10 @@ dependencies:
   leveldown: 5.1.1
   levelup: 4.1.0
   lodash.once: 4.1.1
+  mime-types: 2.1.24
   mkdirp: 0.5.1
   ms: 2.1.2
+  mz: 2.7.0
   nanoid: 2.0.3
   node-fetch: 2.6.0
   nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
@@ -1094,6 +1099,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-0GJhzBdvsW2RUccNHOBkabI8HZVdOXmXbXhuKlDEd5Vv12P7oAVGfomGp3Ne21o5D/qu1WmthlNKFaoZJJeErA==
+  /@types/mime-types/2.1.0:
+    dev: false
+    resolution:
+      integrity: sha1-nKUs2jY/aZxpRmwqbM2q2RPqenM=
   /@types/mime/2.0.1:
     dev: false
     resolution:
@@ -1112,6 +1121,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-OftRLCgAzJP7vmKn9by/GVjnf4hloz/pXNOwPo0vKGAfXI7GqWXJi9N2kRar4cP5s1dGwuwcagWqO6iHBTq1Mg==
+  /@types/mz/0.0.32:
+    dependencies:
+      '@types/node': 12.7.1
+    dev: false
+    resolution:
+      integrity: sha512-cy3yebKhrHuOcrJGkfwNHhpTXQLgmXSv1BX+4p32j+VUQ6aP2eJ5cL7OvGcAQx75fCTFaAIIAKewvqL+iwSd4g==
   /@types/nanoid/2.0.0:
     dependencies:
       '@types/node': 12.7.1
@@ -5931,6 +5946,14 @@ packages:
     optional: true
     resolution:
       integrity: sha1-rmzg1vbV4KT32JN5jQPB6pVZtqI=
+  /mz/2.7.0:
+    dependencies:
+      any-promise: 1.3.0
+      object-assign: 4.1.1
+      thenify-all: 1.6.0
+    dev: false
+    resolution:
+      integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==
   /nan/2.14.0:
     dev: false
     optional: true
@@ -8074,6 +8097,20 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-M+oxtseCFO3EDtAaGH7iiej3CBkzXqFMbzqYAACdzKui4eZA+pq3tZEwChvOdNfa7xxy8BfbmgJSIr43cC/+2g==
+  /thenify-all/1.6.0:
+    dependencies:
+      thenify: 3.3.0
+    dev: false
+    engines:
+      node: '>=0.8'
+    resolution:
+      integrity: sha1-GhkY1ALY/D+Y+/I02wvMjMEOlyY=
+  /thenify/3.3.0:
+    dependencies:
+      any-promise: 1.3.0
+    dev: false
+    resolution:
+      integrity: sha1-5p44obq+lpsBCCB5eLn2K4hgSDk=
   /throat/4.1.0:
     dev: false
     resolution:
@@ -9198,8 +9235,22 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-46hw6DZTGrpGztqfA1JkniKgQOttt36uy1JdyIGmGqXhKAwYpbnvgnguPqx04IDFXh4W4CsKtqprT4VoXIzESA==
+      integrity: sha512-v8A6sWDNpKbIZiDvVzKbAJxxItzKZ8auh8oyRRNpemeh1RipruMHMixqN9H6y6TpTo375zBqwXfHiY6aYtF2+w==
       tarball: 'file:projects/shift-local-proxy.tgz'
+    version: 0.0.0
+  'file:projects/shift-server-function.tgz':
+    dependencies:
+      '@types/mime-types': 2.1.0
+      '@types/mz': 0.0.32
+      '@types/node': 10.14.15
+      ava: 2.2.0
+      mime-types: 2.1.24
+      mz: 2.7.0
+    dev: false
+    name: '@rush-temp/shift-server-function'
+    resolution:
+      integrity: sha512-+Z7nEX31Sqa/c4QllirJbaFl0yz+ikHwLDiMzif3JUG7Gj6UFoc9GOrYs+gjYo360wxd7LsdmHKm+aaptanRmA==
+      tarball: 'file:projects/shift-server-function.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
     dependencies:
@@ -9290,6 +9341,7 @@ specifiers:
   '@rush-temp/shift-interfaces-koa-server': 'file:./projects/shift-interfaces-koa-server.tgz'
   '@rush-temp/shift-interfaces-node-client': 'file:./projects/shift-interfaces-node-client.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
+  '@rush-temp/shift-server-function': 'file:./projects/shift-server-function.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
   '@rush-temp/shiftjs-react-app': 'file:./projects/shiftjs-react-app.tgz'
   '@types/babel__core': ^7.1.2
@@ -9308,8 +9360,10 @@ specifiers:
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
   '@types/lodash.once': ^4.1.6
+  '@types/mime-types': ^2.1.0
   '@types/mkdirp': ^0.5.2
   '@types/ms': ^0.7.30
+  '@types/mz': ^0.0.32
   '@types/nanoid': ^2.0.0
   '@types/node-fetch': ^2.1.4
   '@types/ramda': ^0.26.18
@@ -9347,8 +9401,10 @@ specifiers:
   leveldown: ^5.1.1
   levelup: ^4.1.0
   lodash.once: ^4.1.1
+  mime-types: ^2.1.24
   mkdirp: ^0.5.1
   ms: ^2.1.2
+  mz: ^2.7.0
   nanoid: ^2.0.3
   node-fetch: ^2.3.0
   nodemon: 'git+http://github.com/binaris/nodemon'

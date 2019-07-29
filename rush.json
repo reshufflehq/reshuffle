@@ -395,6 +395,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-server-function",
+        "projectFolder": "server-function",
+        "shouldPublish": true
+    },
+    {
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true

@@ -5,6 +5,7 @@ import proxy from 'http-proxy';
 import { Application } from 'express';
 import nanoid from 'nanoid';
 import { EventEmitter } from 'events';
+import { Server } from '@binaris/shift-server-function';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -74,20 +75,35 @@ export function startProxy(
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
+  const shiftServer = new Server(path.join(rootDir, 'public'));
   const localToken = nanoid();
   const httpProxy = new proxy();
   httpProxy.on('error', (err: any) => console.error(err.stack));
   return (app: Application) => {
     const promiseHolder = startProxy(rootDir, localToken);
     app.use(async (req, res, next) => {
-      if (req.url !== '/invoke') {
-        return next();
+      const decision = await shiftServer.handle(req.url);
+      switch (decision.action) {
+        case 'handleInvoke': {
+          const port = await promiseHolder.portPromise;
+          return httpProxy.web(req, res, {
+            target: `http://localhost:${port}/`,
+            headers: { 'x-shift-dev-server-local-token': localToken },
+          });
+        }
+        case 'sendStatus': {
+          // in dev environment static files do not exist on disk but are served by webpack-dev-server
+          if (/^\/static\//.test(req.url)) {
+            break;
+          }
+          return res.sendStatus(decision.status);
+        }
+        case 'serveFile': {
+          // TODO: handle logic when path doesn't match exactly
+          break;
+        }
       }
-      const port = await promiseHolder.portPromise;
-      httpProxy.web(req, res, {
-        target: `http://localhost:${port}/`,
-        headers: { 'x-shift-dev-server-local-token': localToken },
-      });
+      return next();
     });
   };
 }
