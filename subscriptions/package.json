@@ -14,8 +14,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-interfaces": "0.1.0",
     "@binaris/shift-fetch-runtime": "0.0.2",
+    "@binaris/shift-interfaces": "0.1.0",
     "fast-json-patch": "^2.1.0",
     "immutable": "^4.0.0-rc.12",
     "react": "^16.8.6",
@@ -26,7 +26,7 @@
     "@types/react": "^16.8.23",
     "@types/sinon": "^7.0.13",
     "@types/uuid": "^3.4.5",
-    "ava": "~2.1.0",
+    "ava": "^2.2.0",
     "sinon": "^7.3.2",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
