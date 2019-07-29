@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Thu, 18 Jul 2019 12:48:13 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Jul 2019 06:11:31 GMT and should not be manually modified.
+
+## 0.0.6
+Mon, 29 Jul 2019 06:11:31 GMT
+
+### Patches
+
+- Cleanup temp directories on Ctrl-C
 
 ## 0.0.5
 Thu, 18 Jul 2019 12:48:13 GMT

@@ -1,0 +1,17 @@
+{
+  "name": "@binaris/shift-react-app",
+  "entries": [
+    {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-react-app_v0.0.2",
+      "date": "Mon, 29 Jul 2019 06:11:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Initial version"
+          }
+        ]
+      }
+    }
+  ]
+}

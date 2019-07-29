@@ -1,0 +1,22 @@
+{
+  "name": "@binaris/shift-subscriptions",
+  "entries": [
+    {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-subscriptions_v0.0.2",
+      "date": "Mon, 29 Jul 2019 06:11:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Implement subscriptions frontend library"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.1.0` to `0.1.1`"
+          }
+        ]
+      }
+    }
+  ]
+}

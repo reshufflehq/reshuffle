@@ -2,6 +2,29 @@
   "name": "@binaris/shift-db",
   "entries": [
     {
+      "version": "0.2.1",
+      "tag": "@binaris/shift-db_v0.2.1",
+      "date": "Mon, 29 Jul 2019 06:11:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename getVersioned to startPolling"
+          },
+          {
+            "comment": "Change return types of exposed subscription functions"
+          },
+          {
+            "comment": "Fix version comparison"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.1.0` to `0.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.0",
       "tag": "@binaris/shift-db_v0.2.0",
       "date": "Thu, 18 Jul 2019 12:48:13 GMT",

@@ -1,6 +1,15 @@
 # Change Log - @binaris/shift-db
 
-This log was last generated on Thu, 18 Jul 2019 12:48:13 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Jul 2019 06:11:31 GMT and should not be manually modified.
+
+## 0.2.1
+Mon, 29 Jul 2019 06:11:31 GMT
+
+### Patches
+
+- Rename getVersioned to startPolling
+- Change return types of exposed subscription functions
+- Fix version comparison
 
 ## 0.2.0
 Thu, 18 Jul 2019 12:48:13 GMT

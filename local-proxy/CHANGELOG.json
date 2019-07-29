@@ -2,6 +2,23 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.6",
+      "tag": "@binaris/shift-local-proxy_v0.0.6",
+      "date": "Mon, 29 Jul 2019 06:11:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Cleanup temp directories on Ctrl-C"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-db\" from `0.2.0` to `0.2.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.5",
       "tag": "@binaris/shift-local-proxy_v0.0.5",
       "date": "Thu, 18 Jul 2019 12:48:13 GMT",
