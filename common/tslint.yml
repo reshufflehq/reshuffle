@@ -3,6 +3,15 @@ extends:
     - 'tslint:recommended'
 jsRules:
 rules:
+    no-floating-promises: true
+    strict-boolean-expressions:
+      - true
+      - allow-mix
+      - allow-undefined-union
+      - allow-null-union
+      - allow-string
+      - allow-number
+      - ignore-rhs
     quotemark:
       - true
       - single
