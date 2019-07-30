@@ -4,8 +4,10 @@
  * inside shiftMacro in babel-macro/src/macro.ts
  */
 export function createRuntime(methodNames: string[], fileId: Record<'filename', string>) {
+  // TODO: consider changing signature to return an object with only the imported methods
   const runtime: Record<string, (...args: any[]) => any> = {};
   for (const method of methodNames) {
+    // tslint:disable-next-line:strict-boolean-expressions type of Record is defined for all values
     if (runtime[method]) {
       throw new Error(`Can not redefine ${method}`);
     }

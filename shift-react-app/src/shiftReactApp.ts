@@ -28,4 +28,5 @@ async function shiftReactApp() {
   }
 }
 
+// tslint:disable-next-line:no-floating-promises all rejections handled by process.exit(1)
 shiftReactApp();
