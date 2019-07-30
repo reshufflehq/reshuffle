@@ -7,7 +7,7 @@ import {
   ignoreShift,
 } from './steps';
 
-const steps = [
+const steps: Array<(() => Promise<string>) | (() => string) | (() => void)> = [
   sanityCheck,
   setupProxy,
   installPackages,

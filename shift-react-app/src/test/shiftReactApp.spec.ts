@@ -84,7 +84,7 @@ test('setup proxy fails without src dir', async () => {
 
 test('setup proxy works with src dir', async () => {
   await fakeApp();
-  const msg = await setupProxy();
+  const msg = setupProxy();
   expect(msg).toBe('Created src/setupProxy.js, please commit this file');
   process.chdir('src');
   await promiseAccess('setupProxy.js');
@@ -100,8 +100,8 @@ test('setup proxy fails if different proxy exists', async () => {
 
 test('setup proxy works if called twice', async () => {
   await fakeApp();
-  await setupProxy();
-  const msg = await setupProxy();
+  setupProxy();
+  const msg = setupProxy();
   expect(msg).toBe('Left src/setupProxy.js as is');
 });
 
@@ -115,7 +115,7 @@ Modified package.json, please commit this file`);
 
 test('ignore does not create .gitignore', async () => {
   await fakeApp();
-  const msg = await ignoreShift();
+  const msg = ignoreShift();
   expect(msg).toBe('Did not update .gitignore');
   await expect(promiseAccess('.gitignore')).rejects.toThrow();
 });
@@ -194,7 +194,7 @@ bar`,
   ];
   for (const { initial, expected } of testCases) {
     await promiseWriteFile('.gitignore', initial);
-    const msg = await ignoreShift();
+    const msg = ignoreShift();
     const data = await promiseReadFile('.gitignore');
     expect(data.toString()).toBe(expected);
     if (initial === expected) {

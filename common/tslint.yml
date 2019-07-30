@@ -3,6 +3,7 @@ extends:
     - 'tslint:recommended'
 jsRules:
 rules:
+    await-promise: true
     no-floating-promises: true
     strict-boolean-expressions:
       - true
