@@ -5,5 +5,5 @@ declare module 'npm-check-updates' {
     upgrade?: boolean,
   }
 
-  function run(params: NCUParams): Record<string, string[]>;
+  function run(params: NCUParams): Promise<Record<string, string[]>>;
 }
