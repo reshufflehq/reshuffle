@@ -1,6 +1,18 @@
 {
-  "name": "@binaris/shift-react-app",
+  "name": "@binaris/shiftjs-react-app",
   "entries": [
+    {
+      "version": "0.0.3",
+      "tag": "@binaris/shiftjs-react-app_v0.0.3",
+      "date": "Thu, 01 Aug 2019 12:10:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename to shiftjs-react-app"
+          }
+        ]
+      }
+    },
     {
       "version": "0.0.2",
       "tag": "@binaris/shift-react-app_v0.0.2",
