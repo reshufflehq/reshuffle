@@ -385,8 +385,8 @@
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-react-app",
-        "projectFolder": "shift-react-app",
+        "packageName": "@binaris/shiftjs-react-app",
+        "projectFolder": "shiftjs-react-app",
         "shouldPublish": true
     },
     {
