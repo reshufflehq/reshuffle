@@ -13,16 +13,16 @@ dependencies:
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
-  '@rush-temp/shift-react-app': 'file:projects/shift-react-app.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
+  '@rush-temp/shiftjs-react-app': 'file:projects/shiftjs-react-app.tgz'
   '@types/babel__core': 7.1.2
   '@types/babel__traverse': 7.0.7
   '@types/bunyan': 1.8.6
   '@types/deep-freeze': 0.1.1
   '@types/express': 4.17.0
-  '@types/got': 9.6.4
+  '@types/got': 9.6.5
   '@types/http-proxy': 1.17.0
-  '@types/jest': 24.0.15
+  '@types/jest': 24.0.16
   '@types/jju': 1.4.1
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
@@ -31,12 +31,12 @@ dependencies:
   '@types/mkdirp': 0.5.2
   '@types/nanoid': 2.0.0
   '@types/ramda': 0.26.18
-  '@types/react': 16.8.23
+  '@types/react': 16.8.24
   '@types/rimraf': 2.0.2
   '@types/rmfr': 2.0.0
   '@types/sinon': 7.0.13
   '@types/uuid': 3.4.5
-  '@types/yargs': 13.0.0
+  '@types/yargs': 13.0.2
   async-mutex: 0.1.3
   ava: 2.2.0
   babel-plugin-macros: 2.6.1
@@ -122,9 +122,20 @@ packages:
   /@babel/cli/7.5.5/@babel!core@7.5.5:
     dependencies:
       '@babel/core': 7.5.5
+      commander: 2.20.0
+      convert-source-map: 1.6.0
+      fs-readdir-recursive: 1.1.0
+      glob: 7.1.4
+      lodash: 4.17.15
+      mkdirp: 0.5.1
+      output-file-sync: 2.0.1
+      slash: 2.0.0
+      source-map: 0.5.7
     dev: false
     hasBin: true
     id: registry.npmjs.org/@babel/cli/7.5.5
+    optionalDependencies:
+      chokidar: 2.1.6
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -148,7 +159,7 @@ packages:
       debug: 4.1.1
       json5: 2.1.0
       lodash: 4.17.15
-      resolve: 1.11.1
+      resolve: 1.12.0
       semver: 5.7.0
       source-map: 0.5.7
     dev: false
@@ -256,7 +267,7 @@ packages:
   /@babel/highlight/7.5.0:
     dependencies:
       chalk: 2.4.2
-      esutils: 2.0.2
+      esutils: 2.0.3
       js-tokens: 4.0.0
     dev: false
     resolution:
@@ -389,7 +400,7 @@ packages:
       integrity: sha512-MqB0782whsfffYfSjH4TM+LMjrJnhCNEDMDIjeTpl+ASaUvxcjoiVCo/sM1GhS1pHOXYfWVCYneLjMckuUxDaQ==
   /@babel/types/7.5.5:
     dependencies:
-      esutils: 2.0.2
+      esutils: 2.0.3
       lodash: 4.17.15
       to-fast-properties: 2.0.0
     dev: false
@@ -761,14 +772,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
-  /@types/got/9.6.4:
+  /@types/got/9.6.5:
     dependencies:
       '@types/node': 12.6.8
       '@types/tough-cookie': 2.3.5
       form-data: 2.5.0
     dev: false
     resolution:
-      integrity: sha512-zFVFoD9YRICaQFe9l8cYvuOWUT65cWRAt7ngNh+lCbTE12EmAvFp1/9WMS75m/jUoSKYjeKl5S2ztC3sHftGVA==
+      integrity: sha512-2A8Yxbi092KD6JM/WMA8tzcS79U94EXLP4wg9ry0brgZF7fQRIe69vwnA9cW6wsmkAx15a8SJ9bOxRyyeDtbmQ==
   /@types/http-proxy/1.17.0:
     dependencies:
       '@types/node': 12.6.8
@@ -796,12 +807,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
-  /@types/jest/24.0.15:
+  /@types/jest/24.0.16:
     dependencies:
       '@types/jest-diff': 20.0.1
     dev: false
     resolution:
-      integrity: sha512-MU1HIvWUme74stAoc3mgAi+aMlgKOudgEvQDIm1v4RkrDudBh1T+NFp5sftpBAdXdx1J0PbdpJ+M2EsSOi1djA==
+      integrity: sha512-JrAiyV+PPGKZzw6uxbI761cHZ0G7QMOHXPhtSpcl08rZH6CswXaaejckn3goFKmF7M3nzEoJ0lwYCbqLMmjziQ==
   /@types/jju/1.4.1:
     dev: false
     resolution:
@@ -850,10 +861,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NtwPHfAyU3IDXdKAB2OMPpAauHBg9gUjpOYr3FAzI84D70nWdS8k5mryteLvT/s1ACeAFAkGg132/XJVN4qx/w==
-  /@types/node/10.14.13:
+  /@types/node/10.14.14:
     dev: false
     resolution:
-      integrity: sha512-yN/FNNW1UYsRR1wwAoyOwqvDuLDtVXnaJTZ898XIw/Q5cCaeVAlVwvsmXLX5PuiScBYwZsZU4JYSHB3TvfdwvQ==
+      integrity: sha512-xXD08vZsvpv4xptQXj1+ky22f7ZoKu5ZNI/4l+/BXG3X+XaeZsmaFbbTKuhSE3NjjvRuZFxFf9sQBMXIcZNFMQ==
   /@types/node/12.6.8:
     dev: false
     resolution:
@@ -870,13 +881,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
-  /@types/react/16.8.23:
+  /@types/react/16.8.24:
     dependencies:
       '@types/prop-types': 15.7.1
       csstype: 2.6.6
     dev: false
     resolution:
-      integrity: sha512-abkEOIeljniUN9qB5onp++g0EY38h7atnDHxwKUFz1r3VH1+yG1OKi2sNPTyObL40goBmfKFpdii2lEzwLX1cA==
+      integrity: sha512-VpFHUoD37YNY2+lr/+c7qL/tZsIU/bKuskUF3tmGUArbxIcQdb5j3zvo4cuuzu2A6UaVmVn7sJ4PgWYNFEBGzg==
   /@types/rimraf/2.0.2:
     dependencies:
       '@types/glob': 7.1.1
@@ -923,12 +934,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-SOhuU4wNBxhhTHxYaiG5NY4HBhDIDnJF60GU+2LqHAdKKer86//e4yg69aENCtQ04n0ovz+tq2YPME5t5yp4pw==
-  /@types/yargs/13.0.0:
+  /@types/yargs/13.0.2:
     dependencies:
       '@types/yargs-parser': 13.0.0
     dev: false
     resolution:
-      integrity: sha512-hY0o+kcz9M6kH32NUeb6VURghqMuCVkiUx+8Btsqhj4Hhov/hVGUx9DmBJeIkzlp1uAQK4wngQBCjqWdUUkFyA==
+      integrity: sha512-lwwgizwk/bIIU+3ELORkyuOgDjCh7zuWDFqRtPPhhVgq9N1F7CvLNKg1TX4f2duwtKQ0p044Au9r1PLIXHrIzQ==
   /JSONStream/1.3.5:
     dependencies:
       jsonparse: 1.3.1
@@ -1041,14 +1052,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==
-  /ansi-escapes/4.2.0:
+  /ansi-escapes/4.2.1:
     dependencies:
       type-fest: 0.5.2
     dev: false
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-0+VX4uhi8m3aNbzoqKmkAVOEj6uQzcUHXoFPkKjhZPTpGRUBqVh930KbB6PS4zIyDZccphlLIYlu8nsjFzkXwg==
+      integrity: sha512-Cg3ymMAdN10wOk/VYfLV7KCQyv7EDirJ64500sU7n9UlmioEtDuU5Gd+hj73hXSU/ex7tHJSssmyftDdkMLO8Q==
   /ansi-regex/2.1.1:
     dev: false
     engines:
@@ -1273,7 +1284,7 @@ packages:
       '@babel/plugin-syntax-object-rest-spread': /@babel/plugin-syntax-object-rest-spread/7.2.0/@babel!core@7.5.5
       '@babel/plugin-syntax-optional-catch-binding': /@babel/plugin-syntax-optional-catch-binding/7.2.0/@babel!core@7.5.5
       '@concordance/react': 2.0.0
-      ansi-escapes: 4.2.0
+      ansi-escapes: 4.2.1
       ansi-styles: 4.0.0
       arr-flatten: 1.1.0
       array-union: 2.1.0
@@ -1284,7 +1295,7 @@ packages:
       chokidar: 3.0.2
       chunkd: 1.0.0
       ci-parallel-vars: 1.0.0
-      clean-stack: 2.1.0
+      clean-stack: 2.2.0
       clean-yaml-object: 0.1.0
       cli-cursor: 3.1.0
       cli-truncate: 2.0.0
@@ -1330,7 +1341,7 @@ packages:
       require-precompiled: 0.1.0
       resolve-cwd: 3.0.0
       slash: 3.0.0
-      source-map-support: 0.5.12
+      source-map-support: 0.5.13
       stack-utils: 1.0.2
       strip-ansi: 5.2.0
       strip-bom-buf: 2.0.0
@@ -1414,7 +1425,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.5.5
       cosmiconfig: 5.2.1
-      resolve: 1.11.1
+      resolve: 1.12.0
     dev: false
     resolution:
       integrity: sha512-6W2nwiXme6j1n2erPOnmRiWfObUhWH7Qw1LMi9XZy8cj+KtESu3T6asZvtk5bMQQjX8te35o7CFueiSdL/2NmQ==
@@ -1859,12 +1870,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-qOhPa/Fj7s6TY8H8esGu5QNpMMQxz79h+urzrNYN6mn+9BnxlDGf5QZ+XeCDsxSjPqsSR56XOZOJmpeurnLMeg==
-  /clean-stack/2.1.0:
+  /clean-stack/2.2.0:
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-uQWrpRm+iZZUCAp7ZZJQbd4Za9I3AjR/3YTjmcnAtkauaIm/T5CT6U8zVI6e60T6OANqBFAzuR9/HB3NzuZCRA==
+      integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==
   /clean-yaml-object/0.1.0:
     dev: false
     engines:
@@ -2052,7 +2063,7 @@ packages:
   /concordance/4.0.0:
     dependencies:
       date-time: 2.1.0
-      esutils: 2.0.2
+      esutils: 2.0.3
       fast-diff: 1.2.0
       js-string-escape: 1.0.1
       lodash.clonedeep: 4.5.0
@@ -2614,7 +2625,7 @@ packages:
     dependencies:
       esprima: 3.1.3
       estraverse: 4.2.0
-      esutils: 2.0.2
+      esutils: 2.0.3
       optionator: 0.8.2
     dev: false
     engines:
@@ -2665,12 +2676,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-De4/7TH81GlhjOc0IJn8GvoL2xM=
-  /esutils/2.0.2:
+  /esutils/2.0.3:
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs=
+      integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
   /etag/1.8.1:
     dev: false
     engines:
@@ -2845,7 +2856,7 @@ packages:
       '@nodelib/fs.walk': 1.2.2
       glob-parent: 5.0.0
       is-glob: 4.0.1
-      merge2: 1.2.3
+      merge2: 1.2.4
       micromatch: 4.0.2
     dev: false
     engines:
@@ -3197,7 +3208,7 @@ packages:
       fast-glob: 3.0.4
       glob: 7.1.4
       ignore: 5.1.2
-      merge2: 1.2.3
+      merge2: 1.2.4
       slash: 3.0.0
     dev: false
     engines:
@@ -4299,7 +4310,7 @@ packages:
       jest-runtime: 24.8.0
       jest-util: 24.8.0
       jest-worker: 24.6.0
-      source-map-support: 0.5.12
+      source-map-support: 0.5.13
       throat: 4.1.0
     dev: false
     engines:
@@ -5022,12 +5033,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-QEEgLVCKNCugAXQAjfDCUbjBNeE=
-  /merge2/1.2.3:
+  /merge2/1.2.4:
     dev: false
     engines:
       node: '>= 4.5.0'
     resolution:
-      integrity: sha512-gdUU1Fwj5ep4kplwcmftruWofEFt6lfpkkr3h860CXbAB9c3hGb55EOL2ali0Td5oebvW0E1+3Sr+Ur7XfKpRA==
+      integrity: sha512-FYE8xI+6pjFOhokZu0We3S5NKCirLbCzSh2Usf3qEyr4X8U+0jNg9P8RZ4qz+V2UoECLVwSyzU3LxXBaLGtD3A==
   /methods/1.1.2:
     dev: false
     engines:
@@ -5343,7 +5354,7 @@ packages:
   /normalize-package-data/2.5.0:
     dependencies:
       hosted-git-info: 2.7.1
-      resolve: 1.11.1
+      resolve: 1.12.0
       semver: 5.7.0
       validate-npm-package-license: 3.0.4
     dev: false
@@ -6104,10 +6115,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
-  /psl/1.2.0:
+  /psl/1.3.0:
     dev: false
     resolution:
-      integrity: sha512-GEn74ZffufCmkDDLNcl3uuyF/aSD6exEyh1v/ZSdAomB82t6G9hzJVRx0jBmLDW+VfZqks3aScmMw9DszwUalA==
+      integrity: sha512-avHdspHO+9rQTLbv1RO+MPYeP/SzsCoxofjVnHanETfQhTJrmB0HlDoW+EiN/R+C0BZ+gERab9NY0lPN2TxNag==
   /pstree.remy/1.1.7:
     dev: false
     resolution:
@@ -6539,12 +6550,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-IDEU2CrSxe2ejgQRs5ModeiJ6Xs=
-  /resolve/1.11.1:
+  /resolve/1.12.0:
     dependencies:
       path-parse: 1.0.6
     dev: false
     resolution:
-      integrity: sha512-vIpgF6wfuJOZI7KKKSP+HmiKggadPQAdsp5HiC1mvqnfp0gF1vdwgBWZIdrVft9pgqoMFQN+R7BSWZiBxx+BBw==
+      integrity: sha512-B/dOmuoAik5bKcD6s6nXDCjzUKnaDvdkRyAk6rsmsKLipWj4797iothd7jmmUhWTfinVMU+wc56rYKsit2Qy4w==
   /resolve/1.7.1:
     dependencies:
       path-parse: 1.0.6
@@ -6899,13 +6910,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MjqsvNwyz1s0k81Goz/9vRBe9SZdB09Bdw+/zYyO+3CuPk6fouTaxscHkgtE8jKvf01kVfl8riHzERQ/kefaSA==
-  /source-map-support/0.5.12:
+  /source-map-support/0.5.13:
     dependencies:
       buffer-from: 1.1.1
       source-map: 0.6.1
     dev: false
     resolution:
-      integrity: sha512-4h2Pbvyy15EE02G+JOZpUCmqWJuqrs+sEkzewTm++BPi7Hvn/HwcqLAcNxYAyI0x13CpPPn+kMjl+hplXMHITQ==
+      integrity: sha512-SHSKFHadjVA5oR4PPqhtAVdcBWwRYVd6g6cAXnIbRiIwc2EhPrTuKUBdSLvlEKyIP3GCf89fltvcZiP9MMFA1w==
   /source-map-url/0.4.0:
     dev: false
     resolution:
@@ -7324,7 +7335,7 @@ packages:
       integrity: sha512-WBx8Uy5TLtOSRtIq+M03/sKDrXCLHxwDcquSP2c43Le03/9serjQBIztjRz6FkJez9D/hleyAXTBGLwwZUw9lA==
   /tough-cookie/2.4.3:
     dependencies:
-      psl: 1.2.0
+      psl: 1.3.0
       punycode: 1.4.1
     dev: false
     engines:
@@ -7333,7 +7344,7 @@ packages:
       integrity: sha512-Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==
   /tough-cookie/2.5.0:
     dependencies:
-      psl: 1.2.0
+      psl: 1.3.0
       punycode: 2.1.1
     dev: false
     engines:
@@ -7379,7 +7390,7 @@ packages:
       js-yaml: 3.13.1
       minimatch: 3.0.4
       mkdirp: 0.5.1
-      resolve: 1.11.1
+      resolve: 1.12.0
       semver: 5.7.0
       tslib: 1.10.0
       tsutils: 2.29.0
@@ -7402,7 +7413,7 @@ packages:
       js-yaml: 3.13.1
       minimatch: 3.0.4
       mkdirp: 0.5.1
-      resolve: 1.11.1
+      resolve: 1.12.0
       semver: 5.7.0
       tslib: 1.10.0
       tsutils: /tsutils/2.29.0/typescript@3.5.3
@@ -8003,11 +8014,11 @@ packages:
       '@types/jju': 1.4.1
       '@types/lodash.once': 4.1.6
       '@types/node': 12.6.8
-      '@types/yargs': 13.0.0
+      '@types/yargs': 13.0.2
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.1.20
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
       yargs: 13.3.0
     dev: false
@@ -8019,7 +8030,7 @@ packages:
   'file:projects/shift-babel-common.tgz':
     dependencies:
       '@babel/types': 7.5.5
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-babel-common'
@@ -8031,13 +8042,13 @@ packages:
     dependencies:
       '@babel/parser': 7.5.5
       '@babel/types': 7.5.5
-      '@types/jest': 24.0.15
-      '@types/node': 10.14.13
+      '@types/jest': 24.0.16
+      '@types/node': 10.14.14
       babel-plugin-macros: 2.6.1
       babel-plugin-tester: 6.4.0
       jest: 24.8.0
       jest-standard-reporter: 1.0.1
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-babel-macro'
@@ -8064,7 +8075,7 @@ packages:
       '@types/deep-freeze': 0.1.1
       '@types/leveldown': 4.0.0
       '@types/levelup': 3.1.1
-      '@types/node': 10.14.13
+      '@types/node': 10.14.14
       '@types/ramda': 0.26.18
       '@types/rmfr': 2.0.0
       async-mutex: 0.1.3
@@ -8075,17 +8086,17 @@ packages:
       levelup: 4.1.0
       ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-1J616IEZ4qr4TH/aJ87FDKCdZ/L3IA9A5TNgzH6GyLPpHj/IybXIx6Jwb2GWymjnCM2XXEXClulCPm+yajztzA==
+      integrity: sha512-a8ydm0RcZFjGpYpFJvYEtXCGZPvyUjKFaczP3uq6YBEtMBOYyRdbwpoVHxUc8xWXL72ejH4bsRDvBKVM2QINPA==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
     dependencies:
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
@@ -8095,9 +8106,9 @@ packages:
     version: 0.0.0
   'file:projects/shift-interfaces.tgz':
     dependencies:
-      '@types/node': 10.14.13
+      '@types/node': 10.14.14
       fast-json-patch: 2.1.0
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
       typescript-json-schema: 0.39.0
     dev: false
@@ -8114,12 +8125,12 @@ packages:
       '@types/babel__core': 7.1.2
       '@types/bunyan': 1.8.6
       '@types/express': 4.17.0
-      '@types/got': 9.6.4
+      '@types/got': 9.6.5
       '@types/http-proxy': 1.17.0
       '@types/lodash': 4.14.136
       '@types/mkdirp': 0.5.2
       '@types/nanoid': 2.0.0
-      '@types/node': 10.14.13
+      '@types/node': 10.14.14
       '@types/rimraf': 2.0.2
       ava: 2.2.0
       bunyan: 1.8.12
@@ -8138,29 +8149,13 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-xDIsfgVcuJt39+u0Lz1dlQSUXsSdkIrpHq8zecSmEnKGUrNWqN/zq5PUwlOJHY4k1FlSoTeLlL63/EG3xLQPFw==
+      integrity: sha512-Uyz2/QaxUck3EYnf9hY7/JfCwBPWyUw83WbhhxDQYdgn2Opjl+i6BY7ndv4m5m3+CGvoKzzGc+2XVSMXy/SPmA==
       tarball: 'file:projects/shift-local-proxy.tgz'
-    version: 0.0.0
-  'file:projects/shift-react-app.tgz':
-    dependencies:
-      '@types/jest': 24.0.15
-      '@types/node': 10.14.13
-      '@types/rmfr': 2.0.0
-      fixture-stdout: 0.2.1
-      jest: 24.8.0
-      rmfr: 2.0.0
-      tslint: 5.18.0
-      typescript: 3.5.3
-    dev: false
-    name: '@rush-temp/shift-react-app'
-    resolution:
-      integrity: sha512-cv4nQpEzmU0d3WN2CMY4cun1Zcyl/f6TH/a3TjF7xczDkU9Hggh4FuIAgo9DiQfTN5CXp0yUbkomw2dTRWA7dg==
-      tarball: 'file:projects/shift-react-app.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
     dependencies:
-      '@types/node': 10.14.13
-      '@types/react': 16.8.23
+      '@types/node': 10.14.14
+      '@types/react': 16.8.24
       '@types/sinon': 7.0.13
       '@types/uuid': 3.4.5
       ava: 2.2.0
@@ -8169,13 +8164,29 @@ packages:
       react: 16.8.6
       rxjs: 6.5.2
       sinon: 7.3.2
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-SjUx9quXINjcS6rpjgQgobek+CovKX2BhrFIo6yfK5EZr0XsAz5nkbQG50KOEQ8QMWwxAxa6VS5pKkuolHGLPw==
+      integrity: sha512-MsTzOIY8CdKr5BIas/M8zQoppmP6v20RXZChy3wA8SuMk0VNw3eEx/FnQFpU4piltN2cHzSVP8QHRxpeOpMSJQ==
       tarball: 'file:projects/shift-subscriptions.tgz'
+    version: 0.0.0
+  'file:projects/shiftjs-react-app.tgz':
+    dependencies:
+      '@types/jest': 24.0.16
+      '@types/node': 10.14.14
+      '@types/rmfr': 2.0.0
+      fixture-stdout: 0.2.1
+      jest: 24.8.0
+      rmfr: 2.0.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shiftjs-react-app'
+    resolution:
+      integrity: sha512-8tBR3X4MIxxWQoYUJ1CpeAUvFC1MOR+DB2D+kUjEQgQvd3tVy913YFaXlnLLKXZQqAqsN66y89xDwGFtK8lJMA==
+      tarball: 'file:projects/shiftjs-react-app.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
     dependencies:
@@ -8218,8 +8229,8 @@ specifiers:
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
-  '@rush-temp/shift-react-app': 'file:./projects/shift-react-app.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
+  '@rush-temp/shiftjs-react-app': 'file:./projects/shiftjs-react-app.tgz'
   '@types/babel__core': ^7.1.2
   '@types/babel__traverse': ^7.0.7
   '@types/bunyan': ^1.8.6
