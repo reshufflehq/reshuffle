@@ -2,6 +2,23 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.7",
+      "tag": "@binaris/shift-local-proxy_v0.0.7",
+      "date": "Thu, 01 Aug 2019 12:37:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Release packages publicly"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-db\" from `0.2.1` to `0.2.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.6",
       "tag": "@binaris/shift-local-proxy_v0.0.6",
       "date": "Mon, 29 Jul 2019 06:11:31 GMT",

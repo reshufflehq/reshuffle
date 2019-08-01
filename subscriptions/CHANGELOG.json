@@ -2,6 +2,26 @@
   "name": "@binaris/shift-subscriptions",
   "entries": [
     {
+      "version": "0.0.3",
+      "tag": "@binaris/shift-subscriptions_v0.0.3",
+      "date": "Thu, 01 Aug 2019 12:37:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Release packages publicly"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-fetch-runtime\" from `0.0.2` to `0.0.3`"
+          },
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.1.1` to `0.1.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.2",
       "tag": "@binaris/shift-subscriptions_v0.0.2",
       "date": "Mon, 29 Jul 2019 06:11:31 GMT",

@@ -2,6 +2,23 @@
   "name": "@binaris/shift-backend-babel-plugin",
   "entries": [
     {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-backend-babel-plugin_v0.0.2",
+      "date": "Thu, 01 Aug 2019 12:37:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Release packages publicly"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-babel-common\" from `0.0.1` to `0.0.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.1",
       "tag": "@binaris/shift-backend-babel-plugin_v0.0.1",
       "date": "Thu, 18 Jul 2019 12:48:13 GMT",

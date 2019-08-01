@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-fetch-runtime
 
-This log was last generated on Tue, 09 Jul 2019 07:26:14 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Aug 2019 12:37:42 GMT and should not be manually modified.
+
+## 0.0.3
+Thu, 01 Aug 2019 12:37:42 GMT
+
+### Patches
+
+- Release packages publicly
 
 ## 0.0.2
 Tue, 09 Jul 2019 07:26:14 GMT

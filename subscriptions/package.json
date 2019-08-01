@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-subscriptions",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     "dist"
   ],
@@ -14,8 +14,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-fetch-runtime": "0.0.2",
-    "@binaris/shift-interfaces": "0.1.1",
+    "@binaris/shift-fetch-runtime": "0.0.3",
+    "@binaris/shift-interfaces": "0.1.2",
     "fast-json-patch": "^2.1.0",
     "immutable": "^4.0.0-rc.12",
     "react": "^16.8.6",

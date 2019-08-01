@@ -2,6 +2,18 @@
   "name": "@binaris/shift-babel-common",
   "entries": [
     {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-babel-common_v0.0.2",
+      "date": "Thu, 01 Aug 2019 12:37:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Release packages publicly"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.1",
       "tag": "@binaris/shift-babel-common_v0.0.1",
       "date": "Thu, 18 Jul 2019 12:48:13 GMT",
