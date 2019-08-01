@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-babel-common",
+      "comment": "Release packages publicly",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-babel-common",
+  "email": "michael@shiftjs.com"
+}
