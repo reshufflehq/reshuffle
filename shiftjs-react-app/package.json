@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-react-app",
+  "name": "@binaris/shiftjs-react-app",
   "version": "0.0.2",
   "keywords": [
     "shiftjs",
@@ -9,13 +9,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/binaris/shiftjs.git",
-    "directory": "shift-react-app"
+    "directory": "shiftjs-react-app"
   },
   "bugs": {
     "url": "https://github.com/binaris/shiftjs/issues"
   },
   "bin": {
-    "shift-react-app": "./index.js"
+    "shiftjs-react-app": "./index.js"
   },
   "files": [
     "index.js",
