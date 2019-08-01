@@ -14,7 +14,7 @@ export function createRuntime(methodNames: string[], fileId: Record<'filename', 
     runtime[method] = (...args) => {
       let response: Response;
       // TODO: allow customizing URL
-      return fetch('/invoke', {
+      return fetch(process.env.PUBLIC_URL + '/invoke', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
