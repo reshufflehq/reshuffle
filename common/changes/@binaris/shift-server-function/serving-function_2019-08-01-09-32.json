@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-server-function",
+      "comment": "Add intial server decision engine",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-server-function",
+  "email": "vladimir@shiftjs.com"
+}
