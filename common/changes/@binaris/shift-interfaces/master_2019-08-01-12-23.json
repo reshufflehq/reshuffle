@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-interfaces",
+      "comment": "Release packages publicly",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-interfaces",
+  "email": "michael@shiftjs.com"
+}
