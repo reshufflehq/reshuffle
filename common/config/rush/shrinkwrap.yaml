@@ -45,7 +45,7 @@ dependencies:
   bunyan-rotating-file-stream: 1.6.3
   deep-freeze: 0.0.1
   express: 4.17.1
-  fast-json-patch: 2.1.0
+  fast-json-patch: 2.2.0
   fixture-stdout: 0.2.1
   got: 9.6.0
   http-proxy: 1.17.0
@@ -725,19 +725,19 @@ packages:
   /@types/body-parser/1.17.0:
     dependencies:
       '@types/connect': 3.4.32
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-a2+YeUjPkztKJu5aIF2yArYFQQp8d51wZ7DavSHjFuY1mqVgidGyzEQ41JIVNy82fXj8yPgy2vJmfIywgESW6w==
   /@types/bunyan/1.8.6:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-YiozPOOsS6bIuz31ilYqR5SlLif4TBWsousN2aCWLi5233nZSX19tFbcQUPdR7xJ8ypPyxkCGNxg0CIV5n9qxQ==
   /@types/connect/3.4.32:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-4r8qa0quOvh7lGD0pre62CAb1oni1OO6ecJLGCezTmhQ8Fz50Arx9RUszryR8KlgK6avuSXvviL6yWyViQABOg==
@@ -751,7 +751,7 @@ packages:
       integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
   /@types/express-serve-static-core/4.16.7:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
       '@types/range-parser': 1.2.3
     dev: false
     resolution:
@@ -768,13 +768,13 @@ packages:
     dependencies:
       '@types/events': 3.0.0
       '@types/minimatch': 3.0.3
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
   /@types/got/9.6.5:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
       '@types/tough-cookie': 2.3.5
       form-data: 2.5.0
     dev: false
@@ -782,7 +782,7 @@ packages:
       integrity: sha512-2A8Yxbi092KD6JM/WMA8tzcS79U94EXLP4wg9ry0brgZF7fQRIe69vwnA9cW6wsmkAx15a8SJ9bOxRyyeDtbmQ==
   /@types/http-proxy/1.17.0:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-l+s0IoxSHqhLFJPDHRfO235kgrCkvFD8JmdV/T9C4BKBYPIjrQopGFH4r7h2e3jQqgJRCthRCAZIxDoFnj1zwQ==
@@ -820,14 +820,14 @@ packages:
   /@types/leveldown/4.0.0:
     dependencies:
       '@types/abstract-leveldown': 5.0.1
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-1+h/AaqhhQK1/Q1Nr1sHyy7JDcVmKosL9uYLb4bhdLf7MQP4f4daWRLuFQKp8n/pRbai2XPUpR7z33N85m2Hng==
   /@types/levelup/3.1.1:
     dependencies:
       '@types/abstract-leveldown': 5.0.1
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-LjvlfctJYj23Xuqq3jCT8ZPSUSSgDcRJg8+XFDBasoYzefFbB4cHzlDmBVjc2rBOYvklpYHJRayD0jBsbJLD9w==
@@ -851,13 +851,13 @@ packages:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
   /@types/mkdirp/0.5.2:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-U5icWpv7YnZYGsN4/cmh3WD2onMY0aJIiTE6+51TwJCttdHvtCYmkBNOobHlXwrJRL0nkH9jH4kD+1FAdMN4Tg==
   /@types/nanoid/2.0.0:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-NtwPHfAyU3IDXdKAB2OMPpAauHBg9gUjpOYr3FAzI84D70nWdS8k5mryteLvT/s1ACeAFAkGg132/XJVN4qx/w==
@@ -865,10 +865,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-xXD08vZsvpv4xptQXj1+ky22f7ZoKu5ZNI/4l+/BXG3X+XaeZsmaFbbTKuhSE3NjjvRuZFxFf9sQBMXIcZNFMQ==
-  /@types/node/12.6.8:
+  /@types/node/12.6.9:
     dev: false
     resolution:
-      integrity: sha512-aX+gFgA5GHcDi89KG5keey2zf0WfZk/HAQotEamsK2kbey+8yGKcson0hbK8E+v0NArlCJQCqMP161YhV6ZXLg==
+      integrity: sha512-+YB9FtyxXGyD54p8rXwWaN1EWEyar5L58GlGWgtH2I9rGmLGBQcw63+0jw+ujqVavNuO47S1ByAjm9zdHMnskw==
   /@types/prop-types/15.7.1:
     dev: false
     resolution:
@@ -891,7 +891,7 @@ packages:
   /@types/rimraf/2.0.2:
     dependencies:
       '@types/glob': 7.1.1
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-Hm/bnWq0TCy7jmjeN5bKYij9vw5GrDFWME4IuxV08278NtU/VdGbzsBohcCUJ7+QMqmUq5hpRKB39HeQWJjztQ==
@@ -922,7 +922,7 @@ packages:
       integrity: sha512-SCcK7mvGi3+ZNz833RRjFIxrn4gI1PPR3NtuIS+6vMkvmsGjosqTJwRt5bAEFLRz+wtJMWv8+uOnZf2hi2QXTg==
   /@types/uuid/3.4.5:
     dependencies:
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
     dev: false
     resolution:
       integrity: sha512-MNL15wC3EKyw1VLF+RoVO4hJJdk9t/Hlv3rt1OL65Qvuadm4BYo6g9ZJQqoq7X8NBFSsQXgAujWciovh2lpVjA==
@@ -2863,14 +2863,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-wkIbV6qg37xTJwqSsdnIphL1e+LaGz4AIQqr00mIubMaEhv1/HEmJ0uuCGZRNRUkZZmOB5mJKO0ZUTVq+SxMQg==
-  /fast-json-patch/2.1.0:
+  /fast-json-patch/2.2.0:
     dependencies:
-      deep-equal: 1.0.1
+      fast-deep-equal: 2.0.1
     dev: false
     engines:
       node: '>= 0.4.0'
     resolution:
-      integrity: sha512-PipOsAKamRw7+CXtKiieehyjUeDVPJ5J7b2kdJYerEf6TSUQoD2ijpVyZ88KQm5YXziff4h762bz3+vzf56khg==
+      integrity: sha512-LdR6I9Cukps4lPUbSwrk81EHYo2XKsMnbiJJDQyBGGX7oTGovqBFxSVqQ+gOVoMxWfI1ua0vlHcXGpIggxtEFA==
   /fast-json-stable-stringify/2.0.0:
     dev: false
     resolution:
@@ -8013,7 +8013,7 @@ packages:
       '@octokit/rest': 16.28.7
       '@types/jju': 1.4.1
       '@types/lodash.once': 4.1.6
-      '@types/node': 12.6.8
+      '@types/node': 12.6.9
       '@types/yargs': 13.0.2
       jju: 1.4.0
       lodash.once: 4.1.1
@@ -8024,7 +8024,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-Pg87VF/Qk3B4ZUCT8oTt4W8i8yRqEwhL8RMWzhhIcu2x0iOAk3XxkejeOOVVPCI1vsmccZBDf9o2XCQ+oc0vFg==
+      integrity: sha512-jEYnmS5+bzzqUrurkymeLtCtQp6+lIKP9f/ITaZcH8OX3pP8vMTj6ReUXn/DjZLsV7MJ6bIkactAJnuqXqoCOQ==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/shift-babel-common.tgz':
@@ -8035,7 +8035,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-common'
     resolution:
-      integrity: sha512-5WqpFDprvbZjovcvgUwbiPKhji3LF2hRd69UQ6FgsayE0dm2+Tn6t6xwxEihNrBXIxbt/j01sFSDYsPTcGXFmg==
+      integrity: sha512-GCMwhbMXe7Nf2qMIVaSl90AyGTB+c+RHXrZql9mcFnHUDe2LUsh6yTg2ZoCAG53HevSvLne0oHfXwhktiGIahQ==
       tarball: 'file:projects/shift-babel-common.tgz'
     version: 0.0.0
   'file:projects/shift-babel-macro.tgz':
@@ -8053,7 +8053,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-macro'
     resolution:
-      integrity: sha512-gv5swv4rdKfdZalnE51ko7d1Gytz+xIxPW+pdyQbtW46LT7mG737CDqE4LMA+717wfvLCJqGTzgxmfsTQDEccA==
+      integrity: sha512-BMVHANVM74wB5BwQw0Z1CbvJ3XshU2eih+6rcRJnR+Mzrdt66FUJaNyp8aAgTVwLXJKCzDiVC10VmyxtpN7D/Q==
       tarball: 'file:projects/shift-babel-macro.tgz'
     version: 0.0.0
   'file:projects/shift-backend-babel-plugin.tgz':
@@ -8067,7 +8067,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-backend-babel-plugin'
     resolution:
-      integrity: sha512-pDm2NCk9bZlHthogKUnUN2Uke4mwQKwC6mcbG+E79C7AvwtGV54RmKctfEWkm4LkWYYOMzpfgdePfZxdb+Ycow==
+      integrity: sha512-SWnk+efZEk7i37bk5u0J1XQL58e1SGVgLv1FxQMikccYjJrZuNnYFahc8M2hwx8s+kE5/ln7Cfc0ajfV3x+uww==
       tarball: 'file:projects/shift-backend-babel-plugin.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
@@ -8081,7 +8081,7 @@ packages:
       async-mutex: 0.1.3
       ava: 2.2.0
       deep-freeze: 0.0.1
-      fast-json-patch: 2.1.0
+      fast-json-patch: 2.2.0
       leveldown: 5.1.1
       levelup: 4.1.0
       ramda: 0.26.1
@@ -8091,7 +8091,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-a8ydm0RcZFjGpYpFJvYEtXCGZPvyUjKFaczP3uq6YBEtMBOYyRdbwpoVHxUc8xWXL72ejH4bsRDvBKVM2QINPA==
+      integrity: sha512-yIZaGovOpkfw6pfuxLktYnOWlu5ps53TdpbGfcKHDdEY32j4ZiTbnAemi2KJxp9asKf0fqf0PrjoDrJjijBlpw==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -8101,20 +8101,20 @@ packages:
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
     resolution:
-      integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
+      integrity: sha512-7pn6OQg9LLHbH+oaqRqS/dJWO2zTNsdYpLCQii0KSpzzQcFX26Zh9ipDrknojhm+DuzXb169RWjb95xJkHNzBw==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/shift-interfaces.tgz':
     dependencies:
       '@types/node': 10.14.14
-      fast-json-patch: 2.1.0
+      fast-json-patch: 2.2.0
       tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
       typescript-json-schema: 0.39.0
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-R80rUbELkJgBkVIHbL3gh6OAwwaysq+oPP23x+6foT7dLUPzYcFnkuWr/H9ZbVbpMULuP19/Aq6jbniTtO1/vw==
+      integrity: sha512-M//onDUINut789XPJ/44VtnJKwkQjYqFlyl9vTzJxcTwkU7+o2shWjvoZ0bQuMmOpz4EjQH22YkqKnUEKKqy2A==
       tarball: 'file:projects/shift-interfaces.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -8149,7 +8149,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-Uyz2/QaxUck3EYnf9hY7/JfCwBPWyUw83WbhhxDQYdgn2Opjl+i6BY7ndv4m5m3+CGvoKzzGc+2XVSMXy/SPmA==
+      integrity: sha512-tCvlAjKojUpI+Mj0iiFHTRSF9wUMyj3k4386AnoYe8DJ8YoIGUHmwOWeGmtlP4cboGxBJDo4VAhDZW2q8TjDOA==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
@@ -8159,7 +8159,7 @@ packages:
       '@types/sinon': 7.0.13
       '@types/uuid': 3.4.5
       ava: 2.2.0
-      fast-json-patch: 2.1.0
+      fast-json-patch: 2.2.0
       immutable: 4.0.0-rc.12
       react: 16.8.6
       rxjs: 6.5.2
@@ -8169,7 +8169,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-MsTzOIY8CdKr5BIas/M8zQoppmP6v20RXZChy3wA8SuMk0VNw3eEx/FnQFpU4piltN2cHzSVP8QHRxpeOpMSJQ==
+      integrity: sha512-9QjExCSI0k4vb7jmJ+Mc/qtmi9S/7hFRftE49ELZw5e7U2jWkJpiz0msHAtNDOyIwq/iuKA50q8RFD5O4aZeJA==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -8185,7 +8185,7 @@ packages:
     dev: false
     name: '@rush-temp/shiftjs-react-app'
     resolution:
-      integrity: sha512-8tBR3X4MIxxWQoYUJ1CpeAUvFC1MOR+DB2D+kUjEQgQvd3tVy913YFaXlnLLKXZQqAqsN66y89xDwGFtK8lJMA==
+      integrity: sha512-GX3wL0Anot0GRFxkoiXKnQ6g4z5F6BbSHv7Yc73IbSMYpw3G70hg663cXXvk7bVeLJnF7Pctgn3gKdloXu3n4Q==
       tarball: 'file:projects/shiftjs-react-app.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
@@ -8220,7 +8220,7 @@ specifiers:
   '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
-  '@octokit/rest': ^16.28.6
+  '@octokit/rest': ^16.28.7
   '@rush-temp/rush-update': 'file:./projects/rush-update.tgz'
   '@rush-temp/shift-babel-common': 'file:./projects/shift-babel-common.tgz'
   '@rush-temp/shift-babel-macro': 'file:./projects/shift-babel-macro.tgz'
@@ -8236,9 +8236,9 @@ specifiers:
   '@types/bunyan': ^1.8.6
   '@types/deep-freeze': ^0.1.1
   '@types/express': ^4.17.0
-  '@types/got': ^9.6.4
+  '@types/got': ^9.6.5
   '@types/http-proxy': ^1.17.0
-  '@types/jest': ^24.0.15
+  '@types/jest': ^24.0.16
   '@types/jju': ^1.4.1
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
@@ -8247,12 +8247,12 @@ specifiers:
   '@types/mkdirp': ^0.5.2
   '@types/nanoid': ^2.0.0
   '@types/ramda': ^0.26.18
-  '@types/react': ^16.8.23
+  '@types/react': ^16.8.24
   '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
   '@types/sinon': ^7.0.13
   '@types/uuid': ^3.4.5
-  '@types/yargs': ^13.0.0
+  '@types/yargs': ^13.0.2
   async-mutex: ^0.1.3
   ava: ^2.2.0
   babel-plugin-macros: ^2.6.1
@@ -8261,7 +8261,7 @@ specifiers:
   bunyan-rotating-file-stream: ^1.6.3
   deep-freeze: ^0.0.1
   express: ^4.17.1
-  fast-json-patch: ^2.1.0
+  fast-json-patch: ^2.2.0
   fixture-stdout: ^0.2.1
   got: ^9.6.0
   http-proxy: ^1.17.0

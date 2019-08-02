@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/babel__core": "^7.1.2",
     "@types/bunyan": "^1.8.6",
-    "@types/got": "^9.6.4",
+    "@types/got": "^9.6.5",
     "@types/http-proxy": "^1.17.0",
     "@types/lodash": "^4.14.136",
     "@types/mkdirp": "^0.5.2",
