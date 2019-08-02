@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "fast-json-patch": "^2.1.0"
+    "fast-json-patch": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^10.14.9",
