@@ -71,7 +71,7 @@ export interface Document {
 const allowedTypes = new Set(['object', 'boolean', 'number', 'string']);
 
 function checkValue(value: Serializable) {
-  if (! allowedTypes.has(typeof value)) {
+  if (!allowedTypes.has(typeof value)) {
     throw new TypeError(`Non-JSONable value of type ${typeof value} at top level`);
   }
 }
