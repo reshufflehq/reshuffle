@@ -67,9 +67,12 @@ export interface Document {
   value: Serializable;
 }
 
+// bigint not currently allowed.
+const allowedTypes = new Set(['object', 'boolean', 'number', 'string']);
+
 function checkValue(value: Serializable) {
-  if (typeof value === 'undefined') {
-    throw new TypeError('Value must be not be undefined');
+  if (! allowedTypes.has(typeof value)) {
+    throw new TypeError(`Non-JSONable value of type ${typeof value} at top level`);
   }
 }
 

@@ -60,7 +60,26 @@ test('DB.create returns false if key already exists', async (t) => {
 
 test('DB.create throws TypeError when value undefined', async (t) => {
   const { db } = t.context;
-  await t.throwsAsync(db.create('test', undefined as any), TypeError);
+  await t.throwsAsync(db.create('test', undefined as any), {
+    instanceOf: TypeError,
+    message: /undefined/,
+  });
+});
+
+test('DB.create throws TypeError when value is a function', async (t) => {
+  const { db } = t.context;
+  await t.throwsAsync(db.create('test', () => 17), {
+    instanceOf: TypeError,
+    message: /function/,
+  });
+});
+
+test('DB.create throws TypeError when value is a bigint', async (t) => {
+  const { db } = t.context;
+  await t.throwsAsync(db.create('test', BigInt(17)), {
+    instanceOf: TypeError,
+    message: /bigint/,
+  });
 });
 
 test('DB.create accepts arbitrary JSONables', async (t) => {

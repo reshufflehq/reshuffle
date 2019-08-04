@@ -444,7 +444,7 @@ packages:
       ansi-escapes: 3.2.0
       chalk: 2.4.2
       exit: 0.1.2
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       jest-changed-files: 24.8.0
       jest-config: 24.8.0
       jest-haste-map: 24.8.1
@@ -520,7 +520,7 @@ packages:
   /@jest/source-map/24.3.0:
     dependencies:
       callsites: 3.1.0
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       source-map: 0.6.1
     dev: false
     engines:
@@ -556,7 +556,7 @@ packages:
       chalk: 2.4.2
       convert-source-map: 1.6.0
       fast-json-stable-stringify: 2.0.0
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       jest-haste-map: 24.8.1
       jest-regex-util: 24.3.0
       jest-util: 24.8.0
@@ -974,13 +974,13 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==
-  /acorn-globals/4.3.2:
+  /acorn-globals/4.3.3:
     dependencies:
       acorn: 6.2.1
       acorn-walk: 6.2.0
     dev: false
     resolution:
-      integrity: sha512-BbzvZhVtZP+Bs1J1HcwrQe8ycfO0wStkSGxuul3He3GkHOIZ6eTqOkPuw9IP1X3+IkOo4wiJmwkobzXYz4wewQ==
+      integrity: sha512-vkR40VwS2SYO98AIeFvzWWh+xyc2qi9s7OoXSFEGIP/rOJKzjnhykaZJNnHdoq4BL2gGxI5EZOU16z896EYnOQ==
   /acorn-walk/6.2.0:
     dev: false
     engines:
@@ -1247,10 +1247,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
-  /async-limiter/1.0.0:
+  /async-limiter/1.0.1:
     dev: false
     resolution:
-      integrity: sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
+      integrity: sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
   /async-mutex/0.1.3:
     dev: false
     resolution:
@@ -1652,7 +1652,7 @@ packages:
       chownr: 1.1.2
       figgy-pudding: 3.5.1
       glob: 7.1.4
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       infer-owner: 1.0.4
       lru-cache: 5.1.1
       mississippi: 3.0.0
@@ -2081,7 +2081,7 @@ packages:
   /configstore/3.1.2:
     dependencies:
       dot-prop: 4.2.0
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       make-dir: 1.3.0
       unique-string: 1.0.0
       write-file-atomic: 2.4.3
@@ -2094,7 +2094,7 @@ packages:
   /configstore/4.0.0:
     dependencies:
       dot-prop: 4.2.0
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       make-dir: 1.3.0
       unique-string: 1.0.0
       write-file-atomic: 2.4.3
@@ -3049,7 +3049,7 @@ packages:
       integrity: sha512-GNanXlVr2pf02+sPN40XN8HG+ePaNcvM0q5mZBd668Obwb0yD5GiUbZOFgwn8kGMY6I3mdyDJzieUy3PTYyTRA==
   /fs-write-stream-atomic/1.0.10:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       iferr: 0.1.5
       imurmurhash: 0.1.4
       readable-stream: 2.3.6
@@ -3263,10 +3263,10 @@ packages:
       node: '>=8.6'
     resolution:
       integrity: sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q==
-  /graceful-fs/4.2.0:
+  /graceful-fs/4.2.1:
     dev: false
     resolution:
-      integrity: sha512-jpSvDPV4Cq/bgtpndIWbI5hmYxhQGHPC4d4cqBPb4DLniCfhJokdXhwhaDuLBGLQdvvRum/UiX6ECVIPvDXqdg==
+      integrity: sha512-b9usnbDGnD928gJB3LrCmxoibr3VE4U2SMo5PBuBnokWyDADTqDPXg4YpwKF1trpH+UbGp7QLicO3+aWEy0+mw==
   /growly/1.3.0:
     dev: false
     resolution:
@@ -4171,7 +4171,7 @@ packages:
       '@jest/types': 24.8.0
       anymatch: 2.0.0
       fb-watchman: 2.0.0
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       invariant: 2.2.4
       jest-serializer: 24.4.0
       jest-util: 24.8.0
@@ -4299,7 +4299,7 @@ packages:
       '@jest/types': 24.8.0
       chalk: 2.4.2
       exit: 0.1.2
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       jest-config: 24.8.0
       jest-docblock: 24.3.0
       jest-haste-map: 24.8.1
@@ -4328,7 +4328,7 @@ packages:
       chalk: 2.4.2
       exit: 0.1.2
       glob: 7.1.4
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       jest-config: 24.8.0
       jest-haste-map: 24.8.1
       jest-message-util: 24.8.0
@@ -4392,7 +4392,7 @@ packages:
       '@jest/types': 24.8.0
       callsites: 3.1.0
       chalk: 2.4.2
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       is-ci: 2.0.0
       mkdirp: 0.5.1
       slash: 2.0.0
@@ -4478,7 +4478,7 @@ packages:
     dependencies:
       abab: 2.0.0
       acorn: 5.7.3
-      acorn-globals: 4.3.2
+      acorn-globals: 4.3.3
       array-equal: 1.0.0
       cssom: 0.3.8
       cssstyle: 1.4.0
@@ -4723,7 +4723,7 @@ packages:
       integrity: sha512-9esX8rTQAHqarx6qeZqmGQKBNZR5OIbl/Ayr0qQDy3oXja2iFVQQI81R6GZ2a02bSNZ9p3YOGX1O6HHCb1X7kA==
   /load-json-file/4.0.0:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       parse-json: 4.0.0
       pify: 3.0.0
       strip-bom: 3.0.0
@@ -4734,7 +4734,7 @@ packages:
       integrity: sha1-L19Fq5HjMhYjT9U62rZo607AmTs=
   /load-json-file/5.3.0:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       parse-json: 4.0.0
       pify: 4.0.1
       strip-bom: 3.0.0
@@ -5643,7 +5643,7 @@ packages:
       integrity: sha512-0CWcCECdMVc2Rw3U5w9ZjqX6ga6ubk1xDVKxtBQPK7wis/0F2r9T6k4ydGYhecl7YUBxBVxhL5oisPsNxAPe2g==
   /output-file-sync/2.0.1:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       is-plain-obj: 1.1.0
       mkdirp: 0.5.1
     dev: false
@@ -5747,7 +5747,7 @@ packages:
       integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
   /package-hash/4.0.0:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       hasha: 5.0.0
       lodash.flattendeep: 4.4.0
       release-zalgo: 1.0.0
@@ -6283,7 +6283,7 @@ packages:
       integrity: sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ==
   /readdirp/2.2.1:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       micromatch: 3.1.10
       readable-stream: 2.3.6
     dev: false
@@ -6622,7 +6622,7 @@ packages:
     dependencies:
       assert-valid-glob-opts: 1.0.0
       glob: 7.1.4
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       inspect-with-kind: 1.0.5
       rimraf: 2.6.3
     dev: false
@@ -7899,7 +7899,7 @@ packages:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
   /write-file-atomic/2.4.1:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       imurmurhash: 0.1.4
       signal-exit: 3.0.2
     dev: false
@@ -7907,7 +7907,7 @@ packages:
       integrity: sha512-TGHFeZEZMnv+gBFRfjAcxL5bPHrsGKtnb4qsFAws7/vlh+QfwAaySIw4AXP9ZskTTh5GWu3FLuJhsWVdiJPGvg==
   /write-file-atomic/2.4.3:
     dependencies:
-      graceful-fs: 4.2.0
+      graceful-fs: 4.2.1
       imurmurhash: 0.1.4
       signal-exit: 3.0.2
     dev: false
@@ -7924,7 +7924,7 @@ packages:
       integrity: sha512-EIgkf60l2oWsffja2Sf2AL384dx328c0B+cIYPTQq5q2rOYuDV00/iPFBOUiDKKwKMOhkymH8AidPaRvzfxY+Q==
   /ws/5.2.2:
     dependencies:
-      async-limiter: 1.0.0
+      async-limiter: 1.0.1
     dev: false
     resolution:
       integrity: sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==
@@ -8024,7 +8024,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-jEYnmS5+bzzqUrurkymeLtCtQp6+lIKP9f/ITaZcH8OX3pP8vMTj6ReUXn/DjZLsV7MJ6bIkactAJnuqXqoCOQ==
+      integrity: sha512-5Ibo96rhuG0/j6OMUSvLwbq9aBNg+1ylfICgUBAWhEaodo/mjhC3z+KBXtTWj050U7YTjJbn7UIhc951pjnXVA==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/shift-babel-common.tgz':
@@ -8035,7 +8035,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-common'
     resolution:
-      integrity: sha512-GCMwhbMXe7Nf2qMIVaSl90AyGTB+c+RHXrZql9mcFnHUDe2LUsh6yTg2ZoCAG53HevSvLne0oHfXwhktiGIahQ==
+      integrity: sha512-5WqpFDprvbZjovcvgUwbiPKhji3LF2hRd69UQ6FgsayE0dm2+Tn6t6xwxEihNrBXIxbt/j01sFSDYsPTcGXFmg==
       tarball: 'file:projects/shift-babel-common.tgz'
     version: 0.0.0
   'file:projects/shift-babel-macro.tgz':
@@ -8053,7 +8053,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-babel-macro'
     resolution:
-      integrity: sha512-BMVHANVM74wB5BwQw0Z1CbvJ3XshU2eih+6rcRJnR+Mzrdt66FUJaNyp8aAgTVwLXJKCzDiVC10VmyxtpN7D/Q==
+      integrity: sha512-NwkZPvdmJsWG+QJ5u6yXwz137566KnBhI4U/Wfy0dghOwZu8QA2N1eUtHdgRUyFRi+UzRoOKWq74sdjkfN9GDw==
       tarball: 'file:projects/shift-babel-macro.tgz'
     version: 0.0.0
   'file:projects/shift-backend-babel-plugin.tgz':
@@ -8067,7 +8067,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-backend-babel-plugin'
     resolution:
-      integrity: sha512-SWnk+efZEk7i37bk5u0J1XQL58e1SGVgLv1FxQMikccYjJrZuNnYFahc8M2hwx8s+kE5/ln7Cfc0ajfV3x+uww==
+      integrity: sha512-wyKhTspQL+LJc9GEP+NI5kqrY+e+TYS8gUK1SxTPt0AJHEga2szCpa6YEhWDtr8yw5bSd+aIUrTnP8XdIKFC1g==
       tarball: 'file:projects/shift-backend-babel-plugin.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
@@ -8091,7 +8091,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-yIZaGovOpkfw6pfuxLktYnOWlu5ps53TdpbGfcKHDdEY32j4ZiTbnAemi2KJxp9asKf0fqf0PrjoDrJjijBlpw==
+      integrity: sha512-oEEsesqYPQYqVSeC5c8CbjqA2RvMGv677NX8FHumFZLsNekPoDSMxYSUa+9D/eFn6dkhEemHD5DireZDXHgEjw==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -8101,7 +8101,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
     resolution:
-      integrity: sha512-7pn6OQg9LLHbH+oaqRqS/dJWO2zTNsdYpLCQii0KSpzzQcFX26Zh9ipDrknojhm+DuzXb169RWjb95xJkHNzBw==
+      integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/shift-interfaces.tgz':
@@ -8114,7 +8114,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-M//onDUINut789XPJ/44VtnJKwkQjYqFlyl9vTzJxcTwkU7+o2shWjvoZ0bQuMmOpz4EjQH22YkqKnUEKKqy2A==
+      integrity: sha512-ZuOKGABbfUejgxf1lvz2HJKGdDdRoYhie1NWtFxbjteTCtCQtlvcCGLA9JM4EWZq85lkM9DjrYKtLu6HJ4y4Bg==
       tarball: 'file:projects/shift-interfaces.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -8149,7 +8149,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-tCvlAjKojUpI+Mj0iiFHTRSF9wUMyj3k4386AnoYe8DJ8YoIGUHmwOWeGmtlP4cboGxBJDo4VAhDZW2q8TjDOA==
+      integrity: sha512-L6A/utRUsZCRiQV6jWg9kNOu2yPTT3pXS09VTF6ON9tedfcoekLJNyzu0fSZFTjEEDC89358OYJpho+X99IBqg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
@@ -8169,7 +8169,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-9QjExCSI0k4vb7jmJ+Mc/qtmi9S/7hFRftE49ELZw5e7U2jWkJpiz0msHAtNDOyIwq/iuKA50q8RFD5O4aZeJA==
+      integrity: sha512-NBbvkvQsIuOmoNMBeOCLOgoisGlnE0Z9GSBRTw4Cm0/ZZyjHU0/Hl5hBSfLwHO0Lz8Y2Ba3iVOnDHIxaixwP/g==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -8185,7 +8185,7 @@ packages:
     dev: false
     name: '@rush-temp/shiftjs-react-app'
     resolution:
-      integrity: sha512-GX3wL0Anot0GRFxkoiXKnQ6g4z5F6BbSHv7Yc73IbSMYpw3G70hg663cXXvk7bVeLJnF7Pctgn3gKdloXu3n4Q==
+      integrity: sha512-gZweVAzwF/o8eZVB8LkNcI1zZ/LVaKSSdCh8aE9EtVSTC0oyE/c4PqfRlKaboQISrIvVbGWPZ0RwC5RZwNZAiA==
       tarball: 'file:projects/shiftjs-react-app.tgz'
     version: 0.0.0
   github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
