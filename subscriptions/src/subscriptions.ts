@@ -15,10 +15,10 @@ import {
   share,
 } from 'rxjs/operators';
 import { applyReducer, Operation } from 'fast-json-patch';
+import { Version } from '@binaris/shift-interfaces/dist/db';
 import {
   KeyedPatches,
   Patch,
-  Version,
   Versioned,
 } from '@binaris/shift-interfaces/dist/subscriptions';
 import { mapWithState, StateAndOutput, takeUntilLast } from './rxutils';

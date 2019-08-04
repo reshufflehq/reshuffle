@@ -116,7 +116,7 @@ interface Patches {
   /**
    * Stores changes made to the document, meant to be used internally by poll().
    */
-  patches: ReadonlyArray<Patch>;
+  patches: Patch[];
   updatedAt: number;
 }
 

@@ -5,16 +5,16 @@ import { compare } from 'fast-json-patch';
 import LevelUpCtor, { LevelUp } from 'levelup';
 import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
+import { Version } from '@binaris/shift-interfaces/dist/db';
 import {
   UpdateOptions,
-  Version,
   Versioned,
   KeyedPatches,
 } from '@binaris/shift-interfaces/dist/subscriptions';
 import {
   Patch,
   Serializable,
-} from '@binaris/shift-interfaces-node-client/gen/interfaces';
+} from '@binaris/shift-interfaces-node-client/dist/interfaces';
 import { ValueError } from './errors';
 import * as Q from './query';
 import { withTimeout, deferred, hrnano } from './utils';

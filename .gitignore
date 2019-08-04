@@ -65,5 +65,5 @@ common/temp/**
 package-deps.json
 
 # Fake generated packages for in-rush development
-interfaces-client/gen/
-interfaces-server/gen/
+interfaces-client/dist/
+interfaces-server/dist/

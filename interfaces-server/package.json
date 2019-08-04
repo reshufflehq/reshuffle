@@ -3,21 +3,21 @@
   "private": true,
   "version": "0.2.0-rc.0",
   "files": [
-    "gen/"
+    "dist/"
   ],
   "description": "fake server interfaces wrapper",
-  "main": "gen/server.js",
-  "types": "gen/server.d.ts",
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
   "scripts": {
     "build": "npm run really-build",
-    "really-build": "rm -fr gen/ && concord 2>&1 --allow-extra-props node --server koa -o gen ${npm_package_name}@${npm_package_version} ../interfaces/src/*.ts",
+    "really-build": "rm -fr dist/ && concord 2>&1 node --server koa -o dist ${npm_package_name}@${npm_package_version} ../interfaces/src/*.ts",
     "lint": "echo generated server does not lint",
     "test": "echo generated server needs no tests"
  },
   "devDependencies": {
     "@binaris/shift-interfaces": "~0.2.0-rc.0",
     "@types/node": "^10.14.9",
-    "concord": "~0.2.0",
+    "concord": "^0.2.0",
     "typescript": "^3.5.3"
   },
   "author": "Future Concord Piskie",

@@ -1,6 +1,6 @@
 import { Operation } from 'fast-json-patch';
 
-export type Version = [number, number];
+import { Version } from './db';
 
 export interface UpdateOptions {
   /**
