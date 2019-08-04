@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db",
+      "comment": "Disallow all non-JSONable types at top level of values",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@binaris/shift-db",
+  "email": "ariels@shiftjs.com"
+}
