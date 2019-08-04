@@ -57,7 +57,7 @@ jspm_packages/
 
 # Common toolchain intermediate files
 temp
-
+lib
 dist/
 
 # Rush files
