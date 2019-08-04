@@ -7,10 +7,10 @@ dependencies:
   '@octokit/rest': 16.28.7
   '@rush-temp/rush-update': 'file:projects/rush-update.tgz'
   '@rush-temp/shift-babel-common': 'file:projects/shift-babel-common.tgz'
-  '@rush-temp/shift-babel-macro': 'file:projects/shift-babel-macro.tgz'
   '@rush-temp/shift-backend-babel-plugin': 'file:projects/shift-backend-babel-plugin.tgz'
   '@rush-temp/shift-db': 'file:projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
+  '@rush-temp/shift-frontend.macro': 'file:projects/shift-frontend.macro.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
@@ -113,27 +113,6 @@ packages:
       source-map: 0.5.7
     dev: false
     hasBin: true
-    optionalDependencies:
-      chokidar: 2.1.6
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    resolution:
-      integrity: sha512-UHI+7pHv/tk9g6WXQKYz+kmXTI77YtuY3vqC59KIqcoWEjsJJSG6rAxKaLsgj3LDyadsPrCB929gVOKM6Hui0w==
-  /@babel/cli/7.5.5/@babel!core@7.5.5:
-    dependencies:
-      '@babel/core': 7.5.5
-      commander: 2.20.0
-      convert-source-map: 1.6.0
-      fs-readdir-recursive: 1.1.0
-      glob: 7.1.4
-      lodash: 4.17.15
-      mkdirp: 0.5.1
-      output-file-sync: 2.0.1
-      slash: 2.0.0
-      source-map: 0.5.7
-    dev: false
-    hasBin: true
-    id: registry.npmjs.org/@babel/cli/7.5.5
     optionalDependencies:
       chokidar: 2.1.6
     peerDependencies:
@@ -359,7 +338,6 @@ packages:
       integrity: sha512-xmHq0B+ytyrWJvQTc5OWAC4ii6Dhr0s22STOoydokG51JjWhyYo5mRPXoi+ZmtHQhZZwuXNN+GG5jy5UZZJxIQ==
   /@babel/plugin-transform-modules-commonjs/7.5.0/@babel!core@7.5.5:
     dependencies:
-      '@babel/core': 7.5.5
       '@babel/helper-module-transforms': 7.5.5
       '@babel/helper-plugin-utils': 7.0.0
       '@babel/helper-simple-access': 7.1.0
@@ -8018,7 +7996,7 @@ packages:
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.1.20
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
       yargs: 13.3.0
     dev: false
@@ -8030,31 +8008,13 @@ packages:
   'file:projects/shift-babel-common.tgz':
     dependencies:
       '@babel/types': 7.5.5
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-babel-common'
     resolution:
       integrity: sha512-5WqpFDprvbZjovcvgUwbiPKhji3LF2hRd69UQ6FgsayE0dm2+Tn6t6xwxEihNrBXIxbt/j01sFSDYsPTcGXFmg==
       tarball: 'file:projects/shift-babel-common.tgz'
-    version: 0.0.0
-  'file:projects/shift-babel-macro.tgz':
-    dependencies:
-      '@babel/parser': 7.5.5
-      '@babel/types': 7.5.5
-      '@types/jest': 24.0.16
-      '@types/node': 10.14.14
-      babel-plugin-macros: 2.6.1
-      babel-plugin-tester: 6.4.0
-      jest: 24.8.0
-      jest-standard-reporter: 1.0.1
-      tslint: /tslint/5.18.0/typescript@3.5.3
-      typescript: 3.5.3
-    dev: false
-    name: '@rush-temp/shift-babel-macro'
-    resolution:
-      integrity: sha512-NwkZPvdmJsWG+QJ5u6yXwz137566KnBhI4U/Wfy0dghOwZu8QA2N1eUtHdgRUyFRi+UzRoOKWq74sdjkfN9GDw==
-      tarball: 'file:projects/shift-babel-macro.tgz'
     version: 0.0.0
   'file:projects/shift-backend-babel-plugin.tgz':
     dependencies:
@@ -8086,7 +8046,7 @@ packages:
       levelup: 4.1.0
       ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-db'
@@ -8096,7 +8056,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
     dependencies:
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
@@ -8104,11 +8064,29 @@ packages:
       integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
+  'file:projects/shift-frontend.macro.tgz':
+    dependencies:
+      '@babel/parser': 7.5.5
+      '@babel/types': 7.5.5
+      '@types/jest': 24.0.16
+      '@types/node': 10.14.14
+      babel-plugin-macros: 2.6.1
+      babel-plugin-tester: 6.4.0
+      jest: 24.8.0
+      jest-standard-reporter: 1.0.1
+      tslint: /tslint/5.18.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shift-frontend.macro'
+    resolution:
+      integrity: sha512-Pb3X2ImTBHd8Mj3qmcuYKnpDfLk+B6m+nbDTq7V2aGJWSocxIXK0DJvookvxHDKOBqBaZnoLOiUt++XNkpDKDA==
+      tarball: 'file:projects/shift-frontend.macro.tgz'
+    version: 0.0.0
   'file:projects/shift-interfaces.tgz':
     dependencies:
       '@types/node': 10.14.14
       fast-json-patch: 2.2.0
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
       typescript-json-schema: 0.39.0
     dev: false
@@ -8119,9 +8097,9 @@ packages:
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
     dependencies:
-      '@babel/cli': /@babel/cli/7.5.5/@babel!core@7.5.5
+      '@babel/cli': 7.5.5
       '@babel/core': 7.5.5
-      '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.5.0/@babel!core@7.5.5
+      '@babel/plugin-transform-modules-commonjs': 7.5.0
       '@types/babel__core': 7.1.2
       '@types/bunyan': 1.8.6
       '@types/express': 4.17.0
@@ -8143,7 +8121,7 @@ packages:
       nanoid: 2.0.3
       nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
       rimraf: 2.6.3
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
       walkdir: 0.4.1
     dev: false
@@ -8164,7 +8142,7 @@ packages:
       react: 16.8.6
       rxjs: 6.5.2
       sinon: 7.3.2
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-subscriptions'
@@ -8180,7 +8158,7 @@ packages:
       fixture-stdout: 0.2.1
       jest: 24.8.0
       rmfr: 2.0.0
-      tslint: /tslint/5.18.0/typescript@3.5.3
+      tslint: 5.18.0
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shiftjs-react-app'
@@ -8223,10 +8201,10 @@ specifiers:
   '@octokit/rest': ^16.28.7
   '@rush-temp/rush-update': 'file:./projects/rush-update.tgz'
   '@rush-temp/shift-babel-common': 'file:./projects/shift-babel-common.tgz'
-  '@rush-temp/shift-babel-macro': 'file:./projects/shift-babel-macro.tgz'
   '@rush-temp/shift-backend-babel-plugin': 'file:./projects/shift-backend-babel-plugin.tgz'
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
+  '@rush-temp/shift-frontend.macro': 'file:./projects/shift-frontend.macro.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'

@@ -1,10 +1,11 @@
 {
-  "name": "@binaris/shift-babel-macro",
+  "name": "@binaris/shift-frontend.macro",
   "version": "0.0.5",
   "files": [
     "dist",
     "macro.js"
   ],
+  "main": "dist/macro.js",
   "description": "",
   "scripts": {
     "build": "rm -rf dist && tsc && cp -r src/test/backend dist/test/",

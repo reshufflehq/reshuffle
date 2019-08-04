@@ -23,7 +23,7 @@ $ npm start
 For using backend functions inside a frontend file you need to import the Shift macro first like this.
 
 ```javascript
-import '@binaris/shift-babel-macro/macro';
+import '@binaris/shift-frontend.macro';
 ```
 
 You can create a backend file in the backend directory, for example `backend/HelloBackend.js`
