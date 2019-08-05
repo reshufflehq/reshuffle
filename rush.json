@@ -345,7 +345,7 @@
     //   "reviewCategory": "tools"
     // }
     {
-        "packageName": "@binaris/shift-frontend.macro",
+        "packageName": "@binaris/shift.macro",
         "projectFolder": "babel-macro",
         "shouldPublish": true
     },

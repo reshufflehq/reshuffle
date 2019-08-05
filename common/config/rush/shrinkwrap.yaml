@@ -10,10 +10,10 @@ dependencies:
   '@rush-temp/shift-backend-babel-plugin': 'file:projects/shift-backend-babel-plugin.tgz'
   '@rush-temp/shift-db': 'file:projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
-  '@rush-temp/shift-frontend.macro': 'file:projects/shift-frontend.macro.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
+  '@rush-temp/shift.macro': 'file:projects/shift.macro.tgz'
   '@rush-temp/shiftjs-react-app': 'file:projects/shiftjs-react-app.tgz'
   '@types/babel__core': 7.1.2
   '@types/babel__traverse': 7.0.7
@@ -486,7 +486,7 @@ packages:
       jest-runtime: 24.8.0
       jest-util: 24.8.0
       jest-worker: 24.6.0
-      node-notifier: 5.4.0
+      node-notifier: 5.4.1
       slash: 2.0.0
       source-map: 0.6.1
       string-length: 2.0.0
@@ -3365,6 +3365,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
+  /hosted-git-info/2.8.2:
+    dependencies:
+      lru-cache: 5.1.1
+    dev: false
+    resolution:
+      integrity: sha512-CyjlXII6LMsPMyUzxpTt8fzh5QwzGqPmQXgY/Jyf4Zfp27t/FvfhwoE/8laaMUcMy816CkWF20I7NeQhwwY88w==
   /html-encoding-sniffer/1.0.2:
     dependencies:
       whatwg-encoding: 1.0.5
@@ -5312,7 +5318,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
-  /node-notifier/5.4.0:
+  /node-notifier/5.4.1:
     dependencies:
       growly: 1.3.0
       is-wsl: 1.1.0
@@ -5321,7 +5327,7 @@ packages:
       which: 1.3.1
     dev: false
     resolution:
-      integrity: sha512-SUDEb+o71XR5lXSTyivXd9J7fCloE3SyP4lSgt3lU2oSANiox+SxlNRGPjDKrwU1YN3ix2KN/VGGCg0t01rttQ==
+      integrity: sha512-p52B+onAEHKW1OF9MGO/S7k/ahGEHfhP5/tvwYzog/5XLYOd8ZuD6vdNZdUuWMONRnKPneXV43v3s6Snx1wsCQ==
   /nopt/1.0.10:
     dependencies:
       abbrev: 1.1.1
@@ -5331,7 +5337,7 @@ packages:
       integrity: sha1-bd0hvSoxQXuScn3Vhfim83YI6+4=
   /normalize-package-data/2.5.0:
     dependencies:
-      hosted-git-info: 2.7.1
+      hosted-git-info: 2.8.2
       resolve: 1.12.0
       semver: 5.7.0
       validate-npm-package-license: 3.0.4
@@ -6056,7 +6062,7 @@ packages:
   /prompts/2.1.0:
     dependencies:
       kleur: 3.0.3
-      sisteransi: 1.0.2
+      sisteransi: 1.0.3
     dev: false
     engines:
       node: '>= 6'
@@ -6793,10 +6799,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-thErC1z64BeyGiPvF8aoSg0LEnptSaWE7YhdWWbWXgelOyThent7uKOnnEh9zBxDbKixtr5dEko+ws1sZMuFMA==
-  /sisteransi/1.0.2:
+  /sisteransi/1.0.3:
     dev: false
     resolution:
-      integrity: sha512-ZcYcZcT69nSLAR2oLN2JwNmLkJEKGooFMCdvOkFrToUt/WfcRWqhIg4P4KwY4dmLbuyXIx4o4YmPsvMRJYJd/w==
+      integrity: sha512-SbEG75TzH8G7eVXFSN5f9EExILKfly7SUvVY5DhhYLvfhKqhDFY0OzevWa/zwak0RLRfWS5AvfMWpd9gJvr5Yg==
   /slash/2.0.0:
     dev: false
     engines:
@@ -8064,24 +8070,6 @@ packages:
       integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
-  'file:projects/shift-frontend.macro.tgz':
-    dependencies:
-      '@babel/parser': 7.5.5
-      '@babel/types': 7.5.5
-      '@types/jest': 24.0.16
-      '@types/node': 10.14.14
-      babel-plugin-macros: 2.6.1
-      babel-plugin-tester: 6.4.0
-      jest: 24.8.0
-      jest-standard-reporter: 1.0.1
-      tslint: /tslint/5.18.0/typescript@3.5.3
-      typescript: 3.5.3
-    dev: false
-    name: '@rush-temp/shift-frontend.macro'
-    resolution:
-      integrity: sha512-Pb3X2ImTBHd8Mj3qmcuYKnpDfLk+B6m+nbDTq7V2aGJWSocxIXK0DJvookvxHDKOBqBaZnoLOiUt++XNkpDKDA==
-      tarball: 'file:projects/shift-frontend.macro.tgz'
-    version: 0.0.0
   'file:projects/shift-interfaces.tgz':
     dependencies:
       '@types/node': 10.14.14
@@ -8150,6 +8138,24 @@ packages:
       integrity: sha512-NBbvkvQsIuOmoNMBeOCLOgoisGlnE0Z9GSBRTw4Cm0/ZZyjHU0/Hl5hBSfLwHO0Lz8Y2Ba3iVOnDHIxaixwP/g==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
+  'file:projects/shift.macro.tgz':
+    dependencies:
+      '@babel/parser': 7.5.5
+      '@babel/types': 7.5.5
+      '@types/jest': 24.0.16
+      '@types/node': 10.14.14
+      babel-plugin-macros: 2.6.1
+      babel-plugin-tester: 6.4.0
+      jest: 24.8.0
+      jest-standard-reporter: 1.0.1
+      tslint: /tslint/5.18.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shift.macro'
+    resolution:
+      integrity: sha512-Exz6GmwNsXtW+U49yJc6keqbWZZUoEN5v0e0pUs2ukTfBWxXiX46WuUKf+u0pTlvI3ns7Fdw89D8p3akdPC0bQ==
+      tarball: 'file:projects/shift.macro.tgz'
+    version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
     dependencies:
       '@types/jest': 24.0.16
@@ -8204,10 +8210,10 @@ specifiers:
   '@rush-temp/shift-backend-babel-plugin': 'file:./projects/shift-backend-babel-plugin.tgz'
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
-  '@rush-temp/shift-frontend.macro': 'file:./projects/shift-frontend.macro.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
+  '@rush-temp/shift.macro': 'file:./projects/shift.macro.tgz'
   '@rush-temp/shiftjs-react-app': 'file:./projects/shiftjs-react-app.tgz'
   '@types/babel__core': ^7.1.2
   '@types/babel__traverse': ^7.0.7

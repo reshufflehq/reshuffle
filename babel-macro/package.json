@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-frontend.macro",
+  "name": "@binaris/shift.macro",
   "version": "0.0.5",
   "files": [
     "dist",
