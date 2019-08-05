@@ -12,6 +12,8 @@ dependencies:
   '@rush-temp/shift-db': 'file:projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
+  '@rush-temp/shift-interfaces-koa-server': 'file:projects/shift-interfaces-koa-server.tgz'
+  '@rush-temp/shift-interfaces-node-client': 'file:projects/shift-interfaces-node-client.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
   '@rush-temp/shiftjs-react-app': 'file:projects/shiftjs-react-app.tgz'
@@ -24,12 +26,15 @@ dependencies:
   '@types/http-proxy': 1.17.0
   '@types/jest': 24.0.16
   '@types/jju': 1.4.1
+  '@types/koa': 2.0.49
+  '@types/koa-bodyparser': 5.0.2
+  '@types/koa-router': 7.0.35
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
-  '@types/lodash': 4.14.136
   '@types/lodash.once': 4.1.6
   '@types/mkdirp': 0.5.2
   '@types/nanoid': 2.0.0
+  '@types/node-fetch': 2.5.0
   '@types/ramda': 0.26.18
   '@types/react': 16.8.24
   '@types/rimraf': 2.0.2
@@ -37,6 +42,8 @@ dependencies:
   '@types/sinon': 7.0.13
   '@types/uuid': 3.4.5
   '@types/yargs': 13.0.2
+  abort-controller: 2.0.3
+  ajv: 6.10.2
   async-mutex: 0.1.3
   ava: 2.2.0
   babel-plugin-macros: 2.6.1
@@ -53,12 +60,15 @@ dependencies:
   jest: 24.8.0
   jest-standard-reporter: 1.0.1
   jju: 1.4.0
+  koa: 2.7.0
+  koa-bodyparser: 4.2.1
+  koa-router: 7.4.0
   leveldown: 5.1.1
   levelup: 4.1.0
-  lodash: 4.17.15
   lodash.once: 4.1.1
   mkdirp: 0.5.1
   nanoid: 2.0.3
+  node-fetch: 2.6.0
   nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
   npm-check-updates: 3.1.20
   ramda: 0.26.1
@@ -508,7 +518,7 @@ packages:
       jest-runtime: 24.8.0
       jest-util: 24.8.0
       jest-worker: 24.6.0
-      node-notifier: 5.4.0
+      node-notifier: 5.4.1
       slash: 2.0.0
       source-map: 0.6.1
       string-length: 2.0.0
@@ -693,6 +703,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-wYxU3kp5zItbxKmeRYCEplS2MW7DzyBnxPGj+GJVHZEUZiK/nn5Ei1sUFgURDh+X051+zsGe28iud3oHjrYWQQ==
+  /@types/accepts/1.3.5:
+    dependencies:
+      '@types/node': 12.6.9
+    dev: false
+    resolution:
+      integrity: sha512-jOdnI/3qTpHABjM5cx1Hc0sKsPoYCp+DP/GJRGtDlPd7fiV9oXGGIcjW/ZOxLIvjGz8MA+uMZI9metHlgqbgwQ==
   /@types/babel__core/7.1.2:
     dependencies:
       '@babel/parser': 7.5.5
@@ -741,6 +757,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-4r8qa0quOvh7lGD0pre62CAb1oni1OO6ecJLGCezTmhQ8Fz50Arx9RUszryR8KlgK6avuSXvviL6yWyViQABOg==
+  /@types/cookies/0.7.2:
+    dependencies:
+      '@types/connect': 3.4.32
+      '@types/express': 4.17.0
+      '@types/keygrip': 1.0.1
+      '@types/node': 12.6.9
+    dev: false
+    resolution:
+      integrity: sha512-jnihWgshWystcJKrz8C9hV+Ot9lqOUyAh2RF+o3BEo6K6AS2l4zYCb9GYaBuZ3C6Il59uIGqpE3HvCun4KKeJA==
   /@types/deep-freeze/0.1.1:
     dev: false
     resolution:
@@ -780,6 +805,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-2A8Yxbi092KD6JM/WMA8tzcS79U94EXLP4wg9ry0brgZF7fQRIe69vwnA9cW6wsmkAx15a8SJ9bOxRyyeDtbmQ==
+  /@types/http-assert/1.5.0:
+    dev: false
+    resolution:
+      integrity: sha512-8CBLG8RmxSvoY07FE6M/QpvJ7J5KzeKqF8eWN7Dq6Ks+lBTQae8Roc2G81lUu2Kw5Ju1gymOuvgyUsussbjAaA==
   /@types/http-proxy/1.17.0:
     dependencies:
       '@types/node': 12.6.9
@@ -817,6 +846,39 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LFt+YA7Lv2IZROMwokZKiPNORAV5N3huMs3IKnzlE430HWhWYZ8b+78HiwJXJJP1V2IEjinyJURuRJfGoaFSIA==
+  /@types/keygrip/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-/1QEYtL7TQqIRBzq8n0oewHD2Hg=
+  /@types/koa-bodyparser/5.0.2:
+    dependencies:
+      '@types/koa': 2.0.49
+    dev: false
+    resolution:
+      integrity: sha512-prJC/gtxnurTTOpYkSwMwzbkiZ6BCW7arIvjmNVbEziauhcndQeCewzsSphmtlI6wnwFnGGAAOznQR1OYrhhgw==
+  /@types/koa-compose/3.2.4:
+    dependencies:
+      '@types/koa': 2.0.49
+    dev: false
+    resolution:
+      integrity: sha512-ioou0rxkuWL+yBQYsHUQAzRTfVxAg8Y2VfMftU+Y3RA03/MzuFL0x/M2sXXj3PkfnENbHsjeHR1aMdezLYpTeA==
+  /@types/koa-router/7.0.35:
+    dependencies:
+      '@types/koa': 2.0.49
+    dev: false
+    resolution:
+      integrity: sha512-WSdZ0FkUSCDiGQBtsEAmTjsM3l5o4eq2WDSCR9UXm/buLY73b5MSkfSt4f8+LAhoZYa9uNNcEyiE43J0xISF5A==
+  /@types/koa/2.0.49:
+    dependencies:
+      '@types/accepts': 1.3.5
+      '@types/cookies': 0.7.2
+      '@types/http-assert': 1.5.0
+      '@types/keygrip': 1.0.1
+      '@types/koa-compose': 3.2.4
+      '@types/node': 12.6.9
+    dev: false
+    resolution:
+      integrity: sha512-WQWpCH8O4Dslk8IcXfazff40aM1jXX7BQRbADIj/fKozVPu76P/wQE4sRe2SCWMn8yNkOcare2MkDrnZqLMkPQ==
   /@types/leveldown/4.0.0:
     dependencies:
       '@types/abstract-leveldown': 5.0.1
@@ -861,6 +923,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NtwPHfAyU3IDXdKAB2OMPpAauHBg9gUjpOYr3FAzI84D70nWdS8k5mryteLvT/s1ACeAFAkGg132/XJVN4qx/w==
+  /@types/node-fetch/2.5.0:
+    dependencies:
+      '@types/node': 12.6.9
+    dev: false
+    resolution:
+      integrity: sha512-TLFRywthBgL68auWj+ziWu+vnmmcHCDFC/sqCOQf1xTz4hRq8cu79z8CtHU9lncExGBsB8fXA4TiLDLt6xvMzw==
   /@types/node/10.14.14:
     dev: false
     resolution:
@@ -956,6 +1024,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
+  /abort-controller/2.0.3:
+    dependencies:
+      event-target-shim: 5.0.1
+    dev: false
+    engines:
+      node: '>=6.5'
+    resolution:
+      integrity: sha512-EPSq5wr2aFyAZ1PejJB32IX9Qd4Nwus+adnp7STYFM5/23nLPBazqZ1oor6ZqbH+4otaaGXTlC8RN5hq3C8w9Q==
   /abstract-leveldown/6.0.3:
     dependencies:
       level-concat-iterator: 2.0.1
@@ -1100,6 +1176,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-8zjUtFJ3db/QoPXuuEMloS2AUf79/yeyttJ7Abr3hteopJu9HK8vsgGviGUMq+zyA6cZZO6gAyZoMTF6TgaEjA==
+  /any-promise/1.3.0:
+    dev: false
+    resolution:
+      integrity: sha1-q8av7tzqUugJzcA3au0845Y10X8=
   /anymatch/2.0.0:
     dependencies:
       micromatch: 3.1.10
@@ -1682,6 +1762,15 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==
+  /cache-content-type/1.0.1:
+    dependencies:
+      mime-types: 2.1.24
+      ylru: 1.2.1
+    dev: false
+    engines:
+      node: '>= 6.0.0'
+    resolution:
+      integrity: sha512-IKufZ1o4Ut42YUrZSo8+qnMTrFuKkvyoLXUywKz9GJ5BrhOFGhLdkx9sG4KAnVvbY6kEcSFjLQul+DVmBm2bgA==
   /cacheable-request/6.1.0:
     dependencies:
       clone-response: 1.0.2
@@ -1961,6 +2050,15 @@ packages:
       node: '>=0.8'
     resolution:
       integrity: sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+  /co-body/6.0.0:
+    dependencies:
+      inflation: 2.0.0
+      qs: 6.7.0
+      raw-body: 2.4.1
+      type-is: 1.6.18
+    dev: false
+    resolution:
+      integrity: sha512-9ZIcixguuuKIptnY8yemEOuhb71L/lLf+Rl5JfJEUiDNJk0e02MBt7BPxR2GEh5mw8dPthQYR4jPI/BnS1MQgw==
   /co/4.6.0:
     dev: false
     engines:
@@ -2140,6 +2238,15 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /cookies/0.7.3:
+    dependencies:
+      depd: 1.1.2
+      keygrip: 1.0.3
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-+gixgxYSgQLTaTIilDHAdlNPZDENDQernEMiIcZpYYP14zgHsCt4Ce1FEjFtcp6GefhozebB6orvhAAWx/IS0A==
   /copy-concurrently/1.0.5:
     dependencies:
       aproba: 1.2.0
@@ -2157,6 +2264,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
+  /copy-to/2.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-JoD7uAaKSNCGVrYJgJK9r8kG9KU=
   /core-js/2.6.9:
     dev: false
     requiresBuild: true
@@ -2410,6 +2521,10 @@ packages:
       node: '>=0.4.0'
     resolution:
       integrity: sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
+  /delegates/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
   /depd/1.1.2:
     dev: false
     engines:
@@ -2568,6 +2683,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==
+  /error-inject/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-4rPZG1Su1nLzCdlQ0VSFD6EdTzc=
   /es-abstract/1.13.0:
     dependencies:
       es-to-primitive: 1.2.0
@@ -2688,6 +2807,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+  /event-target-shim/5.0.1:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
   /eventemitter3/3.1.2:
     dev: false
     resolution:
@@ -3383,16 +3508,27 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-PqWdhnQhq6tqD32hZv+l1e5mJHNSudjnaAzgAHfkGiU0ABN6lmbZF8abJIulQHbZ7oiHhP8yL6O910ICMc+5pw==
-  /hosted-git-info/2.7.1:
+  /hosted-git-info/2.8.2:
+    dependencies:
+      lru-cache: 5.1.1
     dev: false
     resolution:
-      integrity: sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
+      integrity: sha512-CyjlXII6LMsPMyUzxpTt8fzh5QwzGqPmQXgY/Jyf4Zfp27t/FvfhwoE/8laaMUcMy816CkWF20I7NeQhwwY88w==
   /html-encoding-sniffer/1.0.2:
     dependencies:
       whatwg-encoding: 1.0.5
     dev: false
     resolution:
       integrity: sha512-71lZziiDnsuabfdYiUeWdCVyKuqwWi23L8YeIgV9jSSZHCtb6wB1BKWooH7L3tn4/FuZJMVWyNaIDr4RGmaSYw==
+  /http-assert/1.4.1:
+    dependencies:
+      deep-equal: 1.0.1
+      http-errors: 1.7.3
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-rdw7q6GTlibqVVbXr0CKelfV5iY8G2HqEUkhSk297BMbSpSL8crXC+9rjKoMcZZEsksX30le6f/4ul4E28gegw==
   /http-cache-semantics/3.8.1:
     dev: false
     resolution:
@@ -3565,6 +3701,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-IClj+Xz94+d7irH5qRyfJonOdfTzuDaifE6ZPWfx0N0+/ATZCbuTPq2prFl526urkQd90WyUKIh1DfBQ2hMz9A==
+  /inflation/2.0.0:
+    dev: false
+    engines:
+      node: '>= 0.8.0'
+    resolution:
+      integrity: sha1-i0F+R8KPklpFEz2RTKH9OJEH8w8=
   /inflight/1.0.6:
     dependencies:
       once: 1.4.0
@@ -3776,6 +3918,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-cTIB4yPYL/Grw0EaSzASzg6bBy9gqCofvWN8okThAYIxKJZC+udlRAmGbM0XLeniEJSs8uEgHPGuHSe1XsOLSQ==
+  /is-generator-function/1.0.7:
+    dev: false
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha512-YZc5EwyO4f2kWCax7oegfuSr9mFz1ZvieNYBEjmukLxgXfBUbxAWGVF7GZf0zidYtoBl3WvC07YK0wT76a+Rtw==
   /is-glob/3.1.0:
     dependencies:
       is-extglob: 2.1.1
@@ -4071,7 +4219,7 @@ packages:
       jest-config: 24.8.0
       jest-util: 24.8.0
       jest-validate: 24.8.0
-      prompts: 2.1.0
+      prompts: 2.2.1
       realpath-native: 1.1.0
       yargs: 12.0.5
     dev: false
@@ -4583,6 +4731,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-FrLwOgm+iXrPV+5zDU6Jqu4gCRXbWEQg2O3SKONsWE4w7AXFRkryS53bpWdaL9cNol+AmR3AEYz6kn+o0fCPnw==
+  /keygrip/1.0.3:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-/PpesirAIfaklxUzp4Yb7xBper9MwP6hNRA6BGGUFCgbJ+BM5CKBtsoxinNXkLHAr+GXS1/lSlF2rP7cv5Fl+g==
   /keyv/3.1.0:
     dependencies:
       json-buffer: 3.0.0
@@ -4623,6 +4777,82 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
+  /koa-bodyparser/4.2.1:
+    dependencies:
+      co-body: 6.0.0
+      copy-to: 2.0.1
+    dev: false
+    engines:
+      node: '>=8.0.0'
+    resolution:
+      integrity: sha512-UIjPAlMZfNYDDe+4zBaOAUKYqkwAGcIU6r2ARf1UOXPAlfennQys5IiShaVeNf7KkVBlf88f2LeLvBFvKylttw==
+  /koa-compose/3.2.1:
+    dependencies:
+      any-promise: 1.3.0
+    dev: false
+    resolution:
+      integrity: sha1-qFzLQLfZhtjlo0Wzoazo6rz1Tec=
+  /koa-compose/4.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-8ODW8TrDuMYvXRwra/Kh7/rJo9BtOfPc6qO8eAfC80CnCvSjSl0bkRM24X6/XBBEyj0v1nRUQ1LyOy3dbqOWXw==
+  /koa-convert/1.2.0:
+    dependencies:
+      co: 4.6.0
+      koa-compose: 3.2.1
+    dev: false
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha1-2kCHXfSd4FOQmNFwC1CCDOvNIdA=
+  /koa-is-json/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
+  /koa-router/7.4.0:
+    dependencies:
+      debug: 3.2.6
+      http-errors: 1.7.3
+      koa-compose: 3.2.1
+      methods: 1.1.2
+      path-to-regexp: 1.7.0
+      urijs: 1.19.1
+    dev: false
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha512-IWhaDXeAnfDBEpWS6hkGdZ1ablgr6Q6pGdXCyK38RbzuH4LkUOpPqPw+3f8l8aTDrQmBQ7xJc0bs2yV4dzcO+g==
+  /koa/2.7.0:
+    dependencies:
+      accepts: 1.3.7
+      cache-content-type: 1.0.1
+      content-disposition: 0.5.3
+      content-type: 1.0.4
+      cookies: 0.7.3
+      debug: 3.1.0
+      delegates: 1.0.0
+      depd: 1.1.2
+      destroy: 1.0.4
+      error-inject: 1.0.0
+      escape-html: 1.0.3
+      fresh: 0.5.2
+      http-assert: 1.4.1
+      http-errors: 1.7.3
+      is-generator-function: 1.0.7
+      koa-compose: 4.1.0
+      koa-convert: 1.2.0
+      koa-is-json: 1.0.0
+      on-finished: 2.3.0
+      only: 0.0.2
+      parseurl: 1.3.3
+      statuses: 1.5.0
+      type-is: 1.6.18
+      vary: 1.1.2
+    dev: false
+    engines:
+      node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4
+    resolution:
+      integrity: sha512-7ojD05s2Q+hFudF8tDLZ1CpCdVZw8JQELWSkcfG9bdtoTDzMmkRF6BQBU7JzIzCCOY3xd3tftiy/loHBUYaY2Q==
   /latest-version/3.1.0:
     dependencies:
       package-json: 4.0.1
@@ -4822,10 +5052,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==
-  /lolex/4.1.0:
+  /lolex/4.2.0:
     dev: false
     resolution:
-      integrity: sha512-BYxIEXiVq5lGIXeVHnsFzqa1TxN5acnKnPCdlZSpzm8viNEOhiigupA4vTQ9HEFQ6nLTQ9wQOgBknJgzUYQ9Aw==
+      integrity: sha512-gKO5uExCXvSm6zbF562EvM+rd1kQDnB9AZBbiQVzf1ZmdDpxUSvpnAaVOP83N/31mRK8Ml8/VE8DMvsAZQ+7wg==
   /loose-envify/1.4.0:
     dependencies:
       js-tokens: 4.0.0
@@ -5284,16 +5514,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
-  /nise/1.5.0:
+  /nise/1.5.1:
     dependencies:
       '@sinonjs/formatio': 3.2.1
       '@sinonjs/text-encoding': 0.7.1
       just-extend: 4.0.2
-      lolex: 4.1.0
+      lolex: 4.2.0
       path-to-regexp: 1.7.0
     dev: false
     resolution:
-      integrity: sha512-Z3sfYEkLFzFmL8KY6xnSJLRxwQwYBjOXi/24lb62ZnZiGA0JUzGGTI6TBIgfCSMIDl9Jlu8SRmHNACLTemDHww==
+      integrity: sha512-edFWm0fsFG2n318rfEnKlTZTkjlbVOFF9XIA+fj+Ed+Qz1laYW2lobwavWoMzGrYDHH1EpiNJgDfvGnkZztR/g==
   /node-alias/1.0.4:
     dependencies:
       chalk: 1.1.3
@@ -5334,7 +5564,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
-  /node-notifier/5.4.0:
+  /node-notifier/5.4.1:
     dependencies:
       growly: 1.3.0
       is-wsl: 1.1.0
@@ -5343,7 +5573,7 @@ packages:
       which: 1.3.1
     dev: false
     resolution:
-      integrity: sha512-SUDEb+o71XR5lXSTyivXd9J7fCloE3SyP4lSgt3lU2oSANiox+SxlNRGPjDKrwU1YN3ix2KN/VGGCg0t01rttQ==
+      integrity: sha512-p52B+onAEHKW1OF9MGO/S7k/ahGEHfhP5/tvwYzog/5XLYOd8ZuD6vdNZdUuWMONRnKPneXV43v3s6Snx1wsCQ==
   /nopt/1.0.10:
     dependencies:
       abbrev: 1.1.1
@@ -5353,7 +5583,7 @@ packages:
       integrity: sha1-bd0hvSoxQXuScn3Vhfim83YI6+4=
   /normalize-package-data/2.5.0:
     dependencies:
-      hosted-git-info: 2.7.1
+      hosted-git-info: 2.8.2
       resolve: 1.12.0
       semver: 5.7.0
       validate-npm-package-license: 3.0.4
@@ -5399,7 +5629,7 @@ packages:
       node-alias: 1.0.4
       pacote: 9.5.4
       progress: 2.0.3
-      prompts: 2.1.0
+      prompts: 2.2.1
       rc-config-loader: 2.0.4
       requireg: 0.2.2
       semver: 6.3.0
@@ -5414,7 +5644,7 @@ packages:
       integrity: sha512-mc9BAoOYSTwP/IvoA+ofdkWSipwRvhgC0qop1PvlMZojgzi7N/dykdxOIWrw0OlZPnEKvXkKFEuPk97LrvXE1A==
   /npm-package-arg/6.1.0:
     dependencies:
-      hosted-git-info: 2.7.1
+      hosted-git-info: 2.8.2
       osenv: 0.1.5
       semver: 5.7.0
       validate-npm-package-name: 3.0.0
@@ -5570,6 +5800,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-5NcSkPHhwTVFIQN+TUqXoS5+dlElHXdpAWu9I0HP20YOtIi+aZ0Ct82jdlILDxjLEAWwvm+qj1m6aEtsDVmm6Q==
+  /only/0.0.2:
+    dev: false
+    resolution:
+      integrity: sha1-Kv3oTQPlC5qO3EROMGEKcCle37Q=
   /optimist/0.6.1:
     dependencies:
       minimist: 0.0.10
@@ -6075,15 +6309,15 @@ packages:
       node: '>=0.12'
     resolution:
       integrity: sha1-ZznpaOMFHaIM5kl/srUPaRHfPW0=
-  /prompts/2.1.0:
+  /prompts/2.2.1:
     dependencies:
       kleur: 3.0.3
-      sisteransi: 1.0.2
+      sisteransi: 1.0.3
     dev: false
     engines:
       node: '>= 6'
     resolution:
-      integrity: sha512-+x5TozgqYdOwWsQFZizE/Tra3fKvAoy037kOyU6cgz84n8f6zxngLOV4O32kTwt9FcLCxAqw0P/c8rOr9y+Gfg==
+      integrity: sha512-VObPvJiWPhpZI6C5m60XOzTfnYg/xc/an+r9VYymj9WJW3B/DIH+REzjpAACPf8brwPeP+7vz3bIim3S+AaMjw==
   /prop-types/15.7.2:
     dependencies:
       loose-envify: 1.4.0
@@ -6194,6 +6428,17 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-4Oz8DUIwdvoa5qMJelxipzi/iJIi40O5cGV1wNYp5hvZP8ZN0T+jiNkL0QepXs+EsQ9XJ8ipEDoiH70ySUJP3Q==
+  /raw-body/2.4.1:
+    dependencies:
+      bytes: 3.1.0
+      http-errors: 1.7.3
+      iconv-lite: 0.4.24
+      unpipe: 1.0.0
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-9WmIKF6mkvA0SLmA2Knm9+qj89e+j1zqgyn8aXGd7+nAduPoqgI9lO57SAZNn/Byzo5P7JhXTyg9PzaJbH73bA==
   /rc-config-loader/2.0.4:
     dependencies:
       debug: 4.1.1
@@ -6809,16 +7054,16 @@ packages:
       '@sinonjs/formatio': 3.2.1
       '@sinonjs/samsam': 3.3.2
       diff: 3.5.0
-      lolex: 4.1.0
-      nise: 1.5.0
+      lolex: 4.2.0
+      nise: 1.5.1
       supports-color: 5.5.0
     dev: false
     resolution:
       integrity: sha512-thErC1z64BeyGiPvF8aoSg0LEnptSaWE7YhdWWbWXgelOyThent7uKOnnEh9zBxDbKixtr5dEko+ws1sZMuFMA==
-  /sisteransi/1.0.2:
+  /sisteransi/1.0.3:
     dev: false
     resolution:
-      integrity: sha512-ZcYcZcT69nSLAR2oLN2JwNmLkJEKGooFMCdvOkFrToUt/WfcRWqhIg4P4KwY4dmLbuyXIx4o4YmPsvMRJYJd/w==
+      integrity: sha512-SbEG75TzH8G7eVXFSN5f9EExILKfly7SUvVY5DhhYLvfhKqhDFY0OzevWa/zwak0RLRfWS5AvfMWpd9gJvr5Yg==
   /slash/2.0.0:
     dev: false
     engines:
@@ -7681,6 +7926,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-KY9Frmirql91X2Qgjry0Wd4Y+YTdrdZheS8TFwvkbLWf/G5KNJDCh6pKL5OZctEW4+0Baa5idK2ZQuELRwPznQ==
+  /urijs/1.19.1:
+    dev: false
+    resolution:
+      integrity: sha512-xVrGVi94ueCJNrBSTjWqjvtgvl3cyOTThp2zaMaFNGp3F542TR6sM3f2o8RqZl+AwteClSVmoCyt0ka4RjQOQg==
   /urix/0.1.0:
     dev: false
     resolution:
@@ -8008,6 +8257,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
+  /ylru/1.2.1:
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-faQrqNMzcPCHGVC2aaOINk13K+aaBDUPjGWl0teOXywElLjyVAB6Oe2jj62jHYtwsU49jXhScYbvPENK+6zAvQ==
   'file:projects/rush-update.tgz':
     dependencies:
       '@octokit/rest': 16.28.7
@@ -8091,7 +8346,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-oEEsesqYPQYqVSeC5c8CbjqA2RvMGv677NX8FHumFZLsNekPoDSMxYSUa+9D/eFn6dkhEemHD5DireZDXHgEjw==
+      integrity: sha512-slj4unnHxHIzLWjpmsx2e5cNLWHgtqW90EZFA5Uo2POQzDTw+O8CL/3rsRi4voRMyX0yqenG/Ouwkjwg5mn8Zg==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -8103,6 +8358,39 @@ packages:
     resolution:
       integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
+    version: 0.0.0
+  'file:projects/shift-interfaces-koa-server.tgz':
+    dependencies:
+      '@types/koa': 2.0.49
+      '@types/koa-bodyparser': 5.0.2
+      '@types/koa-router': 7.0.35
+      '@types/lodash': 4.14.136
+      '@types/node': 10.14.14
+      ajv: 6.10.2
+      koa: 2.7.0
+      koa-bodyparser: 4.2.1
+      koa-router: 7.4.0
+      lodash: 4.17.15
+    dev: false
+    name: '@rush-temp/shift-interfaces-koa-server'
+    resolution:
+      integrity: sha512-Ur5RNHPKBVjmnFPq5i9UwZjkOS84oz5V+7dW5Bv9/qmOUAXVfRKq55PVQxWMs1U8c+NbTBd7FiUEZXzZmHfpgQ==
+      tarball: 'file:projects/shift-interfaces-koa-server.tgz'
+    version: 0.0.0
+  'file:projects/shift-interfaces-node-client.tgz':
+    dependencies:
+      '@types/lodash': 4.14.136
+      '@types/node': 10.14.14
+      '@types/node-fetch': 2.5.0
+      abort-controller: 2.0.3
+      ajv: 6.10.2
+      lodash: 4.17.15
+      node-fetch: 2.6.0
+    dev: false
+    name: '@rush-temp/shift-interfaces-node-client'
+    resolution:
+      integrity: sha512-LeuIKbFRCBMOk7KZGNk/q+V65IuNtjYT76DnolpWZnro/IgXiwWw/7dziISTdKBSheJ4IiLOFxeg0a6sB/dzKQ==
+      tarball: 'file:projects/shift-interfaces-node-client.tgz'
     version: 0.0.0
   'file:projects/shift-interfaces.tgz':
     dependencies:
@@ -8169,7 +8457,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-NBbvkvQsIuOmoNMBeOCLOgoisGlnE0Z9GSBRTw4Cm0/ZZyjHU0/Hl5hBSfLwHO0Lz8Y2Ba3iVOnDHIxaixwP/g==
+      integrity: sha512-3bnGP3+AwuhfXYhSwH0j8cRfPuhaytu6/q9c41qqdOY1pS0Ln6gEmsXIU+RZYubkSIDkTYNnpZmRQgwWTRVlYw==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -8228,6 +8516,8 @@ specifiers:
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
+  '@rush-temp/shift-interfaces-koa-server': 'file:./projects/shift-interfaces-koa-server.tgz'
+  '@rush-temp/shift-interfaces-node-client': 'file:./projects/shift-interfaces-node-client.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
   '@rush-temp/shiftjs-react-app': 'file:./projects/shiftjs-react-app.tgz'
@@ -8240,12 +8530,15 @@ specifiers:
   '@types/http-proxy': ^1.17.0
   '@types/jest': ^24.0.16
   '@types/jju': ^1.4.1
+  '@types/koa': ^2.0.46
+  '@types/koa-bodyparser': ^5.0.1
+  '@types/koa-router': 7.0.35
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
-  '@types/lodash': ^4.14.136
   '@types/lodash.once': ^4.1.6
   '@types/mkdirp': ^0.5.2
   '@types/nanoid': ^2.0.0
+  '@types/node-fetch': ^2.1.4
   '@types/ramda': ^0.26.18
   '@types/react': ^16.8.24
   '@types/rimraf': ^2.0.2
@@ -8253,6 +8546,8 @@ specifiers:
   '@types/sinon': ^7.0.13
   '@types/uuid': ^3.4.5
   '@types/yargs': ^13.0.2
+  abort-controller: ^2.0.2
+  ajv: ^6.5.5
   async-mutex: ^0.1.3
   ava: ^2.2.0
   babel-plugin-macros: ^2.6.1
@@ -8269,12 +8564,15 @@ specifiers:
   jest: ^24.8.0
   jest-standard-reporter: ^1.0.1
   jju: ^1.4.0
+  koa: ^2.5.1
+  koa-bodyparser: ^4.2.1
+  koa-router: ^7.4.0
   leveldown: ^5.1.1
   levelup: ^4.1.0
-  lodash: ^4.17.15
   lodash.once: ^4.1.1
   mkdirp: ^0.5.1
   nanoid: ^2.0.3
+  node-fetch: ^2.3.0
   nodemon: 'git+http://github.com/binaris/nodemon'
   npm-check-updates: ^3.1.20
   ramda: ^0.26.1

@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+(cd interfaces/ &&
+     npm install --no-package-json &&
+     npm run generate-koa-server && npm run generate-node-client)
+
+# Might not work if file already has "scripts" entry.
+function addScripts {
+    cp $1 $1.bk
+    jq  '. + { scripts: ["lint", "build", "test"] | map( { (.) : "echo generated code" } ) | add }' < $1.bk > $1
+}
+
+addScripts gen-server/package.json
+addScripts gen-client/package.json

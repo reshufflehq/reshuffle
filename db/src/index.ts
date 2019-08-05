@@ -81,7 +81,8 @@ export async function startPolling<T extends Serializable = any>(key: string): P
   const doc = await db.getWithMeta<T>(key);
   if (doc === undefined) {
     return {
-      version: [0, 0], // Once a document is created its version is bound to be greater than this.
+      // Once a document is created its version is bound to be greater than this.
+      version: { major: 0, minor: 0 },
       value: undefined,
     };
   }

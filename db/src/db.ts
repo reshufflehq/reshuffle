@@ -8,10 +8,8 @@ import { Mutex } from 'async-mutex';
 import {
   UpdateOptions,
   Version,
-  Versioned,
   Patch,
-  KeyedPatches,
-} from '@binaris/shift-interfaces/dist/subscriptions';
+} from '@binaris/shift-interfaces-node-client/interfaces';
 import { ValueError } from './errors';
 import * as Q from './query';
 import { withTimeout, deferred, hrnano } from './utils';
@@ -19,10 +17,16 @@ import { withTimeout, deferred, hrnano } from './utils';
 export {
   Q,
   DeepReadonly,
-  Versioned,
-  KeyedPatches,
   UpdateOptions,
 };
+
+export interface Versioned<T> {
+  version: Version;
+  value: T;
+}
+
+// BUG: Lost by typescript-json-schema in Concord, reintroduce it here.
+export type KeyedPatches = Array<[string, Patch[]]>;
 
 const NUM_PATCHES_TO_KEEP = 20;
 const DEFAULT_READ_BLOCK_TIME_MS = 50000;
@@ -31,16 +35,16 @@ const DEFAULT_READ_BLOCK_TIME_MS = 50000;
 // see: https://github.com/Microsoft/TypeScript/issues/7648
 export type Serializable = {} | null;
 
-export function incrVersion([x, y]: Version, amount: number = 1): Version {
-  return [x, y + amount];
+export function incrVersion({ major, minor }: Version, amount: number = 1): Version {
+  return { major, minor: minor + amount };
 }
 
-export function decrVersion([x, y]: Version, amount: number = 1): Version {
-  return [x, y - amount];
+export function decrVersion(version: Version, amount: number = 1): Version {
+  return incrVersion(version, -amount);
 }
 
 export function isGreaterVersion(a: Version, b: Version): boolean {
-  return a[0] > b[0] || a[0] === b[0] && a[1] > b[1];
+  return a.major > b.major || a.major === b.major && a.minor > b.minor;
 }
 
 export type KeyedVersions = Array<[string, Version]>;
@@ -88,7 +92,8 @@ export class DB extends EventEmitter {
     key: string, prev: StoredDocument<any> | undefined, value: any, options?: UpdateOptions
   ): Promise<void> {
     const prevValue = prev === undefined ? undefined : prev.value;
-    const version = prev === undefined || prev.value === undefined ? pair(hrnano(), 1) : incrVersion(prev.version);
+    const version = prev === undefined || prev.value === undefined ?
+      { major: hrnano(), minor: 1 } : incrVersion(prev.version);
     const patches = prev ? prev.patches : [];
     const ops = compare({ root: prevValue }, { root: value });
     if (ops.length > 0) {
@@ -269,7 +274,7 @@ export class DB extends EventEmitter {
   }
 }
 
-export function buildComparator([p, direction]: Q.Order) {
+export function buildComparator({ path: p, direction }: Q.Order) {
   return direction === Q.ASC ? ascend(path(p)) : descend(path(p));
 }
 
