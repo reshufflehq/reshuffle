@@ -281,21 +281,21 @@ test('Query.skip sets skip', (t) => {
 test('Query.orderBy sets order', (t) => {
   t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x)), {
     filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    orderBy: [[['value', 'x'], ASC]],
+    orderBy: [{ path: ['value', 'x'], direction: ASC }],
   });
 });
 
 test('Query.orderBy sets DESC order', (t) => {
   t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x, DESC)), {
     filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    orderBy: [[['value', 'x'], DESC]],
+    orderBy: [{ path: ['value', 'x'], direction: DESC }],
   });
 });
 
 test('Query.orderBy sets secondary order', (t) => {
   t.deepEqual(stringifyThenParse(baseQ.orderBy(value.x).orderBy(key)), {
     filter: { path: ['key'], operator: 'startsWith', value: '/games/' },
-    orderBy: [[['value', 'x'], ASC], [['key'], ASC]],
+    orderBy: [{ path: ['value', 'x'], direction: ASC }, { path: ['key'], direction: ASC }],
   });
 });
 

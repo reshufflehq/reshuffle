@@ -3,7 +3,7 @@ import * as im from 'immutable';
 import { stub } from 'sinon';
 import { concat, EMPTY, NEVER, of, Subject } from 'rxjs';
 import { delay, take, tap, toArray } from 'rxjs/operators';
-import { Patch, Version } from '@binaris/shift-interfaces/dist/subscriptions';
+import { Patch, Version } from '@binaris/shift-interfaces-node-client/interfaces';
 import {
   DEREGISTER,
   NonEmptyArray,
@@ -18,8 +18,8 @@ import {
 } from '../subscriptions';
 
 // tslint:disable-next-line:variable-name
-const Version = (major: number, minor: number): Version => [major, minor];
-const eqVersion = (v1: Version, v2: Version): boolean => v1[0] === v2[0] && v1[1] === v2[1];
+const Version = (major: number, minor: number): Version => ({ major, minor });
+const eqVersion = (v1: Version, v2: Version): boolean => v1.major === v2.major && v1.minor === v2.minor;
 const mockPoller = () => stub<Parameters<Poller>, ReturnType<Poller>>().resolves([]);
 
 test('poll polls when asked to register key', async (t) => {
@@ -99,7 +99,7 @@ test('publish emits results on registered observer', async (t) => {
 });
 
 test('publishInputMapper stops publishing results after deregister', (t) => {
-  const patches: NonEmptyArray<Patch> = [{ version: [1, 2], ops: [] }];
+  const patches: NonEmptyArray<Patch> = [{ version: { major: 1, minor: 2 }, ops: [] }];
   const subject = new Subject<NonEmptyArray<Patch>>();
   const deregister = { action: DEREGISTER, key: 'test' };
   const { state, output } = publishInputMapper(im.Map({ test: subject }), deregister);
@@ -115,14 +115,14 @@ test('serverUpdates emits initial state with empty patches', async (t) => {
     subject).pipe(
     take(1),
   ).toPromise();
-  t.deepEqual(initialState, { version: [1, 1], value: {}, patches: [] });
+  t.deepEqual(initialState, { version: { major: 1, minor: 1 }, value: {}, patches: [] });
 });
 
 test('serverUpdates emits updated state from poller updates', async (t) => {
   const patches: NonEmptyArray<Patch> = [
-    { version: [1, 2], ops: [{ op: 'replace', path: '/root', value: { a: 1 } }] },
-    { version: [1, 3], ops: [{ op: 'add', path: '/root/b', value: 2 }] },
-    { version: [1, 4], ops: [{ op: 'remove', path: '/root/a' }] },
+    { version: { major: 1, minor: 2 }, ops: [{ op: 'replace', path: '/root', value: { a: 1 } }] },
+    { version: { major: 1, minor: 3 }, ops: [{ op: 'add', path: '/root/b', value: 2 }] },
+    { version: { major: 1, minor: 4 }, ops: [{ op: 'remove', path: '/root/a' }] },
   ];
   const subject = new Subject<PollerInputWithObserver>();
   const resolved = await Promise.all([
@@ -134,7 +134,7 @@ test('serverUpdates emits updated state from poller updates', async (t) => {
       take(2),
     ).toPromise(),
   ]);
-  t.deepEqual(resolved[1], { version: [1, 4], value: { b: 2 }, patches });
+  t.deepEqual(resolved[1], { version: { major: 1, minor: 4 }, value: { b: 2 }, patches });
 });
 
 test('serverUpdates registers to poller', async (t) => {
@@ -153,7 +153,7 @@ test('serverUpdates registers to poller', async (t) => {
   }
   const { observer, ...rest } = input;
   t.true(observer instanceof Subject);
-  t.deepEqual(rest, { action: REGISTER, key: 'test', version: [1, 1] });
+  t.deepEqual(rest, { action: REGISTER, key: 'test', version: { major: 1, minor: 1 } });
 });
 
 test('serverUpdates deregisters from poller on unsubscribe', async (t) => {
@@ -174,9 +174,9 @@ test('serverUpdates deregisters from poller on unsubscribe', async (t) => {
 
 test('serverUpdates emits updated state on deletion and creation', async (t) => {
   const patches: NonEmptyArray<Patch> = [
-    { version: [1, 1], ops: [{ op: 'replace', path: '/root', value: 1 }] },
-    { version: [1, 2], ops: [{ op: 'replace', path: '/root', value: undefined }] },
-    { version: [2, 1], ops: [{ op: 'replace', path: '/root', value: 2 }] },
+    { version: { major: 1, minor: 1 }, ops: [{ op: 'replace', path: '/root', value: 1 }] },
+    { version: { major: 1, minor: 2 }, ops: [{ op: 'replace', path: '/root', value: undefined }] },
+    { version: { major: 2, minor: 1 }, ops: [{ op: 'replace', path: '/root', value: 2 }] },
   ];
   const subject = new Subject<PollerInputWithObserver>();
   const resolved = await Promise.all([
@@ -191,5 +191,5 @@ test('serverUpdates emits updated state on deletion and creation', async (t) => 
       take(2),
     ).toPromise(),
   ]);
-  t.deepEqual(resolved[1], { version: [2, 1], value: 2, patches });
+  t.deepEqual(resolved[1], { version: { major: 2, minor: 1 }, value: 2, patches });
 });

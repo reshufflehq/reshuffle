@@ -1,17 +1,20 @@
 {
   "name": "@binaris/shift-interfaces",
-  "version": "0.1.2",
+  "version": "0.2.0-rc.1",
   "files": [
     "dist"
   ],
+  "config": {
+    "client_dir": "../gen-client",
+    "server_dir": "../gen-server"
+  },
   "description": "interfaces for serving ShiftJS",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist/ && tsc && npm run compile-schema",
-    "compile-schema": "typescript-json-schema -o dist/schema.json --required --noExtraProps tsconfig.json '*'",
+    "build": "echo interfaces are build waaay before Rush build step",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "echo interface needs no tests"
+    "test": "echo interface needs no tests",
+    "generate-koa-server": "rm -fr ${npm_package_config_server_dir} && npx concord node --server koa -o ${npm_package_config_server_dir} ${npm_package_name}-koa-server@${npm_package_version} src/db.ts",
+    "generate-node-client": "rm -fr ${npm_package_config_client_dir} && npx concord --allow-extra-props node --client fetch -o ${npm_package_config_client_dir} ${npm_package_name}-node-client@${npm_package_version} src/db.ts"
   },
   "author": "",
   "license": "MIT",

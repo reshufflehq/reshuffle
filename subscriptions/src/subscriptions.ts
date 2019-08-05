@@ -16,16 +16,23 @@ import {
 } from 'rxjs/operators';
 import { applyReducer, Operation } from 'fast-json-patch';
 import {
-  KeyedPatches,
   Patch,
   Version,
-  Versioned,
-} from '@binaris/shift-interfaces/dist/subscriptions';
+} from '@binaris/shift-interfaces-node-client/interfaces';
 import { mapWithState, StateAndOutput, takeUntilLast } from './rxutils';
 
 interface SubscriptionState<T> extends Versioned<T> {
   readonly patches?: Patch[];
 }
+
+// TODO(ariels): Unify with same types in db.
+export interface Versioned<T> {
+  version: Version;
+  value: T;
+}
+
+// BUG: Lost by typescript-json-schema in Concord, reintroduce it here.
+export type KeyedPatches = Array<[string, Patch[]]>;
 
 type VersionedStateGetter<T> = (key: string) => Promise<Versioned<T>>;
 

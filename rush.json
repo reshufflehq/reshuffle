@@ -367,7 +367,7 @@
     {
         "packageName": "@binaris/shift-interfaces",
         "projectFolder": "interfaces",
-        "shouldPublish": true
+        "shouldPublish": false
     },
     {
         "packageName": "@binaris/shift-backend-babel-plugin",
@@ -387,6 +387,16 @@
     {
         "packageName": "@binaris/shiftjs-react-app",
         "projectFolder": "shiftjs-react-app",
+        "shouldPublish": true
+    },
+    {
+        "packageName": "@binaris/shift-interfaces-koa-server",
+        "projectFolder": "gen-server",
+        "shouldPublish": true
+    },
+    {
+        "packageName": "@binaris/shift-interfaces-node-client",
+        "projectFolder": "gen-client",
         "shouldPublish": true
     },
     {

@@ -63,3 +63,7 @@ dist/
 # Rush files
 common/temp/**
 package-deps.json
+
+# Concord auto-generated files
+gen-client/
+gen-server/

@@ -1,6 +1,6 @@
 import { equals } from 'ramda';
 import { IllegalArgumentError } from './errors';
-import { db as dbi } from '@binaris/shift-interfaces';
+import * as dbi from '@binaris/shift-interfaces-node-client/interfaces';
 
 type Key = string | number;
 
@@ -27,8 +27,8 @@ export type Comparable = dbi.Comparable;
 
 export type Direction = dbi.Direction;
 export type Order = dbi.Order;
-export const ASC = dbi.ASC;
-export const DESC = dbi.DESC;
+export const ASC = dbi.Direction.ASC;
+export const DESC = dbi.Direction.DESC;
 
 interface AndFilter extends Marked<dbi.AndFilter> {
   readonly filters: Filter[];
@@ -355,7 +355,7 @@ export class Query {
     protected readonly _filter: Filter,
     protected readonly _limit?: number,
     protected readonly _skip?: number,
-    protected readonly _orderBy?: ReadonlyArray<Order>,
+    protected readonly _orderBy?: Order[],
   ) {}
 
   public filter(f: Filter): Query {
@@ -378,12 +378,13 @@ export class Query {
 
   public orderBy(path: Path | Doc<any>, order: Direction = ASC): Query {
     const { parts } = (path as any);
-    for (const [p] of (this._orderBy || [])) {
+    for (const { path: p } of (this._orderBy || [])) {
       if (equals(p, parts)) {
         throw new IllegalArgumentError(`Query already ordered by path: ${p}`);
       }
     }
-    return new Query(this._filter, this._limit, this._skip, [...(this._orderBy || []), [parts, order]]);
+    return new Query(this._filter, this._limit, this._skip,
+                     [...(this._orderBy || []), { path: parts, direction: order }]);
   }
 
   public static fromFilter(f: Filter): Query {

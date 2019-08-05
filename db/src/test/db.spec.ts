@@ -47,8 +47,8 @@ test('DB.create creates a new document, returns true, and sets version to 1', as
     ],
   });
   t.true(doc!.updatedAt >= t0);
-  t.true(doc!.version[0] >= t0);
-  t.is(doc!.version[1], 1);
+  t.true(doc!.version.major >= t0);
+  t.is(doc!.version.minor, 1);
   t.true(ret);
 });
 
@@ -129,8 +129,8 @@ test('DB.update creates a new document if key does not exist, returns it, sets v
   const { value, version } = (await db.getWithMeta('test'))!;
   t.deepEqual(value, { a: 1 });
   t.deepEqual(next, value);
-  t.true(version[0] >= t0);
-  t.is(version[1], 1);
+  t.true(version.major >= t0);
+  t.is(version.minor, 1);
 });
 
 test('DB.update updates an existing document, returns it, and increments version', async (t) => {
@@ -175,29 +175,29 @@ test('DB.poll returns patches which match requested versions', async (t) => {
     major4,
     major5,
   ] = await Promise.all(
-    range(1, 5 + 1).map(async (x) => (await db.getWithMeta(`test${x}`))!.version[0])
+    range(1, 5 + 1).map(async (x) => (await db.getWithMeta(`test${x}`))!.version.major)
   );
   const keyedPatches = await db.poll([
-    ['test1', [major1, 1]],
-    ['test2', [major2, 2]],
-    ['test3', [major3, 1]],
-    ['test4', [major4, 1]],
-    ['test5', [major5, 0]],
+    ['test1', { major: major1, minor: 1 }],
+    ['test2', { major: major2, minor: 2 }],
+    ['test3', { major: major3, minor: 1 }],
+    ['test4', { major: major4, minor: 1 }],
+    ['test5', { major: major5, minor: 0 }],
   ]);
   t.deepEqual(keyedPatches, [
     ['test1', [
-      { version: [major1, 2], ops: [{ op: 'replace', path: '/root', value: 'b' }] },
-      { version: [major1, 3], ops: [{ op: 'replace', path: '/root', value: 'c' }] },
+      { version: { major: major1, minor: 2 }, ops: [{ op: 'replace', path: '/root', value: 'b' }] },
+      { version: { major: major1, minor: 3 }, ops: [{ op: 'replace', path: '/root', value: 'c' }] },
     ]],
     ['test2', [
-      { version: [major2, 3], ops: [{ op: 'replace', path: '/root', value: 'c' }] },
+      { version: { major: major2, minor: 3 }, ops: [{ op: 'replace', path: '/root', value: 'c' }] },
     ]],
     ['test3', [
-      { version: [major3, 2], ops: [{ op: 'replace', path: '/root', value: 'b' }] },
-      { version: [major3, 3], ops: [{ op: 'remove', path: '/root' }] },
+      { version: { major: major3, minor: 2 }, ops: [{ op: 'replace', path: '/root', value: 'b' }] },
+      { version: { major: major3, minor: 3 }, ops: [{ op: 'remove', path: '/root' }] },
     ]],
     ['test5', [
-      { version: [major5, 1], ops: [{ op: 'replace', path: '/root', value: 'a' }] },
+      { version: { major: major5, minor: 1 }, ops: [{ op: 'replace', path: '/root', value: 'a' }] },
     ]],
   ]);
 });
@@ -227,7 +227,7 @@ test('DB.poll returns on remove if no new patches stored', async (t) => {
   ]);
   t.deepEqual(keyedPatches, [
     ['test1', [
-      { version: [version[0], 2], ops: [{ op: 'remove', path: '/root' }] },
+      { version: { major: version.major, minor: 2 }, ops: [{ op: 'remove', path: '/root' }] },
     ]],
   ]);
 });
@@ -235,7 +235,7 @@ test('DB.poll returns on remove if no new patches stored', async (t) => {
 test('DB.poll returns on create if no new patches stored', async (t) => {
   const { db } = t.context;
   const [keyedPatches] = await Promise.all([
-    db.poll([['test1', [0, 0]]]),
+    db.poll([['test1', { major: 0, minor: 0 }]]),
     db.create('test1', 'a'),
   ]);
   const { version } = (await db.getWithMeta('test1'))!;
@@ -248,14 +248,14 @@ test('DB.poll returns on create if no new patches stored', async (t) => {
 
 test('DB.poll returns empty array when no patches emitted', async (t) => {
   const { db } = t.context;
-  const patches = await db.poll([['test1', [0, 0]]], { readBlockTimeMs: 100 });
+  const patches = await db.poll([['test1', { major: 0, minor: 0 }]], { readBlockTimeMs: 100 });
   t.deepEqual(patches, []);
 });
 
 test('DB.poll returns empty array when patches emitted on different key', async (t) => {
   const { db } = t.context;
   const [patches] = await Promise.all([
-    db.poll([['test1', [0, 0]]], { readBlockTimeMs: 100 }),
+    db.poll([['test1', { major: 0, minor: 0 }]], { readBlockTimeMs: 100 }),
     db.create('test2', 'a'),
   ]);
   t.deepEqual(patches, []);
@@ -264,7 +264,7 @@ test('DB.poll returns empty array when patches emitted on different key', async 
 test('DB.poll returns empty array when patches emitted on old version', async (t) => {
   const { db } = t.context;
   const [patches] = await Promise.all([
-    db.poll([['test1', [hrnano() + 10_000_000_000, 0]]], { readBlockTimeMs: 100 }),
+    db.poll([['test1', { major: hrnano() + 10_000_000_000, minor: 0 }]], { readBlockTimeMs: 100 }),
     db.create('test1', 'a'),
   ]);
   t.deepEqual(patches, []);
@@ -296,8 +296,8 @@ test('DB.create works after remove', async (t) => {
     ],
   });
   t.true(doc!.updatedAt >= t0);
-  t.true(doc!.version[0] >= t0);
-  t.is(doc!.version[1], 1);
+  t.true(doc!.version.major >= t0);
+  t.is(doc!.version.minor, 1);
 });
 
 test('DB.update works after remove but increments version and includes tombstone\'s patches', async (t) => {
@@ -327,8 +327,8 @@ test('DB.update works after remove but increments version and includes tombstone
     ],
   });
   t.true(doc!.updatedAt >= t0);
-  t.true(doc!.version[0] >= t0);
-  t.is(doc!.version[1], 1);
+  t.true(doc!.version.major >= t0);
+  t.is(doc!.version.minor, 1);
 });
 
 test('DB.update throws TypeError if updater returned undefined', async (t) => {
