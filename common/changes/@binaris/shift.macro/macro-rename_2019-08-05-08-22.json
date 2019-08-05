@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift.macro",
+      "comment": "Rename shift-babel-macro to shift.macro",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift.macro",
+  "email": "vladimir@shiftjs.com"
+}
