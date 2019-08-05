@@ -14,6 +14,9 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
       - run:
+          name: Generate interface packages
+          command: scripts/generate_interfaces
+      - run:
           name: Install dependencies
           command: node common/scripts/install-run-rush.js install
       - save_cache:
@@ -30,7 +33,8 @@ jobs:
             - '*/dist'
             - '*/node_modules'
             - common/temp
-
+            - gen-server
+            - gen-client
   lint:
     <<: *docker
     steps:
@@ -44,7 +48,7 @@ jobs:
     steps:
       - checkout
       - <<: *attach_workspace
-      - run: # Once the packages are pubic this can be removed
+      - run: # Once the packages are public this can be removed
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
@@ -54,6 +58,8 @@ jobs:
     <<: *docker
     steps:
       - checkout
+      # Only so rush changes can work; it will never understand something has changed.
+      - <<: *attach_workspace
       - run:
           name: Check for missing change logs
           command: |
@@ -82,7 +88,9 @@ workflows:
       - test:
           requires:
             - build
-      - verify_change_logs
+      - verify_change_logs:
+          requires:
+            - build
   weekly:
     triggers:
        - schedule:

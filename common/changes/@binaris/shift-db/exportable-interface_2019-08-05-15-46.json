@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db",
+      "comment": "Use exported types from client packa",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-db",
+  "email": "ariels@shiftjs.com"
+}
