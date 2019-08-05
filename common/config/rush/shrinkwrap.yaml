@@ -6,9 +6,7 @@ dependencies:
   '@babel/types': 7.5.5
   '@octokit/rest': 16.28.7
   '@rush-temp/rush-update': 'file:projects/rush-update.tgz'
-  '@rush-temp/shift-babel-common': 'file:projects/shift-babel-common.tgz'
-  '@rush-temp/shift-babel-macro': 'file:projects/shift-babel-macro.tgz'
-  '@rush-temp/shift-backend-babel-plugin': 'file:projects/shift-backend-babel-plugin.tgz'
+  '@rush-temp/shift-code-transform': 'file:projects/shift-code-transform.tgz'
   '@rush-temp/shift-db': 'file:projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
@@ -933,6 +931,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-xXD08vZsvpv4xptQXj1+ky22f7ZoKu5ZNI/4l+/BXG3X+XaeZsmaFbbTKuhSE3NjjvRuZFxFf9sQBMXIcZNFMQ==
+  /@types/node/10.14.15:
+    dev: false
+    resolution:
+      integrity: sha512-CBR5avlLcu0YCILJiDIXeU2pTw7UK/NIxfC63m7d7CVamho1qDEzXKkOtEauQRPMy6MI8mLozth+JJkas7HY6g==
   /@types/node/12.6.9:
     dev: false
     resolution:
@@ -8282,23 +8284,13 @@ packages:
       integrity: sha512-5Ibo96rhuG0/j6OMUSvLwbq9aBNg+1ylfICgUBAWhEaodo/mjhC3z+KBXtTWj050U7YTjJbn7UIhc951pjnXVA==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
-  'file:projects/shift-babel-common.tgz':
-    dependencies:
-      '@babel/types': 7.5.5
-      tslint: /tslint/5.18.0/typescript@3.5.3
-      typescript: 3.5.3
-    dev: false
-    name: '@rush-temp/shift-babel-common'
-    resolution:
-      integrity: sha512-5WqpFDprvbZjovcvgUwbiPKhji3LF2hRd69UQ6FgsayE0dm2+Tn6t6xwxEihNrBXIxbt/j01sFSDYsPTcGXFmg==
-      tarball: 'file:projects/shift-babel-common.tgz'
-    version: 0.0.0
-  'file:projects/shift-babel-macro.tgz':
+  'file:projects/shift-code-transform.tgz':
     dependencies:
       '@babel/parser': 7.5.5
       '@babel/types': 7.5.5
+      '@types/babel__traverse': 7.0.7
       '@types/jest': 24.0.17
-      '@types/node': 10.14.14
+      '@types/node': 10.14.15
       babel-plugin-macros: 2.6.1
       babel-plugin-tester: 6.4.0
       jest: 24.8.0
@@ -8306,24 +8298,10 @@ packages:
       tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
-    name: '@rush-temp/shift-babel-macro'
+    name: '@rush-temp/shift-code-transform'
     resolution:
-      integrity: sha512-NwkZPvdmJsWG+QJ5u6yXwz137566KnBhI4U/Wfy0dghOwZu8QA2N1eUtHdgRUyFRi+UzRoOKWq74sdjkfN9GDw==
-      tarball: 'file:projects/shift-babel-macro.tgz'
-    version: 0.0.0
-  'file:projects/shift-backend-babel-plugin.tgz':
-    dependencies:
-      '@babel/types': 7.5.5
-      '@types/babel__traverse': 7.0.7
-      babel-plugin-tester: 6.4.0
-      jest: 24.8.0
-      jest-standard-reporter: 1.0.1
-      typescript: 3.5.3
-    dev: false
-    name: '@rush-temp/shift-backend-babel-plugin'
-    resolution:
-      integrity: sha512-wyKhTspQL+LJc9GEP+NI5kqrY+e+TYS8gUK1SxTPt0AJHEga2szCpa6YEhWDtr8yw5bSd+aIUrTnP8XdIKFC1g==
-      tarball: 'file:projects/shift-backend-babel-plugin.tgz'
+      integrity: sha512-hGDBaBrZP9xg1hZXX6d0/1DtNbsFBqE979iRsDbI498yn2ao6j8evXldvUh7OsqZGmuP2Q/xCW6+Z+4v9dPLPw==
+      tarball: 'file:projects/shift-code-transform.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
     dependencies:
@@ -8346,7 +8324,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-h6DpvzICNERMLFjDhrKQ2t74Tbrttshvjll6cnAl+oIFiPBE7m0860jRd2MXBa4aHNg8DF4F5wlKtBS/B4SlZg==
+      integrity: sha512-bGb8uPFwkipgwpPJC6SfBhDnQdTC/HnnfSPhbAxIG5io7vkLdXSvDxaicLHGNepX/Ev6LRt6Wblfic9Pkg1uaA==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -8437,7 +8415,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-L6A/utRUsZCRiQV6jWg9kNOu2yPTT3pXS09VTF6ON9tedfcoekLJNyzu0fSZFTjEEDC89358OYJpho+X99IBqg==
+      integrity: sha512-9gzZFkd2GWKUPEZ6EBoHeVhNBQUagJThtKzKYUW7ATd8X7hhkakz8JWVaOJZIXJEteeFEPdMI7vDqtzaqcFgBA==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
@@ -8457,7 +8435,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-vJ4GOTHZBkmb5jenh1OvoUqHwXz88DzQLqoULDctQsRrGfri/l+aEs1epsWGlYex2eTkp3jBUxZb/eGTUKfsAw==
+      integrity: sha512-hysh7Ik/KZZm/5nkFLVU4ZarNtJTPMAnfOiBvWQim+w+bpt/wUBEIH84uzACtD537Aqt9skyR53jdvO9gV3LEA==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -8510,9 +8488,7 @@ specifiers:
   '@babel/types': ^7.5.5
   '@octokit/rest': ^16.28.7
   '@rush-temp/rush-update': 'file:./projects/rush-update.tgz'
-  '@rush-temp/shift-babel-common': 'file:./projects/shift-babel-common.tgz'
-  '@rush-temp/shift-babel-macro': 'file:./projects/shift-babel-macro.tgz'
-  '@rush-temp/shift-backend-babel-plugin': 'file:./projects/shift-backend-babel-plugin.tgz'
+  '@rush-temp/shift-code-transform': 'file:./projects/shift-code-transform.tgz'
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'

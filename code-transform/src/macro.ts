@@ -3,7 +3,7 @@ import { parse } from '@babel/parser';
 // not using since not sure if babel.types is the very same babel.types or a different version
 // import * as t from '@babel/types';
 import * as babelTypes from '@babel/types';
-import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from '@binaris/shift-babel-common';
+import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from './common';
 import { readFileSync } from 'fs';
 import path from 'path';
 

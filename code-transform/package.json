@@ -1,11 +1,12 @@
 {
-  "name": "@binaris/shift-babel-macro",
-  "version": "0.0.5",
+  "name": "@binaris/shift-code-transform",
+  "version": "0.0.0",
   "files": [
     "dist",
     "macro.js"
   ],
   "description": "",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc && cp -r src/test/backend dist/test/",
     "lint": "tslint -c ../common/tslint.yml -p .",
@@ -15,13 +16,13 @@
   "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.5.5",
-    "@binaris/shift-babel-common": "0.0.2",
     "babel-plugin-macros": "^2.6.1"
   },
   "devDependencies": {
     "@babel/types": "^7.5.5",
+    "@types/babel__traverse": "^7.0.7",
     "@types/jest": "^24.0.16",
-    "@types/node": "^10.14.9",
+    "@types/node": "^10.14.14",
     "babel-plugin-tester": "^6.4.0",
     "jest": "^24.8.0",
     "jest-standard-reporter": "^1.0.1",

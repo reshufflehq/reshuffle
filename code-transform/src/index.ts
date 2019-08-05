@@ -1,7 +1,7 @@
 import * as BabelTypes from '@babel/types';
 // tslint:disable-next-line:no-implicit-dependencies only used for Visitor and NodePath types
 import { Visitor, NodePath } from '@babel/traverse';
-import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from '@binaris/shift-babel-common';
+import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from './common';
 
 interface Babel {
   types: typeof BabelTypes;
