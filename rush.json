@@ -345,8 +345,8 @@
     //   "reviewCategory": "tools"
     // }
     {
-        "packageName": "@binaris/shift-babel-macro",
-        "projectFolder": "babel-macro",
+        "packageName": "@binaris/shift-code-transform",
+        "projectFolder": "code-transform",
         "shouldPublish": true
     },
     {
@@ -368,16 +368,6 @@
         "packageName": "@binaris/shift-interfaces",
         "projectFolder": "interfaces",
         "shouldPublish": false
-    },
-    {
-        "packageName": "@binaris/shift-backend-babel-plugin",
-        "projectFolder": "babel-plugin",
-        "shouldPublish": true
-    },
-    {
-        "packageName": "@binaris/shift-babel-common",
-        "projectFolder": "babel-common",
-        "shouldPublish": true
     },
     {
         "packageName": "@binaris/shift-subscriptions",
