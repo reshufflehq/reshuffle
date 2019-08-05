@@ -375,6 +375,11 @@
         "shouldPublish": true
     },
     {
+      "packageName": "shift-cli",
+      "projectFolder": "cli",
+      "shouldPublish": true
+    },
+    {
         "packageName": "@binaris/shiftjs-react-app",
         "projectFolder": "shiftjs-react-app",
         "shouldPublish": true
