@@ -28,32 +28,30 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`shift-cli hello [FILE]`](#shift-hello-file)
-* [`shift-cli help [COMMAND]`](#shift-help-command)
+* [`shift-cli deploy`](#shift-cli-deploy)
+* [`shift-cli help [COMMAND]`](#shift-cli-help-command)
+* [`shift-cli logs`](#shift-cli-logs)
 
-## `shift-cli hello [FILE]`
+## `shift-cli deploy`
 
-describe the command here
+deploy your ShiftJS project to its associated domain
 
 ```
 USAGE
-  $ shift-cli hello [FILE]
+  $ shift-cli deploy
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 
 EXAMPLE
-  $ shift-cli hello
-  hello world from ./src/hello.ts!
+  $ shift-cli deploy
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/src/commands/deploy.ts)_
 
 ## `shift-cli help [COMMAND]`
 
-display help for shift
+display help for shift-cli
 
 ```
 USAGE
@@ -67,4 +65,30 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
+
+## `shift-cli logs`
+
+Show logs
+
+```
+USAGE
+  $ shift-cli logs
+
+OPTIONS
+  -f, --follow       Follow log output like "tail -f".
+  -h, --help         show CLI help
+  -l, --limit=limit  [default: 500] Limit number of entries shown (cannot exceed 1000).
+  -s, --since=since  [default: 1m] Output logs since the given ISO 8601 timestamp or time period.
+
+EXAMPLES
+  $ shift-cli logs
+  $ shift-cli logs --follow
+  $ shift-cli logs --since 2018-03-09T22:12:21.861Z
+  $ shift-cli logs --since 3d
+  $ shift-cli logs --since 13hours
+  $ shift-cli logs --since 9s*
+  $ shift-cli logs --since 2m --follow
+```
+
+_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/src/commands/logs.ts)_
 <!-- commandsstop -->
