@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@binaris/shift-fetch-runtime": "0.0.3",
-    "@binaris/shift-interfaces-node-client": "^0.2.0-rc.1",
+    "@binaris/shift-interfaces-node-client": "^0.2.0",
     "fast-json-patch": "^2.2.0",
     "immutable": "^4.0.0-rc.12",
     "react": "^16.8.6",
