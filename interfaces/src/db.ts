@@ -100,7 +100,15 @@ export interface Query {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface ClientContext {}
+export interface ClientContext {
+  auth: {
+    v1: {
+      // Contents TBD
+      accountId: string;
+      token: string;
+    };
+  };
+}
 
 export interface ServerOnlyContext {
   tags?: { [key: string]: string };
@@ -139,6 +147,11 @@ export interface VersionedObject {
   value: Serializable;
 }
 
+export interface VersionedMaybeObject {
+  version: Version;
+  value?: Serializable;
+}
+
 interface Patches {
   /**
    * Stores changes made to the document, meant to be used internally by poll().
@@ -175,7 +188,7 @@ export interface DB {
    */
   getWithVersion: {
     params: { key: string; };
-    returns: StoredDocument | Tombstone;
+    returns: VersionedMaybeObject;
   };
 
   /**
@@ -193,7 +206,7 @@ export interface DB {
    */
   startPolling: {
     params: { key: string; }
-    returns: StoredDocument | Tombstone;
+    returns: VersionedMaybeObject;
   };
 
   /**
