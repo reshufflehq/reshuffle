@@ -81,16 +81,34 @@ workflows:
   version: 2
   commit:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                # according to https://circleci.com/docs/2.0/configuration-reference/#filters-1
+                # regex should capture the whole string, so not /^publish-/
+                - /publish-.*/
       - lint:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - /publish-.*/
       - test:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - /publish-.*/
       - verify_change_logs:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - /publish-.*/
   weekly:
     triggers:
        - schedule:
