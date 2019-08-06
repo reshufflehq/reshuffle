@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@binaris/shift-db",
-      "comment": "Use exported types from client packa",
+      "comment": "Use exported types from client package",
       "type": "patch"
     }
   ],
