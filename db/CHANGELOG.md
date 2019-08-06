@@ -1,6 +1,17 @@
 # Change Log - @binaris/shift-db
 
-This log was last generated on Thu, 01 Aug 2019 12:37:42 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Aug 2019 12:22:25 GMT and should not be manually modified.
+
+## 0.3.0
+Tue, 06 Aug 2019 12:22:25 GMT
+
+### Minor changes
+
+- Disallow all non-JSONable types at top level of values
+
+### Patches
+
+- Use exported types from client package
 
 ## 0.2.2
 Thu, 01 Aug 2019 12:37:42 GMT

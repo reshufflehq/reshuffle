@@ -2,6 +2,23 @@
   "name": "@binaris/shift-db",
   "entries": [
     {
+      "version": "0.3.0",
+      "tag": "@binaris/shift-db_v0.3.0",
+      "date": "Tue, 06 Aug 2019 12:22:25 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use exported types from client package"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Disallow all non-JSONable types at top level of values"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.2",
       "tag": "@binaris/shift-db_v0.2.2",
       "date": "Thu, 01 Aug 2019 12:37:42 GMT",

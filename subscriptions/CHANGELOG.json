@@ -2,6 +2,18 @@
   "name": "@binaris/shift-subscriptions",
   "entries": [
     {
+      "version": "0.0.4",
+      "tag": "@binaris/shift-subscriptions_v0.0.4",
+      "date": "Tue, 06 Aug 2019 12:22:25 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use exported types from client package"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.3",
       "tag": "@binaris/shift-subscriptions_v0.0.3",
       "date": "Thu, 01 Aug 2019 12:37:42 GMT",
