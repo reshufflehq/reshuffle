@@ -47,8 +47,9 @@
   "repository": "binaris/shiftjs",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "posttest": "tslint -p . -t stylish",
+    "posttest": "tslint -c ../common/tslint.yml -p . -t stylish",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md"
   },
