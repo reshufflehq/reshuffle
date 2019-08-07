@@ -1,6 +1,10 @@
 import { Command, flags } from '@oclif/command';
 import ms from 'ms';
+import { isInt } from 'validator';
 import {error} from '@oclif/errors'
+
+const MIN_LIMIT = 1;
+const MAX_LIMIT = 1000;
 
 export default class Logs extends Command {
   public static description = 'Show logs';
@@ -39,6 +43,10 @@ export default class Logs extends Command {
     const sinceMs = ms(since)
     if (sinceMs === undefined) {
       error(`Expected a formatted duration format but received: ${since}`);
+    }
+
+    if(!isInt(limit.toString(), { max: MAX_LIMIT, min: MIN_LIMIT })) {
+      error(`Expected a value between ${MIN_LIMIT} and ${MAX_LIMIT} but received: ${limit}`);
     }
 
     this.log('Logs', { since, sinceMs, follow, limit });
