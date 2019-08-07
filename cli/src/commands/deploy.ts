@@ -9,7 +9,7 @@ export default class Deploy extends Command {
   ];
 
   public static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
   };
 
   public static args = [];

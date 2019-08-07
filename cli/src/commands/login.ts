@@ -7,7 +7,7 @@ export default class Login extends Command {
   public static description = 'Login to ShiftJS';
 
   public static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
   };
 
   public static args = [];
