@@ -3,7 +3,7 @@ import { Server } from '../index';
 
 async function testServer(t: ExecutionContext, url: string, expected: any) {
   const server = new Server(process.cwd());
-  const value = await server.handle(url);
+  const value = await server.handle(url, {});
   t.deepEqual(expected, value);
 }
 
