@@ -1,4 +1,5 @@
-import { Command, flags } from '@oclif/command';
+import { Command } from '@oclif/command';
+import flags from '../utils/cli-flags';
 
 export default class Deploy extends Command {
   public static description = 'deploy your ShiftJS project to its associated domain';
