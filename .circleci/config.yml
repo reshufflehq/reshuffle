@@ -82,7 +82,7 @@ workflows:
   commit:
     jobs:
       - build:
-          filters:
+          filters: &ignore_publish
             branches:
               ignore:
                 # according to https://circleci.com/docs/2.0/configuration-reference/#filters-1
@@ -91,24 +91,15 @@ workflows:
       - lint:
           requires:
             - build
-          filters:
-            branches:
-              ignore:
-                - /publish-.*/
+          filters: *ignore_publish
       - test:
           requires:
             - build
-          filters:
-            branches:
-              ignore:
-                - /publish-.*/
+          filters: *ignore_publish
       - verify_change_logs:
           requires:
             - build
-          filters:
-            branches:
-              ignore:
-                - /publish-.*/
+          filters: *ignore_publish
   weekly:
     triggers:
        - schedule:
