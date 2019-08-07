@@ -1,4 +1,5 @@
-import { Command, flags } from '@oclif/command';
+import { Command } from '@oclif/command';
+import flags from '../utils/cli-flags';
 
 export default class Login extends Command {
   public static hidden = true;
