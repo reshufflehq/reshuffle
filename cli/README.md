@@ -77,16 +77,25 @@ USAGE
 OPTIONS
   -f, --follow       Follow log output like "tail -f".
   -h, --help         show CLI help
-  -l, --limit=limit  [default: 500] Limit number of entries shown (cannot exceed 1000).
   -s, --since=since  [default: 1m] Output logs since the given ISO 8601 timestamp or time period.
+  --limit=limit
 
 EXAMPLES
+  // retrieve all logs
   $ shift-cli logs
+
+  // tail all logs
   $ shift-cli logs --follow
+
+  // ISO
   $ shift-cli logs --since 2018-03-09T22:12:21.861Z
+
+  // offset format
   $ shift-cli logs --since 3d
   $ shift-cli logs --since 13hours
-  $ shift-cli logs --since 9s*
+  $ shift-cli logs --since 9s
+
+  // show all logs from 2 minutes ago and follow in real time
   $ shift-cli logs --since 2m --follow
 ```
 
