@@ -47,7 +47,7 @@ EXAMPLE
   $ shift-cli deploy
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/cli/src/commands/deploy.ts)_
 
 ## `shift-cli help [COMMAND]`
 
@@ -90,5 +90,5 @@ EXAMPLES
   $ shift-cli logs --since 2m --follow
 ```
 
-_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/src/commands/logs.ts)_
+_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/v0.0.0/cli/src/commands/logs.ts)_
 <!-- commandsstop -->
