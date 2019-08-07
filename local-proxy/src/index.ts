@@ -82,7 +82,8 @@ export function setupProxy(sourceDir: string) {
   return (app: Application) => {
     const promiseHolder = startProxy(rootDir, localToken);
     app.use(async (req, res, next) => {
-      const decision = await shiftServer.handle(req.url);
+      // pass empty headers since caching not used in local-proxy anyway
+      const decision = await shiftServer.handle(req.url, {});
       switch (decision.action) {
         case 'handleInvoke': {
           const port = await promiseHolder.portPromise;

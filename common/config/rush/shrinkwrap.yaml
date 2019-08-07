@@ -32,6 +32,7 @@ dependencies:
   '@types/bunyan': 1.8.6
   '@types/deep-freeze': 0.1.2
   '@types/express': 4.17.0
+  '@types/fresh': 0.5.0
   '@types/got': 9.6.6
   '@types/http-proxy': 1.17.0
   '@types/jest': 24.0.17
@@ -43,6 +44,7 @@ dependencies:
   '@types/leveldown': 4.0.0
   '@types/levelup': 3.1.1
   '@types/lodash.once': 4.1.6
+  '@types/milliseconds': 0.0.29
   '@types/mime-types': 2.1.0
   '@types/mkdirp': 0.5.2
   '@types/ms': 0.7.30
@@ -70,6 +72,7 @@ dependencies:
   express: 4.17.1
   fast-json-patch: 2.2.1
   fixture-stdout: 0.2.1
+  fresh: 0.5.2
   globby: 10.0.1
   got: 9.6.0
   http-proxy: 1.17.0
@@ -84,6 +87,7 @@ dependencies:
   leveldown: 5.1.1
   levelup: 4.1.0
   lodash.once: 4.1.1
+  milliseconds: 1.0.3
   mime-types: 2.1.24
   mkdirp: 0.5.1
   ms: 2.1.2
@@ -981,6 +985,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-CjaMu57cjgjuZbh9DpkloeGxV45CnMGlVd+XpG7Gm9QgVrd7KFq+X4HY0vM+2v0bczS48Wg7bvnMY5TN+Xmcfw==
+  /@types/fresh/0.5.0:
+    dev: false
+    resolution:
+      integrity: sha512-eGPzuyc6wZM3sSHJdF7NM2jW6B/xsB014Rqg/iDa6xY02mlfy1w/TE2sYhR8vbHxkzJOXiGo6NuIk3xk35vsgQ==
   /@types/glob/7.1.1:
     dependencies:
       '@types/events': 3.0.0
@@ -1099,6 +1107,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-0GJhzBdvsW2RUccNHOBkabI8HZVdOXmXbXhuKlDEd5Vv12P7oAVGfomGp3Ne21o5D/qu1WmthlNKFaoZJJeErA==
+  /@types/milliseconds/0.0.29:
+    dev: false
+    resolution:
+      integrity: sha512-JXQwnlBGHY+Z1kN+PGdFl8C2Ew2/EHLf3pLwQ6ROLp2DIxH0sjgjdp3H0JlXeBus/KhE9C9vEdS5WAKIb/OcPg==
   /@types/mime-types/2.1.0:
     dev: false
     resolution:
@@ -5795,6 +5807,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-y7FpHSbMUMoyPbYUSzO6PaZ6FyRnQOpHuKwbo1G+Knck95XVU4QAiKdGEnj5wwoS7PlOgthX/09u5iFJ+aYf5Q==
+  /milliseconds/1.0.3:
+    dev: false
+    resolution:
+      integrity: sha1-H/Q3xPc0sTjvfCztuk2IgMf1wtg=
   /mime-db/1.40.0:
     dev: false
     engines:
@@ -9149,12 +9165,13 @@ packages:
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
     dependencies:
+      '@types/node': 10.14.15
       tslint: /tslint/5.18.0/typescript@3.5.3
       typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
     resolution:
-      integrity: sha512-4fjRMYNdUQ3w6VMzkT/0PMknschpGaK6gnRjeb01129Y91Dk8jRC7VGwxI5Yk60lw2NH1VsGM+qpcjfO8LZCIA==
+      integrity: sha512-kNhMcrSyCWmw0svaCE+/eoqycKafPCjq1OFtFV8gb5Oh6R+G2xMNR1wb9g5iFvKkHjBNgTVbAZC0pTYOWA/ABg==
       tarball: 'file:projects/shift-fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/shift-interfaces-koa-server.tgz':
@@ -9240,16 +9257,20 @@ packages:
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
     dependencies:
+      '@types/fresh': 0.5.0
+      '@types/milliseconds': 0.0.29
       '@types/mime-types': 2.1.0
       '@types/mz': 0.0.32
       '@types/node': 10.14.15
       ava: 2.2.0
+      fresh: 0.5.2
+      milliseconds: 1.0.3
       mime-types: 2.1.24
       mz: 2.7.0
     dev: false
     name: '@rush-temp/shift-server-function'
     resolution:
-      integrity: sha512-+Z7nEX31Sqa/c4QllirJbaFl0yz+ikHwLDiMzif3JUG7Gj6UFoc9GOrYs+gjYo360wxd7LsdmHKm+aaptanRmA==
+      integrity: sha512-ZGasiqRYH5WTm8Ujz6UOcaSoo37b2xRASCgNTOMiJ+sTH552ZS4OjafLRpsoiMM8jMahzq2i0MdqFZyXeH/ctQ==
       tarball: 'file:projects/shift-server-function.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
@@ -9349,6 +9370,7 @@ specifiers:
   '@types/bunyan': ^1.8.6
   '@types/deep-freeze': ^0.1.1
   '@types/express': ^4.17.0
+  '@types/fresh': ^0.5.0
   '@types/got': ^9.6.5
   '@types/http-proxy': ^1.17.0
   '@types/jest': ^24.0.16
@@ -9360,6 +9382,7 @@ specifiers:
   '@types/leveldown': ^4.0.0
   '@types/levelup': ^3.1.1
   '@types/lodash.once': ^4.1.6
+  '@types/milliseconds': ^0.0.29
   '@types/mime-types': ^2.1.0
   '@types/mkdirp': ^0.5.2
   '@types/ms': ^0.7.30
@@ -9387,6 +9410,7 @@ specifiers:
   express: ^4.17.1
   fast-json-patch: ^2.2.0
   fixture-stdout: ^0.2.1
+  fresh: ^0.5.2
   globby: ^10.0.1
   got: ^9.6.0
   http-proxy: ^1.17.0
@@ -9401,6 +9425,7 @@ specifiers:
   leveldown: ^5.1.1
   levelup: ^4.1.0
   lodash.once: ^4.1.1
+  milliseconds: ^1.0.3
   mime-types: ^2.1.24
   mkdirp: ^0.5.1
   ms: ^2.1.2

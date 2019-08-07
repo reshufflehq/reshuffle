@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 rm -rf .shift_deploy
 npm run build
 mkdir -p .shift_deploy/node_modules
 cp -a build .shift_deploy
-for i in $(node getdeps.js) ; do
+for i in $(node $DIR/getdeps.js) ; do
   dirtocreate=$(dirname node_modules/$i)
   mkdir -p .shift_deploy/$dirtocreate
   cp -a node_modules/$i .shift_deploy/$dirtocreate
@@ -26,7 +27,7 @@ const shiftServer = new Server('./build');
 
 exports.handler = async function (body, ctx) {
   const url = ctx.request.path;
-  const decision = await shiftServer.handle(url);
+  const decision = await shiftServer.handle(url, ctx.request.headers);
 console.error(decision);
 console.error(url);
   switch (decision.action) {
@@ -43,9 +44,13 @@ console.error(url);
       });
     }
     case 'serveFile': {
+      const headers ={ 'Content-Type': decision.contentType };
+      if (decision.cacheHint) {
+        Object.assign(headers, decision.cacheHint);
+      }
       return new ctx.HTTPResponse({
         statusCode: 200,
-        headers: { 'Content-Type': decision.contentType },
+        headers,
         body: fs.readFileSync(decision.fullPath)
       });
     }
