@@ -5,14 +5,23 @@ export default class Logs extends Command {
   public static description = 'Show logs';
 
   public static examples = [
-    '$ shift-cli logs',
-    '$ shift-cli logs --follow',
-    '$ shift-cli logs --since 2018-03-09T22:12:21.861Z',
-    '$ shift-cli logs --since 3d',
-    '$ shift-cli logs --since 13hours',
-    '$ shift-cli logs --since 9s*',
-    '$ shift-cli logs --since 2m --follow',
-  ];
+`// retrieve all logs
+$ shift-cli logs
+`,
+`// tail all logs
+$ shift-cli logs --follow
+`,
+`// ISO
+$ shift-cli logs --since 2018-03-09T22:12:21.861Z
+`,
+`// offset format
+$ shift-cli logs --since 3d
+$ shift-cli logs --since 13hours
+$ shift-cli logs --since 9s
+`,
+`// show all logs from 2 minutes ago and follow in real time
+$ shift-cli logs --since 2m --follow`
+];
 
   public static flags = {
     help: flags.help({ char: 'h' }),
