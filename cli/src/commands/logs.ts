@@ -1,4 +1,6 @@
 import { Command, flags } from '@oclif/command';
+import ms from 'ms';
+import {error} from '@oclif/errors'
 
 export default class Logs extends Command {
   public static description = 'Show logs';
@@ -31,9 +33,15 @@ export default class Logs extends Command {
   public static args = [];
 
   public async run() {
+
     const {flags: { since, follow, limit }} = this.parse(Logs);
 
-    this.log('Logs', { since, follow, limit });
+    const sinceMs = ms(since)
+    if (sinceMs === undefined) {
+      error(`Expected a formatted duration format but received: ${since}`);
+    }
+
+    this.log('Logs', { since, sinceMs, follow, limit });
 
   }
 }
