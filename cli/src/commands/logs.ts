@@ -15,7 +15,7 @@ export default class Logs extends Command {
   ];
 
   public static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
     limit: flags.minMaxInt({
       char: 'l',
       description: 'Limit number of entries shown (cannot exceed 1000).',
@@ -23,7 +23,10 @@ export default class Logs extends Command {
       min: 1,
       max: 1000,
     }),
-    follow: flags.boolean({char: 'f', description: 'Follow log output like "tail -f".'}),
+    follow: flags.boolean({
+      char: 'f',
+      description: 'Follow log output like "tail -f".'
+    }),
     since: flags.durationOrTimestamp({
       char: 's',
       description: 'Output logs since the given ISO 8601 timestamp or time period.',
