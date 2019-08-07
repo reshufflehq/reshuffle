@@ -54,6 +54,7 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "echo NO TESTS",
+    "build": "npm run prepack",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"
