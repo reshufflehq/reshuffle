@@ -12,11 +12,13 @@
     "@oclif/config": "^1.13.2",
     "@oclif/plugin-help": "^2.2.0",
     "@oclif/plugin-not-found": "^1.2.2",
+    "ms": "^2.1.2",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/tslint": "^3.1.1",
+    "@types/ms": "^0.7.30",
     "@types/node": "^10.14.14",
     "globby": "^10.0.1",
     "ts-node": "^8.3.0",
