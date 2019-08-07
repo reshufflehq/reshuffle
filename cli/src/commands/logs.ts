@@ -1,26 +1,27 @@
 import { Command } from '@oclif/command';
 import flags from '../utils/cli-flags';
+import { cliBinName } from '../utils/config';
 
 export default class Logs extends Command {
   public static description = 'Show logs';
 
   public static examples = [
 `// retrieve all logs
-$ shift-cli logs
+$ ${cliBinName} logs
 `,
 `// tail all logs
-$ shift-cli logs --follow
+$ ${cliBinName} logs --follow
 `,
 `// ISO
-$ shift-cli logs --since 2018-03-09T22:12:21.861Z
+$ ${cliBinName} logs --since 2018-03-09T22:12:21.861Z
 `,
 `// offset format
-$ shift-cli logs --since 3d
-$ shift-cli logs --since 13hours
-$ shift-cli logs --since 9s
+$ ${cliBinName} logs --since 3d
+$ ${cliBinName} logs --since 13hours
+$ ${cliBinName} logs --since 9s
 `,
 `// show all logs from 2 minutes ago and follow in real time
-$ shift-cli logs --since 2m --follow`
+$ ${cliBinName} logs --since 2m --follow`,
 ];
 
   public static flags = {
@@ -34,7 +35,7 @@ $ shift-cli logs --since 2m --follow`
     }),
     follow: flags.boolean({
       char: 'f',
-      description: 'Follow log output like "tail -f".'
+      description: 'Follow log output like "tail -f".',
     }),
     since: flags.durationOrTimestamp({
       char: 's',
