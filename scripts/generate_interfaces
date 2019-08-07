@@ -2,7 +2,7 @@
 set -euo pipefail
 
 (cd interfaces/ &&
-     npm install --no-package-json &&
+     npm install --no-package-lock &&
      npm run generate-koa-server && npm run generate-node-client)
 
 # Might not work if file already has "scripts" entry.
