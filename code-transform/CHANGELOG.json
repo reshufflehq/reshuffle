@@ -2,6 +2,18 @@
   "name": "@binaris/shift-code-transform",
   "entries": [
     {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-code-transform_v0.0.2",
+      "date": "Thu, 08 Aug 2019 13:53:27 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add missing macro file"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.1",
       "tag": "@binaris/shift-code-transform_v0.0.1",
       "date": "Thu, 08 Aug 2019 11:33:32 GMT",
