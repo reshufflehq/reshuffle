@@ -111,7 +111,7 @@ test('install creates node_modules', async () => {
   expect(msg).toBe(`Packages installed
 Modified package.json, please commit this file`);
   await promiseAccess('node_modules');
-}, 60000);
+}, 180000);
 
 test('ignore does not create .gitignore', async () => {
   await fakeApp();
