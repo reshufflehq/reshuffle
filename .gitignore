@@ -67,3 +67,4 @@ package-deps.json
 # Concord auto-generated files
 gen-client/
 gen-server/
+oclif.manifest.json
