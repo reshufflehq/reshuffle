@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shiftjs-react-app",
+      "comment": "Use code-transform instead of deprecated babel-macro package",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shiftjs-react-app",
+  "email": "vladimir@shiftjs.com"
+}
