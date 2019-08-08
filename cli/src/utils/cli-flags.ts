@@ -10,8 +10,13 @@ export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & {
 
 export default {
   ...flags,
+  realm: flags.string({
+    default: 'prod',
+    hidden: true,
+    env: 'realm',
+  }),
   minMaxInt: ({min, max}: MinMaxIntFlagOptions) => flags.integer({
-    parse: (val) => {
+    parse(val) {
       if (!isInt(val, { min, max })) {
         error(`Expected an integer between ${min} and ${max} but received: ${val}`);
       }
@@ -19,7 +24,7 @@ export default {
     },
   }),
   durationOrTimestamp: flags.build({
-    parse: (val) => {
+    parse(val) {
       if (isISO8601(val)) {
         return val;
       }
