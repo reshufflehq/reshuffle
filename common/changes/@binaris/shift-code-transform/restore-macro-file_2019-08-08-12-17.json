@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-code-transform",
+      "comment": "Add missing macro file",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-code-transform",
+  "email": "vladimir@shiftjs.com"
+}
