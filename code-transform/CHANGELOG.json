@@ -1,0 +1,17 @@
+{
+  "name": "@binaris/shift-code-transform",
+  "entries": [
+    {
+      "version": "0.0.1",
+      "tag": "@binaris/shift-code-transform_v0.0.1",
+      "date": "Thu, 08 Aug 2019 11:33:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Unify babel-macro and babel-plugin to code-transform"
+          }
+        ]
+      }
+    }
+  ]
+}
