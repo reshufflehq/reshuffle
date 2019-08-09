@@ -2,6 +2,18 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.9",
+      "tag": "@binaris/shift-local-proxy_v0.0.9",
+      "date": "Fri, 09 Aug 2019 16:09:50 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Generate source maps for transpiled backend sources"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.8",
       "tag": "@binaris/shift-local-proxy_v0.0.8",
       "date": "Tue, 06 Aug 2019 12:22:25 GMT",

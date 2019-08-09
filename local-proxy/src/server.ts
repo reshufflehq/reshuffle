@@ -45,6 +45,7 @@ const transpilePromise = babelDir({
     outDir: tmpDir,
   },
   babelOptions: {
+    sourceMaps: true,
     plugins: ['@babel/plugin-transform-modules-commonjs'],
   },
 });

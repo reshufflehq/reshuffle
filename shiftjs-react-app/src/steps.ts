@@ -48,7 +48,7 @@ export function installPackages(): Promise<string> {
   return new Promise((resolve, reject) => {
     const dependencies = [
       '@binaris/shift-local-proxy',
-      '@binaris/shift-babel-macro',
+      '@binaris/shift-code-transform',
       '@binaris/shift-fetch-runtime',
       '@binaris/shift-db',
     ];
