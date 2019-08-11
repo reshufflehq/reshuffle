@@ -4,6 +4,7 @@ import * as Parser from '@oclif/parser';
 import { URL } from 'url';
 import open from 'open';
 import ms from 'ms';
+import terminalLink from 'terminal-link';
 import { LycanClient } from '@binaris/spice-node-client';
 import flags from './cli-flags';
 import { getBaseUrl } from './config';
@@ -41,9 +42,12 @@ export default abstract class BaseCommand extends Command {
   }
 
   public async authenticate(force = false): Promise<string> {
-    const storedAccessToken = userConfig.get('accessToken') as string | undefined;
-    if (storedAccessToken && !force) {
-      return storedAccessToken;
+    if (!force) {
+      const storedAccessToken = userConfig.get('accessToken') as string | undefined;
+      if (storedAccessToken) {
+        return storedAccessToken;
+      }
+      this.log('No existing ShiftJS credentials found!');
     }
 
     if (!this.lycanClient) {
@@ -53,9 +57,11 @@ export default abstract class BaseCommand extends Command {
     const { ticket, expires } = await this.lycanClient.createTicket();
     const ticketExpiration = Date.now() + ms(expires);
 
-    await this.openBrowserLogin(ticket);
+    const loginHref = this.getBrowserLoginUrl(ticket);
+    this.log('A new tab should open in your browser momentarily automatically completing the login process.');
+    this.log(`If that does not happen, click ${terminalLink('here', loginHref)}.`);
+    await open(loginHref);
 
-    this.log('waiting for ticket...');
     let accessToken: string | undefined;
     while (accessToken === undefined && Date.now() < ticketExpiration) {
       await sleep(TICKET_CLAIM_INTERVAL_MS);
@@ -69,19 +75,19 @@ export default abstract class BaseCommand extends Command {
     }
 
     if (!accessToken) {
-      throw new CLIError('Failed to authenticate.');
+      throw new CLIError('Failed to login.');
     }
 
+    this.log('Successfully logged into ShiftJS!');
     userConfig.set({ accessToken });
     return accessToken;
   }
 
-  private async openBrowserLogin(ticket: string): Promise<void> {
+  private getBrowserLoginUrl(ticket: string): string {
     const { flags: { realm } } = this.parse(BaseCommand);
     const loginUrl = new URL(`${getBaseUrl('app', realm)}/cli-login`);
     loginUrl.searchParams.set(LOGIN_PARAM, ticket);
-    this.log(`Opening ${loginUrl.href} in the browser...`);
-    await open(loginUrl.href);
+    return loginUrl.href;
   }
 }
 
