@@ -14,6 +14,8 @@
     "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2.2.0",
     "@oclif/plugin-not-found": "^1.2.2",
+    "conf": "^5.0.0",
+    "js-yaml": "^3.13.1",
     "ms": "^2.1.2",
     "tslib": "^1.10.0",
     "validator": "^11.1.0"
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/tslint": "^3.1.1",
+    "@types/js-yaml": "^3.12.1",
     "@types/ms": "^0.7.30",
     "@types/node": "^10.14.14",
     "@types/validator": "^10.11.2",

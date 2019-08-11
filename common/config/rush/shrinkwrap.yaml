@@ -4,10 +4,12 @@ dependencies:
   '@babel/parser': 7.5.5
   '@babel/plugin-transform-modules-commonjs': 7.5.0
   '@babel/types': 7.5.5
+  '@binaris/shift-interfaces-node-client': 0.3.0
   '@oclif/command': 1.5.18
   '@oclif/config': 1.13.2
   '@oclif/dev-cli': 1.22.2
   '@oclif/errors': 1.2.2
+  '@oclif/parser': 3.8.4
   '@oclif/plugin-help': 2.2.0
   '@oclif/plugin-not-found': 1.2.2
   '@oclif/tslint': 3.1.1
@@ -32,6 +34,7 @@ dependencies:
   '@types/http-proxy': 1.17.0
   '@types/jest': 24.0.17
   '@types/jju': 1.4.1
+  '@types/js-yaml': 3.12.1
   '@types/koa': 2.0.49
   '@types/koa-bodyparser': 5.0.2
   '@types/koa-router': 7.0.35
@@ -58,6 +61,7 @@ dependencies:
   babel-plugin-tester: 6.4.0
   bunyan: 1.8.12
   bunyan-rotating-file-stream: 1.6.3
+  conf: 5.0.0
   deep-freeze: 0.0.1
   express: 4.17.1
   fast-json-patch: 2.2.1
@@ -69,6 +73,7 @@ dependencies:
   jest: 24.8.0
   jest-standard-reporter: 1.0.1
   jju: 1.4.0
+  js-yaml: 3.13.1
   koa: 2.7.0
   koa-bodyparser: 4.2.1
   koa-router: 7.4.0
@@ -183,7 +188,7 @@ packages:
       json5: 2.1.0
       lodash: 4.17.15
       resolve: 1.12.0
-      semver: 5.7.0
+      semver: 5.7.1
       source-map: 0.5.7
     dev: false
     engines:
@@ -429,6 +434,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-s63F9nJioLqOlW3UkyMd+BYhXt44YuaFm/VV0VwuteqjYwRrObkU7ra9pY4wAJR3oXi8hJrMcrcJdO/HH33vtw==
+  /@binaris/shift-interfaces-node-client/0.3.0:
+    dependencies:
+      '@types/node-fetch': 2.5.0
+      abort-controller: 2.0.3
+      ajv: 6.10.2
+      lodash: 4.17.15
+      node-fetch: 2.6.0
+    dev: false
+    resolution:
+      integrity: sha512-m1OcbpeZFzJiTPI4eS8n6GgcQFDYK34fMtUVY6sJM/5z7+WtLuysduwaaYD2BMXBncVFP+kcHQzBbZjk+to9og==
   /@cnakazawa/watch/1.0.3:
     dependencies:
       exec-sh: 0.3.2
@@ -669,7 +684,7 @@ packages:
       '@oclif/parser': 3.8.4
       '@oclif/plugin-help': 2.2.0
       debug: 4.1.1
-      semver: 5.7.0
+      semver: 5.7.1
     dev: false
     engines:
       node: '>=8.0.0'
@@ -1005,6 +1020,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LFt+YA7Lv2IZROMwokZKiPNORAV5N3huMs3IKnzlE430HWhWYZ8b+78HiwJXJJP1V2IEjinyJURuRJfGoaFSIA==
+  /@types/js-yaml/3.12.1:
+    dev: false
+    resolution:
+      integrity: sha512-SGGAhXLHDx+PK4YLNcNGa6goPf9XRWQNAUUbffkwVGGXIxmDKWyGGL4inzq2sPmExu431Ekb9aEMn9BkPqEYFA==
   /@types/keygrip/1.0.1:
     dev: false
     resolution:
@@ -1106,7 +1125,7 @@ packages:
       integrity: sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
   /@types/ramda/0.26.19:
     dependencies:
-      ts-toolbelt: 3.6.1
+      ts-toolbelt: 3.7.1
     dev: false
     resolution:
       integrity: sha512-lJuMZDXqZ8W2hl0Gz+wEPUhXcf/tZRuaO5vrxFD3Dv2XMqgTZVw+bvfS6iQAsio9XQV+uhkggtT4eLhDmUpI5g==
@@ -1884,7 +1903,7 @@ packages:
     dependencies:
       async: 1.5.2
       lodash: 4.17.15
-      semver: 5.7.0
+      semver: 5.7.1
       strftime: 0.9.2
     dev: false
     engines:
@@ -2236,7 +2255,7 @@ packages:
       is-wsl: 1.1.0
       lodash: 4.17.15
       password-prompt: 1.1.2
-      semver: 5.7.0
+      semver: 5.7.1
       strip-ansi: 5.2.0
       supports-color: 5.5.0
       supports-hyperlinks: 1.0.1
@@ -2266,7 +2285,7 @@ packages:
       lodash: 4.17.15
       natural-orderby: 2.0.3
       password-prompt: 1.1.2
-      semver: 5.7.0
+      semver: 5.7.1
       string-width: 3.1.0
       strip-ansi: 5.2.0
       supports-color: 5.5.0
@@ -2429,13 +2448,27 @@ packages:
       lodash.islength: 4.0.1
       lodash.merge: 4.6.2
       md5-hex: 2.0.0
-      semver: 5.7.0
+      semver: 5.7.1
       well-known-symbols: 2.0.0
     dev: false
     engines:
       node: '>=6.12.3 <7 || >=8.9.4 <9 || >=10.0.0'
     resolution:
       integrity: sha512-l0RFuB8RLfCS0Pt2Id39/oCPykE01pyxgAFypWTlaGRgvLkZrtczZ8atEHpTeEIW+zYWXTBuA9cCSeEOScxReQ==
+  /conf/5.0.0:
+    dependencies:
+      ajv: 6.10.2
+      dot-prop: 5.1.0
+      env-paths: 2.2.0
+      json-schema-typed: 7.0.1
+      make-dir: 3.0.0
+      pkg-up: 3.1.0
+      write-file-atomic: 3.0.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-lRNyt+iRD4plYaOSVTxu1zPWpaH0EOxgFIR1l3mpC/DGZ7XzhoGFMKmbl54LAgXcSu6knqWgOwdINkqm58N85A==
   /configstore/3.1.2:
     dependencies:
       dot-prop: 4.2.0
@@ -2568,7 +2601,7 @@ packages:
     dependencies:
       nice-try: 1.0.5
       path-key: 2.0.1
-      semver: 5.7.0
+      semver: 5.7.1
       shebang-command: 1.2.0
       which: 1.3.1
     dev: false
@@ -2945,6 +2978,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1MkrZNvWTKCaigbn+W15elq2BB/L22nqrSY5DKlo3X6+vclJm8Bb5djXJBmEX6fS3+zCh/F4VBK5Z2KxJt4s2Q==
+  /env-paths/2.2.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-6u0VYSCo/OW6IoD5WCLLy9JUGARbamfSavcNXry/eu8aHVFei6CD3Sw+VGX5alea1i9pgPHW0mbu6Xj0uBh7gA==
   /equal-length/1.0.1:
     dev: false
     engines:
@@ -3025,7 +3064,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
-  /escodegen/1.11.1:
+  /escodegen/1.12.0:
     dependencies:
       esprima: 3.1.3
       estraverse: 4.2.0
@@ -3038,7 +3077,7 @@ packages:
     optionalDependencies:
       source-map: 0.6.1
     resolution:
-      integrity: sha512-JwiqFD9KdGVVpeuRa68yU3zZnBEOcPs0nKW7wZzXky8Z7tffdYUHbe11bPCV5jYlK6DVdKLWLm0f5I/QlL0Kmw==
+      integrity: sha512-TuA+EhsanGcme5T3R0L80u4t8CpbXQjegRmf7+FPTJrtCTErXFeelblRgHQa1FofEzqYYJmJ/OqjTwREp9qgmg==
   /esm/3.2.25:
     dev: false
     engines:
@@ -3853,12 +3892,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-PqWdhnQhq6tqD32hZv+l1e5mJHNSudjnaAzgAHfkGiU0ABN6lmbZF8abJIulQHbZ7oiHhP8yL6O910ICMc+5pw==
-  /hosted-git-info/2.8.2:
-    dependencies:
-      lru-cache: 5.1.1
+  /hosted-git-info/2.8.4:
     dev: false
     resolution:
-      integrity: sha512-CyjlXII6LMsPMyUzxpTt8fzh5QwzGqPmQXgY/Jyf4Zfp27t/FvfhwoE/8laaMUcMy816CkWF20I7NeQhwwY88w==
+      integrity: sha512-pzXIvANXEFrc5oFFXRMkbLPQ2rXRoDERwDLyrcUxGhaZhgP54BBSl9Oheh7Vv0T090cszWBxPjkQQ5Sq1PbBRQ==
   /html-encoding-sniffer/1.0.2:
     dependencies:
       whatwg-encoding: 1.0.5
@@ -4895,7 +4932,7 @@ packages:
       mkdirp: 0.5.1
       natural-compare: 1.4.0
       pretty-format: 24.8.0
-      semver: 5.7.0
+      semver: 5.7.1
     dev: false
     engines:
       node: '>= 6'
@@ -5012,7 +5049,7 @@ packages:
       cssstyle: 1.4.0
       data-urls: 1.1.0
       domexception: 1.0.1
-      escodegen: 1.11.1
+      escodegen: 1.12.0
       html-encoding-sniffer: 1.0.2
       left-pad: 1.3.0
       nwsapi: 2.1.4
@@ -5063,6 +5100,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
+  /json-schema-typed/7.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-IqUK+Cqc8/MqHsCvv1TMccbKdBzoATOLHXZAF5UDu70/CCxo648cHUig24hc+XTK53TyeNk1UeVTlc2Haovtsw==
   /json-schema/0.2.3:
     dev: false
     resolution:
@@ -5541,7 +5582,7 @@ packages:
   /make-dir/2.1.0:
     dependencies:
       pify: 4.0.1
-      semver: 5.7.0
+      semver: 5.7.1
     dev: false
     engines:
       node: '>=6'
@@ -5994,7 +6035,7 @@ packages:
     dependencies:
       growly: 1.3.0
       is-wsl: 1.1.0
-      semver: 5.7.0
+      semver: 5.7.1
       shellwords: 0.1.1
       which: 1.3.1
     dev: false
@@ -6009,9 +6050,9 @@ packages:
       integrity: sha1-bd0hvSoxQXuScn3Vhfim83YI6+4=
   /normalize-package-data/2.5.0:
     dependencies:
-      hosted-git-info: 2.8.2
+      hosted-git-info: 2.8.4
       resolve: 1.12.0
-      semver: 5.7.0
+      semver: 5.7.1
       validate-npm-package-license: 3.0.4
     dev: false
     resolution:
@@ -6070,9 +6111,9 @@ packages:
       integrity: sha512-t7KygdHZ1cF2jS6kcOPiUg6s53Sq5jcOqHnddOe92qW7Xd4mh9AUT52OYYQ0YfAiP7VIdZ5379/G/atG6J0WDA==
   /npm-package-arg/6.1.0:
     dependencies:
-      hosted-git-info: 2.8.2
+      hosted-git-info: 2.8.4
       osenv: 0.1.5
-      semver: 5.7.0
+      semver: 5.7.1
       validate-npm-package-name: 3.0.0
     dev: false
     resolution:
@@ -6088,7 +6129,7 @@ packages:
     dependencies:
       figgy-pudding: 3.5.1
       npm-package-arg: 6.1.0
-      semver: 5.7.0
+      semver: 5.7.1
     dev: false
     resolution:
       integrity: sha512-+IluBC5K201+gRU85vFlUwX3PFShZAbAgDNp2ewJdWMVSppdo/Zih0ul2Ecky/X7b51J7LrrUAP+XOmOCvYZqA==
@@ -6421,7 +6462,7 @@ packages:
       got: 6.7.1
       registry-auth-token: 3.4.0
       registry-url: 3.1.0
-      semver: 5.7.0
+      semver: 5.7.1
     dev: false
     engines:
       node: '>=4'
@@ -6463,7 +6504,7 @@ packages:
       protoduck: 5.0.1
       rimraf: 2.6.3
       safe-buffer: 5.2.0
-      semver: 5.7.0
+      semver: 5.7.1
       ssri: 6.0.1
       tar: 4.4.10
       unique-filename: 1.1.1
@@ -6670,6 +6711,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
+  /pkg-up/3.1.0:
+    dependencies:
+      find-up: 3.0.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   /plur/3.1.1:
     dependencies:
       irregular-plurals: 2.0.0
@@ -7417,7 +7466,7 @@ packages:
       integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
   /semver-diff/2.1.0:
     dependencies:
-      semver: 5.7.0
+      semver: 5.7.1
     dev: false
     engines:
       node: '>=0.10.0'
@@ -7427,11 +7476,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EjnoLE5OGmDAVV/8YDoN5KiajNadjzIp9BAHOhYeQHt7j0UWxjmgsx4YD48wp4Ue1Qogq38F1GNUJNqF1kKKxA==
-  /semver/5.7.0:
+  /semver/5.7.1:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-Ya52jSX2u7QKghxeoFGpLwCtGlt7j0oY9DYb5apt9nPlJ42ID+ulTXESnt/qAQcoSERyZ5sl3LDIOw0nAn/5DA==
+      integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
   /semver/6.3.0:
     dev: false
     hasBin: true
@@ -8175,12 +8224,12 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
-  /ts-toolbelt/3.6.1:
+  /ts-toolbelt/3.7.1:
     dev: false
     peerDependencies:
       typescript: ^3.5.0
     resolution:
-      integrity: sha512-W6L8ppD33zVGUYVQEC8Z812ZKoxXckeiQWc0/d2ofKrmTRueTAOjpVl7KIpo0LjiCPiMHPYJPS8mR3o6X0oVKg==
+      integrity: sha512-rEIk3vYCAEQ1qvCvlYjfgNdAu5BIxRIcDSgJBEDsz5UR1/oKIJz7/I8yE8x1rPqs1o2A4deCuqVvuzdMk5JxiQ==
   /tslib/1.10.0:
     dev: false
     resolution:
@@ -8244,7 +8293,7 @@ packages:
       minimatch: 3.0.4
       mkdirp: 0.5.1
       resolve: 1.12.0
-      semver: 5.7.0
+      semver: 5.7.1
       tslib: 1.10.0
       tsutils: 2.29.0
     dev: false
@@ -8267,7 +8316,7 @@ packages:
       minimatch: 3.0.4
       mkdirp: 0.5.1
       resolve: 1.12.0
-      semver: 5.7.0
+      semver: 5.7.1
       tslib: 1.10.0
       tsutils: /tsutils/2.29.0/typescript@3.5.3
       typescript: 3.5.3
@@ -8961,13 +9010,17 @@ packages:
       '@oclif/config': 1.13.2
       '@oclif/dev-cli': 1.22.2
       '@oclif/errors': 1.2.2
+      '@oclif/parser': 3.8.4
       '@oclif/plugin-help': 2.2.0
       '@oclif/plugin-not-found': 1.2.2
       '@oclif/tslint': 3.1.1
+      '@types/js-yaml': 3.12.1
       '@types/ms': 0.7.30
       '@types/node': 10.14.15
       '@types/validator': 10.11.2
+      conf: 5.0.0
       globby: 10.0.1
+      js-yaml: 3.13.1
       ms: 2.1.2
       ts-node: /ts-node/8.3.0/typescript@3.5.3
       tslib: 1.10.0
@@ -8977,7 +9030,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-LrPppmuVnNqMDzmEHsq24Q9DbniNJhbMi7qjNHXSPoVWLaO5bmWREV+7QplgB445Zil8kr1iFDZEyXXs5tzp6A==
+      integrity: sha512-2ByxijfKnFzB40KFXrMYfm/k7nVUQHMfVRK5HFjvKMPrNkyEn9GIIbkUUoELg7Mcu7xyGhvvnBxWhB9riFKTbQ==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9001,6 +9054,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-db.tgz':
     dependencies:
+      '@binaris/shift-interfaces-node-client': 0.3.0
       '@types/deep-freeze': 0.1.2
       '@types/leveldown': 4.0.0
       '@types/levelup': 3.1.1
@@ -9020,7 +9074,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-In/e1dsv0jVj6DKo3TscP2995Gz79+6D2BtKmOd5r6duhdVYtNnY4lmn8xBGED9BEGP5Sw2m47iDcWFZTlqxfQ==
+      integrity: sha512-IcBlth4sG5I3jGfXC3pG3veFEZ6XGsYLUKpghh5AwFXMHX5vdNu9dW3EA7Xo/uGvLPOcNWRANCpMxUcFwSrdug==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9111,11 +9165,12 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-9gzZFkd2GWKUPEZ6EBoHeVhNBQUagJThtKzKYUW7ATd8X7hhkakz8JWVaOJZIXJEteeFEPdMI7vDqtzaqcFgBA==
+      integrity: sha512-46hw6DZTGrpGztqfA1JkniKgQOttt36uy1JdyIGmGqXhKAwYpbnvgnguPqx04IDFXh4W4CsKtqprT4VoXIzESA==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
     dependencies:
+      '@binaris/shift-interfaces-node-client': 0.3.0
       '@types/node': 10.14.15
       '@types/react': 16.9.1
       '@types/sinon': 7.0.13
@@ -9131,7 +9186,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-zoeXzPUB4P4+l/+uW0nL5olC1Ej0VVbRA1wEKXhzD4Xpw7U56qSE1bYsFI4kNKN+VoN0AveoRjqZ/hnfcB+6oQ==
+      integrity: sha512-kH9wZ1KrZQss/CdVDYhSJkEheBgSod3AWXCNYafNwos9QYmD3Vz+KG6jSj8mXYmydG9gmv2Za5rrupAoZ9zdXw==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -9157,7 +9212,7 @@ packages:
       ignore-by-default: 1.0.1
       minimatch: 3.0.4
       pstree.remy: 1.1.7
-      semver: 5.7.0
+      semver: 5.7.1
       supports-color: 5.5.0
       touch: 3.1.0
       undefsafe: 2.0.2
@@ -9182,10 +9237,12 @@ specifiers:
   '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
+  '@binaris/shift-interfaces-node-client': ^0.3.0
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
   '@oclif/dev-cli': ^1.22.2
   '@oclif/errors': ^1.2.2
+  '@oclif/parser': ^3.8.4
   '@oclif/plugin-help': ^2.2.0
   '@oclif/plugin-not-found': ^1.2.2
   '@oclif/tslint': ^3.1.1
@@ -9210,6 +9267,7 @@ specifiers:
   '@types/http-proxy': ^1.17.0
   '@types/jest': ^24.0.16
   '@types/jju': ^1.4.1
+  '@types/js-yaml': ^3.12.1
   '@types/koa': ^2.0.46
   '@types/koa-bodyparser': ^5.0.1
   '@types/koa-router': 7.0.35
@@ -9236,6 +9294,7 @@ specifiers:
   babel-plugin-tester: ^6.4.0
   bunyan: ^1.8.12
   bunyan-rotating-file-stream: ^1.6.3
+  conf: ^5.0.0
   deep-freeze: ^0.0.1
   express: ^4.17.1
   fast-json-patch: ^2.2.0
@@ -9247,6 +9306,7 @@ specifiers:
   jest: ^24.8.0
   jest-standard-reporter: ^1.0.1
   jju: ^1.4.0
+  js-yaml: ^3.13.1
   koa: ^2.5.1
   koa-bodyparser: ^4.2.1
   koa-router: ^7.4.0
