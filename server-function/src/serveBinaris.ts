@@ -42,7 +42,10 @@ export const handler: BinarisFunction = async (body, ctx) => {
       });
     }
     case 'serveFile': {
-      const headers = { 'Content-Type': decision.contentType };
+      const headers: Record<string, string> = {};
+      if (decision.contentType) {
+        headers['Content-Type'] = decision.contentType;
+      }
       if (decision.cacheHint) {
         Object.assign(headers, decision.cacheHint);
       }
