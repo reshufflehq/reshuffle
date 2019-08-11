@@ -28,7 +28,7 @@ export class Server {
     private cachedPath = '/static',
   ) {
   }
-  public async handle(url: string, headers: { [k: string]: string }): Promise<any> {
+  public async handle(url: string, headers: { [k: string]: string | string[] | undefined }): Promise<any> {
     if (url === '/invoke') {
       return { action: 'handleInvoke' };
     }
