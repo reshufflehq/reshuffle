@@ -8,6 +8,6 @@ export default class Login extends Command {
   public static args = [];
 
   public async run() {
-    this.log('Login');
+    await this.authenticate(true);
   }
 }
