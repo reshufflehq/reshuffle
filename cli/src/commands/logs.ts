@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command';
+import Command from '../utils/command';
 import flags from '../utils/cli-flags';
 import { cliBinName } from '../utils/config';
 
@@ -25,7 +25,7 @@ $ ${cliBinName} logs --since 2m --follow`,
 ];
 
   public static flags = {
-    help: flags.help({ char: 'h' }),
+    ...Command.flags,
     limit: flags.minMaxInt({
       char: 'l',
       description: 'Limit number of entries shown (cannot exceed 1000).',

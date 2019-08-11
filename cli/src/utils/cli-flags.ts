@@ -10,11 +10,6 @@ export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & {
 
 export default {
   ...flags,
-  realm: flags.string({
-    default: 'prod',
-    hidden: true,
-    env: 'realm',
-  }),
   minMaxInt: ({min, max}: MinMaxIntFlagOptions) => flags.integer({
     parse(val) {
       if (!isInt(val, { min, max })) {
