@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Add authentication flow",
+      "type": "minor"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "arik@shiftjs.com"
+}
