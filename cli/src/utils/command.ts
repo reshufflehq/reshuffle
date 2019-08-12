@@ -52,7 +52,7 @@ export default abstract class BaseCommand extends Command {
       opt!.flags = BaseCommand.flags as any;
     }
 
-    return require('@oclif/parser').parse(argv, { context: this, ...opt });
+    return Parser.parse(argv, { context: this, ...opt });
   }
 
   public async init() {
