@@ -22,7 +22,7 @@ export default abstract class BaseCommand extends Command {
 
   private apiEndpoint?: string;
   private webAppLoginUrl?: string;
-  protected _lycanClient?: LycanClient;
+  private _lycanClient?: LycanClient;
   protected get lycanClient(): LycanClient {
     if (!this._lycanClient) {
       this._lycanClient = this.createLycanClient(userConfig.get('accessToken') as string | undefined);
