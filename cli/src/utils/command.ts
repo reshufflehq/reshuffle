@@ -17,10 +17,10 @@ const LOGIN_PARAM = 'ticket';
 const TICKET_CLAIM_INTERVAL_MS = 1000;
 
 export default abstract class BaseCommand extends Command {
-  static cliBinName = pjson.oclif.bin as string;
+  public static cliBinName = pjson.oclif.bin as string;
 
   private apiEndpoint?: string;
-  private webAppEndpoint?: string;
+  private webAppLoginUrl?: string;
   protected _lycanClient?: LycanClient;
   protected get lycanClient(): LycanClient {
     if (!this._lycanClient) {
@@ -32,14 +32,14 @@ export default abstract class BaseCommand extends Command {
   public static flags = {
     help: flags.help({ char: 'h' }),
     apiEndpoint: flags.string({
-      default: 'https://api.shiftjs.com',
+      default: 'https://api.shiftjs.com/public/v1',
       hidden: true,
       env: 'SHIFTJS_API_ENDPOINT',
     }),
-    webAppEndpoint: flags.string({
-      default: 'https://app.shiftjs.com',
+    webAppLoginUrl: flags.string({
+      default: 'https://app.shiftjs.com/cli-login',
       hidden: true,
-      env: 'SHIFTJS_WEBAPP_ENDPOINT',
+      env: 'SHIFTJS_WEBAPP_LOGIN_URL',
     }),
   };
 
@@ -55,9 +55,9 @@ export default abstract class BaseCommand extends Command {
   }
 
   public async init() {
-    const { flags: { apiEndpoint, webAppEndpoint } } = this.parse(BaseCommand);
+    const { flags: { apiEndpoint, webAppLoginUrl } } = this.parse(BaseCommand);
     this.apiEndpoint = apiEndpoint;
-    this.webAppEndpoint = webAppEndpoint;
+    this.webAppLoginUrl = webAppLoginUrl;
   }
 
   public async authenticate(forceBrowserAuthFlow = false): Promise<string> {
@@ -100,7 +100,10 @@ export default abstract class BaseCommand extends Command {
   }
 
   private getBrowserLoginUrl(ticket: string): string {
-    const loginUrl = new URL(`${this.webAppEndpoint}/cli-login`);
+    if (!this.webAppLoginUrl) {
+      throw new Error('webAppLoginUrl not set!');
+    }
+    const loginUrl = new URL(this.webAppLoginUrl);
     loginUrl.searchParams.set(LOGIN_PARAM, ticket);
     return loginUrl.href;
   }
@@ -111,7 +114,10 @@ export default abstract class BaseCommand extends Command {
         'shift-api-key': apiKey,
       },
     } : {};
-    return new LycanClient(`${this.apiEndpoint}/public/v1`, options);
+    if (!this.apiEndpoint) {
+      throw new Error('apiEndpoint not set!');
+    }
+    return new LycanClient(this.apiEndpoint, options);
   }
 }
 
