@@ -25,6 +25,7 @@ interface ServeFile {
   fullPath: string;
   contentType: string | false;
   cacheHint: any;
+  status?: number;
 }
 
 interface SendStatus {
@@ -94,8 +95,12 @@ export class Server {
         contentType: mimeTypes.contentType('404.html'),
         fullPath: notFoundPath,
         cacheHint: {},
+        status: 404,
       };
     }
-    return { action: 'sendStatus', status: 404 };
+    if (url === '/index.html') {
+      return { action: 'sendStatus', status: 404 };
+    }
+    return this.handle('/index.html', headers);
   }
 }

@@ -50,7 +50,7 @@ export const handler: BinarisFunction = async (body, ctx) => {
         Object.assign(headers, decision.cacheHint);
       }
       return new ctx.HTTPResponse({
-        statusCode: 200,
+        statusCode: decision.status || 200,
         headers,
         body: await fs.readFile(decision.fullPath),
       });
