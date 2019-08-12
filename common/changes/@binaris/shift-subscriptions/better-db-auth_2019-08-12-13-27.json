@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-subscriptions",
+      "comment": "Update client version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-subscriptions",
+  "email": "ariels@shiftjs.com"
+}
