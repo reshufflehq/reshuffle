@@ -2,6 +2,18 @@
   "name": "@binaris/shift-subscriptions",
   "entries": [
     {
+      "version": "0.0.5",
+      "tag": "@binaris/shift-subscriptions_v0.0.5",
+      "date": "Mon, 12 Aug 2019 13:45:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update client version"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.4",
       "tag": "@binaris/shift-subscriptions_v0.0.4",
       "date": "Tue, 06 Aug 2019 12:22:25 GMT",

@@ -2,6 +2,18 @@
   "name": "@binaris/shift-db",
   "entries": [
     {
+      "version": "0.3.1",
+      "tag": "@binaris/shift-db_v0.3.1",
+      "date": "Mon, 12 Aug 2019 13:45:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update client version"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@binaris/shift-db_v0.3.0",
       "date": "Tue, 06 Aug 2019 12:22:25 GMT",
