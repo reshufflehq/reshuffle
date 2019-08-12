@@ -6,11 +6,17 @@ aliases:
   - &attach_workspace
     - attach_workspace:
         at: .
+  - &setup_npm_token
+    - run: # Once the packages are public this can be removed
+        name: Authenticate with npm registry
+        command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+
 jobs:
   build:
     <<: *docker
     steps:
       - checkout
+      - <<: *setup_npm_token
       - restore_cache:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
       - run:
@@ -48,9 +54,6 @@ jobs:
     steps:
       - checkout
       - <<: *attach_workspace
-      - run: # Once the packages are public this can be removed
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
