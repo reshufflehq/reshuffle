@@ -34,3 +34,27 @@ test('static-has-cache-hint', testServer, '/static/0.chunk.js', {
   contentType: 'application/javascript; charset=utf-8',
   fullPath: path.join(examplePath, 'static/0.chunk.js'),
 });
+test('dot-segements-traversal', testServer, '/a/b/.././../static/0.chunk.js', {
+  action: 'serveFile',
+  cacheHint: {
+    'cache-control': 'public, max-age=2629800',
+    'last-modified': fs.statSync(path.join(examplePath, 'static/0.chunk.js')).mtime.toUTCString(),
+  },
+  contentType: 'application/javascript; charset=utf-8',
+  fullPath: path.join(examplePath, 'static/0.chunk.js'),
+});
+test('dot-segements-traversal-above-root', testServer, '/../static/0.chunk.js', {
+  action: 'serveFile',
+  cacheHint: {
+    'cache-control': 'public, max-age=2629800',
+    'last-modified': fs.statSync(path.join(examplePath, 'static/0.chunk.js')).mtime.toUTCString(),
+  },
+  contentType: 'application/javascript; charset=utf-8',
+  fullPath: path.join(examplePath, 'static/0.chunk.js'),
+});
+test('traversal-to-index-does-not-cache', testServer, '/static/../index.html', {
+  action: 'serveFile',
+  cacheHint: {},
+  contentType: 'text/html; charset=utf-8',
+  fullPath: path.join(examplePath, 'index.html'),
+});

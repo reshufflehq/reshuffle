@@ -52,7 +52,8 @@ export class Server {
     if (url === '/') {
       return this.handle('/index.html', headers);
     }
-    const fullPath = path.join(this.directory, path.join('/', url));
+    const urlWithRemovedSegements = path.join('/', url);
+    const fullPath = path.join(this.directory, urlWithRemovedSegements);
     let foundPath: string | undefined;
     let foundStat: fs.Stats | undefined;
     // tslint:disable-next-line:no-conditional-assignment
@@ -70,7 +71,7 @@ export class Server {
       }
     }
     if (foundStat && foundPath) {
-      const cacheHint = url.startsWith(this.cachedPath) ? {
+      const cacheHint = urlWithRemovedSegements.startsWith(this.cachedPath) ? {
         'last-modified': foundStat.mtime.toUTCString(),
         'cache-control': `public, max-age=${CACHE_TIME_SEC}`,
       } : {};
