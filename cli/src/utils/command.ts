@@ -21,13 +21,12 @@ export default abstract class BaseCommand extends Command {
 
   private apiEndpoint?: string;
   private webAppEndpoint?: string;
-  protected lycanClient?: LycanClient;
-
-  protected getLycanClient(): LycanClient {
-    if (!this.lycanClient) {
-      this.lycanClient = new LycanClient(`${this.apiEndpoint}/public/v1`)
+  protected _lycanClient?: LycanClient;
+  protected get lycanClient(): LycanClient {
+    if (!this._lycanClient) {
+      this._lycanClient = this.createLycanClient(userConfig.get('accessToken') as string | undefined);
     }
-    return this.lycanClient;
+    return this._lycanClient;
   }
 
   public static flags = {
@@ -70,8 +69,7 @@ export default abstract class BaseCommand extends Command {
       this.log('No existing ShiftJS credentials found!');
     }
 
-    const lycanClient = this.getLycanClient();
-    const { ticket, expires } = await lycanClient.createTicket();
+    const { ticket, expires } = await this.lycanClient.createTicket();
     const ticketExpiration = Date.now() + ms(expires);
 
     const loginHref = this.getBrowserLoginUrl(ticket);
@@ -83,7 +81,7 @@ export default abstract class BaseCommand extends Command {
     while (accessToken === undefined && Date.now() < ticketExpiration) {
       await sleep(TICKET_CLAIM_INTERVAL_MS);
       try {
-        accessToken = await lycanClient.claimTicket(ticket);
+        accessToken = await this.lycanClient.claimTicket(ticket);
       } catch (err) {
         if (err.name !== 'NotFoundError') {
           throw err;
@@ -97,6 +95,7 @@ export default abstract class BaseCommand extends Command {
 
     this.log('Successfully logged into ShiftJS!');
     userConfig.set({ accessToken });
+    this._lycanClient = this.createLycanClient(accessToken);
     return accessToken;
   }
 
@@ -104,6 +103,15 @@ export default abstract class BaseCommand extends Command {
     const loginUrl = new URL(`${this.webAppEndpoint}/cli-login`);
     loginUrl.searchParams.set(LOGIN_PARAM, ticket);
     return loginUrl.href;
+  }
+
+  private createLycanClient(apiKey?: string): LycanClient {
+    const options = apiKey ? {
+      headers: {
+        'shift-api-key': apiKey,
+      },
+    } : {};
+    return new LycanClient(`${this.apiEndpoint}/public/v1`, options);
   }
 }
 
