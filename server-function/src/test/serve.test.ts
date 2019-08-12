@@ -25,6 +25,12 @@ test('index-html-is-index-html', testServer, '/index.html', {
   contentType: 'text/html; charset=utf-8',
   fullPath: path.join(examplePath, 'index.html'),
 });
+test('auto-html-extension', testServer, '/index', {
+  action: 'serveFile',
+  cacheHint: {},
+  contentType: 'text/html; charset=utf-8',
+  fullPath: path.join(examplePath, 'index.html'),
+});
 test('static-has-cache-hint', testServer, '/static/0.chunk.js', {
   action: 'serveFile',
   cacheHint: {
