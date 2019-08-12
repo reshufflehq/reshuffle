@@ -7,13 +7,15 @@ import ms from 'ms';
 import terminalLink from 'terminal-link';
 import { LycanClient } from '@binaris/spice-node-client';
 import flags from './cli-flags';
-import { getBaseUrl } from './config';
 import userConfig from './user-config';
 
 const LOGIN_PARAM = 'ticket';
 const TICKET_CLAIM_INTERVAL_MS = 1000;
 
 export default abstract class BaseCommand extends Command {
+  protected realm?: string;
+  protected lycanClient?: LycanClient;
+
   public static flags = {
     help: flags.help({ char: 'h' }),
     realm: flags.string({
@@ -34,11 +36,10 @@ export default abstract class BaseCommand extends Command {
     return require('@oclif/parser').parse(argv, { context: this, ...opt });
   }
 
-  protected lycanClient?: LycanClient;
-
   public async init() {
     const { flags: { realm } } = this.parse(BaseCommand);
-    this.lycanClient = new LycanClient(`${getBaseUrl('api', realm)}/public/v1`);
+    this.realm = realm;
+    this.lycanClient = new LycanClient(`${this.getBaseUrl('api')}/public/v1`);
   }
 
   public async authenticate(force = false): Promise<string> {
@@ -84,10 +85,21 @@ export default abstract class BaseCommand extends Command {
   }
 
   private getBrowserLoginUrl(ticket: string): string {
-    const { flags: { realm } } = this.parse(BaseCommand);
-    const loginUrl = new URL(`${getBaseUrl('app', realm)}/cli-login`);
+    const loginUrl = new URL(`${this.getBaseUrl('app')}/cli-login`);
     loginUrl.searchParams.set(LOGIN_PARAM, ticket);
     return loginUrl.href;
+  }
+
+  private getBaseUrl(subdomain: string, protocol: 'http' | 'https' = 'https') {
+    const realm = this.realm;
+    if (!realm) {
+      throw new Error('realm not set!');
+    }
+    const domain = realm === 'prod' ? 'shiftjs.com' : 'shiftjs.io';
+    const actualSubdomain = realm === 'prod' ? subdomain :
+      subdomain === 'app' ? realm :
+      `${subdomain}-${realm}`;
+    return `${protocol}://${actualSubdomain}.${domain}`;
   }
 }
 
