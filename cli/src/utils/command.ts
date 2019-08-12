@@ -60,8 +60,8 @@ export default abstract class BaseCommand extends Command {
     this.webAppEndpoint = webAppEndpoint;
   }
 
-  public async authenticate(force = false): Promise<string> {
-    if (!force) {
+  public async authenticate(forceBrowserAuthFlow = false): Promise<string> {
+    if (!forceBrowserAuthFlow) {
       const storedAccessToken = userConfig.get('accessToken') as string | undefined;
       if (storedAccessToken) {
         return storedAccessToken;
