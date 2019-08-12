@@ -6,7 +6,7 @@ rm -rf .shift_deploy
 npm run build
 mkdir -p .shift_deploy/node_modules
 cp -a build .shift_deploy
-for i in $(node $DIR/getdeps.js) ; do
+for i in $(node $DIR/dist/getdeps.js) ; do
   dirtocreate=$(dirname node_modules/$i)
   mkdir -p .shift_deploy/$dirtocreate
   cp -a node_modules/$i .shift_deploy/$dirtocreate
