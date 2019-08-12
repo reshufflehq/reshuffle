@@ -7,7 +7,6 @@ import fresh from 'fresh';
 // create-react-app uses only 32 bits for hashes, allow caching for a limited
 // time for lower chance of collision
 const CACHE_TIME_SEC = ms.months(1) / 1000;
-const UP_PATH_REGEXP = /(?:^|[\\/])\.\.(?:[\\/]|$)/;
 
 export async function isFile(filePath: string): Promise<fs.Stats | undefined> {
   try {
@@ -53,10 +52,7 @@ export class Server {
     if (url === '/') {
       return this.handle('/index.html', headers);
     }
-    const fullPath = path.join(this.directory, url);
-    if (UP_PATH_REGEXP.test(fullPath)) {
-      return { action: 'sendStatus', status: 403 };
-    }
+    const fullPath = path.join(this.directory, path.join('/', url));
     let foundPath: string | undefined;
     let foundStat: fs.Stats | undefined;
     // tslint:disable-next-line:no-conditional-assignment
