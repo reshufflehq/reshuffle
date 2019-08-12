@@ -78,18 +78,7 @@ export default abstract class BaseCommand extends Command {
     this.log(`If that does not happen, click ${terminalLink('here', loginHref)}.`);
     await open(loginHref);
 
-    let accessToken: string | undefined;
-    while (accessToken === undefined && Date.now() < ticketExpiration) {
-      await sleep(TICKET_CLAIM_INTERVAL_MS);
-      try {
-        accessToken = await this.lycanClient.claimTicket(ticket);
-      } catch (err) {
-        if (err.name !== 'NotFoundError') {
-          throw err;
-        }
-      }
-    }
-
+    const accessToken = await this.waitForAccessToken(ticket, ticketExpiration);
     if (!accessToken) {
       throw new CLIError('Failed to login.');
     }
@@ -98,6 +87,20 @@ export default abstract class BaseCommand extends Command {
     userConfig.set({ accessToken });
     this._lycanClient = this.createLycanClient(accessToken);
     return accessToken;
+  }
+
+  private async waitForAccessToken(ticket: string, ticketExpiration: number): Promise<string | undefined> {
+    while (Date.now() < ticketExpiration) {
+      await sleep(TICKET_CLAIM_INTERVAL_MS);
+      try {
+        return await this.lycanClient.claimTicket(ticket);
+      } catch (err) {
+        if (err.name !== 'NotFoundError') {
+          throw err;
+        }
+      }
+    }
+    return undefined;
   }
 
   private getBrowserLoginUrl(ticket: string): string {
