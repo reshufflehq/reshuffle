@@ -30,7 +30,7 @@ export default abstract class BaseCommand extends Command {
     return this._lycanClient;
   }
 
-  public static flags = {
+  public static flags: Parser.flags.Input<any>  = {
     help: flags.help({ char: 'h' }),
     apiEndpoint: flags.string({
       default: 'https://api.shiftjs.com/public/v1',
@@ -46,10 +46,10 @@ export default abstract class BaseCommand extends Command {
 
   protected parse<F, A extends {[name: string]: any}>(opt?: Parser.Input<F>, argv = this.argv): Parser.Output<F, A> {
     if (!opt) {
-      opt = this.constructor as any;
+      opt = this.constructor as Parser.Input<F>;
     }
-    if (!opt!.flags) {
-      opt!.flags = BaseCommand.flags as any;
+    if (!opt.flags) {
+      opt.flags = BaseCommand.flags;
     }
 
     return Parser.parse(argv, { context: this, ...opt });
