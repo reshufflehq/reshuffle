@@ -19,15 +19,28 @@ const TICKET_CLAIM_INTERVAL_MS = 1000;
 export default abstract class BaseCommand extends Command {
   static cliBinName = pjson.oclif.bin as string;
 
-  protected realm?: string;
+  private apiEndpoint?: string;
+  private webAppEndpoint?: string;
   protected lycanClient?: LycanClient;
+
+  protected getLycanClient(): LycanClient {
+    if (!this.lycanClient) {
+      this.lycanClient = new LycanClient(`${this.apiEndpoint}/public/v1`)
+    }
+    return this.lycanClient;
+  }
 
   public static flags = {
     help: flags.help({ char: 'h' }),
-    realm: flags.string({
-      default: 'prod',
+    apiEndpoint: flags.string({
+      default: 'https://api.shiftjs.com',
       hidden: true,
-      env: 'realm',
+      env: 'SHIFTJS_API_ENDPOINT',
+    }),
+    webAppEndpoint: flags.string({
+      default: 'https://app.shiftjs.com',
+      hidden: true,
+      env: 'SHIFTJS_WEBAPP_ENDPOINT',
     }),
   };
 
@@ -43,9 +56,9 @@ export default abstract class BaseCommand extends Command {
   }
 
   public async init() {
-    const { flags: { realm } } = this.parse(BaseCommand);
-    this.realm = realm;
-    this.lycanClient = new LycanClient(`${this.getBaseUrl('api')}/public/v1`);
+    const { flags: { apiEndpoint, webAppEndpoint } } = this.parse(BaseCommand);
+    this.apiEndpoint = apiEndpoint;
+    this.webAppEndpoint = webAppEndpoint;
   }
 
   public async authenticate(force = false): Promise<string> {
@@ -57,11 +70,8 @@ export default abstract class BaseCommand extends Command {
       this.log('No existing ShiftJS credentials found!');
     }
 
-    if (!this.lycanClient) {
-      throw new CLIError('Client not initialized!');
-    }
-
-    const { ticket, expires } = await this.lycanClient.createTicket();
+    const lycanClient = this.getLycanClient();
+    const { ticket, expires } = await lycanClient.createTicket();
     const ticketExpiration = Date.now() + ms(expires);
 
     const loginHref = this.getBrowserLoginUrl(ticket);
@@ -73,7 +83,7 @@ export default abstract class BaseCommand extends Command {
     while (accessToken === undefined && Date.now() < ticketExpiration) {
       await sleep(TICKET_CLAIM_INTERVAL_MS);
       try {
-        accessToken = await this.lycanClient.claimTicket(ticket);
+        accessToken = await lycanClient.claimTicket(ticket);
       } catch (err) {
         if (err.name !== 'NotFoundError') {
           throw err;
@@ -91,21 +101,9 @@ export default abstract class BaseCommand extends Command {
   }
 
   private getBrowserLoginUrl(ticket: string): string {
-    const loginUrl = new URL(`${this.getBaseUrl('app')}/cli-login`);
+    const loginUrl = new URL(`${this.webAppEndpoint}/cli-login`);
     loginUrl.searchParams.set(LOGIN_PARAM, ticket);
     return loginUrl.href;
-  }
-
-  private getBaseUrl(subdomain: string, protocol: 'http' | 'https' = 'https') {
-    const realm = this.realm;
-    if (!realm) {
-      throw new Error('realm not set!');
-    }
-    const domain = realm === 'prod' ? 'shiftjs.com' : 'shiftjs.io';
-    const actualSubdomain = realm === 'prod' ? subdomain :
-      subdomain === 'app' ? realm :
-      `${subdomain}-${realm}`;
-    return `${protocol}://${actualSubdomain}.${domain}`;
   }
 }
 
