@@ -8,6 +8,7 @@ import open from 'open';
 import ms from 'ms';
 import terminalLink from 'terminal-link';
 import { LycanClient } from '@binaris/spice-node-client';
+import sleep from './sleep';
 import flags from './cli-flags';
 import userConfig from './user-config';
 
@@ -119,8 +120,4 @@ export default abstract class BaseCommand extends Command {
     }
     return new LycanClient(this.apiEndpoint, options);
   }
-}
-
-function sleep(durationMs: number) {
-  return new Promise((resolve) => setTimeout(resolve, durationMs));
 }
