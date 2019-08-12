@@ -19,14 +19,33 @@ const TICKET_CLAIM_INTERVAL_MS = 1000;
 export default abstract class BaseCommand extends Command {
   public static cliBinName = pjson.oclif.bin as string;
 
-  private apiEndpoint?: string;
+  private _apiEndpoint?: string;
   private webAppLoginUrl?: string;
   private _lycanClient?: LycanClient;
+
   protected get lycanClient(): LycanClient {
     if (!this._lycanClient) {
       this._lycanClient = this.createLycanClient(userConfig.get('accessToken') as string | undefined);
     }
     return this._lycanClient;
+  }
+
+  protected get apiEndpoint(): string {
+    if (!this._apiEndpoint) {
+      throw new Error('apiEndpoint not set!');
+    }
+    return this._apiEndpoint;
+  }
+
+  public getApiUrl() {
+    return 'https://api-bergundy.shiftjs.io/public/v1'; // TODO
+  }
+
+  public get apiHeaders(): Record<string, string> {
+    const apiKey = userConfig.get('accessToken') as string | undefined;
+    return apiKey !== undefined ? {
+      'shift-api-key': apiKey,
+    } : {};
   }
 
   public static flags: Parser.flags.Input<any>  = {
@@ -56,7 +75,7 @@ export default abstract class BaseCommand extends Command {
 
   public async init() {
     const { flags: { apiEndpoint, webAppLoginUrl } } = this.parse(BaseCommand);
-    this.apiEndpoint = apiEndpoint;
+    this._apiEndpoint = apiEndpoint;
     this.webAppLoginUrl = webAppLoginUrl;
   }
 
@@ -119,9 +138,6 @@ export default abstract class BaseCommand extends Command {
         'shift-api-key': apiKey,
       },
     } : {};
-    if (!this.apiEndpoint) {
-      throw new Error('apiEndpoint not set!');
-    }
     return new LycanClient(this.apiEndpoint, options);
   }
 }
