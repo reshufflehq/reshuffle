@@ -9,7 +9,7 @@
     "shift_deploy_binaris.sh"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsc && cp -a src/test/examples dist/test",
     "build:watch": "tsc -w",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "ava -v dist/test/*.js"
