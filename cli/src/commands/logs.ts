@@ -1,27 +1,26 @@
 import Command from '../utils/command';
 import flags from '../utils/cli-flags';
-import { cliBinName } from '../utils/config';
 
 export default class Logs extends Command {
   public static description = 'Show logs';
 
   public static examples = [
 `// retrieve all logs
-$ ${cliBinName} logs
+$ ${Command.cliBinName} logs
 `,
 `// tail all logs
-$ ${cliBinName} logs --follow
+$ ${Command.cliBinName} logs --follow
 `,
 `// ISO
-$ ${cliBinName} logs --since 2018-03-09T22:12:21.861Z
+$ ${Command.cliBinName} logs --since 2018-03-09T22:12:21.861Z
 `,
 `// offset format
-$ ${cliBinName} logs --since 3d
-$ ${cliBinName} logs --since 13hours
-$ ${cliBinName} logs --since 9s
+$ ${Command.cliBinName} logs --since 3d
+$ ${Command.cliBinName} logs --since 13hours
+$ ${Command.cliBinName} logs --since 9s
 `,
 `// show all logs from 2 minutes ago and follow in real time
-$ ${cliBinName} logs --since 2m --follow`,
+$ ${Command.cliBinName} logs --since 2m --follow`,
 ];
 
   public static flags = {

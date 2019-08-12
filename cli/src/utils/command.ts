@@ -1,7 +1,9 @@
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import { URL } from 'url';
 import { Command } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import * as Parser from '@oclif/parser';
-import { URL } from 'url';
 import open from 'open';
 import ms from 'ms';
 import terminalLink from 'terminal-link';
@@ -9,10 +11,14 @@ import { LycanClient } from '@binaris/spice-node-client';
 import flags from './cli-flags';
 import userConfig from './user-config';
 
+const pjson = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf-8'));
+
 const LOGIN_PARAM = 'ticket';
 const TICKET_CLAIM_INTERVAL_MS = 1000;
 
 export default abstract class BaseCommand extends Command {
+  static cliBinName = pjson.oclif.bin as string;
+
   protected realm?: string;
   protected lycanClient?: LycanClient;
 
