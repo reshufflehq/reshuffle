@@ -9,6 +9,11 @@ export type Equatable = Comparable | boolean;
 // literally.  Spell out all the top-level types of a JSONable.
 export type Serializable = {} | any[] | string | number | boolean | null;
 
+export interface Document {
+  key: string;
+  value: Serializable;
+}
+
 export interface PathFilter {
   readonly path: string[];
 }
@@ -160,6 +165,8 @@ interface Patches {
   patches: Patch[];
 }
 
+export type KeyedVersions = Array<[string, Version]>;
+
 export interface StoredDocument extends VersionedObject, Patches {
   updatedAt: number;
 }
@@ -170,6 +177,7 @@ export interface StoredDocument extends VersionedObject, Patches {
  */
 export interface Tombstone extends Patches {
   updatedAt: number;
+  value: undefined;
   // (0, 0) if the document was never there in the first place.
   version: Version;
 }
@@ -202,12 +210,11 @@ export interface DB {
   };
 
   /**
-   * Gets the "current version" of a document with the intent to poll on it.
-   * @return - Versioned document or tombstone if it's marked deleted.
+   * Polls on updates to specified keys since specified versions.
    */
-  startPolling: {
-    params: { key: string; }
-    returns: VersionedMaybeObject;
+  poll: {
+    params: { keysToVersions: KeyedVersions; };
+    returns: KeyedPatches;
   };
 
   /**
@@ -228,4 +235,14 @@ export interface DB {
     params: { key: string; }
     returns: boolean;
   };
+
+  /**
+   * Find documents matching query.
+   * @param query - a query constructed with Q methods.
+   * @return - an array of documents
+   */
+  find: {
+    params: { query: Query };
+    returns: Document[];
+  }
 }
