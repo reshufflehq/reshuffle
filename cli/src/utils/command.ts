@@ -4,8 +4,8 @@ import { URL } from 'url';
 import { Command } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import * as Parser from '@oclif/parser';
-import open from 'open';
 import ms from 'ms';
+import Cli from 'cli-ux';
 import terminalLink from 'terminal-link';
 import { LycanClient } from '@binaris/spice-node-client';
 import sleep from './sleep';
@@ -76,7 +76,7 @@ export default abstract class BaseCommand extends Command {
     const loginHref = this.getBrowserLoginUrl(ticket);
     this.log('A new tab should open in your browser momentarily automatically completing the login process.');
     this.log(`If that does not happen, click ${terminalLink('here', loginHref)}.`);
-    await open(loginHref);
+    await Cli.open(loginHref);
 
     const accessToken = await this.waitForAccessToken(ticket, ticketExpiration);
     if (!accessToken) {
