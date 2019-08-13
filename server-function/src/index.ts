@@ -8,7 +8,7 @@ import fresh from 'fresh';
 // time for lower chance of collision
 const CACHE_TIME_SEC = ms.months(1) / 1000;
 
-export async function isFile(filePath: string): Promise<fs.Stats | undefined> {
+export async function statIfFile(filePath: string): Promise<fs.Stats | undefined> {
   try {
     const stats = await fs.stat(filePath);
     return stats.isFile() ? stats : undefined;
@@ -58,14 +58,14 @@ export class Server {
     let foundPath: string | undefined;
     let foundStat: fs.Stats | undefined;
     // tslint:disable-next-line:no-conditional-assignment
-    if (foundStat = await isFile(fullPath)) {
+    if (foundStat = await statIfFile(fullPath)) {
       foundPath = fullPath;
     }
     if (!foundPath) {
       for (const ext of this.extensions) {
         const p = fullPath + ext;
         // tslint:disable-next-line:no-conditional-assignment
-        if (foundStat = await isFile(p)) {
+        if (foundStat = await statIfFile(p)) {
           foundPath = p;
           break;
         }
@@ -89,7 +89,7 @@ export class Server {
       };
     }
     const notFoundPath = path.join(this.directory, '/404.html');
-    if (await isFile(notFoundPath)) {
+    if (await statIfFile(notFoundPath)) {
       return {
         action: 'serveFile',
         contentType: mimeTypes.contentType('404.html'),
