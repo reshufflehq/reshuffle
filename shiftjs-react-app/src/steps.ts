@@ -51,6 +51,7 @@ export function installPackages(): Promise<string> {
       '@binaris/shift-code-transform',
       '@binaris/shift-fetch-runtime',
       '@binaris/shift-db',
+      '@binaris/shift-server-function',
     ];
     const args = [
       'install',
