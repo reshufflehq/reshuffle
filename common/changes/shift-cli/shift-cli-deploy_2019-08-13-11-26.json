@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Add deploy command",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "roey@shiftjs.com"
+}
