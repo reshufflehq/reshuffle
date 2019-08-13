@@ -1,5 +1,10 @@
 import Command from '../utils/command';
 import flags from '../utils/cli-flags';
+import conf from '../utils/user-config';
+import {
+  getProjectRootDir,
+  Project,
+} from '../utils/helpers';
 
 export default class Logs extends Command {
   public static description = 'Show logs';
@@ -25,18 +30,19 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
 
   public static flags = {
     ...Command.flags,
-    limit: flags.minMaxInt({
+    limit: flags.integer({
       char: 'l',
       description: 'Limit number of entries shown (cannot exceed 1000).',
       default: 500,
-      min: 1,
-      max: 1000,
+      // min: 1,
+      // max: 1000,
     }),
     follow: flags.boolean({
       char: 'f',
       description: 'Follow log output like "tail -f".',
+      default: false,
     }),
-    since: flags.durationOrTimestamp({
+    since: flags.durationOrISO8601({
       char: 's',
       description: 'Output logs since the given ISO 8601 timestamp or time period.',
       default: '1m',
@@ -48,10 +54,26 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
   public static strict = true;
 
   public async run() {
+    const { since, follow, limit } = this.parse(Logs).flags;
+    await this.authenticate();
 
-    const {flags: { since, follow, limit }} = this.parse(Logs);
+    const projectDir = await getProjectRootDir();
+    const projects = conf.get('projects') as Project[] | undefined || [];
+    const project = projects.find(({ directory }) => directory === projectDir);
+    if (project === undefined) {
+      return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);
+    }
+    let token;
+    do {
+      // TODO: support other envs
+      const { records, nextToken } = await this.lycanClient.getLogs(
+        project.applicationId, project.defaultEnv, { follow, limit, since });
 
-    this.log('Logs', { since, follow, limit });
-
+      // TODO: fix EOL, multiple sources, formatting
+      for (const record of records) {
+        process.stdout.write(record.msg);
+      }
+      token = nextToken;
+    } while (token);
   }
 }

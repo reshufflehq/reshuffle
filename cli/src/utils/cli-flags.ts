@@ -10,7 +10,7 @@ export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & {
 
 export default {
   ...flags,
-  minMaxInt: ({min, max}: MinMaxIntFlagOptions) => flags.integer({
+  minMaxInt: ({ min, max }: MinMaxIntFlagOptions) => flags.integer({
     parse(val) {
       if (!isInt(val, { min, max })) {
         error(`Expected an integer between ${min} and ${max} but received: ${val}`);
@@ -18,16 +18,17 @@ export default {
       return parseInt(val, 10);
     },
   }),
-  durationOrTimestamp: flags.build({
+  durationOrISO8601: flags.build({
     parse(val) {
       if (isISO8601(val)) {
-        return val;
+        return new Date(val);
       }
       const valMs = ms(val);
       if (valMs !== undefined) {
-        return valMs;
+        return val;
       }
-      error(`Expected a formatted duration format but received: ${val}`);
+      error(`Expected a formatted duration or isISO8601 string format but received: ${val}`);
+      throw new Error('Should not get here');
     },
   }),
 };

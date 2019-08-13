@@ -77,8 +77,8 @@ USAGE
 OPTIONS
   -f, --follow       Follow log output like "tail -f".
   -h, --help         show CLI help
+  -l, --limit=limit  [default: 500] Limit number of entries shown (cannot exceed 1000).
   -s, --since=since  [default: 1m] Output logs since the given ISO 8601 timestamp or time period.
-  --limit=limit
 
 EXAMPLES
   // retrieve all logs
