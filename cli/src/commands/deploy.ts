@@ -108,7 +108,7 @@ export default class Deploy extends Command {
     await this.authenticate();
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
-    const projects = (conf.get('projects') || []) as Project[];
+    const projects = conf.get('projects') as Project[] | undefined || [];
 
     const pkg = await getProjectPackageJson();
     if (typeof pkg.name !== 'string' || !pkg.name) {
