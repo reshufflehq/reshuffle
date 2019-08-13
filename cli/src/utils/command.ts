@@ -37,10 +37,6 @@ export default abstract class BaseCommand extends Command {
     return this._apiEndpoint;
   }
 
-  public getApiUrl() {
-    return 'https://api-bergundy.shiftjs.io/public/v1'; // TODO
-  }
-
   public get apiHeaders(): Record<string, string> {
     const apiKey = userConfig.get('accessToken') as string | undefined;
     return apiKey !== undefined ? {
