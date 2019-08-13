@@ -1,3 +1,4 @@
+// adapted from https://github.com/binaris/binaris/blob/master/lib/functionTemplates/js/binaris.d.ts
 /// <reference types="node" />
 interface BinarisHTTPRequest {
   env: Record<string, string | undefined>;

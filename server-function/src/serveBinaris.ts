@@ -1,8 +1,9 @@
 import fs from 'mz/fs';
 import { Server } from './index';
 import { resolve as pathResolve } from 'path';
-const shiftServer = new Server('./build');
 import { BinarisFunction } from './binaris';
+
+const shiftServer = new Server('./build');
 
 interface InvokeRequest {
   path: string;
@@ -28,6 +29,10 @@ export const handler: BinarisFunction = async (body, ctx) => {
       if (!isInvokeRequest(body)) {
         return new ctx.HTTPResponse({
           statusCode: 400,
+          body: JSON.stringify({
+            error: 'Invoke request is not of the form { path, handler, body }',
+          }),
+          headers: { 'Content-Type': 'application/json' },
         });
       }
       const { path, handler: fnHandler, args } = body;
