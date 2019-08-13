@@ -77,7 +77,9 @@ export default abstract class BaseCommand extends Command {
     this.log(`If that does not happen, click ${terminalLink('here', loginHref)}.`);
     await Cli.open(loginHref);
 
+    Cli.action.start('Waiting for login');
     const accessToken = await this.waitForAccessToken(ticket, ticketExpiration);
+    Cli.action.stop('');
     if (!accessToken) {
       throw new CLIError('Failed to login.');
     }
