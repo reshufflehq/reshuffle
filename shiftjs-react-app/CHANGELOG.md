@@ -1,6 +1,13 @@
 # Change Log - @binaris/shiftjs-react-app
 
-This log was last generated on Fri, 09 Aug 2019 16:09:50 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Aug 2019 14:08:52 GMT and should not be manually modified.
+
+## 0.0.6
+Tue, 13 Aug 2019 14:08:52 GMT
+
+### Patches
+
+- Add shift-server-function to install
 
 ## 0.0.5
 Fri, 09 Aug 2019 16:09:50 GMT

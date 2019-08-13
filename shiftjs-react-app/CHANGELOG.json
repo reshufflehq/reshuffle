@@ -2,6 +2,18 @@
   "name": "@binaris/shiftjs-react-app",
   "entries": [
     {
+      "version": "0.0.6",
+      "tag": "@binaris/shiftjs-react-app_v0.0.6",
+      "date": "Tue, 13 Aug 2019 14:08:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add shift-server-function to install"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.5",
       "tag": "@binaris/shiftjs-react-app_v0.0.5",
       "date": "Fri, 09 Aug 2019 16:09:50 GMT",

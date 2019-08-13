@@ -2,6 +2,18 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.1.1",
+      "tag": "shift-cli_v0.1.1",
+      "date": "Tue, 13 Aug 2019 14:08:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add deploy command"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.0",
       "tag": "shift-cli_v0.1.0",
       "date": "Tue, 13 Aug 2019 11:12:48 GMT",
