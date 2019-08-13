@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shiftjs-react-app",
+      "comment": "Add shift-server-function to install",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shiftjs-react-app",
+  "email": "vladimir@shiftjs.com"
+}
