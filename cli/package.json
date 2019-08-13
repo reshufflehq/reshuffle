@@ -53,7 +53,7 @@
   "oclif": {
     "commands": "./lib/commands",
     "bin": "shift-cli",
-    "repositoryPrefix": "<%- repo %>/blob/v<%- version %>/cli/<%- commandPath %>",
+    "repositoryPrefix": "<%- repo %>/blob/shift-cli_v<%- version %>/cli/<%- commandPath %>",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
