@@ -67,6 +67,7 @@ dependencies:
   babel-plugin-tester: 6.4.0
   bunyan: 1.8.12
   bunyan-rotating-file-stream: 1.6.3
+  cli-ux: 5.3.1
   conf: 5.0.0
   deep-freeze: 0.0.1
   express: 4.17.1
@@ -9102,6 +9103,7 @@ packages:
       '@types/ms': 0.7.30
       '@types/node': 10.14.15
       '@types/validator': 10.11.2
+      cli-ux: 5.3.1
       conf: 5.0.0
       globby: 10.0.1
       js-yaml: 3.13.1
@@ -9116,7 +9118,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-4gvQxWJR/hMYBeG+Shwuf4mgaKU6JqFP+N8ufKHQqPMKbtJoAKTCOgLw6hR4cAD6mZn8hF7N+DARLaikRZCHlQ==
+      integrity: sha512-LAzgfGSLf1DyiSYQeYlQBJ+EilSQp3bWvf9ZJjvbonnk2gLa+aGny5aXK+aaKXw5bJskmVv3eBN1o2dqWV1dGg==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9405,6 +9407,7 @@ specifiers:
   babel-plugin-tester: ^6.4.0
   bunyan: ^1.8.12
   bunyan-rotating-file-stream: ^1.6.3
+  cli-ux: ^5.3.1
   conf: ^5.0.0
   deep-freeze: ^0.0.1
   express: ^4.17.1
