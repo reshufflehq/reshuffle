@@ -1,6 +1,13 @@
 # Change Log - shift-cli
 
-This log was last generated on Tue, 13 Aug 2019 14:08:52 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Aug 2019 16:51:10 GMT and should not be manually modified.
+
+## 0.1.2
+Tue, 13 Aug 2019 16:51:10 GMT
+
+### Patches
+
+- Use proper tgz for deploy
 
 ## 0.1.1
 Tue, 13 Aug 2019 14:08:52 GMT
