@@ -355,6 +355,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-db-client",
+        "projectFolder": "db-client",
+        "shouldPublish": true
+    },
+    {
         "packageName": "@binaris/shift-fetch-runtime",
         "projectFolder": "fetch-runtime",
         "shouldPublish": true
