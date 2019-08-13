@@ -79,7 +79,8 @@ export default class Deploy extends Command {
     await tar.create({
       gzip: true,
       file: tarPath,
-    }, [stagingDir]);
+      cwd: stagingDir,
+    }, ['.']);
     return tarPath;
   }
 
