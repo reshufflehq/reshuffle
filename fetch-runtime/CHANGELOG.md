@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-fetch-runtime
 
-This log was last generated on Thu, 01 Aug 2019 12:37:42 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Aug 2019 11:12:48 GMT and should not be manually modified.
+
+## 0.0.4
+Tue, 13 Aug 2019 11:12:48 GMT
+
+### Patches
+
+- Support paths relative to root using PUBLIC_URL
 
 ## 0.0.3
 Thu, 01 Aug 2019 12:37:42 GMT

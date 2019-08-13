@@ -1,6 +1,11 @@
 # Change Log - @binaris/shift-subscriptions
 
-This log was last generated on Mon, 12 Aug 2019 13:45:13 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Aug 2019 11:12:48 GMT and should not be manually modified.
+
+## 0.0.6
+Tue, 13 Aug 2019 11:12:48 GMT
+
+*Version update only*
 
 ## 0.0.5
 Mon, 12 Aug 2019 13:45:13 GMT

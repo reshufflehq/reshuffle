@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-server-function",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Serving function of static files",
   "main": "dist/index.js",
   "files": [

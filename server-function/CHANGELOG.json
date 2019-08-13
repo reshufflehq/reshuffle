@@ -1,0 +1,17 @@
+{
+  "name": "@binaris/shift-server-function",
+  "entries": [
+    {
+      "version": "0.0.1",
+      "tag": "@binaris/shift-server-function_v0.0.1",
+      "date": "Tue, 13 Aug 2019 11:12:48 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add intial server decision engine"
+          }
+        ]
+      }
+    }
+  ]
+}

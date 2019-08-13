@@ -2,6 +2,18 @@
   "name": "@binaris/shift-fetch-runtime",
   "entries": [
     {
+      "version": "0.0.4",
+      "tag": "@binaris/shift-fetch-runtime_v0.0.4",
+      "date": "Tue, 13 Aug 2019 11:12:48 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Support paths relative to root using PUBLIC_URL"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.3",
       "tag": "@binaris/shift-fetch-runtime_v0.0.3",
       "date": "Thu, 01 Aug 2019 12:37:42 GMT",

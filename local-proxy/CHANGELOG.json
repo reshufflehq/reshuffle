@@ -2,6 +2,23 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.11",
+      "tag": "@binaris/shift-local-proxy_v0.0.11",
+      "date": "Tue, 13 Aug 2019 11:12:48 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use common code for serving decisions"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-server-function\" from `0.0.0` to `0.0.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.10",
       "tag": "@binaris/shift-local-proxy_v0.0.10",
       "date": "Mon, 12 Aug 2019 13:45:13 GMT",
