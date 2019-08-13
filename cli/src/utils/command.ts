@@ -8,7 +8,6 @@ import ms from 'ms';
 import Cli from 'cli-ux';
 import terminalLink from 'terminal-link';
 import { LycanClient } from '@binaris/spice-node-client';
-import sleep from './sleep';
 import flags from './cli-flags';
 import userConfig from './user-config';
 
@@ -91,7 +90,7 @@ export default abstract class BaseCommand extends Command {
 
   private async waitForAccessToken(ticket: string, ticketExpiration: number): Promise<string | undefined> {
     while (Date.now() < ticketExpiration) {
-      await sleep(TICKET_CLAIM_INTERVAL_MS);
+      await Cli.wait(TICKET_CLAIM_INTERVAL_MS);
       try {
         return await this.lycanClient.claimTicket(ticket);
       } catch (err) {
