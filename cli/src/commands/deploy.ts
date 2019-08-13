@@ -97,6 +97,7 @@ export default class Deploy extends Command {
       body: stream,
     });
     if (res.status !== 200) {
+      // TODO: check error if response is not a json and display a nice error message
       const { message } = await res.json();
       this.error(message);
     }
