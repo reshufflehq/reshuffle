@@ -1,0 +1,27 @@
+{
+  "name": "@binaris/shift-db-client",
+  "version": "0.0.1",
+  "description": "(Backend) client for accessing ShiftJS DBs.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "echo no tests yet; will eventually run ava -v dist/test/*.js"
+  },
+  "keywords": [
+    "binaris",
+    "shift",
+    "shiftjs",
+    "db",
+    "client",
+    "db-client",
+    "shift-db"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@binaris/shift-interfaces-node-client": "^0.4.0",
+    "@types/deep-freeze": "^0.1.2",
+    "deep-freeze": "0.0.1"
+  }
+}
