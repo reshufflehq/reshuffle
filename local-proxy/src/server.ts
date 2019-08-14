@@ -1,7 +1,8 @@
 import { resolve as resolvePath, relative as relativePath } from 'path';
-import { inspect } from 'util';
 import http from 'http';
-import express, { json } from 'express';
+import Koa from 'koa';
+import KoaRouter from 'koa-router';
+import bodyParser from 'koa-bodyparser';
 import { mkdtempSync } from 'fs';
 import * as rimraf from 'rimraf';
 import babelDir from '@babel/cli/lib/babel/dir';
@@ -35,7 +36,9 @@ const whitelistedModules = new Map(
   }).filter((pair): pair is [string, any] => pair !== undefined)
 );
 
-const app = express();
+const app = new Koa();
+app.use(bodyParser({ enableTypes: ['json'], strict: false, detectJSON: () => true }));
+const router = new KoaRouter();
 
 const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.shift_local_proxy_'));
 
@@ -73,14 +76,15 @@ function reportInvocationDurationUs(startTime: [number, number], requestId: stri
   return durationMicro;
 }
 
-app.post('/invoke', json(), async (req, res) => {
-  if (req.headers['x-shift-dev-server-local-token'] !== localToken) {
-    return res.sendStatus(403);
+router.post('/invoke', async (ctx, _next) => {
+  if (ctx.get('x-shift-dev-server-local-token') !== localToken) {
+    ctx.throw(403, 'bad or missing local token');
+    return;
   }
   const startHrtime = process.hrtime();
   const requestId = nanoid();
   // TODO: validate request
-  const { path, handler, args } = req.body;
+  const { path, handler, args } = ctx.request.body;
   registry.register(requestId);
   try {
     let fn: (...args: any[]) => any;
@@ -90,9 +94,11 @@ app.post('/invoke', json(), async (req, res) => {
       await transpilePromise;
       const joinedDir = resolvePath(tmpDir, path);
       if (relativePath(tmpDir, joinedDir).startsWith('..')) {
-        return res.status(403).send({
+        ctx.status = 403;
+        ctx.response.body = {
           error: `Cannot reference path outside of root dir: ${path}`,
-        });
+        };
+        return;
       }
       const mod = require(joinedDir);
       fn = mod[handler];
@@ -102,14 +108,18 @@ app.post('/invoke', json(), async (req, res) => {
     // Not logging args to avoid sensitive info log (?)
     reportInvocationDurationUs(startHrtime, requestId, { path, handler });
     if (ret === undefined) {
-      return res.sendStatus(204);
+      ctx.status = 204;
+      return;
     }
-    res.json(ret);
+    // ret might be a scalar, which Koa does not auto-JSONify.  So
+    // JSON manually.
+    ctx.response.type = 'application/json';
+    ctx.body = JSON.stringify(ret);
   } catch (err) {
     reportInvocationDurationUs(startHrtime, requestId, { path, handler });
     // tslint:disable-next-line:no-console
     console.error('Failed to invoke function', err);
-    res.status(500).json({ error: inspect(err) });
+    ctx.throw(500, err);
   } finally {
     registry.unregister(requestId);
   }
@@ -127,7 +137,10 @@ process.once('SIGINT', () => {
   process.kill(process.pid, 'SIGINT');
 });
 
-const server = http.createServer(app);
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+const server = http.createServer(app.callback());
 server.listen(0, '127.0.0.1', () => {
   const { port } = server.address() as AddressInfo;
   if (process.send) process.send({ type: 'ready', port });
