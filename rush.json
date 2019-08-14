@@ -355,6 +355,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-leveldb-server",
+        "projectFolder": "leveldb-server",
+        "shouldPublish": true
+    },
+    {
         "packageName": "@binaris/shift-db-client",
         "projectFolder": "db-client",
         "shouldPublish": true
