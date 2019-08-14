@@ -1,0 +1,171 @@
+{
+  "name": "@binaris/shift-db",
+  "entries": [
+    {
+      "version": "0.3.1",
+      "tag": "@binaris/shift-db_v0.3.1",
+      "date": "Mon, 12 Aug 2019 13:45:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update client version"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.3.0",
+      "tag": "@binaris/shift-db_v0.3.0",
+      "date": "Tue, 06 Aug 2019 12:22:25 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use exported types from client package"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Disallow all non-JSONable types at top level of values"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.2.2",
+      "tag": "@binaris/shift-db_v0.2.2",
+      "date": "Thu, 01 Aug 2019 12:37:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Release packages publicly"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.1.1` to `0.1.2`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.2.1",
+      "tag": "@binaris/shift-db_v0.2.1",
+      "date": "Mon, 29 Jul 2019 06:11:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename getVersioned to startPolling"
+          },
+          {
+            "comment": "Change return types of exposed subscription functions"
+          },
+          {
+            "comment": "Fix version comparison"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.1.0` to `0.1.1`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.2.0",
+      "tag": "@binaris/shift-db_v0.2.0",
+      "date": "Thu, 18 Jul 2019 12:48:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Change db.update API and Serializable type"
+          },
+          {
+            "comment": "Refactor exportable interfaces into shift-interfaces."
+          },
+          {
+            "comment": "Change db.get() return type"
+          },
+          {
+            "comment": "Export getVersioned() and poll()"
+          },
+          {
+            "comment": "Properly export types"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Implement subscription functions"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-interfaces\" from `0.0.1` to `0.1.0`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.1.2",
+      "tag": "@binaris/shift-db_v0.1.2",
+      "date": "Wed, 10 Jul 2019 12:29:59 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Implement query language"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.1.1",
+      "tag": "@binaris/shift-db_v0.1.1",
+      "date": "Tue, 09 Jul 2019 13:02:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Downgrade AVA dependency"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.1.0",
+      "tag": "@binaris/shift-db_v0.1.0",
+      "date": "Tue, 09 Jul 2019 07:46:16 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Accept any JSONable as DB value"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-db_v0.0.2",
+      "date": "Tue, 09 Jul 2019 07:26:14 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add linting"
+          },
+          {
+            "comment": "Limit distributed files"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.0.1",
+      "tag": "@binaris/shift-db_v0.0.1",
+      "date": "Thu, 20 Jun 2019 15:03:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Initial version"
+          }
+        ]
+      }
+    }
+  ]
+}
