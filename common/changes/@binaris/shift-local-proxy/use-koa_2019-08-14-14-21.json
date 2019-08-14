@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-local-proxy",
+      "comment": "Change invoke-server to use Koa",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-local-proxy",
+  "email": "ariels@shiftjs.com"
+}
