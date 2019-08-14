@@ -37,7 +37,7 @@ const whitelistedModules = new Map(
 );
 
 const app = new Koa();
-app.use(bodyParser({ enableTypes: ['json'], strict: false, detectJSON: () => true }));
+app.use(bodyParser({ enableTypes: ['json'], strict: false }));
 const router = new KoaRouter();
 
 const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.shift_local_proxy_'));
@@ -76,7 +76,7 @@ function reportInvocationDurationUs(startTime: [number, number], requestId: stri
   return durationMicro;
 }
 
-router.post('/invoke', async (ctx, _next) => {
+router.post('/invoke', async (ctx) => {
   if (ctx.get('x-shift-dev-server-local-token') !== localToken) {
     ctx.throw(403, 'bad or missing local token');
     return;
