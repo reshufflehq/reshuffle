@@ -1,0 +1,42 @@
+{
+  "name": "@binaris/shift-leveldb-server",
+  "version": "0.0.1",
+  "files": [
+    "dist"
+  ],
+  "description": "A Shift DB server based on LevelDB",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "ava -v dist/test/*.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@binaris/shift-interfaces-koa-server": "^0.4.0",
+    "@types/deep-freeze": "^0.1.1",
+    "@types/leveldown": "^4.0.0",
+    "@types/levelup": "^3.1.1",
+    "async-mutex": "^0.1.3",
+    "deep-freeze": "^0.0.1",
+    "fast-json-patch": "^2.2.0",
+    "koa": "^2.7.0",
+    "leveldown": "^5.1.1",
+    "levelup": "^4.1.0",
+    "nanoid": "^2.0.3",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.49",
+    "@types/nanoid": "^2.0.0",
+    "@types/node": "^10.14.9",
+    "@types/ramda": "^0.26.18",
+    "@types/rmfr": "^2.0.0",
+    "ava": "^2.2.0",
+    "rmfr": "^2.0.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
+}
