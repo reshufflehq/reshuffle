@@ -45,6 +45,8 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
 
   public static args = [];
 
+  public static strict = true;
+
   public async run() {
 
     const {flags: { since, follow, limit }} = this.parse(Logs);
