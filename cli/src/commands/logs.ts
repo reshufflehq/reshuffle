@@ -5,6 +5,7 @@ import {
   getProjectRootDir,
   Project,
 } from '../utils/helpers';
+import ms = require('ms');
 
 export default class Logs extends Command {
   public static description = 'Show logs';
@@ -66,8 +67,9 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
     let token;
     do {
       // TODO: support other envs
+      const sinceDate = typeof since === 'string' ? new Date(Date.now() - ms(since)) : since;
       const { records, nextToken } = await this.lycanClient.getLogs(
-        project.applicationId, project.defaultEnv, { follow, limit, since });
+        project.applicationId.replace(/-/g, ''), project.defaultEnv, { follow, limit, since: sinceDate });
 
       // TODO: fix EOL, multiple sources, formatting
       for (const record of records) {
