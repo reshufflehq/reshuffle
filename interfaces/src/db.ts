@@ -177,7 +177,7 @@ export interface StoredDocument extends VersionedObject, Patches {
  */
 export interface Tombstone extends Patches {
   updatedAt: number;
-  value: undefined;
+  // No value (value: undefined, in JSONese).
   // (0, 0) if the document was never there in the first place.
   version: Version;
 }
@@ -205,7 +205,7 @@ export interface DB {
    * @return - true if key updated.
    */
   setIfVersion: {
-    params: { key: string; value: Serializable; version: Version };
+    params: { key: string; version: Version; value?: Serializable; }
     returns: boolean;
   };
 
@@ -244,5 +244,5 @@ export interface DB {
   find: {
     params: { query: Query };
     returns: Document[];
-  }
+  };
 }

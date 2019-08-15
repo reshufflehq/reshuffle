@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "echo no tests yet; will eventually run ava -v dist/test/*.js"
+    "test": "echo 'no tests yet; will eventually run ava -v dist/test/*.js'"
   },
   "keywords": [
     "binaris",
