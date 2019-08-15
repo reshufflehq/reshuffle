@@ -66,7 +66,7 @@ export default abstract class BaseCommand extends Command {
       opt.flags = BaseCommand.flags;
     }
 
-    return Parser.parse(argv, { context: this, ...opt, strict: false });
+    return Parser.parse(argv, { context: this, strict: false, ...opt });
   }
 
   public async init() {
