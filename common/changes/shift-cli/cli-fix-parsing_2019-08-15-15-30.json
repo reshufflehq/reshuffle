@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Fix parsing of base command flags",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "vladimir@shiftjs.com"
+}
