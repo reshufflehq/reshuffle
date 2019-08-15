@@ -91,7 +91,7 @@ export class DBHandler {
     value: {} | any[] | null | string | number | boolean,
     version: Version
   ): Promise<boolean> {
-    return this.client.setIfVersion(this.ctx, key, value, version);
+    return this.client.setIfVersion(this.ctx, key, version, value);
   }
 }
 
