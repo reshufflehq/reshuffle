@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db-client",
+      "comment": "New client code for accessing over CConcord",
+      "type": "major"
+    }
+  ],
+  "packageName": "@binaris/shift-db-client",
+  "email": "ariels@shiftjs.com"
+}
