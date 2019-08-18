@@ -258,10 +258,10 @@ test('DB.create works after remove', async (t) => {
   const { version: initialVersion } = (await db.getWithMeta(ctx, 'test'))!;
   await db.remove(ctx, 'test');
   const t0 = hrnano();
-  t.true(await db.create(ctx, 'test', 8));
+  t.true(await db.create(ctx, 'test', 18));
   const doc = await db.getWithMeta(ctx, 'test');
   t.deepEqual(omit(['updatedAt', 'version'], doc), {
-    value: 8,
+    value: 18,
     patches: [
       {
         version: initialVersion,
@@ -273,7 +273,7 @@ test('DB.create works after remove', async (t) => {
       },
       {
         version: doc!.version,
-        ops: [{ op: 'replace', path: '/root', value: 8 }],
+        ops: [{ op: 'replace', path: '/root', value: 18 }],
       },
     ],
   });
