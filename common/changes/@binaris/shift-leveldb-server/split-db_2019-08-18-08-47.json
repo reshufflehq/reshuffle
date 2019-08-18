@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-leveldb-server",
+      "comment": "New server to add to local-proxy",
+      "type": "major"
+    }
+  ],
+  "packageName": "@binaris/shift-leveldb-server",
+  "email": "ariels@shiftjs.com"
+}

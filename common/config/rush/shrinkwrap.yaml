@@ -19,10 +19,12 @@ dependencies:
   '@rush-temp/shift-cli': 'file:projects/shift-cli.tgz'
   '@rush-temp/shift-code-transform': 'file:projects/shift-code-transform.tgz'
   '@rush-temp/shift-db': 'file:projects/shift-db.tgz'
+  '@rush-temp/shift-db-client': 'file:projects/shift-db-client.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-interfaces-koa-server': 'file:projects/shift-interfaces-koa-server.tgz'
   '@rush-temp/shift-interfaces-node-client': 'file:projects/shift-interfaces-node-client.tgz'
+  '@rush-temp/shift-leveldb-server': 'file:projects/shift-leveldb-server.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@rush-temp/shift-server-function': 'file:projects/shift-server-function.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
@@ -30,7 +32,6 @@ dependencies:
   '@types/babel__core': 7.1.2
   '@types/babel__traverse': 7.0.7
   '@types/bunyan': 1.8.6
-  '@types/deep-freeze': 0.1.2
   '@types/dotenv': 6.1.1
   '@types/express': 4.17.0
   '@types/fresh': 0.5.0
@@ -69,7 +70,6 @@ dependencies:
   chalk: 2.4.2
   cli-ux: 5.3.1
   conf: 5.0.0
-  deep-freeze: 0.0.1
   dotenv: 8.1.0
   express: 4.17.1
   fast-json-patch: 2.2.1
@@ -9085,6 +9085,16 @@ packages:
       integrity: sha512-hGDBaBrZP9xg1hZXX6d0/1DtNbsFBqE979iRsDbI498yn2ao6j8evXldvUh7OsqZGmuP2Q/xCW6+Z+4v9dPLPw==
       tarball: 'file:projects/shift-code-transform.tgz'
     version: 0.0.0
+  'file:projects/shift-db-client.tgz':
+    dependencies:
+      '@types/deep-freeze': 0.1.2
+      deep-freeze: 0.0.1
+    dev: false
+    name: '@rush-temp/shift-db-client'
+    resolution:
+      integrity: sha512-1A7Dx/+L3OqH2fS5HczLP2R6rI23p3xxvodp1DBJs2KjyDmruNBKjnL6tsfu8JazHsuygkSU/rjCRAKscme8tg==
+      tarball: 'file:projects/shift-db-client.tgz'
+    version: 0.0.0
   'file:projects/shift-db.tgz':
     dependencies:
       '@binaris/shift-interfaces-node-client': 0.3.0
@@ -9166,6 +9176,34 @@ packages:
     resolution:
       integrity: sha512-ZuOKGABbfUejgxf1lvz2HJKGdDdRoYhie1NWtFxbjteTCtCQtlvcCGLA9JM4EWZq85lkM9DjrYKtLu6HJ4y4Bg==
       tarball: 'file:projects/shift-interfaces.tgz'
+    version: 0.0.0
+  'file:projects/shift-leveldb-server.tgz':
+    dependencies:
+      '@types/deep-freeze': 0.1.2
+      '@types/koa': 2.0.49
+      '@types/leveldown': 4.0.0
+      '@types/levelup': 3.1.1
+      '@types/nanoid': 2.0.0
+      '@types/node': 10.14.15
+      '@types/ramda': 0.26.19
+      '@types/rmfr': 2.0.0
+      async-mutex: 0.1.3
+      ava: 2.2.0
+      deep-freeze: 0.0.1
+      fast-json-patch: 2.2.1
+      koa: 2.7.0
+      leveldown: 5.1.1
+      levelup: 4.1.0
+      nanoid: 2.0.3
+      ramda: 0.26.1
+      rmfr: 2.0.0
+      tslint: /tslint/5.18.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shift-leveldb-server'
+    resolution:
+      integrity: sha512-nPbHzXwsmlvvf+zqAg/j6+a29buG7NJ3+nQAvQhI5QBD/wd0Hzxx5rDVRweA9IHNashndNNmjqXs7iJP1ncuEw==
+      tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
     dependencies:
@@ -9310,10 +9348,12 @@ specifiers:
   '@rush-temp/shift-cli': 'file:./projects/shift-cli.tgz'
   '@rush-temp/shift-code-transform': 'file:./projects/shift-code-transform.tgz'
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
+  '@rush-temp/shift-db-client': 'file:./projects/shift-db-client.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-interfaces-koa-server': 'file:./projects/shift-interfaces-koa-server.tgz'
   '@rush-temp/shift-interfaces-node-client': 'file:./projects/shift-interfaces-node-client.tgz'
+  '@rush-temp/shift-leveldb-server': 'file:./projects/shift-leveldb-server.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@rush-temp/shift-server-function': 'file:./projects/shift-server-function.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
@@ -9321,7 +9361,6 @@ specifiers:
   '@types/babel__core': ^7.1.2
   '@types/babel__traverse': ^7.0.7
   '@types/bunyan': ^1.8.6
-  '@types/deep-freeze': ^0.1.1
   '@types/dotenv': ^6.1.1
   '@types/express': ^4.17.0
   '@types/fresh': ^0.5.0
@@ -9360,7 +9399,6 @@ specifiers:
   chalk: ^2.4.2
   cli-ux: ^5.3.1
   conf: ^5.0.0
-  deep-freeze: ^0.0.1
   dotenv: ^8.0.0
   express: ^4.17.1
   fast-json-patch: ^2.2.0
