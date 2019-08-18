@@ -131,7 +131,7 @@ export class DB extends EventEmitter {
       const val = await this.db.get(key);
       return JSON.parse(val.toString());
     } catch (err) {
-      if (err.name === 'NotFoundError') {
+      if (err.notFound) {
         return undefined;
       }
       throw err;

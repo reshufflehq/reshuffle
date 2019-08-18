@@ -29,7 +29,8 @@ test.afterEach(async (t) => {
 
 test('DB.get returns undefined when no key exists', async (t) => {
   const { db } = t.context;
-  t.is(await db.get('test'), undefined);
+  const value = await db.get('test');
+  t.assert(value === undefined);
 });
 
 test('DB.create creates a new document, returns true, and sets version to 1', async (t) => {
