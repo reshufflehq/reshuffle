@@ -5,8 +5,8 @@
     "dist"
   ],
   "description": "A Shift DB server based on LevelDB",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/db.js",
+  "types": "dist/db.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
