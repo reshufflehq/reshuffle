@@ -33,7 +33,8 @@ test.afterEach(async (t) => {
 
 test('DB.get returns undefined when no key exists', async (t) => {
   const { ctx, db } = t.context;
-  t.is(await db.get(ctx, 'test'), undefined);
+  const value = await db.get(ctx, 'test');
+  t.assert(value === undefined);
 });
 
 test('DB.create creates a new document, returns true, and sets version to 1', async (t) => {
@@ -122,7 +123,8 @@ test('DB.remove sets a tombstone with an updatedAt attribute', async (t) => {
   await db.create(ctx, 'test', { a: 1 });
   t.true(await db.remove(ctx, 'test'));
   const doc = await db.getWithMeta(ctx, 'test');
-  t.is(doc!.value, undefined);
+  t.truthy(doc);
+  t.assert(! ('value' in doc!));
   t.true(doc!.updatedAt >= t0);
 });
 
@@ -132,7 +134,7 @@ test('DB.remove sets a tombstone with an updatedAt attribute', async (t) => {
 async function simpleUpdate(t: ExecutionContext<Context>, key: string, value: Serializable) {
   const { ctx, db } = t.context;
   const { version } = await db.getWithVersion(ctx, key);
-  t.true(await db.setIfVersion(ctx, key, value, version));
+  t.true(await db.setIfVersion(ctx, key, version, value));
 }
 
 test('DB.poll returns patches which match requested versions', async (t) => {
@@ -142,11 +144,11 @@ test('DB.poll returns patches which match requested versions', async (t) => {
   await db.create(ctx, 'test3', 'a');
   await db.create(ctx, 'test4', 'a');
   await db.create(ctx, 'test5', 'a');
-  await simpleUpdate(t, 'test1', () => 'b');
-  await simpleUpdate(t, 'test1', () => 'c');
-  await simpleUpdate(t, 'test2', () => 'b');
-  await simpleUpdate(t, 'test2', () => 'c');
-  await simpleUpdate(t, 'test3', () => 'b');
+  await simpleUpdate(t, 'test1', 'b');
+  await simpleUpdate(t, 'test1', 'c');
+  await simpleUpdate(t, 'test2', 'b');
+  await simpleUpdate(t, 'test2', 'c');
+  await simpleUpdate(t, 'test3', 'b');
   await db.remove(ctx, 'test3');
   const [
     major1,
@@ -188,7 +190,7 @@ test('DB.poll returns on update if no new patches stored', async (t) => {
   const { version } = (await db.getWithMeta(ctx, 'test1'))!;
   const [keyedPatches] = await Promise.all([
     db.poll(ctx, [['test1', version]]),
-    simpleUpdate(t, 'test1', () => 'b'),
+    simpleUpdate(t, 'test1', 'b'),
   ]);
   t.deepEqual(keyedPatches, [
     ['test1', [
@@ -286,6 +288,7 @@ test('DB.setIfVersion works after remove but increments version and includes tom
   const { version: initialVersion } = (await db.getWithMeta(ctx, 'test'))!;
   await db.remove(ctx, 'test');
   const t0 = hrnano();
+  t.true(await db.setIfVersion(ctx, 'test', incrVersion(initialVersion), 8));
   const doc = await db.getWithMeta(ctx, 'test');
   t.deepEqual(omit(['updatedAt', 'version'], doc), {
     value: 8,
@@ -307,8 +310,4 @@ test('DB.setIfVersion works after remove but increments version and includes tom
   t.true(doc!.updatedAt >= t0);
   t.true(doc!.version.major >= t0);
   t.is(doc!.version.minor, 1);
-});
-
-test('DB.setIfVersion throws TypeError if updater returned undefined', async (t) => {
-  await t.throwsAsync(simpleUpdate(t, 'test', () => undefined as any), TypeError);
 });
