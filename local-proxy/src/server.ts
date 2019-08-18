@@ -1,4 +1,6 @@
 import { resolve as resolvePath, relative as relativePath } from 'path';
+import { DB } from '@binaris/shift-leveldb-server';
+import { DBRouter } from '@binaris/shift-interfaces-koa-server';
 import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
@@ -124,6 +126,15 @@ router.post('/invoke', async (ctx) => {
     registry.unregister(requestId);
   }
 });
+
+const dbPath = process.env.SHIFT_DB_PATH;
+if (!dbPath) {
+  throw new Error('SHIFT_DB_PATH env var not defined');
+}
+
+const db = new DB(dbPath);
+const dbRouter = new DBRouter(db);
+router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
 
 // nodemon uses SIGUSR2
 process.once('SIGUSR2', () => {
