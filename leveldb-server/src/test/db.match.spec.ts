@@ -151,7 +151,7 @@ test('startsWith matches string', startsWith, 'abc', 'ab');
 test('startsWith matches string', doesntStartWith, 'ABC', 'ab');
 
 const startsWithAb = { operator: 'startsWith' as 'startsWith', path: ['key'], value: 'ab' };
-const equalsAb = { operator: 'eq' as 'eq', path: ['key'], value: 'ab' }
+const equalsAb = { operator: 'eq' as 'eq', path: ['key'], value: 'ab' };
 const equals0 = { operator: 'eq' as 'eq', path: ['value'], value: 0 };
 const equals1 = { operator: 'eq' as 'eq', path: ['value'], value: 1 };
 
