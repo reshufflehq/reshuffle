@@ -2,6 +2,21 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.1.3",
+      "tag": "shift-cli_v0.1.3",
+      "date": "Sun, 18 Aug 2019 14:34:51 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix parsing of base command flags"
+          },
+          {
+            "comment": "Add logs command"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.2",
       "tag": "shift-cli_v0.1.2",
       "date": "Tue, 13 Aug 2019 16:51:10 GMT",

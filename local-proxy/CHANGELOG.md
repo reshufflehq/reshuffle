@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Tue, 13 Aug 2019 11:12:48 GMT and should not be manually modified.
+This log was last generated on Sun, 18 Aug 2019 14:34:51 GMT and should not be manually modified.
+
+## 0.0.12
+Sun, 18 Aug 2019 14:34:51 GMT
+
+### Patches
+
+- Change invoke-server to use Koa
 
 ## 0.0.11
 Tue, 13 Aug 2019 11:12:48 GMT
