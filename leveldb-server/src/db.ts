@@ -67,6 +67,10 @@ function versionsMatch(prev: StoredDocument | Tombstone | undefined, version: Ve
   return prev.version.major === version.major && prev.version.minor === version.minor;
 }
 
+function valueOrUndefined(maybeHasValue?: any) {
+  return maybeHasValue === undefined ? undefined : maybeHasValue.value!;
+}
+
 export class DB implements DBHandler {
   protected emitter = new EventEmitter();
   protected readonly writeLock = new Mutex();
@@ -82,8 +86,8 @@ export class DB implements DBHandler {
   protected async put(
     key: string, prev: StoredDocument | Tombstone | undefined, value: any, options?: UpdateOptions
   ): Promise<void> {
-    const prevValue = prev === undefined ? undefined : prev.value;
-    const version = prev === undefined || prev.value === undefined ?
+    const prevValue = valueOrUndefined(prev);
+    const version = prev === undefined || (prev as any).value === undefined ?
       { major: hrnano(), minor: 1 } : incrVersion(prev.version);
     const patches = prev ? prev.patches : [];
     const ops = compare({ root: prevValue }, { root: value });
@@ -109,7 +113,7 @@ export class DB implements DBHandler {
     if (versioned === undefined) {
       return undefined;
     }
-    return versioned.value;
+    return (versioned as any).value;
   }
 
   /**
@@ -137,7 +141,11 @@ export class DB implements DBHandler {
    * @return - { version, value } or undefined if key doesn’t exist.
    */
   public async getWithVersion(ctx: ServerOnlyContext, key: string): Promise<VersionedMaybeObject> {
-    return pick(['value', 'version'], await this.getWithVersion(ctx, key));
+    const withMeta = await this.getWithMeta(ctx, key);
+    if (!withMeta) {
+      return { version: { major: 0, minor: 0 } };
+    }
+    return pick(['value', 'version'], withMeta);
   }
 
   /**
@@ -164,7 +172,7 @@ export class DB implements DBHandler {
   public async remove(ctx: ServerOnlyContext, key: string): Promise<boolean> {
     return await this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
-      if (prev === undefined || prev.value === undefined) {
+      if (valueOrUndefined(prev) === undefined) {
         return false;
       }
       // TODO: Schedule periodic DB vacuum and delete old tombstones
@@ -174,9 +182,9 @@ export class DB implements DBHandler {
   }
 
   public async setIfVersion(
-    ctx: ServerOnlyContext, key: string, value: Serializable, version: Version
+    ctx: ServerOnlyContext, key: string, version: Version, value?: Serializable
   ): Promise<boolean> {
-    checkValue(value);
+    if (value !== undefined) checkValue(value);
     return await this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
       if (! versionsMatch(prev, version)) return false;
@@ -190,7 +198,11 @@ export class DB implements DBHandler {
    * @see KeyedVersions
    * @see KeyedPatches
    */
-  public async poll(ctx: ServerOnlyContext, keysToVersions: KeyedVersions, opts: Partial<PollOptions> = {}): Promise<KeyedPatches> {
+  public async poll(
+    ctx: ServerOnlyContext,
+    keysToVersions: KeyedVersions,
+    opts: Partial<PollOptions> = {}
+  ): Promise<KeyedPatches> {
     const keysToVersionsMap = new Map(keysToVersions);
     const { promise, resolve } = deferred<KeyedPatches>();
     // Make sure we don't miss any live updates in case the initial scan (below) comes back empty.
