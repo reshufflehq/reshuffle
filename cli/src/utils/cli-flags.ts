@@ -27,7 +27,7 @@ export default {
       if (valMs !== undefined) {
         return val;
       }
-      error(`Expected a formatted duration or isISO8601 string format but received: ${val}`);
+      error(`Expected a formatted duration or ISO 8601 string format but received: ${val}`);
       throw new Error('Should not get here');
     },
   }),

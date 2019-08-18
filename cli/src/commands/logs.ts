@@ -70,7 +70,8 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       // TODO: support other envs
       const sinceDate = typeof since === 'string' ? new Date(Date.now() - ms(since)) : since;
       const { records, nextToken } = await this.lycanClient.getLogs(
-        project.applicationId.replace(/-/g, ''), project.defaultEnv, { follow, limit: currentLimit, since: sinceDate, nextToken: token });
+        project.applicationId.replace(/-/g, ''), project.defaultEnv,
+        { follow, limit: currentLimit, since: sinceDate, nextToken: token });
 
       // TODO: fix EOL, multiple sources, formatting
       for (const record of records) {
