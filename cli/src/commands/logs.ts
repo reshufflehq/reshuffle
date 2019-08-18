@@ -65,17 +65,19 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);
     }
     let token: string | undefined;
+    let currentLimit = limit;
     do {
       // TODO: support other envs
       const sinceDate = typeof since === 'string' ? new Date(Date.now() - ms(since)) : since;
       const { records, nextToken } = await this.lycanClient.getLogs(
-        project.applicationId.replace(/-/g, ''), project.defaultEnv, { follow, limit, since: sinceDate, nextToken: token });
+        project.applicationId.replace(/-/g, ''), project.defaultEnv, { follow, limit: currentLimit, since: sinceDate, nextToken: token });
 
       // TODO: fix EOL, multiple sources, formatting
       for (const record of records) {
         process.stdout.write(record.msg);
       }
       token = nextToken;
-    } while (token);
+      currentLimit -= records.length;
+    } while (token && currentLimit > 0);
   }
 }
