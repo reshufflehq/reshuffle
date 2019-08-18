@@ -23,6 +23,14 @@ if (!localToken) {
   throw new Error('SHIFT_DEV_SERVER_LOCAL_TOKEN env var not defined');
 }
 
+function setupEnv({ port }: { port: number }) {
+  process.env.DB_ENDPOINT = `http://localhost:${port}/v1`;
+  // TODO(vogre): Used (at least) for DB, where it doesn't really
+  //     matter locally.  Are better values available?
+  process.env.APP_ID = 'local-app';
+  process.env.ACCOUNT_ID = 'me';
+}
+
 const whitelistedModulesArr = (process.env.SHIFT_DEV_SERVER_MODULES_WHITELIST || '@binaris/shift-db').split(',');
 
 const whitelistedModules = new Map(
@@ -102,6 +110,14 @@ router.post('/invoke', async (ctx) => {
         };
         return;
       }
+      if (!process.env.DB_ENDPOINT) {
+        // This can never happen, because POST can only occur after we
+        // start listening and set DB_ENDPOINT.  Verify it just in
+        // case.
+
+        // tslint:disable-next-line:no-console
+        console.error('[I] Invoked before local DB_ENDPOINT was set; local DB might break');
+      }
       const mod = require(joinedDir);
       fn = mod[handler];
     }
@@ -154,5 +170,6 @@ app.use(router.allowedMethods());
 const server = http.createServer(app.callback());
 server.listen(0, '127.0.0.1', () => {
   const { port } = server.address() as AddressInfo;
+  setupEnv({ port });
   if (process.send) process.send({ type: 'ready', port });
 });
