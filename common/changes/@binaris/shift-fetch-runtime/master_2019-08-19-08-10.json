@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@binaris/shift-fetch-runtime",
+      "type": "none"
+    }
+  ],
+  "packageName": "@binaris/shift-fetch-runtime",
+  "email": "michael@shiftjs.com"
+}

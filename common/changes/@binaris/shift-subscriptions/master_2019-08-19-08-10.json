@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@binaris/shift-subscriptions",
+      "type": "none"
+    }
+  ],
+  "packageName": "@binaris/shift-subscriptions",
+  "email": "michael@shiftjs.com"
+}
