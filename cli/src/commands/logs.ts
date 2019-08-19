@@ -31,12 +31,12 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
 
   public static flags = {
     ...Command.flags,
-    limit: flags.integer({
+    limit: flags.minMaxInt({
       char: 'l',
       description: 'Limit number of entries shown (cannot exceed 1000).',
       default: 500,
-      // min: 1,
-      // max: 1000,
+      min: 1,
+      max: 1000,
     }),
     follow: flags.boolean({
       char: 'f',
@@ -65,7 +65,7 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);
     }
     let token: string | undefined;
-    let currentLimit = limit;
+    let currentLimit = limit!;
     do {
       // TODO: support other envs
       const sinceDate = typeof since === 'string' ? new Date(Date.now() - ms(since)) : since;

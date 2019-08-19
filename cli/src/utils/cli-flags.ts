@@ -3,21 +3,23 @@ import { error } from '@oclif/errors';
 import { isISO8601, isInt } from 'validator';
 import ms from 'ms';
 
-export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & {
+export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & Partial<{
   min: number,
   max: number,
-};
+}>;
 
 export default {
   ...flags,
-  minMaxInt: ({ min, max }: MinMaxIntFlagOptions) => flags.integer({
+  minMaxInt: (options: MinMaxIntFlagOptions) => flags.build({
+    ...options,
     parse(val) {
+      const { min, max } = options;
       if (!isInt(val, { min, max })) {
         error(`Expected an integer between ${min} and ${max} but received: ${val}`);
       }
       return parseInt(val, 10);
     },
-  }),
+  })(),
   durationOrISO8601: flags.build({
     parse(val) {
       if (isISO8601(val)) {
