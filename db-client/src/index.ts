@@ -100,6 +100,7 @@ const db = new DBHandler();
 export async function get<T extends Serializable = any>(key: string): Promise<T | undefined> {
   return await db.get(key);
 }
+get.__shiftjs__ = { exposed: true };
 
 /**
  * Creates a document for given key.
@@ -109,6 +110,7 @@ export async function get<T extends Serializable = any>(key: string): Promise<T 
 export async function create(key: string, value: Serializable): Promise<boolean> {
   return await db.create(key, value);
 }
+create.__shiftjs__ = { exposed: true };
 
 /**
  * Removes a single document.
@@ -117,6 +119,7 @@ export async function create(key: string, value: Serializable): Promise<boolean>
 export async function remove(key: string): Promise<boolean> {
   return await db.remove(key);
 }
+remove.__shiftjs__ = { exposed: true };
 
 /**
  * Updates a single document.
@@ -139,6 +142,7 @@ export async function update<T extends Serializable = any>(
 export async function find(): Promise<any[]> {
   throw new Error('Unimplemented');
 }
+find.__shiftjs__ = { exposed: true };
 
 /**
  * Polls on updates to specified keys since specified versions.
