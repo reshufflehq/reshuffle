@@ -17,8 +17,10 @@ const defaultOptions: Options = {
   timeoutMs: 2000,
 };
 
-// Not an async iterator so as to separate *generation* of the next
-// delay from its *activation*.
+// Generates successive promises to sleep in order to back off.  (Not
+// an async iterator, so you can generate the promise to back off,
+// then try something, and then back off for the remainder of the
+// generated time.)
 function* backoff() {
   let delayMs = 20;
   for (;;) {
