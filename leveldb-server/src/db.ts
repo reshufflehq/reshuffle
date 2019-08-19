@@ -68,7 +68,7 @@ function versionsMatch(prev: StoredDocument | Tombstone | undefined, version: Ve
 }
 
 function valueOrUndefined(maybeHasValue?: any) {
-  return maybeHasValue === undefined ? undefined : maybeHasValue.value!;
+  return maybeHasValue === undefined ? undefined : maybeHasValue.value;
 }
 
 export class DB implements DBHandler {
@@ -127,9 +127,8 @@ export class DB implements DBHandler {
       const val = await this.db.get(key);
       return JSON.parse(val.toString());
     } catch (err) {
-      if (err.name === 'NotFoundError') {
+      if (err.notFound)
         return undefined;
-      }
       err.debugId = debugId;
       err.message = `[${debugId}] ${err.message}`;
       throw err;
