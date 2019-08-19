@@ -1,10 +1,11 @@
 import { DBClient, Options } from '@binaris/shift-interfaces-node-client';
 import {
-  ClientContext, UpdateOptions, Version, VersionedMaybeObject
+  ClientContext, UpdateOptions, Version, VersionedMaybeObject, Serializable
 } from '@binaris/shift-interfaces-node-client/interfaces';
 import deepFreeze, { DeepReadonly } from 'deep-freeze';
+import { merge } from 'ramda';
 
-export interface Versioned<T> {
+export interface Versioned<T extends Serializable | undefined> {
   version: Version;
   value: T;
 }
@@ -29,10 +30,6 @@ function* backoff() {
   }
 }
 
-// Typescript's way of defining any - undefined
-// see: https://github.com/Microsoft/TypeScript/issues/7648
-export type Serializable = {} | null;
-
 export class DBHandler {
   private readonly client: DBClient;
   private readonly ctx: ClientContext = {
@@ -46,19 +43,19 @@ export class DBHandler {
   };
 
   constructor(options?: Options) {
-    this.client = new DBClient(serverUrlFor(process.env.DB_ENDPOINT!), options || defaultOptions);
+    this.client = new DBClient(serverUrlFor(process.env.DB_ENDPOINT!), merge(defaultOptions, options));
   }
 
   public async get<T extends Serializable = any>(key: string): Promise<T | undefined> {
     return (await this.client.get(this.ctx, key)) as T;
   }
 
-  public create(key: string, value: Serializable): Promise<boolean> {
-    return this.client.create(this.ctx, key, value);
+  public async create(key: string, value: Serializable): Promise<boolean> {
+    return await this.client.create(this.ctx, key, value);
   }
 
-  public remove(key: string): Promise<boolean> {
-    return this.client.remove(this.ctx, key);
+  public async remove(key: string): Promise<boolean> {
+    return await this.client.remove(this.ctx, key);
   }
 
   // TODO(ariels): Support operationId for streaming.
@@ -88,12 +85,12 @@ export class DBHandler {
     throw new Error('Unimplemented');
   }
 
-  private setIfVersion(
+  private async setIfVersion(
     key: string,
-    value: {} | any[] | null | string | number | boolean,
+    value: Serializable,
     version: Version
   ): Promise<boolean> {
-    return this.client.setIfVersion(this.ctx, key, version, value);
+    return await this.client.setIfVersion(this.ctx, key, version, value);
   }
 }
 
@@ -106,6 +103,7 @@ const db = new DBHandler();
 export async function get<T extends Serializable = any>(key: string): Promise<T | undefined> {
   return await db.get(key);
 }
+get.__shiftjs__ = { exposed: true };
 
 /**
  * Creates a document for given key.
@@ -115,6 +113,7 @@ export async function get<T extends Serializable = any>(key: string): Promise<T 
 export async function create(key: string, value: Serializable): Promise<boolean> {
   return await db.create(key, value);
 }
+create.__shiftjs__ = { exposed: true };
 
 /**
  * Removes a single document.
@@ -123,6 +122,7 @@ export async function create(key: string, value: Serializable): Promise<boolean>
 export async function remove(key: string): Promise<boolean> {
   return await db.remove(key);
 }
+remove.__shiftjs__ = { exposed: true };
 
 /**
  * Updates a single document.
@@ -135,6 +135,7 @@ export async function update<T extends Serializable = any>(
 ): Promise<DeepReadonly<T>> {
   return await db.update(key, updater, options);
 }
+update.__shiftjs__ = { exposed: true };
 
 /**
  * Find documents matching query.
@@ -144,6 +145,7 @@ export async function update<T extends Serializable = any>(
 export async function find(): Promise<any[]> {
   throw new Error('Unimplemented');
 }
+find.__shiftjs__ = { exposed: true };
 
 /**
  * Polls on updates to specified keys since specified versions.
