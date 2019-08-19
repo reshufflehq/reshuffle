@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-db-client",
+  "name": "@binaris/shift-db",
   "version": "0.0.0",
   "description": "(Backend) client for accessing ShiftJS DBs.",
   "main": "dist/index.js",
