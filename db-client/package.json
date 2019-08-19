@@ -1,8 +1,10 @@
 {
   "name": "@binaris/shift-db-client",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "(Backend) client for accessing ShiftJS DBs.",
   "main": "dist/index.js",
+  "files": "dist/",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
