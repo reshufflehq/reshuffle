@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@binaris/shift-db-client",
-      "comment": "New client code for accessing over CConcord",
-      "type": "major"
+      "comment": "New client code for accessing over Concord",
+      "type": "patch"
     }
   ],
   "packageName": "@binaris/shift-db-client",
