@@ -150,26 +150,26 @@ test('startsWith matches string', doesntStartWith, 0, 'ab');
 test('startsWith matches string', startsWith, 'abc', 'ab');
 test('startsWith matches string', doesntStartWith, 'ABC', 'ab');
 
-const startsWithAb = { operator: 'startsWith' as 'startsWith', path: ['key'], value: 'ab' };
-const equalsAb = { operator: 'eq' as 'eq', path: ['key'], value: 'ab' };
+const startsWithAb = { operator: 'startsWith' as 'startsWith', path: ['key'], value: 'Ab' };
+const equalsAb = { operator: 'eq' as 'eq', path: ['key'], value: 'Ab' };
 const equals0 = { operator: 'eq' as 'eq', path: ['value'], value: 0 };
 const equals1 = { operator: 'eq' as 'eq', path: ['value'], value: 1 };
 
 test('and applies all filters', (t) => {
-  t.true(match({ key: 'abc', value: 0 }, { operator: 'and', filters: [startsWithAb, equals0] }));
-  t.false(match({ key: 'abc', value: 0 }, { operator: 'and', filters: [startsWithAb, equals1] }));
-  t.false(match({ key: 'abc', value: 0 }, { operator: 'and', filters: [equalsAb, equals0] }));
-  t.false(match({ key: 'abc', value: 0 }, { operator: 'and', filters: [equalsAb, equals1] }));
+  t.true(match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [startsWithAb, equals0] }));
+  t.false(match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [startsWithAb, equals1] }));
+  t.false(match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [equalsAb, equals0] }));
+  t.false(match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [equalsAb, equals1] }));
 });
 
 test('any applies all filters', (t) => {
-  t.true(match({ key: 'abc', value: 0 }, { operator: 'or', filters: [startsWithAb, equals0] }));
-  t.true(match({ key: 'abc', value: 0 }, { operator: 'or', filters: [startsWithAb, equals1] }));
-  t.true(match({ key: 'abc', value: 0 }, { operator: 'or', filters: [equalsAb, equals0] }));
-  t.false(match({ key: 'abc', value: 0 }, { operator: 'or', filters: [equalsAb, equals1] }));
+  t.true(match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [startsWithAb, equals0] }));
+  t.true(match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [startsWithAb, equals1] }));
+  t.true(match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [equalsAb, equals0] }));
+  t.false(match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [equalsAb, equals1] }));
 });
 
 test('not negates a filter', (t) => {
-  t.true(match({ key: 'abc', value: 0 }, { operator: 'not', filter: equalsAb }));
-  t.false(match({ key: 'abc', value: 0 }, { operator: 'not', filter: startsWithAb }));
+  t.true(match({ key: 'Abc', value: 0 }, { operator: 'not', filter: equalsAb }));
+  t.false(match({ key: 'Abc', value: 0 }, { operator: 'not', filter: startsWithAb }));
 });
