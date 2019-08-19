@@ -3,7 +3,7 @@
     {
       "packageName": "@binaris/shift-leveldb-server",
       "comment": "New server to add to local-proxy",
-      "type": "major"
+      "type": "patch"
     }
   ],
   "packageName": "@binaris/shift-leveldb-server",
