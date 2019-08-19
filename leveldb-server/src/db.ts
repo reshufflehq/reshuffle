@@ -127,8 +127,7 @@ export class DB implements DBHandler {
       const val = await this.db.get(key);
       return JSON.parse(val.toString());
     } catch (err) {
-      if (err.notFound)
-        return undefined;
+      if (err.notFound) return undefined;
       err.debugId = debugId;
       err.message = `[${debugId}] ${err.message}`;
       throw err;
