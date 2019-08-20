@@ -1,7 +1,44 @@
-import { Operation } from 'fast-json-patch';
-
 export type Comparable = string | number | Date;
 export type Equatable = Comparable | boolean;
+
+// This is fast-json-patch Operation, re-implemented without
+// generic-over-any so that TJS and Concord can handle it.
+export declare type Operation =
+  AddOperation | RemoveOperation | ReplaceOperation | MoveOperation | CopyOperation |
+  TestOperation | GetOperation;
+
+export interface BaseOperation {
+    path: string;
+}
+
+export interface AddOperation extends BaseOperation {
+    op: 'add';
+    value: any;
+}
+export interface RemoveOperation extends BaseOperation {
+    op: 'remove';
+}
+export interface ReplaceOperation extends BaseOperation {
+    op: 'replace';
+    value: any;
+}
+export interface MoveOperation extends BaseOperation {
+    op: 'move';
+    from: string;
+}
+export interface CopyOperation extends BaseOperation {
+    op: 'copy';
+    from: string;
+}
+export interface TestOperation extends BaseOperation {
+    op: 'test';
+    value: any;
+}
+export interface GetOperation extends BaseOperation {
+    op: '_get';
+    value: any;
+}
+
 
 // Typescript's way of defining any - undefined is "{} | null", see:
 // https://github.com/Microsoft/TypeScript/issues/7648.  But... this

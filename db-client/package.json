@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "echo 'no tests yet; will eventually run ava -v dist/test/*.js'"
+    "test": "ava dist/test/component/*.js"
   },
   "keywords": [
     "binaris",
@@ -22,12 +22,22 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-interfaces-node-client": "^0.4.0",
+    "@binaris/shift-interfaces-node-client": "^0.4.0-nudb.1",
     "@types/deep-freeze": "^0.1.2",
     "deep-freeze": "0.0.1",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
-    "@types/ramda": "^0.26.19"
+    "@binaris/shift-interfaces-koa-server": "^0.4.0-nudb.1",
+    "@binaris/shift-leveldb-server": "^0.0.0",
+    "@types/koa": "~2.0.49",
+    "@types/koa-router": "~7.0.42",
+    "@types/node": "^12.7.2",
+    "@types/ramda": "^0.26.19",
+    "@types/rmfr": "^2.0.0",
+    "ava": "^2.3.0",
+    "koa": "~2.8.1",
+    "koa-router": "~7.4.0",
+    "rmfr": "^2.0.0"
   }
 }
