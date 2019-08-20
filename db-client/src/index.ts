@@ -15,6 +15,15 @@ const defaultOptions: Options = {
   timeoutMs: 2000,
 };
 
+// bigint not currently allowed.
+const allowedTypes = new Set(['object', 'boolean', 'number', 'string']);
+
+function checkValue(value: Serializable) {
+  if (!allowedTypes.has(typeof value)) {
+    throw new TypeError(`Non-JSONable value of type ${typeof value} at top level`);
+  }
+}
+
 // Generates successive promises to sleep in order to back off.  (Not
 // an async iterator, so you can generate the promise to back off,
 // then try something, and then back off for the remainder of the
@@ -48,6 +57,7 @@ export class DBHandler {
   }
 
   public async create(key: string, value: Serializable): Promise<boolean> {
+    checkValue(value);
     return await this.client.create(this.ctx, key, value);
   }
 
@@ -61,7 +71,10 @@ export class DBHandler {
   ): Promise<DeepReadonly<T>> {
     for (const delay of backoff()) {
       const { value, version } = await this.getWithVersion(key);
-      const newValue = updater(deepFreeze(value as T));
+      // deepFreeze doesn't like some values (like undefined), trick
+      // it by referring to value in an object.
+      const newValue = updater(deepFreeze({ value: value as T }).value);
+      checkValue(newValue);
       if (await this.setIfVersion(key, newValue, version)) return deepFreeze(newValue);
       await delay;
     }
