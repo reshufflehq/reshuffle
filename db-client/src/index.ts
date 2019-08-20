@@ -4,14 +4,11 @@ import {
 } from '@binaris/shift-interfaces-node-client/interfaces';
 import deepFreeze, { DeepReadonly } from 'deep-freeze';
 import { merge } from 'ramda';
+import * as process from 'process';
 
 export interface Versioned<T extends Serializable | undefined> {
   version: Version;
   value: T;
-}
-
-function serverUrlFor(endpoint: string): string {
-  return `https://${endpoint}/v1`;
 }
 
 const defaultOptions: Options = {
@@ -43,7 +40,7 @@ export class DBHandler {
   };
 
   constructor(options?: Options) {
-    this.client = new DBClient(serverUrlFor(process.env.DB_ENDPOINT!), merge(defaultOptions, options));
+    this.client = new DBClient(`${process.env.DB_BASE_URL!}/v1`, merge(defaultOptions, options));
   }
 
   public async get<T extends Serializable = any>(key: string): Promise<T | undefined> {
@@ -103,7 +100,6 @@ const db = new DBHandler();
 export async function get<T extends Serializable = any>(key: string): Promise<T | undefined> {
   return await db.get(key);
 }
-get.__shiftjs__ = { exposed: true };
 
 /**
  * Creates a document for given key.
@@ -113,7 +109,6 @@ get.__shiftjs__ = { exposed: true };
 export async function create(key: string, value: Serializable): Promise<boolean> {
   return await db.create(key, value);
 }
-create.__shiftjs__ = { exposed: true };
 
 /**
  * Removes a single document.
@@ -122,7 +117,6 @@ create.__shiftjs__ = { exposed: true };
 export async function remove(key: string): Promise<boolean> {
   return await db.remove(key);
 }
-remove.__shiftjs__ = { exposed: true };
 
 /**
  * Updates a single document.
@@ -135,7 +129,7 @@ export async function update<T extends Serializable = any>(
 ): Promise<DeepReadonly<T>> {
   return await db.update(key, updater, options);
 }
-update.__shiftjs__ = { exposed: true };
+// Available only on backend, needs to pass a function.
 
 /**
  * Find documents matching query.
@@ -145,7 +139,6 @@ update.__shiftjs__ = { exposed: true };
 export async function find(): Promise<any[]> {
   throw new Error('Unimplemented');
 }
-find.__shiftjs__ = { exposed: true };
 
 /**
  * Polls on updates to specified keys since specified versions.
