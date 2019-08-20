@@ -39,7 +39,6 @@ export interface GetOperation extends BaseOperation {
     value: any;
 }
 
-
 // Typescript's way of defining any - undefined is "{} | null", see:
 // https://github.com/Microsoft/TypeScript/issues/7648.  But... this
 // also has to pass typescript-json-schema which takes that type too
