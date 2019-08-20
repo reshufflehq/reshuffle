@@ -4,9 +4,7 @@
   "description": "Serving function of static files",
   "main": "dist/index.js",
   "files": [
-    "dist",
-    "getdeps.js",
-    "shift_deploy_binaris.sh"
+    "dist"
   ],
   "scripts": {
     "build": "rm -rf dist && tsc && cp -a src/test/examples dist/test",
