@@ -14,8 +14,6 @@ export async function getDependencies(projectDir: string) {
     const p: string = toProcess.shift()!;
     // ignore bulk of react-scripts
     if (p === 'react-scripts') continue;
-    // temporary until shift-db implementation changes to use client instead of leveldb
-    if (p === '@binaris/shift-db') continue;
     // exclude local-proxy needed only for development
     if (p === '@binaris/shift-local-proxy') continue;
     // exclude already visited deps
