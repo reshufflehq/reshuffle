@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-interfaces",
-  "version": "0.4.0",
+  "version": "0.4.0-nudb.1",
   "files": [
     "dist"
   ],
@@ -19,6 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "concord": "~0.2.2",
     "fast-json-patch": "^2.2.0"
   },
   "devDependencies": {
