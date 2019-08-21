@@ -1,5 +1,4 @@
 dependencies:
-  do_not_pull_with_this: 99
   '@babel/cli': 7.5.5
   '@babel/core': 7.5.5
   '@babel/parser': 7.5.5
