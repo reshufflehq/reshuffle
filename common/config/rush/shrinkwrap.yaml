@@ -9263,7 +9263,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-VKTk2Ui6ZX26jYTk6uQYUzXbMtJ7DF6SIL3lKxnNUuI+k7OudxeWMV401Qgwm4S+uoNsHyiYWys+Kz79Qe5TuQ==
+      integrity: sha512-Xd4kj6O46eHAlYZ90NKe51GiqveQkkpUX2k6LyHCv4jVay3cIY9Sn/XxKkLYDfTtV59SdJnAOrtGkDAn6Bs2kw==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9349,7 +9349,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
-      integrity: sha512-LpVMstoCoX8IG9Ise5yQ2LmwsgZfHH/DVSZxrvl5Snw75fkWxfNlJb4aeVg+Z/iXdQQebyeDjquiiHiRZCZTaw==
+      integrity: sha512-Bk8MLM0UrsMy8i8iV1qRlq8+4126qLUV4w1H/Rbn99YMX1QzIiGBHJ8oorMy7Gcr9WhPq/e1Yy8m/b6l1yN6LQ==
       tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -9390,7 +9390,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-9rGShQxFIypatru94W/jOA3LcHKz7NiHmhGZ8UnFoClQ915ClrOEV0lM9daDAGdrZuN40SX/fWuwlgep+6TLsA==
+      integrity: sha512-MhnJrHmjeWKqmyDq5yC070yYqZAtr68HtObTJlUk9HzAnocE+SXh0h8UfBDyIJr+1F4lvGEvVk0Wfe8FbxgPfg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9429,7 +9429,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-MZfHbyVrgtAaQIo0S85zqjqfbXOOzuctmqwpY9khN+7CfonfArh+3YC8pbve6G1Num4AkNjD+t4QjR+6YZeR7w==
+      integrity: sha512-WgmIzfDxXbUI/zgdrWE43Y2M0wCGDT7LZ2MPVhnueV5A0vrpTZ6XjQzLiwRJbAcX/eVpKH38QtWOG7MZ5R5LxQ==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -9480,7 +9480,7 @@ specifiers:
   '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
-  '@binaris/shift-interfaces-node-client': ^0.3.0
+  '@binaris/shift-interfaces-node-client': 0.3.0
   '@binaris/spice-node-client': 0.0.2-rc.9
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
