@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db",
+      "comment": "New client code, works with external servers.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@binaris/shift-db",
+  "email": "ariels@shiftjs.com"
+}
