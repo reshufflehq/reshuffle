@@ -55,12 +55,12 @@ class ModuleWhitelist {
   }
 
   // Returns true if module on path is whitelisted.
-  has(path: string): boolean {
+  public has(path: string): boolean {
     return this.whitelistedModules!.has(path);
   }
 
   // Returns handler on module at path.
-  get(path: string, handler: string) {
+  public get(path: string, handler: string) {
     return this.whitelistedModules!.get(path)![handler];
   }
 }
