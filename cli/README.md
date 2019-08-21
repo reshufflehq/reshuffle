@@ -19,7 +19,7 @@ $ npm install -g shift-cli
 $ shift-cli COMMAND
 running command...
 $ shift-cli (-v|--version|version)
-shift-cli/0.1.3 darwin-x64 node-v10.16.0
+shift-cli/0.1.4 darwin-x64 node-v10.16.0
 $ shift-cli --help [COMMAND]
 USAGE
   $ shift-cli COMMAND
@@ -47,7 +47,7 @@ EXAMPLE
   $ shift-cli deploy
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.3/cli/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.4/cli/src/commands/deploy.ts)_
 
 ## `shift-cli help [COMMAND]`
 
@@ -99,5 +99,5 @@ EXAMPLES
   $ shift-cli logs --since 2m --follow
 ```
 
-_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.3/cli/src/commands/logs.ts)_
+_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.4/cli/src/commands/logs.ts)_
 <!-- commandsstop -->
