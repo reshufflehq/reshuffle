@@ -24,27 +24,48 @@ if (!localToken) {
 }
 
 function setupEnv({ port }: { port: number }) {
-  process.env.DB_ENDPOINT = `http://localhost:${port}/v1`;
+  process.env.DB_BASE_URL = `http://localhost:${port}`;
   // TODO(vogre): Used (at least) for DB, where it doesn't really
   //     matter locally.  Are better values available?
   process.env.APP_ID = 'local-app';
-  process.env.ACCOUNT_ID = 'me';
+  process.env.API_KEY = 'Setec Astronomy';
 }
 
-const whitelistedModulesArr = (process.env.SHIFT_DEV_SERVER_MODULES_WHITELIST || '@binaris/shift-db').split(',');
+class ModuleWhitelist {
+  private readonly whitelistedModulesArr =
+    (process.env.SHIFT_DEV_SERVER_MODULES_WHITELIST || '@binaris/shift-db').split(',');
 
-const whitelistedModules = new Map(
-  whitelistedModulesArr.map((name) => {
-    try {
-      const mod = require(name);
-      return [name, mod] as [string, any];
-    } catch (err) {
-      // tslint:disable-next-line:no-console
-      console.error('Could not require whitelisted module', name);
-      return undefined;
-    }
-  }).filter((pair): pair is [string, any] => pair !== undefined)
-);
+  private whitelistedModules?: Map<string, any>;
+
+  /**
+   * Loads modules with settings from environment variables.
+   */
+  public loadModules() {
+    this.whitelistedModules = new Map(
+      this.whitelistedModulesArr.map((name) => {
+        try {
+          const mod = require(name);
+          return [name, mod] as [string, any];
+        } catch (err) {
+          // tslint:disable-next-line:no-console
+          console.error('Could not require whitelisted module', name);
+          return undefined;
+        }
+      }).filter((pair): pair is [string, any] => pair !== undefined));
+  }
+
+  // Returns true if module on path is whitelisted.
+  has(path: string): boolean {
+    return this.whitelistedModules!.has(path);
+  }
+
+  // Returns handler on module at path.
+  get(path: string, handler: string) {
+    return this.whitelistedModules!.get(path)![handler];
+  }
+}
+
+const whitelisted = new ModuleWhitelist();
 
 const app = new Koa();
 app.use(bodyParser({ enableTypes: ['json'], strict: false }));
@@ -98,8 +119,8 @@ router.post('/invoke', async (ctx) => {
   registry.register(requestId);
   try {
     let fn: (...args: any[]) => any;
-    if (whitelistedModules.has(path)) {
-      fn = whitelistedModules.get(path)[handler];
+    if (whitelisted.has(path)) {
+      fn = whitelisted.get(path, handler);
     } else {
       await transpilePromise;
       const joinedDir = resolvePath(tmpDir, path);
@@ -110,13 +131,13 @@ router.post('/invoke', async (ctx) => {
         };
         return;
       }
-      if (!process.env.DB_ENDPOINT) {
+      if (!process.env.DB_BASE_URL) {
         // This can never happen, because POST can only occur after we
-        // start listening and set DB_ENDPOINT.  Verify it just in
+        // start listening and set DB_BASE_URL.  Verify it just in
         // case.
 
         // tslint:disable-next-line:no-console
-        console.error('[I] Invoked before local DB_ENDPOINT was set; local DB might break');
+        console.error('[I] Invoked before local DB_BASE_URL was set; local DB might break');
       }
       const mod = require(joinedDir);
       fn = mod[handler];
@@ -171,5 +192,7 @@ const server = http.createServer(app.callback());
 server.listen(0, '127.0.0.1', () => {
   const { port } = server.address() as AddressInfo;
   setupEnv({ port });
+  // Environment variables are set, can load whitelisted modules.
+  whitelisted.loadModules();
   if (process.send) process.send({ type: 'ready', port });
 });
