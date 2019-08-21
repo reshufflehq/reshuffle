@@ -29,7 +29,7 @@
     "koa-router": "^7.4.0",
     "mkdirp": "^0.5.1",
     "nanoid": "^2.0.3",
-    "nodemon": "git+http://github.com/binaris/nodemon",
+    "nodemon": "^1.19.1",
     "rimraf": "^2.6.3",
     "walkdir": "^0.4.1"
   },

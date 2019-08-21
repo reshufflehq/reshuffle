@@ -95,7 +95,7 @@ dependencies:
   ms: 2.1.2
   mz: 2.7.0
   nanoid: 2.0.3
-  nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
+  nodemon: 1.19.1
   npm-check-updates: 3.1.21
   open: 6.4.0
   ramda: 0.26.1
@@ -6097,6 +6097,25 @@ packages:
     dev: false
     resolution:
       integrity: sha512-M4UBGcs4jeOK9CjTsYwkvH6/MzuUmGCyTW+kCY7uO+1ZVr0+FHGdPdIf5CCLqAaxnRrWidyoQlNkMIIVwbKB8Q==
+  /nodemon/1.19.1:
+    dependencies:
+      chokidar: 2.1.6
+      debug: 3.2.6
+      ignore-by-default: 1.0.1
+      minimatch: 3.0.4
+      pstree.remy: 1.1.7
+      semver: 5.7.1
+      supports-color: 5.5.0
+      touch: 3.1.0
+      undefsafe: 2.0.2
+      update-notifier: 2.5.0
+    dev: false
+    engines:
+      node: '>=4'
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-/DXLzd/GhiaDXXbGId5BzxP1GlsqtMGM9zTmkWrgXtSqjKmGSbLicM/oAy4FR0YWm14jCHRwnR31AHS2dYFHrg==
   /nopt/1.0.10:
     dependencies:
       abbrev: 1.1.1
@@ -9198,7 +9217,7 @@ packages:
       lodash: 4.17.15
       mkdirp: 0.5.1
       nanoid: 2.0.3
-      nodemon: github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
+      nodemon: 1.19.1
       rimraf: 2.7.1
       tslint: /tslint/5.19.0/typescript@3.5.3
       typescript: 3.5.3
@@ -9206,7 +9225,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-6yosJIa6AZErsIswvp7L7PskCk8wgjXhwX/4Vea9uLQenvzmKkz120b0cIkvdQrXkxOg4XfodMgx8bykgFmfIQ==
+      integrity: sha512-Z71c6ImfXktcSKsaix9snjVjczT0EQbIhAlFE60j/O0TNwaaqDiRBdtx/LSfxZBbhOkwo9SQwTfEUkNmVW2i0Q==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9263,29 +9282,6 @@ packages:
       integrity: sha512-gZweVAzwF/o8eZVB8LkNcI1zZ/LVaKSSdCh8aE9EtVSTC0oyE/c4PqfRlKaboQISrIvVbGWPZ0RwC5RZwNZAiA==
       tarball: 'file:projects/shiftjs-react-app.tgz'
     version: 0.0.0
-  github.com/binaris/nodemon/4900b2d82bcc1b315b1df9bd80817bd86fbe37ed:
-    dependencies:
-      chokidar: 2.1.6
-      debug: 3.2.6
-      ignore-by-default: 1.0.1
-      minimatch: 3.0.4
-      pstree.remy: 1.1.7
-      semver: 5.7.1
-      supports-color: 5.5.0
-      touch: 3.1.0
-      undefsafe: 2.0.2
-      update-notifier: 2.5.0
-    dev: false
-    engines:
-      node: '>=4'
-    hasBin: true
-    name: nodemon
-    requiresBuild: true
-    resolution:
-      commit: 4900b2d82bcc1b315b1df9bd80817bd86fbe37ed
-      repo: 'http://github.com/binaris/nodemon'
-      type: git
-    version: 0.0.0-development
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -9386,7 +9382,7 @@ specifiers:
   ms: ^2.1.2
   mz: ^2.7.0
   nanoid: ^2.0.3
-  nodemon: 'git+http://github.com/binaris/nodemon'
+  nodemon: ^1.19.1
   npm-check-updates: ^3.1.20
   open: ^6.4.0
   ramda: ^0.26.1
