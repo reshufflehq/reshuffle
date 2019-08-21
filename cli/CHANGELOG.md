@@ -1,6 +1,13 @@
 # Change Log - shift-cli
 
-This log was last generated on Sun, 18 Aug 2019 14:34:51 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Aug 2019 12:44:20 GMT and should not be manually modified.
+
+## 0.1.4
+Wed, 21 Aug 2019 12:44:20 GMT
+
+### Patches
+
+- Include db client in deploy
 
 ## 0.1.3
 Sun, 18 Aug 2019 14:34:51 GMT

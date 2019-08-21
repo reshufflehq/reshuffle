@@ -2,6 +2,18 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.1.4",
+      "tag": "shift-cli_v0.1.4",
+      "date": "Wed, 21 Aug 2019 12:44:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Include db client in deploy"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.3",
       "tag": "shift-cli_v0.1.3",
       "date": "Sun, 18 Aug 2019 14:34:51 GMT",
