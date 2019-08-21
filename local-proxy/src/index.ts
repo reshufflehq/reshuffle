@@ -57,7 +57,7 @@ export function startProxy(
 
   nodemon.on('quit', () => {
     process.exit();
-  }).on('start', (_child: any) => {
+  }).on('start', () => {
     logError('Local dev server started');
   }).on('message', (message: any) => {
     if (message.type === 'ready') {
