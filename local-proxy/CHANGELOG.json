@@ -2,6 +2,18 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.0.14",
+      "tag": "@binaris/shift-local-proxy_v0.0.14",
+      "date": "Thu, 22 Aug 2019 15:45:43 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use upstream nodemon package"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.13",
       "tag": "@binaris/shift-local-proxy_v0.0.13",
       "date": "Wed, 21 Aug 2019 12:44:20 GMT",

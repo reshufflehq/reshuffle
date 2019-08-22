@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Wed, 21 Aug 2019 12:44:20 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Aug 2019 15:45:43 GMT and should not be manually modified.
+
+## 0.0.14
+Thu, 22 Aug 2019 15:45:43 GMT
+
+### Patches
+
+- Use upstream nodemon package
 
 ## 0.0.13
 Wed, 21 Aug 2019 12:44:20 GMT
