@@ -4,6 +4,8 @@ dependencies:
   '@babel/parser': 7.5.5
   '@babel/plugin-transform-modules-commonjs': 7.5.0
   '@babel/types': 7.5.5
+  '@binaris/shift-interfaces-node-client': 0.3.0
+  '@binaris/shift-server-function': 0.0.1
   '@binaris/spice-node-client': 0.0.2-rc.9
   '@oclif/command': 1.5.18
   '@oclif/config': 1.13.3
@@ -22,6 +24,7 @@ dependencies:
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-interfaces-koa-server': 'file:projects/shift-interfaces-koa-server.tgz'
   '@rush-temp/shift-interfaces-node-client': 'file:projects/shift-interfaces-node-client.tgz'
+  '@rush-temp/shift-leveldb-server': 'file:projects/shift-leveldb-server.tgz'
   '@rush-temp/shift-local-proxy': 'file:projects/shift-local-proxy.tgz'
   '@rush-temp/shift-server-function': 'file:projects/shift-server-function.tgz'
   '@rush-temp/shift-subscriptions': 'file:projects/shift-subscriptions.tgz'
@@ -29,7 +32,6 @@ dependencies:
   '@types/babel__core': 7.1.2
   '@types/babel__traverse': 7.0.7
   '@types/bunyan': 1.8.6
-  '@types/deep-freeze': 0.1.2
   '@types/dotenv': 6.1.1
   '@types/express': 4.17.1
   '@types/fresh': 0.5.0
@@ -48,7 +50,6 @@ dependencies:
   '@types/ms': 0.7.30
   '@types/mz': 0.0.32
   '@types/nanoid': 2.0.0
-  '@types/ramda': 0.26.19
   '@types/react': 16.9.2
   '@types/rimraf': 2.0.2
   '@types/rmfr': 2.0.0
@@ -60,15 +61,14 @@ dependencies:
   abort-controller: 2.0.3
   ajv: 6.10.2
   async-mutex: 0.1.3
-  ava: 2.3.0
   babel-plugin-macros: 2.6.1
   babel-plugin-tester: 6.5.0
   bunyan: 1.8.12
   bunyan-rotating-file-stream: 1.6.3
   chalk: 2.4.2
   cli-ux: 5.3.1
+  concord: 0.2.2
   conf: 5.0.0
-  deep-freeze: 0.0.1
   dotenv: 8.1.0
   express: 4.17.1
   fast-json-patch: 2.2.1
@@ -85,7 +85,6 @@ dependencies:
   jju: 1.4.0
   js-yaml: 3.13.1
   koa-bodyparser: 4.2.1
-  koa-router: 7.4.0
   leveldown: 5.1.1
   levelup: 4.1.0
   lodash.once: 4.1.1
@@ -157,7 +156,7 @@ packages:
     dev: false
     hasBin: true
     optionalDependencies:
-      chokidar: 2.1.6
+      chokidar: 2.1.8
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -178,7 +177,7 @@ packages:
     hasBin: true
     id: registry.npmjs.org/@babel/cli/7.5.5
     optionalDependencies:
-      chokidar: 2.1.6
+      chokidar: 2.1.8
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -470,6 +469,25 @@ packages:
     dev: false
     resolution:
       integrity: sha512-s63F9nJioLqOlW3UkyMd+BYhXt44YuaFm/VV0VwuteqjYwRrObkU7ra9pY4wAJR3oXi8hJrMcrcJdO/HH33vtw==
+  /@binaris/shift-interfaces-node-client/0.3.0:
+    dependencies:
+      '@types/node-fetch': 2.5.0
+      abort-controller: 2.0.3
+      ajv: 6.10.2
+      lodash: 4.17.15
+      node-fetch: 2.6.0
+    dev: false
+    resolution:
+      integrity: sha512-m1OcbpeZFzJiTPI4eS8n6GgcQFDYK34fMtUVY6sJM/5z7+WtLuysduwaaYD2BMXBncVFP+kcHQzBbZjk+to9og==
+  /@binaris/shift-server-function/0.0.1:
+    dependencies:
+      fresh: 0.5.2
+      milliseconds: 1.0.3
+      mime-types: 2.1.24
+      mz: 2.7.0
+    dev: false
+    resolution:
+      integrity: sha512-egqkp8OxZJZZdqF4260m4YeFDsLmWdb4T+0Z9zPusLjFjY2NMmXIPY70ds+KWTgQqpJAAV85LU1F2jynE980cg==
   /@binaris/spice-node-client/0.0.2-rc.9:
     dependencies:
       '@types/node-fetch': 2.5.0
@@ -1445,14 +1463,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
-  /ansi-styles/4.0.0:
+  /ansi-styles/4.1.0:
     dependencies:
       color-convert: 2.0.1
     dev: false
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-8zjUtFJ3db/QoPXuuEMloS2AUf79/yeyttJ7Abr3hteopJu9HK8vsgGviGUMq+zyA6cZZO6gAyZoMTF6TgaEjA==
+      integrity: sha512-Qts4KCLKG+waHc9C4m07weIY8qyeixoS0h6RnbsNVD6Fw+pEZGW3vTyObL3WXpE09Mq4Oi7/lBEyLmOiLtlYWQ==
   /ansicolors/0.3.2:
     dev: false
     resolution:
@@ -1647,7 +1665,7 @@ packages:
       '@babel/generator': 7.5.5
       '@concordance/react': 2.0.0
       ansi-escapes: 4.2.1
-      ansi-styles: 4.0.0
+      ansi-styles: 4.1.0
       arr-flatten: 1.1.0
       array-union: 2.1.0
       array-uniq: 2.1.0
@@ -2186,7 +2204,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
-  /chokidar/2.1.6:
+  /chokidar/2.1.8:
     dependencies:
       anymatch: 2.0.0
       async-each: 1.0.3
@@ -2203,7 +2221,7 @@ packages:
     optionalDependencies:
       fsevents: 1.2.9
     resolution:
-      integrity: sha512-V2jUo67OKkc6ySiRpJrjlpJKl9kDuG+Xb8VgsGzb+aEouhgS1D0weyPU4lEzdAcsCAvrih2J2BqyXqHWvVLw5g==
+      integrity: sha512-ZmZUazfOzf0Nve7duiCKD23PFSCs4JPoYyccjUFF3aQkQadqBhfzhjkwBH2mNOG9cTBwhamM37EIsIkZw3nRgg==
   /chokidar/3.0.2:
     dependencies:
       anymatch: 3.0.3
@@ -2509,6 +2527,21 @@ packages:
       '0': node >= 0.8
     resolution:
       integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
+  /concord/0.2.2:
+    dependencies:
+      glob: 7.1.4
+      lodash: 4.17.15
+      mustache: 3.0.2
+      mz: 2.7.0
+      npm: 6.11.1
+      rmfr: 2.0.0
+      typescript: 3.5.3
+      typescript-json-schema: 0.39.0
+      yargs: 13.3.0
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-nq/M2b3SXME6cRuQsiBMuhNnKOkoS4nfMk/tIl3G3fDyTrVz9GVhxZELOEuuNFq2DaB/5HmWTuG/qfrT4ACmHA==
   /concordance/4.0.0:
     dependencies:
       date-time: 2.1.0
@@ -5955,6 +5988,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
+  /mustache/3.0.2:
+    dev: false
+    engines:
+      npm: '>=1.4.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-64neoEgmozb8e/ecGBOSE+RfnevLSFzCI0UKPcrWmjv953/8fXhYO9+EQFtfbi6hwoFxcTA+Fp5mRiOiI9eTuA==
   /mv/2.1.1:
     dependencies:
       mkdirp: 0.5.1
@@ -6099,7 +6139,7 @@ packages:
       integrity: sha512-M4UBGcs4jeOK9CjTsYwkvH6/MzuUmGCyTW+kCY7uO+1ZVr0+FHGdPdIf5CCLqAaxnRrWidyoQlNkMIIVwbKB8Q==
   /nodemon/1.19.1:
     dependencies:
-      chokidar: 2.1.6
+      chokidar: 2.1.8
       debug: 3.2.6
       ignore-by-default: 1.0.1
       minimatch: 3.0.4
@@ -6184,7 +6224,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-t7KygdHZ1cF2jS6kcOPiUg6s53Sq5jcOqHnddOe92qW7Xd4mh9AUT52OYYQ0YfAiP7VIdZ5379/G/atG6J0WDA==
-  /npm-package-arg/6.1.0:
+  /npm-package-arg/6.1.1:
     dependencies:
       hosted-git-info: 2.8.4
       osenv: 0.1.5
@@ -6192,7 +6232,7 @@ packages:
       validate-npm-package-name: 3.0.0
     dev: false
     resolution:
-      integrity: sha512-zYbhP2k9DbJhA0Z3HKUePUgdB1x7MfIfKssC+WLPFMKTBZKpZh5m13PgexJjCq6KW7j17r0jHWcCpxEqnnncSA==
+      integrity: sha512-qBpssaL3IOZWi5vEKUKW0cO7kzLeT+EQO9W8RsLOZf76KF9E/K9+wH0C7t06HXPpaH8WH5xF1MExLuCwbTqRUg==
   /npm-packlist/1.4.4:
     dependencies:
       ignore-walk: 3.0.1
@@ -6203,7 +6243,7 @@ packages:
   /npm-pick-manifest/3.0.0:
     dependencies:
       figgy-pudding: 3.5.1
-      npm-package-arg: 6.1.0
+      npm-package-arg: 6.1.1
       semver: 5.7.1
     dev: false
     resolution:
@@ -6215,7 +6255,7 @@ packages:
       figgy-pudding: 3.5.1
       lru-cache: 5.1.1
       make-fetch-happen: 5.0.0
-      npm-package-arg: 6.1.0
+      npm-package-arg: 6.1.1
     dev: false
     resolution:
       integrity: sha512-Jllq35Jag8dtv0M17ue74XtdQTyqKzuAYGiX9mAjOhkmNjib3bBUgK6mUY61+AHnXeSRobQkpY3/xIOS/omptw==
@@ -6227,6 +6267,135 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8=
+  /npm/6.11.1:
+    bundledDependencies:
+      - abbrev
+      - ansicolors
+      - ansistyles
+      - aproba
+      - archy
+      - bin-links
+      - bluebird
+      - byte-size
+      - cacache
+      - call-limit
+      - chownr
+      - ci-info
+      - cli-columns
+      - cli-table3
+      - cmd-shim
+      - columnify
+      - config-chain
+      - debuglog
+      - detect-indent
+      - detect-newline
+      - dezalgo
+      - editor
+      - figgy-pudding
+      - find-npm-prefix
+      - fs-vacuum
+      - fs-write-stream-atomic
+      - gentle-fs
+      - glob
+      - graceful-fs
+      - has-unicode
+      - hosted-git-info
+      - iferr
+      - imurmurhash
+      - infer-owner
+      - inflight
+      - inherits
+      - ini
+      - init-package-json
+      - is-cidr
+      - json-parse-better-errors
+      - JSONStream
+      - lazy-property
+      - libcipm
+      - libnpm
+      - libnpmaccess
+      - libnpmhook
+      - libnpmorg
+      - libnpmsearch
+      - libnpmteam
+      - libnpx
+      - lock-verify
+      - lockfile
+      - lodash._baseindexof
+      - lodash._baseuniq
+      - lodash._bindcallback
+      - lodash._cacheindexof
+      - lodash._createcache
+      - lodash._getnative
+      - lodash.clonedeep
+      - lodash.restparam
+      - lodash.union
+      - lodash.uniq
+      - lodash.without
+      - lru-cache
+      - meant
+      - mississippi
+      - mkdirp
+      - move-concurrently
+      - node-gyp
+      - nopt
+      - normalize-package-data
+      - npm-audit-report
+      - npm-cache-filename
+      - npm-install-checks
+      - npm-lifecycle
+      - npm-package-arg
+      - npm-packlist
+      - npm-pick-manifest
+      - npm-profile
+      - npm-registry-fetch
+      - npm-user-validate
+      - npmlog
+      - once
+      - opener
+      - osenv
+      - pacote
+      - path-is-inside
+      - promise-inflight
+      - qrcode-terminal
+      - query-string
+      - qw
+      - read-cmd-shim
+      - read-installed
+      - read-package-json
+      - read-package-tree
+      - read
+      - readable-stream
+      - readdir-scoped-modules
+      - request
+      - retry
+      - rimraf
+      - safe-buffer
+      - semver
+      - sha
+      - slide
+      - sorted-object
+      - sorted-union-stream
+      - ssri
+      - stringify-package
+      - tar
+      - text-table
+      - tiny-relative-date
+      - uid-number
+      - umask
+      - unique-filename
+      - unpipe
+      - update-notifier
+      - uuid
+      - validate-npm-package-license
+      - validate-npm-package-name
+      - which
+      - worker-farm
+      - write-file-atomic
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-ckV89fITMaOMa1UAbOEvGHtepWhCrlG34fGvr/K4UbD6LiS8Vv85uftpNqK6bbvej9lsXg5MPuFfuq88W91qyA==
   /nwsapi/2.1.4:
     dev: false
     resolution:
@@ -6550,7 +6719,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.1
       normalize-package-data: 2.5.0
-      npm-package-arg: 6.1.0
+      npm-package-arg: 6.1.1
       npm-packlist: 1.4.4
       npm-pick-manifest: 3.0.0
       npm-registry-fetch: 4.0.0
@@ -9109,25 +9278,21 @@ packages:
   'file:projects/shift-db.tgz':
     dependencies:
       '@types/deep-freeze': 0.1.2
-      '@types/leveldown': 4.0.0
-      '@types/levelup': 3.1.1
-      '@types/node': 10.14.16
+      '@types/koa': 2.0.49
+      '@types/koa-router': 7.0.42
+      '@types/node': 12.7.2
       '@types/ramda': 0.26.19
       '@types/rmfr': 2.0.0
-      async-mutex: 0.1.3
       ava: 2.3.0
       deep-freeze: 0.0.1
-      fast-json-patch: 2.2.1
-      leveldown: 5.1.1
-      levelup: 4.1.0
+      koa: 2.8.1
+      koa-router: 7.4.0
       ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-In/e1dsv0jVj6DKo3TscP2995Gz79+6D2BtKmOd5r6duhdVYtNnY4lmn8xBGED9BEGP5Sw2m47iDcWFZTlqxfQ==
+      integrity: sha512-Xd4kj6O46eHAlYZ90NKe51GiqveQkkpUX2k6LyHCv4jVay3cIY9Sn/XxKkLYDfTtV59SdJnAOrtGkDAn6Bs2kw==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9177,6 +9342,7 @@ packages:
   'file:projects/shift-interfaces.tgz':
     dependencies:
       '@types/node': 10.14.16
+      concord: 0.2.2
       fast-json-patch: 2.2.1
       tslint: /tslint/5.19.0/typescript@3.5.3
       typescript: 3.5.3
@@ -9184,14 +9350,43 @@ packages:
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-ZuOKGABbfUejgxf1lvz2HJKGdDdRoYhie1NWtFxbjteTCtCQtlvcCGLA9JM4EWZq85lkM9DjrYKtLu6HJ4y4Bg==
+      integrity: sha512-4cWrKwN5gswF+pfg0xe/Lei/U7Nf03llKQ0UDDJ/uMwASZSivHa5s9rgO56FOkc17S6CyPGO91Z7U5EidNelew==
       tarball: 'file:projects/shift-interfaces.tgz'
+    version: 0.0.0
+  'file:projects/shift-leveldb-server.tgz':
+    dependencies:
+      '@types/deep-freeze': 0.1.2
+      '@types/koa': 2.0.49
+      '@types/leveldown': 4.0.0
+      '@types/levelup': 3.1.1
+      '@types/nanoid': 2.0.0
+      '@types/node': 10.14.16
+      '@types/ramda': 0.26.19
+      '@types/rmfr': 2.0.0
+      async-mutex: 0.1.3
+      ava: 2.3.0
+      deep-freeze: 0.0.1
+      fast-json-patch: 2.2.1
+      koa: 2.8.1
+      leveldown: 5.1.1
+      levelup: 4.1.0
+      nanoid: 2.0.3
+      ramda: 0.26.1
+      rmfr: 2.0.0
+      tslint: /tslint/5.19.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shift-leveldb-server'
+    resolution:
+      integrity: sha512-Bk8MLM0UrsMy8i8iV1qRlq8+4126qLUV4w1H/Rbn99YMX1QzIiGBHJ8oorMy7Gcr9WhPq/e1Yy8m/b6l1yN6LQ==
+      tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
     dependencies:
       '@babel/cli': /@babel/cli/7.5.5/@babel!core@7.5.5
       '@babel/core': 7.5.5
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.5.0/@babel!core@7.5.5
+      '@binaris/shift-server-function': 0.0.1
       '@types/babel__core': 7.1.2
       '@types/bunyan': 1.8.6
       '@types/express': 4.17.1
@@ -9225,7 +9420,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-Z71c6ImfXktcSKsaix9snjVjczT0EQbIhAlFE60j/O0TNwaaqDiRBdtx/LSfxZBbhOkwo9SQwTfEUkNmVW2i0Q==
+      integrity: sha512-zHYFSAAM8tmPhI6fjmY2+fHDSIuTiBcc/66cyG9hzzPAmCdVJBPEJ2+wEOCF+kH6LHmdERTKTcK7oTZvA5Ktyw==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9248,6 +9443,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-subscriptions.tgz':
     dependencies:
+      '@binaris/shift-interfaces-node-client': 0.3.0
       '@types/node': 10.14.16
       '@types/react': 16.9.2
       '@types/sinon': 7.0.13
@@ -9263,7 +9459,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
-      integrity: sha512-IAlC/ziPV8s6KFjIjgW0XVe15L5YID0XRBHadmV3BmMFOPEDil9NWCSGsAxGimTPfBPlG1lBeSakpp3hT5Tq8g==
+      integrity: sha512-WgmIzfDxXbUI/zgdrWE43Y2M0wCGDT7LZ2MPVhnueV5A0vrpTZ6XjQzLiwRJbAcX/eVpKH38QtWOG7MZ5R5LxQ==
       tarball: 'file:projects/shift-subscriptions.tgz'
     version: 0.0.0
   'file:projects/shiftjs-react-app.tgz':
@@ -9291,6 +9487,8 @@ specifiers:
   '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
+  '@binaris/shift-interfaces-node-client': 0.3.0
+  '@binaris/shift-server-function': 0.0.1
   '@binaris/spice-node-client': 0.0.2-rc.9
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
@@ -9309,6 +9507,7 @@ specifiers:
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-interfaces-koa-server': 'file:./projects/shift-interfaces-koa-server.tgz'
   '@rush-temp/shift-interfaces-node-client': 'file:./projects/shift-interfaces-node-client.tgz'
+  '@rush-temp/shift-leveldb-server': 'file:./projects/shift-leveldb-server.tgz'
   '@rush-temp/shift-local-proxy': 'file:./projects/shift-local-proxy.tgz'
   '@rush-temp/shift-server-function': 'file:./projects/shift-server-function.tgz'
   '@rush-temp/shift-subscriptions': 'file:./projects/shift-subscriptions.tgz'
@@ -9316,7 +9515,6 @@ specifiers:
   '@types/babel__core': ^7.1.2
   '@types/babel__traverse': ^7.0.7
   '@types/bunyan': ^1.8.6
-  '@types/deep-freeze': ^0.1.1
   '@types/dotenv': ^6.1.1
   '@types/express': ^4.17.0
   '@types/fresh': ^0.5.0
@@ -9335,7 +9533,6 @@ specifiers:
   '@types/ms': ^0.7.30
   '@types/mz': ^0.0.32
   '@types/nanoid': ^2.0.0
-  '@types/ramda': ^0.26.18
   '@types/react': ^16.8.24
   '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
@@ -9347,15 +9544,14 @@ specifiers:
   abort-controller: ^2.0.2
   ajv: ^6.5.5
   async-mutex: ^0.1.3
-  ava: ^2.2.0
   babel-plugin-macros: ^2.6.1
   babel-plugin-tester: ^6.4.0
   bunyan: ^1.8.12
   bunyan-rotating-file-stream: ^1.6.3
   chalk: ^2.4.2
   cli-ux: ^5.3.1
+  concord: ~0.2.2
   conf: ^5.0.0
-  deep-freeze: ^0.0.1
   dotenv: ^8.0.0
   express: ^4.17.1
   fast-json-patch: ^2.2.0
@@ -9372,7 +9568,6 @@ specifiers:
   jju: ^1.4.0
   js-yaml: ^3.13.1
   koa-bodyparser: ^4.2.1
-  koa-router: ^7.4.0
   leveldown: ^5.1.1
   levelup: ^4.1.0
   lodash.once: ^4.1.1
