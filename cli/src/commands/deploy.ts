@@ -1,4 +1,4 @@
-import { resolve as pathResolve } from 'path';
+import path, { resolve as pathResolve } from 'path';
 import { createReadStream, stat } from 'mz/fs';
 import { mkdirp, remove, copy } from 'fs-extra';
 import { tmpdir } from 'os';
@@ -36,7 +36,6 @@ export default class Deploy extends Command {
         stdio: 'inherit',
       });
       await mkdirp(stagingDir);
-      await copy(pathResolve(projectDir, 'build'), stagingDir);
       const deps = await getDependencies(projectDir);
       for (const dep of deps) {
         const source = pathResolve(projectDir, 'node_modules', dep);
@@ -46,11 +45,9 @@ export default class Deploy extends Command {
       }
 
       const filesToExclude = new Set(['node_modules', 'backend', 'src'].map((f) => pathResolve(projectDir, f)));
-      const dotShiftPath = pathResolve(projectDir, '.shift');
       await copy(projectDir, stagingDir, {
         filter(src) {
-          // TODO: we should just put all the .shift files in a single .shift directory
-          return !filesToExclude.has(src) && !src.startsWith(dotShiftPath);
+          return !filesToExclude.has(src) && !path.basename(src).startsWith('.');
         },
       });
 
@@ -80,6 +77,7 @@ export default class Deploy extends Command {
       gzip: true,
       file: tarPath,
       cwd: stagingDir,
+      filter: (filePath) => filePath !== './bundle.tgz',
     }, ['.']);
     return tarPath;
   }
