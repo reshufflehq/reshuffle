@@ -47,7 +47,8 @@ export default class Deploy extends Command {
       const filesToExclude = new Set(['node_modules', 'backend', 'src'].map((f) => pathResolve(projectDir, f)));
       await copy(projectDir, stagingDir, {
         filter(src) {
-          return !filesToExclude.has(src) && !path.basename(src).startsWith('.');
+          return !filesToExclude.has(src) &&
+            !(path.dirname(src) === projectDir && path.basename(src).startsWith('.'));
         },
       });
 
