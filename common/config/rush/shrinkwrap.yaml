@@ -9292,7 +9292,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-XWUDlayqKOMoOd1uxTa7DtnYYx+VW5PY3uPq/M/3pqV0RiKWDdzAzgrtdNZ3uirNCZfLTagRTUKJe10SSQy4Bg==
+      integrity: sha512-Y3RT1ZhxCOjY8yboFmrWRseMNkOsYuBZ7+HQIlPzPnSrIIUG1ua0WMSfGK55zm4pfHs6JtTfY8B3lXG8+/IwaA==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9420,7 +9420,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-gN3iDfTEmSjiO3p/PSESqB1oF60qq4Sr/2CjJ8KTvuG+aKDUNlZ/CnQ6nf4qfmH+6/WpncORJUI+4ijp8Ah1sA==
+      integrity: sha512-27EMW9bkJpGJEp+Dsf5ReVV1K+1gQzvm3c2pF1wIk7wc1KAFgLfYG17ekfMUfkwxR9F6xLiSfOQLgG/QfzUuMw==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
