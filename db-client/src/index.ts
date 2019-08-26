@@ -1,6 +1,12 @@
 import { DBClient, Options } from '@binaris/shift-interfaces-node-client';
 import {
-  ClientContext, UpdateOptions, Version, VersionedMaybeObject, Serializable
+  ClientContext,
+  Document,
+  UpdateOptions,
+  Version,
+  VersionedMaybeObject,
+  Query,
+  Serializable,
 } from '@binaris/shift-interfaces-node-client/interfaces';
 import deepFreeze, { DeepReadonly } from 'deep-freeze';
 import { merge } from 'ramda';
@@ -91,8 +97,8 @@ export class DBHandler {
     throw new Error('Unimplemented');
   }
 
-  public async find(): Promise<any[]> {
-    throw new Error('Unimplemented');
+  public async find(query: Query): Promise<Document[]> {
+    return await this.client.find(this.ctx, query);
   }
 
   private async setIfVersion(
@@ -149,8 +155,8 @@ export async function update<T extends Serializable = any>(
  * @param query - a query constructed with Q methods.
  * @return - an array of documents
  */
-export async function find(): Promise<any[]> {
-  throw new Error('Unimplemented');
+export async function find(query: Query): Promise<Document[]> {
+  return db.find(query);
 }
 
 /**
