@@ -9384,7 +9384,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-2PJUnWK/ZR9/6Xr09E3eVuvlskED5opz4lnDqvPB1Hd+sN2k7ra3Qc6kcC5otKEvkAO7BPyQ4GtQMigiBf70SQ==
+      integrity: sha512-ciXPVmyiuslCa2c8Y/JxYTOZEWlLbfGA3DtCAjCpZ1gL93eK9Y4Vn3Ott+of6pfPLM22tS/EkengLZf6suKLSg==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9442,7 +9442,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-4cWrKwN5gswF+pfg0xe/Lei/U7Nf03llKQ0UDDJ/uMwASZSivHa5s9rgO56FOkc17S6CyPGO91Z7U5EidNelew==
+      integrity: sha512-q+Ul0u1M2kOSFieQ2Pz03aMLcWKTaeMtdPrUg0bYun2qhagj3lUJhHChz4i3nHAFoiYC7hdlvyNLtB7u9/2Hqw==
       tarball: 'file:projects/shift-interfaces.tgz'
     version: 0.0.0
   'file:projects/shift-leveldb-server.tgz':
@@ -9513,7 +9513,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-zHYFSAAM8tmPhI6fjmY2+fHDSIuTiBcc/66cyG9hzzPAmCdVJBPEJ2+wEOCF+kH6LHmdERTKTcK7oTZvA5Ktyw==
+      integrity: sha512-x3qUWBNKPl/k81u8/G6nlk+NmAoLw5uvVlQXeXHT+L4CF9b57gvgs7ApczEWPsL7wMYiR4fEdn3RAVDr25irsw==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9643,7 +9643,7 @@ specifiers:
   bunyan-rotating-file-stream: ^1.6.3
   chalk: ^2.4.2
   cli-ux: ^5.3.1
-  concord: ~0.2.2
+  concord: ^0.2.2
   conf: ^5.0.0
   dotenv: ^8.0.0
   express: ^4.17.1
