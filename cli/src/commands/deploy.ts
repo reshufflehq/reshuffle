@@ -34,6 +34,9 @@ export default class Deploy extends Command {
       await spawn('npm', ['run', 'build'], {
         cwd: projectDir,
         stdio: 'inherit',
+        // in win32 npm.cmd must be run in shell - no escaping needed since all
+        // arguments are constant strings
+        shell: process.platform === 'win32',
       });
       await mkdirp(stagingDir);
       const deps = await getDependencies(projectDir);
@@ -62,6 +65,9 @@ export default class Deploy extends Command {
       ], {
         cwd: projectDir,
         stdio: 'inherit',
+        // in win32 babel.cmd must be run in shell - no escaping needed since
+        // the only dynamic variable used is stagingDir (result of tmpdir())
+        shell: process.platform === 'win32',
       });
 
       return stagingDir;
