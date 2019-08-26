@@ -1,10 +1,10 @@
 {
   "name": "@binaris/shift-db",
-  "version": "0.4.0-dbnu",
+  "version": "0.4.0",
   "description": "(Backend) client for accessing ShiftJS DBs.",
   "main": "dist/index.js",
   "files": [
-      "dist/"
+    "dist/"
   ],
   "types": "dist/index.d.ts",
   "scripts": {
