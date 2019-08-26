@@ -5,7 +5,7 @@ import { promisify } from 'util';
 import { tmpdir } from 'os';
 import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
-import { DB, incrVersion } from '../db';
+import { Handler, incrVersion } from '../db';
 import { hrnano } from '../utils';
 import { ServerOnlyContext } from '@binaris/shift-interfaces-koa-server';
 import { Serializable } from '@binaris/shift-interfaces-koa-server/interfaces';
@@ -13,7 +13,7 @@ import { Serializable } from '@binaris/shift-interfaces-koa-server/interfaces';
 interface Context {
   ctx: ServerOnlyContext;
   dbDir: string;
-  db: DB;
+  db: Handler;
 }
 
 const test = anyTest as TestInterface<Context>;
@@ -23,7 +23,7 @@ test.beforeEach(async (t) => {
   t.context = {
     ctx: { debugId: t.title.replace(/^beforeEach hook for /, '') },
     dbDir,
-    db: new DB(`${dbDir}/root.db`),
+    db: new Handler(`${dbDir}/root.db`),
   };
 });
 
