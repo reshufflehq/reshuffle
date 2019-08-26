@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Launch scripts with a shell on win32",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "vladimir@shiftjs.com"
+}
