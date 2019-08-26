@@ -12,7 +12,6 @@ export default {
   ...flags,
   // Using flags.build since flags.integer does not honor the default
   minMaxInt: (options: MinMaxIntFlagOptions) => flags.build({
-    ...options,
     parse(val) {
       const { min, max } = options;
       if (!isInt(val, { min, max })) {
@@ -20,6 +19,7 @@ export default {
       }
       return parseInt(val, 10);
     },
+    ...options,
   })(),
   durationOrISO8601: flags.build({
     parse(val) {
