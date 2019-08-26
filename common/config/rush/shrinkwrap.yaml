@@ -67,7 +67,7 @@ dependencies:
   bunyan-rotating-file-stream: 1.6.3
   chalk: 2.4.2
   cli-ux: 5.3.1
-  concord: 0.2.2
+  concord: 0.2.3
   conf: 5.0.0
   dotenv: 8.1.0
   express: 4.17.1
@@ -93,7 +93,7 @@ dependencies:
   mkdirp: 0.5.1
   ms: 2.1.2
   mz: 2.7.0
-  nanoid: 2.0.3
+  nanoid: 2.0.4
   nodemon: 1.19.1
   npm-check-updates: 3.1.21
   open: 6.4.0
@@ -1227,12 +1227,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
-  /@types/ramda/0.26.19:
+  /@types/ramda/0.26.21:
     dependencies:
-      ts-toolbelt: 3.8.3
+      ts-toolbelt: 3.8.42
     dev: false
     resolution:
-      integrity: sha512-lJuMZDXqZ8W2hl0Gz+wEPUhXcf/tZRuaO5vrxFD3Dv2XMqgTZVw+bvfS6iQAsio9XQV+uhkggtT4eLhDmUpI5g==
+      integrity: sha512-zMYtIZMceA6BvH+or6LmewLBgojbXg5+FGCwjO8K+Z+d/ZWxILmhhASXkehW0PqJL+V0QbyDeeAHix0dvEKXfQ==
   /@types/range-parser/1.2.3:
     dev: false
     resolution:
@@ -2527,13 +2527,13 @@ packages:
       '0': node >= 0.8
     resolution:
       integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
-  /concord/0.2.2:
+  /concord/0.2.3:
     dependencies:
       glob: 7.1.4
       lodash: 4.17.15
       mustache: 3.0.2
       mz: 2.7.0
-      npm: 6.11.1
+      npm: 6.11.2
       rmfr: 2.0.0
       typescript: 3.5.3
       typescript-json-schema: 0.39.0
@@ -2541,7 +2541,7 @@ packages:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-nq/M2b3SXME6cRuQsiBMuhNnKOkoS4nfMk/tIl3G3fDyTrVz9GVhxZELOEuuNFq2DaB/5HmWTuG/qfrT4ACmHA==
+      integrity: sha512-9QhsZ8LmZGwITCMJDw36MLxlyLdWBailCgzbTIHgVa30mmzmyYiDijn1IYNyKQvmh9dYCWw8drGRtUMDj21/rA==
   /concordance/4.0.0:
     dependencies:
       date-time: 2.1.0
@@ -3657,7 +3657,7 @@ packages:
       integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
   /fs-minipass/1.2.6:
     dependencies:
-      minipass: 2.3.5
+      minipass: 2.4.0
     dev: false
     resolution:
       integrity: sha512-crhvyXcMejjv3Z5d2Fa9sf5xLYVCF5O1c71QxbVnbLsmYMBEvDAftewesN/HhY03YRoA7zOMxjNGrF5svGaaeQ==
@@ -5914,16 +5914,16 @@ packages:
     dev: false
     resolution:
       integrity: sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
-  /minipass/2.3.5:
+  /minipass/2.4.0:
     dependencies:
       safe-buffer: 5.2.0
       yallist: 3.0.3
     dev: false
     resolution:
-      integrity: sha512-Gi1W4k059gyRbyVUZQ4mEqLm0YIUiGYfvxhF6SIlk3ui1WVxMTGfGdQ2SInh3PDrRTVvPKgULkpJtT4RH10+VA==
+      integrity: sha512-6PmOuSP4NnZXzs2z6rbwzLJu/c5gdzYg1mRI/WIYdx45iiX7T+a4esOzavD6V/KmBzAaopFSTZPZcUx73bqKWA==
   /minizlib/1.2.1:
     dependencies:
-      minipass: 2.3.5
+      minipass: 2.4.0
     dev: false
     resolution:
       integrity: sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
@@ -6019,10 +6019,10 @@ packages:
     optional: true
     resolution:
       integrity: sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
-  /nanoid/2.0.3:
+  /nanoid/2.0.4:
     dev: false
     resolution:
-      integrity: sha512-NbaoqdhIYmY6FXDRB4eYtDVC9Z9eCbn8TyaiC16LNKtpPv/aqa0tOPD8y6gNE4yUNnaZ7LLhYtXOev/6+cBtfw==
+      integrity: sha512-sOJnBmY3TJQBVIBqKHoifuwygrocXg3NjS9rZSMnVl05XWSHK7Qxb177AIZQyMDjP86bz+yneozj/h9qsPLcCA==
   /nanomatch/1.2.13:
     dependencies:
       arr-diff: 4.0.0
@@ -6267,7 +6267,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8=
-  /npm/6.11.1:
+  /npm/6.11.2:
     bundledDependencies:
       - abbrev
       - ansicolors
@@ -6395,7 +6395,7 @@ packages:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-ckV89fITMaOMa1UAbOEvGHtepWhCrlG34fGvr/K4UbD6LiS8Vv85uftpNqK6bbvej9lsXg5MPuFfuq88W91qyA==
+      integrity: sha512-OAkXqI4bm5MUvqVvqe6rxCXmJqrln8VDlkdftpOoayHKazz8IOCJAiCuKmz0TchL224EAKeG86umuD6RYNpuEg==
   /nwsapi/2.1.4:
     dev: false
     resolution:
@@ -6715,7 +6715,7 @@ packages:
       lru-cache: 5.1.1
       make-fetch-happen: 5.0.0
       minimatch: 3.0.4
-      minipass: 2.3.5
+      minipass: 2.4.0
       mississippi: 3.0.0
       mkdirp: 0.5.1
       normalize-package-data: 2.5.0
@@ -8232,7 +8232,7 @@ packages:
     dependencies:
       chownr: 1.1.2
       fs-minipass: 1.2.6
-      minipass: 2.3.5
+      minipass: 2.4.0
       minizlib: 1.2.1
       mkdirp: 0.5.1
       safe-buffer: 5.2.0
@@ -8464,12 +8464,12 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
-  /ts-toolbelt/3.8.3:
+  /ts-toolbelt/3.8.42:
     dev: false
     peerDependencies:
       typescript: ^3.5.0
     resolution:
-      integrity: sha512-/MnLA9Pr7ppDIxMf8sGSbNoiQDORQtzdcma8IsepArmikqZbu7CiwP+aAYaZnVXjOxLAleIEyxe20LJx0WgcCw==
+      integrity: sha512-6VkHFJ7xFZAt7kKfbpVqTQORxCJr4af80YA+sQ4VvIGObOQijamI94zxbc2BDLSPoFk22PfospaHlk7X9p5ZXg==
   /tslib/1.10.0:
     dev: false
     resolution:
@@ -9281,7 +9281,7 @@ packages:
       '@types/koa': 2.0.49
       '@types/koa-router': 7.0.42
       '@types/node': 12.7.2
-      '@types/ramda': 0.26.19
+      '@types/ramda': 0.26.21
       '@types/rmfr': 2.0.0
       ava: 2.3.0
       deep-freeze: 0.0.1
@@ -9292,7 +9292,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-Xd4kj6O46eHAlYZ90NKe51GiqveQkkpUX2k6LyHCv4jVay3cIY9Sn/XxKkLYDfTtV59SdJnAOrtGkDAn6Bs2kw==
+      integrity: sha512-jbUR201e1rwgE1tBljxpH5mSxLQpY+N1R0yUMrtZ21cIGaiel6hYJHvF/vtAfnNGmvrs34aXdOQUnBPJhEdISQ==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9342,7 +9342,7 @@ packages:
   'file:projects/shift-interfaces.tgz':
     dependencies:
       '@types/node': 10.14.16
-      concord: 0.2.2
+      concord: 0.2.3
       fast-json-patch: 2.2.1
       tslint: /tslint/5.19.0/typescript@3.5.3
       typescript: 3.5.3
@@ -9350,7 +9350,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-interfaces'
     resolution:
-      integrity: sha512-4cWrKwN5gswF+pfg0xe/Lei/U7Nf03llKQ0UDDJ/uMwASZSivHa5s9rgO56FOkc17S6CyPGO91Z7U5EidNelew==
+      integrity: sha512-q+Ul0u1M2kOSFieQ2Pz03aMLcWKTaeMtdPrUg0bYun2qhagj3lUJhHChz4i3nHAFoiYC7hdlvyNLtB7u9/2Hqw==
       tarball: 'file:projects/shift-interfaces.tgz'
     version: 0.0.0
   'file:projects/shift-leveldb-server.tgz':
@@ -9361,7 +9361,7 @@ packages:
       '@types/levelup': 3.1.1
       '@types/nanoid': 2.0.0
       '@types/node': 10.14.16
-      '@types/ramda': 0.26.19
+      '@types/ramda': 0.26.21
       '@types/rmfr': 2.0.0
       async-mutex: 0.1.3
       ava: 2.3.0
@@ -9370,7 +9370,7 @@ packages:
       koa: 2.8.1
       leveldown: 5.1.1
       levelup: 4.1.0
-      nanoid: 2.0.3
+      nanoid: 2.0.4
       ramda: 0.26.1
       rmfr: 2.0.0
       tslint: /tslint/5.19.0/typescript@3.5.3
@@ -9411,7 +9411,7 @@ packages:
       koa-router: 7.4.0
       lodash: 4.17.15
       mkdirp: 0.5.1
-      nanoid: 2.0.3
+      nanoid: 2.0.4
       nodemon: 1.19.1
       rimraf: 2.7.1
       tslint: /tslint/5.19.0/typescript@3.5.3
@@ -9420,7 +9420,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-zHYFSAAM8tmPhI6fjmY2+fHDSIuTiBcc/66cyG9hzzPAmCdVJBPEJ2+wEOCF+kH6LHmdERTKTcK7oTZvA5Ktyw==
+      integrity: sha512-x3qUWBNKPl/k81u8/G6nlk+NmAoLw5uvVlQXeXHT+L4CF9b57gvgs7ApczEWPsL7wMYiR4fEdn3RAVDr25irsw==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9550,7 +9550,7 @@ specifiers:
   bunyan-rotating-file-stream: ^1.6.3
   chalk: ^2.4.2
   cli-ux: ^5.3.1
-  concord: ~0.2.2
+  concord: ^0.2.2
   conf: ^5.0.0
   dotenv: ^8.0.0
   express: ^4.17.1

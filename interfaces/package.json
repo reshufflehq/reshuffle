@@ -19,7 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "concord": "~0.2.2",
+    "concord": "^0.2.2",
     "fast-json-patch": "^2.2.0"
   },
   "devDependencies": {
