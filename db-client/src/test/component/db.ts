@@ -27,8 +27,7 @@ async function listenOn(app: Koa): Promise<Server> {
   });
 }
 
-process.env.APP_ID = 'testing';
-process.env.API_KEY = '1234';
+process.env.SHIFT_APPLICATION_ID = 'testing';
 
 test.beforeEach(async (t) => {
   const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
@@ -43,7 +42,7 @@ test.beforeEach(async (t) => {
   const server = await listenOn(app);
   const port = (server.address() as unknown as AddressInfo).port;
   const url = `http://localhost:${port}`;
-  process.env.DB_BASE_URL = url;
+  process.env.SHIFT_DB_BASE_URL = url;
   // Instantiate DBHandler with proper URL set up.
   const client = new DBHandler({ timeoutMs: 1000 });
   t.context = {

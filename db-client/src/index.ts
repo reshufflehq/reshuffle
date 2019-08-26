@@ -42,14 +42,14 @@ export class DBHandler {
     auth: {
       v1: {
         // TODO(ariels): Update with prefixes from binaris/spice#616.
-        appId: process.env.APP_ID!,
-        apiKey: process.env.API_KEY!,
+        appId: process.env.SHIFT_APPLICATION_ID!,
+        apiKey: '<unused>',
       },
     },
   };
 
   constructor(options?: Options) {
-    this.client = new DBClient(`${process.env.DB_BASE_URL!}/v1`, merge(defaultOptions, options));
+    this.client = new DBClient(`${process.env.SHIFT_DB_BASE_URL!}/v1`, merge(defaultOptions, options));
   }
 
   public async get<T extends Serializable = any>(key: string): Promise<T | undefined> {
