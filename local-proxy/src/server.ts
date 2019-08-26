@@ -1,5 +1,5 @@
 import { resolve as resolvePath, relative as relativePath } from 'path';
-import { DB } from '@binaris/shift-leveldb-server';
+import { Handler as DBHandler } from '@binaris/shift-leveldb-server';
 import { DBRouter } from '@binaris/shift-interfaces-koa-server';
 import http from 'http';
 import Koa from 'koa';
@@ -169,7 +169,7 @@ if (!dbPath) {
   throw new Error('SHIFT_DB_PATH env var not defined');
 }
 
-const db = new DB(dbPath);
+const db = new DBHandler(dbPath);
 const dbRouter = new DBRouter(db);
 router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
 
