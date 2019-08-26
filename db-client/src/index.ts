@@ -3,10 +3,11 @@ import { DeepReadonly } from 'deep-freeze';
 import {
   Document,
   UpdateOptions,
-  Query,
   Serializable,
 } from '@binaris/shift-interfaces-node-client/interfaces';
-import { DB, Versioned } from './db';
+import { DB, Versioned, Q } from './db';
+
+export { Q };
 
 // TODO(bergundy): Verify environment variables
 const db = new DB(
@@ -67,7 +68,7 @@ export async function update<T extends Serializable = any>(
  * @param query - a query constructed with Q methods.
  * @return - an array of documents
  */
-export async function find(query: Query): Promise<Document[]> {
+export async function find(query: Q.Query): Promise<Document[]> {
   return db.find(query);
 }
 

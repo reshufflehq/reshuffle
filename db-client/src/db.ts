@@ -6,9 +6,12 @@ import {
   UpdateOptions,
   Version,
   VersionedMaybeObject,
-  Query,
   Serializable,
 } from '@binaris/shift-interfaces-node-client/interfaces';
+
+import * as Q from './query';
+
+export { Q };
 
 export interface Versioned<T extends Serializable | undefined> {
   version: Version;
@@ -82,8 +85,8 @@ export class DB {
     throw new Error('Unimplemented');
   }
 
-  public async find(query: Query): Promise<Document[]> {
-    return await this.client.find(this.ctx, query);
+  public async find(query: Q.Query): Promise<Document[]> {
+    return await this.client.find(this.ctx, query.getParts());
   }
 
   private async setIfVersion(
