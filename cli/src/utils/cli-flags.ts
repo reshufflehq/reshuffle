@@ -10,17 +10,15 @@ export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & Parti
 
 export default {
   ...flags,
-  // Using flags.build since flags.integer does not honor the default
-  minMaxInt: (options: MinMaxIntFlagOptions) => flags.build({
+  minMaxInt: ({ min, max, ...options }: MinMaxIntFlagOptions) => flags.integer({
     parse(val) {
-      const { min, max } = options;
       if (!isInt(val, { min, max })) {
         error(`Expected an integer between ${min} and ${max} but received: ${val}`);
       }
       return parseInt(val, 10);
     },
     ...options,
-  })(),
+  }),
   durationOrISO8601: flags.build({
     parse(val) {
       if (isISO8601(val)) {
