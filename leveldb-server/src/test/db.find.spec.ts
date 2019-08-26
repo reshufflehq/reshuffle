@@ -6,12 +6,12 @@ import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
 import { ServerOnlyContext } from '@binaris/shift-interfaces-koa-server';
 import { Direction } from '@binaris/shift-interfaces-koa-server/interfaces';
-import { DB } from '../db';
+import { Handler } from '../db';
 
 interface Context {
   ctx: ServerOnlyContext;
   dbDir: string;
-  db: DB;
+  db: Handler;
 }
 
 const test = anyTest as TestInterface<Context>;
@@ -21,7 +21,7 @@ test.beforeEach(async (t) => {
   t.context = {
     ctx: { debugId: t.title.replace(/^beforeEach hook for /, '') },
     dbDir,
-    db: new DB(`${dbDir}/root.db`),
+    db: new Handler(`${dbDir}/root.db`),
   };
 });
 

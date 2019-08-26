@@ -1,2 +1,2 @@
-export { DB } from './db';
+export { Handler } from './db';
 export { ValueError, IllegalArgumentError } from './errors';

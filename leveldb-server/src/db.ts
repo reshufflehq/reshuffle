@@ -71,7 +71,7 @@ function valueOrUndefined(maybeHasValue?: any) {
   return maybeHasValue === undefined ? undefined : maybeHasValue.value;
 }
 
-export class DB implements DBHandler {
+export class Handler implements DBHandler {
   protected emitter = new EventEmitter();
   protected readonly writeLock = new Mutex();
   protected readonly db: LevelUp;
