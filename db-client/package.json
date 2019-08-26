@@ -4,7 +4,7 @@
   "description": "(Backend) client for accessing ShiftJS DBs.",
   "main": "dist/index.js",
   "files": [
-      "dist/"
+    "dist/"
   ],
   "types": "dist/index.d.ts",
   "scripts": {
