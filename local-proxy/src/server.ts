@@ -24,7 +24,7 @@ if (!localToken) {
 }
 
 function setupEnv({ port }: { port: number }) {
-  process.env.DB_BASE_URL = `http://localhost:${port}`;
+  process.env.SHIFT_DB_BASE_URL = `http://localhost:${port}`;
   // TODO(vogre): Used (at least) for DB, where it doesn't really
   //     matter locally.  Are better values available?
   process.env.APP_ID = 'local-app';
@@ -131,13 +131,13 @@ router.post('/invoke', async (ctx) => {
         };
         return;
       }
-      if (!process.env.DB_BASE_URL) {
+      if (!process.env.SHIFT_DB_BASE_URL) {
         // This can never happen, because POST can only occur after we
-        // start listening and set DB_BASE_URL.  Verify it just in
-        // case.
+        // start listening and set SHIFT_DB_BASE_URL.  Verify it just
+        // in case.
 
         // tslint:disable-next-line:no-console
-        console.error('[I] Invoked before local DB_BASE_URL was set; local DB might break');
+        console.error('[I] Invoked before local SHIFT_DB_BASE_URL was set; local DB might break');
       }
       const mod = require(joinedDir);
       fn = mod[handler];
