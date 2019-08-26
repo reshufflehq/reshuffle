@@ -1,6 +1,6 @@
 import { equals } from 'ramda';
-import { IllegalArgumentError } from './errors';
 import * as dbi from '@binaris/shift-interfaces-node-client/interfaces';
+import { IllegalArgumentError } from './errors';
 
 type Key = string | number;
 
