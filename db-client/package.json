@@ -3,7 +3,9 @@
   "version": "0.4.0-dbnu",
   "description": "(Backend) client for accessing ShiftJS DBs.",
   "main": "dist/index.js",
-  "files": "dist/",
+  "files": [
+      "dist/"
+  ],
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
@@ -22,13 +24,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-interfaces-node-client": "0.4.0-nudb.1",
+    "@binaris/shift-interfaces-node-client": "0.4.0-nudb.2",
     "@types/deep-freeze": "^0.1.2",
     "deep-freeze": "0.0.1",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
-    "@binaris/shift-interfaces-koa-server": "0.4.0-nudb.1",
+    "@binaris/shift-interfaces-koa-server": "0.4.0-nudb.2",
     "@binaris/shift-leveldb-server": "0.0.1-dbnu",
     "@types/koa": "~2.0.49",
     "@types/koa-router": "~7.0.42",

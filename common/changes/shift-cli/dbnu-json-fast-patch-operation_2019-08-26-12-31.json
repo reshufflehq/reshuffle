@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Update generated README.md",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "roey@shiftjs.com"
+}
