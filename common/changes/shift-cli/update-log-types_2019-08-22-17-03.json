@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Update logs interfaces",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "vladimir@shiftjs.com"
+}
