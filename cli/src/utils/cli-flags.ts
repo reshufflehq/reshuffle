@@ -10,6 +10,7 @@ export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & Parti
 
 export default {
   ...flags,
+  // Using flags.build since flags.integer does not honor the default
   minMaxInt: (options: MinMaxIntFlagOptions) => flags.build({
     ...options,
     parse(val) {
