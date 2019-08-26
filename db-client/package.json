@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "ava dist/test/component/*.js"
+    "test": "ava -v dist/test/**/*.test.js"
   },
   "keywords": [
     "binaris",

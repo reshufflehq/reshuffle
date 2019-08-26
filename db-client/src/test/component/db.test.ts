@@ -1,7 +1,4 @@
 import anyTest, { TestInterface } from 'ava';
-import { DB } from '@binaris/shift-leveldb-server';
-import { DBRouter } from '@binaris/shift-interfaces-koa-server';
-import { DBHandler } from '../..';
 import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
 import { tmpdir } from 'os';
@@ -11,10 +8,13 @@ import { AddressInfo } from 'net';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { createServer, Server } from 'http';
+import { Handler } from '@binaris/shift-leveldb-server';
+import { DBRouter } from '@binaris/shift-interfaces-koa-server';
+import { DB } from '../../db';
 
 interface Context {
   dbDir: string;
-  client: DBHandler;
+  client: DB;
 }
 
 const test = anyTest as TestInterface<Context>;
@@ -31,7 +31,7 @@ process.env.SHIFT_APPLICATION_ID = 'testing';
 
 test.beforeEach(async (t) => {
   const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
-  const db = new DB(`${dbDir}/root.db`);
+  const db = new Handler(`${dbDir}/root.db`);
   const dbRouter = new DBRouter(db, true);
   const router = new KoaRouter();
   router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
@@ -41,10 +41,18 @@ test.beforeEach(async (t) => {
 
   const server = await listenOn(app);
   const port = (server.address() as unknown as AddressInfo).port;
-  const url = `http://localhost:${port}`;
-  process.env.SHIFT_DB_BASE_URL = url;
-  // Instantiate DBHandler with proper URL set up.
-  const client = new DBHandler({ timeoutMs: 1000 });
+  const client = new DB(
+    `http://localhost:${port}/v1`,
+    {
+      auth: {
+        v1: {
+          appId: 'test',
+          apiKey: 'test',
+        },
+      },
+    },
+    { timeoutMs: 1000 },
+  );
   t.context = {
     dbDir,
     client,
