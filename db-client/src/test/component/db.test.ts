@@ -27,8 +27,6 @@ async function listenOn(app: Koa): Promise<Server> {
   });
 }
 
-process.env.SHIFT_APPLICATION_ID = 'testing';
-
 test.beforeEach(async (t) => {
   const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
   const db = new Handler(`${dbDir}/root.db`);
@@ -46,7 +44,7 @@ test.beforeEach(async (t) => {
     {
       auth: {
         v1: {
-          appId: 'test',
+          appId: 'testing',
           apiKey: 'test',
         },
       },
