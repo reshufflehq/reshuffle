@@ -105,11 +105,10 @@ export interface Query {
 
 // tslint:disable-next-line:no-empty-interface
 export interface ClientContext {
+  appId: string;
   auth: {
-    v1: {
-      // Contents TBD
-      appId: string;
-      apiKey: string;
+    v1?: {
+      token: string;
     };
   };
 }
