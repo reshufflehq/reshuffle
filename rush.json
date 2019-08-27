@@ -360,6 +360,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@binaris/shift-db-testsuite",
+        "projectFolder": "db-testsuite",
+        "shouldPublish": true
+    },
+    {
         "packageName": "@binaris/shift-fetch-runtime",
         "projectFolder": "fetch-runtime",
         "shouldPublish": true
