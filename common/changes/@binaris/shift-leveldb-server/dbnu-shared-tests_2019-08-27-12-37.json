@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-leveldb-server",
+      "comment": "Run shared test suite",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-leveldb-server",
+  "email": "roey@shiftjs.com"
+}
