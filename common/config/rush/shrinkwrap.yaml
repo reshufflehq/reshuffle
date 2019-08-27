@@ -66,7 +66,7 @@ dependencies:
   bunyan: 1.8.12
   bunyan-rotating-file-stream: 1.6.3
   chalk: 2.4.2
-  cli-ux: 5.3.1
+  cli-ux: 5.3.2
   concord: 0.2.3
   conf: 5.0.0
   dotenv: 8.1.0
@@ -762,7 +762,7 @@ packages:
       '@oclif/config': 1.13.3
       '@oclif/errors': 1.2.2
       '@oclif/plugin-help': 2.2.1
-      cli-ux: 5.3.1
+      cli-ux: 5.3.2
       debug: 4.1.1
       fs-extra: 7.0.1
       github-slugger: 1.2.1
@@ -1229,7 +1229,7 @@ packages:
       integrity: sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
   /@types/ramda/0.26.21:
     dependencies:
-      ts-toolbelt: 3.8.42
+      ts-toolbelt: 3.8.51
     dev: false
     resolution:
       integrity: sha512-zMYtIZMceA6BvH+or6LmewLBgojbXg5+FGCwjO8K+Z+d/ZWxILmhhASXkehW0PqJL+V0QbyDeeAHix0dvEKXfQ==
@@ -2370,7 +2370,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-/1owvF0SZ5Gn54cgrikJ0QskgTzeg30HGjkmjFoaHDJzAqFpuX1DBpFR8aLvsE1J5s9MgeYRENQK4BFwOag5VA==
-  /cli-ux/5.3.1:
+  /cli-ux/5.3.2:
     dependencies:
       '@oclif/command': 1.5.18
       '@oclif/errors': 1.2.2
@@ -2400,7 +2400,7 @@ packages:
     engines:
       node: '>=8.0.0'
     resolution:
-      integrity: sha512-l2MXbitx0FjtHKSbHytuxfxWv6MdWBRh23ItRJjU17cjj0dqZxfAL863tzbR1FIs7jccPllPUvn3QWK6BQg3Pg==
+      integrity: sha512-H7gFNM5FxAZ+DUGTQNZfKs6lUOPKZGCIUNsYiQ1FuoeJjo9RLnBbUUnKhQ68DqfrH6i/BRmv8edOY0EfUHD6Mg==
   /cliui/5.0.0:
     dependencies:
       string-width: 3.1.0
@@ -8464,12 +8464,12 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
-  /ts-toolbelt/3.8.42:
+  /ts-toolbelt/3.8.51:
     dev: false
     peerDependencies:
       typescript: ^3.5.0
     resolution:
-      integrity: sha512-6VkHFJ7xFZAt7kKfbpVqTQORxCJr4af80YA+sQ4VvIGObOQijamI94zxbc2BDLSPoFk22PfospaHlk7X9p5ZXg==
+      integrity: sha512-p3S1fgwRt6uKecOPrqWNUrxIBWCJfpO5Yag1uGGvKl5pVuH0xsB1q+kImnATkyzX26797h/Zqc8BIZPfMEhDug==
   /tslib/1.10.0:
     dev: false
     resolution:
@@ -9232,7 +9232,7 @@ packages:
       '@types/tar': 4.0.3
       '@types/validator': 10.11.3
       chalk: 2.4.2
-      cli-ux: 5.3.1
+      cli-ux: 5.3.2
       conf: 5.0.0
       dotenv: 8.1.0
       find-up: 4.1.0
@@ -9292,7 +9292,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-Y3RT1ZhxCOjY8yboFmrWRseMNkOsYuBZ7+HQIlPzPnSrIIUG1ua0WMSfGK55zm4pfHs6JtTfY8B3lXG8+/IwaA==
+      integrity: sha512-EtyAWRcpHgLM/jCsaBzLZVPvThoudO6cMLhG7NpZbRHjzZ6vKNiJPx+APtTGtBWs4DWzA4ZQRYbb7npt7mEuGA==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9378,7 +9378,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
-      integrity: sha512-LMYu0s7exs9FBE8hV4F2qx2A0owd+Ygui/G9Wu1vbfM+JBJiIlWn9zux68N7uEVemjqZc3JGo+9rRfVOmG8dKw==
+      integrity: sha512-jRYJ8OmBIaRW23LqmesN9JO+ZAZERboCJDHPSQ+983YmK+jKTsQI7xLSP4YcvJXHqaZCFVO5tUy4wL7sTBpv7A==
       tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -9420,7 +9420,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-27EMW9bkJpGJEp+Dsf5ReVV1K+1gQzvm3c2pF1wIk7wc1KAFgLfYG17ekfMUfkwxR9F6xLiSfOQLgG/QfzUuMw==
+      integrity: sha512-/pqVeh55h+ITLOcRldO4HVb1de+5OzwMcPuTVdIAacIJ0ShI0aOEsmpL9s46aWI7Z4bYzcSFJ2VEyrH8FUclPQ==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
