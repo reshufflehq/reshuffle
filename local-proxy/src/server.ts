@@ -25,10 +25,9 @@ if (!localToken) {
 
 function setupEnv({ port }: { port: number }) {
   process.env.SHIFT_DB_BASE_URL = `http://localhost:${port}`;
-  // TODO(vogre): Used (at least) for DB, where it doesn't really
-  //     matter locally.  Are better values available?
-  process.env.APP_ID = 'local-app';
-  process.env.API_KEY = 'Setec Astronomy';
+  process.env.SHIFT_APPLICATION_ID = 'local-app';
+  process.env.SHIFT_APPLICATION_ENV = 'local';
+  process.env.SHIFT_ACCESS_TOKEN = '<unused>';
 }
 
 class ModuleWhitelist {

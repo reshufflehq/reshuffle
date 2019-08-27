@@ -9,14 +9,23 @@ import { DB, Versioned, Q } from './db';
 
 export { Q };
 
-// TODO(bergundy): Verify environment variables
+function assertEnv(name: string): string {
+  const val = process.env[name];
+  if (!val) {
+    throw new Error(`Environment variable ${name} not defined`);
+  }
+  return val;
+}
+
 const db = new DB(
-  `${process.env.SHIFT_DB_BASE_URL!}/v1`,
+  `${assertEnv('SHIFT_DB_BASE_URL')}/v1`,
   {
-    appId: process.env.SHIFT_APPLICATION_ID!,
+    appId: assertEnv('SHIFT_APPLICATION_ID'),
+    appEnv: assertEnv('SHIFT_APPLICATION_ENV'),
+    collection: 'default',
     auth: {
       v1: {
-        token: '<unused>',
+        token: assertEnv('SHIFT_ACCESS_TOKEN'),
       },
     },
   },
