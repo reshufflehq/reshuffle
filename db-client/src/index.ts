@@ -13,10 +13,10 @@ export { Q };
 const db = new DB(
   `${process.env.SHIFT_DB_BASE_URL!}/v1`,
   {
+    appId: process.env.SHIFT_APPLICATION_ID!,
     auth: {
       v1: {
-        appId: process.env.SHIFT_APPLICATION_ID!,
-        apiKey: '<unused>',
+        token: '<unused>',
       },
     },
   },

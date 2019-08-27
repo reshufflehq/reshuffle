@@ -42,10 +42,10 @@ test.beforeEach(async (t) => {
   const client = new DB(
     `http://localhost:${port}/v1`,
     {
+      appId: 'testing',
       auth: {
         v1: {
-          appId: 'testing',
-          apiKey: 'test',
+          token: 'test',
         },
       },
     },
