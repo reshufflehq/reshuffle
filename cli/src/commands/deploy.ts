@@ -3,6 +3,7 @@ import { createReadStream, stat } from 'mz/fs';
 import { mkdirp, remove, copy } from 'fs-extra';
 import { tmpdir } from 'os';
 import tar from 'tar';
+import terminalLink from 'terminal-link';
 import fetch from 'node-fetch';
 import { LycanClient } from '@binaris/spice-node-client';
 import { Application } from '@binaris/spice-node-client/interfaces';
@@ -149,6 +150,7 @@ export default class Deploy extends Command {
       application = await client.deploy(applicationId, defaultEnv, digest, envVars);
     }
     const domain = application.environments[0].domains[0].name;
-    this.log(`Project successfully deployed! Your project is now available at: ${domain}`);
+    const link = terminalLink(domain, `https://${domain}`, { fallback: (_, url) => url });
+    this.log(`Project successfully deployed! Your project is now available at: ${link}`);
   }
 }
