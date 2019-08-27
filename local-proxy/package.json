@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-local-proxy",
-  "version": "0.1.0",
+  "version": "0.2.0-dbnu-client-context.1566887214",
   "files": [
     "dist"
   ],
@@ -19,7 +19,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@binaris/shift-server-function": "0.0.1",
     "@binaris/shift-interfaces-koa-server": "0.4.0-dbnu.3",
-    "@binaris/shift-leveldb-server": "0.0.1",
+    "@binaris/shift-leveldb-server": "0.0.2-dbnu-client-context.1566887214",
     "@types/express": "^4.17.0",
     "bunyan": "^1.8.12",
     "bunyan-rotating-file-stream": "^1.6.3",
@@ -54,6 +54,6 @@
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
-    "@binaris/shift-db": "0.4.0"
+    "@binaris/shift-db": "0.5.0-dbnu-client-context.1566887214"
   }
 }

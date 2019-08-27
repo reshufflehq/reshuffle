@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-leveldb-server",
-  "version": "0.0.1",
+  "version": "0.0.2-dbnu-client-context.1566887214",
   "files": [
     "dist"
   ],

@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-db",
-  "version": "0.4.0",
+  "version": "0.5.0-dbnu-client-context.1566887214",
   "description": "(Backend) client for accessing ShiftJS DBs.",
   "main": "dist/index.js",
   "files": [
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@binaris/shift-interfaces-koa-server": "0.4.0-dbnu.3",
-    "@binaris/shift-leveldb-server": "0.0.1",
+    "@binaris/shift-leveldb-server": "0.0.2-dbnu-client-context.1566887214",
     "@types/koa": "~2.0.49",
     "@types/koa-router": "~7.0.42",
     "@types/node": "^12.7.2",
