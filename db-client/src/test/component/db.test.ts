@@ -43,6 +43,8 @@ test.beforeEach(async (t) => {
     `http://localhost:${port}/v1`,
     {
       appId: 'testing',
+      appEnv: 'default',
+      collection: 'default',
       auth: {
         v1: {
           token: 'test',

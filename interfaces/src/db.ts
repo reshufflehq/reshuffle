@@ -106,6 +106,8 @@ export interface Query {
 // tslint:disable-next-line:no-empty-interface
 export interface ClientContext {
   appId: string;
+  appEnv: string;
+  collection: string;
   auth: {
     v1?: {
       token: string;
