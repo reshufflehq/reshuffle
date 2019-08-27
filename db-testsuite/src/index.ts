@@ -1,23 +1,18 @@
 import anyTest, { TestInterface } from 'ava';
-import { mkdtemp } from 'fs';
-import rmrf from 'rmfr';
-import { tmpdir } from 'os';
-import { promisify } from 'util';
-import * as path from 'path';
 import { AddressInfo } from 'net';
+import { createServer, Server } from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
-import { createServer, Server } from 'http';
-import { Handler } from '@binaris/shift-leveldb-server';
-import { DBRouter } from '@binaris/shift-interfaces-koa-server';
-import { DB } from '../../db';
+import nanoid from 'nanoid';
+import { DBRouter, DBHandler } from '@binaris/shift-interfaces-koa-server';
+import { DB } from '@binaris/shift-db/dist/db';
 
 interface Context {
-  dbDir: string;
   client: DB;
+  injectedContext: any;
 }
 
-const test = anyTest as TestInterface<Context>;
+export const test = anyTest as TestInterface<Context>;
 
 async function listenOn(app: Koa): Promise<Server> {
   return new Promise((resolve, reject) => {
@@ -27,41 +22,60 @@ async function listenOn(app: Koa): Promise<Server> {
   });
 }
 
-test.beforeEach(async (t) => {
-  const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
-  const db = new Handler(`${dbDir}/root.db`);
-  const dbRouter = new DBRouter(db, true);
-  const router = new KoaRouter();
-  router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
-  const app = new Koa();
-  app.use(router.routes());
-  app.use(router.allowedMethods());
+interface HandlerAndContext<T> {
+  handler: DBHandler;
+  context: T;
+}
 
-  const server = await listenOn(app);
-  const port = (server.address() as unknown as AddressInfo).port;
-  const client = new DB(
-    `http://localhost:${port}/v1`,
-    {
-      appId: 'testing',
-      appEnv: 'default',
-      collection: 'default',
-      auth: {
-        v1: {
-          token: 'test',
+interface HookContext {
+  appId: string;
+  appEnv: string;
+}
+
+interface TestHooks<T> {
+  setUp(ctx: HookContext): Promise<HandlerAndContext<T>> | HandlerAndContext<T>;
+  tearDown(ctx: T): Promise<void> | void;
+}
+
+export function setUpTests<T>(
+  { setUp, tearDown }: TestHooks<T>,
+) {
+  test.beforeEach(async (t) => {
+    const appId = `${nanoid(6)}: ${t.title.replace(/^beforeEach hook for /,  '')}`;
+    const appEnv = 'testing';
+
+    const { context, handler } = await setUp({ appId, appEnv });
+    const dbRouter = new DBRouter(handler, true);
+    const router = new KoaRouter();
+    router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
+    const app = new Koa();
+    app.use(router.routes());
+    app.use(router.allowedMethods());
+
+    const server = await listenOn(app);
+    const { port } = server.address() as AddressInfo;
+    const client = new DB(
+      `http://localhost:${port}/v1`,
+      {
+        appId,
+        appEnv,
+        collection: 'default',
+        auth: {
+          v1: {
+            token: 'test',
+          },
         },
       },
-    },
-    { timeoutMs: 1000 },
-  );
-  t.context = {
-    dbDir,
-    client,
-  };
-});
+      { timeoutMs: 1000 },
+    );
+    t.context = {
+      client,
+      injectedContext: context,
+    };
+  });
 
-test.afterEach(async (t) => {
-  await rmrf(t.context.dbDir);
-});
+  test.afterEach.always((t) => tearDown(t.context.injectedContext));
+}
 
 test('DB.get returns undefined when no key exists', async (t) => {
   const { client } = t.context;
@@ -189,7 +203,7 @@ test('DB.update throws TypeError if updater returned undefined', async (t) => {
   await t.throwsAsync(client.update('test', () => undefined as any), TypeError);
 });
 
-test('CLIENT.update throws TypeError if trying to modify returned object', async (t) => {
+test('DB.update throws TypeError if trying to modify returned object', async (t) => {
   const { client } = t.context;
   await client.create('test', { a: 1, b: { c: 2, d: [5] } });
   await t.throwsAsync(client.update('test', (obj) => {

@@ -20,6 +20,7 @@ dependencies:
   '@rush-temp/shift-cli': 'file:projects/shift-cli.tgz'
   '@rush-temp/shift-code-transform': 'file:projects/shift-code-transform.tgz'
   '@rush-temp/shift-db': 'file:projects/shift-db.tgz'
+  '@rush-temp/shift-db-testsuite': 'file:projects/shift-db-testsuite.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:projects/shift-interfaces.tgz'
   '@rush-temp/shift-interfaces-koa-server': 'file:projects/shift-interfaces-koa-server.tgz'
@@ -2531,7 +2532,7 @@ packages:
     dependencies:
       glob: 7.1.4
       lodash: 4.17.15
-      mustache: 3.0.2
+      mustache: 3.0.3
       mz: 2.7.0
       npm: 6.11.2
       rmfr: 2.0.0
@@ -5988,13 +5989,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
-  /mustache/3.0.2:
+  /mustache/3.0.3:
     dev: false
     engines:
       npm: '>=1.4.0'
     hasBin: true
     resolution:
-      integrity: sha512-64neoEgmozb8e/ecGBOSE+RfnevLSFzCI0UKPcrWmjv953/8fXhYO9+EQFtfbi6hwoFxcTA+Fp5mRiOiI9eTuA==
+      integrity: sha512-vM5FkMHamTYmVYeAujypihuPrJQDtaUIlKeeVb1AMJ73OZLtWiF7GprqrjxD0gJWT53W9JfqXxf97nXQjMQkqA==
   /mv/2.1.1:
     dependencies:
       mkdirp: 0.5.1
@@ -9275,24 +9276,34 @@ packages:
       integrity: sha512-hGDBaBrZP9xg1hZXX6d0/1DtNbsFBqE979iRsDbI498yn2ao6j8evXldvUh7OsqZGmuP2Q/xCW6+Z+4v9dPLPw==
       tarball: 'file:projects/shift-code-transform.tgz'
     version: 0.0.0
-  'file:projects/shift-db.tgz':
+  'file:projects/shift-db-testsuite.tgz':
     dependencies:
-      '@types/deep-freeze': 0.1.2
       '@types/koa': 2.0.49
       '@types/koa-router': 7.0.42
       '@types/node': 12.7.2
-      '@types/ramda': 0.26.21
-      '@types/rmfr': 2.0.0
       ava: 2.3.0
-      deep-freeze: 0.0.1
       koa: 2.8.1
       koa-router: 7.4.0
+      tslint: /tslint/5.19.0/typescript@3.5.3
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/shift-db-testsuite'
+    resolution:
+      integrity: sha512-z1FWsEi2Zj9XwLwrN1q/Oh/A3Jm2or0uGjzKEEGak8cQN89d1iwJvUa6cNaicPOOFgA3MT+D/BCagN+K1BTU4w==
+      tarball: 'file:projects/shift-db-testsuite.tgz'
+    version: 0.0.0
+  'file:projects/shift-db.tgz':
+    dependencies:
+      '@types/deep-freeze': 0.1.2
+      '@types/node': 12.7.2
+      '@types/ramda': 0.26.21
+      ava: 2.3.0
+      deep-freeze: 0.0.1
       ramda: 0.26.1
-      rmfr: 2.0.0
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-x98aKdj/u0wvJqTuUC0IK+vEp74nGaAPtr9WKWnsvhuKuy6XaLXMN4nVjk6iEtzAQKofa/6AkBxdAwAch5VaKg==
+      integrity: sha512-3I6xTaQh/rcgDa7Ba81AqsoI/139x0pZFUadRQ/ZD9KGMsvXAa2wzcSei/vkaySEn71xJUHEs4c0HHUzm5xUgA==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9378,7 +9389,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
-      integrity: sha512-zGtAHOHnXWNDhrrHJkDt/bIURNB6GU5f5XklCS1WWdPJtlDzYywpT6mhCAPhENu7oGBVqfO1Oa+z7KNkVuVetw==
+      integrity: sha512-EUgLDu76TIzFM/ZN8Pf9dQkPAZnS0i24bohvGomnLb43vd8vWIYxqyD7AXTcWgBhSMg7sc8j4ZfG7dcPF2FtCA==
       tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -9503,6 +9514,7 @@ specifiers:
   '@rush-temp/shift-cli': 'file:./projects/shift-cli.tgz'
   '@rush-temp/shift-code-transform': 'file:./projects/shift-code-transform.tgz'
   '@rush-temp/shift-db': 'file:./projects/shift-db.tgz'
+  '@rush-temp/shift-db-testsuite': 'file:./projects/shift-db-testsuite.tgz'
   '@rush-temp/shift-fetch-runtime': 'file:./projects/shift-fetch-runtime.tgz'
   '@rush-temp/shift-interfaces': 'file:./projects/shift-interfaces.tgz'
   '@rush-temp/shift-interfaces-koa-server': 'file:./projects/shift-interfaces-koa-server.tgz'

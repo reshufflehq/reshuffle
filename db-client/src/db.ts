@@ -69,7 +69,7 @@ export class DB {
       // it by referring to value in an object.
       const newValue = updater(deepFreeze({ value: value as T }).value);
       checkValue(newValue);
-      if (await this.setIfVersion(key, newValue, version)) return deepFreeze(newValue);
+      if (await this.setIfVersion(key, version, newValue)) return deepFreeze(newValue);
       await delay;
     }
     throw Error('Timed out');   // backoff() is currently infinite but
@@ -91,8 +91,8 @@ export class DB {
 
   private async setIfVersion(
     key: string,
+    version: Version,
     value: Serializable,
-    version: Version
   ): Promise<boolean> {
     return await this.client.setIfVersion(this.ctx, key, version, value);
   }
