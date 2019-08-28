@@ -2,6 +2,43 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.2.0",
+      "tag": "@binaris/shift-local-proxy_v0.2.0",
+      "date": "Wed, 28 Aug 2019 13:08:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Change DB ClientContext"
+          },
+          {
+            "comment": "Update interfaces version"
+          },
+          {
+            "comment": "Restore poll() functionality"
+          },
+          {
+            "comment": "Fix db import"
+          },
+          {
+            "comment": "Fix find()"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Use regular HTTP-based db client with an in-process LevelDB-based local server"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-leveldb-server\" from `0.0.1` to `0.0.2`"
+          },
+          {
+            "comment": "Updating dependency \"@binaris/shift-db\" from `0.4.0` to `0.5.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.14",
       "tag": "@binaris/shift-local-proxy_v0.0.14",
       "date": "Thu, 22 Aug 2019 15:45:43 GMT",

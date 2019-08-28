@@ -1,0 +1,37 @@
+{
+  "name": "@binaris/shift-db",
+  "entries": [
+    {
+      "version": "0.5.0",
+      "tag": "@binaris/shift-db_v0.5.0",
+      "date": "Wed, 28 Aug 2019 13:08:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Change DB ClientContext"
+          },
+          {
+            "comment": "Update interfaces version"
+          },
+          {
+            "comment": "Restore poll() functionality"
+          },
+          {
+            "comment": "Rename DBHandler to DB, rearrange files, restore query"
+          },
+          {
+            "comment": "Fix find()"
+          },
+          {
+            "comment": "Remove E2E tests"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "New client code, works with external servers."
+          }
+        ]
+      }
+    }
+  ]
+}

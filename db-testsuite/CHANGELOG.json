@@ -1,0 +1,28 @@
+{
+  "name": "@binaris/shift-db-testsuite",
+  "entries": [
+    {
+      "version": "0.0.1",
+      "tag": "@binaris/shift-db-testsuite_v0.0.1",
+      "date": "Wed, 28 Aug 2019 13:08:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Test poll()"
+          },
+          {
+            "comment": "Test find()"
+          },
+          {
+            "comment": "Copy tests from shift-db"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-db\" from `0.4.0` to `0.5.0`"
+          }
+        ]
+      }
+    }
+  ]
+}
