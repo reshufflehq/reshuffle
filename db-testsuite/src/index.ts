@@ -275,7 +275,7 @@ test('DB.poll returns on remove if no new patches stored', requiresPolling, asyn
   ]);
   t.deepEqual(keyedPatches, [
     ['test1', [
-      { version: { major: version.major, minor: 2 }, ops: [{ op: 'remove', path: '/root' }] },
+      { version: incrVersion(version), ops: [{ op: 'remove', path: '/root' }] },
     ]],
   ]);
 });
@@ -351,7 +351,7 @@ test('DB.update throws TypeError if trying to modify returned object', async (t)
   }), TypeError);
 });
 
-test('DB.update sets operartionId', requiresPolling, async (t) => {
+test('DB.update sets operationId', requiresPolling, async (t) => {
   const { client } = t.context;
   await client.update('test', () => 7, { operationId: 'abc' });
   const patches = await client.poll([['test', { major: 0, minor: 0 }]]);
