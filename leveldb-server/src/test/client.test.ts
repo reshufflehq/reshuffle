@@ -11,6 +11,7 @@ setUpTests<{ dbDir: string }>({
     const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
     return {
       handler: new Handler(`${dbDir}/root.db`),
+      supportsPolling: true,
       context: {
         dbDir,
       },

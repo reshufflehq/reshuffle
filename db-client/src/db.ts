@@ -3,10 +3,12 @@ import { DBClient, Options } from '@binaris/shift-interfaces-node-client';
 import {
   ClientContext,
   Document,
+  Patch,
+  PollOptions,
+  Serializable,
   UpdateOptions,
   Version,
   VersionedMaybeObject,
-  Serializable,
 } from '@binaris/shift-interfaces-node-client/interfaces';
 
 import * as Q from './query';
@@ -61,7 +63,7 @@ export class DB {
 
   // TODO(ariels): Support operationId for streaming.
   public async update<T extends Serializable = any>(
-    key: string, updater: (state?: DeepReadonly<T>) => T, _options?: UpdateOptions,
+    key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
   ): Promise<DeepReadonly<T>> {
     for (const delay of backoff()) {
       const { value, version } = await this.getWithVersion(key);
@@ -69,7 +71,7 @@ export class DB {
       // it by referring to value in an object.
       const newValue = updater(deepFreeze({ value: value as T }).value);
       checkValue(newValue);
-      if (await this.setIfVersion(key, version, newValue)) return deepFreeze(newValue);
+      if (await this.setIfVersion(key, version, newValue, options)) return deepFreeze(newValue);
       await delay;
     }
     throw Error('Timed out');   // backoff() is currently infinite but
@@ -81,10 +83,30 @@ export class DB {
     return this.client.getWithVersion(this.ctx, key);
   }
 
-  public async startPolling<T extends Serializable = any>(_key: string): Promise<Versioned<T | undefined>> {
-    throw new Error('Unimplemented');
+  /**
+   * Polls on updates to specified keys since specified versions.
+   * @see KeyedVersions
+   * @see KeyedPatches
+   */
+  public async poll(
+    keysToVersions: Array<[string, Version]>,
+    opts: PollOptions = {},
+  ): Promise<Array<[string, Patch[]]>> {
+    return this.client.poll(this.ctx, keysToVersions, opts);
   }
 
+  /**
+   * Gets a initial document in an intent to for poll on it.
+   */
+  public async startPolling<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
+    return this.client.startPolling(this.ctx, key) as Promise<Versioned<T | undefined>>;
+  }
+
+  /**
+   * Find documents matching query.
+   * @param query - a query constructed with Q methods.
+   * @return - an array of documents
+   */
   public async find(query: Q.Query): Promise<Document[]> {
     return await this.client.find(this.ctx, query.getParts());
   }
@@ -92,8 +114,9 @@ export class DB {
   private async setIfVersion(
     key: string,
     version: Version,
-    value: Serializable,
+    value?: Serializable,
+    options?: UpdateOptions,
   ): Promise<boolean> {
-    return await this.client.setIfVersion(this.ctx, key, version, value);
+    return await this.client.setIfVersion(this.ctx, key, version, value, options);
   }
 }

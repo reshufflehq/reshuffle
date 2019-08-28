@@ -2,8 +2,10 @@ import process from 'process';
 import { DeepReadonly } from 'deep-freeze';
 import {
   Document,
-  UpdateOptions,
+  Patch,
   Serializable,
+  UpdateOptions,
+  Version,
 } from '@binaris/shift-interfaces-node-client/interfaces';
 import { DB, Versioned, Q } from './db';
 
@@ -84,15 +86,15 @@ export async function find(query: Q.Query): Promise<Document[]> {
 /**
  * Polls on updates to specified keys since specified versions.
  */
-export async function poll(): Promise<any> {
-  throw new Error('Unimplemented');
+export async function poll(keysToVersions: Array<[string, Version]>): Promise<Array<[string, Patch[]]>> {
+  return db.poll(keysToVersions);
 }
 poll.__shiftjs__ = { exposed: true };
 
 /**
  * Gets a initial document in an intent to for poll on it.
  */
-export async function startPolling<T extends Serializable = any>(_key: string): Promise<Versioned<T | undefined>> {
-  throw new Error('Unimplemented');
+export async function startPolling<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
+  return db.startPolling(key);
 }
 startPolling.__shiftjs__ = { exposed: true };
