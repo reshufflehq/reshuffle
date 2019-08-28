@@ -41,7 +41,7 @@ const db = new DB(
  * @return - value or undefined if key doesn’t exist.
  */
 export async function get<T extends Serializable = any>(key: string): Promise<T | undefined> {
-  return await db.get(key);
+  return db.get(key);
 }
 
 /**
@@ -50,7 +50,7 @@ export async function get<T extends Serializable = any>(key: string): Promise<T 
  * @return - true if document was created, false if key already exists.
  */
 export async function create(key: string, value: Serializable): Promise<boolean> {
-  return await db.create(key, value);
+  return db.create(key, value);
 }
 
 /**
@@ -58,7 +58,7 @@ export async function create(key: string, value: Serializable): Promise<boolean>
  * @return - true if document was deleted, false if key doesn’t exist.
  */
 export async function remove(key: string): Promise<boolean> {
-  return await db.remove(key);
+  return db.remove(key);
 }
 
 /**
@@ -70,7 +70,7 @@ export async function remove(key: string): Promise<boolean> {
 export async function update<T extends Serializable = any>(
   key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
 ): Promise<DeepReadonly<T>> {
-  return await db.update(key, updater, options);
+  return db.update(key, updater, options);
 }
 // Available only on backend, needs to pass a function.
 

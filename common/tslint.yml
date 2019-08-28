@@ -4,6 +4,7 @@ extends:
 rules:
     await-promise: true
     no-floating-promises: true
+    no-return-await: true
     strict-boolean-expressions:
       - true
       - allow-mix
