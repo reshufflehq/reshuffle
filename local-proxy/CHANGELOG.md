@@ -1,6 +1,21 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Thu, 22 Aug 2019 15:45:43 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Aug 2019 13:06:38 GMT and should not be manually modified.
+
+## 0.2.0
+Wed, 28 Aug 2019 13:06:38 GMT
+
+### Minor changes
+
+- Use regular HTTP-based db client with an in-process LevelDB-based local server
+
+### Patches
+
+- Change DB ClientContext
+- Update interfaces version
+- Restore poll() functionality
+- Fix db import
+- Fix find()
 
 ## 0.0.14
 Thu, 22 Aug 2019 15:45:43 GMT

@@ -1,6 +1,18 @@
 # Change Log - shift-cli
 
-This log was last generated on Wed, 21 Aug 2019 12:44:20 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Aug 2019 13:06:38 GMT and should not be manually modified.
+
+## 0.1.5
+Wed, 28 Aug 2019 13:06:38 GMT
+
+### Patches
+
+- Show clickable link to deployed app
+- Update generated README.md
+- Deploy less files
+- Launch scripts with a shell on win32
+- Add log limit constraints
+- Update logs interfaces
 
 ## 0.1.4
 Wed, 21 Aug 2019 12:44:20 GMT
