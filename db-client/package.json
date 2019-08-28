@@ -24,7 +24,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-interfaces-node-client": "0.4.0-dbnu.4",
+    "@binaris/shift-interfaces-node-client": "0.4.0-dbnu.5",
     "@types/deep-freeze": "^0.1.2",
     "deep-freeze": "0.0.1",
     "ramda": "^0.26.1"

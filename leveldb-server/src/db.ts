@@ -5,13 +5,14 @@ import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
 import { Context as KoaContext } from 'koa';
 import nanoid from 'nanoid';
-import { DBHandler, ServerOnlyContext } from '@binaris/shift-interfaces-koa-server';
+import { DBHandler, Context, ServerOnlyContext } from '@binaris/shift-interfaces-koa-server';
 import {
   UpdateOptions,
   Version,
   StoredDocument,
   Tombstone,
   Patch,
+  PollOptions,
   Serializable,
   VersionedMaybeObject,
   Document,
@@ -42,10 +43,6 @@ export function isGreaterVersion(a: Version, b: Version): boolean {
 }
 
 export type KeyedVersions = Array<[string, Version]>;
-
-export interface PollOptions {
-  readBlockTimeMs: number;
-}
 
 // bigint not currently allowed.
 const allowedTypes = new Set(['object', 'boolean', 'number', 'string']);
@@ -108,7 +105,7 @@ export class Handler implements DBHandler {
    * Gets a single document.
    * @return - value or undefined if key doesn’t exist.
    */
-  public async get(ctx: ServerOnlyContext, key: string): Promise<Serializable | undefined> {
+  public async get(ctx: Context, key: string): Promise<Serializable | undefined> {
     const versioned = await this.getWithMeta(ctx, key);
     if (versioned === undefined) {
       return undefined;
@@ -121,7 +118,7 @@ export class Handler implements DBHandler {
    * @return - { version, value, patches, updatedAt } or undefined if key doesn’t exist.
    */
   public async getWithMeta(
-    { debugId }: ServerOnlyContext, key: string
+    { debugId }: Context, key: string
   ): Promise<StoredDocument | Tombstone | undefined> {
     try {
       const val = await this.db.get(key);
@@ -138,7 +135,7 @@ export class Handler implements DBHandler {
    * Gets just a single document with its version.  This is smaller than getWithMeta.
    * @return - { version, value } or undefined if key doesn’t exist.
    */
-  public async getWithVersion(ctx: ServerOnlyContext, key: string): Promise<VersionedMaybeObject> {
+  public async getWithVersion(ctx: Context, key: string): Promise<VersionedMaybeObject> {
     const withMeta = await this.getWithMeta(ctx, key);
     if (!withMeta) {
       return { version: { major: 0, minor: 0 } };
@@ -146,12 +143,16 @@ export class Handler implements DBHandler {
     return pick(['value', 'version'], withMeta);
   }
 
+  public async startPolling(ctx: Context, key: string): Promise<VersionedMaybeObject> {
+    return this.getWithVersion(ctx, key);
+  }
+
   /**
    * Creates a document for given key.
    * @param value - Cannot be undefined, must be an object
    * @return - true if document was created, false if key already exists.
    */
-  public async create(ctx: ServerOnlyContext, key: string, value: Serializable): Promise<boolean> {
+  public async create(ctx: Context, key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
     return await this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
@@ -167,7 +168,7 @@ export class Handler implements DBHandler {
    * Removes a single document.
    * @return - true if document was deleted, false if key doesn’t exist.
    */
-  public async remove(ctx: ServerOnlyContext, key: string): Promise<boolean> {
+  public async remove(ctx: Context, key: string): Promise<boolean> {
     return await this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
       if (valueOrUndefined(prev) === undefined) {
@@ -180,13 +181,13 @@ export class Handler implements DBHandler {
   }
 
   public async setIfVersion(
-    ctx: ServerOnlyContext, key: string, version: Version, value?: Serializable
+    ctx: Context, key: string, version: Version, value?: Serializable, options?: UpdateOptions,
   ): Promise<boolean> {
     if (value !== undefined) checkValue(value);
     return await this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
       if (! versionsMatch(prev, version)) return false;
-      await this.put(key, prev, value);
+      await this.put(key, prev, value, options);
       return true;
     });
   }
@@ -197,9 +198,9 @@ export class Handler implements DBHandler {
    * @see KeyedPatches
    */
   public async poll(
-    ctx: ServerOnlyContext,
+    ctx: Context,
     keysToVersions: KeyedVersions,
-    opts: Partial<PollOptions> = {}
+    opts: PollOptions = {},
   ): Promise<KeyedPatches> {
     const keysToVersionsMap = new Map(keysToVersions);
     const { promise, resolve } = deferred<KeyedPatches>();
@@ -247,7 +248,7 @@ export class Handler implements DBHandler {
    * @param query - a query constructed with Q methods.
    * @return - an array of documents
    */
-  public async find(_ctx: ServerOnlyContext, { filter, limit, skip, orderBy }: Query): Promise<Document[]> {
+  public async find(_ctx: Context, { filter, limit, skip, orderBy }: Query): Promise<Document[]> {
     const results: Document[] = [];
     await new Promise((resolve, reject) => {
       const it = this.db.iterator({
