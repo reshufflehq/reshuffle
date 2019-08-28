@@ -54,11 +54,11 @@ export class DB {
 
   public async create(key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
-    return await this.client.create(this.ctx, key, value);
+    return this.client.create(this.ctx, key, value);
   }
 
   public async remove(key: string): Promise<boolean> {
-    return await this.client.remove(this.ctx, key);
+    return this.client.remove(this.ctx, key);
   }
 
   // TODO(ariels): Support operationId for streaming.
@@ -108,7 +108,7 @@ export class DB {
    * @return - an array of documents
    */
   public async find(query: Q.Query): Promise<Document[]> {
-    return await this.client.find(this.ctx, query.getParts());
+    return this.client.find(this.ctx, query.getParts());
   }
 
   private async setIfVersion(
@@ -117,6 +117,6 @@ export class DB {
     value?: Serializable,
     options?: UpdateOptions,
   ): Promise<boolean> {
-    return await this.client.setIfVersion(this.ctx, key, version, value, options);
+    return this.client.setIfVersion(this.ctx, key, version, value, options);
   }
 }

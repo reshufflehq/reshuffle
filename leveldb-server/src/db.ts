@@ -154,7 +154,7 @@ export class Handler implements DBHandler {
    */
   public async create(ctx: Context, key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
-    return await this.writeLock.runExclusive(async () => {
+    return this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
       if (isLiveValue(prev)) {
         return false;
@@ -169,7 +169,7 @@ export class Handler implements DBHandler {
    * @return - true if document was deleted, false if key doesn’t exist.
    */
   public async remove(ctx: Context, key: string): Promise<boolean> {
-    return await this.writeLock.runExclusive(async () => {
+    return this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
       if (valueOrUndefined(prev) === undefined) {
         return false;
@@ -184,7 +184,7 @@ export class Handler implements DBHandler {
     ctx: Context, key: string, version: Version, value?: Serializable, options?: UpdateOptions,
   ): Promise<boolean> {
     if (value !== undefined) checkValue(value);
-    return await this.writeLock.runExclusive(async () => {
+    return this.writeLock.runExclusive(async () => {
       const prev = await this.getWithMeta(ctx, key);
       if (! versionsMatch(prev, version)) return false;
       await this.put(key, prev, value, options);
