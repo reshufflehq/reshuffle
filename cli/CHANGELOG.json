@@ -2,6 +2,33 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.1.5",
+      "tag": "shift-cli_v0.1.5",
+      "date": "Wed, 28 Aug 2019 13:04:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Show clickable link to deployed app"
+          },
+          {
+            "comment": "Update generated README.md"
+          },
+          {
+            "comment": "Deploy less files"
+          },
+          {
+            "comment": "Launch scripts with a shell on win32"
+          },
+          {
+            "comment": "Add log limit constraints"
+          },
+          {
+            "comment": "Update logs interfaces"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.4",
       "tag": "shift-cli_v0.1.4",
       "date": "Wed, 21 Aug 2019 12:44:20 GMT",

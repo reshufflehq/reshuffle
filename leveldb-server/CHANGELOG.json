@@ -1,0 +1,40 @@
+{
+  "name": "@binaris/shift-leveldb-server",
+  "entries": [
+    {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-leveldb-server_v0.0.2",
+      "date": "Wed, 28 Aug 2019 13:04:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Change DB ClientContext"
+          },
+          {
+            "comment": "Update interfaces version"
+          },
+          {
+            "comment": "Restore poll() functionality"
+          },
+          {
+            "comment": "Rename DB to Handler"
+          },
+          {
+            "comment": "Fix find()"
+          },
+          {
+            "comment": "Run shared test suite"
+          },
+          {
+            "comment": "New server to add to local-proxy"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-db-testsuite\" from `0.0.0` to `0.0.1`"
+          }
+        ]
+      }
+    }
+  ]
+}
