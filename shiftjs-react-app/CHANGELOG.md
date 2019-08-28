@@ -1,6 +1,13 @@
 # Change Log - @binaris/shiftjs-react-app
 
-This log was last generated on Tue, 13 Aug 2019 14:08:52 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Aug 2019 19:29:46 GMT and should not be manually modified.
+
+## 0.0.7
+Wed, 28 Aug 2019 19:29:46 GMT
+
+### Patches
+
+- Add local db server to packages
 
 ## 0.0.6
 Tue, 13 Aug 2019 14:08:52 GMT

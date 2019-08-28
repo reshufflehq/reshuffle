@@ -2,6 +2,18 @@
   "name": "@binaris/shiftjs-react-app",
   "entries": [
     {
+      "version": "0.0.7",
+      "tag": "@binaris/shiftjs-react-app_v0.0.7",
+      "date": "Wed, 28 Aug 2019 19:29:46 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add local db server to packages"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.6",
       "tag": "@binaris/shiftjs-react-app_v0.0.6",
       "date": "Tue, 13 Aug 2019 14:08:52 GMT",
