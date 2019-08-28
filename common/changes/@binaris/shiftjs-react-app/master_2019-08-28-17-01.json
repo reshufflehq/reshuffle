@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shiftjs-react-app",
+      "comment": "Add local db server to packages",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shiftjs-react-app",
+  "email": "michael@shiftjs.com"
+}
