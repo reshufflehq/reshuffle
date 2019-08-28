@@ -4,12 +4,12 @@ import { promisify } from 'util';
 import { tmpdir } from 'os';
 import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
-import { ServerOnlyContext } from '@binaris/shift-interfaces-koa-server';
+import { Context as ConcordContext } from '@binaris/shift-interfaces-koa-server';
 import { Direction } from '@binaris/shift-interfaces-koa-server/interfaces';
 import { Handler } from '../db';
 
 interface Context {
-  ctx: ServerOnlyContext;
+  ctx: ConcordContext;
   dbDir: string;
   db: Handler;
 }
@@ -19,7 +19,13 @@ const test = anyTest as TestInterface<Context>;
 test.beforeEach(async (t) => {
   const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
   t.context = {
-    ctx: { debugId: t.title.replace(/^beforeEach hook for /, '') },
+    ctx: {
+      debugId: t.title.replace(/^beforeEach hook for /, ''),
+      appId: 'test',
+      appEnv: 'testing',
+      collection: 'default',
+      auth: {},
+    },
     dbDir,
     db: new Handler(`${dbDir}/root.db`),
   };

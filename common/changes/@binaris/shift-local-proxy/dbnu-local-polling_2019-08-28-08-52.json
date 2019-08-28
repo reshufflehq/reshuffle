@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-local-proxy",
+      "comment": "Restore poll() functionality",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-local-proxy",
+  "email": "roey@shiftjs.com"
+}

@@ -171,6 +171,10 @@ export interface StoredDocument extends VersionedObject, Patches {
   updatedAt: number;
 }
 
+export interface PollOptions {
+  readBlockTimeMs?: number;
+}
+
 /**
  * A deleted document in the database, used for updating and for
  * streaming.
@@ -205,15 +209,23 @@ export interface DB {
    * @return - true if key updated.
    */
   setIfVersion: {
-    params: { key: string; version: Version; value?: Serializable; }
+    params: { key: string; version: Version; value?: Serializable; opts?: UpdateOptions; }
     returns: boolean;
+  };
+
+  /**
+   * Gets a initial document in an intent to for poll on it.
+   */
+  startPolling: {
+    params: { key: string; };
+    returns: VersionedMaybeObject;
   };
 
   /**
    * Polls on updates to specified keys since specified versions.
    */
   poll: {
-    params: { keysToVersions: KeyedVersions; };
+    params: { keysToVersions: KeyedVersions; opts: PollOptions };
     returns: KeyedPatches;
   };
 

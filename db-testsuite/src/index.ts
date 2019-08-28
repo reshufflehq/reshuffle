@@ -1,18 +1,25 @@
-import anyTest, { TestInterface } from 'ava';
+import anyTest, { TestInterface, Macro, Implementation } from 'ava';
 import { AddressInfo } from 'net';
 import { createServer, Server } from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
+import { range } from 'ramda';
 import nanoid from 'nanoid';
 import { DBRouter, DBHandler } from '@binaris/shift-interfaces-koa-server';
+import { Version } from '@binaris/shift-interfaces-koa-server/interfaces';
 import { DB } from '@binaris/shift-db/dist/db';
 
 interface Context {
   client: DB;
+  supportsPolling: boolean;
   injectedContext: any;
 }
 
 export const test = anyTest as TestInterface<Context>;
+
+export function incrVersion({ major, minor }: Version, amount: number = 1): Version {
+  return { major, minor: minor + amount };
+}
 
 async function listenOn(app: Koa): Promise<Server> {
   return new Promise((resolve, reject) => {
@@ -24,6 +31,7 @@ async function listenOn(app: Koa): Promise<Server> {
 
 interface HandlerAndContext<T> {
   handler: DBHandler;
+  supportsPolling: boolean;
   context: T;
 }
 
@@ -37,6 +45,15 @@ interface TestHooks<T> {
   tearDown(ctx: T): Promise<void> | void;
 }
 
+const requiresPolling: Macro<[Implementation<Context>], Context> = (t, fn) => {
+  if (!t.context.supportsPolling) {
+    t.log('Skipping for lack of polling support');
+    t.pass();
+  } else {
+    return fn(t);
+  }
+};
+
 export function setUpTests<T>(
   { setUp, tearDown }: TestHooks<T>,
 ) {
@@ -44,7 +61,7 @@ export function setUpTests<T>(
     const appId = `${nanoid(6)}: ${t.title.replace(/^beforeEach hook for /,  '')}`;
     const appEnv = 'testing';
 
-    const { context, handler } = await setUp({ appId, appEnv });
+    const { context, handler, supportsPolling } = await setUp({ appId, appEnv });
     const dbRouter = new DBRouter(handler, true);
     const router = new KoaRouter();
     router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
@@ -71,6 +88,7 @@ export function setUpTests<T>(
     t.context = {
       client,
       injectedContext: context,
+      supportsPolling,
     };
   });
 
@@ -185,7 +203,120 @@ test('DB.update does nothing if document not updated', async (t) => {
   // TODO(ariels): Verify no update on an ongoing poll.
 });
 
-// TODO(ariels): Retrieve poll tests from old db/src/db.ts.
+test('DB.poll returns patches which match requested versions', requiresPolling, async (t) => {
+  const { client } = t.context;
+  await client.create('test1', 'a');
+  await client.create('test2', 'a');
+  await client.create('test3', 'a');
+  await client.create('test4', 'a');
+  await client.create('test5', 'a');
+  await client.update('test1', () => 'b');
+  await client.update('test1', () => 'c');
+  await client.update('test2', () => 'b');
+  await client.update('test2', () => 'c');
+  await client.update('test3', () => 'b');
+  await client.remove('test3');
+  const [
+    major1,
+    major2,
+    major3,
+    major4,
+    major5,
+  ] = await Promise.all(
+    range(1, 5 + 1).map(async (x) => (await client.startPolling(`test${x}`))!.version.major)
+  );
+  const keyedPatches = await client.poll([
+    ['test1', { major: major1, minor: 1 }],
+    ['test2', { major: major2, minor: 2 }],
+    ['test3', { major: major3, minor: 1 }],
+    ['test4', { major: major4, minor: 1 }],
+    ['test5', { major: major5, minor: 0 }],
+  ]);
+  t.deepEqual(keyedPatches, [
+    ['test1', [
+      { version: { major: major1, minor: 2 }, ops: [{ op: 'replace', path: '/root', value: 'b' }] },
+      { version: { major: major1, minor: 3 }, ops: [{ op: 'replace', path: '/root', value: 'c' }] },
+    ]],
+    ['test2', [
+      { version: { major: major2, minor: 3 }, ops: [{ op: 'replace', path: '/root', value: 'c' }] },
+    ]],
+    ['test3', [
+      { version: { major: major3, minor: 2 }, ops: [{ op: 'replace', path: '/root', value: 'b' }] },
+      { version: { major: major3, minor: 3 }, ops: [{ op: 'remove', path: '/root' }] },
+    ]],
+    ['test5', [
+      { version: { major: major5, minor: 1 }, ops: [{ op: 'replace', path: '/root', value: 'a' }] },
+    ]],
+  ]);
+});
+
+test('DB.poll returns on update if no new patches stored', requiresPolling, async (t) => {
+  const { client } = t.context;
+  await client.create('test1', 'a');
+  const { version } = (await client.startPolling('test1'))!;
+  const [keyedPatches] = await Promise.all([
+    client.poll([['test1', version]]),
+    client.update('test1', () => 'b'),
+  ]);
+  t.deepEqual(keyedPatches, [
+    ['test1', [
+      { version: incrVersion(version), ops: [{ op: 'replace', path: '/root', value: 'b' }] },
+    ]],
+  ]);
+});
+
+test('DB.poll returns on remove if no new patches stored', requiresPolling, async (t) => {
+  const { client } = t.context;
+  await client.create('test1', 'a');
+  const { version } = (await client.startPolling('test1'))!;
+  const [keyedPatches] = await Promise.all([
+    client.poll([['test1', version]]),
+    client.remove('test1'),
+  ]);
+  t.deepEqual(keyedPatches, [
+    ['test1', [
+      { version: { major: version.major, minor: 2 }, ops: [{ op: 'remove', path: '/root' }] },
+    ]],
+  ]);
+});
+
+test('DB.poll returns on create if no new patches stored', requiresPolling, async (t) => {
+  const { client } = t.context;
+  const [keyedPatches] = await Promise.all([
+    client.poll([['test1', { major: 0, minor: 0 }]]),
+    client.create('test1', 'a'),
+  ]);
+  const { version } = (await client.startPolling('test1'))!;
+  t.deepEqual(keyedPatches, [
+    ['test1', [
+      { version, ops: [{ op: 'replace', path: '/root', value: 'a' }] },
+    ]],
+  ]);
+});
+
+test('DB.poll returns empty array when no patches emitted', requiresPolling, async (t) => {
+  const { client } = t.context;
+  const patches = await client.poll([['test1', { major: 0, minor: 0 }]], { readBlockTimeMs: 100 });
+  t.deepEqual(patches, []);
+});
+
+test('DB.poll returns empty array when patches emitted on different key', requiresPolling, async (t) => {
+  const { client } = t.context;
+  const [patches] = await Promise.all([
+    client.poll([['test1', { major: 0, minor: 0 }]], { readBlockTimeMs: 100 }),
+    client.create('test2', 'a'),
+  ]);
+  t.deepEqual(patches, []);
+});
+
+test('DB.poll returns empty array when patches emitted on old version', requiresPolling, async (t) => {
+  const { client } = t.context;
+  const [patches] = await Promise.all([
+    client.poll([['test1', { major: Number.MAX_SAFE_INTEGER, minor: 0 }]], { readBlockTimeMs: 100 }),
+    client.create('test1', 'a'),
+  ]);
+  t.deepEqual(patches, []);
+});
 
 test('DB.create works after remove', async (t) => {
   const { client } = t.context;
@@ -218,4 +349,14 @@ test('DB.update throws TypeError if trying to modify returned object', async (t)
     (obj as any).b.d[0] = 6;
     return obj;
   }), TypeError);
+});
+
+test('DB.update sets operartionId', requiresPolling, async (t) => {
+  const { client } = t.context;
+  await client.update('test', () => 7, { operationId: 'abc' });
+  const patches = await client.poll([['test', { major: 0, minor: 0 }]]);
+  t.is(patches.length, 1);
+  t.is(patches[0][0], 'test');
+  t.is(patches[0][1].length, 1);
+  t.is(patches[0][1][0].operationId, 'abc');
 });
