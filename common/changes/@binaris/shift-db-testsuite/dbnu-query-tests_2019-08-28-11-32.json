@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db-testsuite",
+      "comment": "Test find()",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-db-testsuite",
+  "email": "roey@shiftjs.com"
+}
