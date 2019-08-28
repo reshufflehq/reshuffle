@@ -1,5 +1,5 @@
 import { Operation } from 'fast-json-patch';
-export type Comparable = string | number | Date;
+export type Comparable = string | number;
 export type Equatable = Comparable | boolean;
 
 // Typescript's way of defining any - undefined is "{} | null", see:

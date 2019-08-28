@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-leveldb-server",
+      "comment": "Fix find()",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-leveldb-server",
+  "email": "roey@shiftjs.com"
+}

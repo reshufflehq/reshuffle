@@ -7,7 +7,7 @@ import { range } from 'ramda';
 import nanoid from 'nanoid';
 import { DBRouter, DBHandler } from '@binaris/shift-interfaces-koa-server';
 import { Version } from '@binaris/shift-interfaces-koa-server/interfaces';
-import { DB } from '@binaris/shift-db/dist/db';
+import { DB, Q } from '@binaris/shift-db/dist/db';
 
 interface Context {
   client: DB;
@@ -359,4 +359,77 @@ test('DB.update sets operationId', requiresPolling, async (t) => {
   t.is(patches[0][0], 'test');
   t.is(patches[0][1].length, 1);
   t.is(patches[0][1][0].operationId, 'abc');
+});
+
+test('DB.find returns an empty list when no documents', async (t) => {
+  const { client } = t.context;
+  t.deepEqual(await client.find(Q.filter(Q.key.eq('abc'))), []);
+});
+
+test('DB.find returns an list of documents', async (t) => {
+  const { client } = t.context;
+  await client.create('abc', { a: 1 });
+  t.deepEqual(await client.find(Q.filter(Q.key.eq('abc'))),
+              [{ key: 'abc', value: { a: 1 } }]);
+});
+
+test('DB.find returns all matching documents', async (t) => {
+  const { client } = t.context;
+  await client.create('a', { a: 1 });
+  await client.create('b', { a: 2 });
+  await client.create('c', { a: 3 });
+
+  t.deepEqual(await client.find(Q.filter(Q.value.a.gt(1))), [
+    { key: 'b', value: { a: 2 } },
+    { key: 'c', value: { a: 3 } },
+  ]);
+});
+
+test('DB.find applies limit', async (t) => {
+  const { client } = t.context;
+  await client.create('a', { a: 1 });
+  await client.create('b', { a: 2 });
+  await client.create('c', { a: 3 });
+
+  t.deepEqual(await client.find(
+    Q.filter(Q.value.a.gt(0)).limit(2)
+  ), [
+    { key: 'a', value: { a: 1 } },
+    { key: 'b', value: { a: 2 } },
+  ]);
+});
+
+test('DB.find applies skip', async (t) => {
+  const { client } = t.context;
+  await client.create('a', { a: 1 });
+  await client.create('b', { a: 2 });
+  await client.create('c', { a: 3 });
+
+  t.deepEqual(await client.find(
+    Q.filter(Q.value.a.gt(0)).skip(1)
+  ), [
+    { key: 'b', value: { a: 2 } },
+    { key: 'c', value: { a: 3 } },
+  ]);
+});
+
+test('DB.find applies orderBy', async (t) => {
+  const { client } = t.context;
+  await client.create('a', { a: 1, b: 6 });
+  await client.create('b', { a: 2, b: 3 });
+  await client.create('c', { a: 3, b: 7 });
+
+  t.deepEqual(await client.find(
+    Q.filter(Q.value.a.gt(0)).skip(1).limit(1).orderBy(Q.value.b, Q.ASC)
+  ), [
+    { key: 'a', value: { a: 1, b: 6 } },
+  ]);
+});
+
+test('DB.find ignores tombstones', async (t) => {
+  const { client } = t.context;
+  await client.create('a', { a: 1, b: 6 });
+  await client.remove('a');
+
+  t.deepEqual(await client.find(Q.filter(Q.key.eq('a'))), []);
 });

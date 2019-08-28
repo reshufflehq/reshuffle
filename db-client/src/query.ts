@@ -6,6 +6,10 @@ type Key = string | number;
 
 const filterSymbol = Symbol('shiftjs/filter');
 
+// Duplicated from ../../interfaces/src/db.ts
+export type Comparable = string | number;
+export type Equatable = Comparable | boolean;
+
 // To avoid injection filters are marked during *construction*, but
 // that marking is not required for use.  The DB code is on the other
 // side of a serialization barrier.
@@ -21,9 +25,6 @@ export type ExistsFilter = Marked<dbi.ExistsFilter>;
 export type IsNullFilter = Marked<dbi.IsNullFilter>;
 export type MatchesFilter = Marked<dbi.MatchesFilter>;
 export type StartsWithFilter = Marked<dbi.StartsWithFilter>;
-
-export type Equatable = dbi.Equatable;
-export type Comparable = dbi.Comparable;
 
 export type Direction = dbi.Direction;
 export type Order = dbi.Order;
@@ -275,7 +276,6 @@ interface StringPath extends ComparablePath<string> {
 }
 
 type NumberPath = ComparablePath<number>;
-type DatePath = ComparablePath<Date>;
 
 type BooleanPath = EquatablePath<boolean>;
 
@@ -296,7 +296,6 @@ type Doc<T> = T extends Record<string, unknown> ? Required<{
   : T extends number ? NumberPath
   : T extends string ? StringPath
   : T extends boolean ? BooleanPath
-  : T extends Date ? DatePath
   : never;
 
 export function typedValue<T>() {
