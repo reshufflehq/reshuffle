@@ -68,6 +68,7 @@ dependencies:
   bunyan-rotating-file-stream: 1.6.3
   chalk: 2.4.2
   cli-ux: 5.3.2
+  columnify: 1.5.4
   concord: 0.2.3
   conf: 5.0.0
   dotenv: 8.1.0
@@ -108,7 +109,7 @@ dependencies:
   ts-node: 8.3.0
   tslib: 1.10.0
   tslint: 5.19.0
-  typescript: 3.5.3
+  typescript: 3.6.2
   typescript-json-schema: 0.39.0
   validator: 11.1.0
   walkdir: 0.4.1
@@ -1106,7 +1107,7 @@ packages:
     dependencies:
       '@types/node': 12.7.2
       '@types/tough-cookie': 2.3.5
-      form-data: 2.5.0
+      form-data: 2.5.1
     dev: false
     resolution:
       integrity: sha512-LMc2ja42bQorKpBxf38ZBPdT3FhYL0lyAqnZBo5vAPCtobYa8AiHwSLH5zDvR19r2Pr5Ojar3hT/QLLb2SoPYA==
@@ -1288,7 +1289,7 @@ packages:
       integrity: sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
   /@types/ramda/0.26.21:
     dependencies:
-      ts-toolbelt: 3.8.62
+      ts-toolbelt: 3.8.63
     dev: false
     resolution:
       integrity: sha512-zMYtIZMceA6BvH+or6LmewLBgojbXg5+FGCwjO8K+Z+d/ZWxILmhhASXkehW0PqJL+V0QbyDeeAHix0dvEKXfQ==
@@ -1370,10 +1371,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==
-  /abab/2.0.0:
+  /abab/2.0.1:
     dev: false
     resolution:
-      integrity: sha512-sY5AXXVZv4Y1VACTtR11UJCPHHudgY5i26Qj5TypE6DKlIApbwb5uqhXcJ5UUGbvZNRh7EeIoW+LrJumBsKp7w==
+      integrity: sha512-1zSbbCuoIjafKZ3mblY5ikvAb0ODUbqBnFuUb7f6uLeQhhGJ0vEV4ntmtxKLT2WgXCO94E07BjunsIw1jOMPZw==
   /abbrev/1.1.1:
     dev: false
     resolution:
@@ -2541,6 +2542,13 @@ packages:
       node: '>=0.1.90'
     resolution:
       integrity: sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=
+  /columnify/1.5.4:
+    dependencies:
+      strip-ansi: 3.0.1
+      wcwidth: 1.0.1
+    dev: false
+    resolution:
+      integrity: sha1-Rzfd8ce2mop8NAVweC6UfuyOeLs=
   /combined-stream/1.0.8:
     dependencies:
       delayed-stream: 1.0.0
@@ -2594,7 +2602,7 @@ packages:
       mz: 2.7.0
       npm: 6.11.2
       rmfr: 2.0.0
-      typescript: 3.5.3
+      typescript: 3.6.2
       typescript-json-schema: 0.39.0
       yargs: 13.3.0
     dev: false
@@ -2815,7 +2823,7 @@ packages:
       integrity: sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   /data-urls/1.1.0:
     dependencies:
-      abab: 2.0.0
+      abab: 2.0.1
       whatwg-mimetype: 2.3.0
       whatwg-url: 7.0.0
     dev: false
@@ -3656,7 +3664,7 @@ packages:
       node: '>= 0.12'
     resolution:
       integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==
-  /form-data/2.5.0:
+  /form-data/2.5.1:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -3665,7 +3673,7 @@ packages:
     engines:
       node: '>= 0.12'
     resolution:
-      integrity: sha512-WXieX3G/8side6VIqx44ablyULoGruSde5PNTxoUyo5CeyAMX6nVWUd0rgist/EuX655cjhUhTo1Fo3tRYqbcA==
+      integrity: sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==
   /forwarded/0.1.2:
     dev: false
     engines:
@@ -3727,7 +3735,7 @@ packages:
       integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
   /fs-minipass/1.2.6:
     dependencies:
-      minipass: 2.4.0
+      minipass: 2.5.0
     dev: false
     resolution:
       integrity: sha512-crhvyXcMejjv3Z5d2Fa9sf5xLYVCF5O1c71QxbVnbLsmYMBEvDAftewesN/HhY03YRoA7zOMxjNGrF5svGaaeQ==
@@ -5222,7 +5230,7 @@ packages:
       integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
   /jsdom/11.12.0:
     dependencies:
-      abab: 2.0.0
+      abab: 2.0.1
       acorn: 5.7.3
       acorn-globals: 4.3.3
       array-equal: 1.0.0
@@ -5990,16 +5998,16 @@ packages:
     dev: false
     resolution:
       integrity: sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
-  /minipass/2.4.0:
+  /minipass/2.5.0:
     dependencies:
       safe-buffer: 5.2.0
       yallist: 3.0.3
     dev: false
     resolution:
-      integrity: sha512-6PmOuSP4NnZXzs2z6rbwzLJu/c5gdzYg1mRI/WIYdx45iiX7T+a4esOzavD6V/KmBzAaopFSTZPZcUx73bqKWA==
+      integrity: sha512-9FwMVYhn6ERvMR8XFdOavRz4QK/VJV8elU1x50vYexf9lslDcWe/f4HBRxCPd185ekRSjU6CfYyJCECa/CQy7Q==
   /minizlib/1.2.1:
     dependencies:
-      minipass: 2.4.0
+      minipass: 2.5.0
     dev: false
     resolution:
       integrity: sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
@@ -6316,14 +6324,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zTLo8UcVYtDU3gdeaFu2Xu0n0EvelfHDGuqtNIn5RO7yQj4H1TqNdBc/yZjxnWA0PVB8D3Woyp0i5B43JwQ6Vw==
-  /npm-pick-manifest/3.0.0:
+  /npm-pick-manifest/3.0.1:
     dependencies:
       figgy-pudding: 3.5.1
       npm-package-arg: 6.1.1
       semver: 5.7.1
     dev: false
     resolution:
-      integrity: sha512-H+OnFudiq38Qj8P8xcesD/1Xa0Kvr2QRn1DTlephIwNfJg3P30Szc1wtpGEgdPXfAyKZKT2ajIM2X8YtCrbXrA==
+      integrity: sha512-QsJY1LuN6vuGg2BDnteeWGYODOYWZZwbW/YyCKHK4tt9uE+k2d70eg+Kr1CSLbX157Nu8UtY/Afdv884RnJSrQ==
   /npm-registry-fetch/4.0.0:
     dependencies:
       JSONStream: 1.3.5
@@ -6797,13 +6805,13 @@ packages:
       lru-cache: 5.1.1
       make-fetch-happen: 5.0.0
       minimatch: 3.0.4
-      minipass: 2.4.0
+      minipass: 2.5.0
       mississippi: 3.0.0
       mkdirp: 0.5.1
       normalize-package-data: 2.5.0
       npm-package-arg: 6.1.1
       npm-packlist: 1.4.4
-      npm-pick-manifest: 3.0.0
+      npm-pick-manifest: 3.0.1
       npm-registry-fetch: 4.0.0
       osenv: 0.1.5
       promise-inflight: 1.0.1
@@ -8322,7 +8330,7 @@ packages:
     dependencies:
       chownr: 1.1.2
       fs-minipass: 1.2.6
-      minipass: 2.4.0
+      minipass: 2.5.0
       minizlib: 1.2.1
       mkdirp: 0.5.1
       safe-buffer: 5.2.0
@@ -8537,13 +8545,13 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
-  /ts-node/8.3.0/typescript@3.5.3:
+  /ts-node/8.3.0/typescript@3.6.2:
     dependencies:
       arg: 4.1.1
       diff: 4.0.1
       make-error: 1.3.5
       source-map-support: 0.5.13
-      typescript: 3.5.3
+      typescript: 3.6.2
       yn: 3.1.1
     dev: false
     engines:
@@ -8554,12 +8562,12 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
-  /ts-toolbelt/3.8.62:
+  /ts-toolbelt/3.8.63:
     dev: false
     peerDependencies:
       typescript: ^3.5.0
     resolution:
-      integrity: sha512-C5M/ZrKIqMCRl4XuSAgvZPLxjt6OogqdLPSDnJh/hQYCTmXVKC4s9ow40AaYrdx5e3PPUTPK6QoEKUl+wvaTPQ==
+      integrity: sha512-OlsFC8uF1mpN2O7DlvSkgnXzOvubO790eFhTvZBFI+WLge2BYzkQk73Q3yF0R8usxhkqbemLomqRhCGWasoIKw==
   /tslib/1.10.0:
     dev: false
     resolution:
@@ -8634,7 +8642,7 @@ packages:
       typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
     resolution:
       integrity: sha512-1LwwtBxfRJZnUvoS9c0uj8XQtAnyhWr9KlNvDIdB+oXyT+VpsOAaEhEgKi1HrZ8rq0ki/AAnbGSv4KM6/AfVZw==
-  /tslint/5.19.0/typescript@3.5.3:
+  /tslint/5.19.0/typescript@3.6.2:
     dependencies:
       '@babel/code-frame': 7.5.5
       builtin-modules: 1.1.1
@@ -8648,8 +8656,8 @@ packages:
       resolve: 1.12.0
       semver: 5.7.1
       tslib: 1.10.0
-      tsutils: /tsutils/2.29.0/typescript@3.5.3
-      typescript: 3.5.3
+      tsutils: /tsutils/2.29.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     engines:
       node: '>=4.8.0'
@@ -8675,10 +8683,10 @@ packages:
       typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
     resolution:
       integrity: sha512-g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==
-  /tsutils/2.29.0/typescript@3.5.3:
+  /tsutils/2.29.0/typescript@3.6.2:
     dependencies:
       tslib: 1.10.0
-      typescript: 3.5.3
+      typescript: 3.6.2
     dev: false
     id: registry.npmjs.org/tsutils/2.29.0
     peerDependencies:
@@ -8760,19 +8768,19 @@ packages:
     dependencies:
       glob: 7.1.4
       json-stable-stringify: 1.0.1
-      typescript: 3.5.3
+      typescript: 3.6.2
       yargs: 13.3.0
     dev: false
     hasBin: true
     resolution:
       integrity: sha512-ax2UxMMdEhWIwvTjxwJxLmbGIATkY4vxPHeS9wItTb1RfhiUU927YqVixopxURQejbW+ki2awg+eSwRnA5ZUgA==
-  /typescript/3.5.3:
+  /typescript/3.6.2:
     dev: false
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
+      integrity: sha512-lmQ4L+J6mnu3xweP8+rOrUwzmN+MRAj7TgtJtDaXE5PMyX2kCrklhg3rvOsOIfNeAWMQWO2F1GPc1kMD2vLAfw==
   /uglify-js/3.6.0:
     dependencies:
       commander: 2.20.0
@@ -9292,8 +9300,8 @@ packages:
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.1.21
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
       yargs: 13.3.0
     dev: false
     name: '@rush-temp/rush-update'
@@ -9323,6 +9331,7 @@ packages:
       '@types/validator': 10.11.3
       chalk: 2.4.2
       cli-ux: 5.3.2
+      columnify: 1.5.4
       conf: 5.0.0
       dotenv: 8.1.0
       find-up: 4.1.0
@@ -9335,15 +9344,15 @@ packages:
       open: 6.4.0
       tar: 4.4.10
       terminal-link: 1.3.0
-      ts-node: /ts-node/8.3.0/typescript@3.5.3
+      ts-node: /ts-node/8.3.0/typescript@3.6.2
       tslib: 1.10.0
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
       validator: 11.1.0
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-7cvSkcLNPJYEBy1/nSaJXypXJSqjQbv2bT0DC+d3Yh66nOVwU2QGH2BkFKuu01F1GQyX0rNugHHZsguQego8UA==
+      integrity: sha512-ER1c9nMSV0shXwFyaE7AjiioNertO1czD0i+hcOjxyBcd0mcdxEmY8WzF0AINGCZNh8FzhjCqECMlu9Ms/CNjw==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9357,8 +9366,8 @@ packages:
       babel-plugin-tester: 6.5.0
       jest: 24.9.0
       jest-standard-reporter: 1.0.1
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/shift-code-transform'
     resolution:
@@ -9378,8 +9387,8 @@ packages:
       koa-router: 7.4.0
       nanoid: 2.0.4
       ramda: 0.26.1
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/shift-db-testsuite'
     resolution:
@@ -9404,8 +9413,8 @@ packages:
   'file:projects/shift-fetch-runtime.tgz':
     dependencies:
       '@types/node': 10.14.16
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/shift-fetch-runtime'
     resolution:
@@ -9450,8 +9459,8 @@ packages:
       '@types/node': 10.14.16
       concord: 0.2.3
       fast-json-patch: 2.2.1
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
       typescript-json-schema: 0.39.0
     dev: false
     name: '@rush-temp/shift-interfaces'
@@ -9480,8 +9489,8 @@ packages:
       nanoid: 2.0.4
       ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
@@ -9522,8 +9531,8 @@ packages:
       nanoid: 2.0.4
       nodemon: 1.19.1
       rimraf: 2.7.1
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
       walkdir: 0.4.1
     dev: false
     name: '@rush-temp/shift-local-proxy'
@@ -9562,8 +9571,8 @@ packages:
       react: 16.9.0
       rxjs: 6.5.2
       sinon: 7.4.1
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/shift-subscriptions'
     resolution:
@@ -9578,8 +9587,8 @@ packages:
       fixture-stdout: 0.2.1
       jest: 24.9.0
       rmfr: 2.0.0
-      tslint: /tslint/5.19.0/typescript@3.5.3
-      typescript: 3.5.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/shiftjs-react-app'
     resolution:
@@ -9659,6 +9668,7 @@ specifiers:
   bunyan-rotating-file-stream: ^1.6.3
   chalk: ^2.4.2
   cli-ux: ^5.3.1
+  columnify: ^1.5.4
   concord: ^0.2.2
   conf: ^5.0.0
   dotenv: ^8.0.0
