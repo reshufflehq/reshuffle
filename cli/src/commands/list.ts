@@ -20,8 +20,8 @@ export default class List extends Command {
       return;
     }
     // TODO: Get URL from lycan
-    this.log(columnify(apps.map(({ accountId, id, name, updatedAt }) => ({
-      name, updatedAt: updatedAt.toISOString(), URL: `https://${accountId}-${id}.shiftjx.com`,
+    this.log(columnify(apps.map(({ name, updatedAt, environments }) => ({
+      name, updatedAt: updatedAt.toISOString(), URL: `https://${environments[0].domains[0].name}`,
     })), {
       columns: ['name', 'updatedAt', 'URL'],
       config: {
