@@ -2,6 +2,18 @@
   "name": "@binaris/shift-db-testsuite",
   "entries": [
     {
+      "version": "0.0.2",
+      "tag": "@binaris/shift-db-testsuite_v0.0.2",
+      "date": "Thu, 29 Aug 2019 12:31:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add match tests"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.1",
       "tag": "@binaris/shift-db-testsuite_v0.0.1",
       "date": "Wed, 28 Aug 2019 13:08:32 GMT",

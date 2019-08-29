@@ -2,6 +2,23 @@
   "name": "@binaris/shift-leveldb-server",
   "entries": [
     {
+      "version": "0.0.3",
+      "tag": "@binaris/shift-leveldb-server_v0.0.3",
+      "date": "Thu, 29 Aug 2019 12:31:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Move match tests to db-testsuite"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-db-testsuite\" from `0.0.1` to `0.0.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.2",
       "tag": "@binaris/shift-leveldb-server_v0.0.2",
       "date": "Wed, 28 Aug 2019 13:08:32 GMT",
