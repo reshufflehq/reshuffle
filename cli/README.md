@@ -28,9 +28,29 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`shift-cli browse`](#shift-cli-browse)
 * [`shift-cli deploy`](#shift-cli-deploy)
 * [`shift-cli help [COMMAND]`](#shift-cli-help-command)
+* [`shift-cli list`](#shift-cli-list)
 * [`shift-cli logs`](#shift-cli-logs)
+* [`shift-cli whoami`](#shift-cli-whoami)
+
+## `shift-cli browse`
+
+list templates
+
+```
+USAGE
+  $ shift-cli browse
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ shift-cli browse
+```
+
+_See code: [src/commands/browse.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/browse.ts)_
 
 ## `shift-cli deploy`
 
@@ -66,9 +86,26 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
+## `shift-cli list`
+
+list applications
+
+```
+USAGE
+  $ shift-cli list
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ shift-cli list
+```
+
+_See code: [src/commands/list.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/list.ts)_
+
 ## `shift-cli logs`
 
-Show logs
+show logs
 
 ```
 USAGE
@@ -100,4 +137,21 @@ EXAMPLES
 ```
 
 _See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/logs.ts)_
+
+## `shift-cli whoami`
+
+print your identity
+
+```
+USAGE
+  $ shift-cli whoami
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ shift-cli whoami
+```
+
+_See code: [src/commands/whoami.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/whoami.ts)_
 <!-- commandsstop -->

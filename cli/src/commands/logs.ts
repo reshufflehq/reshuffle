@@ -8,7 +8,7 @@ import {
 import ms = require('ms');
 
 export default class Logs extends Command {
-  public static description = 'Show logs';
+  public static description = 'show logs';
 
   public static examples = [
 `// retrieve all logs
