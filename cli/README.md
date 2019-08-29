@@ -19,7 +19,7 @@ $ npm install -g shift-cli
 $ shift-cli COMMAND
 running command...
 $ shift-cli (-v|--version|version)
-shift-cli/0.1.5 darwin-x64 node-v10.15.3
+shift-cli/0.1.5 darwin-x64 node-v10.16.0
 $ shift-cli --help [COMMAND]
 USAGE
   $ shift-cli COMMAND
@@ -29,10 +29,12 @@ USAGE
 # Commands
 <!-- commands -->
 * [`shift-cli browse`](#shift-cli-browse)
+* [`shift-cli claim TOKEN`](#shift-cli-claim-token)
 * [`shift-cli deploy`](#shift-cli-deploy)
 * [`shift-cli help [COMMAND]`](#shift-cli-help-command)
 * [`shift-cli list`](#shift-cli-list)
 * [`shift-cli logs`](#shift-cli-logs)
+* [`shift-cli try ID`](#shift-cli-try-id)
 * [`shift-cli whoami`](#shift-cli-whoami)
 
 ## `shift-cli browse`
@@ -51,6 +53,26 @@ EXAMPLE
 ```
 
 _See code: [src/commands/browse.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/browse.ts)_
+
+## `shift-cli claim TOKEN`
+
+claim an application
+
+```
+USAGE
+  $ shift-cli claim TOKEN
+
+ARGUMENTS
+  TOKEN  claim token
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ shift-cli claim OiJIUzI1NiIsIn
+```
+
+_See code: [src/commands/claim.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/claim.ts)_
 
 ## `shift-cli deploy`
 
@@ -137,6 +159,26 @@ EXAMPLES
 ```
 
 _See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/logs.ts)_
+
+## `shift-cli try ID`
+
+try a template
+
+```
+USAGE
+  $ shift-cli try ID
+
+ARGUMENTS
+  ID  template id
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ shift-cli try 123
+```
+
+_See code: [src/commands/try.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/try.ts)_
 
 ## `shift-cli whoami`
 

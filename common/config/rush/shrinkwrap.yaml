@@ -6,7 +6,7 @@ dependencies:
   '@babel/types': 7.5.5
   '@binaris/shift-interfaces-koa-server': 0.4.0
   '@binaris/shift-server-function': 0.0.1
-  '@binaris/spice-node-client': 0.0.2-rc.11
+  '@binaris/spice-node-client': 0.0.2-rc.16
   '@oclif/command': 1.5.18
   '@oclif/config': 1.13.3
   '@oclif/dev-cli': 1.22.2
@@ -548,7 +548,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-egqkp8OxZJZZdqF4260m4YeFDsLmWdb4T+0Z9zPusLjFjY2NMmXIPY70ds+KWTgQqpJAAV85LU1F2jynE980cg==
-  /@binaris/spice-node-client/0.0.2-rc.11:
+  /@binaris/spice-node-client/0.0.2-rc.16:
     dependencies:
       '@types/node-fetch': 2.5.0
       abort-controller: 2.0.3
@@ -557,7 +557,7 @@ packages:
       node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-woF6XXeoZ/lk4gpo4e80wGJPld8dsAlDBCbdi+RORotDO3J3nefTpGr5fsFJ36O1iulKCtTAVEjONHXRwxP3Lw==
+      integrity: sha512-qdXgF4lAZQb3k8WeuQ/gXJFYDQu1t6bnrRM5JgibZJOB8PPMuHyect4iQUfV1eGc6i45zKTTAO+q6sR73JMnMw==
   /@cnakazawa/watch/1.0.3:
     dependencies:
       exec-sh: 0.3.2
@@ -9311,7 +9311,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-cli.tgz':
     dependencies:
-      '@binaris/spice-node-client': 0.0.2-rc.11
+      '@binaris/spice-node-client': 0.0.2-rc.16
       '@oclif/command': 1.5.18
       '@oclif/config': 1.13.3
       '@oclif/dev-cli': 1.22.2
@@ -9352,7 +9352,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-ER1c9nMSV0shXwFyaE7AjiioNertO1czD0i+hcOjxyBcd0mcdxEmY8WzF0AINGCZNh8FzhjCqECMlu9Ms/CNjw==
+      integrity: sha512-ly3WJDXDFGgFOBPmw52tFjmy+BxGi1ve4D2hjMNYUEm0BqsvoKcrSotmiBTygCvoaiMQt/5MVVwtUusKy5eQfQ==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9494,7 +9494,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
-      integrity: sha512-OZLCjcY1z7eAu08ybOlqSMRnLXshN7NcGq3lINfO+0c79h8MGjGLPVxYTSVS3rF7ggNefw2OSf10lulkF+TvQA==
+      integrity: sha512-juRvZ0IehJoc7CSY2G5lurx01Fyx5co6MRy/M6kH7Xk13+aKE0PXK/oCGldcwBRkJkb++L4HtKjUJrTqPGNtyA==
       tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -9537,7 +9537,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-JqSLS5Gk2nDk52uFaDse9mbaAv3Xe4FgcRHlK1QWx2QBorloTvaYpXZXLJFlcbPFWD7mi4ZZP+r4LY/AcMB1zQ==
+      integrity: sha512-ERo+1qPZCIoE3NJRH/0o5/mr2JJK+zOZSyuBdimQxFKf1/g11YB1zZmKzxKQgt4qB+G9B8oY94AUnCI+9JaC3A==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9606,7 +9606,7 @@ specifiers:
   '@babel/types': ^7.5.5
   '@binaris/shift-interfaces-koa-server': 0.4.0
   '@binaris/shift-server-function': 0.0.1
-  '@binaris/spice-node-client': 0.0.2-rc.11
+  '@binaris/spice-node-client': 0.0.2-rc.16
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
   '@oclif/dev-cli': ^1.22.2
