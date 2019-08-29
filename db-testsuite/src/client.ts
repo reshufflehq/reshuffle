@@ -83,7 +83,7 @@ export function setUpTests<T>(
           },
         },
       },
-      { timeoutMs: 1000 },
+      { timeoutMs: 5000 },
     );
     t.context = {
       client,
