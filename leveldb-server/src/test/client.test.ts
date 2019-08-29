@@ -4,7 +4,7 @@ import { tmpdir } from 'os';
 import { promisify } from 'util';
 import * as path from 'path';
 import { Handler } from '../db';
-import { setUpTests } from '@binaris/shift-db-testsuite';
+import { setUpTests } from '@binaris/shift-db-testsuite/dist/client';
 
 setUpTests<{ dbDir: string }>({
   async setUp() {
