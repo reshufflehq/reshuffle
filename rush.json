@@ -413,6 +413,11 @@
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true
+    },
+    {
+        "packageName": "@binaris/app-testsuite",
+        "projectFolder": "app-testsuite",
+        "shouldPublish": false
     }
   ]
 }
