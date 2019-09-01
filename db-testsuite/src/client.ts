@@ -334,23 +334,6 @@ test('DB.update throws TypeError if updater returned undefined', async (t) => {
   await t.throwsAsync(client.update('test', () => undefined as any), TypeError);
 });
 
-test('DB.update throws TypeError if trying to modify returned object', async (t) => {
-  const { client } = t.context;
-  await client.create('test', { a: 1, b: { c: 2, d: [5] } });
-  await t.throwsAsync(client.update('test', (obj) => {
-    (obj as any).a = 2;
-    return obj;
-  }), TypeError);
-  await t.throwsAsync(client.update('test', (obj) => {
-    (obj as any).b.c = 3;
-    return obj;
-  }), TypeError);
-  await t.throwsAsync(client.update('test', (obj) => {
-    (obj as any).b.d[0] = 6;
-    return obj;
-  }), TypeError);
-});
-
 test('DB.update sets operationId', requiresPolling, async (t) => {
   const { client } = t.context;
   await client.update('test', () => 7, { operationId: 'abc' });

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-db",
+      "comment": "Disable deep-freezing of update() params",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-db",
+  "email": "roey@shiftjs.com"
+}

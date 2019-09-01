@@ -1,4 +1,3 @@
-import deepFreeze, { DeepReadonly } from 'deep-freeze';
 import { DBClient, Options } from '@binaris/shift-interfaces-node-client';
 import {
   ClientContext,
@@ -61,17 +60,14 @@ export class DB {
     return this.client.remove(this.ctx, key);
   }
 
-  // TODO(ariels): Support operationId for streaming.
   public async update<T extends Serializable = any>(
-    key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
-  ): Promise<DeepReadonly<T>> {
+    key: string, updater: (state?: Readonly<T>) => T, options?: UpdateOptions,
+  ): Promise<Readonly<T>> {
     for (const delay of backoff()) {
       const { value, version } = await this.getWithVersion(key);
-      // deepFreeze doesn't like some values (like undefined), trick
-      // it by referring to value in an object.
-      const newValue = updater(deepFreeze({ value: value as T }).value);
+      const newValue = updater(value as T);
       checkValue(newValue);
-      if (await this.setIfVersion(key, version, newValue, options)) return deepFreeze(newValue);
+      if (await this.setIfVersion(key, version, newValue, options)) return newValue;
       await delay;
     }
     throw Error('Timed out');   // backoff() is currently infinite but

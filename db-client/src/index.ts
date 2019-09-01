@@ -1,5 +1,4 @@
 import process from 'process';
-import { DeepReadonly } from 'deep-freeze';
 import {
   Document,
   Patch,
@@ -68,8 +67,8 @@ export async function remove(key: string): Promise<boolean> {
  * @return - The new value returned from updater
  */
 export async function update<T extends Serializable = any>(
-  key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
-): Promise<DeepReadonly<T>> {
+  key: string, updater: (state?: Readonly<T>) => T, options?: UpdateOptions,
+): Promise<Readonly<T>> {
   return db.update(key, updater, options);
 }
 // Available only on backend, needs to pass a function.
