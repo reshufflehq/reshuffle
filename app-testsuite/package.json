@@ -1,0 +1,17 @@
+{
+  "name": "@binaris/app-testsuite",
+  "version": "0.0.0",
+  "description": "E2E testsuite for a generic application",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "echo Nothing to build",
+    "lint": "echo Not linting for now",
+    "test": "echo No tests",
+    "integration-test": "cypress run"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^3.4.1"
+  }
+}
