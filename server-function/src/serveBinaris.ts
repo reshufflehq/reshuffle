@@ -3,7 +3,8 @@ import { Server } from './index';
 import { resolve as pathResolve } from 'path';
 import { BinarisFunction } from './binaris';
 
-const shiftServer = new Server('./build');
+const allowedHosts = (process.env.SHIFT_APPLICATION_DOMAINS || '').split(',');
+const shiftServer = new Server('./build', undefined, undefined, allowedHosts);
 
 interface InvokeRequest {
   path: string;
@@ -31,6 +32,16 @@ export const handler: BinarisFunction = async (body, ctx) => {
           statusCode: 400,
           body: JSON.stringify({
             error: 'Invoke request is not of the form { path, handler, body }',
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      // TODO: Host header not checked due to not being passed on Binaris platform
+      if (!shiftServer.checkHeadersAllowedHost(ctx.request.headers, 'origin')) {
+        return new ctx.HTTPResponse({
+          statusCode: 403,
+          body: JSON.stringify({
+            error: 'Invalid Origin',
           }),
           headers: { 'Content-Type': 'application/json' },
         });

@@ -6,6 +6,7 @@ import { Application } from 'express';
 import nanoid from 'nanoid';
 import { EventEmitter } from 'events';
 import { Server } from '@binaris/shift-server-function';
+import address from 'address';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -75,7 +76,14 @@ export function startProxy(
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
-  const shiftServer = new Server(path.join(rootDir, 'public'));
+  const shiftServer = new Server(
+    path.join(rootDir, 'public'),
+    undefined,
+    undefined,
+    undefined,
+    address.ip(),
+    process.env.HOST || '0.0.0.0'
+  );
   const localToken = nanoid();
   const httpProxy = new proxy();
   httpProxy.on('error', (err: any) => console.error(err.stack));
@@ -84,8 +92,14 @@ export function setupProxy(sourceDir: string) {
     app.use(async (req, res, next) => {
       // pass empty headers since caching not used in local-proxy anyway
       const decision = await shiftServer.handle(req.url, {});
+      if (!shiftServer.checkHeadersLocalHost(req.headers, 'host')) {
+        return res.sendStatus(403);
+      }
       switch (decision.action) {
         case 'handleInvoke': {
+          if (!shiftServer.checkHeadersLocalHost(req.headers, 'origin')) {
+            return res.sendStatus(403);
+          }
           const port = await promiseHolder.portPromise;
           return httpProxy.web(req, res, {
             target: `http://localhost:${port}/`,

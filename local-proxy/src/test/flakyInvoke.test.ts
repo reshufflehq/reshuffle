@@ -21,6 +21,9 @@ test('Regression #36', async (t) => {
   const { port } = server.address() as AddressInfo;
   const responses = await Promise.all(
     range(100).map(() => got.post(`http://127.0.0.1:${port}/invoke`, {
+      headers: {
+        origin: 'localhost',
+      },
       body: { path: 'dummyBackend.js', args: [], handler: 'hello', },
       json: true,
     }))
