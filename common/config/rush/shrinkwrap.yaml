@@ -4,8 +4,7 @@ dependencies:
   '@babel/parser': 7.5.5
   '@babel/plugin-transform-modules-commonjs': 7.5.0
   '@babel/types': 7.5.5
-  '@binaris/shift-interfaces-koa-server': 0.4.0
-  '@binaris/shift-server-function': 0.0.1
+  '@binaris/shift-interfaces-node-client': 0.3.0
   '@binaris/spice-node-client': 0.0.2-rc.17
   '@oclif/command': 1.5.18
   '@oclif/config': 1.13.3
@@ -60,6 +59,7 @@ dependencies:
   '@types/validator': 10.11.3
   '@types/yargs': 13.0.2
   abort-controller: 2.0.3
+  address: 1.1.2
   ajv: 6.10.2
   async-mutex: 0.1.3
   babel-plugin-macros: 2.6.1
@@ -470,21 +470,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-s63F9nJioLqOlW3UkyMd+BYhXt44YuaFm/VV0VwuteqjYwRrObkU7ra9pY4wAJR3oXi8hJrMcrcJdO/HH33vtw==
-  /@binaris/shift-interfaces-koa-server/0.4.0:
-    dependencies:
-      '@types/koa': 2.0.49
-      '@types/koa-bodyparser': 5.0.2
-      '@types/koa-router': 7.0.35
-      ajv: 6.10.2
-      koa: 2.8.1
-      koa-bodyparser: 4.2.1
-      koa-router: 7.4.0
-      lodash: 4.17.15
-    dev: false
-    peerDependencies:
-      '@types/node': '>=8.0.0'
-    resolution:
-      integrity: sha512-RJCwZVcHabvM5zGflwFJ5TmjZPdUOsV+npgfJ798VupCHBa2aKqU6qZvQx7OFyPtv7jFFLmCmynXKcULZS9+dw==
   /@binaris/shift-interfaces-koa-server/0.4.0/@types!node@10.14.16:
     dependencies:
       '@types/koa': 2.0.49
@@ -1432,6 +1417,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-/czfa8BwS88b9gWQVhc8eknunSA2DoJpJyTQkhheIf5E48u1N0R4q/YxxsAeqRrmK9TQ/uYfgLDfZo91UlANIA==
+  /address/1.1.2:
+    dev: false
+    engines:
+      node: '>= 0.12.0'
+    resolution:
+      integrity: sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==
   /agent-base/4.2.1:
     dependencies:
       es6-promisify: 5.0.0
@@ -9392,7 +9383,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db-testsuite'
     resolution:
-      integrity: sha512-XrO64K0/sWu1oT3+tBzx3bhV7voTCyIX4c8e0kFQ+uD26Zg0UruQHSKIYhPNsxNMlF6C2Dk/MSo8zuG6ORJKUA==
+      integrity: sha512-2F8LtEa3p3RWIIz0AtUgyBaiIHghXWpgrlR91rT7UuqFzG4yptXZqHPHT8UwS35hcLYjvtupQAvfBLfw8pZkvg==
       tarball: 'file:projects/shift-db-testsuite.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
@@ -9407,7 +9398,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-SzxxEsYJiIdBhZfclANbOBh43F1M41djTHCxSVnBZzLsxjgelG0K8LA8atXeMtMb5M6QZEuQfJU49Qts/83gLQ==
+      integrity: sha512-WrzmkWBTxdUBRqXrXYxdMdQIPxKY2+IBZoeFP4jFj7B94/Qv2TAcYroipQ8mIJejqCYM8D7kTYlXWW0bLfXr1w==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9494,7 +9485,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
-      integrity: sha512-juRvZ0IehJoc7CSY2G5lurx01Fyx5co6MRy/M6kH7Xk13+aKE0PXK/oCGldcwBRkJkb++L4HtKjUJrTqPGNtyA==
+      integrity: sha512-LzPHucPENSCjuK03o+7b3ubIodymCmdzkuA6nKWUkEokppzKdDDh4H2IOdNEFYH/1A9WzaRfHTAvMgr+h+FFOw==
       tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -9517,6 +9508,7 @@ packages:
       '@types/nanoid': 2.0.0
       '@types/node': 10.14.16
       '@types/rimraf': 2.0.2
+      address: 1.1.2
       ava: 2.3.0
       bunyan: 1.8.12
       bunyan-rotating-file-stream: 1.6.3
@@ -9537,7 +9529,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-ERo+1qPZCIoE3NJRH/0o5/mr2JJK+zOZSyuBdimQxFKf1/g11YB1zZmKzxKQgt4qB+G9B8oY94AUnCI+9JaC3A==
+      integrity: sha512-8x8B3xZuFc9ZRg30O9VDb12WaMws0WDe7GmXgoByyj6UI+sd0GAIT+jQaQ/u56YxdMMgOyLUjp9EPBIqIjeGVg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9604,8 +9596,7 @@ specifiers:
   '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
-  '@binaris/shift-interfaces-koa-server': 0.4.0
-  '@binaris/shift-server-function': 0.0.1
+  '@binaris/shift-interfaces-node-client': 0.3.0
   '@binaris/spice-node-client': 0.0.2-rc.17
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
@@ -9660,6 +9651,7 @@ specifiers:
   '@types/validator': ^10.11.2
   '@types/yargs': ^13.0.2
   abort-controller: ^2.0.2
+  address: ^1.1.2
   ajv: ^6.5.5
   async-mutex: ^0.1.3
   babel-plugin-macros: ^2.6.1
