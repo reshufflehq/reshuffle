@@ -1,0 +1,20 @@
+{
+  "name": "@binaris/utils-subprocess",
+  "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
+  "description": "Subprocess wrapper",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../../common/tslint.yml -p .",
+    "test": "echo No tests"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^10.14.9"
+  }
+}
