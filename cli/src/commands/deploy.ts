@@ -5,12 +5,12 @@ import { tmpdir } from 'os';
 import tar from 'tar';
 import terminalLink from 'terminal-link';
 import fetch from 'node-fetch';
+import { spawn } from '@binaris/utils-subprocess';
 import { LycanClient } from '@binaris/spice-node-client';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import conf from '../utils/user-config';
 import { getDependencies } from '../utils/getdeps';
-import { spawn } from '../utils/subprocess';
 import {
   getProjectPackageJson,
   getProjectRootDir,
