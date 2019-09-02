@@ -72,6 +72,12 @@ export default class Deploy extends Command {
         shell: process.platform === 'win32',
       });
 
+      await copy(pathResolve(projectDir, 'backend'), pathResolve(stagingDir, 'backend'), {
+        filter(src) {
+          return path.extname(src) !== '.js';
+        },
+      });
+
       return stagingDir;
 
     } catch (err) {
