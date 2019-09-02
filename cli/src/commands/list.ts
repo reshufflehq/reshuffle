@@ -14,12 +14,12 @@ export default class List extends Command {
 
   public async run() {
     this.parse(List);
+    await this.authenticate();
     const apps = await this.lycanClient.listApps();
     if (apps.length === 0) {
       this.log('You do not have any apps yet.');
       return;
     }
-    // TODO: Get URL from lycan
     this.log(columnify(apps.map(({ name, updatedAt, environments }) => ({
       name, updatedAt: updatedAt.toISOString(), URL: `https://${environments[0].domains[0].name}`,
     })), {
