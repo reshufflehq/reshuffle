@@ -1,6 +1,14 @@
 # Change Log - shift-cli
 
-This log was last generated on Wed, 28 Aug 2019 13:08:32 GMT and should not be manually modified.
+This log was last generated on Mon, 02 Sep 2019 13:39:01 GMT and should not be manually modified.
+
+## 0.1.6
+Mon, 02 Sep 2019 13:39:01 GMT
+
+### Patches
+
+- Extend CLI commands
+- Add try and claim commands
 
 ## 0.1.5
 Wed, 28 Aug 2019 13:08:32 GMT

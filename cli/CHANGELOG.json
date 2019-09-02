@@ -2,6 +2,21 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.1.6",
+      "tag": "shift-cli_v0.1.6",
+      "date": "Mon, 02 Sep 2019 13:39:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Extend CLI commands"
+          },
+          {
+            "comment": "Add try and claim commands"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.5",
       "tag": "shift-cli_v0.1.5",
       "date": "Wed, 28 Aug 2019 13:08:32 GMT",
