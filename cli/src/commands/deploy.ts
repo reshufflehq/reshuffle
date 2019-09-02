@@ -27,6 +27,8 @@ export default class Deploy extends Command {
 
   public static args = [];
 
+  public static strict = true;
+
   public async build(projectDir: string): Promise<string> {
     this.log('Building and bundling your app! This may take a few moments, please wait');
     const stagingDir = pathResolve(tmpdir(), 'shift-bundle-');
@@ -113,6 +115,7 @@ export default class Deploy extends Command {
   }
 
   public async run() {
+    this.parse(Deploy);
     await this.authenticate();
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
