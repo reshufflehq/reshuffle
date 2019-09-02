@@ -6,7 +6,7 @@ dependencies:
   '@babel/types': 7.5.5
   '@binaris/shift-interfaces-koa-server': 0.4.0
   '@binaris/shift-server-function': 0.0.1
-  '@binaris/spice-node-client': 0.0.2-rc.16
+  '@binaris/spice-node-client': 0.0.2-rc.17
   '@oclif/command': 1.5.18
   '@oclif/config': 1.13.3
   '@oclif/dev-cli': 1.22.2
@@ -548,7 +548,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-egqkp8OxZJZZdqF4260m4YeFDsLmWdb4T+0Z9zPusLjFjY2NMmXIPY70ds+KWTgQqpJAAV85LU1F2jynE980cg==
-  /@binaris/spice-node-client/0.0.2-rc.16:
+  /@binaris/spice-node-client/0.0.2-rc.17:
     dependencies:
       '@types/node-fetch': 2.5.0
       abort-controller: 2.0.3
@@ -557,7 +557,7 @@ packages:
       node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-qdXgF4lAZQb3k8WeuQ/gXJFYDQu1t6bnrRM5JgibZJOB8PPMuHyect4iQUfV1eGc6i45zKTTAO+q6sR73JMnMw==
+      integrity: sha512-y2+xn36yGNlTtXL/xe487TH7/460LDl6NVsGQa8cMsuqEy2Q7slXY8qo05FHQYatJ5spJPuWEbkiyjDAWar3SA==
   /@cnakazawa/watch/1.0.3:
     dependencies:
       exec-sh: 0.3.2
@@ -9311,7 +9311,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-cli.tgz':
     dependencies:
-      '@binaris/spice-node-client': 0.0.2-rc.16
+      '@binaris/spice-node-client': 0.0.2-rc.17
       '@oclif/command': 1.5.18
       '@oclif/config': 1.13.3
       '@oclif/dev-cli': 1.22.2
@@ -9352,7 +9352,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-ly3WJDXDFGgFOBPmw52tFjmy+BxGi1ve4D2hjMNYUEm0BqsvoKcrSotmiBTygCvoaiMQt/5MVVwtUusKy5eQfQ==
+      integrity: sha512-hzbgWgf5vnuilSIRn1suEslsQo618kM/MIwUoG07oA9Jgl1UMtRK2iaBoHiYsrp3EQRSl1KG564NTBnZ9sU24g==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9606,7 +9606,7 @@ specifiers:
   '@babel/types': ^7.5.5
   '@binaris/shift-interfaces-koa-server': 0.4.0
   '@binaris/shift-server-function': 0.0.1
-  '@binaris/spice-node-client': 0.0.2-rc.16
+  '@binaris/spice-node-client': 0.0.2-rc.17
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
   '@oclif/dev-cli': ^1.22.2
