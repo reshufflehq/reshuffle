@@ -9717,11 +9717,13 @@ packages:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
   'file:projects/app-testsuite.tgz':
     dependencies:
+      '@types/fs-extra': 8.0.0
       cypress: 3.4.1
+      fs-extra: 8.1.0
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-bBSrCevm18mhaogoXidyb2I4qARAFhjQamtI6kQC6hjNP0uceFYUHwEYU8t0n0WXBNzI8ft4Ye1hVEpNKtVk+g==
+      integrity: sha512-7EK+/7VmoC5LMZDYf8/ol2cpB5hs/XilreNGrz/Q0BVAgBu+KiZAOYX79JXgv95K+KlxFgFjPfLOirGcWonMAg==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
