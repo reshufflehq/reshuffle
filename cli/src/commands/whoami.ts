@@ -13,6 +13,7 @@ export default class WhoAmI extends Command {
 
   public async run() {
     this.parse(WhoAmI);
+    await this.authenticate();
     const { id, fullName, email } = await this.lycanClient.whoami();
     this.log(`You are ${fullName} (${email})`);
     this.log(`Your id is ${id}`);
