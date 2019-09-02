@@ -19,7 +19,7 @@ $ npm install -g shift-cli
 $ shift-cli COMMAND
 running command...
 $ shift-cli (-v|--version|version)
-shift-cli/0.1.5 darwin-x64 node-v10.16.0
+shift-cli/0.1.6 darwin-x64 node-v10.16.0
 $ shift-cli --help [COMMAND]
 USAGE
   $ shift-cli COMMAND
@@ -52,7 +52,7 @@ EXAMPLE
   $ shift-cli browse
 ```
 
-_See code: [src/commands/browse.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/browse.ts)_
+_See code: [src/commands/browse.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/browse.ts)_
 
 ## `shift-cli claim TOKEN`
 
@@ -72,7 +72,7 @@ EXAMPLE
   $ shift-cli claim OiJIUzI1NiIsIn
 ```
 
-_See code: [src/commands/claim.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/claim.ts)_
+_See code: [src/commands/claim.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/claim.ts)_
 
 ## `shift-cli deploy`
 
@@ -89,7 +89,7 @@ EXAMPLE
   $ shift-cli deploy
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/deploy.ts)_
 
 ## `shift-cli help [COMMAND]`
 
@@ -123,7 +123,7 @@ EXAMPLE
   $ shift-cli list
 ```
 
-_See code: [src/commands/list.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/list.ts)_
 
 ## `shift-cli logs`
 
@@ -158,7 +158,7 @@ EXAMPLES
   $ shift-cli logs --since 2m --follow
 ```
 
-_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/logs.ts)_
+_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/logs.ts)_
 
 ## `shift-cli try ID`
 
@@ -178,7 +178,7 @@ EXAMPLE
   $ shift-cli try 123
 ```
 
-_See code: [src/commands/try.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/try.ts)_
+_See code: [src/commands/try.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/try.ts)_
 
 ## `shift-cli whoami`
 
@@ -195,5 +195,5 @@ EXAMPLE
   $ shift-cli whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.5/cli/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/whoami.ts)_
 <!-- commandsstop -->
