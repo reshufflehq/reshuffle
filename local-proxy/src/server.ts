@@ -1,4 +1,4 @@
-import { resolve as resolvePath, relative as relativePath } from 'path';
+import { resolve as resolvePath, relative as relativePath, extname } from 'path';
 import { Handler as DBHandler } from '@binaris/shift-leveldb-server';
 import { DBRouter } from '@binaris/shift-interfaces-koa-server';
 import http from 'http';
@@ -13,8 +13,9 @@ import os from 'os';
 import { initRegistry } from './stdio';
 import nanoid from 'nanoid';
 import mkdirp from 'mkdirp';
+import { copy } from 'fs-extra';
 
-const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH;
+const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH as string;
 if (!basePath) {
   throw new Error('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH env var not defined');
 }
@@ -72,17 +73,25 @@ const router = new KoaRouter();
 
 const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.shift_local_proxy_'));
 
-const transpilePromise = babelDir({
-  cliOptions: {
-    filenames: [basePath],
-    outDir: tmpDir,
-  },
-  babelOptions: {
-    sourceMaps: true,
-    plugins: ['@babel/plugin-transform-modules-commonjs'],
-  },
-});
+async function transpileAndCopy() {
+  await babelDir({
+    cliOptions: {
+      filenames: [basePath],
+      outDir: tmpDir,
+    },
+    babelOptions: {
+      sourceMaps: true,
+      plugins: ['@babel/plugin-transform-modules-commonjs'],
+    },
+  });
+  await copy(basePath, tmpDir, {
+    filter(src) {
+      return extname(src) !== '.js';
+    },
+  });
+}
 
+const transpilePromise = transpileAndCopy();
 // tslint:disable-next-line:no-console
 transpilePromise.catch((error: Error) => console.error(error));
 

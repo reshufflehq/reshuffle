@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-local-proxy",
+      "comment": "Allow access to non-JS files in backend directory",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-local-proxy",
+  "email": "vladimir@shiftjs.com"
+}
