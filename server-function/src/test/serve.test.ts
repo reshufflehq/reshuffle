@@ -8,13 +8,13 @@ const examplePath = path.join(__dirname, 'examples/index_with_static/');
 const examplePathWith404 = path.join(__dirname, 'examples/index_with_404/');
 
 async function testServer(t: ExecutionContext, url: string, expected: any) {
-  const server = new Server(examplePath);
+  const server = new Server({ directory: examplePath });
   const value = await server.handle(url, {});
   t.deepEqual(expected, value);
 }
 
 async function testServerWith404(t: ExecutionContext, url: string, expected: any) {
-  const server = new Server(examplePathWith404);
+  const server = new Server({ directory: examplePathWith404 });
   const value = await server.handle(url, {});
   t.deepEqual(expected, value);
 }

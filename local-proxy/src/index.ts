@@ -76,14 +76,11 @@ export function startProxy(
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
-  const shiftServer = new Server(
-    path.join(rootDir, 'public'),
-    undefined,
-    undefined,
-    undefined,
-    address.ip(),
-    process.env.HOST || '0.0.0.0'
-  );
+  const shiftServer = new Server({
+    directory: path.join(rootDir, 'public'),
+    publicHost: address.ip(),
+    listenHost: process.env.HOST || '0.0.0.0',
+  });
   const localToken = nanoid();
   const httpProxy = new proxy();
   httpProxy.on('error', (err: any) => console.error(err.stack));
