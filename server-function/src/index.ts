@@ -41,15 +41,30 @@ interface Invoke {
 
 type Decision = ServeFile | Invoke | SendStatus;
 
+interface ServerOptions {
+  directory: string;
+  extensions?: string[];
+  cachedPath?: string;
+  allowedHosts?: string[];
+  publicHost?: string;
+  listenHost?: string;
+}
+
 export class Server {
-  constructor(
-    private directory: string,
-    private extensions: string[] = ['.html'],
-    private cachedPath = '/static',
-    private allowedHosts: string[] = [],
-    private publicHost?: string,
-    private listenHost?: string,
-  ) {
+  private directory: string;
+  private extensions: string[];
+  private cachedPath: string;
+  private allowedHosts: string[];
+  private publicHost?: string;
+  private listenHost?: string;
+
+  constructor(options: ServerOptions) {
+    this.directory = options.directory;
+    this.extensions = options.extensions || ['.html'];
+    this.cachedPath = options.cachedPath || '/static';
+    this.allowedHosts = options.allowedHosts || [];
+    this.publicHost = options.publicHost;
+    this.listenHost = options.listenHost;
   }
 
   public async handle(reqUrl: string, headers: { [k: string]: string | string[] | undefined }): Promise<Decision> {

@@ -4,7 +4,7 @@ import { resolve as pathResolve } from 'path';
 import { BinarisFunction, FunctionContext } from './binaris';
 
 const allowedHosts = (process.env.SHIFT_APPLICATION_DOMAINS || '').split(',');
-const shiftServer = new Server('./build', undefined, undefined, allowedHosts);
+const shiftServer = new Server({ directory: './build', allowedHosts });
 
 interface InvokeRequest {
   path: string;
