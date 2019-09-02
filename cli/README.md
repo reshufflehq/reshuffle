@@ -31,6 +31,7 @@ USAGE
 * [`shift-cli browse`](#shift-cli-browse)
 * [`shift-cli claim TOKEN`](#shift-cli-claim-token)
 * [`shift-cli deploy`](#shift-cli-deploy)
+* [`shift-cli destroy ID`](#shift-cli-destroy-id)
 * [`shift-cli help [COMMAND]`](#shift-cli-help-command)
 * [`shift-cli list`](#shift-cli-list)
 * [`shift-cli logs`](#shift-cli-logs)
@@ -90,6 +91,26 @@ EXAMPLE
 ```
 
 _See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/deploy.ts)_
+
+## `shift-cli destroy ID`
+
+destroy an application
+
+```
+USAGE
+  $ shift-cli destroy ID
+
+ARGUMENTS
+  ID  application id
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ shift-cli destroy 123
+```
+
+_See code: [src/commands/destroy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/destroy.ts)_
 
 ## `shift-cli help [COMMAND]`
 
