@@ -7,7 +7,10 @@ export default class Login extends Command {
 
   public static args = [];
 
+  public static strict = true;
+
   public async run() {
+    this.parse(Login);
     await this.authenticate(true);
   }
 }
