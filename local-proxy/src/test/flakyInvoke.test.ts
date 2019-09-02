@@ -11,6 +11,7 @@ import { range } from 'lodash';
 // This means that if a test run fails there is most likely a bug in the code
 test('Regression #36', async (t) => {
   t.timeout(10000);
+  // TODO: duplicate between files due to nodemon requiring to be used in exactly one process
   const app = express();
   setupProxy(path.join(__dirname, 'fixture/backend'))(app);
   const server = http.createServer(app);
@@ -21,9 +22,7 @@ test('Regression #36', async (t) => {
   const { port } = server.address() as AddressInfo;
   const responses = await Promise.all(
     range(100).map(() => got.post(`http://127.0.0.1:${port}/invoke`, {
-      headers: {
-        origin: 'localhost',
-      },
+      headers: {},
       body: { path: 'dummyBackend.js', args: [], handler: 'hello', },
       json: true,
     }))

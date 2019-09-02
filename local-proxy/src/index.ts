@@ -97,9 +97,6 @@ export function setupProxy(sourceDir: string) {
       }
       switch (decision.action) {
         case 'handleInvoke': {
-          if (!shiftServer.checkHeadersLocalHost(req.headers, 'origin')) {
-            return res.sendStatus(403);
-          }
           const port = await promiseHolder.portPromise;
           return httpProxy.web(req, res, {
             target: `http://localhost:${port}/`,
