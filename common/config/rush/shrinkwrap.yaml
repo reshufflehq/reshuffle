@@ -9304,13 +9304,16 @@ packages:
   'file:projects/app-testsuite.tgz':
     dependencies:
       '@types/fs-extra': 8.0.0
+      '@types/node': 10.14.17
       '@types/tail': 1.2.2
       fs-extra: 8.1.0
       tail: 2.0.3
+      tslint: /tslint/5.19.0/typescript@3.6.2
+      typescript: 3.6.2
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-ThfbYcyP1p90MGwOU8kM8SiI6s1rg/WL2H3JBRCbqnL0Za+07ThWL/sXJc1U0uF60B0gfwaQJjgjGFx7+WIGxA==
+      integrity: sha512-zZOgDSALISTzfTIYd1ldFDhD4xmqZ2TMJ9jEp1tJRw+GEO8aG/wdcqVXc6MnoDRld8NiY2r4/8kFacExMZf7DA==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
