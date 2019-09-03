@@ -421,7 +421,7 @@
     },
     {
         "packageName": "@binaris/utils-subprocess",
-        "projectFolder": "tools/subprocess",
+        "projectFolder": "utils-subprocess",
         "shouldPublish": true
     }
   ]
