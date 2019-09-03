@@ -58,6 +58,14 @@ jobs:
       - run:
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
+  integration-test:
+    <<: *docker
+    steps:
+      - checkout
+      - <<: *attach_workspace
+      - run:
+          name: Run tests
+          command: node common/scripts/install-run-rush.js integration-test --verbose
   verify_change_logs:
     <<: *docker
     steps:
@@ -101,6 +109,10 @@ workflows:
             - build
           filters: *ignore_publish
       - verify_change_logs:
+          requires:
+            - build
+          filters: *ignore_publish
+      - integration-test:
           requires:
             - build
           filters: *ignore_publish
