@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
-    "lint": "tslint -c ../../common/tslint.yml -p .",
+    "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "echo No tests"
   },
   "author": "",
