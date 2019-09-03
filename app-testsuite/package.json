@@ -13,10 +13,12 @@
   "license": "MIT",
   "dependencies": {
     "@binaris/utils-subprocess": "0.0.0",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^8.1.0",
+    "tail": "^2.0.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.0",
+    "@types/tail": "^1.2.2",
     "cypress": "^3.4.1"
   }
 }
