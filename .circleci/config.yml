@@ -2,7 +2,7 @@ version: 2.1
 aliases:
   - &docker
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:10-browsers
   - &attach_workspace
     - attach_workspace:
         at: .
