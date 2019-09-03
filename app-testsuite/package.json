@@ -7,7 +7,7 @@
     "build": "echo Nothing to build",
     "lint": "echo Not linting for now",
     "test": "echo No tests",
-    "integration-test": "cypress run"
+    "integration-test": "node dist/run.js"
   },
   "author": "",
   "license": "MIT",
