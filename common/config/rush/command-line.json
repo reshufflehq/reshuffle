@@ -144,7 +144,8 @@
       "name": "integration-test",
       "summary": "Run integration tests",
       "ignoreMissingScript": true,
-      "enableParallelism": false
+      "enableParallelism": false,
+      "safeForSimultaneousRushProcesses": false
     }
   ],
 
