@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/utils-subprocess",
+      "comment": "Extract code from shift-cli",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/utils-subprocess",
+  "email": "roey@shiftjs.com"
+}
