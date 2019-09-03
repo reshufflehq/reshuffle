@@ -45,7 +45,7 @@ async function untilExists(file: string, attempts: number, sleepDuration: number
     }
     await new Promise((resolve) => setTimeout(resolve, sleepDuration));
   }
-  throw new Error(`Path ${path} does not exist`);
+  throw new Error(`Path ${file} does not exist`);
 }
 
 class Registry {
