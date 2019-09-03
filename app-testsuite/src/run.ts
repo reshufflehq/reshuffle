@@ -14,13 +14,16 @@ const REGISTRY_URL = 'http://localhost:4873/';
 
 async function readUntilPattern(stream: NodeJS.ReadableStream, pattern: RegExp) {
   let out = '';
-  for await (const l of stream) {
-    out += l.toString();
-    if (pattern.test(out)) {
-      return;
-    }
-  }
-  throw new Error(`Expected pattern not found: ${pattern}`);
+  await new Promise((resolve, reject) => {
+    stream.on('data', (l) => {
+      out += l.toString();
+      if (pattern.test(out)) {
+        resolve();
+      }
+    });
+    stream.on('end', () => reject(new Error(`Expected pattern not found: ${pattern}`)));
+    stream.on('error', (err) => reject(err));
+  });
 }
 
 async function killGroup(child: ChildProcess, signal: string = 'SIGINT') {
@@ -73,7 +76,7 @@ class Registry {
       await new Promise((resolve, reject) => {
         tail.on('line', (line) => {
           const log = JSON.parse(line);
-          if (log['addr']) {
+          if (log.addr) {
             resolve();
           }
         });
