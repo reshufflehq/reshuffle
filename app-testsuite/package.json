@@ -18,7 +18,6 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.0",
-    "@types/tail": "^1.2.2",
-    "cypress": "^3.4.1"
+    "@types/tail": "^1.2.2"
   }
 }
