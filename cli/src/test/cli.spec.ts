@@ -21,9 +21,9 @@ test('cli with no args and cli --help give same output', async (t) => {
 });
 
 // TODO(arik): Do we want to enforce a particular order?
-test('cli with no args lists all help, deploy, logs', async (t) => {
+test('cli with no args lists all commands', async (t) => {
   const expectedCommands = new Set([
-    'browse', 'claim', 'deploy', 'destroy', 'help', 'list', 'logs', 'try', 'whoami'
+    'browse', 'claim', 'deploy', 'destroy', 'help', 'list', 'logs', 'try', 'whoami',
   ]);
   const shell = new Shell();
   const { out } = process(await shell.run('./bin/run'));
@@ -35,6 +35,7 @@ test('cli with no args lists all help, deploy, logs', async (t) => {
   const commandsStr = commandsMatch![1];
   const commands = new Set<string>();
   let commandGroup: RegExpMatchArray | null;
+  // tslint:disable-next-line no-conditional-assignment (MDN does it this way)
   while ((commandGroup = commandRegExp.exec(commandsStr)) != null) {
     commands.add(commandGroup[1]);
   }
