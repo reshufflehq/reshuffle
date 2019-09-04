@@ -19,7 +19,7 @@ $ npm install -g shift-cli
 $ shift-cli COMMAND
 running command...
 $ shift-cli (-v|--version|version)
-shift-cli/0.1.6 darwin-x64 node-v10.16.0
+shift-cli/0.1.6 darwin-x64 node-v10.15.3
 $ shift-cli --help [COMMAND]
 USAGE
   $ shift-cli COMMAND
