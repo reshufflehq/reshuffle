@@ -138,14 +138,6 @@
       "name": "lint",
       "summary": "bulk lint command",
       "enableParallelism": true
-    },
-    {
-      "commandKind": "bulk",
-      "name": "integration-test",
-      "summary": "Run integration tests",
-      "ignoreMissingScript": true,
-      "enableParallelism": false,
-      "safeForSimultaneousRushProcesses": false
     }
   ],
 

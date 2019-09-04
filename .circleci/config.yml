@@ -64,8 +64,8 @@ jobs:
       - checkout
       - <<: *attach_workspace
       - run:
-          name: Run tests
-          command: node common/scripts/install-run-rush.js integration-test --verbose
+          name: Run integration tests
+          command: cd app-testsuite && npm run integration-test
   verify_change_logs:
     <<: *docker
     steps:
