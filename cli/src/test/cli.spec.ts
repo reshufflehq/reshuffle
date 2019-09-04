@@ -4,13 +4,14 @@ import * as R from 'ramda';
 
 const process = R.evolve({ out: (x: Buffer) => x.toString(), err: (x: Buffer) => x.toString() });
 
-test('cli with no args shows VERSION, USAGE, COMMANDS', async (t) => {
+test('cli with no args shows help', async (t) => {
   const shell = new Shell();
   // TODO(ariels): Find this directory!
   const { out, err, ...status } = process(await shell.run('./bin/run'));
 
   t.true(success(status));
   t.assert(err === '');
+  t.assert(out.match(/^ShiftJS CLI Tool.*?VERSION.*?USAGE.*?COMMANDS/s));
 });
 
 test('cli with no args and cli help and cli --help give same output', async (t) => {
