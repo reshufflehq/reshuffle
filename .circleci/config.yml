@@ -4,8 +4,8 @@ aliases:
     docker:
       - image: circleci/node:10-browsers
   - &attach_workspace
-    - attach_workspace:
-        at: .
+    - restore_cache:
+        key: build-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
   - &setup_npm_token
     - run: # Once the packages are public this can be removed
         name: Authenticate with npm registry
@@ -33,19 +33,14 @@ jobs:
       - run:
           name: Build source
           command: node common/scripts/install-run-rush.js rebuild --verbose
-      - persist_to_workspace:
-          root: .
+      - save_cache:
+          key: build-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
-            - '*/dist'
-            - '*/lib'
-            - '*/node_modules'
-            - common/temp
-            - gen-server
-            - gen-client
+            - ~/.rush
+            - .
   lint:
     <<: *docker
     steps:
-      - checkout
       - <<: *attach_workspace
       - run:
           name: Run lint
@@ -53,7 +48,6 @@ jobs:
   test:
     <<: *docker
     steps:
-      - checkout
       - <<: *attach_workspace
       - run:
           name: Run tests
@@ -61,7 +55,6 @@ jobs:
   integration-test:
     <<: *docker
     steps:
-      - checkout
       - <<: *attach_workspace
       - run:
           name: Run integration tests
