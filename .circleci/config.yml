@@ -37,6 +37,7 @@ jobs:
           root: .
           paths:
             - '*/dist'
+            - '*/lib'
             - '*/node_modules'
             - common/temp
             - gen-server
