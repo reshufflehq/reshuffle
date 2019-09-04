@@ -2,6 +2,24 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.1.7",
+      "tag": "shift-cli_v0.1.7",
+      "date": "Wed, 04 Sep 2019 14:34:49 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add initial tests"
+          },
+          {
+            "comment": "Add destroy app command"
+          },
+          {
+            "comment": "Update dependecies"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.6",
       "tag": "shift-cli_v0.1.6",
       "date": "Mon, 02 Sep 2019 13:39:01 GMT",

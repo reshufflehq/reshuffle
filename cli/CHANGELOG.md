@@ -1,6 +1,15 @@
 # Change Log - shift-cli
 
-This log was last generated on Mon, 02 Sep 2019 13:39:01 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Sep 2019 14:34:49 GMT and should not be manually modified.
+
+## 0.1.7
+Wed, 04 Sep 2019 14:34:49 GMT
+
+### Patches
+
+- Add initial tests
+- Add destroy app command
+- Update dependecies
 
 ## 0.1.6
 Mon, 02 Sep 2019 13:39:01 GMT
