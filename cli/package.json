@@ -37,7 +37,7 @@
     "posttest": "tslint -c ../common/tslint.yml -p . -t stylish",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "npx ava lib/test/**.spec.js",
+    "test": "ava lib/test/**.spec.js",
     "build": "npm run prepack",
     "version": "oclif-dev readme && git add README.md"
   },
