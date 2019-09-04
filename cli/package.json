@@ -37,7 +37,7 @@
     "posttest": "tslint -c ../common/tslint.yml -p . -t stylish",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "lint": "tslint -c ../common/tslint.yml -p .",
-    "test": "echo NO TESTS",
+    "test": "npx ava lib/test/**.spec.js",
     "build": "npm run prepack",
     "version": "oclif-dev readme && git add README.md"
   },
@@ -77,9 +77,13 @@
     "@types/mz": "^0.0.32",
     "@types/node": "^10.14.14",
     "@types/node-fetch": "^2.5.0",
+    "@types/ramda": "~0.26.21",
     "@types/tar": "^4.0.3",
     "@types/validator": "^10.11.2",
+    "ava": "~2.3.0",
     "globby": "^10.0.1",
+    "ramda": "~0.26.1",
+    "specshell": "^0.0.1-rc.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
