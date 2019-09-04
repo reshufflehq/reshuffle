@@ -13,10 +13,12 @@ test('cli with no args shows VERSION, USAGE, COMMANDS', async (t) => {
   t.assert(err === '');
 });
 
-test('cli with no args and cli --help give same output', async (t) => {
+test('cli with no args and cli help and cli --help give same output', async (t) => {
   const shell = new Shell();
   const noArgs = process(await shell.run('./bin/run'));
-  const helpArg = process(await shell.run('./bin/run'));
+  const helpCmd = process(await shell.run('./bin/run help'));
+  const helpArg = process(await shell.run('./bin/run --help'));
+  t.deepEqual(noArgs, helpCmd);
   t.deepEqual(noArgs, helpArg);
 });
 
