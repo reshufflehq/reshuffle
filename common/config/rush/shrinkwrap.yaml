@@ -76,6 +76,7 @@ dependencies:
   concord: 0.2.3
   conf: 5.0.0
   dotenv: 8.1.0
+  env-var: 5.0.0
   express: 4.17.1
   fast-json-patch: 2.2.1
   find-up: 4.1.0
@@ -3145,6 +3146,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-6u0VYSCo/OW6IoD5WCLLy9JUGARbamfSavcNXry/eu8aHVFei6CD3Sw+VGX5alea1i9pgPHW0mbu6Xj0uBh7gA==
+  /env-var/5.0.0:
+    dev: false
+    engines:
+      node: '>=6.0'
+    resolution:
+      integrity: sha512-OUE38vlI5ADo7u9/vQXVAwL8UULdcFrgEhu4lepSh4eQvc2ctAt+zqrOG07sUTGkApEl0pnppse1nBG9hNc+sA==
   /equal-length/1.0.1:
     dev: false
     engines:
@@ -9636,6 +9643,7 @@ packages:
       '@types/babel__core': 7.1.3
       '@types/bunyan': 1.8.6
       '@types/express': 4.17.1
+      '@types/fs-extra': 8.0.0
       '@types/got': 9.6.7
       '@types/http-proxy': 1.17.0
       '@types/koa': 2.0.49
@@ -9650,7 +9658,9 @@ packages:
       ava: 2.3.0
       bunyan: 1.8.12
       bunyan-rotating-file-stream: 1.6.3
+      env-var: 5.0.0
       express: 4.17.1
+      fs-extra: 8.1.0
       got: 9.6.0
       http-proxy: 1.17.0
       koa: 2.8.1
@@ -9667,7 +9677,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-8x8B3xZuFc9ZRg30O9VDb12WaMws0WDe7GmXgoByyj6UI+sd0GAIT+jQaQ/u56YxdMMgOyLUjp9EPBIqIjeGVg==
+      integrity: sha512-hHsKq3IH1JkO53gyyL91G58AbiAFPJ2MU3+zLhc7HQPnZkTmXufsoxDabBULm91XWpf5e8eVBemTdwaES2LZaA==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9815,6 +9825,7 @@ specifiers:
   concord: ^0.2.2
   conf: ^5.0.0
   dotenv: ^8.0.0
+  env-var: ^5.0.0
   express: ^4.17.1
   fast-json-patch: ^2.2.0
   find-up: ^4.1.0

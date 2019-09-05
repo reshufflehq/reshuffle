@@ -1,4 +1,4 @@
-import { resolve as resolvePath, relative as relativePath, extname } from 'path';
+import { resolve as resolvePath, relative as relativePath, extname, isAbsolute } from 'path';
 import { Handler as DBHandler } from '@binaris/shift-leveldb-server';
 import { DBRouter } from '@binaris/shift-interfaces-koa-server';
 import http from 'http';
@@ -14,14 +14,15 @@ import { initRegistry } from './stdio';
 import nanoid from 'nanoid';
 import mkdirp from 'mkdirp';
 import { copy } from 'fs-extra';
+import env from 'env-var';
 
-const basePath = process.env.SHIFT_DEV_SERVER_BASE_REQUIRE_PATH as string;
-if (!basePath) {
-  throw new Error('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH env var not defined');
-}
-const localToken = process.env.SHIFT_DEV_SERVER_LOCAL_TOKEN;
+const basePath = env.get('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH').required().asString();
+const localToken = env.get('SHIFT_DEV_SERVER_LOCAL_TOKEN').required().asString();
 if (!localToken) {
-  throw new Error('SHIFT_DEV_SERVER_LOCAL_TOKEN env var not defined');
+  throw new Error('SHIFT_DEV_SERVER_LOCAL_TOKEN env var is empty');
+}
+if (!isAbsolute(basePath)) {
+  throw new Error('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH env var is not an absolute path');
 }
 
 function setupEnv({ port }: { port: number }) {
@@ -33,7 +34,7 @@ function setupEnv({ port }: { port: number }) {
 
 class ModuleWhitelist {
   private readonly whitelistedModulesArr =
-    (process.env.SHIFT_DEV_SERVER_MODULES_WHITELIST || '@binaris/shift-db').split(',');
+    env.get('SHIFT_DEV_SERVER_MODULES_WHITELIST').asArray() || ['@binaris/shift-db'];
 
   private whitelistedModules?: Map<string, any>;
 
@@ -172,9 +173,9 @@ router.post('/invoke', async (ctx) => {
   }
 });
 
-const dbPath = process.env.SHIFT_DB_PATH;
-if (!dbPath) {
-  throw new Error('SHIFT_DB_PATH env var not defined');
+const dbPath = env.get('SHIFT_DB_PATH').required().asString();
+if (!isAbsolute(dbPath)) {
+  throw new Error('SHIFT_DB_PATH env var is not an absolute path');
 }
 
 const db = new DBHandler(dbPath);
