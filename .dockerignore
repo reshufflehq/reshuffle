@@ -1,0 +1,7 @@
+.git
+**/node_modules
+**/dist
+**/lib
+common/temp
+gen-*
+.*.sw[nop]
