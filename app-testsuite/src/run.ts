@@ -217,7 +217,7 @@ class App {
       stdio: 'inherit',
     });
     try {
-      const child = await spawnChild('node', [cli, 'list', '--format', 'json'], {
+      const child = spawnChild('node', [cli, 'list', '--format', 'json'], {
         cwd: this.appDir,
         stdio: 'pipe',
       });
