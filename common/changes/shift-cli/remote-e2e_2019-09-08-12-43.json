@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Support custom config, destroy with no arg, list JSON format",
+      "type": "minor"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "roey@shiftjs.com"
+}
