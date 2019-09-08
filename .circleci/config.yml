@@ -80,6 +80,9 @@ jobs:
             git config user.email "auto-npm-dep-update@shiftjs.com"
             git config user.name "autoupdate"
       - run:
+          name: Generate interface packages
+          command: scripts/generate_interfaces
+      - run:
           name: Update npm dependencies
           command: node common/scripts/install-run.js rush-update@latest rush-update -x @types/node --repo-owner binaris --repo-name shiftjs --pr-reviewers michaeladda
 workflows:
