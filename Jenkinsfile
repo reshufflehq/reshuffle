@@ -22,7 +22,7 @@ node {
             def imageTag = "${DOCKER_ACCOUNT}/reshuffle:${BRANCH_NAME}";
             stage('Build') {
                 echo 'Building docker image';
-                sh "sudo docker build ${NO_CACHE ? '--no-cache' : ''} --tag ${imageTag} .";
+                sh "sudo docker build -f testing.Dockerfile ${NO_CACHE ? '--no-cache' : ''} --tag ${imageTag} .";
             }
             stage('Push') {
                 echo 'Pushing docker image';

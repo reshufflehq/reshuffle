@@ -17,12 +17,12 @@ function log(...args: any[]) {
 }
 
 async function readAll(stream: NodeJS.ReadableStream) {
-  const out: string[] = [];
+  const out: Buffer[] = [];
   return new Promise<string>((resolve, reject) => {
-    stream.on('data', (l) => {
-      out.push(l.toString());
+    stream.on('data', (buf) => {
+      out.push(buf);
     });
-    stream.on('end', () => resolve(out.join('')));
+    stream.on('end', () => resolve(Buffer.concat(out).toString()));
     stream.on('error', (err) => reject(err));
   });
 }
