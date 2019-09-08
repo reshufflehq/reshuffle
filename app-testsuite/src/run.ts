@@ -16,6 +16,17 @@ function log(...args: any[]) {
   console.log(new Date(), ...args);
 }
 
+async function readAll(stream: NodeJS.ReadableStream) {
+  const out: string[] = [];
+  return new Promise<string>((resolve, reject) => {
+    stream.on('data', (l) => {
+      out.push(l.toString());
+    });
+    stream.on('end', () => resolve(out.join('')));
+    stream.on('error', (err) => reject(err));
+  });
+}
+
 async function readUntilPattern(stream: NodeJS.ReadableStream, pattern: RegExp) {
   let out = '';
   await new Promise((resolve, reject) => {
@@ -177,7 +188,7 @@ class App {
     await copy(path.resolve(__dirname, '..', 'app'), this.appDir);
   }
 
-  public async runLocal(fn: () => Promise<void>) {
+  public async runLocal(fn: (url: string) => Promise<void>) {
     log('Starting app');
     const reactApp = spawnChild('npm', ['start'], {
       cwd: this.appDir,
@@ -191,10 +202,37 @@ class App {
     });
     try {
       await readUntilPattern(reactApp.stdout, new RegExp(`You can now view ${this.appName} in the browser`));
-      await fn();
+      await fn('http://localhost:3000');
     } finally {
       log('Killing app');
       await killGroup(reactApp);
+    }
+  }
+
+  public async runRemote(fn: (url: string) => Promise<void>) {
+    const cli = path.resolve(ROOT_DIR, 'cli', 'bin', 'run');
+    log('Deploying app');
+    await spawn('node', [cli, 'deploy'], {
+      cwd: this.appDir,
+      stdio: 'inherit',
+    });
+    try {
+      const child = await spawnChild('node', [cli, 'list', '--format', 'json'], {
+        cwd: this.appDir,
+        stdio: 'pipe',
+      });
+      const [out] = await Promise.all([
+        readAll(child.stdout),
+        waitOnChild(child),
+      ]);
+      const apps = JSON.parse(out);
+      await fn(apps[0].URL);
+    } finally {
+      await spawn('node', [cli, 'destroy'], {
+        cwd: this.appDir,
+        stdio: 'inherit',
+      });
+      log('Destroying app');
     }
   }
 }
@@ -206,7 +244,9 @@ async function main() {
     await withRegistry(testDir, async () => {
       const app = new App(testDir, 'my-app');
       await app.create();
-      await app.runLocal(async () => {
+      const runMode = process.env.APP_E2E_RUN_MODE || 'local';
+      const run = runMode === 'remote' ? app.runRemote : app.runLocal;
+      await run.bind(app)(async (baseUrl) => {
         log('Running tests');
         await spawn('npx', ['cypress', 'run'], {
           cwd: path.resolve(__dirname, '..'),
@@ -214,7 +254,7 @@ async function main() {
           shell,
           env: {
             ...process.env,
-            CYPRESS_baseUrl: 'http://localhost:3000',
+            CYPRESS_baseUrl: baseUrl,
           },
         });
       });
