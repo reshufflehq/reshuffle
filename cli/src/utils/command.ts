@@ -9,7 +9,7 @@ import Cli from 'cli-ux';
 import terminalLink from 'terminal-link';
 import { LycanClient } from '@binaris/spice-node-client';
 import flags from './cli-flags';
-import userConfig from './user-config';
+import * as userConfig from './user-config';
 
 const pjson = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf-8'));
 
@@ -22,12 +22,20 @@ export default abstract class BaseCommand extends Command {
   private _apiEndpoint?: string;
   private webAppLoginUrl?: string;
   private _lycanClient?: LycanClient;
+  private _configPath?: string;
 
   protected get lycanClient(): LycanClient {
     if (!this._lycanClient) {
-      this._lycanClient = this.createLycanClient(userConfig.get('accessToken') as string | undefined);
+      this._lycanClient = this.createLycanClient(this.conf.get('accessToken') as string | undefined);
     }
     return this._lycanClient;
+  }
+
+  protected get conf() {
+    if (!this._configPath) {
+      throw new Error('config not set!');
+    }
+    return userConfig.load(this._configPath);
   }
 
   protected get apiEndpoint(): string {
@@ -38,7 +46,7 @@ export default abstract class BaseCommand extends Command {
   }
 
   public get apiHeaders(): Record<string, string> {
-    const apiKey = userConfig.get('accessToken') as string | undefined;
+    const apiKey = this.conf.get('accessToken') as string | undefined;
     return apiKey !== undefined ? {
       'shift-api-key': apiKey,
     } : {};
@@ -46,6 +54,10 @@ export default abstract class BaseCommand extends Command {
 
   public static flags: Parser.flags.Input<any>  = {
     help: flags.help({ char: 'h' }),
+    config: flags.string({
+      default: userConfig.defaultLocation,
+      env: 'SHIFTJS_CONFIG',
+    }),
     apiEndpoint: flags.string({
       default: 'https://api.shiftjs.com/public/v1',
       hidden: true,
@@ -70,14 +82,15 @@ export default abstract class BaseCommand extends Command {
   }
 
   public async init() {
-    const { flags: { apiEndpoint, webAppLoginUrl } } = this.parse(BaseCommand);
+    const { flags: { apiEndpoint, webAppLoginUrl, config } } = this.parse(BaseCommand);
+    this._configPath = config;
     this._apiEndpoint = apiEndpoint;
     this.webAppLoginUrl = webAppLoginUrl;
   }
 
   public async authenticate(forceBrowserAuthFlow = false): Promise<string> {
     if (!forceBrowserAuthFlow) {
-      const storedAccessToken = userConfig.get('accessToken') as string | undefined;
+      const storedAccessToken = this.conf.get('accessToken') as string | undefined;
       if (storedAccessToken) {
         return storedAccessToken;
       }
@@ -100,7 +113,7 @@ export default abstract class BaseCommand extends Command {
     }
 
     this.log('Successfully logged into ShiftJS!');
-    userConfig.set({ accessToken });
+    this.conf.set({ accessToken });
     this._lycanClient = this.createLycanClient(accessToken);
     return accessToken;
   }
