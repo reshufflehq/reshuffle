@@ -49,7 +49,11 @@ export const handler: BinarisFunction = async (body, ctx) => {
       const joinedDir = pathResolve('./backend', path);
       const mod = require(joinedDir);
       const fn = mod[fnHandler];
-      return fn(...args);
+      const response = await fn(...args);
+      if (response === undefined) {
+        return new ctx.HTTPResponse({ statusCode: 204 });
+      }
+      return response;
     }
     case 'sendStatus': {
       return new ctx.HTTPResponse({
