@@ -19,7 +19,7 @@ $ npm install -g shift-cli
 $ shift-cli COMMAND
 running command...
 $ shift-cli (-v|--version|version)
-shift-cli/0.1.6 darwin-x64 node-v10.16.0
+shift-cli/0.1.7 darwin-x64 node-v10.15.3
 $ shift-cli --help [COMMAND]
 USAGE
   $ shift-cli COMMAND
@@ -31,7 +31,7 @@ USAGE
 * [`shift-cli browse`](#shift-cli-browse)
 * [`shift-cli claim TOKEN`](#shift-cli-claim-token)
 * [`shift-cli deploy`](#shift-cli-deploy)
-* [`shift-cli destroy ID`](#shift-cli-destroy-id)
+* [`shift-cli destroy`](#shift-cli-destroy)
 * [`shift-cli help [COMMAND]`](#shift-cli-help-command)
 * [`shift-cli list`](#shift-cli-list)
 * [`shift-cli logs`](#shift-cli-logs)
@@ -47,13 +47,14 @@ USAGE
   $ shift-cli browse
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help       show CLI help
+  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLE
   $ shift-cli browse
 ```
 
-_See code: [src/commands/browse.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/browse.ts)_
+_See code: [src/commands/browse.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/browse.ts)_
 
 ## `shift-cli claim TOKEN`
 
@@ -67,13 +68,14 @@ ARGUMENTS
   TOKEN  claim token
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help       show CLI help
+  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLE
   $ shift-cli claim OiJIUzI1NiIsIn
 ```
 
-_See code: [src/commands/claim.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/claim.ts)_
+_See code: [src/commands/claim.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/claim.ts)_
 
 ## `shift-cli deploy`
 
@@ -84,33 +86,33 @@ USAGE
   $ shift-cli deploy
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help       show CLI help
+  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLE
   $ shift-cli deploy
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/deploy.ts)_
 
-## `shift-cli destroy ID`
+## `shift-cli destroy`
 
 destroy an application
 
 ```
 USAGE
-  $ shift-cli destroy ID
-
-ARGUMENTS
-  ID  application id
+  $ shift-cli destroy
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help       show CLI help
+  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
+  --id=id          Application id (defaults to working directory's deployed application ID)
 
 EXAMPLE
   $ shift-cli destroy 123
 ```
 
-_See code: [src/commands/destroy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/destroy.ts)_
+_See code: [src/commands/destroy.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/destroy.ts)_
 
 ## `shift-cli help [COMMAND]`
 
@@ -138,13 +140,15 @@ USAGE
   $ shift-cli list
 
 OPTIONS
-  -h, --help  show CLI help
+  -f, --format=table|json  [default: table] Format output
+  -h, --help               show CLI help
+  --config=config          [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLE
   $ shift-cli list
 ```
 
-_See code: [src/commands/list.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/list.ts)_
 
 ## `shift-cli logs`
 
@@ -159,6 +163,7 @@ OPTIONS
   -h, --help         show CLI help
   -l, --limit=limit  [default: 500] Limit number of entries shown (cannot exceed 1000).
   -s, --since=since  [default: 1m] Output logs since the given ISO 8601 timestamp or time period.
+  --config=config    [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLES
   // retrieve all logs
@@ -179,7 +184,7 @@ EXAMPLES
   $ shift-cli logs --since 2m --follow
 ```
 
-_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/logs.ts)_
+_See code: [src/commands/logs.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/logs.ts)_
 
 ## `shift-cli try ID`
 
@@ -193,13 +198,14 @@ ARGUMENTS
   ID  template id
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help       show CLI help
+  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLE
   $ shift-cli try 123
 ```
 
-_See code: [src/commands/try.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/try.ts)_
+_See code: [src/commands/try.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/try.ts)_
 
 ## `shift-cli whoami`
 
@@ -210,11 +216,12 @@ USAGE
   $ shift-cli whoami
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help       show CLI help
+  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
 
 EXAMPLE
   $ shift-cli whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.6/cli/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/binaris/shiftjs/blob/shift-cli_v0.1.7/cli/src/commands/whoami.ts)_
 <!-- commandsstop -->
