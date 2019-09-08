@@ -1,16 +1,20 @@
 // tslint:disable:no-console
 import path from 'path';
-import { promisify } from 'util';
-import { mkdtemp, readFile } from 'fs';
+import { mkdtemp, readFile } from 'mz/fs';
 import { tmpdir } from 'os';
 import { spawn as spawnChild, ChildProcess } from 'child_process';
 import { copy, remove, pathExists } from 'fs-extra';
 import { Tail } from 'tail';
+import sleep from 'sleep-promise';
 import { spawn, waitOnChild } from '@binaris/utils-subprocess';
 
 const shell = process.platform === 'win32';
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
 const REGISTRY_URL = 'http://localhost:4873/';
+
+function log(...args: any[]) {
+  console.log(new Date(), ...args);
+}
 
 async function readUntilPattern(stream: NodeJS.ReadableStream, pattern: RegExp) {
   let out = '';
@@ -43,7 +47,7 @@ async function untilExists(file: string, attempts: number, sleepDuration: number
     if (await pathExists(file)) {
       return;
     }
-    await new Promise((resolve) => setTimeout(resolve, sleepDuration));
+    await sleep(sleepDuration);
   }
   throw new Error(`Path ${file} does not exist`);
 }
@@ -75,8 +79,8 @@ class Registry {
     try {
       await new Promise((resolve, reject) => {
         tail.on('line', (line) => {
-          const log = JSON.parse(line);
-          if (log.addr) {
+          const parsed = JSON.parse(line);
+          if (parsed.addr) {
             resolve();
           }
         });
@@ -105,7 +109,7 @@ class Registry {
       stdio: 'inherit',
       shell,
     });
-    const npmrc = await promisify(readFile)(path.resolve(this.workdir, '.npmrc'), 'utf8');
+    const npmrc = await readFile(path.resolve(this.workdir, '.npmrc'), 'utf8');
     const line = npmrc.split('\n').find((l) => /:_authToken=/.test(l));
     if (!line) {
       throw new Error('No auth token created');
@@ -126,36 +130,34 @@ function publishToLocalRegistry(token: string) {
   ], {
     cwd: ROOT_DIR,
     stdio: 'inherit',
-    shell,
   });
 }
 
 async function main() {
-  const testDir = await promisify(mkdtemp)(path.resolve(tmpdir(), 'test'));
-  console.log('Created test dir', testDir);
+  const testDir = await mkdtemp(path.resolve(tmpdir(), 'test'), { encoding: 'utf8' });
+  log('Created test dir', testDir);
   try {
-    console.log('Starting local registry');
+    log('Starting local registry');
     const registry = await Registry.create(testDir);
     try {
       await registry.ready();
-      console.log('Creating local registry token');
+      log('Creating local registry token');
       const token = await registry.createToken();
-      console.log('Publishing to local registry');
+      log('Publishing to local registry');
       await publishToLocalRegistry(token);
       const appName = 'my-app';
       const appDir = path.resolve(testDir, appName);
 
-      console.log('Creating react app');
+      log('Creating react app');
       await spawn('npx', ['create-react-app', appName], {
         cwd: testDir,
         stdio: 'inherit',
         shell,
       });
-      console.log('Reshuffling');
+      log('Reshuffling');
       await spawn('node', [path.resolve(ROOT_DIR, 'shiftjs-react-app', 'index.js')], {
         cwd: appDir,
         stdio: 'inherit',
-        shell,
         env: {
           ...process.env,
           NPM_CONFIG_REGISTRY: REGISTRY_URL,
@@ -163,7 +165,7 @@ async function main() {
       });
       await copy(path.resolve(__dirname, '..', 'app'), appDir);
 
-      console.log('Starting app');
+      log('Starting app');
       const reactApp = spawnChild('npm', ['start'], {
         cwd: appDir,
         stdio: 'pipe',
@@ -176,7 +178,7 @@ async function main() {
       });
       await readUntilPattern(reactApp.stdout, /You can now view my-app in the browser/);
       try {
-        console.log('Running tests');
+        log('Running tests');
         await spawn('npx', ['cypress', 'run'], {
           cwd: path.resolve(__dirname, '..'),
           stdio: 'inherit',
@@ -187,7 +189,7 @@ async function main() {
           },
         });
       } finally {
-        console.log('Killing app');
+        log('Killing app');
         await killGroup(reactApp);
       }
     } finally {
@@ -200,7 +202,7 @@ async function main() {
 
 main()
   .then(() => {
-    console.log('Great success!');
+    log('Great success!');
     process.exit(0);
   })
   .catch((err) => {

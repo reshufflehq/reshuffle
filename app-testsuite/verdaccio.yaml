@@ -40,5 +40,5 @@ packages:
     proxy: npmjs
 
 logs:
-  - {type: stdout, format: pretty, level: http}
+  - {type: stdout, format: pretty, level: debug}
   - {type: file, path: verdaccio.log, level: info}
