@@ -38,6 +38,8 @@ export default class Destroy extends Command {
     }
 
     await this.lycanClient.destroyApp(appId);
+    const projectsWithoutAppId = projects.filter(({ applicationId }) => applicationId !== appId);
+    this.conf.set('projects', projectsWithoutAppId);
     this.log('Application successfully destroyed!');
   }
 }
