@@ -28,6 +28,7 @@ node {
                 echo 'Pushing docker image';
                 sh 'sudo $(aws ecr get-login --no-include-email --region us-east-1)';
                 sh "sudo docker push ${imageTag}";
+                sh "sudo docker tag ${imageTag} binaris/reshuffle:${BRANCH_NAME}";
             }
             if (!NO_PRECIOUS) {
                 trigger_precious(BRANCH_NAME, JOB_NAME);
