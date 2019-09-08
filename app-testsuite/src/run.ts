@@ -133,51 +133,80 @@ function publishToLocalRegistry(token: string) {
   });
 }
 
+async function withRegistry(testDir: string, fn: () => Promise<void>) {
+  log('Starting local registry');
+  const registry = await Registry.create(testDir);
+  try {
+    await registry.ready();
+    log('Creating local registry token');
+    const token = await registry.createToken();
+    log('Publishing to local registry');
+    await publishToLocalRegistry(token);
+    await fn();
+  } finally {
+    await registry.destroy();
+  }
+}
+
+class App {
+  public readonly appDir: string;
+
+  constructor(
+    public readonly testDir: string,
+    public readonly appName: string
+  ) {
+    this.appDir = path.resolve(testDir, appName);
+  }
+
+  public async create() {
+    log('Creating react app');
+    await spawn('npx', ['create-react-app', this.appName], {
+      cwd: this.testDir,
+      stdio: 'inherit',
+      shell,
+    });
+    log('Reshuffling');
+    await spawn('node', [path.resolve(ROOT_DIR, 'shiftjs-react-app', 'index.js')], {
+      cwd: this.appDir,
+      stdio: 'inherit',
+      env: {
+        ...process.env,
+        NPM_CONFIG_REGISTRY: REGISTRY_URL,
+      },
+    });
+    await copy(path.resolve(__dirname, '..', 'app'), this.appDir);
+  }
+
+  public async runLocal(fn: () => Promise<void>) {
+    log('Starting app');
+    const reactApp = spawnChild('npm', ['start'], {
+      cwd: this.appDir,
+      stdio: 'pipe',
+      detached: true,
+      shell,
+      env: {
+        ...process.env,
+        BROWSER: 'none',
+      },
+    });
+    try {
+      await readUntilPattern(reactApp.stdout, new RegExp(`You can now view ${this.appName} in the browser`));
+      await fn();
+    } finally {
+      log('Killing app');
+      await killGroup(reactApp);
+    }
+  }
+}
+
 async function main() {
   const testDir = await mkdtemp(path.resolve(tmpdir(), 'test'), { encoding: 'utf8' });
   log('Created test dir', testDir);
   try {
-    log('Starting local registry');
-    const registry = await Registry.create(testDir);
-    try {
-      await registry.ready();
-      log('Creating local registry token');
-      const token = await registry.createToken();
-      log('Publishing to local registry');
-      await publishToLocalRegistry(token);
-      const appName = 'my-app';
-      const appDir = path.resolve(testDir, appName);
-
-      log('Creating react app');
-      await spawn('npx', ['create-react-app', appName], {
-        cwd: testDir,
-        stdio: 'inherit',
-        shell,
-      });
-      log('Reshuffling');
-      await spawn('node', [path.resolve(ROOT_DIR, 'shiftjs-react-app', 'index.js')], {
-        cwd: appDir,
-        stdio: 'inherit',
-        env: {
-          ...process.env,
-          NPM_CONFIG_REGISTRY: REGISTRY_URL,
-        },
-      });
-      await copy(path.resolve(__dirname, '..', 'app'), appDir);
-
-      log('Starting app');
-      const reactApp = spawnChild('npm', ['start'], {
-        cwd: appDir,
-        stdio: 'pipe',
-        detached: true,
-        shell,
-        env: {
-          ...process.env,
-          BROWSER: 'none',
-        },
-      });
-      await readUntilPattern(reactApp.stdout, /You can now view my-app in the browser/);
-      try {
+    await withRegistry(testDir, async () => {
+      const app = new App(testDir, 'my-app');
+      await app.create();
+      await app.runLocal(async () => {
         log('Running tests');
         await spawn('npx', ['cypress', 'run'], {
           cwd: path.resolve(__dirname, '..'),
@@ -188,13 +217,8 @@ async function main() {
             CYPRESS_baseUrl: 'http://localhost:3000',
           },
         });
-      } finally {
-        log('Killing app');
-        await killGroup(reactApp);
-      }
-    } finally {
-      await registry.destroy();
-    }
+      });
+    });
   } finally {
     await remove(testDir);
   }
