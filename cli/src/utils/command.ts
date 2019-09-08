@@ -47,9 +47,13 @@ export default abstract class BaseCommand extends Command {
 
   public get apiHeaders(): Record<string, string> {
     const apiKey = this.conf.get('accessToken') as string | undefined;
-    return apiKey !== undefined ? {
-      'shift-api-key': apiKey,
-    } : {};
+    const headers: Record<string, string> = {
+      'user-agent': `${pjson.name}/${pjson.version}`,
+    };
+    if (apiKey) {
+      headers['shift-api-key'] = apiKey;
+    }
+    return headers;
   }
 
   public static flags: Parser.flags.Input<any>  = {
