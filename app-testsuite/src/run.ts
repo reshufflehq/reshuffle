@@ -226,6 +226,9 @@ class App {
         waitOnChild(child),
       ]);
       const apps = JSON.parse(out);
+      if (apps.length !== 1) {
+        throw new Error(`Expected exactly 1 app to be deployed, got: ${apps.length}`);
+      }
       await fn(apps[0].URL);
     } finally {
       await spawn('node', [cli, 'destroy'], {
