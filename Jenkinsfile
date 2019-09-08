@@ -22,7 +22,7 @@ node {
             def imageTag = "${DOCKER_ACCOUNT}/reshuffle:${BRANCH_NAME}";
             stage('Build') {
                 echo 'Building docker image';
-                sh "sudo docker build -f testing.Dockerfile ${NO_CACHE ? '--no-cache' : ''} --tag ${imageTag} .";
+                sh "sudo docker build -f testing.Dockerfile ${params.NO_CACHE ? '--no-cache' : ''} --tag ${imageTag} .";
             }
             stage('Push') {
                 echo 'Pushing docker image';
@@ -30,7 +30,7 @@ node {
                 sh "sudo docker push ${imageTag}";
                 sh "sudo docker tag ${imageTag} binaris/reshuffle:${BRANCH_NAME}";
             }
-            if (!NO_PRECIOUS) {
+            if (!params.NO_PRECIOUS) {
                 trigger_precious(BRANCH_NAME, JOB_NAME);
             }
         }
