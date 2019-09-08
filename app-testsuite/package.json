@@ -14,10 +14,13 @@
   "dependencies": {
     "@binaris/utils-subprocess": "0.0.0",
     "fs-extra": "^8.1.0",
+    "mz": "^2.7.0",
+    "sleep-promise": "^8.0.1",
     "tail": "^2.0.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.0",
+    "@types/mz": "^0.0.32",
     "@types/node": "^10.14.9",
     "@types/tail": "^1.2.2",
     "tslint": "^5.18.0",

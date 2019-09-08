@@ -106,6 +106,7 @@ dependencies:
   rmfr: 2.0.0
   rxjs: 6.5.3
   sinon: 7.4.2
+  sleep-promise: 8.0.1
   specshell: 0.0.1-rc.2
   tail: 2.0.3
   tar: 4.4.10
@@ -7877,6 +7878,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
+  /sleep-promise/8.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-jXlaJ+ojlT32tSuRCB5eImZZk8U=
   /slice-ansi/2.1.0:
     dependencies:
       ansi-styles: 3.2.1
@@ -9304,16 +9309,19 @@ packages:
   'file:projects/app-testsuite.tgz':
     dependencies:
       '@types/fs-extra': 8.0.0
+      '@types/mz': 0.0.32
       '@types/node': 10.14.17
       '@types/tail': 1.2.2
       fs-extra: 8.1.0
+      mz: 2.7.0
+      sleep-promise: 8.0.1
       tail: 2.0.3
       tslint: /tslint/5.19.0/typescript@3.6.2
       typescript: 3.6.2
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-zZOgDSALISTzfTIYd1ldFDhD4xmqZ2TMJ9jEp1tJRw+GEO8aG/wdcqVXc6MnoDRld8NiY2r4/8kFacExMZf7DA==
+      integrity: sha512-H7ng9xF8+/vj/XibtvJsNP43pHalFcmwsNQl+BocmaSuIaK8AMUBkXZPrXrdexAdNF19MkVQH/oIqeFh7TmXEw==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -9741,6 +9749,7 @@ specifiers:
   rmfr: ^2.0.0
   rxjs: ^6.5.2
   sinon: ^7.3.2
+  sleep-promise: ^8.0.1
   specshell: ^0.0.1-rc.2
   tail: ^2.0.3
   tar: ^4.4.10
