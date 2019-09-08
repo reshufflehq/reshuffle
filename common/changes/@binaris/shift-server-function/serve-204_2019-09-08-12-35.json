@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-server-function",
+      "comment": "Return 204 statusCode on empty responses",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-server-function",
+  "email": "vladimir@shiftjs.com"
+}
