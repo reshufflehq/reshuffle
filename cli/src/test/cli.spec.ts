@@ -1,6 +1,11 @@
 import test from 'ava';
 import { Shell, success } from 'specshell';
+import * as path from 'path';
 import * as R from 'ramda';
+import { tmpdir } from 'os';
+import { mkdtemp } from 'mz/fs';
+import { writeJson, remove } from 'fs-extra';
+import { env as processEnv } from 'process';
 
 const process = R.evolve({ out: (x: Buffer) => x.toString(), err: (x: Buffer) => x.toString() });
 
@@ -44,4 +49,19 @@ test('cli with no args lists all commands', async (t) => {
   }
 
   t.deepEqual(commands, expectedCommands);
+});
+
+test('cli does not login if provided config with authToken', async (t) => {
+  const confDir = await mkdtemp(path.join(tmpdir(), 'spec-config-'), { encoding: 'utf8' });
+  try {
+    const confPath = path.join(confDir, 'conf.yml');
+    await writeJson(confPath, { accessToken: 'test' });
+    const shell = new Shell(undefined, { env: { ...processEnv, SHIFTJS_CONFIG: confPath } });
+    const { out, err, ...status } = process(await shell.run('./bin/run login --no-refetch'));
+    t.true(success(status));
+    t.is(err, '');
+    t.is(out, '');
+  } finally {
+    await remove(confDir);
+  }
 });

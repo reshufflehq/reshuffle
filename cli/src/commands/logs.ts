@@ -1,6 +1,5 @@
 import Command from '../utils/command';
 import flags from '../utils/cli-flags';
-import conf from '../utils/user-config';
 import {
   getProjectRootDir,
   Project,
@@ -59,7 +58,7 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
     await this.authenticate();
 
     const projectDir = await getProjectRootDir();
-    const projects = conf.get('projects') as Project[] | undefined || [];
+    const projects = this.conf.get('projects') as Project[] | undefined || [];
     const project = projects.find(({ directory }) => directory === projectDir);
     if (project === undefined) {
       return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);

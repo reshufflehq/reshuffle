@@ -9,7 +9,6 @@ import { spawn } from '@binaris/utils-subprocess';
 import { LycanClient } from '@binaris/spice-node-client';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
-import conf from '../utils/user-config';
 import { getDependencies } from '../utils/getdeps';
 import {
   getProjectPackageJson,
@@ -119,7 +118,7 @@ export default class Deploy extends Command {
     await this.authenticate();
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
-    const projects = conf.get('projects') as Project[] | undefined || [];
+    const projects = this.conf.get('projects') as Project[] | undefined || [];
 
     const pkg = await getProjectPackageJson();
     if (typeof pkg.name !== 'string' || !pkg.name) {
@@ -147,7 +146,7 @@ export default class Deploy extends Command {
         applicationId: application.id,
         defaultEnv: application.environments[0].name,
       });
-      conf.set('projects', projects);
+      this.conf.set('projects', projects);
     } else {
       const { applicationId, defaultEnv } = project;
       application = await client.deploy(applicationId, defaultEnv, digest, envVars);
