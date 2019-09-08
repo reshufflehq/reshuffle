@@ -30,8 +30,7 @@ export default class Deploy extends Command {
 
   public async build(projectDir: string): Promise<string> {
     this.log('Building and bundling your app! This may take a few moments, please wait');
-    const stagingDir = pathResolve(tmpdir(), 'shift-bundle-');
-    await mkdtemp(stagingDir, { encoding: 'utf8' });
+    const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'shift-bundle-'), { encoding: 'utf8' });
     try {
       await spawn('npm', ['run', 'build'], {
         cwd: projectDir,
@@ -40,7 +39,6 @@ export default class Deploy extends Command {
         // arguments are constant strings
         shell: process.platform === 'win32',
       });
-      await mkdirp(stagingDir);
       const deps = await getDependencies(projectDir);
       for (const dep of deps) {
         const source = pathResolve(projectDir, 'node_modules', dep);

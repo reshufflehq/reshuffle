@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Fix deploy staging dir to use mkdtemp",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "roey@shiftjs.com"
+}
