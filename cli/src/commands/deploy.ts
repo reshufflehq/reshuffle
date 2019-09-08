@@ -1,5 +1,5 @@
 import path, { resolve as pathResolve } from 'path';
-import { createReadStream, stat } from 'mz/fs';
+import { createReadStream, stat, mkdtemp } from 'mz/fs';
 import { mkdirp, remove, copy } from 'fs-extra';
 import { tmpdir } from 'os';
 import tar from 'tar';
@@ -31,7 +31,7 @@ export default class Deploy extends Command {
   public async build(projectDir: string): Promise<string> {
     this.log('Building and bundling your app! This may take a few moments, please wait');
     const stagingDir = pathResolve(tmpdir(), 'shift-bundle-');
-    await mkdirp(stagingDir);
+    await mkdtemp(stagingDir, { encoding: 'utf8' });
     try {
       await spawn('npm', ['run', 'build'], {
         cwd: projectDir,
