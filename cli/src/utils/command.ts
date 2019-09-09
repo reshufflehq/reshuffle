@@ -46,7 +46,10 @@ export default abstract class BaseCommand extends Command {
   }
 
   public get apiHeaders(): Record<string, string> {
-    const apiKey = this.conf.get('accessToken') as string | undefined;
+    return this.apiHeadersWithKey(this.conf.get('accessToken') as string | undefined);
+  }
+
+  private apiHeadersWithKey(apiKey?: string): Record<string, string> {
     const headers: Record<string, string> = {
       'user-agent': `${pjson.name}/${pjson.version}`,
     };
@@ -146,11 +149,7 @@ export default abstract class BaseCommand extends Command {
   }
 
   private createLycanClient(apiKey?: string): LycanClient {
-    const options = apiKey ? {
-      headers: {
-        'shift-api-key': apiKey,
-      },
-    } : {};
+    const options = { headers: this.apiHeadersWithKey(apiKey) };
     return new LycanClient(this.apiEndpoint, options);
   }
 }
