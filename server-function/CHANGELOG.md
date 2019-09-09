@@ -1,6 +1,13 @@
 # Change Log - @binaris/shift-server-function
 
-This log was last generated on Mon, 09 Sep 2019 08:44:23 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Sep 2019 10:48:16 GMT and should not be manually modified.
+
+## 0.0.4
+Mon, 09 Sep 2019 10:48:16 GMT
+
+### Patches
+
+- Republish (previous version incorrectly tagged)
 
 ## 0.0.3
 Mon, 09 Sep 2019 08:44:23 GMT

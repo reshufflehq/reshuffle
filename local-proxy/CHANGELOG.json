@@ -2,6 +2,18 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.2.3",
+      "tag": "@binaris/shift-local-proxy_v0.2.3",
+      "date": "Mon, 09 Sep 2019 10:48:16 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-server-function\" from `0.0.3` to `0.0.4`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.2",
       "tag": "@binaris/shift-local-proxy_v0.2.2",
       "date": "Mon, 09 Sep 2019 08:44:23 GMT",

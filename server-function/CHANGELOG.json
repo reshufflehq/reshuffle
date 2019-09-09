@@ -2,6 +2,18 @@
   "name": "@binaris/shift-server-function",
   "entries": [
     {
+      "version": "0.0.4",
+      "tag": "@binaris/shift-server-function_v0.0.4",
+      "date": "Mon, 09 Sep 2019 10:48:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Republish (previous version incorrectly tagged)"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.3",
       "tag": "@binaris/shift-server-function_v0.0.3",
       "date": "Mon, 09 Sep 2019 08:44:23 GMT",
