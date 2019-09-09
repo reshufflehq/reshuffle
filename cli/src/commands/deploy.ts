@@ -66,8 +66,7 @@ export default class Deploy extends Command {
         // TODO: include shift-backend plugin?
         'backend/',
         '-d',
-        // paths in arguments do NOT need to be escaped
-        pathResolve(stagingDir, 'backend'),
+        escapeWin32(pathResolve(stagingDir, 'backend')),
       ], {
         cwd: projectDir,
         stdio: 'inherit',
