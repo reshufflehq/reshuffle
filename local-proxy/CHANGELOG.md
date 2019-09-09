@@ -1,6 +1,14 @@
 # Change Log - @binaris/shift-local-proxy
 
-This log was last generated on Thu, 29 Aug 2019 12:31:30 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Sep 2019 08:44:23 GMT and should not be manually modified.
+
+## 0.2.2
+Mon, 09 Sep 2019 08:44:23 GMT
+
+### Patches
+
+- Allow access to non-JS files in backend directory
+- Verify Host and Origin headers on local requests
 
 ## 0.2.1
 Thu, 29 Aug 2019 12:31:30 GMT

@@ -1,6 +1,6 @@
 {
   "name": "@binaris/shift-local-proxy",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "files": [
     "dist"
   ],
@@ -19,7 +19,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@binaris/shift-interfaces-koa-server": "0.4.0",
     "@binaris/shift-leveldb-server": "0.0.3",
-    "@binaris/shift-server-function": "0.0.2",
+    "@binaris/shift-server-function": "0.0.3",
     "@types/express": "^4.17.0",
     "address": "^1.1.2",
     "bunyan": "^1.8.12",

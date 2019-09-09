@@ -1,7 +1,7 @@
 {
   "name": "shift-cli",
   "description": "ShiftJS CLI Tool",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "author": "arikmaor @arikmaor",
   "bin": {
     "shift-cli": "./bin/run"
@@ -44,7 +44,7 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "@binaris/spice-node-client": "0.0.2-rc.20",
-    "@binaris/utils-subprocess": "0.0.0",
+    "@binaris/utils-subprocess": "0.0.1",
     "@oclif/command": "^1.5.18",
     "@oclif/config": "^1.13.2",
     "@oclif/errors": "^1.2.2",

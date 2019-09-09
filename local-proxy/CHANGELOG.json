@@ -2,6 +2,26 @@
   "name": "@binaris/shift-local-proxy",
   "entries": [
     {
+      "version": "0.2.2",
+      "tag": "@binaris/shift-local-proxy_v0.2.2",
+      "date": "Mon, 09 Sep 2019 08:44:23 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow access to non-JS files in backend directory"
+          },
+          {
+            "comment": "Verify Host and Origin headers on local requests"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/shift-server-function\" from `0.0.2` to `0.0.3`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.1",
       "tag": "@binaris/shift-local-proxy_v0.2.1",
       "date": "Thu, 29 Aug 2019 12:31:30 GMT",

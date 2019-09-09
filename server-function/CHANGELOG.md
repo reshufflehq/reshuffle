@@ -1,6 +1,14 @@
 # Change Log - @binaris/shift-server-function
 
-This log was last generated on Wed, 21 Aug 2019 12:44:20 GMT and should not be manually modified.
+This log was last generated on Mon, 09 Sep 2019 08:44:23 GMT and should not be manually modified.
+
+## 0.0.3
+Mon, 09 Sep 2019 08:44:23 GMT
+
+### Patches
+
+- Add support for Host and Origin verification
+- Return 204 statusCode on empty responses
 
 ## 0.0.2
 Wed, 21 Aug 2019 12:44:20 GMT

@@ -2,6 +2,43 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.2.0",
+      "tag": "shift-cli_v0.2.0",
+      "date": "Mon, 09 Sep 2019 08:44:23 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use shared subprocess code"
+          },
+          {
+            "comment": "Deploy non-JS files in backend directory"
+          },
+          {
+            "comment": "Add initial tests"
+          },
+          {
+            "comment": "Add destroy app command"
+          },
+          {
+            "comment": "Update dependecies"
+          },
+          {
+            "comment": "Add user-agent to cli api requests"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Support custom config, destroy with no arg, list JSON format"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@binaris/utils-subprocess\" from `0.0.0` to `0.0.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.7",
       "tag": "shift-cli_v0.1.7",
       "date": "Wed, 04 Sep 2019 14:34:49 GMT",
