@@ -12,8 +12,8 @@ const shell = process.platform === 'win32';
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
 const REGISTRY_URL = 'http://localhost:4873/';
 
-function log(...args: any[]) {
-  console.log(new Date(), ...args);
+function log(msg: string, ...args: any[]) {
+  console.log(`${new Date().toISOString()} ${msg}`, ...args);
 }
 
 async function readAll(stream: NodeJS.ReadableStream) {
@@ -83,7 +83,7 @@ class Registry {
 
   public async ready() {
     const logPath = path.resolve(this.workdir, 'verdaccio.log');
-    await untilExists(logPath, 30);
+    await untilExists(logPath, 60);
     const tail = new Tail(logPath, {
       fromBeginning: true,
     });
@@ -144,7 +144,7 @@ function publishToLocalRegistry(token: string) {
   });
 }
 
-async function withRegistry(testDir: string, fn: () => Promise<void>) {
+async function withRegistry(testDir: string, fn: () => Promise<any>) {
   log('Starting local registry');
   const registry = await Registry.create(testDir);
   try {
@@ -153,7 +153,7 @@ async function withRegistry(testDir: string, fn: () => Promise<void>) {
     const token = await registry.createToken();
     log('Publishing to local registry');
     await publishToLocalRegistry(token);
-    await fn();
+    return await fn();
   } finally {
     await registry.destroy();
   }
@@ -240,26 +240,31 @@ class App {
   }
 }
 
+function createApp(testDir: string): Promise<App> {
+  return withRegistry(testDir, async () => {
+    const app = new App(testDir, 'my-app');
+    await app.create();
+    return app;
+  });
+}
+
 async function main() {
   const testDir = await mkdtemp(path.resolve(tmpdir(), 'test'), { encoding: 'utf8' });
   log('Created test dir', testDir);
   try {
-    await withRegistry(testDir, async () => {
-      const app = new App(testDir, 'my-app');
-      await app.create();
-      const runMode = process.env.APP_E2E_RUN_MODE || 'local';
-      const run = runMode === 'remote' ? app.runRemote : app.runLocal;
-      await run.bind(app)(async (baseUrl) => {
-        log('Running tests');
-        await spawn('npx', ['cypress', 'run'], {
-          cwd: path.resolve(__dirname, '..'),
-          stdio: 'inherit',
-          shell,
-          env: {
-            ...process.env,
-            CYPRESS_baseUrl: baseUrl,
-          },
-        });
+    const app = await createApp(testDir);
+    const runMode = process.env.APP_E2E_RUN_MODE || 'local';
+    const run = runMode === 'remote' ? app.runRemote : app.runLocal;
+    await run.bind(app)(async (baseUrl) => {
+      log('Running tests');
+      await spawn('npx', ['cypress', 'run'], {
+        cwd: path.resolve(__dirname, '..'),
+        stdio: 'inherit',
+        shell,
+        env: {
+          ...process.env,
+          CYPRESS_baseUrl: baseUrl,
+        },
       });
     });
   } finally {
