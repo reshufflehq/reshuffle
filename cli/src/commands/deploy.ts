@@ -5,6 +5,7 @@ import { tmpdir } from 'os';
 import tar from 'tar';
 import terminalLink from 'terminal-link';
 import fetch from 'node-fetch';
+import shellEcape from 'any-shell-escape';
 import { spawn } from '@binaris/utils-subprocess';
 import { LycanClient } from '@binaris/spice-node-client';
 import { Application } from '@binaris/spice-node-client/interfaces';
@@ -16,6 +17,10 @@ import {
   getProjectEnv,
   Project,
 } from '../utils/helpers';
+
+function escapeWin32(filePath: string) {
+  return process.platform === 'win32' ? shellEcape(filePath) : filePath;
+}
 
 export default class Deploy extends Command {
   public static description = 'deploy your ShiftJS project to its associated domain';
@@ -55,12 +60,13 @@ export default class Deploy extends Command {
         },
       });
 
-      await spawn(pathResolve(projectDir, 'node_modules', '.bin', 'babel'), [
+      await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
         '--plugins',
         '@babel/plugin-transform-modules-commonjs',
         // TODO: include shift-backend plugin?
         'backend/',
         '-d',
+        // paths in arguments do NOT need to be escaped
         pathResolve(stagingDir, 'backend'),
       ], {
         cwd: projectDir,
