@@ -144,7 +144,7 @@ function publishToLocalRegistry(token: string) {
   });
 }
 
-async function withRegistry(testDir: string, fn: () => Promise<any>) {
+async function withRegistry<T>(testDir: string, fn: () => Promise<T>) {
   log('Starting local registry');
   const registry = await Registry.create(testDir);
   try {
@@ -186,6 +186,11 @@ class App {
       },
     });
     await copy(path.resolve(__dirname, '..', 'app'), this.appDir);
+  }
+
+  public async run(runMode: string, fn: (url: string) => Promise<void>) {
+    const run = runMode === 'remote' ? this.runRemote : this.runLocal;
+    await run.bind(this)(fn);
   }
 
   public async runLocal(fn: (url: string) => Promise<void>) {
@@ -253,9 +258,7 @@ async function main() {
   log('Created test dir', testDir);
   try {
     const app = await createApp(testDir);
-    const runMode = process.env.APP_E2E_RUN_MODE || 'local';
-    const run = runMode === 'remote' ? app.runRemote : app.runLocal;
-    await run.bind(app)(async (baseUrl) => {
+    await app.run(process.env.APP_E2E_RUN_MODE || 'local', async (baseUrl) => {
       log('Running tests');
       await spawn('npx', ['cypress', 'run'], {
         cwd: path.resolve(__dirname, '..'),
