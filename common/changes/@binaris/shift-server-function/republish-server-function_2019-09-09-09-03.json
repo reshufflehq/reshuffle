@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@binaris/shift-server-function",
+      "comment": "Republish (previous version incorrectly tagged)",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@binaris/shift-server-function",
+  "email": "vladimir@shiftjs.com"
+}
