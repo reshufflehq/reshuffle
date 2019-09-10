@@ -17,8 +17,9 @@ test('browse lists templates on dumb terminal', async (t) => {
       id: 'fluffy',
       fullName: 'You N. Icorn',
       email: 'horn@hoof.invalid',
+      externalAccounts: [],
     });
 
-  const result = process(await t.context.shell.run('./bin/run whoami'));
+  const result = process(await t.context.shell.run(`${t.context.run} whoami`));
   t.snapshot(result);
 });

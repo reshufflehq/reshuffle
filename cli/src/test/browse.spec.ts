@@ -22,6 +22,6 @@ test('browse lists templates on dumb terminal', async (t) => {
     },
   ]);
 
-  const result = process(await t.context.shell.run('./bin/run browse'));
+  const result = process(await t.context.shell.run(`${t.context.run} browse`));
   t.snapshot(result);
 });
