@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Add dir->app selection for deploy",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "roey@reshuffle.com"
+}
