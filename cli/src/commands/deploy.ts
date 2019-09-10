@@ -169,7 +169,6 @@ export default class Deploy extends Command {
   public async run() {
     this.parse(Deploy);
     await this.authenticate();
-    await this.selectApplicationForProject();
 
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
