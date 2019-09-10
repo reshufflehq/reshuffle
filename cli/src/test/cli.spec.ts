@@ -1,18 +1,15 @@
 import test from 'ava';
 import { Shell, success } from 'specshell';
 import * as path from 'path';
-import * as R from 'ramda';
 import { tmpdir } from 'os';
 import { mkdtemp } from 'mz/fs';
 import { writeJson, remove } from 'fs-extra';
 import { env as processEnv } from 'process';
 
-const process = R.evolve({ out: (x: Buffer) => x.toString(), err: (x: Buffer) => x.toString() });
-
 test('cli with no args shows help', async (t) => {
   const shell = new Shell();
   // TODO(ariels): Find this directory!
-  const { out, err, ...status } = process(await shell.run('./bin/run'));
+  const { out, err, ...status } = await shell.run('./bin/run', 'utf-8');
 
   t.true(success(status));
   t.assert(err === '');
@@ -21,9 +18,9 @@ test('cli with no args shows help', async (t) => {
 
 test('cli with no args and cli help and cli --help give same output', async (t) => {
   const shell = new Shell();
-  const noArgs = process(await shell.run('./bin/run'));
-  const helpCmd = process(await shell.run('./bin/run help'));
-  const helpArg = process(await shell.run('./bin/run --help'));
+  const noArgs = await shell.run('./bin/run', 'utf-8');
+  const helpCmd = await shell.run('./bin/run help', 'utf-8');
+  const helpArg = await shell.run('./bin/run --help', 'utf-8');
   t.deepEqual(noArgs, helpCmd);
   t.deepEqual(noArgs, helpArg);
 });
@@ -34,7 +31,7 @@ test('cli with no args lists all commands', async (t) => {
     'browse', 'claim', 'deploy', 'destroy', 'help', 'list', 'logs', 'try', 'whoami',
   ]);
   const shell = new Shell();
-  const { out } = process(await shell.run('./bin/run'));
+  const { out } = await shell.run('./bin/run', 'utf-8');
 
   const commandsMatch = out.match(/^ShiftJS CLI Tool.*?VERSION.*?USAGE.*?COMMANDS.*?\n(.*)/s);
   t.truthy(commandsMatch, 'Match command titles');
@@ -57,7 +54,7 @@ test('cli does not login if provided config with authToken', async (t) => {
     const confPath = path.join(confDir, 'conf.yml');
     await writeJson(confPath, { accessToken: 'test' });
     const shell = new Shell(undefined, { env: { ...processEnv, SHIFTJS_CONFIG: confPath } });
-    const { out, err, ...status } = process(await shell.run('./bin/run login --no-refetch'));
+    const { out, err, ...status } = await shell.run('./bin/run login --no-refetch', 'utf-8');
     t.true(success(status));
     t.is(err, '');
     t.is(out, '');

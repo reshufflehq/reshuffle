@@ -1,14 +1,11 @@
 import anyTest, { TestInterface } from 'ava';
 import * as td from 'testdouble';
 import { Context, addFake } from './fake_lycan';
-import * as R from 'ramda';
 import { success } from 'specshell';
 
 const test = anyTest as TestInterface<Context>;
 
 addFake(test);
-
-const process = R.evolve({ out: (x: Buffer) => x.toString(), err: (x: Buffer) => x.toString() });
 
 const anything = td.matchers.anything();
 
@@ -31,7 +28,7 @@ test('logs', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
     .thenResolve({ records: fakeLogs });
 
-  const result = process(await t.context.shell.run(`${t.context.run} logs`));
+  const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
   t.snapshot(result);
 });
 
@@ -42,7 +39,7 @@ test('logs limit', async (t) => {
   // expected 2.  Verify logs prints required fields.
     .thenResolve({ records: fakeLogs.slice(0, 3) });
 
-  const result = process(await t.context.shell.run(`${t.context.run} logs --limit 2`));
+  const result = await t.context.shell.run(`${t.context.run} logs --limit 2`, 'utf-8');
   t.snapshot(result);
 });
 
@@ -52,7 +49,7 @@ test('logs since absolute time', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default',
                                       { since, limit: anything, follow: false }))
     .thenResolve( { records: fakeLogs.filter(({ time }) => time > since) });
-  const result = process(await t.context.shell.run(`${t.context.run} logs --since ${sinceStr}`));
+  const result = await t.context.shell.run(`${t.context.run} logs --since ${sinceStr}`, 'utf-8');
   t.snapshot(result);
 });
 
@@ -67,6 +64,6 @@ test('logs paginate', async (t) => {
                                       { since: anything, limit: anything, follow: false, nextToken: 'two', }))
     .thenResolve({ records: fakeLogs.slice(3) });
 
-  const result = process(await t.context.shell.run(`${t.context.run} logs`));
+  const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
   t.snapshot(result);
 });
