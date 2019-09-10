@@ -22,8 +22,6 @@ const fakeLogs = [
   { source: 'space', msg: 'Jupiter closest approach\n', isErr: false, time: new Date('1979-03-05T12:05:26') },
 ];
 
-// test.skip('no logs for incorrect app id', () => 1);
-
 test('logs', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
     .thenResolve({ records: fakeLogs });

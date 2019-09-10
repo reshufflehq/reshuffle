@@ -78,5 +78,6 @@ projects:
     t.assert(success(await t.context.shell.run(`cd ${t.context.projectDir}`, 'utf-8')));
   });
 
+  // tslint:disable-next-line strict-boolean-expressions (server not set until late in beforeEach)
   test.afterEach.always((t) => { if (t.context.server) t.context.server.close(); });
 }
