@@ -22,13 +22,14 @@ const Stateful = ({ getter, children }) => {
 }
 
 const CounterDisplay = ({ data, setState, keyName }) => {
+  const count = data || 0;
   const increment = useCallback(() => {
-    update(keyName, data + 1)
+    update(keyName, count + 1)
       .then((data) => setState({ data }))
       .catch((error) => setState({ error }));
-  }, [keyName, setState, data]);
+  }, [keyName, setState, count]);
   return (<div>
-    <span className='counter'>{data}</span>
+    <span className='counter'>{count}</span>
     <input type="button" onClick={increment} value="Increment" />
   </div>);
 }
