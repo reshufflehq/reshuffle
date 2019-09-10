@@ -7,7 +7,7 @@ import * as Parser from '@oclif/parser';
 import ms from 'ms';
 import Cli from 'cli-ux';
 import terminalLink from 'terminal-link';
-import { LycanClient } from '@binaris/spice-node-client';
+import { LycanClient, ValidationError } from '@binaris/spice-node-client';
 import flags from './cli-flags';
 import * as userConfig from './user-config';
 
@@ -93,6 +93,16 @@ export default abstract class BaseCommand extends Command {
     this._configPath = config;
     this._apiEndpoint = apiEndpoint;
     this.webAppLoginUrl = webAppLoginUrl;
+  }
+
+  public async catch(err: Error) {
+    if (err instanceof ValidationError) {
+      this.error(
+        `Failed to communicate with server: ${err.message}.  Please run "npm update -g shift-cli".`,
+        { exit: 7 },
+      );
+    }
+    throw err;
   }
 
   public async authenticate(forceBrowserAuthFlow = false): Promise<string> {
