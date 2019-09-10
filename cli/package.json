@@ -72,6 +72,7 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "@binaris/spice-koa-server": "~0.0.2",
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/tslint": "^3.1.1",
     "@types/dotenv": "^6.1.1",
@@ -90,6 +91,7 @@
     "globby": "^10.0.1",
     "ramda": "~0.26.1",
     "specshell": "^0.0.1-rc.2",
+    "testdouble": "~3.12.4",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
