@@ -19,7 +19,7 @@ $ npm install -g shift-cli
 $ shift-cli COMMAND
 running command...
 $ shift-cli (-v|--version|version)
-shift-cli/0.2.0 darwin-x64 node-v10.15.3
+shift-cli/0.2.0 darwin-x64 node-v10.16.0
 $ shift-cli --help [COMMAND]
 USAGE
   $ shift-cli COMMAND
@@ -48,11 +48,7 @@ USAGE
 
 OPTIONS
   -h, --help       show CLI help
-<<<<<<< HEAD
-  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config  [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLE
   $ shift-cli browse
@@ -73,11 +69,7 @@ ARGUMENTS
 
 OPTIONS
   -h, --help       show CLI help
-<<<<<<< HEAD
-  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config  [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLE
   $ shift-cli claim OiJIUzI1NiIsIn
@@ -95,11 +87,7 @@ USAGE
 
 OPTIONS
   -h, --help       show CLI help
-<<<<<<< HEAD
-  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config  [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLE
   $ shift-cli deploy
@@ -117,11 +105,7 @@ USAGE
 
 OPTIONS
   -h, --help       show CLI help
-<<<<<<< HEAD
-  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config  [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
   --id=id          Application id (defaults to working directory's deployed application ID)
 
 EXAMPLE
@@ -158,11 +142,7 @@ USAGE
 OPTIONS
   -f, --format=table|json  [default: table] Format output
   -h, --help               show CLI help
-<<<<<<< HEAD
-  --config=config          [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config          [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLE
   $ shift-cli list
@@ -183,11 +163,7 @@ OPTIONS
   -h, --help         show CLI help
   -l, --limit=limit  [default: 500] Limit number of entries shown (cannot exceed 1000).
   -s, --since=since  [default: 1m] Output logs since the given ISO 8601 timestamp or time period.
-<<<<<<< HEAD
-  --config=config    [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config    [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLES
   // retrieve all logs
@@ -223,11 +199,7 @@ ARGUMENTS
 
 OPTIONS
   -h, --help       show CLI help
-<<<<<<< HEAD
-  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config  [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLE
   $ shift-cli try 123
@@ -245,11 +217,7 @@ USAGE
 
 OPTIONS
   -h, --help       show CLI help
-<<<<<<< HEAD
-  --config=config  [default: /Users/bergundy/.shiftjs/shiftjs.config.yml]
-=======
   --config=config  [default: /Users/ariels/.shiftjs/shiftjs.config.yml]
->>>>>>> rush and oclif file changes
 
 EXAMPLE
   $ shift-cli whoami
