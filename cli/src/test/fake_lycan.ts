@@ -8,6 +8,7 @@ import { mkdir, mkdtemp , realpath, writeFile } from 'mz/fs';
 import { env as processEnv } from 'process';
 import * as path from 'path';
 import { remove } from 'fs-extra';
+import shellEscape from 'any-shell-escape';
 
 export interface Context {
   shell: Shell;
@@ -26,7 +27,7 @@ export interface Context {
 export function addFake<C extends Context>(test: TestInterface<C>) {
   test.before(async (t) => {
     // Quoted in case dirname includes spaces etc.
-    t.context.run = `'${path.resolve(__dirname, '../..', 'bin/run')}'`;
+    t.context.run = shellEscape(path.resolve(__dirname, '../..', 'bin/run'));
     t.context.configDir = await realpath(await mkdtemp(path.join(tmpdir(), 'dot-shiftjs-'), 'utf8'));
     // On MacOS temporary directories hide behind multiple symlinks,
     // the upwards search for a package.json fails if we don't resolve
@@ -75,7 +76,7 @@ projects:
         SHIFTJS_CONFIG: t.context.configPath,
         SHIFTJS_API_ENDPOINT: t.context.lycanUrl,
       }});
-    t.assert(success(await t.context.shell.run(`cd ${t.context.projectDir}`, 'utf-8')));
+    t.assert(success(await t.context.shell.run(`cd ${shellEscape(t.context.projectDir)}`, 'utf-8')));
   });
 
   // tslint:disable-next-line strict-boolean-expressions (server not set until late in beforeEach)
