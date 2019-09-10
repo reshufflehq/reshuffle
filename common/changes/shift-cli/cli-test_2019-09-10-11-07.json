@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Add initial component tests to CLI",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "ariels@shiftjs.com"
+}
