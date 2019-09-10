@@ -45,7 +45,7 @@ projects:
     await writeFile(path.join(t.context.projectDir, 'package.json'), '');
   });
 
-  test.after(async (t) => {
+  test.after.always(async (t) => {
     await remove(t.context.configDir);
   });
 
@@ -75,8 +75,8 @@ projects:
         SHIFTJS_CONFIG: t.context.configPath,
         SHIFTJS_API_ENDPOINT: t.context.lycanUrl,
       }});
-    t.assert(success(await t.context.shell.run(`cd ${t.context.projectDir}`)));
+    t.assert(success(await t.context.shell.run(`cd ${t.context.projectDir}`, 'utf-8')));
   });
 
-  test.afterEach((t) => { t.context.server.close(); });
+  test.afterEach.always((t) => { if (t.context.server) t.context.server.close(); });
 }
