@@ -13,3 +13,10 @@ export async function update(key, value) {
 export async function get(key) {
   return db.get(key);
 }
+
+/**
+ * @expose
+ */
+export async function getSecret() {
+  return process.env.MY_SECRET;
+}
