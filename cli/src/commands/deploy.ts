@@ -6,8 +6,8 @@ import tar from 'tar';
 import terminalLink from 'terminal-link';
 import fetch from 'node-fetch';
 import shellEcape from 'any-shell-escape';
+import prompts from 'prompts';
 import { spawn } from '@binaris/utils-subprocess';
-import { LycanClient } from '@binaris/spice-node-client';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import { getDependencies } from '../utils/getdeps';
@@ -18,8 +18,25 @@ import {
   Project,
 } from '../utils/helpers';
 
+// TODO: test flows:
+// * no project associated and no apps deployed deploys a new app and associates directory
+// * no project associated and 1 app deployed
+//   prompts user to select app and deploys to selected app and associates directory
+// * no project associated and 1 app deployed
+//   prompts user to select app and deploys new of new app selected and associates directory
+// * no project associated and 1 app deployed prompts user to select app and exits when user aborts (Ctrl-C)
+// * project associated deploys to associated app
+// * project associated and deploy fails shows meaningful message
+//
+// TODO: add --app-id and --env flags to bypass app association mechanism
+
 function escapeWin32(filePath: string) {
   return process.platform === 'win32' ? shellEcape(filePath) : filePath;
+}
+
+function makeAppLink(app: Application) {
+  const domain = app.environments[0].domains[0].name;
+  return terminalLink(domain, `https://${domain}`, { fallback: (_, url) => url });
 }
 
 export default class Deploy extends Command {
@@ -122,9 +139,38 @@ export default class Deploy extends Command {
     return digest;
   }
 
+  public async selectApplicationForProject(): Promise<string | undefined> {
+    const NEW_APPLICATION = '__new_application__';
+
+    const apps = await this.lycanClient.listApps();
+    if (apps.length === 0) {
+      return undefined;
+    }
+    const { value } = await prompts({
+      type: 'select',
+      name: 'value',
+      message: 'Select target',
+      choices: apps.map((app) => ({
+        // TODO: Decide on format
+        title: `${app.name} at ${makeAppLink(app)} (last deployed: ${app.updatedAt.toISOString()})`,
+        value: app.id,
+      })).concat({
+        title: 'Create new app',
+        value: NEW_APPLICATION,
+      }),
+      initial: 0,
+    });
+    if (value === undefined) {
+      this.error('No option selected');
+    }
+    return value === NEW_APPLICATION ? undefined : value;
+  }
+
   public async run() {
     this.parse(Deploy);
     await this.authenticate();
+    await this.selectApplicationForProject();
+
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
     const projects = this.conf.get('projects') as Project[] | undefined || [];
@@ -142,14 +188,26 @@ export default class Deploy extends Command {
       await remove(stagingDir);
     }
 
-    const client = new LycanClient(this.apiEndpoint, { headers: this.apiHeaders });
     const env = 'default'; // hardcoded for now
-    const project = projects.find(({ directory }) => directory === projectDir);
+    let project = projects.find(({ directory }) => directory === projectDir);
+
     let application: Application;
+    if (!project) {
+      const applicationId = await this.selectApplicationForProject();
+      if (applicationId !== undefined) {
+        project = {
+          directory: projectDir,
+          applicationId,
+          defaultEnv: env,
+        };
+        projects.push(project);
+        this.conf.set('projects', projects);
+      }
+    }
+
     this.log('Preparing your cloud deployment! This may take a few moments, please wait');
     if (!project) {
-      // TODO: there might already be an application with this name and will result in an error, handle this
-      application = await client.deployInitial(env, pkg.name, digest, envVars);
+      application = await this.lycanClient.deployInitial(env, pkg.name, digest, envVars);
       projects.push({
         directory: projectDir,
         applicationId: application.id,
@@ -158,10 +216,8 @@ export default class Deploy extends Command {
       this.conf.set('projects', projects);
     } else {
       const { applicationId, defaultEnv } = project;
-      application = await client.deploy(applicationId, defaultEnv, digest, envVars);
+      application = await this.lycanClient.deploy(applicationId, defaultEnv, digest, envVars);
     }
-    const domain = application.environments[0].domains[0].name;
-    const link = terminalLink(domain, `https://${domain}`, { fallback: (_, url) => url });
-    this.log(`Project successfully deployed! Your project is now available at: ${link}`);
+    this.log(`Project successfully deployed! Your project is now available at: ${makeAppLink(application)}`);
   }
 }
