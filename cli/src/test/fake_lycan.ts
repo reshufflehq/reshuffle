@@ -7,6 +7,10 @@ import { tmpdir } from 'os';
 import { mkdir, mkdtemp , realpath, writeFile } from 'mz/fs';
 import { env as processEnv } from 'process';
 import * as path from 'path';
+import rimrafCb = require('rimraf');
+import { promisify } from 'util';
+
+const rimraf = promisify(rimrafCb);
 
 export interface Context {
   shell: Shell;
@@ -42,7 +46,10 @@ projects:
     await mkdir(t.context.projectDir);
     // CLI only needs package.json to mark a project root.
     await writeFile(path.join(t.context.projectDir, 'package.json'), '');
-    // BUG(ariels): Delete in test.after!
+  });
+
+  test.after(async (t) => {
+    await rimraf(t.context.configDir);
   });
 
   test.serial.beforeEach(async (t) => {
