@@ -1,3 +1,4 @@
+import { promisify } from 'util';
 import { resolve as resolvePath, relative as relativePath, extname, isAbsolute } from 'path';
 import { Handler as DBHandler } from '@binaris/shift-leveldb-server';
 import { DBRouter } from '@binaris/shift-interfaces-koa-server';
@@ -5,7 +6,7 @@ import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
-import { mkdtempSync } from 'fs';
+import { mkdtempSync, readFile } from 'fs';
 import * as rimraf from 'rimraf';
 import babelDir from '@babel/cli/lib/babel/dir';
 import { AddressInfo } from 'net';
@@ -15,6 +16,7 @@ import nanoid from 'nanoid';
 import mkdirp from 'mkdirp';
 import { copy } from 'fs-extra';
 import env from 'env-var';
+import dotenv from 'dotenv';
 
 const basePath = env.get('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH').required().asString();
 const localToken = env.get('SHIFT_DEV_SERVER_LOCAL_TOKEN').required().asString();
@@ -25,7 +27,23 @@ if (!isAbsolute(basePath)) {
   throw new Error('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH env var is not an absolute path');
 }
 
-function setupEnv({ port }: { port: number }) {
+async function loadDotEnv() {
+  const envFile = resolvePath(basePath, '.env');
+  try {
+    const content = await promisify(readFile)(envFile);
+    const parsed = dotenv.parse(content);
+    for (const [k, v] of Object.entries(parsed)) {
+      process.env[k] = v;
+    }
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      throw err;
+    }
+  }
+}
+
+async function setupEnv({ port }: { port: number }) {
+  await loadDotEnv();
   process.env.SHIFT_DB_BASE_URL = `http://localhost:${port}`;
   process.env.SHIFT_APPLICATION_ID = 'local-app';
   process.env.SHIFT_APPLICATION_ENV = 'local';
@@ -198,9 +216,9 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 const server = http.createServer(app.callback());
-server.listen(0, '127.0.0.1', () => {
+server.listen(0, '127.0.0.1', async () => {
   const { port } = server.address() as AddressInfo;
-  setupEnv({ port });
+  await setupEnv({ port });
   // Environment variables are set, can load whitelisted modules.
   whitelisted.loadModules();
   if (process.send) process.send({ type: 'ready', port });
