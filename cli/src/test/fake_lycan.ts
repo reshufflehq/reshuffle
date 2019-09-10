@@ -7,10 +7,7 @@ import { tmpdir } from 'os';
 import { mkdir, mkdtemp , realpath, writeFile } from 'mz/fs';
 import { env as processEnv } from 'process';
 import * as path from 'path';
-import rimrafCb = require('rimraf');
-import { promisify } from 'util';
-
-const rimraf = promisify(rimrafCb);
+import { remove } from 'fs-extra';
 
 export interface Context {
   shell: Shell;
@@ -49,7 +46,7 @@ projects:
   });
 
   test.after(async (t) => {
-    await rimraf(t.context.configDir);
+    await remove(t.context.configDir);
   });
 
   test.serial.beforeEach(async (t) => {
