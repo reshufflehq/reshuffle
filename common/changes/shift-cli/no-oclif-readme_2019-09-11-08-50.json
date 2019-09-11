@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "shift-cli",
+      "comment": "Don't generate README with oclif",
+      "type": "patch"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "roey@reshuffle.com"
+}
