@@ -63,17 +63,17 @@ export default abstract class BaseCommand extends Command {
     help: flags.help({ char: 'h' }),
     config: flags.string({
       default: userConfig.defaultLocation,
-      env: 'SHIFTJS_CONFIG',
+      env: 'RESHUFFLE_CONFIG',
     }),
     apiEndpoint: flags.string({
-      default: 'https://api.shiftjs.com/public/v1',
+      default: 'https://api.reshuffle.com/public/v1',
       hidden: true,
-      env: 'SHIFTJS_API_ENDPOINT',
+      env: 'RESHUFFLE_API_ENDPOINT',
     }),
     webAppLoginUrl: flags.string({
-      default: 'https://app.shiftjs.com/cli-login',
+      default: 'https://app.reshuffle.com/cli-login',
       hidden: true,
-      env: 'SHIFTJS_WEBAPP_LOGIN_URL',
+      env: 'RESHUFFLE_WEBAPP_LOGIN_URL',
     }),
   };
 
