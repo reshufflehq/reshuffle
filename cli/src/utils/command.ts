@@ -97,10 +97,7 @@ export default abstract class BaseCommand extends Command {
 
   public async catch(err: Error) {
     if (err instanceof ValidationError) {
-      this.error(
-        `Failed to communicate with server: ${err.message}.  Please run "npm update -g shift-cli".`,
-        { exit: 7 },
-      );
+      this.error(`Failed to communicate with server: ${err.message}.`, { exit: 7 });
     }
     throw err;
   }
