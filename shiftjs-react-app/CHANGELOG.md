@@ -1,6 +1,13 @@
 # Change Log - @binaris/shiftjs-react-app
 
-This log was last generated on Wed, 28 Aug 2019 19:29:46 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2019 08:36:27 GMT and should not be manually modified.
+
+## 0.0.8
+Wed, 11 Sep 2019 08:36:27 GMT
+
+### Patches
+
+- Remove @binaris/shift-leveldb-server as direct dependency
 
 ## 0.0.7
 Wed, 28 Aug 2019 19:29:46 GMT

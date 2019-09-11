@@ -2,6 +2,18 @@
   "name": "@binaris/shiftjs-react-app",
   "entries": [
     {
+      "version": "0.0.8",
+      "tag": "@binaris/shiftjs-react-app_v0.0.8",
+      "date": "Wed, 11 Sep 2019 08:36:27 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove @binaris/shift-leveldb-server as direct dependency"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.7",
       "tag": "@binaris/shiftjs-react-app_v0.0.7",
       "date": "Wed, 28 Aug 2019 19:29:46 GMT",

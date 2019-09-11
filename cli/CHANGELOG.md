@@ -1,6 +1,17 @@
 # Change Log - shift-cli
 
-This log was last generated on Mon, 09 Sep 2019 08:44:23 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2019 08:36:27 GMT and should not be manually modified.
+
+## 0.2.1
+Wed, 11 Sep 2019 08:36:27 GMT
+
+### Patches
+
+- Add initial component tests to CLI
+- Diagnose bad server responses, avoid confusing Error dump
+- Add dir->app selection for deploy
+- Allow deploy from a path with spaces
+- Fix deploy staging dir to use mkdtemp
 
 ## 0.2.0
 Mon, 09 Sep 2019 08:44:23 GMT

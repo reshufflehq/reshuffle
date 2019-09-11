@@ -2,6 +2,30 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.2.1",
+      "tag": "shift-cli_v0.2.1",
+      "date": "Wed, 11 Sep 2019 08:36:27 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add initial component tests to CLI"
+          },
+          {
+            "comment": "Diagnose bad server responses, avoid confusing Error dump"
+          },
+          {
+            "comment": "Add dir->app selection for deploy"
+          },
+          {
+            "comment": "Allow deploy from a path with spaces"
+          },
+          {
+            "comment": "Fix deploy staging dir to use mkdtemp"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.0",
       "tag": "shift-cli_v0.2.0",
       "date": "Mon, 09 Sep 2019 08:44:23 GMT",
