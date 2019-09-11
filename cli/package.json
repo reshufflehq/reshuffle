@@ -35,11 +35,10 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -c ../common/tslint.yml -p . -t stylish",
-    "prepack": "rm -rf lib && tsc && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf lib && tsc && oclif-dev manifest",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "ava lib/test/**.spec.js lib/test/**.test.js",
-    "build": "npm run prepack",
-    "version": "oclif-dev readme && git add README.md"
+    "build": "npm run prepack"
   },
   "types": "lib/index.d.ts",
   "dependencies": {
