@@ -28,7 +28,7 @@ test('cli with no args and cli help and cli --help give same output', async (t) 
 // TODO(arik): Do we want to enforce a particular order?
 test('cli with no args lists all commands', async (t) => {
   const expectedCommands = new Set([
-    'browse', 'claim', 'deploy', 'destroy', 'help', 'list', 'logs', 'try', 'whoami',
+    'browse', 'claim', 'deploy', 'destroy', 'download', 'help', 'list', 'logs', 'try', 'whoami',
   ]);
   const shell = new Shell();
   const { out } = await shell.run('./bin/run', 'utf-8');

@@ -4,7 +4,7 @@ dependencies:
   '@babel/parser': 7.6.0
   '@babel/plugin-transform-modules-commonjs': 7.6.0
   '@babel/types': 7.6.1
-  '@binaris/shift-interfaces-node-client': 0.3.0
+  '@binaris/shift-interfaces-koa-server': 0.4.0
   '@binaris/spice-koa-server': 0.0.2
   '@binaris/spice-node-client': 0.0.2-rc.20
   '@oclif/command': 1.5.19
@@ -56,6 +56,7 @@ dependencies:
   '@types/nanoid': 2.0.0
   '@types/prompts': 2.0.1
   '@types/react': 16.9.2
+  '@types/request': 2.48.3
   '@types/rimraf': 2.0.2
   '@types/rmfr': 2.0.0
   '@types/sinon': 7.0.13
@@ -109,6 +110,7 @@ dependencies:
   prompts: 2.2.1
   ramda: 0.26.1
   react: 16.9.0
+  request: 2.88.0
   rimraf: 2.7.1
   rmfr: 2.0.0
   rxjs: 6.5.3
@@ -483,6 +485,55 @@ packages:
     dev: false
     resolution:
       integrity: sha512-X7gdiuaCmA0uRjCmRtYJNAVCc/q+5xSgsfKJHqMN4iNLILX39677fJE1O40arPMh0TTtS9ItH67yre6c7k6t0g==
+  /@binaris/shift-interfaces-koa-server/0.4.0:
+    dependencies:
+      '@types/koa': 2.0.49
+      '@types/koa-bodyparser': 5.0.2
+      '@types/koa-router': 7.0.35
+      ajv: 6.10.2
+      koa: 2.8.1
+      koa-bodyparser: 4.2.1
+      koa-router: 7.4.0
+      lodash: 4.17.15
+    dev: false
+    peerDependencies:
+      '@types/node': '>=8.0.0'
+    resolution:
+      integrity: sha512-RJCwZVcHabvM5zGflwFJ5TmjZPdUOsV+npgfJ798VupCHBa2aKqU6qZvQx7OFyPtv7jFFLmCmynXKcULZS9+dw==
+  /@binaris/shift-interfaces-koa-server/0.4.0/@types!node@10.14.18:
+    dependencies:
+      '@types/koa': 2.0.49
+      '@types/koa-bodyparser': 5.0.2
+      '@types/koa-router': 7.0.35
+      '@types/node': 10.14.18
+      ajv: 6.10.2
+      koa: 2.8.1
+      koa-bodyparser: 4.2.1
+      koa-router: 7.4.0
+      lodash: 4.17.15
+    dev: false
+    id: registry.npmjs.org/@binaris/shift-interfaces-koa-server/0.4.0
+    peerDependencies:
+      '@types/node': '>=8.0.0'
+    resolution:
+      integrity: sha512-RJCwZVcHabvM5zGflwFJ5TmjZPdUOsV+npgfJ798VupCHBa2aKqU6qZvQx7OFyPtv7jFFLmCmynXKcULZS9+dw==
+  /@binaris/shift-interfaces-koa-server/0.4.0/@types!node@12.7.5:
+    dependencies:
+      '@types/koa': 2.0.49
+      '@types/koa-bodyparser': 5.0.2
+      '@types/koa-router': 7.0.35
+      '@types/node': 12.7.5
+      ajv: 6.10.2
+      koa: 2.8.1
+      koa-bodyparser: 4.2.1
+      koa-router: 7.4.0
+      lodash: 4.17.15
+    dev: false
+    id: registry.npmjs.org/@binaris/shift-interfaces-koa-server/0.4.0
+    peerDependencies:
+      '@types/node': '>=8.0.0'
+    resolution:
+      integrity: sha512-RJCwZVcHabvM5zGflwFJ5TmjZPdUOsV+npgfJ798VupCHBa2aKqU6qZvQx7OFyPtv7jFFLmCmynXKcULZS9+dw==
   /@binaris/shift-interfaces-node-client/0.3.0:
     dependencies:
       '@types/node-fetch': 2.5.0
@@ -493,6 +544,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-m1OcbpeZFzJiTPI4eS8n6GgcQFDYK34fMtUVY6sJM/5z7+WtLuysduwaaYD2BMXBncVFP+kcHQzBbZjk+to9og==
+  /@binaris/shift-interfaces-node-client/0.4.0:
+    dependencies:
+      '@types/node-fetch': 2.5.0
+      abort-controller: 2.0.3
+      ajv: 6.10.2
+      lodash: 4.17.15
+      node-fetch: 2.6.0
+    dev: false
+    resolution:
+      integrity: sha512-pMckTVhTlUIOzfcwU0fCWda6Fo0CXDf15GcqG3mLXk8y2w7baAiIA4hHB4TSsnV0Q5Ueox9Q/gn2pgJ1HI03Nw==
   /@binaris/spice-koa-server/0.0.2:
     dependencies:
       '@types/koa': 2.0.49
@@ -1015,6 +1076,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-YiozPOOsS6bIuz31ilYqR5SlLif4TBWsousN2aCWLi5233nZSX19tFbcQUPdR7xJ8ypPyxkCGNxg0CIV5n9qxQ==
+  /@types/caseless/0.12.2:
+    dev: false
+    resolution:
+      integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
   /@types/connect/3.4.32:
     dependencies:
       '@types/node': 12.7.5
@@ -1288,6 +1353,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-jYP2LWwlh+FTqGd9v7ynUKZzjj98T8x7Yclz479QdRhHfuW9yQ+0jjnD31eXSXutmBpppj5PYNLYLRfnZJvcfg==
+  /@types/request/2.48.3:
+    dependencies:
+      '@types/caseless': 0.12.2
+      '@types/node': 12.7.5
+      '@types/tough-cookie': 2.3.5
+      form-data: 2.5.1
+    dev: false
+    resolution:
+      integrity: sha512-3Wo2jNYwqgXcIz/rrq18AdOZUQB8cQ34CXZo+LUwPJNpvRAL86+Kc2wwI8mqpz9Cr1V+enIox5v+WZhy/p3h8w==
   /@types/rimraf/2.0.2:
     dependencies:
       '@types/glob': 7.1.1
@@ -9451,6 +9525,7 @@ packages:
       '@types/node': 10.14.18
       '@types/node-fetch': 2.5.0
       '@types/prompts': 2.0.1
+      '@types/request': 2.48.3
       '@types/tar': 4.0.3
       '@types/validator': 10.11.3
       any-shell-escape: 0.1.1
@@ -9470,6 +9545,7 @@ packages:
       node-fetch: 2.6.0
       open: 6.4.0
       prompts: 2.2.1
+      request: 2.88.0
       specshell: 0.0.2
       tar: 4.4.10
       terminal-link: 1.3.0
@@ -9482,7 +9558,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-HcB+WEhp3IWNHYP9p+Xeio+C7nFg9B0M6Y6st3A2yMUbTCMpiu9RkkgR91DXaIGRGIHYdYD7W6ahoXgebkQsMw==
+      integrity: sha512-1Awn2DVdCgxyUhT0miAkZX2P7DrUVLx3ILSCMzq7GMyQC7iJO0hiNuGtJFLP6QGiWCs8m9YjbZUGSIaeqN/yeQ==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9506,6 +9582,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-db-testsuite.tgz':
     dependencies:
+      '@binaris/shift-interfaces-koa-server': /@binaris/shift-interfaces-koa-server/0.4.0/@types!node@12.7.5
       '@types/koa': 2.0.49
       '@types/koa-router': 7.0.42
       '@types/nanoid': 2.0.0
@@ -9521,11 +9598,12 @@ packages:
     dev: false
     name: '@rush-temp/shift-db-testsuite'
     resolution:
-      integrity: sha512-2F8LtEa3p3RWIIz0AtUgyBaiIHghXWpgrlR91rT7UuqFzG4yptXZqHPHT8UwS35hcLYjvtupQAvfBLfw8pZkvg==
+      integrity: sha512-XrO64K0/sWu1oT3+tBzx3bhV7voTCyIX4c8e0kFQ+uD26Zg0UruQHSKIYhPNsxNMlF6C2Dk/MSo8zuG6ORJKUA==
       tarball: 'file:projects/shift-db-testsuite.tgz'
     version: 0.0.0
   'file:projects/shift-db.tgz':
     dependencies:
+      '@binaris/shift-interfaces-node-client': 0.4.0
       '@types/deep-freeze': 0.1.2
       '@types/node': 12.7.5
       '@types/ramda': 0.26.21
@@ -9535,7 +9613,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-db'
     resolution:
-      integrity: sha512-WrzmkWBTxdUBRqXrXYxdMdQIPxKY2+IBZoeFP4jFj7B94/Qv2TAcYroipQ8mIJejqCYM8D7kTYlXWW0bLfXr1w==
+      integrity: sha512-SzxxEsYJiIdBhZfclANbOBh43F1M41djTHCxSVnBZzLsxjgelG0K8LA8atXeMtMb5M6QZEuQfJU49Qts/83gLQ==
       tarball: 'file:projects/shift-db.tgz'
     version: 0.0.0
   'file:projects/shift-fetch-runtime.tgz':
@@ -9598,6 +9676,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-leveldb-server.tgz':
     dependencies:
+      '@binaris/shift-interfaces-koa-server': /@binaris/shift-interfaces-koa-server/0.4.0/@types!node@10.14.18
       '@types/deep-freeze': 0.1.2
       '@types/koa': 2.0.49
       '@types/leveldown': 4.0.0
@@ -9621,7 +9700,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-leveldb-server'
     resolution:
-      integrity: sha512-LzPHucPENSCjuK03o+7b3ubIodymCmdzkuA6nKWUkEokppzKdDDh4H2IOdNEFYH/1A9WzaRfHTAvMgr+h+FFOw==
+      integrity: sha512-juRvZ0IehJoc7CSY2G5lurx01Fyx5co6MRy/M6kH7Xk13+aKE0PXK/oCGldcwBRkJkb++L4HtKjUJrTqPGNtyA==
       tarball: 'file:projects/shift-leveldb-server.tgz'
     version: 0.0.0
   'file:projects/shift-local-proxy.tgz':
@@ -9629,6 +9708,7 @@ packages:
       '@babel/cli': /@babel/cli/7.6.0/@babel!core@7.6.0
       '@babel/core': 7.6.0
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.6.0/@babel!core@7.6.0
+      '@binaris/shift-interfaces-koa-server': /@binaris/shift-interfaces-koa-server/0.4.0/@types!node@10.14.18
       '@types/babel__core': 7.1.3
       '@types/bunyan': 1.8.6
       '@types/dotenv': 6.1.1
@@ -9668,7 +9748,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-j1WS226Slf+IfXiJ31EAACxIKxQdh2+DYPBRa995tVk7lnsIg7VqbXngIklY0TXeBnjclCL17YxxY5m8ZS9dmA==
+      integrity: sha512-2hqlOsoRDWAwoPKNKVDFZ7QWmSVIrfEZAe7qTRki2ZUun08OmPWss1SqLW6IC/H0K/V0vLcFwQTHMD4hzSNhxg==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
@@ -9744,7 +9824,7 @@ specifiers:
   '@babel/parser': ^7.5.5
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
-  '@binaris/shift-interfaces-node-client': 0.3.0
+  '@binaris/shift-interfaces-koa-server': 0.4.0
   '@binaris/spice-koa-server': ^0.0.2
   '@binaris/spice-node-client': 0.0.2-rc.20
   '@oclif/command': ^1.5.18
@@ -9796,6 +9876,7 @@ specifiers:
   '@types/nanoid': ^2.0.0
   '@types/prompts': ^2.0.1
   '@types/react': ^16.8.24
+  '@types/request': ^2.48.3
   '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
   '@types/sinon': ^7.0.13
@@ -9849,6 +9930,7 @@ specifiers:
   prompts: ^2.2.1
   ramda: ^0.26.1
   react: ^16.8.6
+  request: ^2.88.0
   rimraf: ^2.6.3
   rmfr: ^2.0.0
   rxjs: ^6.5.2
