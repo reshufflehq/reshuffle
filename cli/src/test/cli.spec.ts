@@ -53,7 +53,7 @@ test('cli does not login if provided config with authToken', async (t) => {
   try {
     const confPath = path.join(confDir, 'conf.yml');
     await writeJson(confPath, { accessToken: 'test' });
-    const shell = new Shell(undefined, { env: { ...processEnv, SHIFTJS_CONFIG: confPath } });
+    const shell = new Shell(undefined, { env: { ...processEnv, RESHUFFLE_CONFIG: confPath } });
     const { out, err, ...status } = await shell.run('./bin/run login --no-refetch', 'utf-8');
     t.true(success(status));
     t.is(err, '');
