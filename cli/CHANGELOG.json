@@ -2,6 +2,18 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.2.2",
+      "tag": "shift-cli_v0.2.2",
+      "date": "Wed, 11 Sep 2019 09:03:27 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Don't generate README with oclif"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.1",
       "tag": "shift-cli_v0.2.1",
       "date": "Wed, 11 Sep 2019 08:36:27 GMT",

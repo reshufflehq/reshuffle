@@ -1,6 +1,13 @@
 # Change Log - shift-cli
 
-This log was last generated on Wed, 11 Sep 2019 08:36:27 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2019 09:03:27 GMT and should not be manually modified.
+
+## 0.2.2
+Wed, 11 Sep 2019 09:03:27 GMT
+
+### Patches
+
+- Don't generate README with oclif
 
 ## 0.2.1
 Wed, 11 Sep 2019 08:36:27 GMT
