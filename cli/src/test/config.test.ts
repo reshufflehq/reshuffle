@@ -6,6 +6,6 @@ import { defaultLocation, deconstruct } from '../utils/user-config';
 test('userConfig.deconstruct for defaultLocation returns expected values', (t) => {
   const { fileExtension, configName, cwd } = deconstruct(defaultLocation);
   t.is(cwd, join(homedir(), '.reshuffle'));
-  t.is(configName, 'reshuffle.config');
+  t.is(configName, 'config');
   t.is(fileExtension, 'yml');
 });
