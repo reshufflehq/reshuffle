@@ -20,3 +20,7 @@ export async function get(key) {
 export async function getSecret() {
   return process.env.MY_SECRET;
 }
+
+export async function hack() {
+  return 'HACKED';
+}

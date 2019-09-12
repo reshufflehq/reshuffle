@@ -1,10 +1,13 @@
 import fs from 'mz/fs';
 import { Server } from './index';
-import { resolve as pathResolve } from 'path';
+import { resolve as pathResolve, relative as relativePath } from 'path';
 import { BinarisFunction, FunctionContext } from './binaris';
 
 const allowedHosts = (process.env.SHIFT_APPLICATION_DOMAINS || '').split(',');
-const shiftServer = new Server({ directory: './build', allowedHosts });
+
+const backendDir = pathResolve('./backend');
+const buildDir = pathResolve('./build');
+const shiftServer = new Server({ directory: buildDir, allowedHosts });
 
 interface InvokeRequest {
   path: string;
@@ -46,9 +49,28 @@ export const handler: BinarisFunction = async (body, ctx) => {
         });
       }
       const { path, handler: fnHandler, args } = body;
-      const joinedDir = pathResolve('./backend', path);
+      const joinedDir = pathResolve(backendDir, path);
+      if (relativePath(backendDir, joinedDir).startsWith('..')) {
+        return new ctx.HTTPResponse({
+          statusCode: 403,
+          body: JSON.stringify({
+            error: `Cannot reference path outside of root dir: ${path}`,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
       const mod = require(joinedDir);
       const fn = mod[fnHandler];
+      // Cast to any so typescript doesn't complain against accessing __shiftjs__ on a function
+      if (!(typeof fn === 'function' && (fn as any).__shiftjs__ && (fn as any).__shiftjs__.exposed)) {
+        return new ctx.HTTPResponse({
+          statusCode: 403,
+          body: JSON.stringify({
+            error: `Cannot invoke ${path}.${fnHandler} - not an exposed function`,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
       const response = await fn(...args);
       if (response === undefined) {
         return new ctx.HTTPResponse({ statusCode: 204 });

@@ -104,7 +104,7 @@ dependencies:
   ms: 2.1.2
   mz: 2.7.0
   nodemon: 1.19.2
-  npm-check-updates: 3.1.22
+  npm-check-updates: 3.1.23
   open: 6.4.0
   prompts: 2.2.1
   ramda: 0.26.1
@@ -6307,7 +6307,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-8/JCaftHwbd//k6y2rEWp6k1wxVfpFzB6t1p825+cUb7Ym2XQfhwIC5KwhrvzZRJu+LtDE585zVaS32+CGtf0g==
-  /npm-check-updates/3.1.22:
+  /npm-check-updates/3.1.23:
     dependencies:
       chalk: 2.4.2
       cint: 8.2.1
@@ -6334,7 +6334,7 @@ packages:
       node: '>=8'
     hasBin: true
     resolution:
-      integrity: sha512-glG2ui4bM6fbPJCnUmuhaZVRTU77xqJQmFnSqeINQI2k/Vo2jiuOLpbvGTEQ4s7a/E2Gv0Ze7+qm5iPeWzl0XA==
+      integrity: sha512-Z2dkMdNgue6OPkQDPcAK62Qrwv+G1PaEmKrDrrSAiSP7pRD3u30xOVy1nLukS1XrJ2/zF8XTVxFe9/ubcvlcPQ==
   /npm-package-arg/6.1.1:
     dependencies:
       hosted-git-info: 2.8.4
@@ -9428,7 +9428,7 @@ packages:
       '@types/yargs': 13.0.2
       jju: 1.4.0
       lodash.once: 4.1.1
-      npm-check-updates: 3.1.22
+      npm-check-updates: 3.1.23
       tslint: /tslint/5.20.0/typescript@3.6.3
       typescript: 3.6.3
       yargs: 13.3.0
