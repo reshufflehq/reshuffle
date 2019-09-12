@@ -1,6 +1,13 @@
 # Change Log - shift-cli
 
-This log was last generated on Wed, 11 Sep 2019 09:03:27 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Sep 2019 07:39:08 GMT and should not be manually modified.
+
+## 0.2.3
+Thu, 12 Sep 2019 07:39:08 GMT
+
+### Patches
+
+- Use reshuffle domain
 
 ## 0.2.2
 Wed, 11 Sep 2019 09:03:27 GMT

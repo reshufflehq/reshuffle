@@ -1,7 +1,7 @@
 {
   "name": "shift-cli",
   "description": "ShiftJS CLI Tool",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "arikmaor @arikmaor",
   "bin": {
     "shift-cli": "./bin/run"

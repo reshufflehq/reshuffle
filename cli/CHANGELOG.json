@@ -2,6 +2,18 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.2.3",
+      "tag": "shift-cli_v0.2.3",
+      "date": "Thu, 12 Sep 2019 07:39:08 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use reshuffle domain"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.2",
       "tag": "shift-cli_v0.2.2",
       "date": "Wed, 11 Sep 2019 09:03:27 GMT",
