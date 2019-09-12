@@ -61,6 +61,7 @@ export default class Deploy extends Command {
         // arguments are constant strings
         shell: process.platform === 'win32',
       });
+      this.log('Preparing backend...');
       const deps = await getDependencies(projectDir);
       for (const dep of deps) {
         const source = pathResolve(projectDir, 'node_modules', dep);
