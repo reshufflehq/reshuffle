@@ -79,8 +79,8 @@ export default class Deploy extends Command {
 
       await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
         '--plugins',
-        '@babel/plugin-transform-modules-commonjs',
-        // TODO: include shift-backend plugin?
+        ['@babel/plugin-transform-modules-commonjs',
+          'module:@binaris/shift-code-transform'].join(','),
         'backend/',
         '-d',
         escapeWin32(pathResolve(stagingDir, 'backend')),

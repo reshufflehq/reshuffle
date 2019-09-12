@@ -100,7 +100,10 @@ async function transpileAndCopy() {
     },
     babelOptions: {
       sourceMaps: true,
-      plugins: ['@babel/plugin-transform-modules-commonjs'],
+      plugins: [
+        '@babel/plugin-transform-modules-commonjs',
+        'module:@binaris/shift-code-transform',
+      ],
     },
   });
   await copy(basePath, tmpDir, {
@@ -168,8 +171,15 @@ router.post('/invoke', async (ctx) => {
       }
       const mod = require(joinedDir);
       fn = mod[handler];
+      // Cast to any so typescript doesn't complain against accessing __shiftjs__ on a function
+      if (!(typeof fn === 'function' && (fn as any).__shiftjs__ && (fn as any).__shiftjs__.exposed)) {
+        ctx.status = 403;
+        ctx.response.body = {
+          error: `Cannot invoke ${path}.${handler} - not an exposed function`,
+        };
+        return;
+      }
     }
-    // TODO: check function is exposed
     const ret = await fn(...args);
     // Not logging args to avoid sensitive info log (?)
     reportInvocationDurationUs(startHrtime, requestId, { path, handler });
