@@ -23,7 +23,7 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
-  'shift-cli':
+  '@reshuffle/*':
     access: $all
     publish: $all
   '@binaris/*':

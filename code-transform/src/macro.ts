@@ -57,9 +57,9 @@ function findExportedMethods(ast: babelTypes.File, { types: t }: MacrosBabel, im
   }, []);
 }
 
-function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBabel }) {
+function exposeMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBabel }) {
   // not using passed references from arguments since doing whole file pass
-  interface ShiftReplacement {
+  interface ExposeReplacement {
     idx: number;
     names: string[];
     methods: string[];
@@ -68,7 +68,7 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
   const t: typeof babelTypes = babel.types;
   const file: babelTypes.File = state.file.ast;
   const { body } = file.program;
-  const found: ShiftReplacement[] = [];
+  const found: ExposeReplacement[] = [];
   body.forEach((node, idx) => {
     if (t.isImportDeclaration(node)) {
       // skip absolute paths (modules)
@@ -117,7 +117,7 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
         body.splice(idx, 0,
           t.importDeclaration(
             [t.importSpecifier(t.identifier('createRuntime'), t.identifier('createRuntime'))],
-            t.stringLiteral('@binaris/shift-fetch-runtime'),
+            t.stringLiteral('@reshuffle/fetch-runtime'),
           ),
         );
       }
@@ -152,4 +152,4 @@ function shiftMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosBa
   }
 }
 
-module.exports = createMacro(shiftMacro);
+module.exports = createMacro(exposeMacro);

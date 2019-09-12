@@ -1,5 +1,5 @@
 import anyTest, { TestInterface, Macro } from 'ava';
-import { Document, Filter } from '@binaris/shift-interfaces-koa-server/interfaces';
+import { Document, Filter } from '@reshuffle/interfaces-koa-server/interfaces';
 import { set, lensPath } from 'ramda';
 
 type Operator = 'eq' | 'ne' | 'gt' | 'lt' | 'gte' | 'lte';

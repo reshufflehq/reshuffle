@@ -1,4 +1,4 @@
-# Change Log - @binaris/shift-code-transform
+# Change Log - @reshuffle/code-transform
 
 This log was last generated on Thu, 08 Aug 2019 13:53:27 GMT and should not be manually modified.
 

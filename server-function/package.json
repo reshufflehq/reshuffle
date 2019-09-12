@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-server-function",
+  "name": "@reshuffle/server-function",
   "version": "0.0.5",
   "description": "Serving function of static files",
   "main": "dist/index.js",

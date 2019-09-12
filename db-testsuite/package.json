@@ -1,10 +1,10 @@
 {
-  "name": "@binaris/shift-db-testsuite",
+  "name": "@reshuffle/db-testsuite",
   "version": "0.0.2",
   "files": [
     "dist"
   ],
-  "description": "Test suite for shift DB",
+  "description": "Test suite for Reshuffle DB",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -c ../common/tslint.yml -p .",
@@ -13,8 +13,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/shift-db": "0.5.0",
-    "@binaris/shift-interfaces-koa-server": "0.4.0",
+    "@reshuffle/db": "0.5.0",
+    "@reshuffle/interfaces-koa-server": "0.4.0",
     "ava": "^2.3.0",
     "koa": "~2.8.1",
     "koa-router": "~7.4.0",

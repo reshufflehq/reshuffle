@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/utils-subprocess",
+  "name": "@reshuffle/utils-subprocess",
   "version": "0.0.1",
   "files": [
     "dist"

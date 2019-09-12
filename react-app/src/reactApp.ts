@@ -4,17 +4,17 @@ import {
   sanityCheck,
   setupProxy,
   installPackages,
-  ignoreShift,
+  ignoreReshuffle,
 } from './steps';
 
 const steps: Array<(() => Promise<string>) | (() => string) | (() => void)> = [
   sanityCheck,
   setupProxy,
   installPackages,
-  ignoreShift,
+  ignoreReshuffle,
 ];
 
-async function shiftReactApp() {
+async function reactApp() {
   try {
     for (const step of steps) {
       const msg = await step();
@@ -29,4 +29,4 @@ async function shiftReactApp() {
 }
 
 // tslint:disable-next-line:no-floating-promises all rejections handled by process.exit(1)
-shiftReactApp();
+reactApp();

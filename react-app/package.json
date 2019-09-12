@@ -1,24 +1,23 @@
 {
-  "name": "@binaris/shiftjs-react-app",
+  "name": "@reshuffle/react-app",
   "version": "0.0.8",
   "keywords": [
-    "shiftjs",
+    "reshuffle",
     "react"
   ],
-  "description": "Shift React App",
+  "description": "Reshuffle React App",
   "repository": {
     "type": "git",
-    "url": "https://github.com/binaris/shiftjs.git",
-    "directory": "shiftjs-react-app"
+    "url": "https://github.com/reshufflehq/reshuffle.git",
+    "directory": "react-app"
   },
   "bugs": {
-    "url": "https://github.com/binaris/shiftjs/issues"
+    "url": "https://github.com/reshufflehq/reshuffle/issues"
   },
   "bin": {
-    "shiftjs-react-app": "./index.js"
+    "react-app": "./dist/reactApp.js"
   },
   "files": [
-    "index.js",
     "dist/*"
   ],
   "scripts": {

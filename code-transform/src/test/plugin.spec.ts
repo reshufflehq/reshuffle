@@ -3,7 +3,7 @@ import plugin from '../';
 
 pluginTester({
   plugin,
-  pluginName: '@binaris/shift-backend-babel-plugin',
+  pluginName: '@reshuffle/backend-babel-plugin',
   tests: {
     'Mark @exposed functions as exposed': {
       code: `
@@ -17,7 +17,7 @@ pluginTester({
         export async function hello() {
           return 42;
         }
-        hello.__shiftjs__ = {
+        hello.__visibility__ = {
           exposed: true
         };
       `,
@@ -36,7 +36,7 @@ pluginTester({
           return 42;
         }
 
-        hello.__shiftjs__ = {
+        hello.__visibility__ = {
           exposed: true
         };
         exports.hello = hello;

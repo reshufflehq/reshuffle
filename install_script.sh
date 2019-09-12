@@ -7,25 +7,25 @@ if ! grep -q 'react-scripts eject' package.json; then
 fi
 if [ ! -f src/setupProxy.js ]; then
   cat >src/setupProxy.js <<EOF
-const { setupProxy } = require('@binaris/shift-local-proxy');
+const { setupProxy } = require('@reshuffle/local-proxy');
 
 module.exports = setupProxy(__dirname);
 EOF
   echo "Created src/setupProxy.js, please commit this file"
 else
-  echo "src/setupProxy.js exists, can not install shiftjs"
+  echo "src/setupProxy.js exists, can not install Reshuffle"
   exit 1
 fi
-npm i @binaris/shift-local-proxy
-npm i @binaris/shift-babel-macro
-npm i @binaris/shift-fetch-runtime
-npm i @binaris/shift-db
+npm i @reshuffle/local-proxy
+npm i @reshuffle/babel-macro
+npm i @reshuffle/fetch-runtime
+npm i @reshuffle/db
 echo "Modified package.json, please commit this file"
 if [ -f .gitignore ]; then
-  if ! grep -q '^\.shift\*' .gitignore ; then
-    echo '.shift*' >> .gitignore
+  if ! grep -q '^\.reshuffle\*' .gitignore ; then
+    echo '.reshuffle*' >> .gitignore
     echo "Modified .gitignore, please commit this file"
   fi
 else
-  echo ".gitignore not found, not adding .shift* to ignore"
+  echo ".gitignore not found, not adding .reshuffle* to ignore"
 fi

@@ -28,7 +28,7 @@ export function addFake<C extends Context>(test: TestInterface<C>) {
   test.before(async (t) => {
     // Quoted in case dirname includes spaces etc.
     t.context.run = shellEscape(path.resolve(__dirname, '../..', 'bin/run'));
-    t.context.configDir = await realpath(await mkdtemp(path.join(tmpdir(), 'dot-shiftjs-'), 'utf8'));
+    t.context.configDir = await realpath(await mkdtemp(path.join(tmpdir(), 'dot-reshuffle-'), 'utf8'));
     // On MacOS temporary directories hide behind multiple symlinks,
     // the upwards search for a package.json fails if we don't resolve
     // then realpath.

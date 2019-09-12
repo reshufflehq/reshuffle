@@ -4,7 +4,7 @@ import memoize from 'lodash.memoize';
 import Conf from 'conf';
 import { safeDump, safeLoad } from 'js-yaml';
 
-export const defaultLocation = join(homedir(), '.shiftjs', 'shiftjs.config.yml');
+export const defaultLocation = join(homedir(), '.reshuffle', 'config.yml');
 
 export function deconstruct(path: string) {
   const fileExtension = extname(path);

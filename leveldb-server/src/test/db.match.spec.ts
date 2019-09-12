@@ -1,4 +1,4 @@
-import { test } from '@binaris/shift-db-testsuite/dist/match';
+import { test } from '@reshuffle/db-testsuite/dist/match';
 import { testing } from '../db';
 
 const { match } = testing;

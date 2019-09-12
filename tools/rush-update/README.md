@@ -26,7 +26,7 @@ Options:
   --no-pr                  Commit and push to remote but don't create a pull request
 
 # example with rush script
-node common/scripts/install-run.js rush-update@latest -x @types/node --repo-owner binaris --repo-name shiftjs --gh-apikey 1234qweasd --gh-username shift-circleci
+node common/scripts/install-run.js rush-update@latest -x @types/node --repo-owner reshufflehq --repo-name reshuffle --gh-apikey 1234qweasd --gh-username shift-circleci
 ```
 
 ## Usage in CI
@@ -46,7 +46,7 @@ jobs:
             git config user.name "autoupdate"
       - run:
           name: Update npm dependencies
-          command: node common/scripts/install-run.js rush-update@latest rush-update -x @types/node --repo-owner binaris --repo-name shiftjs
+          command: node common/scripts/install-run.js rush-update@latest rush-update -x @types/node --repo-owner reshufflehq --repo-name reshuffle
 workflows:
   version: 2
   nightly:

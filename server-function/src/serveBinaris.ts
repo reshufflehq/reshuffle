@@ -3,11 +3,10 @@ import { Server, getHandler, Handler, HandlerError } from './index';
 import { resolve as pathResolve } from 'path';
 import { BinarisFunction, FunctionContext } from './binaris';
 
-const allowedHosts = (process.env.SHIFT_APPLICATION_DOMAINS || '').split(',');
-
+const allowedHosts = (process.env.RESHUFFLE_APPLICATION_DOMAINS || '').split(',');
 const backendDir = pathResolve('./backend');
 const buildDir = pathResolve('./build');
-const shiftServer = new Server({ directory: buildDir, allowedHosts });
+const server = new Server({ directory: './build', allowedHosts });
 
 interface InvokeRequest {
   path: string;
@@ -34,7 +33,7 @@ function isInvokeRequest(body: unknown, ctx: FunctionContext): body is InvokeReq
 
 export const handler: BinarisFunction = async (body, ctx) => {
   const url = ctx.request.path;
-  const decision = await shiftServer.handle(url, ctx.request.headers);
+  const decision = await server.handle(url, ctx.request.headers);
   switch (decision.action) {
     case 'handleInvoke': {
       // TODO: check for allowed origins when supporting CORS

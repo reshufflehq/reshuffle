@@ -20,7 +20,7 @@ pluginTester({
         import { foo, bar } from '../backend/mockBackend';
       `,
       output: `
-        import { createRuntime } from "@binaris/shift-fetch-runtime";
+        import { createRuntime } from "@reshuffle/fetch-runtime";
         const {
           foo,
           bar
@@ -63,7 +63,7 @@ pluginTester({
         import { foo, bar } from '../backend/subdir/mockBackendInSubdir';
       `,
       output: `
-        import { createRuntime } from "@binaris/shift-fetch-runtime";
+        import { createRuntime } from "@reshuffle/fetch-runtime";
         const {
           foo,
           bar
@@ -79,7 +79,7 @@ pluginTester({
         import { foo2, bar2 } from '../backend/mockBackend2';
       `,
       output: `
-        import { createRuntime } from "@binaris/shift-fetch-runtime";
+        import { createRuntime } from "@reshuffle/fetch-runtime";
         const {
           foo,
           bar
@@ -100,7 +100,7 @@ pluginTester({
         import { foo, bar } from '../backend/mockTypeScriptBackend';
       `,
       output: `
-        import { createRuntime } from "@binaris/shift-fetch-runtime";
+        import { createRuntime } from "@reshuffle/fetch-runtime";
         const {
           foo,
           bar

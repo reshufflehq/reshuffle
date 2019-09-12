@@ -185,7 +185,7 @@
   },
 
   "repository": {
-    "url": "git@github.com:binaris/shiftjs.git"
+    "url": "git@github.com:reshufflehq/reshuffle.git"
     /**
      * The URL of this Git repository, used by "rush change" to determine the base branch for your PR.
      *
@@ -345,67 +345,67 @@
     //   "reviewCategory": "tools"
     // }
     {
-        "packageName": "@binaris/shift-code-transform",
+        "packageName": "@reshuffle/code-transform",
         "projectFolder": "code-transform",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-leveldb-server",
+        "packageName": "@reshuffle/leveldb-server",
         "projectFolder": "leveldb-server",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-db",
+        "packageName": "@reshuffle/db",
         "projectFolder": "db-client",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-db-testsuite",
+        "packageName": "@reshuffle/db-testsuite",
         "projectFolder": "db-testsuite",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-fetch-runtime",
+        "packageName": "@reshuffle/fetch-runtime",
         "projectFolder": "fetch-runtime",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-local-proxy",
+        "packageName": "@reshuffle/local-proxy",
         "projectFolder": "local-proxy",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-interfaces",
+        "packageName": "@reshuffle/interfaces",
         "projectFolder": "interfaces",
         "shouldPublish": false
     },
     {
-        "packageName": "@binaris/shift-subscriptions",
+        "packageName": "@reshuffle/subscriptions",
         "projectFolder": "subscriptions",
         "shouldPublish": true
     },
     {
-      "packageName": "shift-cli",
+      "packageName": "reshuffle",
       "projectFolder": "cli",
       "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shiftjs-react-app",
-        "projectFolder": "shiftjs-react-app",
+        "packageName": "@reshuffle/react-app",
+        "projectFolder": "react-app",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-interfaces-koa-server",
+        "packageName": "@reshuffle/interfaces-koa-server",
         "projectFolder": "gen-server",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-interfaces-node-client",
+        "packageName": "@reshuffle/interfaces-node-client",
         "projectFolder": "gen-client",
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/shift-server-function",
+        "packageName": "@reshuffle/server-function",
         "projectFolder": "server-function",
         "shouldPublish": true
     },
@@ -415,12 +415,12 @@
         "shouldPublish": true
     },
     {
-        "packageName": "@binaris/app-testsuite",
+        "packageName": "@reshuffle/app-testsuite",
         "projectFolder": "app-testsuite",
         "shouldPublish": false
     },
     {
-        "packageName": "@binaris/utils-subprocess",
+        "packageName": "@reshuffle/utils-subprocess",
         "projectFolder": "utils-subprocess",
         "shouldPublish": true
     }

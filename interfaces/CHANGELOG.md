@@ -1,4 +1,4 @@
-# Change Log - @binaris/shift-interfaces
+# Change Log - @reshuffle/interfaces
 
 This log was last generated on Thu, 01 Aug 2019 12:37:42 GMT and should not be manually modified.
 

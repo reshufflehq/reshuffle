@@ -5,9 +5,9 @@ import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { range } from 'ramda';
 import nanoid from 'nanoid';
-import { DBRouter, DBHandler } from '@binaris/shift-interfaces-koa-server';
-import { Version } from '@binaris/shift-interfaces-koa-server/interfaces';
-import { DB, Q } from '@binaris/shift-db/dist/db';
+import { DBRouter, DBHandler } from '@reshuffle/interfaces-koa-server';
+import { Version } from '@reshuffle/interfaces-koa-server/interfaces';
+import { DB, Q } from '@reshuffle/db/dist/db';
 
 interface Context {
   client: DB;

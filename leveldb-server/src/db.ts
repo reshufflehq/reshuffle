@@ -5,7 +5,7 @@ import LevelDown from 'leveldown';
 import { Mutex } from 'async-mutex';
 import { Context as KoaContext } from 'koa';
 import nanoid from 'nanoid';
-import { DBHandler, Context, ServerOnlyContext } from '@binaris/shift-interfaces-koa-server';
+import { DBHandler, Context, ServerOnlyContext } from '@reshuffle/interfaces-koa-server';
 import {
   UpdateOptions,
   Version,
@@ -19,7 +19,7 @@ import {
   Query,
   Order,
   Filter,
-} from '@binaris/shift-interfaces-koa-server/interfaces';
+} from '@reshuffle/interfaces-koa-server/interfaces';
 import { ValueError } from './errors';
 import { withTimeout, deferred, hrnano } from './utils';
 import { EventEmitter } from 'events';

@@ -3,7 +3,7 @@ import * as im from 'immutable';
 import { stub } from 'sinon';
 import { concat, EMPTY, NEVER, of, Subject } from 'rxjs';
 import { delay, take, tap, toArray } from 'rxjs/operators';
-import { Patch, Version } from '@binaris/shift-interfaces-node-client/interfaces';
+import { Patch, Version } from '@reshuffle/interfaces-node-client/interfaces';
 import {
   DEREGISTER,
   NonEmptyArray,
