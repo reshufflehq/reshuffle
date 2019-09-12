@@ -1,5 +1,5 @@
 import deepFreeze, { DeepReadonly } from 'deep-freeze';
-import { DBClient, Options } from '@binaris/shift-interfaces-node-client';
+import { DBClient, Options } from '@reshuffle/interfaces-node-client';
 import {
   ClientContext,
   Document,
@@ -9,7 +9,7 @@ import {
   UpdateOptions,
   Version,
   VersionedMaybeObject,
-} from '@binaris/shift-interfaces-node-client/interfaces';
+} from '@reshuffle/interfaces-node-client/interfaces';
 
 import * as Q from './query';
 

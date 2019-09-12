@@ -1,4 +1,4 @@
-# Change Log - @binaris/shift-local-proxy
+# Change Log - @reshuffle/local-proxy
 
 This log was last generated on Sun, 15 Sep 2019 08:21:07 GMT and should not be manually modified.
 

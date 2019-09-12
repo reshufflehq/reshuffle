@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-fetch-runtime",
+  "name": "@reshuffle/fetch-runtime",
   "version": "0.0.4",
   "files": [
     "dist"

@@ -1,4 +1,4 @@
-import * as db from '@binaris/shift-db';
+import * as db from '@reshuffle/db';
 
 /**
  * @expose

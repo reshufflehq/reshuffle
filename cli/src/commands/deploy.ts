@@ -40,7 +40,7 @@ function makeAppLink(app: Application) {
 }
 
 export default class Deploy extends Command {
-  public static description = 'deploy your ShiftJS project to its associated domain';
+  public static description = 'deploy your Reshuffle project to its associated domain';
 
   public static examples = [
     `$ ${Command.cliBinName} deploy`,
@@ -52,7 +52,7 @@ export default class Deploy extends Command {
 
   public async build(projectDir: string): Promise<string> {
     this.log('Building and bundling your app! This may take a few moments, please wait');
-    const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'shift-bundle-'), { encoding: 'utf8' });
+    const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'reshuffle-bundle-'), { encoding: 'utf8' });
     try {
       await spawn('npm', ['run', 'build'], {
         cwd: projectDir,
@@ -81,7 +81,7 @@ export default class Deploy extends Command {
       await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
         '--plugins',
         ['@babel/plugin-transform-modules-commonjs',
-          'module:@binaris/shift-code-transform'].join(','),
+          'module:@reshuffle/code-transform'].join(','),
         'backend/',
         '-d',
         escapeWin32(pathResolve(stagingDir, 'backend')),

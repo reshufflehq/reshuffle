@@ -6,7 +6,7 @@ import {
   Serializable,
   UpdateOptions,
   Version,
-} from '@binaris/shift-interfaces-node-client/interfaces';
+} from '@reshuffle/interfaces-node-client/interfaces';
 import { DB, Versioned, Q } from './db';
 
 export { Q };
@@ -20,14 +20,14 @@ function assertEnv(name: string): string {
 }
 
 const db = new DB(
-  `${assertEnv('SHIFT_DB_BASE_URL')}/v1`,
+  `${assertEnv('RESHUFFLE_DB_BASE_URL')}/v1`,
   {
-    appId: assertEnv('SHIFT_APPLICATION_ID'),
-    appEnv: assertEnv('SHIFT_APPLICATION_ENV'),
+    appId: assertEnv('RESHUFFLE_APPLICATION_ID'),
+    appEnv: assertEnv('RESHUFFLE_APPLICATION_ENV'),
     collection: 'default',
     auth: {
       v1: {
-        token: assertEnv('SHIFT_ACCESS_TOKEN'),
+        token: assertEnv('RESHUFFLE_ACCESS_TOKEN'),
       },
     },
   },
@@ -89,7 +89,7 @@ export async function find(query: Q.Query): Promise<Document[]> {
 export async function poll(keysToVersions: Array<[string, Version]>): Promise<Array<[string, Patch[]]>> {
   return db.poll(keysToVersions);
 }
-poll.__shiftjs__ = { exposed: true };
+poll.__visible__ = { exposed: true };
 
 /**
  * Gets a initial document in an intent to for poll on it.
@@ -97,4 +97,4 @@ poll.__shiftjs__ = { exposed: true };
 export async function startPolling<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
   return db.startPolling(key);
 }
-startPolling.__shiftjs__ = { exposed: true };
+startPolling.__visible__ = { exposed: true };

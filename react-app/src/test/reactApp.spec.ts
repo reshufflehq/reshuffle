@@ -17,7 +17,7 @@ import {
   sanityCheck,
   setupProxy,
   installPackages,
-  ignoreShift,
+  ignoreReshuffle,
 } from '../steps';
 
 const promiseAccess = promisify(access);
@@ -115,7 +115,7 @@ Modified package.json, please commit this file`);
 
 test('ignore does not create .gitignore', async () => {
   await fakeApp();
-  const msg = ignoreShift();
+  const msg = ignoreReshuffle();
   expect(msg).toBe('Did not update .gitignore');
   await expect(promiseAccess('.gitignore')).rejects.toThrow();
 });
@@ -125,76 +125,76 @@ test('ignore edits .gitignore', async () => {
   const testCases = [
     {
       initial: '',
-      expected: `# The following line was added by ShiftJS
-.shift*`,
+      expected: `# The following line was added by Reshuffle
+.reshuffle*`,
     },
     {
       initial: 'foo',
       expected: `foo
-# The following line was added by ShiftJS
-.shift*`,
+# The following line was added by Reshuffle
+.reshuffle*`,
     },
     {
-      initial: '.shift*',
-      expected: '.shift*',
+      initial: '.reshuffle*',
+      expected: '.reshuffle*',
     },
     {
-      initial: '.shift* ',
-      expected: '.shift* ',
+      initial: '.reshuffle* ',
+      expected: '.reshuffle* ',
     },
     {
-      initial: '.shift*  ',
-      expected: '.shift*  ',
+      initial: '.reshuffle*  ',
+      expected: '.reshuffle*  ',
     },
     {
-      initial: 'x.shift*',
-      expected: `x.shift*
-# The following line was added by ShiftJS
-.shift*`,
+      initial: 'x.reshuffle*',
+      expected: `x.reshuffle*
+# The following line was added by Reshuffle
+.reshuffle*`,
     },
     {
-      initial: '.shift*x',
-      expected: `.shift*x
-# The following line was added by ShiftJS
-.shift*`,
+      initial: '.reshuffle*x',
+      expected: `.reshuffle*x
+# The following line was added by Reshuffle
+.reshuffle*`,
     },
     {
-      initial: '.shift*\\ ',
+      initial: '.reshuffle*\\ ',
       // tslint:disable-next-line:no-trailing-whitespace
-      expected: `.shift*\\ 
-# The following line was added by ShiftJS
-.shift*`,
+      expected: `.reshuffle*\\ 
+# The following line was added by Reshuffle
+.reshuffle*`,
     },
     {
       initial: `foo
-.shift*`,
+.reshuffle*`,
       expected: `foo
-.shift*`,
+.reshuffle*`,
     },
     {
-      initial: `.shift*
+      initial: `.reshuffle*
 bar`,
-      expected: `.shift*
+      expected: `.reshuffle*
 bar`,
     },
     {
       initial: `foo
-.shift*
+.reshuffle*
 bar`,
       expected: `foo
-.shift*
+.reshuffle*
 bar`,
     },
     {
-      initial: '.shift*\t',
-      expected: `.shift*\t
-# The following line was added by ShiftJS
-.shift*`,
+      initial: '.reshuffle*\t',
+      expected: `.reshuffle*\t
+# The following line was added by Reshuffle
+.reshuffle*`,
     },
   ];
   for (const { initial, expected } of testCases) {
     await promiseWriteFile('.gitignore', initial);
-    const msg = ignoreShift();
+    const msg = ignoreReshuffle();
     const data = await promiseReadFile('.gitignore');
     expect(data.toString()).toBe(expected);
     if (initial === expected) {

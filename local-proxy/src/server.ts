@@ -1,8 +1,8 @@
 import { promisify } from 'util';
 import { resolve as resolvePath, extname, isAbsolute } from 'path';
-import { Handler as DBHandler } from '@binaris/shift-leveldb-server';
-import { DBRouter } from '@binaris/shift-interfaces-koa-server';
-import { getHandler, Handler, HandlerError } from '@binaris/shift-server-function';
+import { Handler as DBHandler } from '@reshuffle/leveldb-server';
+import { DBRouter } from '@reshuffle/interfaces-koa-server';
+import { getHandler, Handler, HandlerError } from '@reshuffle/server-function';
 import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
@@ -19,13 +19,13 @@ import { copy } from 'fs-extra';
 import env from 'env-var';
 import dotenv from 'dotenv';
 
-const basePath = env.get('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH').required().asString();
-const localToken = env.get('SHIFT_DEV_SERVER_LOCAL_TOKEN').required().asString();
+const basePath = env.get('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH').required().asString();
+const localToken = env.get('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN').required().asString();
 if (!localToken) {
-  throw new Error('SHIFT_DEV_SERVER_LOCAL_TOKEN env var is empty');
+  throw new Error('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN env var is empty');
 }
 if (!isAbsolute(basePath)) {
-  throw new Error('SHIFT_DEV_SERVER_BASE_REQUIRE_PATH env var is not an absolute path');
+  throw new Error('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH env var is not an absolute path');
 }
 
 async function loadDotEnv() {
@@ -45,15 +45,15 @@ async function loadDotEnv() {
 
 async function setupEnv({ port }: { port: number }) {
   await loadDotEnv();
-  process.env.SHIFT_DB_BASE_URL = `http://localhost:${port}`;
-  process.env.SHIFT_APPLICATION_ID = 'local-app';
-  process.env.SHIFT_APPLICATION_ENV = 'local';
-  process.env.SHIFT_ACCESS_TOKEN = '<unused>';
+  process.env.RESHUFFLE_DB_BASE_URL = `http://localhost:${port}`;
+  process.env.RESHUFFLE_APPLICATION_ID = 'local-app';
+  process.env.RESHUFFLE_APPLICATION_ENV = 'local';
+  process.env.RESHUFFLE_ACCESS_TOKEN = '<unused>';
 }
 
 class ModuleWhitelist {
   private readonly whitelistedModulesArr =
-    env.get('SHIFT_DEV_SERVER_MODULES_WHITELIST').asArray() || ['@binaris/shift-db'];
+    env.get('RESHUFFLE_DEV_SERVER_MODULES_WHITELIST').asArray() || ['@reshuffle/db'];
 
   private whitelistedModules?: Map<string, any>;
 
@@ -91,7 +91,7 @@ const app = new Koa();
 app.use(bodyParser({ enableTypes: ['json'], strict: false }));
 const router = new KoaRouter();
 
-const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.shift_local_proxy_'));
+const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.reshuffle_local_proxy_'));
 
 async function transpileAndCopy() {
   await babelDir({
@@ -118,8 +118,8 @@ const transpilePromise = transpileAndCopy();
 // tslint:disable-next-line:no-console
 transpilePromise.catch((error: Error) => console.error(error));
 
-const logDir = process.env.NODE_ENV === 'test' ? resolvePath(basePath, '.shiftjs/logs') :
-  resolvePath(os.homedir(), '.shiftjs/logs');
+const logDir = process.env.NODE_ENV === 'test' ? resolvePath(basePath, '.reshuffle/logs') :
+  resolvePath(os.homedir(), '.reshuffle/logs');
 mkdirp.sync(logDir);
 const registry = initRegistry(logDir);
 
@@ -139,7 +139,7 @@ function reportInvocationDurationUs(startTime: [number, number], requestId: stri
 }
 
 router.post('/invoke', async (ctx) => {
-  if (ctx.get('x-shift-dev-server-local-token') !== localToken) {
+  if (ctx.get('x-reshuffle-dev-server-local-token') !== localToken) {
     ctx.throw(403, 'bad or missing local token');
     return;
   }
@@ -155,13 +155,13 @@ router.post('/invoke', async (ctx) => {
       fn = whitelisted.get(path, handler);
     } else {
       await transpilePromise;
-      if (!process.env.SHIFT_DB_BASE_URL) {
+      if (!process.env.RESHUFFLE_DB_BASE_URL) {
         // This can never happen, because POST can only occur after we
-        // start listening and set SHIFT_DB_BASE_URL.  Verify it just
+        // start listening and set RESHUFFLE_DB_BASE_URL.  Verify it just
         // in case.
 
         // tslint:disable-next-line:no-console
-        console.error('[I] Invoked before local SHIFT_DB_BASE_URL was set; local DB might break');
+        console.error('[I] Invoked before local RESHUFFLE_DB_BASE_URL was set; local DB might break');
       }
       fn = getHandler(tmpDir, path, handler);
     }
@@ -190,9 +190,9 @@ router.post('/invoke', async (ctx) => {
   }
 });
 
-const dbPath = env.get('SHIFT_DB_PATH').required().asString();
+const dbPath = env.get('RESHUFFLE_DB_PATH').required().asString();
 if (!isAbsolute(dbPath)) {
-  throw new Error('SHIFT_DB_PATH env var is not an absolute path');
+  throw new Error('RESHUFFLE_DB_PATH env var is not an absolute path');
 }
 
 const db = new DBHandler(dbPath);

@@ -54,6 +54,8 @@ export default abstract class BaseCommand extends Command {
       'user-agent': `${pjson.name}/${pjson.version}`,
     };
     if (apiKey) {
+      headers['reshuffle-api-key'] = apiKey;
+      // TODO(ariels): remove once backend updated
       headers['shift-api-key'] = apiKey;
     }
     return headers;
@@ -108,7 +110,7 @@ export default abstract class BaseCommand extends Command {
       if (storedAccessToken) {
         return storedAccessToken;
       }
-      this.log('No existing ShiftJS credentials found!');
+      this.log('No existing Reshuffle credentials found!');
     }
 
     const { ticket, expires } = await this.lycanClient.createTicket();
@@ -126,7 +128,7 @@ export default abstract class BaseCommand extends Command {
       throw new CLIError('Failed to login.');
     }
 
-    this.log('Successfully logged into ShiftJS!');
+    this.log('Successfully logged into Reshuffle!');
     this.conf.set({ accessToken });
     this._lycanClient = this.createLycanClient(accessToken);
     return accessToken;

@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-code-transform",
+  "name": "@reshuffle/code-transform",
   "version": "0.0.2",
   "files": [
     "dist",

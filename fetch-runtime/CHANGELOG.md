@@ -1,4 +1,4 @@
-# Change Log - @binaris/shift-fetch-runtime
+# Change Log - @reshuffle/fetch-runtime
 
 This log was last generated on Tue, 13 Aug 2019 11:12:48 GMT and should not be manually modified.
 

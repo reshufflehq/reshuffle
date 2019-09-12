@@ -1,12 +1,12 @@
 {
-  "name": "shift-cli",
-  "description": "ShiftJS CLI Tool",
+  "name": "reshuffle",
+  "description": "Reshuffle CLI Tool",
   "version": "0.2.4",
   "author": "arikmaor @arikmaor",
   "bin": {
-    "shift-cli": "./bin/run"
+    "": "./bin/run"
   },
-  "bugs": "https://github.com/binaris/shiftjs/issues",
+  "bugs": "https://github.com/reshufflehq/reshuffle/issues",
   "engines": {
     "node": ">=8.0.0"
   },
@@ -16,7 +16,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/binaris/shiftjs",
+  "homepage": "https://www.reshuffle.com",
   "keywords": [
     "oclif"
   ],
@@ -24,14 +24,14 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "shift-cli",
-    "repositoryPrefix": "<%- repo %>/blob/shift-cli_v<%- version %>/cli/<%- commandPath %>",
+    "bin": "reshuffle",
+    "repositoryPrefix": "<%- repo %>/blob/cli_v<%- version %>/cli/<%- commandPath %>",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
     ]
   },
-  "repository": "binaris/shiftjs",
+  "repository": "reshufflehq/reshuffle",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -c ../common/tslint.yml -p . -t stylish",

@@ -1,5 +1,5 @@
 {
-  "name": "@binaris/shift-interfaces",
+  "name": "@reshuffle/interfaces",
   "version": "0.4.0",
   "files": [
     "dist"
@@ -8,7 +8,7 @@
     "client_dir": "../gen-client",
     "server_dir": "../gen-server"
   },
-  "description": "interfaces for serving ShiftJS",
+  "description": "interfaces for serving Reshuffle",
   "scripts": {
     "build": "echo interfaces are built waaay before Rush build step",
     "lint": "tslint -c ../common/tslint.yml -p .",

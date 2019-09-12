@@ -1,4 +1,4 @@
-import '@binaris/shift-code-transform/macro';
+import '@reshuffle/code-transform/macro';
 import React, { useState, useEffect, useCallback } from 'react';
 import { get, update, getSecret } from '../backend/index';
 import { notExposed, invalidFile } from './hack';

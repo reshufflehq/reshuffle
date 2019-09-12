@@ -1,4 +1,4 @@
-# Change Log - @binaris/shift-leveldb-server
+# Change Log - @reshuffle/leveldb-server
 
 This log was last generated on Thu, 29 Aug 2019 12:31:30 GMT and should not be manually modified.
 

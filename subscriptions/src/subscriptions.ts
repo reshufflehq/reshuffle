@@ -18,7 +18,7 @@ import { applyReducer, Operation } from 'fast-json-patch';
 import {
   Patch,
   Version,
-} from '@binaris/shift-interfaces-node-client/interfaces';
+} from '@reshuffle/interfaces-node-client/interfaces';
 import { mapWithState, StateAndOutput, takeUntilLast } from './rxutils';
 
 interface SubscriptionState<T> extends Versioned<T> {

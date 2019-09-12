@@ -1,29 +1,29 @@
-[![CircleCI](https://circleci.com/gh/binaris/shiftjs.svg?style=svg)](https://circleci.com/gh/binaris/shiftjs)
-# shiftjs
+[![CircleCI](https://circleci.com/gh/reshufflehq/reshuffle.svg?style=svg)](https://circleci.com/gh/reshufflehq/reshuffle.svg?style=svg)
+# Reshuffle
 
-Shiftjs works best with a new Create-React-App project:
+Reshuffle works best with a new Create-React-App project:
 
 ```shell
 $ npx create-react-app my-new-app
 $ cd my-new-app
 ```
 
-From the app directory you can install Shift.js with:
+From the app directory you can install Reshuffle with:
 
 ```shell
-$ npx @binaris/shiftjs-react-app
+$ npx @reshuffle/react-app
 ```
 
-From now you can begin using Shift.js by launching
+From now you can begin using Reshuffle by launching
 
 ```shell
 $ npm start
 ```
 
-For using backend functions inside a frontend file you need to import the Shift macro first like this.
+For using backend functions inside a frontend file you need to import the Reshuffle macro first like this.
 
 ```javascript
-import '@binaris/shift-code-transform/macro';
+import '@reshuffle/code-transform/macro';
 ```
 
 You can create a backend file in the backend directory, for example `backend/HelloBackend.js`
@@ -47,8 +47,8 @@ Now you can call the function as usual by using:
 hello('World');
 ```
 
-The `@binaris/shift-db` package was installed, you can require it in backend code like:
+The `@resuffle/db` package was installed, you can require it in backend code like:
 
 ```javascript
-import { create } from '@binaris/shift-db';
+import { create } from '@reshuffle/db';
 ```

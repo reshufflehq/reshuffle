@@ -1,7 +1,7 @@
 /*
  * WARNING:
  * Do not change the following signature without changing the call
- * inside shiftMacro in babel-macro/src/macro.ts
+ * inside exposeMacro in babel-macro/src/macro.ts
  */
 export function createRuntime(methodNames: string[], fileId: Record<'filename', string>) {
   // TODO: consider changing signature to return an object with only the imported methods

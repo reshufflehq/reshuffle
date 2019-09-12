@@ -1,8 +1,8 @@
 import { useEffect, useState, ReactElement } from 'react';
-import { createRuntime } from '@binaris/shift-fetch-runtime';
+import { createRuntime } from '@reshuffle/fetch-runtime';
 import { SubscriptionManager } from './subscriptions';
 
-const { poll, startPolling } = createRuntime(['poll', 'startPolling'], { filename: '@binaris/shift-db' });
+const { poll, startPolling } = createRuntime(['poll', 'startPolling'], { filename: '@reshuffle/db' });
 
 export const subscriptionManager = new SubscriptionManager((keyedVersions) =>
   poll(keyedVersions.entrySeq().toArray()));

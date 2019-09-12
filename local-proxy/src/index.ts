@@ -5,7 +5,7 @@ import proxy from 'http-proxy';
 import { Application } from 'express';
 import nanoid from 'nanoid';
 import { EventEmitter } from 'events';
-import { Server } from '@binaris/shift-server-function';
+import { Server } from '@reshuffle/server-function';
 import address from 'address';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -45,9 +45,9 @@ export function startProxy(
     script: path.join(__dirname, 'server.js'),
     delay: 100,
     env: {
-      SHIFT_DB_PATH: path.join(rootDir, '.shift.db'),
-      SHIFT_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
-      SHIFT_DEV_SERVER_LOCAL_TOKEN: localToken,
+      RESHUFFLE_DB_PATH: path.join(rootDir, '.reshuffle.db'),
+      RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
+      RESHUFFLE_DEV_SERVER_LOCAL_TOKEN: localToken,
     },
     // Workaround for tests:
     // server.js uses babel/dir which has a console.log
@@ -76,7 +76,7 @@ export function startProxy(
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
-  const shiftServer = new Server({
+  const server = new Server({
     directory: path.join(rootDir, 'public'),
     publicHost: address.ip(),
     listenHost: process.env.HOST || '0.0.0.0',
@@ -88,8 +88,8 @@ export function setupProxy(sourceDir: string) {
     const promiseHolder = startProxy(rootDir, localToken);
     app.use(async (req, res, next) => {
       // pass empty headers since caching not used in local-proxy anyway
-      const decision = await shiftServer.handle(req.url, {});
-      if (!shiftServer.checkHeadersLocalHost(req.headers, 'host')) {
+      const decision = await server.handle(req.url, {});
+      if (!server.checkHeadersLocalHost(req.headers, 'host')) {
         return res.sendStatus(403);
       }
       switch (decision.action) {
@@ -97,7 +97,7 @@ export function setupProxy(sourceDir: string) {
           const port = await promiseHolder.portPromise;
           return httpProxy.web(req, res, {
             target: `http://localhost:${port}/`,
-            headers: { 'x-shift-dev-server-local-token': localToken },
+            headers: { 'x-reshuffle-dev-server-local-token': localToken },
           });
         }
         case 'sendStatus': {

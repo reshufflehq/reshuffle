@@ -5,7 +5,7 @@ import { defaultLocation, deconstruct } from '../utils/user-config';
 
 test('userConfig.deconstruct for defaultLocation returns expected values', (t) => {
   const { fileExtension, configName, cwd } = deconstruct(defaultLocation);
-  t.is(cwd, join(homedir(), '.shiftjs'));
-  t.is(configName, 'shiftjs.config');
+  t.is(cwd, join(homedir(), '.reshuffle'));
+  t.is(configName, 'reshuffle.config');
   t.is(fileExtension, 'yml');
 });

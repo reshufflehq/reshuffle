@@ -1,4 +1,4 @@
-# Change Log - @binaris/shift-db
+# Change Log - @reshuffle/db
 
 This log was last generated on Wed, 28 Aug 2019 13:08:32 GMT and should not be manually modified.
 

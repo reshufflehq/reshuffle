@@ -7,8 +7,8 @@ import { mkdtemp } from 'fs';
 import rmrf from 'rmfr';
 import { Handler, incrVersion } from '../db';
 import { hrnano } from '../utils';
-import { Context as ConcordContext } from '@binaris/shift-interfaces-koa-server';
-import { Serializable } from '@binaris/shift-interfaces-koa-server/interfaces';
+import { Context as ConcordContext } from '@reshuffle/interfaces-koa-server';
+import { Serializable } from '@reshuffle/interfaces-koa-server/interfaces';
 
 interface Context {
   ctx: ConcordContext;

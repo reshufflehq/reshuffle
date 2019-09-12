@@ -1,10 +1,10 @@
 import { equals } from 'ramda';
-import * as dbi from '@binaris/shift-interfaces-node-client/interfaces';
+import * as dbi from '@reshuffle/interfaces-node-client/interfaces';
 import { IllegalArgumentError } from './errors';
 
 type Key = string | number;
 
-const filterSymbol = Symbol('shiftjs/filter');
+const filterSymbol = Symbol('db/filter');
 
 // Duplicated from ../../interfaces/src/db.ts
 export type Comparable = string | number;
