@@ -13,7 +13,7 @@ test('cli with no args shows help', async (t) => {
 
   t.true(success(status));
   t.assert(err === '');
-  t.assert(out.match(/^ShiftJS CLI Tool.*?VERSION.*?USAGE.*?COMMANDS/s));
+  t.assert(out.match(/^Reshuffle CLI Tool.*?VERSION.*?USAGE.*?COMMANDS/s));
 });
 
 test('cli with no args and cli help and cli --help give same output', async (t) => {
@@ -33,7 +33,7 @@ test('cli with no args lists all commands', async (t) => {
   const shell = new Shell();
   const { out } = await shell.run('./bin/run', 'utf-8');
 
-  const commandsMatch = out.match(/^ShiftJS CLI Tool.*?VERSION.*?USAGE.*?COMMANDS.*?\n(.*)/s);
+  const commandsMatch = out.match(/^Reshuffle CLI Tool.*?VERSION.*?USAGE.*?COMMANDS.*?\n(.*)/s);
   t.truthy(commandsMatch, 'Match command titles');
 
   const commandRegExp = /^\s*(\w+)/mg;
