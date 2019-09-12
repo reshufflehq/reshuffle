@@ -16,7 +16,6 @@ import rmrf from 'rmfr';
 import {
   sanityCheck,
   setupProxy,
-  installPackages,
   ignoreReshuffle,
 } from '../steps';
 
@@ -104,14 +103,6 @@ test('setup proxy works if called twice', async () => {
   const msg = setupProxy();
   expect(msg).toBe('Left src/setupProxy.js as is');
 });
-
-test('install creates node_modules', async () => {
-  await fakeApp();
-  const msg = await installPackages();
-  expect(msg).toBe(`Packages installed
-Modified package.json, please commit this file`);
-  await promiseAccess('node_modules');
-}, 180000);
 
 test('ignore does not create .gitignore', async () => {
   await fakeApp();
