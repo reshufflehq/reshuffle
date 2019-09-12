@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/db-testsuite",
+      "comment": "Rename \"shift\" ==> \"reshuffle\"",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/db-testsuite",
+  "email": "ariels@shiftjs.com"
+}

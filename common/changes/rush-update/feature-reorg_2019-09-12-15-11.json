@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "rush-update",
+      "comment": "Rename \"shift\" ==> \"reshuffle\"",
+      "type": "patch"
+    }
+  ],
+  "packageName": "rush-update",
+  "email": "ariels@shiftjs.com"
+}

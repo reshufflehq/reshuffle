@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Rename \"shift\" ==> \"reshuffle\"",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "ariels@shiftjs.com"
+}
