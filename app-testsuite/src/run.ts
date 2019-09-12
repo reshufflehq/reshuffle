@@ -177,7 +177,7 @@ class App {
       shell,
     });
     log('Reshuffling');
-    await spawn('node', [path.resolve(ROOT_DIR, 'react-app', 'index.js')], {
+    await spawn('node', [path.resolve(ROOT_DIR, 'react-app', 'dist', 'reactApp.js')], {
       cwd: this.appDir,
       stdio: 'inherit',
       env: {
