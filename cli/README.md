@@ -1,14 +1,14 @@
-shift-cli
+`reshuffle`
 =========
 
-ShiftJS CLI
+Reshuffle CLI
 
 ## Installation
 ```sh-session
-$ npm install -g shift-cli
+$ npm install -g reshuffle
 ```
 
 ## Usage
 ```sh-session
-$ shift-cli --help
+$ reshuffle --help
 ```

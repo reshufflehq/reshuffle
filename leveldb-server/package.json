@@ -4,7 +4,7 @@
   "files": [
     "dist"
   ],
-  "description": "A Shift DB server based on LevelDB",
+  "description": "A Reshuffle DB server based on LevelDB",
   "main": "dist/db.js",
   "types": "dist/db.d.ts",
   "scripts": {
