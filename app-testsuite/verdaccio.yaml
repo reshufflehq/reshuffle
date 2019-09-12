@@ -26,6 +26,9 @@ packages:
   '@reshuffle/*':
     access: $all
     publish: $all
+  reshuffle:
+    access: $all
+    publish: $all
   '@binaris/*':
     access: $all
     publish: $all
