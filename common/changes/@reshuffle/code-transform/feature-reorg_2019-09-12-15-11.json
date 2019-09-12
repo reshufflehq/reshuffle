@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/code-transform",
+      "comment": "Rename \"shift\" ==> \"reshuffle\"",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/code-transform",
+  "email": "ariels@shiftjs.com"
+}
