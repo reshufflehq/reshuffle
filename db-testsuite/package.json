@@ -18,7 +18,7 @@
     "ava": "^2.3.0",
     "koa": "~2.8.1",
     "koa-router": "~7.4.0",
-    "nanoid": "^2.0.4",
+    "nanoid": "^2.1.1",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
@@ -27,7 +27,7 @@
     "@types/nanoid": "^2.0.0",
     "@types/node": "^12.7.2",
     "@types/ramda": "^0.26.21",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
   }
 }
