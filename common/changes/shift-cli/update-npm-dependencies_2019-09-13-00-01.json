@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "shift-cli",
+      "type": "none"
+    }
+  ],
+  "packageName": "shift-cli",
+  "email": "auto-npm-dep-update@shiftjs.com"
+}
