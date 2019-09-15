@@ -1,7 +1,8 @@
 import { promisify } from 'util';
-import { resolve as resolvePath, relative as relativePath, extname, isAbsolute } from 'path';
+import { resolve as resolvePath, extname, isAbsolute } from 'path';
 import { Handler as DBHandler } from '@binaris/shift-leveldb-server';
 import { DBRouter } from '@binaris/shift-interfaces-koa-server';
+import { getHandler, Handler, HandlerError } from '@binaris/shift-server-function';
 import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
@@ -147,20 +148,13 @@ router.post('/invoke', async (ctx) => {
   // TODO: validate request
   const { path, handler, args } = ctx.request.body;
   registry.register(requestId);
+  let fn: Handler;
+
   try {
-    let fn: (...args: any[]) => any;
     if (whitelisted.has(path)) {
       fn = whitelisted.get(path, handler);
     } else {
       await transpilePromise;
-      const joinedDir = resolvePath(tmpDir, path);
-      if (relativePath(tmpDir, joinedDir).startsWith('..')) {
-        ctx.status = 403;
-        ctx.response.body = {
-          error: `Cannot reference path outside of root dir: ${path}`,
-        };
-        return;
-      }
       if (!process.env.SHIFT_DB_BASE_URL) {
         // This can never happen, because POST can only occur after we
         // start listening and set SHIFT_DB_BASE_URL.  Verify it just
@@ -169,20 +163,9 @@ router.post('/invoke', async (ctx) => {
         // tslint:disable-next-line:no-console
         console.error('[I] Invoked before local SHIFT_DB_BASE_URL was set; local DB might break');
       }
-      const mod = require(joinedDir);
-      fn = mod[handler];
-      // Cast to any so typescript doesn't complain against accessing __shiftjs__ on a function
-      if (!(typeof fn === 'function' && (fn as any).__shiftjs__ && (fn as any).__shiftjs__.exposed)) {
-        ctx.status = 403;
-        ctx.response.body = {
-          error: `Cannot invoke ${path}.${handler} - not an exposed function`,
-        };
-        return;
-      }
+      fn = getHandler(tmpDir, path, handler);
     }
     const ret = await fn(...args);
-    // Not logging args to avoid sensitive info log (?)
-    reportInvocationDurationUs(startHrtime, requestId, { path, handler });
     if (ret === undefined) {
       ctx.status = 204;
       return;
@@ -192,11 +175,17 @@ router.post('/invoke', async (ctx) => {
     ctx.response.type = 'application/json';
     ctx.body = JSON.stringify(ret);
   } catch (err) {
-    reportInvocationDurationUs(startHrtime, requestId, { path, handler });
+    if (err instanceof HandlerError) {
+      ctx.status = err.status;
+      ctx.response.body = { error: err.message };
+      return;
+    }
     // tslint:disable-next-line:no-console
     console.error('Failed to invoke function', err);
     ctx.throw(500, err);
   } finally {
+    // Not logging args to avoid sensitive info log (?)
+    reportInvocationDurationUs(startHrtime, requestId, { path, handler });
     registry.unregister(requestId);
   }
 });
