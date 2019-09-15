@@ -276,7 +276,6 @@ async function main() {
       });
     });
   } finally {
-    const cli = path.resolve(ROOT_DIR, 'cli', 'bin', 'run');
     await remove(testDir);
   }
 }

@@ -256,8 +256,8 @@ export function getHandler(backendDir: string, fnPath: string, handler: string):
   }
   const mod = require(joinedDir);
   const fn = mod[handler];
-  // Cast to any so typescript doesn't complain against accessing __shiftjs__ on a function
-  if (!(typeof fn === 'function' && (fn as any).__shiftjs__ && (fn as any).__shiftjs__.exposed)) {
+  // Cast to any so typescript doesn't complain against accessing __reshuffle__ on a function
+  if (!(typeof fn === 'function' && (fn as any).__reshuffle__ && (fn as any).__reshuffle__.exposed)) {
     throw new  UnauthorizedError(`Cannot invoke ${fnPath}.${handler} - not an exposed function`);
   }
   return fn;

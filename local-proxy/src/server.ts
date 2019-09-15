@@ -103,7 +103,7 @@ async function transpileAndCopy() {
       sourceMaps: true,
       plugins: [
         '@babel/plugin-transform-modules-commonjs',
-        'module:@binaris/shift-code-transform',
+        'module:@reshuffle/code-transform',
       ],
     },
   });

@@ -17,7 +17,7 @@ pluginTester({
         export async function hello() {
           return 42;
         }
-        hello.__visibility__ = {
+        hello.__reshuffle__ = {
           exposed: true
         };
       `,
@@ -36,7 +36,7 @@ pluginTester({
           return 42;
         }
 
-        hello.__visibility__ = {
+        hello.__reshuffle__ = {
           exposed: true
         };
         exports.hello = hello;

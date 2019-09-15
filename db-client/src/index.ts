@@ -89,7 +89,7 @@ export async function find(query: Q.Query): Promise<Document[]> {
 export async function poll(keysToVersions: Array<[string, Version]>): Promise<Array<[string, Patch[]]>> {
   return db.poll(keysToVersions);
 }
-poll.__visible__ = { exposed: true };
+poll.__reshuffle__ = { exposed: true };
 
 /**
  * Gets a initial document in an intent to for poll on it.
@@ -97,4 +97,4 @@ poll.__visible__ = { exposed: true };
 export async function startPolling<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
   return db.startPolling(key);
 }
-startPolling.__visible__ = { exposed: true };
+startPolling.__reshuffle__ = { exposed: true };
