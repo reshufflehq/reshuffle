@@ -159,6 +159,7 @@ test('verbose bad request', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} download -v app-with-bad-req`, 'utf-8');
   const stableResult = {
     ...result,
+    out: result.out.replace(/localhost:[0-9]*/, 'localhost'),
     err: result.err.replace(/localhost:[0-9]*/, 'localhost'),
   };
   t.snapshot(stableResult);
