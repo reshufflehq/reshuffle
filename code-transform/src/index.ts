@@ -11,7 +11,7 @@ function insertExpose(path: NodePath<BabelTypes.Node>, t: typeof BabelTypes, fun
   path.insertAfter(
     t.expressionStatement(
       t.assignmentExpression('=',
-        t.memberExpression(t.identifier(funcName), t.identifier('__visibility__')),
+        t.memberExpression(t.identifier(funcName), t.identifier('__reshuffle__')),
         t.objectExpression([
           t.objectProperty(t.identifier('exposed'), t.booleanLiteral(true)),
         ]),

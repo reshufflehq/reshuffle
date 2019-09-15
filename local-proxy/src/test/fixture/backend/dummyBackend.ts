@@ -2,4 +2,4 @@ export function hello() {
   return 'hello';
 }
 
-hello.__shiftjs__ = { exposed: true };
+hello.__reshuffle__ = { exposed: true };

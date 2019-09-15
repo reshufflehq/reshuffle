@@ -6,7 +6,7 @@ import { BinarisFunction, FunctionContext } from './binaris';
 const allowedHosts = (process.env.RESHUFFLE_APPLICATION_DOMAINS || '').split(',');
 const backendDir = pathResolve('./backend');
 const buildDir = pathResolve('./build');
-const server = new Server({ directory: './build', allowedHosts });
+const server = new Server({ directory: buildDir, allowedHosts });
 
 interface InvokeRequest {
   path: string;
