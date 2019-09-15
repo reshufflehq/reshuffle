@@ -236,6 +236,11 @@ class App {
       }
       await fn(apps[0].URL);
     } finally {
+      try {
+        await spawn('node', [cli, 'logs'], { cwd: path.resolve(__dirname, '..'), stdio: 'inherit', shell });
+      } catch (e) {
+        log('failed to fetch logs', e);
+      }
       await spawn('node', [cli, 'destroy'], {
         cwd: this.appDir,
         stdio: 'inherit',
@@ -271,6 +276,7 @@ async function main() {
       });
     });
   } finally {
+    const cli = path.resolve(ROOT_DIR, 'cli', 'bin', 'run');
     await remove(testDir);
   }
 }
