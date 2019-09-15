@@ -56,7 +56,6 @@ dependencies:
   '@types/nanoid': 2.0.0
   '@types/prompts': 2.0.1
   '@types/react': 16.9.2
-  '@types/request': 2.48.3
   '@types/rimraf': 2.0.2
   '@types/rmfr': 2.0.0
   '@types/sinon': 7.0.13
@@ -110,7 +109,6 @@ dependencies:
   prompts: 2.2.1
   ramda: 0.26.1
   react: 16.9.0
-  request: 2.88.0
   rimraf: 2.7.1
   rmfr: 2.0.0
   rxjs: 6.5.3
@@ -1076,10 +1074,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-YiozPOOsS6bIuz31ilYqR5SlLif4TBWsousN2aCWLi5233nZSX19tFbcQUPdR7xJ8ypPyxkCGNxg0CIV5n9qxQ==
-  /@types/caseless/0.12.2:
-    dev: false
-    resolution:
-      integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
   /@types/connect/3.4.32:
     dependencies:
       '@types/node': 12.7.5
@@ -1353,15 +1347,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-jYP2LWwlh+FTqGd9v7ynUKZzjj98T8x7Yclz479QdRhHfuW9yQ+0jjnD31eXSXutmBpppj5PYNLYLRfnZJvcfg==
-  /@types/request/2.48.3:
-    dependencies:
-      '@types/caseless': 0.12.2
-      '@types/node': 12.7.5
-      '@types/tough-cookie': 2.3.5
-      form-data: 2.5.1
-    dev: false
-    resolution:
-      integrity: sha512-3Wo2jNYwqgXcIz/rrq18AdOZUQB8cQ34CXZo+LUwPJNpvRAL86+Kc2wwI8mqpz9Cr1V+enIox5v+WZhy/p3h8w==
   /@types/rimraf/2.0.2:
     dependencies:
       '@types/glob': 7.1.1
@@ -9525,7 +9510,6 @@ packages:
       '@types/node': 10.14.18
       '@types/node-fetch': 2.5.0
       '@types/prompts': 2.0.1
-      '@types/request': 2.48.3
       '@types/tar': 4.0.3
       '@types/validator': 10.11.3
       any-shell-escape: 0.1.1
@@ -9545,7 +9529,6 @@ packages:
       node-fetch: 2.6.0
       open: 6.4.0
       prompts: 2.2.1
-      request: 2.88.0
       specshell: 0.0.2
       tar: 4.4.10
       terminal-link: 1.3.0
@@ -9558,7 +9541,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-cli'
     resolution:
-      integrity: sha512-1Awn2DVdCgxyUhT0miAkZX2P7DrUVLx3ILSCMzq7GMyQC7iJO0hiNuGtJFLP6QGiWCs8m9YjbZUGSIaeqN/yeQ==
+      integrity: sha512-HcB+WEhp3IWNHYP9p+Xeio+C7nFg9B0M6Y6st3A2yMUbTCMpiu9RkkgR91DXaIGRGIHYdYD7W6ahoXgebkQsMw==
       tarball: 'file:projects/shift-cli.tgz'
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
@@ -9876,7 +9859,6 @@ specifiers:
   '@types/nanoid': ^2.0.0
   '@types/prompts': ^2.0.1
   '@types/react': ^16.8.24
-  '@types/request': ^2.48.3
   '@types/rimraf': ^2.0.2
   '@types/rmfr': ^2.0.0
   '@types/sinon': ^7.0.13
@@ -9930,7 +9912,6 @@ specifiers:
   prompts: ^2.2.1
   ramda: ^0.26.1
   react: ^16.8.6
-  request: ^2.88.0
   rimraf: ^2.6.3
   rmfr: ^2.0.0
   rxjs: ^6.5.2

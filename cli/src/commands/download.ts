@@ -1,7 +1,7 @@
 import { CLIError } from '@oclif/errors';
 import * as path from 'path';
 import * as tar from 'tar';
-import * as request from 'request';
+import fetch from 'node-fetch';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
 import { Project } from '../utils/helpers';
@@ -86,24 +86,24 @@ export default class Download extends Command {
       }
     };
     await new Promise<void>((resolve, reject) => {
-      request.get(compressedSourceUrl)
-        .on('error', (err) => {
-          verboseLog('request', err);
-          reject(new CLIError(`Failed fetching ${compressedSourceUrl}`));
-        })
-        .on('response', (res) => {
-          const statusCode = res.statusCode;
+      fetch(compressedSourceUrl)
+        .then((res) =>  {
+          const statusCode = res.status;
           if (statusNotOk(statusCode)) {
             reject(new CLIError(`Bad status code ${statusCode} when fetching ${compressedSourceUrl}`));
           }
+          res.body.pipe(extract)
+            .on('error', (err) => {
+              verboseLog('extract', err);
+              reject(new CLIError('Failed extracting application'));
+            })
+            .on('finish', () => {
+              resolve();
+            });
         })
-        .pipe(extract)
-        .on('error', (err) => {
-          verboseLog('extract', err);
-          reject(new CLIError('Failed extracting application'));
-        })
-        .on('finish', () => {
-          resolve();
+        .catch((err) => {
+          verboseLog('download', err);
+          reject(new CLIError(`Failed fetching ${compressedSourceUrl}`));
         });
     });
     this.log('Installing packages...');
