@@ -2,6 +2,18 @@
   "name": "@binaris/shift-server-function",
   "entries": [
     {
+      "version": "0.0.5",
+      "tag": "@binaris/shift-server-function_v0.0.5",
+      "date": "Sun, 15 Sep 2019 08:21:07 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Prevent execution of unexposed functions"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.4",
       "tag": "@binaris/shift-server-function_v0.0.4",
       "date": "Mon, 09 Sep 2019 10:48:16 GMT",

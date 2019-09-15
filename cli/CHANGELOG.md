@@ -1,6 +1,13 @@
 # Change Log - shift-cli
 
-This log was last generated on Thu, 12 Sep 2019 07:39:08 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Sep 2019 08:21:07 GMT and should not be manually modified.
+
+## 0.2.4
+Sun, 15 Sep 2019 08:21:07 GMT
+
+### Patches
+
+- Use code-transform plugin on babel step
 
 ## 0.2.3
 Thu, 12 Sep 2019 07:39:08 GMT

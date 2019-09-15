@@ -2,6 +2,18 @@
   "name": "shift-cli",
   "entries": [
     {
+      "version": "0.2.4",
+      "tag": "shift-cli_v0.2.4",
+      "date": "Sun, 15 Sep 2019 08:21:07 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use code-transform plugin on babel step"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.3",
       "tag": "shift-cli_v0.2.3",
       "date": "Thu, 12 Sep 2019 07:39:08 GMT",
