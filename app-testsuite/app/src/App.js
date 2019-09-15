@@ -3,8 +3,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { get, update, getSecret } from '../backend/index';
 import { notExposed, invalidFile } from './hack';
 
-console.log('NE', notExposed);
-
 const useGetter = (getter) => {
   const [state, setState] = useState({ loading: true });
   useEffect(() => {

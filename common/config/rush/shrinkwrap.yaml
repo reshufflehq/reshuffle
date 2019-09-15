@@ -1,7 +1,7 @@
 dependencies:
   '@babel/cli': 7.6.0
   '@babel/core': 7.6.0
-  '@babel/parser': 7.5.5
+  '@babel/parser': 7.6.0
   '@babel/plugin-transform-modules-commonjs': 7.6.0
   '@babel/types': 7.6.1
   '@binaris/shift-interfaces-node-client': 0.3.0
@@ -328,13 +328,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-7dV4eu9gBxoM0dAnj/BCFDW9LFU0zvTrkq0ugM7pnHEgguOEeOz1so2ZghEdzviYzQEED0r4EAgpsBChKy1TRQ==
-  /@babel/parser/7.5.5:
-    dev: false
-    engines:
-      node: '>=6.0.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-E5BN68cqR7dhKan1SfqgPGhQ178bkVKpXTPEXnFJBrEt8/DKRZlybmy+IgYLTeN7tp1R5Ccmbm2rBk17sHYU3g==
   /@babel/parser/7.6.0:
     dev: false
     engines:
@@ -421,7 +414,7 @@ packages:
       '@babel/core': 7.6.0
       '@babel/helper-plugin-utils': 7.0.0
       '@babel/helper-regex': 7.5.5
-      regexpu-core: 4.5.5
+      regexpu-core: 4.6.0
     dev: false
     engines:
       node: '>=4'
@@ -982,7 +975,7 @@ packages:
       integrity: sha512-jOdnI/3qTpHABjM5cx1Hc0sKsPoYCp+DP/GJRGtDlPd7fiV9oXGGIcjW/ZOxLIvjGz8MA+uMZI9metHlgqbgwQ==
   /@types/babel__core/7.1.3:
     dependencies:
-      '@babel/parser': 7.5.5
+      '@babel/parser': 7.6.0
       '@babel/types': 7.6.1
       '@types/babel__generator': 7.0.2
       '@types/babel__template': 7.0.2
@@ -998,7 +991,7 @@ packages:
       integrity: sha512-NHcOfab3Zw4q5sEE2COkpfXjoE7o+PmqD9DQW4koUT3roNxwziUdXGnRndMat/LJNUtePwn1TlP4do3uoe3KZQ==
   /@types/babel__template/7.0.2:
     dependencies:
-      '@babel/parser': 7.5.5
+      '@babel/parser': 7.6.0
       '@babel/types': 7.6.1
     dev: false
     resolution:
@@ -1280,7 +1273,7 @@ packages:
       integrity: sha512-f8JzJNWVhKtc9dg/dyDNfliTKNOJSLa7Oht/ElZdF/UbMUmAH3rLmAk3ODNjw0mZajDEgatA03tRjB4+Dp/tzA==
   /@types/ramda/0.26.21:
     dependencies:
-      ts-toolbelt: 3.8.91
+      ts-toolbelt: 3.10.0
     dev: false
     resolution:
       integrity: sha512-zMYtIZMceA6BvH+or6LmewLBgojbXg5+FGCwjO8K+Z+d/ZWxILmhhASXkehW0PqJL+V0QbyDeeAHix0dvEKXfQ==
@@ -1840,7 +1833,7 @@ packages:
   /babel-plugin-espower/3.0.1:
     dependencies:
       '@babel/generator': 7.6.0
-      '@babel/parser': 7.5.5
+      '@babel/parser': 7.6.0
       call-matcher: 1.1.0
       core-js: 2.6.9
       espower-location-detector: 1.0.0
@@ -2605,7 +2598,7 @@ packages:
     dependencies:
       glob: 7.1.4
       lodash: 4.17.15
-      mustache: 3.0.3
+      mustache: 3.1.0
       mz: 2.7.0
       npm: 6.11.3
       rmfr: 2.0.0
@@ -3537,7 +3530,7 @@ packages:
       '@nodelib/fs.walk': 1.2.3
       glob-parent: 5.0.0
       is-glob: 4.0.1
-      merge2: 1.2.4
+      merge2: 1.3.0
       micromatch: 4.0.2
     dev: false
     engines:
@@ -3923,7 +3916,7 @@ packages:
       fast-glob: 3.0.4
       glob: 7.1.4
       ignore: 5.1.4
-      merge2: 1.2.4
+      merge2: 1.3.0
       slash: 3.0.0
     dev: false
     engines:
@@ -4783,7 +4776,7 @@ packages:
   /istanbul-lib-instrument/3.3.0:
     dependencies:
       '@babel/generator': 7.6.0
-      '@babel/parser': 7.5.5
+      '@babel/parser': 7.6.0
       '@babel/template': 7.6.0
       '@babel/traverse': 7.6.0
       '@babel/types': 7.6.1
@@ -5914,12 +5907,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
-  /merge2/1.2.4:
+  /merge2/1.3.0:
     dev: false
     engines:
-      node: '>= 4.5.0'
+      node: '>= 6'
     resolution:
-      integrity: sha512-FYE8xI+6pjFOhokZu0We3S5NKCirLbCzSh2Usf3qEyr4X8U+0jNg9P8RZ4qz+V2UoECLVwSyzU3LxXBaLGtD3A==
+      integrity: sha512-2j4DAdlBOkiSZIsaXk4mTE3sRS02yBHAtfy127xRV3bQUFqXkjHCHLW6Scv7DwNRbIWNHH8zpnz9zMaKXIdvYw==
   /methods/1.1.2:
     dev: false
     engines:
@@ -6032,12 +6025,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-dmpSnLJtNQioZFI5HfQ55Ad0DzzsMAb+HfokwRTNXwEQjepbTkl5mtIlSVxGIkOkxlpX7wIn5ET/oAd9fZ/Y/Q==
-  /minizlib/1.2.1:
+  /minizlib/1.2.2:
     dependencies:
       minipass: 2.5.1
     dev: false
     resolution:
-      integrity: sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
+      integrity: sha512-hR3At21uSrsjjDTWrbu0IMLTpnkpv8IIMFDFaoz43Tmu4LkmAXfH44vNNzpTnf+OAQQCHrb91y/wc2J4x5XgSQ==
   /mississippi/3.0.0:
     dependencies:
       concat-stream: 1.6.2
@@ -6099,13 +6092,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
-  /mustache/3.0.3:
+  /mustache/3.1.0:
     dev: false
     engines:
       npm: '>=1.4.0'
     hasBin: true
     resolution:
-      integrity: sha512-vM5FkMHamTYmVYeAujypihuPrJQDtaUIlKeeVb1AMJ73OZLtWiF7GprqrjxD0gJWT53W9JfqXxf97nXQjMQkqA==
+      integrity: sha512-3Bxq1R5LBZp7fbFPZzFe5WN4s0q3+gxZaZuZVY+QctYJiCiVgXHOTIC0/HgZuOPFt/6BQcx5u0H2CUOxT/RoGQ==
   /mv/2.1.1:
     dependencies:
       mkdirp: 0.5.1
@@ -6359,7 +6352,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-wNprTNg+X5nf+tDi+hbjdHhM4bX+mKqv6XmPh7B5eG+QY9VARfQPfCEH013H5GqfNj6ee8Ij2fg8yk0mzps1Vw==
-  /npm-registry-fetch/4.0.0:
+  /npm-registry-fetch/4.0.1:
     dependencies:
       JSONStream: 1.3.5
       bluebird: 3.5.5
@@ -6367,9 +6360,10 @@ packages:
       lru-cache: 5.1.1
       make-fetch-happen: 5.0.0
       npm-package-arg: 6.1.1
+      safe-buffer: 5.2.0
     dev: false
     resolution:
-      integrity: sha512-Jllq35Jag8dtv0M17ue74XtdQTyqKzuAYGiX9mAjOhkmNjib3bBUgK6mUY61+AHnXeSRobQkpY3/xIOS/omptw==
+      integrity: sha512-1ZQ+yjnxc698R5h9Yje9CASapzAZr7aYDkJDdERg9xg2hOEY0vRJwskOaJAXq8N/eLavzvW4g564YAfq6zMn/A==
   /npm-run-path/2.0.2:
     dependencies:
       path-key: 2.0.1
@@ -6843,7 +6837,7 @@ packages:
       npm-package-arg: 6.1.1
       npm-packlist: 1.4.4
       npm-pick-manifest: 3.0.2
-      npm-registry-fetch: 4.0.0
+      npm-registry-fetch: 4.0.1
       osenv: 0.1.5
       promise-inflight: 1.0.1
       promise-retry: 1.1.1
@@ -7479,7 +7473,7 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-ztaw4M1VqgMwl9HlPpOuiYgItcHlunW0He2fE6eNfT6E/CF2FtYi9ofOYe4mKntstYk0Fyh/rDRBdS3AnxjlrA==
-  /regexpu-core/4.5.5:
+  /regexpu-core/4.6.0:
     dependencies:
       regenerate: 1.4.0
       regenerate-unicode-properties: 8.1.0
@@ -7491,7 +7485,7 @@ packages:
     engines:
       node: '>=4'
     resolution:
-      integrity: sha512-FpI67+ky9J+cDizQUJlIlNZFKual/lUkFr1AG6zOCpwZ9cLrg8UUVakyUQJD7fCDIe9Z2nwTQJNPyonatNmDFQ==
+      integrity: sha512-YlVaefl8P5BnFYOITTNzDvan1ulLOiXJzCNZxduTIosN17b87h3bvG9yHMoHaRuo88H4mQ06Aodj5VtYGGGiTg==
   /registry-auth-token/3.4.0:
     dependencies:
       rc: 1.2.8
@@ -8431,7 +8425,7 @@ packages:
       chownr: 1.1.2
       fs-minipass: 1.2.6
       minipass: 2.5.1
-      minizlib: 1.2.1
+      minizlib: 1.2.2
       mkdirp: 0.5.1
       safe-buffer: 5.2.0
       yallist: 3.0.3
@@ -8677,12 +8671,10 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
-  /ts-toolbelt/3.8.91:
+  /ts-toolbelt/3.10.0:
     dev: false
-    peerDependencies:
-      typescript: ^3.5.0
     resolution:
-      integrity: sha512-HVY9kFtQCtAfuHPf8XK9BWzwUueGtviZ5i/x6hu9uMIy+PWqlwjD1eqRTBaCewOclR5w07j1bgaT7cWNWrJgZw==
+      integrity: sha512-bBuhxvS1ZUww3EwBooemUTargLP1EBgIcO221iTI0EjukHyHurnZckEHrpWA+P80JPp/2lvl4lv5bZN9P6AWUg==
   /tslib/1.10.0:
     dev: false
     resolution:
@@ -9495,7 +9487,7 @@ packages:
     version: 0.0.0
   'file:projects/shift-code-transform.tgz':
     dependencies:
-      '@babel/parser': 7.5.5
+      '@babel/parser': 7.6.0
       '@babel/types': 7.6.1
       '@types/babel__traverse': 7.0.7
       '@types/jest': 24.0.18
@@ -9676,7 +9668,7 @@ packages:
     dev: false
     name: '@rush-temp/shift-local-proxy'
     resolution:
-      integrity: sha512-q5yKFNC1zwGjqRYbQNuccFRpUMq/635qQXd93oajxTiPo60SbPTbH+WhZeWFrfzbxKVOBWfBK+bmWEiPS0td4w==
+      integrity: sha512-j1WS226Slf+IfXiJ31EAACxIKxQdh2+DYPBRa995tVk7lnsIg7VqbXngIklY0TXeBnjclCL17YxxY5m8ZS9dmA==
       tarball: 'file:projects/shift-local-proxy.tgz'
     version: 0.0.0
   'file:projects/shift-server-function.tgz':
