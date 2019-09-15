@@ -56,7 +56,7 @@ export const handler: BinarisFunction = async (body, ctx) => {
         if (error instanceof HandlerError) {
           return new ctx.HTTPResponse({
             statusCode: error.status,
-            body: JSON.stringify(error.message),
+            body: JSON.stringify({ error: error.message }),
             headers: { 'Content-Type': 'application/json' },
           });
         }
