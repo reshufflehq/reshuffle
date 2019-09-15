@@ -6,6 +6,10 @@ import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
 import { Project } from '../utils/helpers';
 
+export function statusNotOk(code: number): boolean {
+  return 200 > code || code >= 300;
+}
+
 export default class Download extends Command {
   public static description = 'download application';
   public static examples = [
@@ -65,7 +69,7 @@ export default class Download extends Command {
         })
         .on('response', (res) => {
           const statusCode = res.statusCode;
-          if (statusCode !== 200) {
+          if (statusNotOk(statusCode)) {
             reject(new CLIError(`Bad status code ${statusCode} when fetching ${compressedSourceUrl}`));
           }
         })
