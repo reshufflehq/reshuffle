@@ -4,7 +4,7 @@
   "version": "0.2.4",
   "author": "arikmaor @arikmaor",
   "bin": {
-    "": "./bin/run"
+    "reshuffle": "./bin/run"
   },
   "bugs": "https://github.com/reshufflehq/reshuffle/issues",
   "engines": {
@@ -16,7 +16,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://www.reshuffle.com",
+  "homepage": "https://github.com/reshufflehq/reshuffle.git",
   "keywords": [
     "oclif"
   ],
