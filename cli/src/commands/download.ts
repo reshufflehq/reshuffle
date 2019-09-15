@@ -62,7 +62,7 @@ export default class Download extends Command {
     // this.log(compressedSourceUrl);
     const targetDir = '.';
     const extract = tar.extract({ cwd: targetDir });
-    const getAppCodePromise = new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       request.get(compressedSourceUrl)
         .on('error', () => {
           reject(new CLIError(`Failed fetching ${compressedSourceUrl}`));
@@ -81,7 +81,6 @@ export default class Download extends Command {
           resolve();
         });
     });
-    await getAppCodePromise;
     this.log('Installing packages...');
     await spawn('npm', ['install'], {
       cwd: projectDir,
