@@ -5,6 +5,7 @@ import * as request from 'request';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
 import { Project } from '../utils/helpers';
+import flags from '../utils/cli-flags';
 
 export function statusNotOk(code: number): boolean {
   return 200 > code || code >= 300;
@@ -24,19 +25,36 @@ export default class Download extends Command {
     },
   ];
 
+  public static flags = {
+    ...Command.flags,
+    verbose: flags.boolean({
+      char: 'v',
+      description: 'Be verbose',
+      default: false,
+    }),
+  };
+
   public static strict = true;
 
   public async run() {
-    const { args } = this.parse(Download);
-    const { ID: applicationId } = args;
+    const {
+      args : { ID: applicationId },
+      flags: { verbose },
+    } = this.parse(Download);
     await this.authenticate();
     const applications = await this.lycanClient.listApps();
     const application = applications.find((app) => app.id === applicationId);
     if (!application) {
+      if (verbose) {
+        this.log('All applications:', applications);
+      }
       return this.error('Could not find application');
     }
     const { sourceUrl } = application;
     if (typeof sourceUrl !== 'string') {
+      if (verbose) {
+        this.log('application:', application);
+      }
       return this.error('Application source is unknown');
     }
     const projectBaseName = `${path.basename(sourceUrl)}-master`;
@@ -62,9 +80,15 @@ export default class Download extends Command {
     // this.log(compressedSourceUrl);
     const targetDir = '.';
     const extract = tar.extract({ cwd: targetDir });
+    const verboseLog = (type: string, err: Error) => {
+      if (verbose) {
+        this.log(`${type}:  ${err.message}`);
+      }
+    };
     await new Promise<void>((resolve, reject) => {
       request.get(compressedSourceUrl)
-        .on('error', () => {
+        .on('error', (err) => {
+          verboseLog('request', err);
           reject(new CLIError(`Failed fetching ${compressedSourceUrl}`));
         })
         .on('response', (res) => {
@@ -74,7 +98,8 @@ export default class Download extends Command {
           }
         })
         .pipe(extract)
-        .on('error', (_err: any) => {
+        .on('error', (err) => {
+          verboseLog('extract', err);
           reject(new CLIError('Failed extracting application'));
         })
         .on('finish', () => {
