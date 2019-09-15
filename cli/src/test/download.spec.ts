@@ -49,6 +49,13 @@ test('missing application', async (t) => {
   t.snapshot(result);
 });
 
+test('verbose missing application', async (t) => {
+  td.when(t.context.lycanFake.listApps(anything)).thenResolve([]);
+
+  const result = await t.context.shell.run(`${t.context.run} download -v no-such-app-id`, 'utf-8');
+  t.snapshot(result);
+});
+
 test('no source url', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
@@ -56,6 +63,16 @@ test('no source url', async (t) => {
   }]);
 
   const result = await t.context.shell.run(`${t.context.run} download app-with-no-source`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('verbose no source url', async (t) => {
+  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+    ...defaultApp,
+    id: 'app-with-no-source',
+  }]);
+
+  const result = await t.context.shell.run(`${t.context.run} download -v app-with-no-source`, 'utf-8');
   t.snapshot(result);
 });
 
@@ -92,6 +109,59 @@ test('bad tgz', async (t) => {
 
   const result = await t.context.shell.run(`${t.context.run} download app-with-bad-tgz`, 'utf-8');
   t.snapshot(result);
+});
+
+test('verbose bad tgz', async (t) => {
+  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+    ...defaultApp,
+    id: 'app-with-bad-tgz',
+    sourceUrl: `${t.context.lycanUrl}/bad-tgz`,
+  }]);
+  const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
+  const tgzBuffer = await drainToBuffer(tarStream);
+  const partialBuffer = tgzBuffer.slice(0, -100);
+  (t.context.lycanServer as any).router.koaRouter.get('/bad-tgz/archive/master.tar.gz', (ctx: any) => {
+    ctx.body = partialBuffer;
+  });
+
+  const result = await t.context.shell.run(`${t.context.run} download -v app-with-bad-tgz`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('bad request', async (t) => {
+  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+    ...defaultApp,
+    id: 'app-with-bad-req',
+    sourceUrl: `${t.context.lycanUrl}/bad-req`,
+  }]);
+  (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
+    ctx.req.socket.destroy();
+  });
+
+  const result = await t.context.shell.run(`${t.context.run} download app-with-bad-req`, 'utf-8');
+  const stableResult = {
+    ...result,
+    err: result.err.replace(/localhost:[0-9]*/, 'localhost'),
+  };
+  t.snapshot(stableResult);
+});
+
+test('verbose bad request', async (t) => {
+  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+    ...defaultApp,
+    id: 'app-with-bad-req',
+    sourceUrl: `${t.context.lycanUrl}/bad-req`,
+  }]);
+  (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
+    ctx.req.socket.destroy();
+  });
+
+  const result = await t.context.shell.run(`${t.context.run} download -v app-with-bad-req`, 'utf-8');
+  const stableResult = {
+    ...result,
+    err: result.err.replace(/localhost:[0-9]*/, 'localhost'),
+  };
+  t.snapshot(stableResult);
 });
 
 test('good tgz', async (t) => {
