@@ -50,15 +50,15 @@ export default class Download extends Command {
       }
       return this.error('Could not find application');
     }
-    const { sourceUrl } = application;
-    if (typeof sourceUrl !== 'string') {
+    const { source } = application;
+    if (!source) {
       if (verbose) {
         this.log('application:', application);
       }
       return this.error('Application source is unknown');
     }
-    const projectBaseName = `${path.basename(sourceUrl)}-master`;
-    const projectDir = path.resolve(projectBaseName);
+    const { downloadUrl, downloadDir } = source;
+    const projectDir = path.resolve(downloadDir);
     const projects = this.conf.get('projects') as Project[] | undefined || [];
     const project = projects.find(({ directory }) => directory === projectDir);
     const env = 'default'; // hardcoded for now
@@ -76,8 +76,6 @@ export default class Download extends Command {
       this.conf.set('projects', projects);
     }
     this.log('Downloading application...');
-    const compressedSourceUrl = `${sourceUrl}/archive/master.tar.gz`;
-    // this.log(compressedSourceUrl);
     const targetDir = '.';
     const extract = tar.extract({ cwd: targetDir });
     const verboseLog = (type: string, err: Error) => {
@@ -86,11 +84,11 @@ export default class Download extends Command {
       }
     };
     await new Promise<void>((resolve, reject) => {
-      fetch(compressedSourceUrl)
+      fetch(downloadUrl)
         .then((res) =>  {
           const statusCode = res.status;
           if (statusNotOk(statusCode)) {
-            reject(new CLIError(`Bad status code ${statusCode} when fetching ${compressedSourceUrl}`));
+            reject(new CLIError(`Bad status code ${statusCode} when fetching ${downloadUrl}`));
           }
           res.body.pipe(extract)
             .on('error', (err) => {
@@ -103,7 +101,7 @@ export default class Download extends Command {
         })
         .catch((err) => {
           verboseLog('download', err);
-          reject(new CLIError(`Failed fetching ${compressedSourceUrl}`));
+          reject(new CLIError(`Failed fetching ${downloadUrl}`));
         });
     });
     this.log('Installing packages...');
