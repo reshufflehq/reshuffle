@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Show suggestions without prompt",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "vladimir@shiftjs.com"
+}
