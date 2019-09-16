@@ -6,6 +6,7 @@ import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
 import { Project } from '../utils/helpers';
 import flags from '../utils/cli-flags';
+import { Application } from '@binaris/spice-node-client/interfaces';
 
 export function statusNotOk(code: number): boolean {
   return 200 > code || code >= 300;
@@ -42,12 +43,13 @@ export default class Download extends Command {
       flags: { verbose },
     } = this.parse(Download);
     await this.authenticate();
-    const applications = await this.lycanClient.listApps();
-    const application = applications.find((app) => app.id === applicationId);
+    let application: Application | undefined;
+    try {
+      application = await this.lycanClient.getApp(applicationId);
+    } catch (error) {
+      // TODO: check different errors
+    }
     if (!application) {
-      if (verbose) {
-        this.log('All applications:', applications);
-      }
       return this.error('Could not find application');
     }
     const { source } = application;

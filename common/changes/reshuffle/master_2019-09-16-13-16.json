@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Download command use server side information",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "michael@reshuffle.com"
+}

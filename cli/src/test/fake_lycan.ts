@@ -60,6 +60,7 @@ projects:
       tryTemplate: td.function<LycanHandler['tryTemplate']>(),
       whoami: td.function<LycanHandler['whoami']>(),
       listApps: td.function<LycanHandler['listApps']>(),
+      getApp: td.function<LycanHandler['getApp']>(),
       deployInitial: td.function<LycanHandler['deployInitial']>(),
       deploy: td.function<LycanHandler['deploy']>(),
       claimApp: td.function<LycanHandler['claimApp']>(),

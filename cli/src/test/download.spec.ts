@@ -43,41 +43,41 @@ test('too many args', async (t) => {
 });
 
 test('missing application', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([]);
+  td.when(t.context.lycanFake.getApp(anything, 'no-such-app-id')).thenReject(new Error('not found'));
 
   const result = await t.context.shell.run(`${t.context.run} download no-such-app-id`, 'utf-8');
   t.snapshot(result);
 });
 
 test('verbose missing application', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([]);
+  td.when(t.context.lycanFake.getApp(anything, 'no-such-app-id')).thenReject(new Error('not found'));
 
   const result = await t.context.shell.run(`${t.context.run} download -v no-such-app-id`, 'utf-8');
   t.snapshot(result);
 });
 
 test('no source url', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-no-source')).thenResolve({
     ...defaultApp,
     id: 'app-with-no-source',
-  }]);
+  });
 
   const result = await t.context.shell.run(`${t.context.run} download app-with-no-source`, 'utf-8');
   t.snapshot(result);
 });
 
 test('verbose no source url', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-no-source')).thenResolve({
     ...defaultApp,
     id: 'app-with-no-source',
-  }]);
+  });
 
   const result = await t.context.shell.run(`${t.context.run} download -v app-with-no-source`, 'utf-8');
   t.snapshot(result);
 });
 
 test('bad url', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-bad-url')).thenResolve({
     ...defaultApp,
     id: 'app-with-bad-url',
     source: {
@@ -85,7 +85,7 @@ test('bad url', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/bad-url/foo`,
       downloadDir: 'someDir',
     },
-  }]);
+  });
   (t.context.lycanServer as any).router.koaRouter.get('/bad-url/foo', (ctx: any) => {
     ctx.status = 401;
   });
@@ -99,7 +99,7 @@ test('bad url', async (t) => {
 });
 
 test('bad tgz', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-bad-tgz')).thenResolve({
     ...defaultApp,
     id: 'app-with-bad-tgz',
     source: {
@@ -107,7 +107,7 @@ test('bad tgz', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/bad-tgz/archive/master.tar.gz`,
       downloadDir: 'bad-tgz',
     },
-  }]);
+  });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
   const tgzBuffer = await drainToBuffer(tarStream);
   const partialBuffer = tgzBuffer.slice(0, -100);
@@ -120,7 +120,7 @@ test('bad tgz', async (t) => {
 });
 
 test('verbose bad tgz', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-bad-tgz')).thenResolve({
     ...defaultApp,
     id: 'app-with-bad-tgz',
     source: {
@@ -128,7 +128,7 @@ test('verbose bad tgz', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/bad-tgz/archive/master.tar.gz`,
       downloadDir: 'bad-tgz',
     },
-  }]);
+  });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
   const tgzBuffer = await drainToBuffer(tarStream);
   const partialBuffer = tgzBuffer.slice(0, -100);
@@ -141,7 +141,7 @@ test('verbose bad tgz', async (t) => {
 });
 
 test('bad request', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-bad-req')).thenResolve({
     ...defaultApp,
     id: 'app-with-bad-req',
     source: {
@@ -149,7 +149,7 @@ test('bad request', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/bad-req/archive/master.tar.gz`,
       downloadDir: 'bad-req',
     },
-  }]);
+  });
   (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
     ctx.req.socket.destroy();
   });
@@ -163,7 +163,7 @@ test('bad request', async (t) => {
 });
 
 test('verbose bad request', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'app-with-bad-req')).thenResolve({
     ...defaultApp,
     id: 'app-with-bad-req',
     source: {
@@ -171,7 +171,7 @@ test('verbose bad request', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/bad-req/archive/master.tar.gz`,
       downloadDir: 'bad-req',
     },
-  }]);
+  });
   (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
     ctx.req.socket.destroy();
   });
@@ -186,7 +186,7 @@ test('verbose bad request', async (t) => {
 });
 
 test('tgz with wrong dir', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'bad-dir')).thenResolve({
     ...defaultApp,
     id: 'bad-dir',
     source: {
@@ -194,7 +194,7 @@ test('tgz with wrong dir', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/bad-dir/archive/master.tar.gz`,
       downloadDir: 'not-good',
     },
-  }]);
+  });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
   const tgzBuffer = await drainToBuffer(tarStream);
   (t.context.lycanServer as any).router.koaRouter.get('/bad-dir/archive/master.tar.gz', (ctx: any) => {
@@ -210,7 +210,7 @@ test('tgz with wrong dir', async (t) => {
 });
 
 test('good tgz', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+  td.when(t.context.lycanFake.getApp(anything, 'good-app')).thenResolve({
     ...defaultApp,
     id: 'good-app',
     source: {
@@ -218,7 +218,7 @@ test('good tgz', async (t) => {
       downloadUrl: `${t.context.lycanUrl}/good-app/archive/master.tar.gz`,
       downloadDir: 'good-app-master',
     },
-  }]);
+  });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
   const tgzBuffer = await drainToBuffer(tarStream);
   (t.context.lycanServer as any).router.koaRouter.get('/good-app/archive/master.tar.gz', (ctx: any) => {

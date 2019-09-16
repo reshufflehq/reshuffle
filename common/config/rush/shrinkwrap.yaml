@@ -5,8 +5,8 @@ dependencies:
   '@babel/plugin-transform-modules-commonjs': 7.6.0
   '@babel/types': 7.6.1
   '@binaris/oclif-plugin-not-found': 1.2.4
-  '@binaris/spice-koa-server': 0.0.2
-  '@binaris/spice-node-client': 0.0.2-rc.20
+  '@binaris/spice-koa-server': 0.0.4
+  '@binaris/spice-node-client': 0.0.4
   '@binaris/utils-subprocess': 0.0.1
   '@oclif/command': 1.5.19
   '@oclif/config': 1.13.3
@@ -495,7 +495,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-h3XyMTKEMeo4VpVT7dkraa6VsoEv78URQ3VeNVmBHHgoH70rlK8PoCYUGBExcOQ3QQ3uNFwR4DhYx5f6c1nL8A==
-  /@binaris/spice-koa-server/0.0.2:
+  /@binaris/spice-koa-server/0.0.4:
     dependencies:
       '@types/koa': 2.0.49
       '@types/koa-bodyparser': 5.0.2
@@ -509,8 +509,8 @@ packages:
     peerDependencies:
       '@types/node': '>=8.0.0'
     resolution:
-      integrity: sha512-Hr0P7P01Kol8fi4H6ip4oif7ALt/XYLr2/QqiBUue1jaWh2v9IcPqee5KA5NOh5RJ9U4xJwrCjLUy+TTBBBPbw==
-  /@binaris/spice-koa-server/0.0.2/@types!node@10.14.18:
+      integrity: sha512-gpAClC+KD8MlNEfcKO2V8DMT9RmMkW7/FO37BEvjmEoEp56NspWRuZ9oEmFbksrRdECm1y297wGmkzPkhKSM/g==
+  /@binaris/spice-koa-server/0.0.4/@types!node@10.14.18:
     dependencies:
       '@types/koa': 2.0.49
       '@types/koa-bodyparser': 5.0.2
@@ -522,12 +522,12 @@ packages:
       koa-router: 7.4.0
       lodash: 4.17.15
     dev: false
-    id: registry.npmjs.org/@binaris/spice-koa-server/0.0.2
+    id: registry.npmjs.org/@binaris/spice-koa-server/0.0.4
     peerDependencies:
       '@types/node': '>=8.0.0'
     resolution:
-      integrity: sha512-Hr0P7P01Kol8fi4H6ip4oif7ALt/XYLr2/QqiBUue1jaWh2v9IcPqee5KA5NOh5RJ9U4xJwrCjLUy+TTBBBPbw==
-  /@binaris/spice-node-client/0.0.2-rc.20:
+      integrity: sha512-gpAClC+KD8MlNEfcKO2V8DMT9RmMkW7/FO37BEvjmEoEp56NspWRuZ9oEmFbksrRdECm1y297wGmkzPkhKSM/g==
+  /@binaris/spice-node-client/0.0.4:
     dependencies:
       '@types/node-fetch': 2.5.0
       abort-controller: 2.0.3
@@ -536,7 +536,7 @@ packages:
       node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-71yvJB636Yr6cS+2y8+j26wvKPJCagJxOJJaheQDPni/OIzj5w5L7T47ljhhC20khk76T/j3J1uWfqOcorrR1A==
+      integrity: sha512-eNj4INsni8OuOfbnuhpJv7lOD2gttxa4LcHdyW7mC40pCNglHBrA/i3r23UBd/U9U4t8e7kNqTv9oQQo4pnGeg==
   /@binaris/utils-subprocess/0.0.1:
     dev: false
     resolution:
@@ -9623,8 +9623,8 @@ packages:
   'file:projects/reshuffle.tgz':
     dependencies:
       '@binaris/oclif-plugin-not-found': 1.2.4
-      '@binaris/spice-koa-server': /@binaris/spice-koa-server/0.0.2/@types!node@10.14.18
-      '@binaris/spice-node-client': 0.0.2-rc.20
+      '@binaris/spice-koa-server': /@binaris/spice-koa-server/0.0.4/@types!node@10.14.18
+      '@binaris/spice-node-client': 0.0.4
       '@binaris/utils-subprocess': 0.0.1
       '@oclif/command': 1.5.19
       '@oclif/config': 1.13.3
@@ -9674,7 +9674,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-5H4cKxqp+9SL0xyDfRz9tBtE9QsLTZ1nHcz0yzqg/DrjhhPkxFMCL/e232ml0YtnQbetCtFzlSzZru7QI9Hsyw==
+      integrity: sha512-e8Dir+5cjfMKKjWYTkSZ6Z1pkmLKgIopL8wYQqSpgB1rnHMC0plTUjVHASCbFVtfVO4JaEKejEJUqN2+36AwqA==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -9753,8 +9753,8 @@ specifiers:
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
   '@binaris/oclif-plugin-not-found': ^1.2.4
-  '@binaris/spice-koa-server': ^0.0.2
-  '@binaris/spice-node-client': 0.0.2-rc.20
+  '@binaris/spice-koa-server': ^0.0.4
+  '@binaris/spice-node-client': 0.0.4
   '@binaris/utils-subprocess': 0.0.1
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
