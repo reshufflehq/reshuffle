@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/local-proxy",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "files": [
     "dist"
   ],
@@ -17,10 +17,10 @@
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/plugin-transform-modules-commonjs": "^7.5.0",
-    "@reshuffle/code-transform": "0.0.2",
+    "@reshuffle/code-transform": "0.0.3",
     "@reshuffle/interfaces-koa-server": "0.4.0",
-    "@reshuffle/leveldb-server": "0.0.3",
-    "@reshuffle/server-function": "0.0.5",
+    "@reshuffle/leveldb-server": "0.0.4",
+    "@reshuffle/server-function": "0.0.6",
     "@types/express": "^4.17.0",
     "address": "^1.1.2",
     "bunyan": "^1.8.12",
@@ -40,7 +40,7 @@
     "walkdir": "^0.4.1"
   },
   "peerDependencies": {
-    "@reshuffle/db": "0.5.0"
+    "@reshuffle/db": "0.5.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.2",

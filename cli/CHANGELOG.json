@@ -1,6 +1,24 @@
 {
-  "name": "shift-cli",
+  "name": "reshuffle",
   "entries": [
+    {
+      "version": "0.2.5",
+      "tag": "reshuffle_v0.2.5",
+      "date": "Mon, 16 Sep 2019 15:58:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Show suggestions without prompt"
+          },
+          {
+            "comment": "Rename \"shift\" ==> \"reshuffle\""
+          },
+          {
+            "comment": "Download command use server side information"
+          }
+        ]
+      }
+    },
     {
       "version": "0.2.4",
       "tag": "shift-cli_v0.2.4",

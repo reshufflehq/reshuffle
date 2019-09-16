@@ -1,6 +1,13 @@
 # Change Log - rush-update
 
-This log was last generated on Wed, 10 Jul 2019 12:29:59 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+
+## 1.2.3
+Mon, 16 Sep 2019 15:58:20 GMT
+
+### Patches
+
+- Rename "shift" ==> "reshuffle"
 
 ## 1.2.2
 Wed, 10 Jul 2019 12:29:59 GMT

@@ -1,6 +1,23 @@
 {
-  "name": "@binaris/shift-subscriptions",
+  "name": "@reshuffle/subscriptions",
   "entries": [
+    {
+      "version": "0.0.7",
+      "tag": "@reshuffle/subscriptions_v0.0.7",
+      "date": "Mon, 16 Sep 2019 15:58:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename \"shift\" ==> \"reshuffle\""
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/fetch-runtime\" from `0.0.4` to `0.0.5`"
+          }
+        ]
+      }
+    },
     {
       "version": "0.0.6",
       "tag": "@binaris/shift-subscriptions_v0.0.6",

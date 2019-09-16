@@ -1,6 +1,18 @@
 {
-  "name": "@binaris/shift-db",
+  "name": "@reshuffle/db",
   "entries": [
+    {
+      "version": "0.5.1",
+      "tag": "@reshuffle/db_v0.5.1",
+      "date": "Mon, 16 Sep 2019 15:58:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename \"shift\" ==> \"reshuffle\""
+          }
+        ]
+      }
+    },
     {
       "version": "0.5.0",
       "tag": "@binaris/shift-db_v0.5.0",

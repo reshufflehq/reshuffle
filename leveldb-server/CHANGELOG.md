@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/leveldb-server
 
-This log was last generated on Thu, 29 Aug 2019 12:31:30 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+
+## 0.0.4
+Mon, 16 Sep 2019 15:58:20 GMT
+
+### Patches
+
+- Rename "shift" ==> "reshuffle"
 
 ## 0.0.3
 Thu, 29 Aug 2019 12:31:30 GMT

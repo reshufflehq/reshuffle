@@ -1,6 +1,18 @@
 {
-  "name": "@binaris/shift-fetch-runtime",
+  "name": "@reshuffle/fetch-runtime",
   "entries": [
+    {
+      "version": "0.0.5",
+      "tag": "@reshuffle/fetch-runtime_v0.0.5",
+      "date": "Mon, 16 Sep 2019 15:58:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename \"shift\" ==> \"reshuffle\""
+          }
+        ]
+      }
+    },
     {
       "version": "0.0.4",
       "tag": "@binaris/shift-fetch-runtime_v0.0.4",

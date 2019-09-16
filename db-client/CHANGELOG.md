@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/db
 
-This log was last generated on Wed, 28 Aug 2019 13:08:32 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+
+## 0.5.1
+Mon, 16 Sep 2019 15:58:20 GMT
+
+### Patches
+
+- Rename "shift" ==> "reshuffle"
 
 ## 0.5.0
 Wed, 28 Aug 2019 13:08:32 GMT
