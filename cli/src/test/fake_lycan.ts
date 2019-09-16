@@ -15,6 +15,7 @@ export interface Context {
   run: string;
   configDir: string;
   configPath: string;
+  projectConfig: string;
   projectDir: string;
   lycanUrl: string;
   lycanFake: td.TestDouble<LycanHandler>;
@@ -25,7 +26,7 @@ export interface Context {
 // Adds before and after hooks to help test with a shell against a
 // fake Lycan server.
 export function addFake<C extends Context>(test: TestInterface<C>) {
-  test.before(async (t) => {
+  test.beforeEach(async (t) => {
     // Quoted in case dirname includes spaces etc.
     t.context.run = shellEscape(path.resolve(__dirname, '../..', 'bin/run'));
     t.context.configDir = await realpath(await mkdtemp(path.join(tmpdir(), 'dot-reshuffle-'), 'utf8'));
@@ -34,20 +35,17 @@ export function addFake<C extends Context>(test: TestInterface<C>) {
     // then realpath.
     t.context.configPath = path.resolve(t.context.configDir, 'config.yml');
     t.context.projectDir = path.resolve(t.context.configDir, 'project');
-    await writeFile(t.context.configPath, `
+    t.context.projectConfig = `
 accessToken: setec-astronomy
 projects:
   - directory: ${t.context.projectDir}
     applicationId: fluffy-samaritan
     defaultEnv: default
-`);
+`;
+    await writeFile(t.context.configPath, t.context.projectConfig);
     await mkdir(t.context.projectDir);
     // CLI only needs package.json to mark a project root.
     await writeFile(path.join(t.context.projectDir, 'package.json'), '');
-  });
-
-  test.after.always(async (t) => {
-    await remove(t.context.configDir);
   });
 
   test.serial.beforeEach(async (t) => {
@@ -80,6 +78,9 @@ projects:
     t.assert(success(await t.context.shell.run(`cd ${shellEscape(t.context.projectDir)}`, 'utf-8')));
   });
 
-  // tslint:disable-next-line strict-boolean-expressions (server not set until late in beforeEach)
-  test.afterEach.always((t) => { if (t.context.server) t.context.server.close(); });
+  test.afterEach.always(async (t) => {
+    // tslint:disable-next-line strict-boolean-expressions (server not set until late in beforeEach)
+    if (t.context.server) t.context.server.close();
+    await remove(t.context.configDir);
+  });
 }

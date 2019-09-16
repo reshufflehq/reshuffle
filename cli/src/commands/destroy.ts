@@ -1,5 +1,5 @@
+import { CLIError } from '@oclif/errors';
 import Command from '../utils/command';
-import flags from '../utils/cli-flags';
 import {
   getProjectRootDir,
   Project,
@@ -11,19 +11,18 @@ export default class Destroy extends Command {
     `$ ${Command.cliBinName} destroy 123`,
   ];
 
-  public static args = [];
-
-  public static flags = {
-    ...Command.flags,
-    id: flags.string({
+  public static args = [
+    {
+      name: 'id',
+      required: false,
       description: 'Application id (defaults to working directory\'s deployed application ID)',
-    }),
-  };
+    },
+  ];
 
   public static strict = true;
 
   public async run() {
-    const { id } = this.parse(Destroy).flags;
+    const { id } = this.parse(Destroy).args;
     await this.authenticate();
     const projects = this.conf.get('projects') as Project[] | undefined || [];
 
@@ -32,12 +31,17 @@ export default class Destroy extends Command {
       const projectDir = await getProjectRootDir();
       const project = projects.find(({ directory }) => directory === projectDir);
       if (project === undefined) {
-        throw new Error('"id" argument not provided and could not locate project settings');
+        throw new CLIError('"id" argument not provided and could not locate project settings');
       }
       appId = project.applicationId;
     }
 
-    await this.lycanClient.destroyApp(appId);
+    try {
+      await this.lycanClient.destroyApp(appId);
+    } catch (error) {
+      // TODO: add verbose logging of the entire error
+      throw new CLIError(error.message);
+    }
     const projectsWithoutAppId = projects.filter(({ applicationId }) => applicationId !== appId);
     this.conf.set('projects', projectsWithoutAppId);
     this.log('Application successfully destroyed!');
