@@ -28,7 +28,7 @@
     "repositoryPrefix": "<%- repo %>/blob/cli_v<%- version %>/cli/<%- commandPath %>",
     "plugins": [
       "@oclif/plugin-help",
-      "@oclif/plugin-not-found"
+      "@binaris/oclif-plugin-not-found"
     ]
   },
   "repository": "reshufflehq/reshuffle",
@@ -49,7 +49,7 @@
     "@oclif/errors": "^1.2.2",
     "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2.2.0",
-    "@oclif/plugin-not-found": "^1.2.2",
+    "@binaris/oclif-plugin-not-found": "^1.2.4",
     "any-shell-escape": "^0.1.1",
     "chalk": "^2.4.2",
     "cli-ux": "^5.3.1",
