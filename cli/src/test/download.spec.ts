@@ -80,9 +80,13 @@ test('bad url', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
     id: 'app-with-bad-url',
-    sourceUrl: `${t.context.lycanUrl}/bad-url`,
+    source: {
+      githubUrl: 'someUrl',
+      downloadUrl: `${t.context.lycanUrl}/bad-url/foo`,
+      downloadDir: 'someDir',
+    },
   }]);
-  (t.context.lycanServer as any).router.koaRouter.get('/bad-url/archive/master.tar.gz', (ctx: any) => {
+  (t.context.lycanServer as any).router.koaRouter.get('/bad-url/foo', (ctx: any) => {
     ctx.status = 401;
   });
 
@@ -98,7 +102,11 @@ test('bad tgz', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
     id: 'app-with-bad-tgz',
-    sourceUrl: `${t.context.lycanUrl}/bad-tgz`,
+    source: {
+      githubUrl: 'someUrl',
+      downloadUrl: `${t.context.lycanUrl}/bad-tgz/archive/master.tar.gz`,
+      downloadDir: 'bad-tgz',
+    },
   }]);
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
   const tgzBuffer = await drainToBuffer(tarStream);
@@ -115,7 +123,11 @@ test('verbose bad tgz', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
     id: 'app-with-bad-tgz',
-    sourceUrl: `${t.context.lycanUrl}/bad-tgz`,
+    source: {
+      githubUrl: 'someUrl',
+      downloadUrl: `${t.context.lycanUrl}/bad-tgz/archive/master.tar.gz`,
+      downloadDir: 'bad-tgz',
+    },
   }]);
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
   const tgzBuffer = await drainToBuffer(tarStream);
@@ -132,7 +144,11 @@ test('bad request', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
     id: 'app-with-bad-req',
-    sourceUrl: `${t.context.lycanUrl}/bad-req`,
+    source: {
+      githubUrl: 'someUrl',
+      downloadUrl: `${t.context.lycanUrl}/bad-req/archive/master.tar.gz`,
+      downloadDir: 'bad-req',
+    },
   }]);
   (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
     ctx.req.socket.destroy();
@@ -150,7 +166,11 @@ test('verbose bad request', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
     id: 'app-with-bad-req',
-    sourceUrl: `${t.context.lycanUrl}/bad-req`,
+    source: {
+      githubUrl: 'someUrl',
+      downloadUrl: `${t.context.lycanUrl}/bad-req/archive/master.tar.gz`,
+      downloadDir: 'bad-req',
+    },
   }]);
   (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
     ctx.req.socket.destroy();
@@ -165,11 +185,39 @@ test('verbose bad request', async (t) => {
   t.snapshot(stableResult);
 });
 
+test('tgz with wrong dir', async (t) => {
+  td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
+    ...defaultApp,
+    id: 'bad-dir',
+    source: {
+      githubUrl: 'foo',
+      downloadUrl: `${t.context.lycanUrl}/bad-dir/archive/master.tar.gz`,
+      downloadDir: 'not-good',
+    },
+  }]);
+  const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
+  const tgzBuffer = await drainToBuffer(tarStream);
+  (t.context.lycanServer as any).router.koaRouter.get('/bad-dir/archive/master.tar.gz', (ctx: any) => {
+    ctx.body = tgzBuffer;
+  });
+
+  const result = await t.context.shell.run(`${t.context.run} download bad-dir`, 'utf-8');
+  const stableResult = {
+    ...result,
+    out: result.out.replace(/up to date in [0-9][.0-9]*s/g, 'up to date'),
+  };
+  t.snapshot(stableResult);
+});
+
 test('good tgz', async (t) => {
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([{
     ...defaultApp,
     id: 'good-app',
-    sourceUrl: `${t.context.lycanUrl}/good-app`,
+    source: {
+      githubUrl: 'foo',
+      downloadUrl: `${t.context.lycanUrl}/good-app/archive/master.tar.gz`,
+      downloadDir: 'good-app-master',
+    },
   }]);
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
   const tgzBuffer = await drainToBuffer(tarStream);
