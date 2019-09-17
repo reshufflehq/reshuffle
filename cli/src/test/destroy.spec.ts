@@ -22,9 +22,7 @@ test('no args in project dir', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} destroy`, 'utf-8');
   t.snapshot(result);
   const config = await readFile(t.context.configPath, 'utf-8');
-  t.is(config, `accessToken: setec-astronomy
-projects: []
-`);
+  t.snapshot(config);
 });
 
 test('no args not in project dir', async (t) => {
