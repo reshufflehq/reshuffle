@@ -64,7 +64,6 @@ export default abstract class BaseCommand extends Command {
   public static flags: Parser.flags.Input<any>  = {
     help: flags.help({ char: 'h' }),
     config: flags.string({
-      default: userConfig.defaultLocation,
       env: 'RESHUFFLE_CONFIG',
     }),
     apiEndpoint: flags.string({
@@ -92,7 +91,7 @@ export default abstract class BaseCommand extends Command {
 
   public async init() {
     const { flags: { apiEndpoint, webAppLoginUrl, config } } = this.parse(BaseCommand);
-    this._configPath = config;
+    this._configPath = config || userConfig.defaultLocation;
     this._apiEndpoint = apiEndpoint;
     this.webAppLoginUrl = webAppLoginUrl;
   }
