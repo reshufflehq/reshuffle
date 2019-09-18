@@ -65,3 +65,8 @@ test('logs paginate', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
   t.snapshot(result);
 });
+
+test('logs help', async (t) => {
+  const result = await t.context.shell.run(`${t.context.run} help logs`, 'utf-8');
+  t.snapshot(result);
+});
