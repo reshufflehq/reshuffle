@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-app",
+      "comment": "Add missing shebang",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-app",
+  "email": "vladimir@shiftjs.com"
+}
