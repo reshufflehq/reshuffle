@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/react-app
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Sep 2019 09:05:39 GMT and should not be manually modified.
+
+## 0.0.10
+Wed, 18 Sep 2019 09:05:39 GMT
+
+### Patches
+
+- Add missing shebang
 
 ## 0.0.9
 Mon, 16 Sep 2019 15:58:20 GMT

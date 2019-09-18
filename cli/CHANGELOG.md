@@ -1,6 +1,14 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Sep 2019 09:05:39 GMT and should not be manually modified.
+
+## 0.2.6
+Wed, 18 Sep 2019 09:05:39 GMT
+
+### Patches
+
+- Remove default path from config parameter
+- Improve destroy command
 
 ## 0.2.5
 Mon, 16 Sep 2019 15:58:20 GMT

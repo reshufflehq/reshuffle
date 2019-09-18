@@ -2,6 +2,18 @@
   "name": "@reshuffle/react-app",
   "entries": [
     {
+      "version": "0.0.10",
+      "tag": "@reshuffle/react-app_v0.0.10",
+      "date": "Wed, 18 Sep 2019 09:05:39 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add missing shebang"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.9",
       "tag": "@reshuffle/react-app_v0.0.9",
       "date": "Mon, 16 Sep 2019 15:58:20 GMT",
