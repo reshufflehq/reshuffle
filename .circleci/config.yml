@@ -21,7 +21,7 @@ jobs:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
       - run:
           name: Generate interface packages
-          command: scripts/generate_interfaces
+          command: node common/scripts/install-run-rush.js generate-interfaces
       - run:
           name: Install dependencies
           command: node common/scripts/install-run-rush.js install
@@ -81,7 +81,7 @@ jobs:
             git config user.name "autoupdate"
       - run:
           name: Generate interface packages
-          command: scripts/generate_interfaces
+          command: node common/scripts/install-run-rush.js generate-interfaces
       - run:
           name: Update npm dependencies
           command: node common/scripts/install-run.js rush-update@latest rush-update -x @types/node --repo-owner binaris --repo-name shiftjs --pr-reviewers michaeladda

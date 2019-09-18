@@ -138,6 +138,13 @@
       "name": "lint",
       "summary": "bulk lint command",
       "enableParallelism": true
+    },
+    {
+      "commandKind": "global",
+      "name": "generate-interfaces",
+      "summary": "generate interfaces",
+      "description": "Run this command to generate interfaces using Concord.  Do this before your first `rush update`.",
+      "shellCommand": "scripts/generate_interfaces"
     }
   ],
 

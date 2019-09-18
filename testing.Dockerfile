@@ -9,7 +9,7 @@ USER node
 
 ADD --chown=node:node scripts/ ./scripts
 ADD --chown=node:node interfaces/ ./interfaces
-RUN scripts/generate_interfaces
 ADD --chown=node:node . ./
+RUN node common/scripts/install-run-rush.js generate_interfaces
 RUN node common/scripts/install-run-rush.js install
 RUN node common/scripts/install-run-rush.js rebuild --verbose
