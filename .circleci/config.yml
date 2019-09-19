@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+    win: circleci/windows@1.0.0
+
 aliases:
   - &docker
     docker:
@@ -12,6 +16,35 @@ aliases:
         command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
 jobs:
+  windows-build-and-integration-test:
+    executor: win/vs2019
+    steps:
+      - checkout
+      # - restore_cache:
+      #     key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
+      - run:
+          name: Generate interface packages
+          command: scripts/generate_interfaces
+      - run:
+          name: Install dependencies
+          command: node common/scripts/install-run-rush.js install
+      # - save_cache:
+      #     key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
+      #     paths:
+      #       - common/temp
+      #       - ~/.rush
+      - run:
+          name: Build source
+          command: node common/scripts/install-run-rush.js rebuild --verbose
+      - run:
+          name: Run integration tests
+          command: cd app-testsuite && node ../common/scripts/install-run-rushx.js integration-test
+      # - save_cache:
+      #     key: build-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      #     paths:
+      #       - ~/.rush
+      #       - .
+
   build:
     <<: *docker
     steps:
@@ -90,6 +123,13 @@ workflows:
   commit:
     jobs:
       - build:
+          filters: &ignore_publish
+            branches:
+              ignore:
+                # according to https://circleci.com/docs/2.0/configuration-reference/#filters-1
+                # regex should capture the whole string, so not /^publish-/
+                - /publish-.*/
+      - windows-build-and-integration-test:
           filters: &ignore_publish
             branches:
               ignore:
