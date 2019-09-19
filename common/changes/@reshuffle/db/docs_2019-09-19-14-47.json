@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/db",
+      "comment": "Generate documentation using typedoc",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/db",
+  "email": "ariels@reshuffle.com"
+}
