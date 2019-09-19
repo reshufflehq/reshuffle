@@ -73,16 +73,16 @@ Modified package.json, please commit this file`);
 
 export function ignoreReshuffle(): string {
   const gitIgnoreFile = '.gitignore';
-  const ignorePattern = '.reshuffle*';
-  const ignoreText = '# The following line was added by Reshuffle' + EOL + ignorePattern;
+  const ignorePatterns = ['.reshuffle*', '.env'];
+  const ignoreText = '# The following lines were added by Reshuffle' + EOL + ignorePatterns.join(EOL) + EOL;
   let initialContent;
   try {
     initialContent = readFileSync(gitIgnoreFile, { encoding: 'utf8' });
   } catch (e) {
     return `Did not update ${gitIgnoreFile}`;
   }
-  const lines: string[] = initialContent.split(EOL);
-  const found = lines.find((line) => line && line.replace(/ +$/, '') === ignorePattern);
+  const lines: string[] = initialContent.split(/\r\n|\n/g);
+  const found = ignorePatterns.every((pat) => lines.some((line) => line && line.replace(/ +$/, '') === pat));
   if (found) {
     return `Did not need to update ${gitIgnoreFile}`;
   }

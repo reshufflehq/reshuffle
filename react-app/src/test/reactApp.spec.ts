@@ -116,71 +116,91 @@ test('ignore edits .gitignore', async () => {
   const testCases = [
     {
       initial: '',
-      expected: `# The following line was added by Reshuffle
-.reshuffle*`,
+      expected: `# The following lines were added by Reshuffle
+.reshuffle*
+.env
+`,
     },
     {
       initial: 'foo',
       expected: `foo
-# The following line was added by Reshuffle
-.reshuffle*`,
+# The following lines were added by Reshuffle
+.reshuffle*
+.env
+`,
     },
     {
-      initial: '.reshuffle*',
-      expected: '.reshuffle*',
+      initial: '.reshuffle*\n.env',
+      expected: '.reshuffle*\n.env',
     },
     {
-      initial: '.reshuffle* ',
-      expected: '.reshuffle* ',
+      initial: '.reshuffle* \n.env ',
+      expected: '.reshuffle* \n.env ',
     },
     {
-      initial: '.reshuffle*  ',
-      expected: '.reshuffle*  ',
+      initial: '.reshuffle*  \n.env  ',
+      expected: '.reshuffle*  \n.env  ',
     },
     {
       initial: 'x.reshuffle*',
       expected: `x.reshuffle*
-# The following line was added by Reshuffle
-.reshuffle*`,
+# The following lines were added by Reshuffle
+.reshuffle*
+.env
+`,
     },
     {
       initial: '.reshuffle*x',
       expected: `.reshuffle*x
-# The following line was added by Reshuffle
-.reshuffle*`,
+# The following lines were added by Reshuffle
+.reshuffle*
+.env
+`,
     },
     {
       initial: '.reshuffle*\\ ',
       // tslint:disable-next-line:no-trailing-whitespace
       expected: `.reshuffle*\\ 
-# The following line was added by Reshuffle
-.reshuffle*`,
+# The following lines were added by Reshuffle
+.reshuffle*
+.env
+`,
     },
     {
       initial: `foo
-.reshuffle*`,
+.reshuffle*
+.env`,
       expected: `foo
-.reshuffle*`,
+.reshuffle*
+.env`,
     },
     {
       initial: `.reshuffle*
-bar`,
+bar
+.env`,
       expected: `.reshuffle*
-bar`,
+bar
+.env`,
     },
     {
       initial: `foo
 .reshuffle*
-bar`,
+bar
+.env`,
       expected: `foo
 .reshuffle*
-bar`,
+bar
+.env`,
     },
     {
-      initial: '.reshuffle*\t',
+      initial: `.reshuffle*\t
+.env`,
       expected: `.reshuffle*\t
-# The following line was added by Reshuffle
-.reshuffle*`,
+.env
+# The following lines were added by Reshuffle
+.reshuffle*
+.env
+`,
     },
   ];
   for (const { initial, expected } of testCases) {

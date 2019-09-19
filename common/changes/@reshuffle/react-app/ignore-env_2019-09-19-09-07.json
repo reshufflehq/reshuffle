@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-app",
+      "comment": "Add .env file to .gitignore",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-app",
+  "email": "vladimir@reshuffle.com"
+}
