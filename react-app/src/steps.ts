@@ -81,7 +81,7 @@ export function ignoreReshuffle(): string {
   } catch (e) {
     return `Did not update ${gitIgnoreFile}`;
   }
-  const lines: string[] = initialContent.split(/\r\n|\n/g);
+  const lines: string[] = initialContent.split(/\r?\n/);
   const found = ignorePatterns.every((pat) => lines.some((line) => line && line.replace(/ +$/, '') === pat));
   if (found) {
     return `Did not need to update ${gitIgnoreFile}`;
