@@ -2,6 +2,18 @@
   "name": "@reshuffle/react-app",
   "entries": [
     {
+      "version": "0.0.11",
+      "tag": "@reshuffle/react-app_v0.0.11",
+      "date": "Thu, 19 Sep 2019 11:45:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add .env file to .gitignore"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.10",
       "tag": "@reshuffle/react-app_v0.0.10",
       "date": "Wed, 18 Sep 2019 09:05:39 GMT",

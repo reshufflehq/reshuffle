@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/react-app
 
-This log was last generated on Wed, 18 Sep 2019 09:05:39 GMT and should not be manually modified.
+This log was last generated on Thu, 19 Sep 2019 11:45:37 GMT and should not be manually modified.
+
+## 0.0.11
+Thu, 19 Sep 2019 11:45:37 GMT
+
+### Patches
+
+- Add .env file to .gitignore
 
 ## 0.0.10
 Wed, 18 Sep 2019 09:05:39 GMT
