@@ -15,10 +15,10 @@
   "dependencies": {
     "@reshuffle/db": "0.5.1",
     "@reshuffle/interfaces-koa-server": "0.4.0",
-    "ava": "^2.3.0",
+    "ava": "^2.4.0",
     "koa": "~2.8.1",
     "koa-router": "~7.4.0",
-    "nanoid": "^2.0.4",
+    "nanoid": "^2.1.1",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
@@ -26,8 +26,8 @@
     "@types/koa-router": "~7.0.42",
     "@types/nanoid": "^2.0.0",
     "@types/node": "^12.7.2",
-    "@types/ramda": "^0.26.21",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "@types/ramda": "^0.26.22",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
   }
 }

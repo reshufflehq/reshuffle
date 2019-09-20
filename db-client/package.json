@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
-    "@types/ramda": "^0.26.19",
-    "ava": "^2.3.0"
+    "@types/ramda": "^0.26.22",
+    "ava": "^2.4.0"
   }
 }
