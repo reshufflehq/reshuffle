@@ -23,5 +23,6 @@
     "publisher"
   ],
   "author": "Ariel Shaqed (Scolnicov)",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true
 }

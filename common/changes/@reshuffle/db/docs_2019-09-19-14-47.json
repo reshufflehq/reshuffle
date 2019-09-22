@@ -3,7 +3,7 @@
     {
       "packageName": "@reshuffle/db",
       "comment": "Generate documentation using typedoc",
-      "type": "patch"
+      "type": "none"
     }
   ],
   "packageName": "@reshuffle/db",

@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
-    "docs": "npx typedoc",
+    "docs": "typedoc",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "ava -v dist/test/**/*.test.js"
   },
@@ -33,6 +33,6 @@
     "@types/node": "^12.7.2",
     "@types/ramda": "^0.26.19",
     "ava": "^2.3.0",
-    "typedoc": "~0.15.0"
+    "typedoc": "^0.15.0"
   }
 }
