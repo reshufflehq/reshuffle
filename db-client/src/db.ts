@@ -31,6 +31,17 @@ import {
 import * as Q from './query';
 
 /**
+ * A JSON-serializable document object.  It can contain only
+ * primitives (`null`, `string`, `number`, or `boolean`), or arrays of
+ * serializable objects, or object with serializable values.
+ *
+ * In particular, `Date`s, functions, or objects with circular
+ * references can never appear in a serializable object.
+ */
+// Use this strange type copy to get Typedoc to allow us to document.
+export type Serializable = Serializable;
+
+/**
  * Object containing interface for constructing queries.  These
  * methods are designed to help prevent query injection from untrusted
  * clients.  All queries should be constructed using these methods.

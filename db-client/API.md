@@ -7,13 +7,11 @@ const db = require('@reshuffle/db');
 function readCounter(key) { return db.get(`counter:${key}`); }
 function incrementCounter(key) { return db.update(`counter:${key}`, (n) => (n || 0) + 1); }
 ```
-Note all `db` calls are asynchronous; you should `await` their result.
-
-## Useful methods
+Note all `db` calls are asynchronous and promise a result.  You should `await` their result.
 
 ## On `db`
 
-`db` contains all entrypoints.  Use [top-level
+`db` contains all entrypoints.  Start reading about the [top-level
 methods](modules/_index_.html), e.g. `db.get`, to perform actions on
 keys.
 
