@@ -72,7 +72,7 @@ export default abstract class BaseCommand extends Command {
       env: 'RESHUFFLE_API_ENDPOINT',
     }),
     webAppLoginUrl: flags.string({
-      default: 'https://app.reshuffle.com/cli-login',
+      default: 'https://reshuffle.com/cli-login',
       hidden: true,
       env: 'RESHUFFLE_WEBAPP_LOGIN_URL',
     }),
