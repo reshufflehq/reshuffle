@@ -24,4 +24,4 @@ To use `db.find`, build queries using
 queries with [`db.Q.all`](modules/_query_.html#all) and
 [`db.Q.any`](modules/_query_.html#any).
 
-TODO(ariels): Make that object actually show up!
+[comment]: # (TODO: ariels: Make that object actually show up!)
