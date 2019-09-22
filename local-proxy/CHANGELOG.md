@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Sep 2019 12:17:20 GMT and should not be manually modified.
+
+## 0.2.7
+Sun, 22 Sep 2019 12:17:20 GMT
+
+### Patches
+
+- Store all temporary files in .reshuffle dir
 
 ## 0.2.6
 Mon, 16 Sep 2019 15:58:20 GMT

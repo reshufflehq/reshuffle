@@ -2,6 +2,18 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.2.7",
+      "tag": "@reshuffle/local-proxy_v0.2.7",
+      "date": "Sun, 22 Sep 2019 12:17:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Store all temporary files in .reshuffle dir"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.6",
       "tag": "@reshuffle/local-proxy_v0.2.6",
       "date": "Mon, 16 Sep 2019 15:58:20 GMT",

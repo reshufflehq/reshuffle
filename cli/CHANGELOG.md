@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 18 Sep 2019 09:05:39 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Sep 2019 12:17:20 GMT and should not be manually modified.
+
+## 0.2.7
+Sun, 22 Sep 2019 12:17:20 GMT
+
+### Patches
+
+- Use reshuffle.com for default webpAppLoginUrl
 
 ## 0.2.6
 Wed, 18 Sep 2019 09:05:39 GMT
