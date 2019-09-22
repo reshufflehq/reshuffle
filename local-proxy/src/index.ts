@@ -45,8 +45,8 @@ export function startProxy(
     script: path.join(__dirname, 'server.js'),
     delay: 100,
     env: {
-      RESHUFFLE_DB_PATH: path.join(rootDir, '.reshuffle.db'),
-      RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(path.join(rootDir, 'backend')),
+      RESHUFFLE_TMP_DIR: path.resolve(rootDir, '.reshuffle'),
+      RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(rootDir, 'backend'),
       RESHUFFLE_DEV_SERVER_LOCAL_TOKEN: localToken,
     },
     // Workaround for tests:
