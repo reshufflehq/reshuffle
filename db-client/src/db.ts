@@ -1,3 +1,20 @@
+/**
+ * # Reshuffle key-value store
+ *
+ * The store is available from any backend function.  Frontend
+ * functions are untrusted and can only access the store by calling a
+ * backend function.  Keys are unique `string`s.  Values are JSON
+ * objects ("documents").  The key-value store associates values with
+ * keys.
+ *
+ * ## Guidelines for return codes and exceptions
+ *
+ * All methods throw on errors.  An error can be due to infrastructure
+ * (e.g. a communications error or backend unavailability) or Not
+ * having an expected value is _not_ an error and is indicated by a
+ * return code.
+ */
+
 import deepFreeze, { DeepReadonly } from 'deep-freeze';
 import { DBClient, Options } from '@reshuffle/interfaces-node-client';
 import {
@@ -13,10 +30,20 @@ import {
 
 import * as Q from './query';
 
+/**
+ * Object containing interface for constructing queries.  These
+ * methods are designed to help prevent query injection from untrusted
+ * clients.  All queries should be constructed using these methods.
+ */
 export { Q };
 
+/**
+ * A given version of a value in the store.
+ */
 export interface Versioned<T extends Serializable | undefined> {
+  /** Opaque identifier of the version */
   version: Version;
+  /** The value at version */
   value: T;
 }
 
@@ -41,6 +68,10 @@ function* backoff() {
   }
 }
 
+/**
+ * An instance of a store client.  Currently a single instance is
+ * provided as the global variable [[db]].
+ */
 export class DB {
   private readonly client: DBClient;
 
@@ -48,20 +79,70 @@ export class DB {
     this.client = new DBClient(url, options);
   }
 
+  /**
+   * Gets a single document.
+   *
+   * @param key of value to fetch
+   * @return a promise containing the fetched value or undefined if none found
+   */
   public async get<T extends Serializable = any>(key: string): Promise<T | undefined> {
     return (await this.client.get(this.ctx, key)) as T;
   }
 
+  /**
+   * Atomically creates a document if it does not already exist.
+   *
+   * @param key of value to store
+   * @param value to store
+   * @return a promise that is true if key previously had no value and value was stored at key
+   */
   public async create(key: string, value: Serializable): Promise<boolean> {
     checkValue(value);
     return this.client.create(this.ctx, key, value);
   }
 
+  /**
+   * Removes a single document.
+   * @param key to remove
+   * @return a promise that is true if key was in use (and is now removed)
+   */
   public async remove(key: string): Promise<boolean> {
     return this.client.remove(this.ctx, key);
   }
 
   // TODO(ariels): Support operationId for streaming.
+  /**
+   * Atomically updates the value at key by calling the specified
+   * updater function.
+   *
+   * ## Example: increment a counter
+   *
+   * ```js
+   * await db.update('counter', (n) => n + 1);
+   * ```
+   *
+   * ## Example: capitalize names
+   *
+   * ```js
+   * await db.update('user', function (user) {
+   *     return {
+   *       ...user,
+   *       firstName: user.firstName.toUpperCase(),
+   *       lastName: user.lastName.toUpperCase(),
+   *     };
+   * });
+   * ```
+   *
+   * @param key Key of the value to update
+   *
+   * @param updater Function to update stored value.  The updater
+   *   function is called with the previous value `state`, which may be
+   *   `undefined` if no value is stored at `key`.  It may copy but must
+   *   *not* modify its parameter `state`.  When multiple concurrent
+   *   updates occur the function may be called multiple times.
+   *
+   * @return A promise of the new value that was stored.
+   */
   public async update<T extends Serializable = any>(
     key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
   ): Promise<DeepReadonly<T>> {

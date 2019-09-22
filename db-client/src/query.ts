@@ -28,7 +28,9 @@ export type StartsWithFilter = Marked<dbi.StartsWithFilter>;
 
 export type Direction = dbi.Direction;
 export type Order = dbi.Order;
+/** Sort in ascending order (default) */
 export const ASC = dbi.Direction.ASC;
+/** Sort in descending order */
 export const DESC = dbi.Direction.DESC;
 
 interface AndFilter extends Marked<dbi.AndFilter> {
@@ -41,6 +43,43 @@ interface NotFilter extends Marked<dbi.NotFilter> {
   readonly filter: Filter;
 }
 
+/**
+ * An expression matching some documents in the store.  Filters are
+ * combinations of _terms_: a condition on a [[Path]].  Start building
+ * a filter by specifying a Path using [[key]] or a path down the
+ * object from [[value]], then convert that Path to a Filter term
+ * using one of the Path comparison operators.
+ *
+ * Filters can only be constructed from these utility functions, to
+ * help protect from query injection.
+ *
+ * ## Example: everything in the database
+ *
+ * ```js
+ * const everythingFilter = Q.key.startsWith('');
+ * ```
+ *
+ * ## Example: all users, who we decide to store on keys starting `user:`
+ *
+ * ```js
+ * const usersFilter = Q.key.startsWith('user:');
+ * ```
+ *
+ * ## Example: all documents with field `.personal.age` at most 3
+ *
+ * ```js
+ * const toddlersFilter = Q.value.personal.age.lte(3);
+ * ```
+ *
+ * ## Example: all users whose locale is `fr_CA`
+ *
+ * ```js
+ * const frenchCanadianFilter = Q.all(
+ *   Q.key.startsWith('user:'),
+ *   Q.value.primaryLanguage.eq('fr_CA'),
+ * );
+ * ```
+ */
 export type Filter = EqFilter | NeFilter
   | GtFilter | GteFilter | LtFilter | LteFilter
   | ExistsFilter | IsNullFilter
@@ -54,7 +93,11 @@ const proxyHandler = {
   },
 };
 
-class Path {
+// Marked "export" only for documentation purposes.  User could should
+// probably use Q.key and/or Q.value, instead.
+/** @external */
+export class Path {
+  /** Use [[value]] or [[key]] methods, instead. */
   constructor(protected readonly parts: string[]) {
   }
 
@@ -63,9 +106,12 @@ class Path {
   }
 
   /**
-   * Returns a subpath at given key.
-   * @param key - object key or array index
-   * @return - subpath of document
+   * Returns a subpath at given key.  The syntax `path.name` uses a
+   * proxy and is equivalent to `path.field('name')`.  Use this
+   * function to access reserved words or variable components.
+   *
+   * @param k Object key or array index
+   * @return subpath of document
    */
   public field(k: Key): PathProxy {
     // When using proxy, paths will be converted to string, field() replicates this behavior
@@ -73,19 +119,23 @@ class Path {
   }
 
   /**
-   * Returns a subpath at given key.
-   * Has a template parameter for improved type safety when using typescript.
-   * @param key - object key or array index
-   * @return - subpath of document
+   * Returns a subpath at given key.  The syntax `path.name` uses a
+   * proxy and is equivalent to `path.typedField('name')` when using
+   * TypeScript.  Use this function to access reserved words or
+   * variable components.
+   *
+   * @typeparam T Type of suboject at k.
+   * @param k Object key or array index
+   * @return subpath of document
    */
   public typedField<T>(k: Key): Doc<T> {
     return this.field(k) as any;
   }
 
   /**
-   * Equals
-   * @param x - value for comparison
-   * @return - a filter
+   * Equals comparison
+   * @param x Value for comparison
+   * @return a filter
    */
   public eq(x: Equatable): EqFilter {
     return {
@@ -97,9 +147,9 @@ class Path {
   }
 
   /**
-   * Not equals
-   * @param x - value for comparison
-   * @return - a filter
+   * Not equals comparison
+   * @param x Value for comparison
+   * @return a filter
    */
   public ne(x: Equatable): NeFilter {
     return {
@@ -111,9 +161,9 @@ class Path {
   }
 
   /**
-   * Greater than
-   * @param x - value for comparison
-   * @return - a filter
+   * Greater than comparison
+   * @param x Value for comparison
+   * @return a filter
    */
   public gt(x: Comparable): GtFilter {
     return {
@@ -125,9 +175,9 @@ class Path {
   }
 
   /**
-   * Greater than or equals
-   * @param x - value for comparison
-   * @return - a filter
+   * Greater than or equals comparison
+   * @param x Value for comparison
+   * @return a filter
    */
   public gte(x: Comparable): GteFilter {
     return {
@@ -139,9 +189,9 @@ class Path {
   }
 
   /**
-   * Less than
-   * @param x - value for comparison
-   * @return - a filter
+   * Less than comparison
+   * @param x Value for comparison
+   * @return a filter
    */
   public lt(x: Comparable): LtFilter {
     return {
@@ -153,9 +203,9 @@ class Path {
   }
 
   /**
-   * Less than or equals
-   * @param x - value for comparison
-   * @return - a filter
+   * Less than or equals comparison
+   * @param x Value for comparison
+   * @return a filter
    */
   public lte(x: Comparable): LteFilter {
     return {
@@ -167,8 +217,8 @@ class Path {
   }
 
   /**
-   * Does path exist?
-   * @return - a filter
+   * Does path exist comparison
+   * @return a filter
    */
   public exists(): ExistsFilter {
     return {
@@ -179,8 +229,8 @@ class Path {
   }
 
   /**
-   * Is value at path null?
-   * @return - a filter
+   * Is value at path null comparison
+   * @return a filter
    */
   public isNull(): IsNullFilter {
     return {
@@ -190,21 +240,20 @@ class Path {
     };
   }
 
-  /**
-   * String matches pattern.
-   * @param pattern regular expression
-   * @param caseInsensitive should the check be case insensitive?
-   * @return - a filter
-   */
   public matches(pattern: string, caseInsensitive?: boolean): MatchesFilter;
 
-  /**
-   * String matches pattern.
-   * @param pattern - regular expression, if the RegExp object has the 'i' flag, perform a case insensitive match.
-   * @return - a filter
-   */
   public matches(pattern: RegExp): MatchesFilter;
 
+  /**
+   * String matches pattern comparison
+   *
+   * @param pattern Regular expression string or RegExp.  Honours
+   *   (only) the `i` flag, if pattern is a RegExp and has it.
+   *
+   * @param caseInsensitive If true, uses case insensitive comparison (default `false`)
+   *
+   * @return a filter
+   */
   public matches(pattern: RegExp | string, caseInsensitive: boolean = false): MatchesFilter {
     if (typeof pattern === 'string') {
       return {
@@ -230,8 +279,8 @@ class Path {
   }
 
   /**
-   * String starts with prefix
-   * @return - a filter
+   * String starts with prefix comparison
+   * @return a filter
    */
   public startsWith(prefix: string): StartsWithFilter {
     return {
@@ -243,8 +292,9 @@ class Path {
   }
 
   /**
-   * Casts to a specific doc type. Use for typed paths with typescript.
-   * @return - a filter
+   * Casts to a specific doc type. Use for typed paths with TypeScript.
+   *
+   * @return a filter
    */
   public as<T>(): Doc<T> {
     return Path.proxied(this.parts) as any;
@@ -302,7 +352,16 @@ export function typedValue<T>() {
   return Path.proxied(['value']) as unknown as Doc<T>;
 }
 
+/**
+ * A [[Path]] referring to the key of an object in the store.
+ */
 export const key = Path.proxied(['key']) as unknown as Doc<string>;
+
+/**
+ * A [[Path]] referring to the value of a document in the store.
+ * Access the fields of the document using either proxy syntax
+ * `Q.value.user.id` or field syntax `Q.value.field('user')`.
+ */
 export const value = Path.proxied(['value']);
 
 type NonEmptyArray<T> = [T, ...T[]];
@@ -318,6 +377,11 @@ function checkFilters(...filters: any[]): void {
   }
 }
 
+/**
+ * AND operator on filters.
+ * @param filters An array of filters.
+ * @return A filter that matches elements that match _all_ of the filters.
+ */
 export function all(...filters: NonEmptyArray<Filter>): AndFilter {
   checkFilters(...filters);
   return {
@@ -327,6 +391,11 @@ export function all(...filters: NonEmptyArray<Filter>): AndFilter {
   };
 }
 
+/**
+ * OR operator on filters.
+ * @param filters An array of filters.
+ * @return A filter that matches elements that match _any one_ of the filters.
+ */
 export function any(...filters: NonEmptyArray<Filter>): OrFilter {
   checkFilters(...filters);
   return {
@@ -336,6 +405,11 @@ export function any(...filters: NonEmptyArray<Filter>): OrFilter {
   };
 }
 
+/**
+ * NOT operator on filters.
+ * @param filter A filter to negate.
+ * @return A filter that matches only elements that do _not_ match filter.
+ */
 export function not(f: Filter): NotFilter {
   checkFilters(f);
   return {
@@ -349,6 +423,10 @@ export interface QueryData extends dbi.Query {
   filter: Filter;
 }
 
+/**
+ * A database query.  Supports a fluent interface; any query can be
+ * used as a base query and changed to be more restrictive.
+ */
 export class Query {
   protected constructor(
     protected readonly _filter: Filter,
@@ -357,10 +435,20 @@ export class Query {
     protected readonly _orderBy?: Order[],
   ) {}
 
+  /**
+   * @param f A Filter to add to the query.
+   * @return A new query.  It will match all elements that match both the
+   *   filter of the existing query and f.
+   */
   public filter(f: Filter): Query {
     return new Query(all(this._filter, f), this._limit, this._skip, this._orderBy);
   }
 
+  /**
+   * @param l Maximal number of elements to return.  Must be smaller than current limit.
+   * @return A new query.  It will return the first l elements that the existing query
+   *   would.
+   */
   public limit(l: number): Query {
     if (l < 1) {
       throw new IllegalArgumentError(`Given limit (${l}) is less than 1`);
@@ -371,10 +459,21 @@ export class Query {
     return new Query(this._filter, l, this._skip, this._orderBy);
   }
 
+  /**
+   * @param s New number of elements to skip
+   * @return A new query.  It will return the same elements that the existing query
+   *   would, skipping a different number of queries at the start.
+   */
   public skip(s: number): Query {
     return new Query(this._filter, this._limit, s, this._orderBy);
   }
 
+  /**
+   * @param path Additional path for sorting
+   * @param order DESC to sort in descending order (default ASC)
+   * @return A new query.  It will return the same elements at the existing query,
+   *   adding path as an additional field for sorting.
+   */
   public orderBy(path: Path | Doc<any>, order: Direction = ASC): Query {
     const { parts } = (path as any);
     for (const { path: p } of (this._orderBy || [])) {
@@ -386,11 +485,20 @@ export class Query {
                      [...(this._orderBy || []), { path: parts, direction: order }]);
   }
 
+  /**
+   * Constructs a query from a filter.
+   *
+   * @param f Filter for query.
+   * @return A Query with filter f, no limits or skip, and no ordering.
+   */
   public static fromFilter(f: Filter): Query {
     checkFilters(f);
     return new this(f);
   }
 
+  /**
+   * @return A serializable representation of this query.
+   */
   public toJSON(): QueryData {
     return this.getParts();
   }
@@ -405,4 +513,10 @@ export class Query {
   }
 }
 
+/**
+ * Starts building a query from a filter.
+ *
+ * @param filter [[Filter]] that this query will use
+ * @return A query that will return all documents matching filter
+ */
 export const filter = Query.fromFilter.bind(Query);
