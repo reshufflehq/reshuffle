@@ -6,17 +6,12 @@ aliases:
   - &attach_workspace
     - restore_cache:
         key: build-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  - &setup_npm_token
-    - run: # Once the packages are public this can be removed
-        name: Authenticate with npm registry
-        command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
 jobs:
   build:
     <<: *docker
     steps:
       - checkout
-      - <<: *setup_npm_token
       - restore_cache:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
       - run:
