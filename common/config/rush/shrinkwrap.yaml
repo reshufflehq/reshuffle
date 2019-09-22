@@ -123,6 +123,7 @@ dependencies:
   tslib: 1.10.0
   tslint: 5.20.0
   typedoc: 0.15.0
+  typedoc-plugin-internal-external: 2.0.2
   typescript: 3.6.3
   typescript-json-schema: 0.39.0
   validator: 11.1.0
@@ -4005,6 +4006,19 @@ packages:
       uglify-js: 3.6.0
     resolution:
       integrity: sha512-Kb4xn5Qh1cxAKvQnzNWZ512DhABzyFNmsaJf3OAkWNa4NkaqWcNI8Tao8Tasi0/F4JD9oyG0YxuFyvyR57d+Gw==
+  /handlebars/4.2.1:
+    dependencies:
+      neo-async: 2.6.1
+      optimist: 0.6.1
+      source-map: 0.6.1
+    dev: false
+    engines:
+      node: '>=0.4.7'
+    hasBin: true
+    optionalDependencies:
+      uglify-js: 3.6.0
+    resolution:
+      integrity: sha512-bqPIlDk06UWbVEIFoYj+LVo42WhK96J+b25l7hbFDpxrOXMphFM3fNIm+cluwg4Pk2jiLjWU5nHQY7igGE75NQ==
   /har-schema/2.0.0:
     dev: false
     engines:
@@ -8939,11 +8953,26 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-MdTROOojxod78CEv22rIA69o7crMPLnVZPefuDLt/WepXqJwgiSu8Xxq+H36x0Jj3YGc7lOglI2vPJ2GhoOybw==
+  /typedoc-plugin-internal-external/2.0.2:
+    dev: false
+    peerDependencies:
+      typedoc: <1.0.0
+    resolution:
+      integrity: sha512-ZWDJvHT2TGIKSkOkyKc7fiSbz/mBHjXzppyzuQlEEAFJmi9YElEVRC34v0xJz4qGUtVT5nNw7gbD1umKowG4wQ==
+  /typedoc-plugin-internal-external/2.0.2/typedoc@0.15.0:
+    dependencies:
+      typedoc: 0.15.0
+    dev: false
+    id: registry.npmjs.org/typedoc-plugin-internal-external/2.0.2
+    peerDependencies:
+      typedoc: <1.0.0
+    resolution:
+      integrity: sha512-ZWDJvHT2TGIKSkOkyKc7fiSbz/mBHjXzppyzuQlEEAFJmi9YElEVRC34v0xJz4qGUtVT5nNw7gbD1umKowG4wQ==
   /typedoc/0.15.0:
     dependencies:
       '@types/minimatch': 3.0.3
       fs-extra: 8.1.0
-      handlebars: 4.2.0
+      handlebars: 4.2.1
       highlight.js: 9.15.10
       lodash: 4.17.15
       marked: 0.7.0
@@ -9558,10 +9587,11 @@ packages:
       deep-freeze: 0.0.1
       ramda: 0.26.1
       typedoc: 0.15.0
+      typedoc-plugin-internal-external: /typedoc-plugin-internal-external/2.0.2/typedoc@0.15.0
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-pZbNOhsEcKS50/iamBy+wNdXRXjd0rBXSYuXhnU3ctPdnqvnqMjKJ1aLX5EnHSq1djAcTrFvTRUMMUas+Q7AiQ==
+      integrity: sha512-LV9gOT/YGb9ijGUj/vle48JrePNMTj07MMjroiGzOfTtNWx4tFezhKAgHy4gCbSRySGJ//+NvCbHatFekq5TUw==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -9963,7 +9993,8 @@ specifiers:
   ts-node: ^8.3.0
   tslib: ^1.10.0
   tslint: ^5.18.0
-  typedoc: ~0.15.0
+  typedoc: ^0.15.0
+  typedoc-plugin-internal-external: ^2.0.2
   typescript: ^3.5.3
   typescript-json-schema: ^0.39.0
   validator: ^11.1.0

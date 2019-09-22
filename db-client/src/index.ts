@@ -38,16 +38,20 @@ const db = new DB(
 
 /**
  * Gets a single document.
- * @return - value or undefined if key doesn’t exist.
+ *
+ * @param key of value to fetch
+ * @return a promise containing the fetched value or undefined if none found
  */
 export async function get<T extends Serializable = any>(key: string): Promise<T | undefined> {
   return db.get(key);
 }
 
 /**
- * Creates a document for given key.
- * @param value - Cannot be undefined, must be an object
- * @return - true if document was created, false if key already exists.
+ * Atomically creates a document if it does not already exist.
+ *
+ * @param key of value to store
+ * @param value to store
+ * @return a promise that is true if key previously had no value and value was stored at key
  */
 export async function create(key: string, value: Serializable): Promise<boolean> {
   return db.create(key, value);
@@ -55,17 +59,44 @@ export async function create(key: string, value: Serializable): Promise<boolean>
 
 /**
  * Removes a single document.
- * @return - true if document was deleted, false if key doesn’t exist.
+ * @param key to remove
+ * @return a promise that is true if key was in use (and is now removed)
  */
 export async function remove(key: string): Promise<boolean> {
   return db.remove(key);
 }
 
 /**
- * Updates a single document.
- * @param updater - Function that gets the previous value and returns the next value to update the DB with.
- *                  Cannot return undefined, receives undefined in case key doesn’t already exist in the DB.
- * @return - The new value returned from updater
+ * Atomically updates the value at key by calling the specified
+ * updater function.
+ *
+ * ## Example: increment a counter
+ *
+ * ```js
+ * await db.update('counter', (n) => n + 1);
+ * ```
+ *
+ * ## Example: capitalize names
+ *
+ * ```js
+ * await db.update('user', function (user) {
+ *     return {
+ *       ...user,
+ *       firstName: user.firstName.toUpperCase(),
+ *       lastName: user.lastName.toUpperCase(),
+ *     };
+ * });
+ * ```
+ *
+ * @param key Key of the value to update
+ *
+ * @param updater Function to update stored value.  The updater
+ *   function is called with the previous value `state`, which may be
+ *   `undefined` if no value is stored at `key`.  It may copy but must
+ *   *not* modify its parameter `state`.  When multiple concurrent
+ *   updates occur the function may be called multiple times.
+ *
+ * @return A promise of the new value that was stored.
  */
 export async function update<T extends Serializable = any>(
   key: string, updater: (state?: DeepReadonly<T>) => T, options?: UpdateOptions,
@@ -75,9 +106,10 @@ export async function update<T extends Serializable = any>(
 // Available only on backend, needs to pass a function.
 
 /**
- * Find documents matching query.
- * @param query - a query constructed with Q methods.
- * @return - an array of documents
+ * Finds documents matching query.
+ * @param query the query, constructed using the method
+ *   [`db.Q.filter`](_query_.html#filter-1)
+ * @return a promise of an array of matching documents
  */
 export async function find(query: Q.Query): Promise<Document[]> {
   return db.find(query);
@@ -85,6 +117,8 @@ export async function find(query: Q.Query): Promise<Document[]> {
 
 /**
  * Polls on updates to specified keys since specified versions.
+ *
+ * This function is not supported yet.
  */
 export async function poll(keysToVersions: Array<[string, Version]>): Promise<Array<[string, Patch[]]>> {
   return db.poll(keysToVersions);
@@ -93,6 +127,8 @@ poll.__reshuffle__ = { exposed: true };
 
 /**
  * Gets a initial document in an intent to for poll on it.
+ *
+ * This function is not supported yet.
  */
 export async function startPolling<T extends Serializable = any>(key: string): Promise<Versioned<T | undefined>> {
   return db.startPolling(key);
