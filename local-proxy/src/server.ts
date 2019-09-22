@@ -14,10 +14,12 @@ import { AddressInfo } from 'net';
 import os from 'os';
 import { initRegistry } from './stdio';
 import nanoid from 'nanoid';
-import mkdirp from 'mkdirp';
-import { copy } from 'fs-extra';
+import { copy, mkdirpSync } from 'fs-extra';
 import env from 'env-var';
 import dotenv from 'dotenv';
+
+const tmpDir = env.get('RESHUFFLE_TMP_DIR').required().asString();
+mkdirpSync(tmpDir);
 
 const basePath = env.get('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH').required().asString();
 const localToken = env.get('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN').required().asString();
@@ -91,13 +93,13 @@ const app = new Koa();
 app.use(bodyParser({ enableTypes: ['json'], strict: false }));
 const router = new KoaRouter();
 
-const tmpDir = mkdtempSync(resolvePath(basePath, '..', '.reshuffle_local_proxy_'));
+const genDir = mkdtempSync(resolvePath(tmpDir, 'local_proxy_'));
 
 async function transpileAndCopy() {
   await babelDir({
     cliOptions: {
       filenames: [basePath],
-      outDir: tmpDir,
+      outDir: genDir,
     },
     babelOptions: {
       sourceMaps: true,
@@ -107,7 +109,7 @@ async function transpileAndCopy() {
       ],
     },
   });
-  await copy(basePath, tmpDir, {
+  await copy(basePath, genDir, {
     filter(src) {
       return extname(src) !== '.js';
     },
@@ -120,7 +122,7 @@ transpilePromise.catch((error: Error) => console.error(error));
 
 const logDir = process.env.NODE_ENV === 'test' ? resolvePath(basePath, '.reshuffle/logs') :
   resolvePath(os.homedir(), '.reshuffle/logs');
-mkdirp.sync(logDir);
+mkdirpSync(logDir);
 const registry = initRegistry(logDir);
 
 interface MethodInfo {
@@ -163,7 +165,7 @@ router.post('/invoke', async (ctx) => {
         // tslint:disable-next-line:no-console
         console.error('[I] Invoked before local RESHUFFLE_DB_BASE_URL was set; local DB might break');
       }
-      fn = getHandler(tmpDir, path, handler);
+      fn = getHandler(genDir, path, handler);
     }
     const ret = await fn(...args);
     if (ret === undefined) {
@@ -190,24 +192,19 @@ router.post('/invoke', async (ctx) => {
   }
 });
 
-const dbPath = env.get('RESHUFFLE_DB_PATH').required().asString();
-if (!isAbsolute(dbPath)) {
-  throw new Error('RESHUFFLE_DB_PATH env var is not an absolute path');
-}
-
-const db = new DBHandler(dbPath);
+const db = new DBHandler(resolvePath(tmpDir, 'db'));
 const dbRouter = new DBRouter(db);
 router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
 
 // nodemon uses SIGUSR2
 process.once('SIGUSR2', () => {
-  rimraf.sync(tmpDir);
+  rimraf.sync(genDir);
   process.kill(process.pid, 'SIGUSR2');
 });
 
 // Handle Ctrl-C in terminal
 process.once('SIGINT', () => {
-  rimraf.sync(tmpDir);
+  rimraf.sync(genDir);
   process.kill(process.pid, 'SIGINT');
 });
 
