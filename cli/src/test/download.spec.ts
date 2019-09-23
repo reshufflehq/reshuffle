@@ -1,7 +1,7 @@
 import anyTest, { TestInterface } from 'ava';
 import * as td from 'testdouble';
 import { Context, addFake } from './fake_lycan';
-import { success } from 'specshell';
+import { success, Output, Exit, Signal } from 'specshell';
 import * as tar from 'tar';
 
 const test = anyTest as TestInterface<Context>;
@@ -15,6 +15,15 @@ const defaultApp = {
   name: 'fake-name',
   environments: [],
 };
+
+const stabalize = (result: Output<string> & (Exit | Signal)) => ({
+  ...result,
+  out: result.out
+    .replace(/up to date in [0-9][.0-9]*s/g, 'up to date')
+    .replace(/localhost:[0-9]*/, 'localhost'),
+  err: result.err
+    .replace(/localhost:[0-9]*/, 'localhost'),
+});
 
 const anything = td.matchers.anything();
 
@@ -93,11 +102,7 @@ test('bad url', async (t) => {
   });
 
   const result = await t.context.shell.run(`${t.context.run} download app-with-bad-url`, 'utf-8');
-  const stableResult = {
-    ...result,
-    err: result.err.replace(/localhost:[0-9]*/, 'localhost'),
-  };
-  t.snapshot(stableResult);
+  t.snapshot(stabalize(result));
 });
 
 test('bad tgz', async (t) => {
@@ -163,11 +168,7 @@ test('bad request', async (t) => {
   });
 
   const result = await t.context.shell.run(`${t.context.run} download app-with-bad-req`, 'utf-8');
-  const stableResult = {
-    ...result,
-    err: result.err.replace(/localhost:[0-9]*/, 'localhost'),
-  };
-  t.snapshot(stableResult);
+  t.snapshot(stabalize(result));
 });
 
 test('verbose bad request', async (t) => {
@@ -187,12 +188,7 @@ test('verbose bad request', async (t) => {
   });
 
   const result = await t.context.shell.run(`${t.context.run} download -v app-with-bad-req`, 'utf-8');
-  const stableResult = {
-    ...result,
-    out: result.out.replace(/localhost:[0-9]*/, 'localhost'),
-    err: result.err.replace(/localhost:[0-9]*/, 'localhost'),
-  };
-  t.snapshot(stableResult);
+  t.snapshot(stabalize(result));
 });
 
 test('tgz with wrong dir', async (t) => {
@@ -214,11 +210,7 @@ test('tgz with wrong dir', async (t) => {
   });
 
   const result = await t.context.shell.run(`${t.context.run} download bad-dir`, 'utf-8');
-  const stableResult = {
-    ...result,
-    out: result.out.replace(/up to date in [0-9][.0-9]*s/g, 'up to date'),
-  };
-  t.snapshot(stableResult);
+  t.snapshot(stabalize(result));
 });
 
 test('good tgz existing target file', async (t) => {
@@ -240,7 +232,7 @@ test('good tgz existing target file', async (t) => {
     ctx.body = tgzBuffer;
   });
   const result = await t.context.shell.run(`touch ${targetDir} && ${t.context.run} download exist-app`, 'utf-8');
-  t.snapshot(result);
+  t.snapshot(stabalize(result));
 });
 
 test('good tgz existing non empty target dir', async (t) => {
@@ -262,7 +254,7 @@ test('good tgz existing non empty target dir', async (t) => {
     ctx.body = tgzBuffer;
   });
   const result = await t.context.shell.run(`mkdir -p ${targetDir}/x && ${t.context.run} download exist-app`, 'utf-8');
-  t.snapshot(result);
+  t.snapshot(stabalize(result));
 });
 
 test('good tgz existing empty target dir', async (t) => {
@@ -284,11 +276,7 @@ test('good tgz existing empty target dir', async (t) => {
     ctx.body = tgzBuffer;
   });
   const result = await t.context.shell.run(`mkdir ${targetDir} && ${t.context.run} download exist-app`, 'utf-8');
-  const stableResult = {
-    ...result,
-    out: result.out.replace(/up to date in [0-9][.0-9]*s/g, 'up to date'),
-  };
-  t.snapshot(stableResult);
+  t.snapshot(stabalize(result));
 });
 
 test('good tgz', async (t) => {
@@ -310,9 +298,5 @@ test('good tgz', async (t) => {
   });
 
   const result = await t.context.shell.run(`${t.context.run} download good-app`, 'utf-8');
-  const stableResult = {
-    ...result,
-    out: result.out.replace(/up to date in [0-9][.0-9]*s/g, 'up to date'),
-  };
-  t.snapshot(stableResult);
+  t.snapshot(stabalize(result));
 });
