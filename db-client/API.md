@@ -4,7 +4,9 @@ Reshuffle includes a simple key-value store.  To use it,
 ```js
 import * as db from '@reshuffle/db';
 
+/* @expose */
 function readCounter(key) { return db.get(`counter:${key}`); }
+/* @expose */
 function incrementCounter(key) { return db.update(`counter:${key}`, (n) => (n || 0) + 1); }
 ```
 Note all `db` calls are asynchronous and promise a result.  You should `await` their result.
