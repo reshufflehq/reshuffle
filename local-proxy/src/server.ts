@@ -214,6 +214,7 @@ app.use(router.allowedMethods());
 const server = http.createServer(app.callback());
 server.listen(0, '127.0.0.1', async () => {
   const { port } = server.address() as AddressInfo;
+  registry.logger.info('Listening for HTTP requests', { port });
   await setupEnv({ port });
   // Environment variables are set, can load whitelisted modules.
   whitelisted.loadModules();
