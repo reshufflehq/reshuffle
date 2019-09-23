@@ -6,12 +6,20 @@ import {
 } from '../utils/helpers';
 import ms = require('ms');
 
+const detailedLogsRegexps = [
+  /Function invocation took [\d.]+ us/,
+  /Function \w+ deployed \(version digest: [0-9a-f]+\)/,
+];
+
 export default class Logs extends Command {
   public static description = 'show logs';
 
   public static examples = [
-`// retrieve all logs
+`// retrieve all logs (except "function invocation")
 $ ${Command.cliBinName} logs
+`,
+`// retrieve all logs (including "function invocation")
+$ ${Command.cliBinName} logs --all
 `,
 `// tail all logs
 $ ${Command.cliBinName} logs --follow
@@ -47,6 +55,11 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       description: 'Output logs since the given ISO 8601 timestamp or time period.',
       default: '1m',
     }),
+    all: flags.boolean({
+      char: 'a',
+      description: 'Include detailed function deployment and invocation timings',
+      default: false,
+    }),
   };
 
   public static args = [];
@@ -54,7 +67,7 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
   public static strict = true;
 
   public async run() {
-    const { since, follow, limit } = this.parse(Logs).flags;
+    const { since, follow, limit, all } = this.parse(Logs).flags;
     await this.authenticate();
 
     const projectDir = await getProjectRootDir();
@@ -74,7 +87,9 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
 
       // TODO: fix EOL, multiple sources, formatting
       for (const record of records) {
-        process.stdout.write(record.msg);
+        if (all || detailedLogsRegexps.every((regexp) => !record.msg.match(regexp))) {
+          process.stdout.write(record.msg);
+        }
       }
       token = nextToken;
       currentLimit -= records.length;
