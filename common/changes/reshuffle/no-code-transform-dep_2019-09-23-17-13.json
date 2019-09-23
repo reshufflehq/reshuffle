@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Exclude code-transform package from upload",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "vladimir@reshuffle.com"
+}
