@@ -136,7 +136,7 @@ function reportInvocationDurationUs(startTime: [number, number], requestId: stri
   const totalDurationNano = durationSec * NS_PER_SEC + durationNano;
   const durationMicro = totalDurationNano / 1e3;
   const msg = `Function ${method.path}:${method.handler} invocation took ${durationMicro} us\n`;
-  registry.logger.info({ reqid: requestId, isErr: false, durUs: durationMicro }, msg);
+  registry.logger.info(msg, { reqid: requestId, isErr: false, durUs: durationMicro });
   return durationMicro;
 }
 

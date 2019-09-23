@@ -1,9 +1,8 @@
 import hooks from 'async_hooks';
 import _ from 'lodash';
-import bunyan from 'bunyan';
+import winston from 'winston';
 import util from 'util';
 import path from 'path';
-import RotatingFileStream from 'bunyan-rotating-file-stream';
 
 const MAX_REGISTRY_ENTRIES = 10000;
 
@@ -11,7 +10,7 @@ class RequestIdRegistry {
   public trigToReqId: Map<number, string> = new Map();
   public unregisterQueue: Set<string> = new Set();
 
-  constructor(public logger: bunyan) {}
+  constructor(public logger: winston.Logger) {}
 
   public size() {
     return this.trigToReqId.size;
@@ -64,19 +63,20 @@ function uncaughtHandler(err: any) {
 }
 
 export function initRegistry(logDir: string) {
-  const logger = bunyan.createLogger({
-    name: 'local-runtime',
-    streams: [{
-      type: 'raw',
-      stream: new RotatingFileStream({
-        path: path.join(logDir, 'shitjs.log'),
-        totalFiles: 1,         // keep 1 back copy
-        rotateExisting: false, // Give ourselves a clean file when we start up, based on period
-        threshold: '10m',      // Rotate log files larger than 10 megabytes
-        totalSize: '20m',      // Don't keep more than 20mb of archived log files
-        gzip: false,           // Compress the archive log files to save space
+  const logger = winston.createLogger({
+    format: winston.format.combine(
+      winston.format.timestamp(),
+      winston.format.json(),
+    ),
+    defaultMeta: { pid: process.pid },
+    transports: [
+      new winston.transports.File({
+        filename: path.join(logDir, 'reshuffle.log'),
+        maxFiles: 2,
+        maxsize: 10 * 1024 * 1024,
+        tailable: true,
       }),
-    }],
+    ],
   });
 
   const registry = new RequestIdRegistry(logger);
@@ -95,7 +95,7 @@ export function initRegistry(logDir: string) {
     const payload = Buffer.isBuffer(chunk)
       ? chunk.toString('utf8')
       : typeof encoding === 'string' ? new Buffer(chunk, encoding).toString('utf8') : chunk;
-    logger.info({ reqid: registry.lookup() || 'global', isErr }, payload);
+    logger.info(payload, { reqid: registry.lookup() || 'global', isErr });
     return origWrite.apply(origStream, [chunk, encoding, cb]);
   }
   const origStdoutWrite = process.stdout.write;
