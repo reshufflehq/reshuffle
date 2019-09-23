@@ -114,6 +114,6 @@ export default class Download extends Command {
       // arguments are constant strings
       shell: process.platform === 'win32',
     });
-    this.log('Your application is ready!');
+    this.log(`Your application is ready in ${downloadDir}`);
   }
 }
