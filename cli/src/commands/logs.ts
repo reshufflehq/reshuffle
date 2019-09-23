@@ -7,8 +7,8 @@ import {
 import ms = require('ms');
 
 const detailedLogsRegexps = [
-  /^Function invocation took [\d.]+ us$/,
-  /^Function \w+ deployed \(version digest: [0-9a-f]+\)$/,
+  /^Function invocation took [\d.]+(e[-+]?\d+)? us$/m,
+  /^Function \w+ deployed \(version digest: [0-9a-f]+\)$/m,
 ];
 
 export default class Logs extends Command {
