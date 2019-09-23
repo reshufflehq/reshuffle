@@ -66,6 +66,36 @@ test('logs paginate', async (t) => {
   t.snapshot(result);
 });
 
+test('logs drops detailed logs without --all', async (t) => {
+  const detailed1 = {
+    source: 'spice', msg: 'Function plan_mariner_mission deployed (version digest: f11eb1e',
+    isErr: false, time: new Date('1972-07-01T00:00:00'),
+  };
+  const detailed2 = {
+    source: 'voyager2', msg: 'Function invocation took 1.32819343e15 us', isErr: false,
+    time: new Date('2019-09-22T12:36:12'),
+  };
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
+    .thenResolve({ records: [ detailed1, ...fakeLogs, detailed2 ] });
+  const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('logs --all shows detailed logs', async (t) => {
+  const detailed1 = {
+    source: 'spice', msg: 'Function plan_mariner_mission deployed (version digest: f11eb1e',
+    isErr: false, time: new Date('1972-07-01T00:00:00'),
+  };
+  const detailed2 = {
+    source: 'voyager2', msg: 'Function invocation took 1.32819343e15 us', isErr: false,
+    time: new Date('2019-09-22T12:36:12'),
+  };
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
+    .thenResolve({ records: [ detailed1, ...fakeLogs, detailed2 ] });
+  const result = await t.context.shell.run(`${t.context.run} logs --all`, 'utf-8');
+  t.snapshot(result);
+});
+
 test('logs help', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} help logs`, 'utf-8');
   t.snapshot(result);
