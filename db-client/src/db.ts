@@ -128,8 +128,11 @@ export class DB {
    *
    * ## Example: increment a counter
    *
+   * If the key is missing, the updater function receives argument
+   * `undefined`.  That's a cue for the app to start counting from 0.
+   *
    * ```js
-   * await db.update('counter', (n) => n + 1);
+   * await db.update('counter', (n) => (n || 0) + 1);
    * ```
    *
    * ## Example: capitalize names
@@ -196,6 +199,15 @@ export class DB {
 
   /**
    * Find documents matching query.
+   *
+   * ## Example: Return all user objects (keys starting `user:`)
+   *
+   * ```js
+   * function getUsers() {
+   *   return db.find(db.Q.filter(db.Q.key.startsWith('user:')));
+   * }
+   * ```
+   *
    * @param query - a query constructed with Q methods.
    * @return - an array of documents
    */

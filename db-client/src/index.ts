@@ -72,8 +72,11 @@ export async function remove(key: string): Promise<boolean> {
  *
  * ## Example: increment a counter
  *
+ * If the key is missing, the updater function receives argument
+ * `undefined`.  That's a cue for the app to start counting from 0.
+ *
  * ```js
- * await db.update('counter', (n) => n + 1);
+ * await db.update('counter', (n) => (n || 0) + 1);
  * ```
  *
  * ## Example: capitalize names
@@ -107,6 +110,15 @@ export async function update<T extends Serializable = any>(
 
 /**
  * Finds documents matching query.
+ *
+ * ## Example: Return all user objects (keys starting `user:`)
+ *
+ * ```js
+ * function getUsers() {
+ *   return db.find(db.Q.filter(db.Q.key.startsWith('user:')));
+ * }
+ * ```
+ *
  * @param query the query, constructed using the method
  *   [`db.Q.filter`](_query_.html#filter-1)
  * @return a promise of an array of matching documents

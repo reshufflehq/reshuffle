@@ -514,9 +514,22 @@ export class Query {
 }
 
 /**
- * Starts building a query from a filter.
+ * Starts building a query from a filter.  Construct all [[Query]]
+ * objects starting from this.
+ *
+ * ## Example: Query returning pages of 25 users
+ *
+ * ```js
+ * const usersQuery = db.Q.filter(db.Q.key.startsWith('user:'));
+ *
+ * async function makeUserPageQuery(pageNum, pageSize = 25) {
+ *   return usersQuery.limit(pageSize).skip(pageNum * pageSize);
+ * }
+ * ```
  *
  * @param filter [[Filter]] that this query will use
  * @return A query that will return all documents matching filter
  */
-export const filter = Query.fromFilter.bind(Query);
+export function filter(f: Filter) {
+  return Query.fromFilter(f);
+}
