@@ -84,6 +84,8 @@ test('bad url', async (t) => {
       githubUrl: 'someUrl',
       downloadUrl: `${t.context.lycanUrl}/bad-url/foo`,
       downloadDir: 'someDir',
+      targetDir: 'someDir',
+      zipUrl: 'xxx',
     },
   });
   (t.context.lycanServer as any).router.koaRouter.get('/bad-url/foo', (ctx: any) => {
@@ -106,6 +108,8 @@ test('bad tgz', async (t) => {
       githubUrl: 'someUrl',
       downloadUrl: `${t.context.lycanUrl}/bad-tgz/archive/master.tar.gz`,
       downloadDir: 'bad-tgz',
+      targetDir: 'bad-tgz',
+      zipUrl: 'xxx',
     },
   });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
@@ -127,6 +131,8 @@ test('verbose bad tgz', async (t) => {
       githubUrl: 'someUrl',
       downloadUrl: `${t.context.lycanUrl}/bad-tgz/archive/master.tar.gz`,
       downloadDir: 'bad-tgz',
+      targetDir: 'bad-tgz',
+      zipUrl: 'xxx',
     },
   });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['bad-tgz']);
@@ -147,7 +153,9 @@ test('bad request', async (t) => {
     source: {
       githubUrl: 'someUrl',
       downloadUrl: `${t.context.lycanUrl}/bad-req/archive/master.tar.gz`,
-      downloadDir: 'bad-req',
+      downloadDir: 'bad-req-master',
+      targetDir: 'bad-req',
+      zipUrl: 'xxx',
     },
   });
   (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
@@ -170,6 +178,8 @@ test('verbose bad request', async (t) => {
       githubUrl: 'someUrl',
       downloadUrl: `${t.context.lycanUrl}/bad-req/archive/master.tar.gz`,
       downloadDir: 'bad-req',
+      targetDir: 'bad-req',
+      zipUrl: 'xxx',
     },
   });
   (t.context.lycanServer as any).router.koaRouter.get('/bad-req/archive/master.tar.gz', async (ctx: any) => {
@@ -193,6 +203,8 @@ test('tgz with wrong dir', async (t) => {
       githubUrl: 'foo',
       downloadUrl: `${t.context.lycanUrl}/bad-dir/archive/master.tar.gz`,
       downloadDir: 'not-good',
+      targetDir: 'still-not-good',
+      zipUrl: 'xxx',
     },
   });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
@@ -209,6 +221,76 @@ test('tgz with wrong dir', async (t) => {
   t.snapshot(stableResult);
 });
 
+test('good tgz existing target file', async (t) => {
+  const targetDir = 'fubar';
+  td.when(t.context.lycanFake.getApp(anything, 'exist-app')).thenResolve({
+    ...defaultApp,
+    id: 'exist-app',
+    source: {
+      githubUrl: 'foo',
+      downloadUrl: `${t.context.lycanUrl}/exist-app/archive/master.tar.gz`,
+      downloadDir: 'good-app-master',
+      targetDir,
+      zipUrl: 'xxx',
+    },
+  });
+  const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
+  const tgzBuffer = await drainToBuffer(tarStream);
+  (t.context.lycanServer as any).router.koaRouter.get('/exist-app/archive/master.tar.gz', (ctx: any) => {
+    ctx.body = tgzBuffer;
+  });
+  const result = await t.context.shell.run(`touch ${targetDir} && ${t.context.run} download exist-app`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('good tgz existing non empty target dir', async (t) => {
+  const targetDir = 'fubar';
+  td.when(t.context.lycanFake.getApp(anything, 'exist-app')).thenResolve({
+    ...defaultApp,
+    id: 'exist-app',
+    source: {
+      githubUrl: 'foo',
+      downloadUrl: `${t.context.lycanUrl}/exist-app/archive/master.tar.gz`,
+      downloadDir: 'good-app-master',
+      targetDir,
+      zipUrl: 'xxx',
+    },
+  });
+  const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
+  const tgzBuffer = await drainToBuffer(tarStream);
+  (t.context.lycanServer as any).router.koaRouter.get('/exist-app/archive/master.tar.gz', (ctx: any) => {
+    ctx.body = tgzBuffer;
+  });
+  const result = await t.context.shell.run(`mkdir -p ${targetDir}/x && ${t.context.run} download exist-app`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('good tgz existing empty target dir', async (t) => {
+  const targetDir = 'fubar';
+  td.when(t.context.lycanFake.getApp(anything, 'exist-app')).thenResolve({
+    ...defaultApp,
+    id: 'exist-app',
+    source: {
+      githubUrl: 'foo',
+      downloadUrl: `${t.context.lycanUrl}/exist-app/archive/master.tar.gz`,
+      downloadDir: 'good-app-master',
+      targetDir,
+      zipUrl: 'xxx',
+    },
+  });
+  const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);
+  const tgzBuffer = await drainToBuffer(tarStream);
+  (t.context.lycanServer as any).router.koaRouter.get('/exist-app/archive/master.tar.gz', (ctx: any) => {
+    ctx.body = tgzBuffer;
+  });
+  const result = await t.context.shell.run(`mkdir ${targetDir} && ${t.context.run} download exist-app`, 'utf-8');
+  const stableResult = {
+    ...result,
+    out: result.out.replace(/up to date in [0-9][.0-9]*s/g, 'up to date'),
+  };
+  t.snapshot(stableResult);
+});
+
 test('good tgz', async (t) => {
   td.when(t.context.lycanFake.getApp(anything, 'good-app')).thenResolve({
     ...defaultApp,
@@ -217,6 +299,8 @@ test('good tgz', async (t) => {
       githubUrl: 'foo',
       downloadUrl: `${t.context.lycanUrl}/good-app/archive/master.tar.gz`,
       downloadDir: 'good-app-master',
+      targetDir: 'good-app',
+      zipUrl: 'xxx',
     },
   });
   const tarStream = tar.create({ gzip: true, cwd: 'src/test/apps' }, ['good-app-master']);

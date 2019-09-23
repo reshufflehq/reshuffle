@@ -5,8 +5,8 @@ dependencies:
   '@babel/plugin-transform-modules-commonjs': 7.6.0
   '@babel/types': 7.6.1
   '@binaris/oclif-plugin-not-found': 1.2.4
-  '@binaris/spice-koa-server': 0.0.4
-  '@binaris/spice-node-client': 0.0.4
+  '@binaris/spice-koa-server': 0.0.5
+  '@binaris/spice-node-client': 0.0.5
   '@binaris/utils-subprocess': 0.0.1
   '@oclif/command': 1.5.19
   '@oclif/config': 1.13.3
@@ -495,7 +495,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-h3XyMTKEMeo4VpVT7dkraa6VsoEv78URQ3VeNVmBHHgoH70rlK8PoCYUGBExcOQ3QQ3uNFwR4DhYx5f6c1nL8A==
-  /@binaris/spice-koa-server/0.0.4:
+  /@binaris/spice-koa-server/0.0.5:
     dependencies:
       '@types/koa': 2.0.49
       '@types/koa-bodyparser': 5.0.2
@@ -509,8 +509,8 @@ packages:
     peerDependencies:
       '@types/node': '>=8.0.0'
     resolution:
-      integrity: sha512-gpAClC+KD8MlNEfcKO2V8DMT9RmMkW7/FO37BEvjmEoEp56NspWRuZ9oEmFbksrRdECm1y297wGmkzPkhKSM/g==
-  /@binaris/spice-koa-server/0.0.4/@types!node@10.14.18:
+      integrity: sha512-L+o9m42SCpYE27FdLmenC7m776d61V+2L+89fD34xGqo1je+TZc7pNq0yH/Zhk2awXGkZC4MFEDcAN5Psl8AGQ==
+  /@binaris/spice-koa-server/0.0.5/@types!node@10.14.18:
     dependencies:
       '@types/koa': 2.0.49
       '@types/koa-bodyparser': 5.0.2
@@ -522,12 +522,12 @@ packages:
       koa-router: 7.4.0
       lodash: 4.17.15
     dev: false
-    id: registry.npmjs.org/@binaris/spice-koa-server/0.0.4
+    id: registry.npmjs.org/@binaris/spice-koa-server/0.0.5
     peerDependencies:
       '@types/node': '>=8.0.0'
     resolution:
-      integrity: sha512-gpAClC+KD8MlNEfcKO2V8DMT9RmMkW7/FO37BEvjmEoEp56NspWRuZ9oEmFbksrRdECm1y297wGmkzPkhKSM/g==
-  /@binaris/spice-node-client/0.0.4:
+      integrity: sha512-L+o9m42SCpYE27FdLmenC7m776d61V+2L+89fD34xGqo1je+TZc7pNq0yH/Zhk2awXGkZC4MFEDcAN5Psl8AGQ==
+  /@binaris/spice-node-client/0.0.5:
     dependencies:
       '@types/node-fetch': 2.5.1
       abort-controller: 2.0.3
@@ -536,7 +536,7 @@ packages:
       node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-eNj4INsni8OuOfbnuhpJv7lOD2gttxa4LcHdyW7mC40pCNglHBrA/i3r23UBd/U9U4t8e7kNqTv9oQQo4pnGeg==
+      integrity: sha512-If/L64IlSE1hWQMNEr9lC7o7NPWtRERVS8eRSKBOzvpyU3K6aMx230mjPAUJC++GbtED0rzg/VO8K9MtSZWeRw==
   /@binaris/utils-subprocess/0.0.1:
     dev: false
     resolution:
@@ -9704,7 +9704,7 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-OJbQIk7CQkBgTeNejWU4sOi2HBjckV48Esy0FYKHzuNVWp2dPNgf9uRucQlMWRIpnHErH2nwKymvPNONwwJF3A==
+      integrity: sha512-pSCyGJ6N7ETs2xj3+MbSxuxKhbs/h4K7ITgUcbeFs/t7XvIvva9f8kfxHHKx/H01ymIGtpM6odfERwU5+KH6Vg==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
@@ -9719,7 +9719,7 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-wOXdLC5L8OtdXZZn2w7U+pUhn2T4Fjq7Se+Gd2YBhkn00XJUJPz6ankOhJFiO/ifosca1jJhR17NMRDXsA6Eeg==
+      integrity: sha512-OE5WPkD85xTPeDsnvKcAkCSZBA2CaePGbK6A26aP1N2bRH7pY0fdZ+ix8x0ZXbKAIz3J/azfN7F3OPU0e1S4tA==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -9805,7 +9805,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-mTI+r45p4UYJDeu8b1DIdSovFGx2ESEY9M/N8ctL/fKEF3fcu7/HcLFetSa2yiXZ3B2fBiyVGx1wuzGc7pjVXw==
+      integrity: sha512-crRRnj1+oMpr80VO+s5JYARPCs7CLgY1bXdrIGOT99yIg2qncAFALWR5OxEvdZYcKPm5aqU9C0TXMJxpFC7iSw==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -9855,7 +9855,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-249orbvlByR4fI2efmVNi6/W+HM99mHr4XY65ddEkTpF12kA/J9C08/gqKmGQNgUb4sbtLtWT7Ue1s1skXO0tQ==
+      integrity: sha512-hAwoF96nvHaTNxPxB/hoTJESaM4SdToWqqRrSVB1Tt0eFfiOBfW9z98vYJohyiPhnqXqmFiJbug1bamlV/1fJA==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -9877,8 +9877,8 @@ packages:
   'file:projects/reshuffle.tgz':
     dependencies:
       '@binaris/oclif-plugin-not-found': 1.2.4
-      '@binaris/spice-koa-server': /@binaris/spice-koa-server/0.0.4/@types!node@10.14.18
-      '@binaris/spice-node-client': 0.0.4
+      '@binaris/spice-koa-server': /@binaris/spice-koa-server/0.0.5/@types!node@10.14.18
+      '@binaris/spice-node-client': 0.0.5
       '@binaris/utils-subprocess': 0.0.1
       '@oclif/command': 1.5.19
       '@oclif/config': 1.13.3
@@ -9927,7 +9927,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-e8Dir+5cjfMKKjWYTkSZ6Z1pkmLKgIopL8wYQqSpgB1rnHMC0plTUjVHASCbFVtfVO4JaEKejEJUqN2+36AwqA==
+      integrity: sha512-nWasOEuID6ir3C+OvERFO0xXJWQ+E7M94OSWdb36gdBA5SKaNFvW5OYVXkLxhQFfg0J8V5KL2JOeUON3j7/2Yw==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -10006,8 +10006,8 @@ specifiers:
   '@babel/plugin-transform-modules-commonjs': ^7.5.0
   '@babel/types': ^7.5.5
   '@binaris/oclif-plugin-not-found': ^1.2.4
-  '@binaris/spice-koa-server': ^0.0.4
-  '@binaris/spice-node-client': 0.0.4
+  '@binaris/spice-koa-server': ^0.0.5
+  '@binaris/spice-node-client': 0.0.5
   '@binaris/utils-subprocess': 0.0.1
   '@oclif/command': ^1.5.18
   '@oclif/config': ^1.13.2
