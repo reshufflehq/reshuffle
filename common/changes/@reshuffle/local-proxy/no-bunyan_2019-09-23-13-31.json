@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Use winston as logging library",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "vladimir@reshuffle.com"
+}
