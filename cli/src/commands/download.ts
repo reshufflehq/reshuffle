@@ -1,7 +1,9 @@
 import { CLIError } from '@oclif/errors';
 import * as path from 'path';
 import * as tar from 'tar';
-import { rename } from 'mz/fs';
+import { rename, mkdtemp } from 'mz/fs';
+import { remove } from 'fs-extra';
+import { tmpdir } from 'os';
 import fetch from 'node-fetch';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
@@ -61,7 +63,7 @@ export default class Download extends Command {
       return this.error('Application source is unknown');
     }
     const { downloadUrl, downloadDir, targetDir } = source;
-    const projectDir = path.resolve(downloadDir);
+    const projectDir = path.resolve(targetDir);
     const projects = this.conf.get('projects') as Project[] | undefined || [];
     const project = projects.find(({ directory }) => directory === projectDir);
     const env = 'default'; // hardcoded for now
@@ -79,42 +81,73 @@ export default class Download extends Command {
       this.conf.set('projects', projects);
     }
     this.log('Downloading application...');
-    const extract = tar.extract({ cwd: '.' });
+    const stagingDir = await mkdtemp(path.resolve(tmpdir(), 'reshuffle-download-'), { encoding: 'utf8' });
+    const extract = tar.extract({ cwd: stagingDir });
     const verboseLog = (type: string, err: Error) => {
       if (verbose) {
         this.log(`${type}:  ${err.message}`);
       }
     };
-    await new Promise<void>((resolve, reject) => {
-      fetch(downloadUrl)
-        .then((res) =>  {
-          const statusCode = res.status;
-          if (statusNotOk(statusCode)) {
-            reject(new CLIError(`Bad status code ${statusCode} when fetching ${downloadUrl}`));
-          }
-          res.body.pipe(extract)
-            .on('error', (err) => {
-              verboseLog('extract', err);
-              reject(new CLIError('Failed extracting application'));
-            })
-            .on('finish', () => {
-              resolve();
-            });
-        })
-        .catch((err) => {
-          verboseLog('download', err);
-          reject(new CLIError(`Failed fetching ${downloadUrl}`));
+    try {
+      await new Promise<void>((resolve, reject) => {
+        fetch(downloadUrl)
+          .then((res) =>  {
+            const statusCode = res.status;
+            if (statusNotOk(statusCode)) {
+              reject(new CLIError(`Bad status code ${statusCode} when fetching ${downloadUrl}`));
+            }
+            let first = true;
+            res.body.pipe(extract)
+              .on('error', (err) => {
+                if (first) {
+                  verboseLog('extract', err);
+                  first = false;
+                }
+                reject(new CLIError('Failed extracting application'));
+              })
+              .on('finish', () => {
+                resolve();
+              });
+          })
+          .catch((err) => {
+            verboseLog('download', err);
+            reject(new CLIError(`Failed fetching ${downloadUrl}`));
+          });
+      });
+      this.log('Installing packages...');
+      const stagingDownloadDir = path.resolve(stagingDir, downloadDir);
+      try {
+        await spawn('npm', ['install'], {
+          cwd: stagingDownloadDir,
+          stdio: 'inherit',
+          // in win32 npm.cmd must be run in shell - no escaping needed since all
+          // arguments are constant strings
+          shell: process.platform === 'win32',
         });
-    });
-    await rename(downloadDir, targetDir);
-    this.log('Installing packages...');
-    await spawn('npm', ['install'], {
-      cwd: targetDir,
-      stdio: 'inherit',
-      // in win32 npm.cmd must be run in shell - no escaping needed since all
-      // arguments are constant strings
-      shell: process.platform === 'win32',
-    });
+      } catch (err) {
+        verboseLog('npm install', err);
+        throw new CLIError('Failed installing packages');
+      }
+      try {
+        await rename(stagingDownloadDir, targetDir);
+      } catch (err) {
+        verboseLog('rename', err);
+        switch (err.code) {
+          case 'ENOTEMPTY':
+            throw new CLIError(`Directory ${targetDir} is not empty`);
+          case 'ENOTDIR':
+            throw new CLIError(`${targetDir} is not a directory`);
+          default:
+            throw err;
+        }
+      }
+    } finally {
+      try {
+        await remove(stagingDir);
+      } catch (e) {
+        this.warn(`Failed removing staging directory: ${e.message}`);
+      }
+    }
     this.log(`Your application is ready in ${targetDir}`);
   }
 }
