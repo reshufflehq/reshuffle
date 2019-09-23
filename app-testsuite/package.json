@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@binaris/utils-subprocess": "0.0.1",
+    "@reshuffle/utils-subprocess": "0.0.2",
     "fs-extra": "^8.1.0",
     "mz": "^2.7.0",
     "sleep-promise": "^8.0.1",

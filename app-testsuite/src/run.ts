@@ -6,7 +6,7 @@ import { spawn as spawnChild, ChildProcess } from 'child_process';
 import { copy, remove, pathExists } from 'fs-extra';
 import { Tail } from 'tail';
 import sleep from 'sleep-promise';
-import { spawn, waitOnChild } from '@binaris/utils-subprocess';
+import { spawn, waitOnChild } from '@reshuffle/utils-subprocess';
 
 const shell = process.platform === 'win32';
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
