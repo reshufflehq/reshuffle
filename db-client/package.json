@@ -27,8 +27,7 @@
     "@reshuffle/interfaces-node-client": "0.4.0",
     "@types/deep-freeze": "^0.1.2",
     "deep-freeze": "0.0.1",
-    "ramda": "^0.26.1",
-    "reshuffle": "^0.2.7"
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
