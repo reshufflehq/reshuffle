@@ -14,7 +14,7 @@ Note all `db` calls are asynchronous and promise a result.  You should `await` t
 ## On `db`
 
 `db` contains all entrypoints.  Start reading about the [top-level
-methods](modules/_index_.html), e.g. `db.get`, to perform actions on
+methods](modules/_index_.html), e.g. `db.get`, to perform actions with
 keys.
 
 ## Queries
