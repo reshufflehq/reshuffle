@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Sun, 22 Sep 2019 12:17:20 GMT and should not be manually modified.
+This log was last generated on Mon, 23 Sep 2019 15:47:11 GMT and should not be manually modified.
+
+## 0.2.8
+Mon, 23 Sep 2019 15:47:11 GMT
+
+### Patches
+
+- Show directory where app is deployed
 
 ## 0.2.7
 Sun, 22 Sep 2019 12:17:20 GMT
