@@ -16,6 +16,8 @@ export async function getDependencies(projectDir: string) {
     if (p === 'react-scripts') continue;
     // exclude local-proxy needed only for development
     if (p === '@reshuffle/local-proxy') continue;
+    // exclude code-transform needed only for development
+    if (p === '@reshuffle/code-transform') continue;
     // exclude already visited deps
     if (dependencies.has(p)) continue;
     dependencies.add(p);
