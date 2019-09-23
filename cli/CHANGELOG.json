@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.2.8",
+      "tag": "reshuffle_v0.2.8",
+      "date": "Mon, 23 Sep 2019 15:47:11 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Show directory where app is deployed"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.7",
       "tag": "reshuffle_v0.2.7",
       "date": "Sun, 22 Sep 2019 12:17:20 GMT",
