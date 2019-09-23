@@ -2,7 +2,7 @@
 
 Reshuffle includes a simple key-value store.  To use it,
 ```js
-const db = require('@reshuffle/db');
+import * as db from '@reshuffle/db';
 
 function readCounter(key) { return db.get(`counter:${key}`); }
 function incrementCounter(key) { return db.update(`counter:${key}`, (n) => (n || 0) + 1); }
