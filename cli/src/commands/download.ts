@@ -1,6 +1,7 @@
 import { CLIError } from '@oclif/errors';
 import * as path from 'path';
 import * as tar from 'tar';
+import { rename } from 'mz/fs';
 import fetch from 'node-fetch';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
@@ -59,7 +60,7 @@ export default class Download extends Command {
       }
       return this.error('Application source is unknown');
     }
-    const { downloadUrl, downloadDir } = source;
+    const { downloadUrl, downloadDir, targetDir } = source;
     const projectDir = path.resolve(downloadDir);
     const projects = this.conf.get('projects') as Project[] | undefined || [];
     const project = projects.find(({ directory }) => directory === projectDir);
@@ -78,8 +79,7 @@ export default class Download extends Command {
       this.conf.set('projects', projects);
     }
     this.log('Downloading application...');
-    const targetDir = '.';
-    const extract = tar.extract({ cwd: targetDir });
+    const extract = tar.extract({ cwd: '.' });
     const verboseLog = (type: string, err: Error) => {
       if (verbose) {
         this.log(`${type}:  ${err.message}`);
@@ -106,14 +106,15 @@ export default class Download extends Command {
           reject(new CLIError(`Failed fetching ${downloadUrl}`));
         });
     });
+    await rename(downloadDir, targetDir);
     this.log('Installing packages...');
     await spawn('npm', ['install'], {
-      cwd: projectDir,
+      cwd: targetDir,
       stdio: 'inherit',
       // in win32 npm.cmd must be run in shell - no escaping needed since all
       // arguments are constant strings
       shell: process.platform === 'win32',
     });
-    this.log(`Your application is ready in ${downloadDir}`);
+    this.log(`Your application is ready in ${targetDir}`);
   }
 }
