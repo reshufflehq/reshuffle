@@ -31,12 +31,12 @@ import {
 import * as Q from './query';
 
 /**
- * A JSON-serializable document object.  It can contain only
- * primitives (`null`, `string`, `number`, or `boolean`), or arrays of
+ * A JSON-serializable document object.  It may contain only
+ * primitives (`null`, `string`, `number`, or `boolean`), arrays of
  * serializable objects, or object with serializable values.
  *
  * In particular, `Date`s, functions, or objects with circular
- * references can never appear in a serializable object.
+ * references are invalid inside a serializable object.
  */
 // Use this strange type copy to get Typedoc to allow us to document.
 export type Serializable = Serializable;
@@ -128,8 +128,8 @@ export class DB {
    *
    * ## Example: increment a counter
    *
-   * If the key is missing, the updater function receives argument
-   * `undefined`.  That's a cue for the app to start counting from 0.
+   * If the key is missing, the updater function receives `undefined`
+   * as its argument.  That's a cue for the app to start counting from 0.
    *
    * ```js
    * await db.update('counter', (n) => (n || 0) + 1);
@@ -152,7 +152,7 @@ export class DB {
    * @param updater Function to update stored value.  The updater
    *   function is called with the previous value `state`, which may be
    *   `undefined` if no value is stored at `key`.  It may copy but must
-   *   *not* modify its parameter `state`.  When multiple concurrent
+   *   *not* modify its `state` parameter.  When multiple concurrent
    *   updates occur the function may be called multiple times.
    *
    * @return A promise of the new value that was stored.
