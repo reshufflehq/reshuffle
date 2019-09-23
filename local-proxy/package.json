@@ -23,8 +23,6 @@
     "@reshuffle/server-function": "0.0.6",
     "@types/express": "^4.17.0",
     "address": "^1.1.2",
-    "bunyan": "^1.8.12",
-    "bunyan-rotating-file-stream": "^1.6.3",
     "dotenv": "^8.1.0",
     "env-var": "^5.0.0",
     "express": "^4.17.1",
@@ -33,18 +31,19 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "logform": "^2.1.2",
     "mkdirp": "^0.5.1",
     "nanoid": "^2.0.3",
     "nodemon": "^1.19.1",
     "rimraf": "^2.6.3",
-    "walkdir": "^0.4.1"
+    "walkdir": "^0.4.1",
+    "winston": "^3.2.1"
   },
   "peerDependencies": {
     "@reshuffle/db": "0.5.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.2",
-    "@types/bunyan": "^1.8.6",
     "@types/dotenv": "^6.1.1",
     "@types/fs-extra": "^8.0.0",
     "@types/got": "^9.6.5",

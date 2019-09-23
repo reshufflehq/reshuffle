@@ -34,7 +34,6 @@ dependencies:
   '@rush-temp/utils-subprocess': 'file:projects/utils-subprocess.tgz'
   '@types/babel__core': 7.1.3
   '@types/babel__traverse': 7.0.7
-  '@types/bunyan': 1.8.6
   '@types/dotenv': 6.1.1
   '@types/express': 4.17.1
   '@types/fresh': 0.5.0
@@ -71,8 +70,6 @@ dependencies:
   async-mutex: 0.1.3
   babel-plugin-macros: 2.6.1
   babel-plugin-tester: 6.5.0
-  bunyan: 1.8.12
-  bunyan-rotating-file-stream: 1.6.3
   chalk: 2.4.2
   cli-ux: 5.3.2
   columnify: 1.5.4
@@ -98,6 +95,7 @@ dependencies:
   levelup: 4.2.0
   lodash.memoize: 4.1.2
   lodash.once: 4.1.1
+  logform: 2.1.2
   milliseconds: 1.0.3
   mime-types: 2.1.24
   mkdirp: 0.5.1
@@ -127,6 +125,7 @@ dependencies:
   typescript-json-schema: 0.39.0
   validator: 11.1.0
   walkdir: 0.4.1
+  winston: 3.2.1
   yargs: 13.3.0
 packages:
   /@ava/babel-plugin-throws-helper/4.0.0:
@@ -1697,6 +1696,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-7GphrlZIDAw8skHJVhjiCJL5Zyo=
+  /async/2.6.3:
+    dependencies:
+      lodash: 4.17.15
+    dev: false
+    resolution:
+      integrity: sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
   /asynckit/0.4.0:
     dev: false
     resolution:
@@ -2537,12 +2542,43 @@ packages:
     dev: false
     resolution:
       integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+  /color-string/1.5.3:
+    dependencies:
+      color-name: 1.1.4
+      simple-swizzle: 0.2.2
+    dev: false
+    resolution:
+      integrity: sha512-dC2C5qeWoYkxki5UAXapdjqO672AM4vZuPGRQfO8b5HKuKGBbKWpITyDYN7TOFKvRW7kOgAn3746clDBMDJyQw==
+  /color/3.0.0:
+    dependencies:
+      color-convert: 1.9.3
+      color-string: 1.5.3
+    dev: false
+    resolution:
+      integrity: sha512-jCpd5+s0s0t7p3pHQKpnJ0TpQKKdleP71LWcA0aqiljpiuAkOSUFN/dyH8ZwF0hRmFlrIuRhufds1QyEP9EB+w==
+  /colornames/1.1.1:
+    dev: false
+    resolution:
+      integrity: sha1-+IiQMGhcfE/54qVZ9Qd+t2qBb5Y=
   /colors/1.0.3:
     dev: false
     engines:
       node: '>=0.1.90'
     resolution:
       integrity: sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=
+  /colors/1.4.0:
+    dev: false
+    engines:
+      node: '>=0.1.90'
+    resolution:
+      integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
+  /colorspace/1.1.2:
+    dependencies:
+      color: 3.0.0
+      text-hex: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-vt+OoIP2d76xLhjwbBaucYlNSpPsrJWPlBTtwCpQKIu6/CSMutyzX93O/Do0qzpH3YoHEes8YEFXyZ797rEhzQ==
   /columnify/1.5.4:
     dependencies:
       strip-ansi: 3.0.1
@@ -3028,6 +3064,14 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-9B8cEL5LAOh7XxPaaAdZ8sW/0+I=
+  /diagnostics/1.1.1:
+    dependencies:
+      colorspace: 1.1.2
+      enabled: 1.0.2
+      kuler: 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-8wn1PmdunLJ9Tqbx+Fx/ZEuHfJf4NKSN2ZBj7SJC/OWRWha843+WsTjqMe1B5E3p28jqBlp+mJ2fPVxPyNgYKQ==
   /diff-sequences/24.9.0:
     dev: false
     engines:
@@ -3150,6 +3194,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-g6+K6Geyc1o6FdXs9HwrXleCFan7d66G5xSCfSF7x1mJDCes6t0om9lFQG3zOrzh3Bkb/45N0cZ5Gqsf7YrzGQ==
+  /enabled/1.0.2:
+    dependencies:
+      env-variable: 0.0.5
+    dev: false
+    resolution:
+      integrity: sha1-ll9lE9LC0cX0ZStkouM5ZGf8L5M=
   /encodeurl/1.0.2:
     dev: false
     engines:
@@ -3180,6 +3230,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-X0qlMaP0ltgl4GzZBjbihb6MVUYUNDipQoF044ycHknbekr9LI/F0fahIRaC1WLgyw0ZTEu+G1/UxBsAvMaN+A==
+  /env-variable/0.0.5:
+    dev: false
+    resolution:
+      integrity: sha512-zoB603vQReOFvTg5xMl9I1P2PnHsHQQKTEowsKKD7nseUfJq6UWzK+4YtlWUO1nhiQUxe6XMkk+JleSZD1NZFA==
   /equal-length/1.0.1:
     dev: false
     engines:
@@ -3554,6 +3608,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+  /fast-safe-stringify/2.0.7:
+    dev: false
+    resolution:
+      integrity: sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
   /fastq/1.6.0:
     dependencies:
       reusify: 1.0.4
@@ -3566,6 +3624,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-VOmr99+i8mzZsWNsWIwa/AXeXVg=
+  /fecha/2.3.3:
+    dev: false
+    resolution:
+      integrity: sha512-lUGBnIamTAwk4znq5BcqsDaxSmZ9nDVJaij6NvRt/Tg4R69gERA+otPKbS86ROw9nxVMw2/mp1fnaiWqbs6Sdg==
   /figgy-pudding/3.5.1:
     dev: false
     resolution:
@@ -3578,6 +3640,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-HKri+WoWoUgr83pehn/SIgLOMZ9nAWC6dcGj26RY2R4F50u4+RTUz0RCrUlOV3nKRAICW1UGzyb+kcX2qK1S/g==
+  /file-stream-rotator/0.5.5:
+    dependencies:
+      moment: 2.24.0
+    dev: false
+    resolution:
+      integrity: sha512-XzvE1ogpxUbARtZPZLICaDRAeWxoQLFMKS3ZwADoCQmurKEwuDD2jEfDVPm/R1HeKYsRYEl9PzVIezjQ3VTTPQ==
   /fill-range/4.0.0:
     dependencies:
       extend-shallow: 2.0.1
@@ -4401,6 +4469,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=
+  /is-arrayish/0.3.2:
+    dev: false
+    resolution:
+      integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==
   /is-binary-path/1.0.1:
     dependencies:
       binary-extensions: 1.13.1
@@ -5500,6 +5572,12 @@ packages:
       node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4
     resolution:
       integrity: sha512-iCgjRkntcVud5amnioi+79r7TPVhKPfCY8UzL9GjyU+nIWTE9xsqyrJ6kib3InT9JYRyUu9Y67i5apCjf997TQ==
+  /kuler/1.0.1:
+    dependencies:
+      colornames: 1.1.1
+    dev: false
+    resolution:
+      integrity: sha512-J9nVUucG1p/skKul6DU3PUZrhs0LPulNaeUOox0IyXDi8S4CztTHs1gQphhuZmzXG7VOQSf6NJfKuzteQLv9gQ==
   /latest-version/3.1.0:
     dependencies:
       package-json: 4.0.1
@@ -5727,6 +5805,16 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==
+  /logform/2.1.2:
+    dependencies:
+      colors: 1.4.0
+      fast-safe-stringify: 2.0.7
+      fecha: 2.3.3
+      ms: 2.1.2
+      triple-beam: 1.3.0
+    dev: false
+    resolution:
+      integrity: sha512-+lZh4OpERDBLqjiwDLpAWNQu6KMjnlXH2ByZwCuSqVPJletw0kTWJf5CgSNAUKn1KUkv3m2cUz/LK8zyEy7wzQ==
   /lolex/4.2.0:
     dev: false
     resolution:
@@ -6092,7 +6180,6 @@ packages:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   /moment/2.24.0:
     dev: false
-    optional: true
     resolution:
       integrity: sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
   /move-concurrently/1.0.1:
@@ -6551,6 +6638,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-fn2Fi3gb18mRpBupde04EnVOmYw=
+  /object-hash/1.3.1:
+    dev: false
+    engines:
+      node: '>= 0.10.0'
+    resolution:
+      integrity: sha512-OSuu/pU4ENM9kmREg0BdNrUDIl1heYa4mBZacJc+vVWz4GtAwu7jO8s4AIt2aGRUTqxykpWzI3Oqnsm13tTMDA==
   /object-inspect/1.6.0:
     dev: false
     resolution:
@@ -6630,6 +6723,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
+  /one-time/0.0.4:
+    dev: false
+    resolution:
+      integrity: sha1-+M33eISCb+Tf+T46nMN7HkSAdC4=
   /onetime/2.0.1:
     dependencies:
       mimic-fn: 1.2.0
@@ -7969,6 +8066,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+  /simple-swizzle/0.2.2:
+    dependencies:
+      is-arrayish: 0.3.2
+    dev: false
+    resolution:
+      integrity: sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   /sinon/7.4.2:
     dependencies:
       '@sinonjs/commons': 1.6.0
@@ -8184,6 +8287,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-3Wge10hNcT1Kur4PDFwEieXSCMCJs/7WvSACcrMYrNp+b8kDL1/0wJch5Ni2WrtwEa2IO8OsVfeKIciKCDx/QA==
+  /stack-trace/0.0.10:
+    dev: false
+    resolution:
+      integrity: sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=
   /stack-utils/1.0.2:
     dev: false
     engines:
@@ -8527,6 +8634,10 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-Ake1UjvG6XKYUrVGyNv52xg5lQM079dTQW8/F8GWuE1lbC1NRmkUgtgLrsRr+7SPQZZhIhZp6lHUWXMMBvSHEw==
+  /text-hex/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg==
   /thenify-all/1.6.0:
     dependencies:
       thenify: 3.3.0
@@ -8693,6 +8804,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
+  /triple-beam/1.3.0:
+    dev: false
+    resolution:
+      integrity: sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==
   /ts-node/8.4.1:
     dependencies:
       arg: 4.1.1
@@ -9348,6 +9463,46 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-QTlz2hKLrdqukrsapKsINzqMgOUpQW268eJ0OaOpJN32h272waxR9fkB9VoWRtK7uKHG5EHJcTXQBD8XZVJkFA==
+  /winston-daily-rotate-file/4.1.0/winston@3.2.1:
+    dependencies:
+      file-stream-rotator: 0.5.5
+      object-hash: 1.3.1
+      triple-beam: 1.3.0
+      winston: 3.2.1
+      winston-transport: 4.3.0
+    dev: false
+    engines:
+      node: '>=8'
+    id: registry.npmjs.org/winston-daily-rotate-file/4.1.0
+    peerDependencies:
+      winston: ^3
+    resolution:
+      integrity: sha512-Y3wcdrgNwC75Lc2BiFDZUyfxNjyhqVzEou8uOyZMUkDJ23/UN+rq8arpJDaXwX512GIM7g6NpTDPac29fsCvcQ==
+  /winston-transport/4.3.0:
+    dependencies:
+      readable-stream: 2.3.6
+      triple-beam: 1.3.0
+    dev: false
+    engines:
+      node: '>= 6.4.0'
+    resolution:
+      integrity: sha512-B2wPuwUi3vhzn/51Uukcao4dIduEiPOcOt9HJ3QeaXgkJ5Z7UwpBzxS4ZGNHtrxrUvTwemsQiSys0ihOf8Mp1A==
+  /winston/3.2.1:
+    dependencies:
+      async: 2.6.3
+      diagnostics: 1.1.1
+      is-stream: 1.1.0
+      logform: 2.1.2
+      one-time: 0.0.4
+      readable-stream: 3.4.0
+      stack-trace: 0.0.10
+      triple-beam: 1.3.0
+      winston-transport: 4.3.0
+    dev: false
+    engines:
+      node: '>= 6.4.0'
+    resolution:
+      integrity: sha512-zU6vgnS9dAWCEKg/QYigd6cgMVVNwyTzKs81XZtTFuRwJOcDdBg7AU0mXVyNbs7O5RH2zdv+BdNZUlx7mXPuOw==
   /wordwrap/0.0.3:
     dev: false
     engines:
@@ -9510,7 +9665,7 @@ packages:
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-0C6v3RxXpPf0VRnEuRiWD63pb5j7uquhg4FIgkHZAz2K+XQZPATZEYRoqpv+caao88dfdp8yO6rcJyIFVyhfgQ==
+      integrity: sha512-UY4WZRlDh94ZeHoIBicFj6O2pH8mYKsT/nJCKTjpp7g50xeFfu9p0kRjAaNj+7fcp8k+n+30g6nQzQ/HvU7GXg==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -9687,6 +9842,7 @@ packages:
       koa-bodyparser: 4.2.1
       koa-router: 7.4.0
       lodash: 4.17.15
+      logform: 2.1.2
       mkdirp: 0.5.1
       nanoid: 2.1.1
       nodemon: 1.19.2
@@ -9694,10 +9850,12 @@ packages:
       tslint: /tslint/5.20.0/typescript@3.6.3
       typescript: 3.6.3
       walkdir: 0.4.1
+      winston: 3.2.1
+      winston-daily-rotate-file: /winston-daily-rotate-file/4.1.0/winston@3.2.1
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-4xbkajt2M46zX9rETB3ZWKOaGJNxVqAn7DMA8J9wThlbdkkyNCB1ai6cuN1sRNrs0Ob6J03CvCIvc/OnhvofnQ==
+      integrity: sha512-249orbvlByR4fI2efmVNi6/W+HM99mHr4XY65ddEkTpF12kA/J9C08/gqKmGQNgUb4sbtLtWT7Ue1s1skXO0tQ==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -9877,7 +10035,6 @@ specifiers:
   '@rush-temp/utils-subprocess': 'file:./projects/utils-subprocess.tgz'
   '@types/babel__core': ^7.1.2
   '@types/babel__traverse': ^7.0.7
-  '@types/bunyan': ^1.8.6
   '@types/dotenv': ^6.1.1
   '@types/express': ^4.17.0
   '@types/fresh': ^0.5.0
@@ -9914,8 +10071,6 @@ specifiers:
   async-mutex: ^0.1.3
   babel-plugin-macros: ^2.6.1
   babel-plugin-tester: ^6.4.0
-  bunyan: ^1.8.12
-  bunyan-rotating-file-stream: ^1.6.3
   chalk: ^2.4.2
   cli-ux: ^5.3.1
   columnify: ^1.5.4
@@ -9941,6 +10096,7 @@ specifiers:
   levelup: ^4.1.0
   lodash.memoize: ^4.1.2
   lodash.once: ^4.1.1
+  logform: ^2.1.2
   milliseconds: ^1.0.3
   mime-types: ^2.1.24
   mkdirp: ^0.5.1
@@ -9970,4 +10126,5 @@ specifiers:
   typescript-json-schema: ^0.39.0
   validator: ^11.1.0
   walkdir: ^0.4.1
+  winston: ^3.2.1
   yargs: ^13.3.0
