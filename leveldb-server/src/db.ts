@@ -84,7 +84,8 @@ export class Handler implements DBHandler {
     this.db = new LevelUpCtor(new LevelDown(dbPath), errorCallback);
     if (initialData) {
       for (const item of initialData.items) {
-        this.create({ debugId: 'initial data' } as any, item.key, item.data);
+        this.create({ debugId: 'initial data' } as any, item.key, item.data).catch(
+          () => { /* ignore failures */ });
       }
     }
   }
