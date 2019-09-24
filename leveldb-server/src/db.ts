@@ -125,9 +125,7 @@ export class Handler implements DBHandler {
       return JSON.parse(val.toString());
     } catch (err) {
       if (err.notFound) return undefined;
-      err.debugId = debugId;
-      err.message = `[${debugId}] ${err.message}`;
-      throw err;
+      throw { ...err, debugId, message: `[${debugId}] ${err.message}` };
     }
   }
 
