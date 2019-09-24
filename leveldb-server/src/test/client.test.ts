@@ -11,7 +11,7 @@ setUpTests<{ dbDir: string, errorsOk?: boolean, errors: Error[] }>({
     const errors: Error[] = [];
     const dbDir = await promisify(mkdtemp)(path.join(tmpdir(), 'test-state-'), 'utf8');
     return {
-      handler: new Handler(`${dbDir}/root.db`, (err) => err && errors.push(err)),
+      handler: new Handler(`${dbDir}/root.db`, undefined, (err) => err && errors.push(err)),
       supportsPolling: true,
       context: {
         dbDir,
