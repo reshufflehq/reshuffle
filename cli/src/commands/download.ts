@@ -105,7 +105,7 @@ export default class Download extends Command {
                 }
                 reject(new CLIError('Failed extracting application'));
               })
-              .on('finish', () => {
+              .on('close', () => {
                 resolve();
               });
           })
