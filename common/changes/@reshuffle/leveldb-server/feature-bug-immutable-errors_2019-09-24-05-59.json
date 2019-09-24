@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/leveldb-server",
+      "comment": "Correctly handle LevelDB errors",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/leveldb-server",
+  "email": "ariels@reshuffle.com"
+}
