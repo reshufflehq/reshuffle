@@ -80,8 +80,13 @@ export class Handler implements DBHandler {
   protected readonly writeLock = new Mutex();
   protected readonly db: LevelUp;
 
-  constructor(protected readonly dbPath: string, errorCallback?: (err: Error | undefined) => any) {
+  constructor(protected readonly dbPath: string, initialData?: any, errorCallback?: (err: Error | undefined) => any) {
     this.db = new LevelUpCtor(new LevelDown(dbPath), errorCallback);
+    if (initialData) {
+      for (const item of initialData.items) {
+        this.create({ debugId: 'initial data' } as any, item.key, item.data);
+      }
+    }
   }
 
   public async extractContext(_ctx: KoaContext): Promise<ServerOnlyContext> {

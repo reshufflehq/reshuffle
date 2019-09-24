@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { resolve as resolvePath, extname, isAbsolute } from 'path';
+import { resolve as resolvePath, extname } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
 import { DBRouter } from '@reshuffle/interfaces-koa-server';
 import { getHandler, Handler, HandlerError } from '@reshuffle/server-function';
@@ -7,7 +7,7 @@ import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
-import { mkdtempSync, readFile } from 'fs';
+import { mkdtempSync, readFile, readFileSync, existsSync } from 'fs';
 import * as rimraf from 'rimraf';
 import babelDir from '@babel/cli/lib/babel/dir';
 import { AddressInfo } from 'net';
@@ -18,17 +18,20 @@ import { copy, mkdirpSync } from 'fs-extra';
 import env from 'env-var';
 import dotenv from 'dotenv';
 
-const tmpDir = env.get('RESHUFFLE_TMP_DIR').required().asString();
+const envStr = (name: string): string => {
+  const val = env.get(name).required().asString();
+  if (val === '') {
+    throw new Error(`${name} is env var is empty`);
+  }
+  return val;
+};
+
+const tmpDir = envStr('RESHUFFLE_TMP_DIR');
 mkdirpSync(tmpDir);
 
-const basePath = env.get('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH').required().asString();
-const localToken = env.get('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN').required().asString();
-if (!localToken) {
-  throw new Error('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN env var is empty');
-}
-if (!isAbsolute(basePath)) {
-  throw new Error('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH env var is not an absolute path');
-}
+const rootPath = envStr('RESHUFFLE_DEV_SERVER_ROOT_DIR');
+const basePath = envStr('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH');
+const localToken = envStr('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN');
 
 async function loadDotEnv() {
   const envFile = resolvePath(basePath, '.env');
@@ -192,7 +195,20 @@ router.post('/invoke', async (ctx) => {
   }
 });
 
-const db = new DBHandler(resolvePath(tmpDir, 'db'));
+const dbPath = resolvePath(tmpDir, 'db');
+const initDataPath = resolvePath(rootPath, 'template_init_data.json');
+let initData: any;
+if (!existsSync(dbPath) && existsSync(initDataPath)) {
+  try {
+    initData = JSON.parse(readFileSync(initDataPath, 'utf8'));
+    if (!Array.isArray(initData.items)) {
+      throw new Error('initData.items');
+    }
+  } catch (err) {
+    // just ignore any errors
+  }
+}
+const db = new DBHandler(dbPath, initData);
 const dbRouter = new DBRouter(db);
 router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
 

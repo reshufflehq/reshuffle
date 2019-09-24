@@ -47,6 +47,7 @@ export function startProxy(
     env: {
       RESHUFFLE_TMP_DIR: path.resolve(rootDir, '.reshuffle'),
       RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(rootDir, 'backend'),
+      RESHUFFLE_DEV_SERVER_ROOT_DIR: rootDir,
       RESHUFFLE_DEV_SERVER_LOCAL_TOKEN: localToken,
     },
     // Workaround for tests:
