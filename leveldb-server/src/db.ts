@@ -80,7 +80,7 @@ export class Handler implements DBHandler {
   protected readonly writeLock = new Mutex();
   protected readonly db: LevelUp;
 
-  constructor(protected readonly dbPath: string, errorCallback?: (err: Error) => any) {
+  constructor(protected readonly dbPath: string, errorCallback?: (err: Error | undefined) => any) {
     this.db = new LevelUpCtor(new LevelDown(dbPath), errorCallback);
   }
 
