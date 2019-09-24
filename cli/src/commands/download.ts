@@ -4,7 +4,7 @@ import * as tar from 'tar';
 import { rename, mkdtemp } from 'mz/fs';
 import { remove } from 'fs-extra';
 import { tmpdir } from 'os';
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
 import { Project } from '../utils/helpers';
@@ -89,29 +89,29 @@ export default class Download extends Command {
       }
     };
     try {
+      let res: Response;
+      try {
+        res = await fetch(downloadUrl);
+      } catch (err) {
+        verboseLog('download', err);
+        throw new CLIError(`Failed fetching ${downloadUrl}`);
+      }
+      const statusCode = res.status;
+      if (statusNotOk(statusCode)) {
+        throw new CLIError(`Bad status code ${statusCode} when fetching ${downloadUrl}`);
+      }
+      let first = true;
       await new Promise<void>((resolve, reject) => {
-        fetch(downloadUrl)
-          .then((res) =>  {
-            const statusCode = res.status;
-            if (statusNotOk(statusCode)) {
-              reject(new CLIError(`Bad status code ${statusCode} when fetching ${downloadUrl}`));
+        res.body.pipe(extract)
+          .on('error', (err) => {
+            if (first) {
+              verboseLog('extract', err);
+              first = false;
             }
-            let first = true;
-            res.body.pipe(extract)
-              .on('error', (err) => {
-                if (first) {
-                  verboseLog('extract', err);
-                  first = false;
-                }
-                reject(new CLIError('Failed extracting application'));
-              })
-              .on('close', () => {
-                resolve();
-              });
+            reject(new CLIError('Failed extracting application'));
           })
-          .catch((err) => {
-            verboseLog('download', err);
-            reject(new CLIError(`Failed fetching ${downloadUrl}`));
+          .on('close', () => {
+            resolve();
           });
       });
       this.log('Installing packages...');
