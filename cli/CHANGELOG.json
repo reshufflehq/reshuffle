@@ -2,6 +2,26 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.3.0",
+      "tag": "reshuffle_v0.3.0",
+      "date": "Tue, 24 Sep 2019 14:19:38 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "By default drop function deployment and invocation logs (use --all to restore)."
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Exclude code-transform package from upload"
+          },
+          {
+            "comment": "Use download target dir"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.8",
       "tag": "reshuffle_v0.2.8",
       "date": "Mon, 23 Sep 2019 15:47:11 GMT",

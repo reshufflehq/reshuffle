@@ -1,6 +1,18 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 23 Sep 2019 15:47:11 GMT and should not be manually modified.
+This log was last generated on Tue, 24 Sep 2019 14:19:38 GMT and should not be manually modified.
+
+## 0.3.0
+Tue, 24 Sep 2019 14:19:38 GMT
+
+### Minor changes
+
+- By default drop function deployment and invocation logs (use --all to restore).
+
+### Patches
+
+- Exclude code-transform package from upload
+- Use download target dir
 
 ## 0.2.8
 Mon, 23 Sep 2019 15:47:11 GMT
