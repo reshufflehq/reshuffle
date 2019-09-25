@@ -16,8 +16,7 @@ node {
     ]);
 
     if ("${BRANCH_NAME}" =~ "^publish-.*") {
-        currentBuild.result = 'SUCCESS'
-        return
+        return;
     }
 
     genericWrapper([slackChannel:'#jenkins', timeoutMinutes: 60]) {
