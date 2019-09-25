@@ -84,8 +84,23 @@ export class Handler implements DBHandler {
     this.db = new LevelUpCtor(new LevelDown(dbPath), errorCallback);
     if (initialData) {
       for (const item of initialData.items) {
-        this.create({ debugId: 'initial data' } as any, item.key, item.data).catch(
-          () => { /* ignore failures */ });
+        // TODO: deduplicate local appId
+        this.create(
+          {
+            debugId: 'template initial data',
+            appId: 'local-app',
+            appEnv: 'local',
+            collection: 'default',
+            auth: {},
+          },
+          item.key,
+          item.data
+        ).catch(() => {
+          // Logging during startup will usually get cleared by create-react-app
+          // screen clear, but the log will still be saved in the log directory
+          // tslint:disable-next-line:no-console
+          console.error('Failed create initial data', item);
+        });
       }
     }
   }
