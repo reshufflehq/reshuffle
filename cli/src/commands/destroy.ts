@@ -22,11 +22,11 @@ export default class Destroy extends Command {
   public static strict = true;
 
   public async run() {
-    const { id } = this.parse(Destroy).args;
+    const { id: idFromArgs } = this.parse(Destroy).args;
     await this.authenticate();
     const projects = this.conf.get('projects') as Project[] | undefined || [];
 
-    let appId = id;
+    let appId = idFromArgs;
     if (!appId) {
       const projectDir = await getProjectRootDir();
       const project = projects.find(({ directory }) => directory === projectDir);
@@ -37,13 +37,19 @@ export default class Destroy extends Command {
     }
 
     try {
-      await this.lycanClient.destroyApp(appId);
+      if (idFromArgs) {
+        await this.lycanClient.destroyAppByName(appId);
+      } else {
+        await this.lycanClient.destroyApp(appId);
+      }
     } catch (error) {
       // TODO: add verbose logging of the entire error
       throw new CLIError(error.message);
     }
-    const projectsWithoutAppId = projects.filter(({ applicationId }) => applicationId !== appId);
-    this.conf.set('projects', projectsWithoutAppId);
+    if (!idFromArgs) {
+      const projectsWithoutAppId = projects.filter(({ applicationId }) => applicationId !== appId);
+      this.conf.set('projects', projectsWithoutAppId);
+    }
     this.log('Application successfully destroyed!');
   }
 }
