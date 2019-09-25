@@ -61,6 +61,13 @@ export default abstract class BaseCommand extends Command {
     return headers;
   }
 
+  // Drops a return value or an exception from p, logging errors as
+  // debug messages.  Silences tslint "Promises must be handled
+  // appropriately".  Good e.g. for wrapping analytics calls.
+  protected drop<T>(p: Promise<T>, warnFn: (e: string | Error) => any = this.debug.bind(this)) {
+    p.then(() => undefined).catch(warnFn);
+  }
+
   public static flags: Parser.flags.Input<any>  = {
     help: flags.help({ char: 'h' }),
     config: flags.string({
