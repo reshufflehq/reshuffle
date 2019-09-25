@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.3.1",
+      "tag": "reshuffle_v0.3.1",
+      "date": "Wed, 25 Sep 2019 13:21:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update spice client to exclude name from deployInitial"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "reshuffle_v0.3.0",
       "date": "Tue, 24 Sep 2019 14:19:38 GMT",

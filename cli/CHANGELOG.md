@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Tue, 24 Sep 2019 14:19:38 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Sep 2019 13:21:31 GMT and should not be manually modified.
+
+## 0.3.1
+Wed, 25 Sep 2019 13:21:31 GMT
+
+### Patches
+
+- Update spice client to exclude name from deployInitial
 
 ## 0.3.0
 Tue, 24 Sep 2019 14:19:38 GMT
