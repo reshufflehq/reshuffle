@@ -48,6 +48,12 @@ export default class Download extends Command {
     await this.authenticate();
     let application: Application | undefined;
     try {
+      this.drop(this.lycanClient.reportAnalytics([{
+        type: 'event',
+        category: 'user',
+        action: 'download (get app)',
+        label: appName,
+      }]));
       application = await this.lycanClient.getAppByName(appName);
     } catch (error) {
       // TODO: check different errors
@@ -65,6 +71,12 @@ export default class Download extends Command {
     const { downloadUrl, downloadDir, targetDir } = source;
     const projectDir = path.resolve(targetDir);
     const projects = this.conf.get('projects') as Project[] | undefined || [];
+    this.drop(this.lycanClient.reportAnalytics([{
+      type: 'event',
+      category: 'user',
+      action: 'download (build user projects))',
+      label: appName,
+    }]));
     const project = projects.find(({ directory }) => directory === projectDir);
     const env = 'default'; // hardcoded for now
     const newProject = {
@@ -81,6 +93,12 @@ export default class Download extends Command {
       this.conf.set('projects', projects);
     }
     this.log('Downloading application...');
+    this.drop(this.lycanClient.reportAnalytics([{
+      type: 'event',
+      category: 'user',
+      action: 'download (actual)',
+      label: appName,
+    }]));
     const stagingDir = await mkdtemp(path.resolve(tmpdir(), 'reshuffle-download-'), { encoding: 'utf8' });
     const extract = tar.extract({ cwd: stagingDir });
     const verboseLog = (type: string, err: Error) => {
@@ -114,6 +132,12 @@ export default class Download extends Command {
             resolve();
           });
       });
+      this.drop(this.lycanClient.reportAnalytics([{
+        type: 'event',
+        category: 'user',
+        action: 'download (install)',
+        label: appName,
+      }]));
       this.log('Installing packages...');
       const stagingDownloadDir = path.resolve(stagingDir, downloadDir);
       try {
@@ -148,6 +172,12 @@ export default class Download extends Command {
         this.warn(`Failed removing staging directory: ${e.message}`);
       }
     }
+    this.drop(this.lycanClient.reportAnalytics([{
+      type: 'event',
+      category: 'user',
+      action: 'download (done)',
+      label: appName,
+    }]));
     this.log(`Your application is ready in ${targetDir}`);
   }
 }
