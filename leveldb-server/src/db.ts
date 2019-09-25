@@ -30,6 +30,13 @@ export type KeyedPatches = Array<[string, Patch[]]>;
 const NUM_PATCHES_TO_KEEP = 20;
 const DEFAULT_READ_BLOCK_TIME_MS = 50000;
 
+export class WrappedError extends Error {
+  constructor(msg: string, public readonly err: Error, public readonly debugId: string) {
+    super(msg);
+    this.stack += `\ncaused by:\n${err.stack}`;
+  }
+}
+
 export function incrVersion({ major, minor }: Version, amount: number = 1): Version {
   return { major, minor: minor + amount };
 }
@@ -72,8 +79,9 @@ export class Handler implements DBHandler {
   protected emitter = new EventEmitter();
   protected readonly writeLock = new Mutex();
   protected readonly db: LevelUp;
-  constructor(protected readonly dbPath: string) {
-    this.db = new LevelUpCtor(new LevelDown(dbPath));
+
+  constructor(protected readonly dbPath: string, errorCallback?: (err: Error | undefined) => any) {
+    this.db = new LevelUpCtor(new LevelDown(dbPath), errorCallback);
   }
 
   public async extractContext(_ctx: KoaContext): Promise<ServerOnlyContext> {
@@ -125,9 +133,7 @@ export class Handler implements DBHandler {
       return JSON.parse(val.toString());
     } catch (err) {
       if (err.notFound) return undefined;
-      err.debugId = debugId;
-      err.message = `[${debugId}] ${err.message}`;
-      throw err;
+      throw new WrappedError(`[${debugId}] ${err.message}`, err, debugId);
     }
   }
 
