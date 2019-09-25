@@ -42,13 +42,13 @@ export default class Download extends Command {
 
   public async run() {
     const {
-      args : { ID: applicationId },
+      args : { ID: appName },
       flags: { verbose },
     } = this.parse(Download);
     await this.authenticate();
     let application: Application | undefined;
     try {
-      application = await this.lycanClient.getApp(applicationId);
+      application = await this.lycanClient.getAppByName(appName);
     } catch (error) {
       // TODO: check different errors
     }
@@ -69,11 +69,11 @@ export default class Download extends Command {
     const env = 'default'; // hardcoded for now
     const newProject = {
         directory: projectDir,
-        applicationId,
+        applicationId: application.id,
         defaultEnv: env,
     };
     if (project) {
-      if (applicationId !== project.applicationId) {
+      if (application.id !== project.applicationId) {
         return this.error(`Directory ${projectDir} is already associated with a application ${project.applicationId}`);
       }
     } else {

@@ -12,7 +12,6 @@ import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import { getDependencies } from '../utils/getdeps';
 import {
-  getProjectPackageJson,
   getProjectRootDir,
   getProjectEnv,
   Project,
@@ -175,10 +174,6 @@ export default class Deploy extends Command {
     const envVars = await getProjectEnv();
     const projects = this.conf.get('projects') as Project[] | undefined || [];
 
-    const pkg = await getProjectPackageJson();
-    if (typeof pkg.name !== 'string' || !pkg.name) {
-      return this.error('Expected package.json to include a valid package name');
-    }
     const stagingDir = await this.build(projectDir);
     let digest: string;
     try {
@@ -207,7 +202,7 @@ export default class Deploy extends Command {
 
     this.log('Preparing your cloud deployment! This may take a few moments, please wait');
     if (!project) {
-      application = await this.lycanClient.deployInitial(env, pkg.name, digest, envVars);
+      application = await this.lycanClient.deployInitial(env, digest, envVars);
       projects.push({
         directory: projectDir,
         applicationId: application.id,

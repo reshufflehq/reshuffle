@@ -38,21 +38,21 @@ test('too many args', async (t) => {
 });
 
 test('missing application', async (t) => {
-  td.when(t.context.lycanFake.destroyApp(anything, 'no-such-app-id')).thenReject(new NotFoundError('not found'));
+  td.when(t.context.lycanFake.destroyAppByName(anything, 'no-such-app-id')).thenReject(new NotFoundError('not found'));
 
   const result = await t.context.shell.run(`${t.context.run} destroy no-such-app-id`, 'utf-8');
   t.snapshot(result);
 });
 
 test('permission error', async (t) => {
-  td.when(t.context.lycanFake.destroyApp(anything, 'no-perm')).thenReject(new UnauthorizedError('no auth'));
+  td.when(t.context.lycanFake.destroyAppByName(anything, 'no-perm')).thenReject(new UnauthorizedError('no auth'));
 
   const result = await t.context.shell.run(`${t.context.run} destroy no-perm`, 'utf-8');
   t.snapshot(result);
 });
 
 test('application not in projects', async (t) => {
-  td.when(t.context.lycanFake.destroyApp(anything, 'app-without-project')).thenResolve(null);
+  td.when(t.context.lycanFake.destroyAppByName(anything, 'app-without-project')).thenResolve(null);
 
   const result = await t.context.shell.run(`${t.context.run} destroy app-without-project`, 'utf-8');
   t.snapshot(result);

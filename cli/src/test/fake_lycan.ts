@@ -59,11 +59,15 @@ projects:
       whoami: td.function<LycanHandler['whoami']>(),
       listApps: td.function<LycanHandler['listApps']>(),
       getApp: td.function<LycanHandler['getApp']>(),
+      getAppByName: td.function<LycanHandler['getAppByName']>(),
       deployInitial: td.function<LycanHandler['deployInitial']>(),
       deploy: td.function<LycanHandler['deploy']>(),
       claimApp: td.function<LycanHandler['claimApp']>(),
       getLogs: td.function<LycanHandler['getLogs']>(),
+      getLogsByName: td.function<LycanHandler['getLogsByName']>(),
       destroyApp: td.function<LycanHandler['destroyApp']>(),
+      destroyAppByName: td.function<LycanHandler['destroyAppByName']>(),
+      reportAnalytics: td.function<LycanHandler['reportAnalytics']>(),
     };
 
     t.context.lycanServer = new LycanServer(t.context.lycanFake, true);
