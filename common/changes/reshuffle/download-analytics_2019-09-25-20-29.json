@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Add download analytics",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "ariels@reshuffle.com"
+}
