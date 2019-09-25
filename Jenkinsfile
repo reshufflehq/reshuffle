@@ -15,6 +15,11 @@ node {
         ]),
     ]);
 
+    if ("${BRANCH_NAME}" =~ "^publish-.*") {
+        currentBuild.result = 'SUCCESS'
+        return
+    }
+
     genericWrapper([slackChannel:'#jenkins', timeoutMinutes: 60]) {
         withCredentials([
             string(credentialsId: 'docker-account',  variable: 'DOCKER_ACCOUNT')
