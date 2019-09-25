@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Tue, 24 Sep 2019 14:19:38 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Sep 2019 12:29:16 GMT and should not be manually modified.
+
+## 0.2.10
+Wed, 25 Sep 2019 12:29:16 GMT
+
+### Patches
+
+- Add support for inserting initial data
 
 ## 0.2.9
 Tue, 24 Sep 2019 14:19:38 GMT
