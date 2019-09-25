@@ -16,7 +16,6 @@ node {
     ]);
 
     if ("${BRANCH_NAME}" =~ "^publish-.*") {
-        currentBuild.result = 'SUCCESS'
         return
     }
 
