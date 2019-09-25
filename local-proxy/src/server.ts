@@ -205,7 +205,10 @@ if (!existsSync(dbPath) && existsSync(initDataPath)) {
       throw new Error('initData.items');
     }
   } catch (err) {
-    // just ignore any errors
+    // Logging during startup will usually get cleared by create-react-app
+    // screen clear, but the log will still be saved in the log directory
+    // tslint:disable-next-line:no-console
+    console.error('Error processing template_init_data.json', err);
   }
 }
 const db = new DBHandler(dbPath, initData);
