@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/db",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "(Backend) client for accessing Reshuffle DBs.",
   "main": "dist/index.js",
   "files": [

@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/db
 
-This log was last generated on Mon, 23 Sep 2019 15:47:11 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Sep 2019 15:02:58 GMT and should not be manually modified.
+
+## 0.5.3
+Thu, 26 Sep 2019 15:02:58 GMT
+
+### Patches
+
+- Updated some reference text for readability
 
 ## 0.5.2
 Mon, 23 Sep 2019 15:47:11 GMT

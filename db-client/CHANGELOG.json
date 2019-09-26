@@ -2,6 +2,18 @@
   "name": "@reshuffle/db",
   "entries": [
     {
+      "version": "0.5.3",
+      "tag": "@reshuffle/db_v0.5.3",
+      "date": "Thu, 26 Sep 2019 15:02:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Updated some reference text for readability"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.2",
       "tag": "@reshuffle/db_v0.5.2",
       "date": "Mon, 23 Sep 2019 15:47:11 GMT",
