@@ -2,6 +2,7 @@ import anyTest, { TestInterface } from 'ava';
 import * as td from 'testdouble';
 import { Context, addFake } from './fake_lycan';
 import { success } from 'specshell';
+import { NotFoundError } from '@binaris/spice-node-client/interfaces';
 
 const test = anyTest as TestInterface<Context>;
 
@@ -23,7 +24,7 @@ const fakeLogs = [
 ];
 
 test('logs', async (t) => {
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
     .thenResolve({ records: fakeLogs });
 
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
@@ -31,7 +32,7 @@ test('logs', async (t) => {
 });
 
 test('logs limit', async (t) => {
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default',
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
                                       { limit: 2, since: anything, follow: false }))
   // Could return any number of records, give 3 rather than the
   // expected 2.  Verify logs prints required fields.
@@ -44,7 +45,7 @@ test('logs limit', async (t) => {
 test('logs since absolute time', async (t) => {
   const sinceStr = '1978-01-01T01:02:03';
   const since = new Date(sinceStr);
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default',
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
                                       { since, limit: anything, follow: false }))
     .thenResolve( { records: fakeLogs.filter(({ time }) => time > since) });
   const result = await t.context.shell.run(`${t.context.run} logs --since ${sinceStr}`, 'utf-8');
@@ -52,13 +53,13 @@ test('logs since absolute time', async (t) => {
 });
 
 test('logs paginate', async (t) => {
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default',
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
                                       { since: anything, limit: anything, follow: false }))
     .thenResolve({ records: fakeLogs.slice(0, 2), nextToken: 'one' });
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default',
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
                                       { since: anything, limit: anything, follow: false, nextToken: 'one', }))
     .thenResolve({ records: fakeLogs.slice(2, 3), nextToken: 'two' });
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default',
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
                                       { since: anything, limit: anything, follow: false, nextToken: 'two', }))
     .thenResolve({ records: fakeLogs.slice(3) });
 
@@ -75,7 +76,7 @@ test('logs drops detailed logs without --all', async (t) => {
     source: 'voyager2', msg: 'Function invocation took 1.32819343e15 us\n', isErr: false,
     time: new Date('2019-09-22T12:36:12'),
   };
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
     .thenResolve({ records: [ detailed1, ...fakeLogs, detailed2 ] });
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
   t.snapshot(result);
@@ -90,7 +91,7 @@ test('logs --all shows detailed logs', async (t) => {
     source: 'voyager2', msg: 'Function invocation took 1.32819343e15 us\n', isErr: false,
     time: new Date('2019-09-22T12:36:12'),
   };
-  td.when(t.context.lycanFake.getLogs(anything, 'fluffysamaritan', 'default', anything))
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
     .thenResolve({ records: [ detailed1, ...fakeLogs, detailed2 ] });
   const result = await t.context.shell.run(`${t.context.run} logs --all`, 'utf-8');
   t.snapshot(result);
@@ -98,5 +99,30 @@ test('logs --all shows detailed logs', async (t) => {
 
 test('logs help', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} help logs`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('logs by name missing app', async (t) => {
+  td.when(t.context.lycanFake.getAppByName(anything, 'not-here'))
+    .thenReject(new NotFoundError('not found'));
+
+  const result = await t.context.shell.run(`cd .. && ${t.context.run} logs not-here`, 'utf-8');
+  t.snapshot(result);
+});
+
+test('logs by name', async (t) => {
+  td.when(t.context.lycanFake.getAppByName(anything, 'is-here'))
+    .thenResolve({
+      id: 'spiky-martian',
+      name: 'blah',
+      accountId: 'foo',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      environments: [{ name: 'wow', domains: [] }],
+    });
+  td.when(t.context.lycanFake.getLogs(anything, 'spiky-martian', 'wow', anything))
+    .thenResolve({ records: fakeLogs });
+
+  const result = await t.context.shell.run(`cd .. && ${t.context.run} logs is-here`, 'utf-8');
   t.snapshot(result);
 });
