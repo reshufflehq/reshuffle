@@ -2,6 +2,21 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.3.2",
+      "tag": "reshuffle_v0.3.2",
+      "date": "Thu, 26 Sep 2019 15:16:00 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add download analytics"
+          },
+          {
+            "comment": "Add support for logs by app name"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.1",
       "tag": "reshuffle_v0.3.1",
       "date": "Wed, 25 Sep 2019 13:21:31 GMT",

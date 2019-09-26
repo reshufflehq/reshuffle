@@ -1,6 +1,14 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 25 Sep 2019 13:21:31 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Sep 2019 15:16:00 GMT and should not be manually modified.
+
+## 0.3.2
+Thu, 26 Sep 2019 15:16:00 GMT
+
+### Patches
+
+- Add download analytics
+- Add support for logs by app name
 
 ## 0.3.1
 Wed, 25 Sep 2019 13:21:31 GMT

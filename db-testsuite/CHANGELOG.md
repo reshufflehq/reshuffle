@@ -1,6 +1,11 @@
 # Change Log - @reshuffle/db-testsuite
 
-This log was last generated on Mon, 23 Sep 2019 15:47:11 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Sep 2019 15:16:00 GMT and should not be manually modified.
+
+## 0.0.5
+Thu, 26 Sep 2019 15:16:00 GMT
+
+*Version update only*
 
 ## 0.0.4
 Mon, 23 Sep 2019 15:47:11 GMT

@@ -2,6 +2,18 @@
   "name": "@reshuffle/db-testsuite",
   "entries": [
     {
+      "version": "0.0.5",
+      "tag": "@reshuffle/db-testsuite_v0.0.5",
+      "date": "Thu, 26 Sep 2019 15:16:00 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/db\" from `0.5.2` to `0.5.3`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.4",
       "tag": "@reshuffle/db-testsuite_v0.0.4",
       "date": "Mon, 23 Sep 2019 15:47:11 GMT",
