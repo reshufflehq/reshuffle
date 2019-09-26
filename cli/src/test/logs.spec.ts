@@ -106,7 +106,7 @@ test('logs by name missing app', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'not-here'))
     .thenReject(new NotFoundError('not found'));
 
-  const result = await t.context.shell.run(`cd .. && ${t.context.run} logs not-here`, 'utf-8');
+  const result = await t.context.shell.run(`mkdir pirate && cd pirate && ${t.context.run} logs not-here`, 'utf-8');
   t.snapshot(result);
 });
 
@@ -123,6 +123,6 @@ test('logs by name', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'spiky-martian', 'wow', anything))
     .thenResolve({ records: fakeLogs });
 
-  const result = await t.context.shell.run(`cd .. && ${t.context.run} logs is-here`, 'utf-8');
+  const result = await t.context.shell.run(`mkdir pirate && cd pirate && ${t.context.run} logs is-here`, 'utf-8');
   t.snapshot(result);
 });
