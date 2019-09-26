@@ -65,7 +65,7 @@ export default abstract class BaseCommand extends Command {
   // debug messages.  Silences tslint "Promises must be handled
   // appropriately".  Good e.g. for wrapping analytics calls.
   protected drop<T>(p: Promise<T>, warnFn: (e: string | Error) => any = this.debug.bind(this)) {
-    p.then(() => undefined).catch(warnFn);
+    p.catch(warnFn);
   }
 
   public static flags: Parser.flags.Input<any>  = {
