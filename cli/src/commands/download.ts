@@ -51,7 +51,7 @@ export default class Download extends Command {
       this.drop(this.lycanClient.reportAnalytics([{
         type: 'event',
         category: 'user',
-        action: 'download (get app)',
+        action: 'download::getApp',
         label: appName,
       }]));
       application = await this.lycanClient.getAppByName(appName);
@@ -74,7 +74,7 @@ export default class Download extends Command {
     this.drop(this.lycanClient.reportAnalytics([{
       type: 'event',
       category: 'user',
-      action: 'download (build user projects))',
+      action: 'download::build',
       label: appName,
     }]));
     const project = projects.find(({ directory }) => directory === projectDir);
@@ -96,7 +96,7 @@ export default class Download extends Command {
     this.drop(this.lycanClient.reportAnalytics([{
       type: 'event',
       category: 'user',
-      action: 'download (actual)',
+      action: 'download::download',
       label: appName,
     }]));
     const stagingDir = await mkdtemp(path.resolve(tmpdir(), 'reshuffle-download-'), { encoding: 'utf8' });
@@ -135,7 +135,7 @@ export default class Download extends Command {
       this.drop(this.lycanClient.reportAnalytics([{
         type: 'event',
         category: 'user',
-        action: 'download (install)',
+        action: 'download::install',
         label: appName,
       }]));
       this.log('Installing packages...');
@@ -175,7 +175,7 @@ export default class Download extends Command {
     this.drop(this.lycanClient.reportAnalytics([{
       type: 'event',
       category: 'user',
-      action: 'download (done)',
+      action: 'download::done',
       label: appName,
     }]));
     this.log(`Your application is ready in ${targetDir}`);
