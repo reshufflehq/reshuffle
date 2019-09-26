@@ -75,15 +75,7 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
 
   public static strict = true;
 
-  public async run() {
-    const {
-      flags: { since, follow, limit, all },
-      args: { name: appName },
-    } = this.parse(Logs);
-    await this.authenticate();
-
-    let applicationId: string | undefined;
-    let env: string | undefined;
+  protected async getAppDetails(appName?: string): Promise<{ applicationId: string, env: string }> {
     if (appName === undefined) {
       const projectDir = await getProjectRootDir();
       const projects = this.conf.get('projects') as Project[] | undefined || [];
@@ -91,17 +83,31 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       if (project === undefined) {
         return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);
       }
-      applicationId = project.applicationId;
-      env = project.defaultEnv;
+      return {
+        applicationId: project.applicationId,
+        env: project.defaultEnv,
+      };
     } else {
       try {
         const application = await this.lycanClient.getAppByName(appName);
-        applicationId = application.id;
-        env = application.environments[0].name;
+        return {
+          applicationId: application.id,
+          env: application.environments[0].name,
+        };
       } catch (e) {
         return this.error(`Cannot find application ${appName}`);
       }
     }
+  }
+
+  public async run() {
+    const {
+      flags: { since, follow, limit, all },
+      args: { name: appName },
+    } = this.parse(Logs);
+    await this.authenticate();
+
+    const { applicationId, env } = await this.getAppDetails(appName);
     let token: string | undefined;
     let currentLimit = limit!;
     do {
