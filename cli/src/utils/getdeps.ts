@@ -1,10 +1,11 @@
 import { resolve as pathResolve } from 'path';
 import { readFile } from 'mz/fs';
 import { CLIError } from '@oclif/errors';
+import has from 'lodash.has';
 
 class MismatchedPackageAndPackageLockError extends CLIError {
   constructor(public missingPackage: string) {
-    super(`Mismatched package files: package.json refers to ${missingPackage}, which is not in package-lock.json.  Re-run "npm install".`);
+    super(`Mismatched package files: package.json refers to ${missingPackage}, which is not in package-lock.json. Re-run "npm install".`);
   }
 }
 
@@ -19,7 +20,7 @@ export async function getDependencies(projectDir: string) {
 
   // If package.json contains packages that are not in
   // package-lock.json then they are out of sync.  Complain.
-  const lockHasProperty = Object.prototype.hasOwnProperty.bind(lockDeps);
+  const lockHasProperty = (p: string) => has(lockDeps, p);
   for (const p of toProcess) {
     if (!lockHasProperty(p)) {
       throw new MismatchedPackageAndPackageLockError(p);
