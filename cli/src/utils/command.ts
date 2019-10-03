@@ -10,6 +10,7 @@ import terminalLink from 'terminal-link';
 import { LycanClient, ValidationError } from '@binaris/spice-node-client';
 import flags from './cli-flags';
 import * as userConfig from './user-config';
+import { hrtime } from 'process';
 
 const pjson = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf-8'));
 
@@ -18,6 +19,8 @@ const TICKET_CLAIM_INTERVAL_MS = 1000;
 
 export default abstract class BaseCommand extends Command {
   public static cliBinName = pjson.oclif.bin as string;
+
+  protected timings: Array<{ stage: string, timeHr: [number, number] }> = [];
 
   private _apiEndpoint?: string;
   private webAppLoginUrl?: string;
@@ -68,6 +71,11 @@ export default abstract class BaseCommand extends Command {
     p.catch(warnFn);
   }
 
+  // Starts measuring time for stage.
+  protected startStage(stage: string) {
+    this.timings.push({ stage, timeHr: hrtime() });
+  }
+
   public static flags: Parser.flags.Input<any>  = {
     help: flags.help({ char: 'h' }),
     config: flags.string({
@@ -108,6 +116,18 @@ export default abstract class BaseCommand extends Command {
       this.error(`Failed to communicate with server: ${err.message}.`, { exit: 7 });
     }
     throw err;
+  }
+
+  protected async finally(arg: Error | undefined): Promise<any> {
+    this.timings.push({ stage: '', timeHr: hrtime() });
+    for (let i = 0; i < this.timings.length - 1; i++) {
+      const stage = this.timings[i].stage;
+      const next = this.timings[i + 1].timeHr;
+      const cur = this.timings[i].timeHr;
+      const durationSecs = (next[0] - cur[0]) + 1e-9 * (next[1] - cur[1]);
+      this.debug('timing', { stage, durationSecs });
+    }
+    return super.finally(arg);
   }
 
   public async authenticate(forceBrowserAuthFlow = false): Promise<string> {

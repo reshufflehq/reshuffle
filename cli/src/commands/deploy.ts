@@ -168,21 +168,28 @@ export default class Deploy extends Command {
 
   public async run() {
     this.parse(Deploy);
+    this.startStage('authenticate');
     await this.authenticate();
 
+    this.startStage('get project');
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
     const projects = this.conf.get('projects') as Project[] | undefined || [];
 
+    this.startStage('build');
     const stagingDir = await this.build(projectDir);
     let digest: string;
     try {
+      this.startStage('zip');
       const tarPath = await this.createTarball(stagingDir);
+      this.startStage('upload');
       digest = await this.uploadCode(tarPath);
     } finally {
+      this.startStage('remove staging');
       await remove(stagingDir);
     }
 
+    this.startStage('register app on local');
     const env = 'default'; // hardcoded for now
     let project = projects.find(({ directory }) => directory === projectDir);
 
@@ -200,6 +207,7 @@ export default class Deploy extends Command {
       }
     }
 
+    this.startStage('deploy');
     this.log('Preparing your cloud deployment! This may take a few moments, please wait');
     if (!project) {
       application = await this.lycanClient.deployInitial(env, digest, envVars);
