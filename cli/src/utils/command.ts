@@ -145,7 +145,11 @@ export default abstract class BaseCommand extends Command {
     const loginHref = this.getBrowserLoginUrl(ticket);
     this.log('A new tab should open in your browser momentarily automatically completing the login process.');
     this.log(`If that does not happen, click ${terminalLink('here', loginHref)}.`);
-    await Cli.open(loginHref);
+    try {
+      await Cli.open(loginHref);
+    } catch (err) {
+      // continue trying - link above can still be manually visited
+    }
 
     Cli.action.start('Waiting for login');
     const accessToken = await this.waitForAccessToken(ticket, ticketExpiration);
