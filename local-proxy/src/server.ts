@@ -211,7 +211,20 @@ if (!existsSync(dbPath) && existsSync(initDataPath)) {
     console.error('Error processing template_init_data.json', err);
   }
 }
-const db = new DBHandler(dbPath, initData);
+const db = new DBHandler(dbPath, initData, (err) => {
+  if (err) {
+    if (err.name === 'OpenError') {
+      // tslint:disable-next-line:no-console
+      console.error(
+        'Failed opening db. ' +
+        'Please note: only one instance of the local reshuffle environment can be launched concurrently.'
+      );
+    }
+    // tslint:disable-next-line:no-console
+    console.error(err);
+    process.exit(1);
+  }
+});
 const dbRouter = new DBRouter(db);
 router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
 

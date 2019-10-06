@@ -53,12 +53,14 @@
     "@types/koa-router": "^7.0.42",
     "@types/lodash": "^4.14.136",
     "@types/mkdirp": "^0.5.2",
+    "@types/mz": "^0.0.32",
     "@types/nanoid": "^2.0.0",
     "@types/node": "^10.14.9",
     "@types/rimraf": "^2.0.2",
     "ava": "^2.2.0",
     "got": "^9.6.0",
     "lodash": "^4.17.15",
+    "mz": "^2.7.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   }
