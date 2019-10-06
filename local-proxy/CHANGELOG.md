@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Thu, 26 Sep 2019 15:16:00 GMT and should not be manually modified.
+This log was last generated on Sun, 06 Oct 2019 15:54:01 GMT and should not be manually modified.
+
+## 0.2.12
+Sun, 06 Oct 2019 15:54:01 GMT
+
+### Patches
+
+- Add error message on concurrent db open
 
 ## 0.2.11
 Thu, 26 Sep 2019 15:16:00 GMT

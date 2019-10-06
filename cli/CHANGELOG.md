@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Sun, 06 Oct 2019 12:16:51 GMT and should not be manually modified.
+This log was last generated on Sun, 06 Oct 2019 15:54:01 GMT and should not be manually modified.
+
+## 0.4.1
+Sun, 06 Oct 2019 15:54:01 GMT
+
+### Patches
+
+- Allow manual login when there are errors opening the browser
 
 ## 0.4.0
 Sun, 06 Oct 2019 12:16:51 GMT

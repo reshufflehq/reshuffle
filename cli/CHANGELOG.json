@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.1",
+      "tag": "reshuffle_v0.4.1",
+      "date": "Sun, 06 Oct 2019 15:54:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow manual login when there are errors opening the browser"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.0",
       "tag": "reshuffle_v0.4.0",
       "date": "Sun, 06 Oct 2019 12:16:51 GMT",

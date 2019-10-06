@@ -1,7 +1,7 @@
 {
   "name": "reshuffle",
   "description": "Reshuffle CLI Tool",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "arikmaor @arikmaor",
   "bin": {
     "reshuffle": "./bin/run"
