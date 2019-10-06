@@ -1,6 +1,18 @@
 # Change Log - reshuffle
 
-This log was last generated on Thu, 26 Sep 2019 15:16:00 GMT and should not be manually modified.
+This log was last generated on Sun, 06 Oct 2019 12:16:51 GMT and should not be manually modified.
+
+## 0.4.0
+Sun, 06 Oct 2019 12:16:51 GMT
+
+### Minor changes
+
+- Measure stage timings during deploy
+
+### Patches
+
+- Download directly under CWD, not /tmp/.  Fixes issues on cross-device moves and writability of /tmp/.
+- Error if package-lock.json not up-to-date with package.json.
 
 ## 0.3.2
 Thu, 26 Sep 2019 15:16:00 GMT
