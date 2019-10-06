@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as tar from 'tar';
 import { rename, mkdtemp } from 'mz/fs';
 import { remove } from 'fs-extra';
-import { tmpdir } from 'os';
 import fetch, { Response } from 'node-fetch';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
@@ -99,7 +98,7 @@ export default class Download extends Command {
       action: 'download::download',
       label: appName,
     }]));
-    const stagingDir = await mkdtemp(path.resolve(tmpdir(), 'reshuffle-download-'), { encoding: 'utf8' });
+    const stagingDir = await mkdtemp(path.resolve('.reshuffle-download-'), { encoding: 'utf8' });
     const extract = tar.extract({ cwd: stagingDir });
     const verboseLog = (type: string, err: Error) => {
       if (verbose) {
