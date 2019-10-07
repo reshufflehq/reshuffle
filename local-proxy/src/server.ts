@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { resolve as resolvePath, extname } from 'path';
+import { resolve as resolvePath, extname, basename } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
 import { DBRouter } from '@reshuffle/interfaces-koa-server';
 import { getHandler, Handler, HandlerError } from '@reshuffle/server-function';
@@ -114,7 +114,7 @@ async function transpileAndCopy() {
   });
   await copy(basePath, genDir, {
     filter(src) {
-      return extname(src) !== '.js';
+      return extname(src) !== '.js' && basename(src) !== 'node_modules';
     },
   });
 }
