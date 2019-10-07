@@ -1,5 +1,5 @@
 container:
-  image: node:10
+  image: circleci/node:10-browsers
 
 build_task:
   #node_modules_cache:
