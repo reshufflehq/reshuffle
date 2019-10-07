@@ -1,0 +1,16 @@
+container:
+  image: node:10
+
+build_task:
+  #node_modules_cache:
+  #  folder:
+  #    - common/temp
+  #    - ~/.rush
+  #  fingerprint_script: echo $CIRRUS_OS && cat common/config/rush/shrinkwrap.yaml
+  #  populate_script: npm ci
+  generate_script: scripts/generate_interfaces
+  install_script: node common/scripts/install-run-rush.js install
+  build_script: node common/scripts/install-run-rush.js rebuild --verbose
+  lint_script: node common/scripts/install-run-rush.js lint
+  test_script: node common/scripts/install-run-rush.js test --verbose
+  integration_script: cd app-testsuite && node ../common/scripts/install-run-rushx.js integration-test
