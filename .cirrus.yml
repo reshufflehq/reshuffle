@@ -1,5 +1,6 @@
-container:
-  image: circleci/node:10-browsers
+windows_container:
+  image: cirrusci/windowsservercore:2019
+  os_version: 2019
 
 build_task:
   #node_modules_cache:
