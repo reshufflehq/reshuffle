@@ -20,6 +20,7 @@ const stabilize = (result: Output<string> & (Exit | Signal)) => ({
   ...result,
   out: result.out
     .replace(/up to date in [0-9][.0-9]*s/g, 'up to date')
+    .replace(/found [0-9]* vulnerabilities/g, '')
     .replace(/localhost:[0-9]*/, 'localhost'),
   err: result.err
     .replace(/localhost:[0-9]*/, 'localhost'),
