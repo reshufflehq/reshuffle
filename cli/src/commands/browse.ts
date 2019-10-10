@@ -3,7 +3,7 @@ import terminalLink from 'terminal-link';
 
 export default class Browse extends Command {
   public static description = 'list templates';
-  public static hidden = false;
+  public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} browse`,
   ];
