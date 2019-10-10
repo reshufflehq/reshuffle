@@ -2,7 +2,7 @@ import Command from '../utils/command';
 
 export default class WhoAmI extends Command {
   public static description = 'print your identity';
-  public static hidden = false;
+  public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} whoami`,
   ];
