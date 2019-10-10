@@ -3,7 +3,7 @@ import terminalLink from 'terminal-link';
 
 export default class Claim extends Command {
   public static description = 'claim an application';
-  public static hidden = false;
+  public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} claim OiJIUzI1NiIsIn`,
   ];

@@ -3,7 +3,7 @@ import terminalLink from 'terminal-link';
 
 export default class Try extends Command {
   public static description = 'try a template';
-  public static hidden = false;
+  public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} try 123`,
   ];
