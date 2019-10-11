@@ -38,6 +38,7 @@
     "prepack": "rm -rf lib && tsc && oclif-dev manifest",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "ava lib/test/**.spec.js lib/test/**.test.js",
+    "test:update": "ava -u lib/test/**.spec.js lib/test/**.test.js",
     "build": "npm run prepack"
   },
   "types": "lib/index.d.ts",
