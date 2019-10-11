@@ -126,3 +126,11 @@ test('logs by name', async (t) => {
   const result = await t.context.shell.run(`mkdir pirate && cd pirate && ${t.context.run} logs is-here`, 'utf-8');
   t.snapshot(result);
 });
+
+test('logs when empty', async (t) => {
+  td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
+    .thenResolve({ records: [] });
+
+  const result = await t.context.shell.run(`${t.context.run} logs --since 1m`, 'utf-8');
+  t.snapshot(result);
+});
