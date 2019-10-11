@@ -56,7 +56,7 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
     since: flags.durationOrISO8601({
       char: 's',
       description: 'Output logs since the given ISO 8601 timestamp or time period.',
-      default: '1m',
+      default: '30m',
     }),
     all: flags.boolean({
       char: 'a',
