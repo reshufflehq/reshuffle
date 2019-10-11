@@ -106,13 +106,14 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       args: { name: appName },
     } = this.parse(Logs);
     await this.authenticate();
+    let printed = 0;
 
     const { applicationId, env } = await this.getAppDetails(appName);
     let token: string | undefined;
     let currentLimit = limit!;
+    const sinceDate = typeof since === 'string' ? new Date(Date.now() - ms(since)) : since;
     do {
       // TODO: support other envs
-      const sinceDate = typeof since === 'string' ? new Date(Date.now() - ms(since)) : since;
       const { records, nextToken } = await this.lycanClient.getLogs(
         applicationId, env,
         { follow, limit: currentLimit, since: sinceDate, nextToken: token });
@@ -120,11 +121,16 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
       // TODO: fix EOL, multiple sources, formatting
       for (const record of records) {
         if (all || detailedLogsRegexps.every((regexp) => !record.msg.match(regexp))) {
+          printed++;
           process.stdout.write(record.msg);
         }
       }
       token = nextToken;
       currentLimit -= records.length;
     } while (token && currentLimit > 0);
+    if (!printed) {
+      this.warn(`Could not find any logs since ${sinceDate.toISOString()}, ` +
+        'try expanding your search with --since 1day');
+    }
   }
 }

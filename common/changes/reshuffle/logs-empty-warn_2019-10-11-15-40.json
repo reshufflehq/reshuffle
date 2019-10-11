@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Add warning message when no logs returned",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "vladimir@reshuffle.com"
+}
