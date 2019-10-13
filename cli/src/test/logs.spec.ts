@@ -131,6 +131,10 @@ test('logs when empty', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
     .thenResolve({ records: [] });
 
-  const result = await t.context.shell.run(`${t.context.run} logs --since 1m`, 'utf-8');
-  t.snapshot(result);
+  const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
+  const snapshotErr = result.err.replace(
+    /(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z/,
+   '1978-01-01T01:02:03'
+  );
+  t.snapshot({ ...result, err: snapshotErr });
 });
