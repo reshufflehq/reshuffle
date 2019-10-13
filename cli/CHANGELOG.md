@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Thu, 10 Oct 2019 17:18:27 GMT and should not be manually modified.
+This log was last generated on Sun, 13 Oct 2019 09:22:01 GMT and should not be manually modified.
+
+## 0.4.3
+Sun, 13 Oct 2019 09:22:01 GMT
+
+### Patches
+
+- Add warning message when no logs returned
 
 ## 0.4.2
 Thu, 10 Oct 2019 17:18:27 GMT

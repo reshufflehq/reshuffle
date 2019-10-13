@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.3",
+      "tag": "reshuffle_v0.4.3",
+      "date": "Sun, 13 Oct 2019 09:22:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add warning message when no logs returned"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.2",
       "tag": "reshuffle_v0.4.2",
       "date": "Thu, 10 Oct 2019 17:18:27 GMT",
