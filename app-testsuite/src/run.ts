@@ -10,6 +10,7 @@ import { spawn, waitOnChild } from '@reshuffle/utils-subprocess';
 
 const shell = process.platform === 'win32';
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
+const CLI = path.resolve(ROOT_DIR, 'cli', 'bin', 'run');
 const REGISTRY_URL = 'http://localhost:4873/';
 
 function log(msg: string, ...args: any[]) {
@@ -214,34 +215,42 @@ class App {
     }
   }
 
+  private async getDeployedApps(): Promise<Array<{ name: string, updatedAt: string, URL: string }>> {
+    const child = spawnChild('node', [CLI, 'list', '--format', 'json'], {
+      cwd: this.appDir,
+      stdio: 'pipe',
+    });
+    const [out] = await Promise.all([
+      readAll(child.stdout),
+      waitOnChild(child),
+    ]);
+    return JSON.parse(out);
+  }
+
   public async runRemote(fn: (url: string) => Promise<void>) {
-    const cli = path.resolve(ROOT_DIR, 'cli', 'bin', 'run');
+    log('Cleanup leftovers');
+    const leftoverApps = await this.getDeployedApps();
+    for (const app of leftoverApps) {
+      await spawn('node', [CLI, 'destroy', app.name]);
+    }
     log('Deploying app');
-    await spawn('node', [cli, 'deploy'], {
+    await spawn('node', [CLI, 'deploy'], {
       cwd: this.appDir,
       stdio: 'inherit',
     });
     try {
-      const child = spawnChild('node', [cli, 'list', '--format', 'json'], {
-        cwd: this.appDir,
-        stdio: 'pipe',
-      });
-      const [out] = await Promise.all([
-        readAll(child.stdout),
-        waitOnChild(child),
-      ]);
-      const apps = JSON.parse(out);
+      const apps = await this.getDeployedApps();
       if (apps.length !== 1) {
         throw new Error(`Expected exactly 1 app to be deployed, got: ${apps.length}`);
       }
       await fn(apps[0].URL);
     } finally {
       try {
-        await spawn('node', [cli, 'logs'], { cwd: path.resolve(__dirname, '..'), stdio: 'inherit', shell });
+        await spawn('node', [CLI, 'logs'], { cwd: path.resolve(__dirname, '..'), stdio: 'inherit', shell });
       } catch (e) {
         log('failed to fetch logs', e);
       }
-      await spawn('node', [cli, 'destroy'], {
+      await spawn('node', [CLI, 'destroy'], {
         cwd: this.appDir,
         stdio: 'inherit',
       });
