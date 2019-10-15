@@ -98,7 +98,15 @@ class Registry {
         });
 
         tail.on('error', reject);
-        setTimeout(() => reject(new Error('Timed out waiting for verdaccio')), 30 * 1000);
+        setTimeout(async () => {
+          let contents;
+          try {
+            contents = await readFile(logPath, 'utf8');
+          } catch (e) {
+            contents = `Error ${e}`;
+          }
+          reject(new Error(`Timed out waiting for verdaccio - ${contents}`));
+        }, 60 * 1000);
       });
     } finally {
       tail.unwatch();
