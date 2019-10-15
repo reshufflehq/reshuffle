@@ -231,6 +231,7 @@ class App {
     log('Cleanup leftovers');
     const leftoverApps = await this.getDeployedApps();
     for (const app of leftoverApps) {
+      log('Cleanup leftover', app.name);
       await spawn('node', [CLI, 'destroy', app.name]);
     }
     log('Deploying app');
