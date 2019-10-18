@@ -20,18 +20,18 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^16.28.7",
+    "@octokit/rest": "^16.33.1",
     "jju": "^1.4.0",
     "lodash.once": "^4.1.1",
-    "npm-check-updates": "^3.1.20",
-    "yargs": "^13.3.0"
+    "npm-check-updates": "^3.1.24",
+    "yargs": "^14.2.0"
   },
   "devDependencies": {
     "@types/jju": "^1.4.1",
     "@types/lodash.once": "^4.1.6",
     "@types/node": "^12.0.12",
-    "@types/yargs": "^13.0.2",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "@types/yargs": "^13.0.3",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
   }
 }
