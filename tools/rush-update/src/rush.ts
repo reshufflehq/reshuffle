@@ -7,6 +7,7 @@ import { execSync } from 'child_process';
 interface RushConfig {
   rushVersion: string;
   projects: Array<{
+    packageName: string;
     projectFolder: string,
   }>;
 }
@@ -19,9 +20,10 @@ const getRushConfig = once(async () => {
 });
 
 const getRushVersion = once(() => getRushConfig().then((cfg) => cfg.rushVersion));
-export const getProjectFolders = once(() => getRushConfig()
-  .then(({projects}) => projects.map((p) => p.projectFolder))
-);
+export const getProjectFolders = async (excludePackages: string[]) => {
+  const { projects } = await getRushConfig();
+  return projects.filter((p) => !excludePackages.includes(p.packageName)).map((p) => p.projectFolder);
+};
 
 export async function updateRushShrinkwrapFile(): Promise<void> {
   const { installAndRun } = await importInstallRunScript();
