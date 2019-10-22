@@ -18,6 +18,13 @@ const { argv } = yargs
     array: true,
     default: [],
   })
+  .option('exclude-packages', {
+    describe: 'Packages to exclude from update',
+    alias: 'e',
+    type: 'string',
+    array: true,
+    default: [],
+  })
   .option('branch', {
     describe: 'Branch for commiting changes',
     alias: 'b',
@@ -97,6 +104,7 @@ const {
   branch,
   'commit-message': commitMessage,
   'change-commit-message': changeCommitMessage,
+  'exclude-packages': excludePackages,
   'gh-username': ghUsername,
   'gh-apikey': ghApikey,
   'repo-owner': repoOwner,
@@ -128,6 +136,7 @@ main({
   prTitle,
   prBody,
   prReviewers,
+  excludePackages,
 }).catch((error) => {
   console.error(error);
   process.exit(1);

@@ -28,6 +28,7 @@ export default async function main({
   prTitle,
   prBody,
   prReviewers,
+  excludePackages,
 }: {
   ncuParams?: Partial<NCUParams>
   noCommit?: boolean,
@@ -45,8 +46,9 @@ export default async function main({
   prTitle?: string,
   prBody?: string,
   prReviewers?: string[],
+  excludePackages?: string[],
 }) {
-  const projectFolders = await getProjectFolders();
+  const projectFolders = await getProjectFolders(excludePackages || []);
   const shouldUpdateShrinkwrapFile = await updatePackageFiles(projectFolders, ncuParams || {});
   if (!shouldUpdateShrinkwrapFile) {
     console.info('All dependencies are up to date!');
