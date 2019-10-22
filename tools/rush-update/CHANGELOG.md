@@ -1,6 +1,13 @@
 # Change Log - rush-update
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Tue, 22 Oct 2019 14:56:57 GMT and should not be manually modified.
+
+## 1.2.4
+Tue, 22 Oct 2019 14:56:57 GMT
+
+### Patches
+
+- Allow skipping packages in rush-update
 
 ## 1.2.3
 Mon, 16 Sep 2019 15:58:20 GMT

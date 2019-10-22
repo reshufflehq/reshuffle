@@ -2,6 +2,18 @@
   "name": "rush-update",
   "entries": [
     {
+      "version": "1.2.4",
+      "tag": "rush-update_v1.2.4",
+      "date": "Tue, 22 Oct 2019 14:56:57 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow skipping packages in rush-update"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.3",
       "tag": "rush-update_v1.2.3",
       "date": "Mon, 16 Sep 2019 15:58:20 GMT",
