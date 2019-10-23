@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/fetch-runtime",
+      "comment": "Support fetch-runtime outside of create-react-app",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/fetch-runtime",
+  "email": "vladimir@reshuffle.com"
+}
