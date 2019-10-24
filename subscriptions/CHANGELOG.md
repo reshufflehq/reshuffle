@@ -1,6 +1,11 @@
 # Change Log - @reshuffle/subscriptions
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Oct 2019 13:40:21 GMT and should not be manually modified.
+
+## 0.0.8
+Thu, 24 Oct 2019 13:40:21 GMT
+
+*Version update only*
 
 ## 0.0.7
 Mon, 16 Sep 2019 15:58:20 GMT

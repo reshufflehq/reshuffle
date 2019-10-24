@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/fetch-runtime
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Oct 2019 13:40:21 GMT and should not be manually modified.
+
+## 0.0.6
+Thu, 24 Oct 2019 13:40:21 GMT
+
+### Patches
+
+- Support fetch-runtime outside of create-react-app
 
 ## 0.0.5
 Mon, 16 Sep 2019 15:58:20 GMT
