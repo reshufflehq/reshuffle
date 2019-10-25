@@ -27,13 +27,13 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.0.16",
+    "@types/jest": "^24.0.19",
     "@types/node": "^10.14.6",
     "@types/rmfr": "^2.0.0",
     "fixture-stdout": "^0.2.1",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "rmfr": "^2.0.0",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
   }
 }

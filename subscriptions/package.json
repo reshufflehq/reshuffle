@@ -16,19 +16,19 @@
   "dependencies": {
     "@reshuffle/fetch-runtime": "0.0.6",
     "@reshuffle/interfaces-node-client": "0.4.0",
-    "fast-json-patch": "^2.2.0",
+    "fast-json-patch": "^2.2.1",
     "immutable": "^4.0.0-rc.12",
-    "react": "^16.8.6",
-    "rxjs": "^6.5.2"
+    "react": "^16.11.0",
+    "rxjs": "^6.5.3"
   },
   "devDependencies": {
     "@types/node": "^10.14.9",
-    "@types/react": "^16.8.24",
-    "@types/sinon": "^7.0.13",
+    "@types/react": "^16.9.10",
+    "@types/sinon": "^7.5.0",
     "@types/uuid": "^3.4.5",
-    "ava": "^2.2.0",
-    "sinon": "^7.3.2",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "ava": "^2.4.0",
+    "sinon": "^7.5.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
   }
 }
