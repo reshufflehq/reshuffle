@@ -15,18 +15,18 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/parser": "^7.5.5",
+    "@babel/parser": "^7.6.4",
     "babel-plugin-macros": "^2.6.1"
   },
   "devDependencies": {
-    "@babel/types": "^7.5.5",
+    "@babel/types": "^7.6.3",
     "@types/babel__traverse": "^7.0.7",
-    "@types/jest": "^24.0.16",
+    "@types/jest": "^24.0.20",
     "@types/node": "^10.14.14",
-    "babel-plugin-tester": "^6.4.0",
-    "jest": "^24.8.0",
-    "jest-standard-reporter": "^1.0.1",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "babel-plugin-tester": "^7.0.1",
+    "jest": "^24.9.0",
+    "jest-standard-reporter": "^1.0.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
   }
 }
