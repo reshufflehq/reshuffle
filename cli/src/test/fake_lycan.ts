@@ -50,7 +50,7 @@ projects:
 
   test.serial.beforeEach(async (t) => {
     t.context.lycanFake = {
-      async extractContext() { return { debugId: 'fake' }; },
+      async extractContext() { return { debugId: 'fake', ip: '127.0.0.1' }; },
 
       createTicket: td.function<LycanHandler['createTicket']>(),
       claimTicket: td.function<LycanHandler['claimTicket']>(),
@@ -68,6 +68,8 @@ projects:
       destroyApp: td.function<LycanHandler['destroyApp']>(),
       destroyAppByName: td.function<LycanHandler['destroyAppByName']>(),
       reportAnalytics: td.function<LycanHandler['reportAnalytics']>(),
+      renameApp: td.function<LycanHandler['renameApp']>(),
+      renameAppByName: td.function<LycanHandler['renameAppByName']>(),
     };
 
     t.context.lycanServer = new LycanServer(t.context.lycanFake, true);
