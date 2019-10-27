@@ -19,11 +19,11 @@
     "tail": "^2.0.3"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.0.0",
+    "@types/fs-extra": "^8.0.1",
     "@types/mz": "^0.0.32",
     "@types/node": "^10.14.9",
     "@types/tail": "^1.2.2",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
   }
 }
