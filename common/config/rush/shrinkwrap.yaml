@@ -82,6 +82,7 @@ dependencies:
   dotenv: 8.2.0
   env-var: 5.1.0
   express: 4.17.1
+  fast-json-patch: 2.2.1
   find-up: 4.1.0
   fixture-stdout: 0.2.1
   fresh: 0.5.2
@@ -125,7 +126,9 @@ dependencies:
   testdouble: 3.12.4
   ts-node: 8.4.1
   tslib: 1.10.0
+  tslint: 5.20.0
   typedoc: 0.15.0
+  typescript: 3.6.4
   typescript-json-schema: 0.40.0
   validator: 11.1.0
   walkdir: 0.4.1
@@ -8917,6 +8920,29 @@ packages:
       tslint: '>=5.11.0'
     resolution:
       integrity: sha512-Zk5jBdQVUaHEmR9TUoh1TJOjjCr7/nRplA+jDZBvucyBMx65pt0unTr6H/0HvrtSlucFvOMYsyBZE1W8b4AOig==
+  /tslint/5.20.0:
+    dependencies:
+      '@babel/code-frame': 7.5.5
+      builtin-modules: 1.1.1
+      chalk: 2.4.2
+      commander: 2.20.3
+      diff: 4.0.1
+      glob: 7.1.5
+      js-yaml: 3.13.1
+      minimatch: 3.0.4
+      mkdirp: 0.5.1
+      resolve: 1.12.0
+      semver: 5.7.1
+      tslib: 1.10.0
+      tsutils: 2.29.0
+    dev: false
+    engines:
+      node: '>=4.8.0'
+    hasBin: true
+    peerDependencies:
+      typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
+    resolution:
+      integrity: sha512-2vqIvkMHbnx8acMogAERQ/IuINOq6DFqgF8/VDvhEkBqQh/x6SP0Y+OHnKth9/ZcHQSroOZwUQSN18v8KKF0/g==
   /tslint/5.20.0/typescript@3.6.4:
     dependencies:
       '@babel/code-frame': 7.5.5
@@ -9805,7 +9831,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-o14+gjoX4v7CAsUlNF9jqYt01iPLjhttZF0+ttDFi6Yo+pRVNhFaDPzlkeefbskR7RBMErCN8rVL1px+IMrDJA==
+      integrity: sha512-nWhTzU5a0Oz4LFeJIRibzxjgfhr/MewcCNYpzdm5zl3wqPD+Si8HA91c/AZpE9VSXbGVtyo8Uifq/W+jvS45Dw==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
@@ -10108,11 +10134,12 @@ specifiers:
   chalk: ^2.4.2
   cli-ux: ^5.3.3
   columnify: ^1.5.4
-  concord: ^0.2.2
+  concord: ^0.2.3
   conf: ^6.1.0
   dotenv: ^8.2.0
   env-var: ^5.1.0
   express: ^4.17.1
+  fast-json-patch: ^2.2.1
   find-up: ^4.1.0
   fixture-stdout: ^0.2.1
   fresh: ^0.5.2
@@ -10156,7 +10183,9 @@ specifiers:
   testdouble: ^3.12.4
   ts-node: ^8.4.1
   tslib: ^1.10.0
+  tslint: ^5.20.0
   typedoc: ^0.15.0
+  typescript: ^3.6.4
   typescript-json-schema: ^0.40.0
   validator: ^11.1.0
   walkdir: ^0.4.1
