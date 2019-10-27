@@ -126,7 +126,7 @@ dependencies:
   ts-node: 8.4.1
   tslib: 1.10.0
   typedoc: 0.15.0
-  typescript-json-schema: 0.39.0
+  typescript-json-schema: 0.40.0
   validator: 11.1.0
   walkdir: 0.4.1
   winston: 3.2.1
@@ -1129,6 +1129,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-SGGAhXLHDx+PK4YLNcNGa6goPf9XRWQNAUUbffkwVGGXIxmDKWyGGL4inzq2sPmExu431Ekb9aEMn9BkPqEYFA==
+  /@types/json-schema/7.0.3:
+    dev: false
+    resolution:
+      integrity: sha512-Il2DtDVRGDcqjDtE+rF8iqg1CArehSK84HZJCT7AMITlyXRBpuPhqGLDQMowraqqu1coEaimg4ZOqggt6L6L+A==
   /@types/keygrip/1.0.1:
     dev: false
     resolution:
@@ -9087,6 +9091,17 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-ax2UxMMdEhWIwvTjxwJxLmbGIATkY4vxPHeS9wItTb1RfhiUU927YqVixopxURQejbW+ki2awg+eSwRnA5ZUgA==
+  /typescript-json-schema/0.40.0:
+    dependencies:
+      '@types/json-schema': 7.0.3
+      glob: 7.1.5
+      json-stable-stringify: 1.0.1
+      typescript: 3.6.4
+      yargs: 14.2.0
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-C8D3Ca6+1x3caWOR+u45Shn3KqkRZi5M3+E8ePpEmYMqOh3xhhLdq+39pqT0Bf8+fCgAmpTFSJMT6Xwqbm0Tkw==
   /typescript/3.5.3:
     dev: false
     engines:
@@ -9728,10 +9743,11 @@ packages:
       deep-freeze: 0.0.1
       ramda: 0.26.1
       typedoc: 0.15.0
+      typescript: 3.6.4
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-TGPYES6zcNjtgEKUrMD5EKGzV4b525Ph5EHPLnlUL0KAFI4mq3luIvSOYw3bXoG/bvIvY4DusI1jfxzhiCZieg==
+      integrity: sha512-iALiyEZj4ynw3zamGsVIQSLidKgyLB55J6b8nymTYufTy2Ljma4oG1qjI9v4/AIILLlQEFVLah9w7LfjrN65jQ==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -9785,11 +9801,11 @@ packages:
       fast-json-patch: 2.2.1
       tslint: /tslint/5.20.0/typescript@3.6.4
       typescript: 3.6.4
-      typescript-json-schema: 0.39.0
+      typescript-json-schema: 0.40.0
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-mBT8XGwZS7L8fv6Lrcj6o218FGwgSnc5JJo1GcFxbAbGVzw19OQg0i0tpznyYrbYWXWjeMwwSQ6JzDg6nAQqYA==
+      integrity: sha512-o14+gjoX4v7CAsUlNF9jqYt01iPLjhttZF0+ttDFi6Yo+pRVNhFaDPzlkeefbskR7RBMErCN8rVL1px+IMrDJA==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
@@ -9973,10 +9989,11 @@ packages:
       milliseconds: 1.0.3
       mime-types: 2.1.24
       mz: 2.7.0
+      typescript: 3.6.4
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-4oaDdesubgDyosmkBBrkrJ5dffV5PVkBa1wyO5bGPFBzhZgnIGh+LG7KeoYyYlVG8r3Kmb59BhaNYMdSpJXDcw==
+      integrity: sha512-qXCHNNBke946pJWV7WOaI9SFqEL2Q604jWFXzW2w8cmpG55vKXCbXLwYJJw7Gl0yt3pxLbuzc/cXABANyIq0Sg==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10002,10 +10019,11 @@ packages:
   'file:projects/utils-subprocess.tgz':
     dependencies:
       '@types/node': 10.17.0
+      typescript: 3.6.4
     dev: false
     name: '@rush-temp/utils-subprocess'
     resolution:
-      integrity: sha512-8HpW5mCxo7m5hpL5s/aprYNoXbMMzsIc2K4oftFiykcMvWGeGmKAbu9fF+RY9K8/RvmbqONX3X6VDPmzXuJ/gg==
+      integrity: sha512-OH78Ex0+ThVomccYzgl0oVizINdaAHY7F3w4SmtxzRnCDsojPQOb3BFwZp5udj7vFGXPjj1VG8yVDz1DC36iBg==
       tarball: 'file:projects/utils-subprocess.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
@@ -10139,7 +10157,7 @@ specifiers:
   ts-node: ^8.4.1
   tslib: ^1.10.0
   typedoc: ^0.15.0
-  typescript-json-schema: ^0.39.0
+  typescript-json-schema: ^0.40.0
   validator: ^11.1.0
   walkdir: ^0.4.1
   winston: ^3.2.1

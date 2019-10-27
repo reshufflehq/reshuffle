@@ -27,6 +27,7 @@
     "@types/mime-types": "^2.1.0",
     "@types/mz": "^0.0.32",
     "@types/node": "^10.14.13",
-    "ava": "^2.4.0"
+    "ava": "^2.4.0",
+    "typescript": "^3.6.4"
   }
 }
