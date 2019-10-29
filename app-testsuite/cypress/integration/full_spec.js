@@ -25,3 +25,11 @@ describe('hack', () => {
     cy.get('.invalidFile .error').contains(/Cannot reference path outside of root dir: ..\/index/);
   });
 });
+
+describe('secret', () => {
+  it('gets from express handler', () => {
+    cy.visit('/');
+    cy.get('.express').contains('hello from express');
+  });
+});
+

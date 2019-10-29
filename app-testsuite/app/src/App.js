@@ -64,12 +64,18 @@ const InvalidFile = () => {
   return <div className='invalidFile'>{stateful(state, (data) => (<div className='hacked'>{data}</div>))}</div>;
 }
 
+const ExpressHandler = () => {
+  const [state] = useGetter(() => fetch('/express/hello').then((body) => body.text()));
+  return stateful(state, (data) => (<div className='express'>{data}</div>));
+}
+
 function App() {
   return (<>
     <Counter keyName='counter' />
     <Secret />
     <NotExposed />
     <InvalidFile />
+    <ExpressHandler />
   </>);
 }
 
