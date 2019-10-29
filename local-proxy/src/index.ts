@@ -93,27 +93,55 @@ export function setupProxy(sourceDir: string) {
       if (!server.checkHeadersLocalHost(req.headers, 'host')) {
         return res.sendStatus(403);
       }
-      switch (decision.action) {
-        case 'handleInvoke': {
-          const port = await promiseHolder.portPromise;
-          return httpProxy.web(req, res, {
-            target: `http://localhost:${port}/`,
-            headers: { 'x-reshuffle-dev-server-local-token': localToken },
-          });
+      const port = await promiseHolder.portPromise;
+      let ignoreProxyResult = false;
+
+      const end = res.end;
+      res.end = (...args: any[]) => {
+        res.end = end;
+        if (!ignoreProxyResult) {
+          res.end(...args);
+          return;
         }
-        case 'sendStatus': {
-          // in dev environment static files do not exist on disk but are served by webpack-dev-server
-          if (/^\/static\//.test(req.url)) {
+        switch (decision.action) {
+          case 'sendStatus': {
+            // in dev environment static files do not exist on disk but are served by webpack-dev-server
+            if (/^\/static\//.test(req.url)) {
+              break;
+            }
+            return res.sendStatus(decision.status);
+          }
+          case 'serveFile': {
+            // TODO: handle logic when path doesn't match exactly
             break;
           }
-          return res.sendStatus(decision.status);
         }
-        case 'serveFile': {
-          // TODO: handle logic when path doesn't match exactly
-          break;
+        next();
+      };
+
+      const setHeader = res.setHeader.bind(res);
+      res.setHeader = (name, value) => {
+        if (name === 'reshuffle-local-proxy-fallback') {
+          ignoreProxyResult = true;
+        } else {
+          setHeader(name, value);
         }
-      }
-      return next();
+      };
+
+      const writeHead = res.writeHead;
+      res.writeHead = (code: number, headers: any) => {
+        res.writeHead = writeHead;
+        if (headers && ('reshuffle-local-proxy-fallback' in headers)) {
+          ignoreProxyResult = true;
+        } else {
+          res.writeHead(code, headers);
+        }
+      };
+
+      return httpProxy.web(req, res, {
+        target: `http://localhost:${port}/`,
+        headers: { 'x-reshuffle-dev-server-local-token': localToken },
+      });
     });
   };
 }

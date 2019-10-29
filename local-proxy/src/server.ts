@@ -227,7 +227,6 @@ const db = new DBHandler(dbPath, initData, (err) => {
 });
 const dbRouter = new DBRouter(db);
 router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
-
 // nodemon uses SIGUSR2
 process.once('SIGUSR2', () => {
   rimraf.sync(genDir);
@@ -243,7 +242,35 @@ process.once('SIGINT', () => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const server = http.createServer(app.callback());
+router.options('*', (ctx) => {
+  // Don't allow CORS
+  ctx.status = 200;
+});
+
+app.use((ctx) => {
+  // Let CRA handle this request
+  ctx.status = 204;
+  ctx.set({ 'reshuffle-local-proxy-fallback': 'true' });
+});
+
+const appCallback = app.callback();
+
+type HTTPHandler = (req: http.IncomingMessage, res: http.ServerResponse, defaultCallback?: HTTPHandler) => void;
+
+async function httpCallback(req: http.IncomingMessage, res: http.ServerResponse) {
+  await transpilePromise;
+  let fn: HTTPHandler;
+  try {
+    const joinedDir = resolvePath(genDir, '_handler');
+    const mod = require(joinedDir);
+    fn = mod.default || appCallback;
+  } catch (err) {
+    fn = appCallback;
+  }
+  fn(req, res, appCallback);
+}
+
+const server = http.createServer(httpCallback);
 server.listen(0, '127.0.0.1', async () => {
   const { port } = server.address() as AddressInfo;
   registry.logger.info('Listening for HTTP requests', { port });
