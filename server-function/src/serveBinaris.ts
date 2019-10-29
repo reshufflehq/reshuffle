@@ -1,12 +1,10 @@
-import fs from 'mz/fs';
-import { Server, getHandler, Handler, HandlerError } from './index';
+import { getHandler, Handler, HandlerError } from './index';
 import { resolve as pathResolve } from 'path';
-import { BinarisFunction, FunctionContext } from './binaris';
+import express from 'express';
+import http from 'http';
 
-const allowedHosts = (process.env.RESHUFFLE_APPLICATION_DOMAINS || '').split(',');
 const backendDir = pathResolve('./backend');
 const buildDir = pathResolve('./build');
-const server = new Server({ directory: buildDir, allowedHosts });
 
 interface InvokeRequest {
   path: string;
@@ -14,78 +12,57 @@ interface InvokeRequest {
   args: any[];
 }
 
-function isInvokeRequest(body: unknown, ctx: FunctionContext): body is InvokeRequest {
-  if (body === undefined) {
+function isValidInvokeRequest(req: express.Request) {
+  if (req.body === undefined) {
     return false;
   }
-  if (ctx.request.method !== 'POST') {
+  if (req.method !== 'POST') {
     return false;
   }
-  // TODO: ensure we can never receive body without content type
-  if (!(ctx.request.headers['content-type'] as string || '').startsWith('application/json')) {
+  const contentType = req.get('content-type');
+  if (!contentType || !contentType.startsWith('application/json')) {
     return false;
   }
-  const maybeInvoke = body as InvokeRequest;
+  const maybeInvoke = req.body as InvokeRequest;
   return typeof maybeInvoke.path === 'string' &&
     typeof maybeInvoke.handler === 'string' &&
     Array.isArray(maybeInvoke.args);
 }
 
-export const handler: BinarisFunction = async (body, ctx) => {
-  const url = ctx.request.path;
-  const decision = await server.handle(url, ctx.request.headers);
-  switch (decision.action) {
-    case 'handleInvoke': {
-      // TODO: check for allowed origins when supporting CORS
-      // Currently expected to 400 on a Preflight Request and not reach invoke
-      if (!isInvokeRequest(body, ctx)) {
-        return new ctx.HTTPResponse({
-          statusCode: 400,
-          body: JSON.stringify({
-            error: 'Invoke request is not a JSON POST of the form { path, handler, body }',
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-      const { path, handler: fnHandler, args } = body;
-      let fn: Handler;
-      try {
-        fn = getHandler(backendDir, path, fnHandler);
-      } catch (error) {
-        if (error instanceof HandlerError) {
-          return new ctx.HTTPResponse({
-            statusCode: error.status,
-            body: JSON.stringify({ error: error.message }),
-            headers: { 'Content-Type': 'application/json' },
-          });
-        }
-        throw error;
-      }
-      const response = await fn(...args);
-      if (response === undefined) {
-        return new ctx.HTTPResponse({ statusCode: 204 });
-      }
-      return response;
-    }
-    case 'sendStatus': {
-      return new ctx.HTTPResponse({
-        statusCode: decision.status,
-      });
-    }
-    case 'serveFile': {
-      const headers: Record<string, string> = {};
-      if (decision.contentType) {
-        headers['Content-Type'] = decision.contentType;
-      }
-      if (decision.cacheHint) {
-        Object.assign(headers, decision.cacheHint);
-      }
-      return new ctx.HTTPResponse({
-        statusCode: decision.status || 200,
-        headers,
-        body: await fs.readFile(decision.fullPath),
-      });
-    }
-    default: throw new Error('should not get here');
+const app = express();
+app.post('/invoke', express.json(), async (req, res) => {
+  // TODO: check for allowed origins when supporting CORS
+  // Currently expected to 400 on a Preflight Request and not reach invoke
+  if (!isValidInvokeRequest(req)) {
+    return res.status(400).json({
+      error: 'Invoke request is not a JSON POST of the form { path, handler, body }',
+    });
   }
-};
+  const { path, handler: fnHandler, args } = req.body;
+  let fn: Handler;
+  try {
+    try {
+      fn = getHandler(backendDir, path, fnHandler);
+    } catch (error) {
+      if (error instanceof HandlerError) {
+        return res.status(error.status).json({ error: error.message });
+      }
+      throw error;
+    }
+    const response = await fn(...args);
+    if (response === undefined) {
+      return res.status(204).end();
+    }
+    return res.status(200).json(response);
+  } catch (error) {
+    // tslint:disable-next-line:no-console
+    console.error('Failed to invoke handler', { error });
+    return res.status(500).json({ error: 'Failed to invoke' });
+  }
+});
+
+app.use(express.static(buildDir));
+
+export type HTTPHandler = (req: http.IncomingMessage, res: http.ServerResponse) => void;
+export const handler: HTTPHandler = app;
+Object.assign(handler, { __reshuffle__: { handlerType: 'http' } });
