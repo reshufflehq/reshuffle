@@ -116,7 +116,6 @@ export function setupProxy(sourceDir: string) {
     const promiseHolder = startProxy(rootDir, localToken);
     app.use(async (req, res, next) => {
       const { port: webappPort } = (req.socket.address() as AddressInfo);
-      // pass empty headers since caching not used in local-proxy anyway
       if (!checkLocalHost(req.hostname)) {
         return res.sendStatus(403);
       }

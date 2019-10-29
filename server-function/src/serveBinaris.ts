@@ -47,7 +47,7 @@ app.post('/invoke', express.json(), async (req, res) => {
     }
     const response = await fn(...args);
     if (response === undefined) {
-      return res.status(204).end();
+      return res.sendStatus(204);
     }
     return res.status(200).json(response);
   } catch (error) {
