@@ -1,4 +1,4 @@
-import { handler as defaultHandler } from '@reshuffle/server-function';
+import { defaultHandler } from '@reshuffle/server-function';
 
 export default function handler(req: any, res: any) {
   if (req.url === '/userHandler') {
