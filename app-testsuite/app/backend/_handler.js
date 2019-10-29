@@ -1,4 +1,4 @@
-import { handler as defaultHandler } from '@reshuffle/server-function';
+import { defaultHandler } from '@reshuffle/server-function';
 import express from 'express';
 
 const app = express();

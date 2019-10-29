@@ -64,5 +64,19 @@ app.post('/invoke', express.json(), async (req, res) => {
 app.use(express.static(buildDir));
 
 export type HTTPHandler = (req: http.IncomingMessage, res: http.ServerResponse) => void;
-export const handler: HTTPHandler = app;
+
+export const defaultHandler: HTTPHandler = app;
+
+export const handler: HTTPHandler = (req, res) => {
+  let fn: HTTPHandler;
+  try {
+    const joinedDir = pathResolve(backendDir, '_handler');
+    const mod = require(joinedDir);
+    fn = mod.default || app;
+  } catch (err) {
+    fn = app;
+  }
+  fn(req, res);
+};
+
 Object.assign(handler, { __reshuffle__: { handlerType: 'http' } });
