@@ -12,18 +12,14 @@ interface InvokeRequest {
   args: any[];
 }
 
-function isValidInvokeRequest(req: express.Request) {
-  if (req.body === undefined) {
+function isValidInvokeRequest(body: any, contentType?: string): body is InvokeRequest {
+  if (body === undefined) {
     return false;
   }
-  if (req.method !== 'POST') {
-    return false;
-  }
-  const contentType = req.get('content-type');
   if (!contentType || !contentType.startsWith('application/json')) {
     return false;
   }
-  const maybeInvoke = req.body as InvokeRequest;
+  const maybeInvoke = body as InvokeRequest;
   return typeof maybeInvoke.path === 'string' &&
     typeof maybeInvoke.handler === 'string' &&
     Array.isArray(maybeInvoke.args);
@@ -33,7 +29,7 @@ const app = express();
 app.post('/invoke', express.json(), async (req, res) => {
   // TODO: check for allowed origins when supporting CORS
   // Currently expected to 400 on a Preflight Request and not reach invoke
-  if (!isValidInvokeRequest(req)) {
+  if (!isValidInvokeRequest(req.body, req.get('content-type'))) {
     return res.status(400).json({
       error: 'Invoke request is not a JSON POST of the form { path, handler, body }',
     });
