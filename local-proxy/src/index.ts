@@ -6,6 +6,7 @@ import { Application } from 'express';
 import nanoid from 'nanoid';
 import { EventEmitter } from 'events';
 import { Server } from '@reshuffle/server-function';
+import { AddressInfo } from 'net';
 import address from 'address';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -88,60 +89,40 @@ export function setupProxy(sourceDir: string) {
   return (app: Application) => {
     const promiseHolder = startProxy(rootDir, localToken);
     app.use(async (req, res, next) => {
+      const { port: webappPort } = (req.socket.address() as AddressInfo);
       // pass empty headers since caching not used in local-proxy anyway
       const decision = await server.handle(req.url, {});
       if (!server.checkHeadersLocalHost(req.headers, 'host')) {
         return res.sendStatus(403);
       }
       const port = await promiseHolder.portPromise;
-      let ignoreProxyResult = false;
+      // Did this request come from our child process?
+      const proxyRequest = req.get('x-reshuffle-dev-server-local-token') !== localToken;
 
-      const end = res.end;
-      res.end = (...args: any[]) => {
-        res.end = end;
-        if (!ignoreProxyResult) {
-          res.end(...args);
-          return;
-        }
-        switch (decision.action) {
-          case 'sendStatus': {
-            // in dev environment static files do not exist on disk but are served by webpack-dev-server
-            if (/^\/static\//.test(req.url)) {
-              break;
-            }
-            return res.sendStatus(decision.status);
-          }
-          case 'serveFile': {
-            // TODO: handle logic when path doesn't match exactly
+      if (proxyRequest) {
+        return httpProxy.web(req, res, {
+          target: `http://localhost:${port}/`,
+          headers: {
+            'x-reshuffle-dev-server-local-token': localToken,
+            'x-reshuffle-webapp-port': webappPort.toString(),
+          },
+        });
+      }
+
+      switch (decision.action) {
+        case 'sendStatus': {
+          // in dev environment static files do not exist on disk but are served by webpack-dev-server
+          if (/^\/static\//.test(req.url)) {
             break;
           }
+          return res.sendStatus(decision.status);
         }
-        next();
-      };
-
-      const setHeader = res.setHeader.bind(res);
-      res.setHeader = (name, value) => {
-        if (name === 'reshuffle-local-proxy-fallback') {
-          ignoreProxyResult = true;
-        } else {
-          setHeader(name, value);
+        case 'serveFile': {
+          // TODO: handle logic when path doesn't match exactly
+          break;
         }
-      };
-
-      const writeHead = res.writeHead;
-      res.writeHead = (code: number, headers: any) => {
-        res.writeHead = writeHead;
-        if (headers && ('reshuffle-local-proxy-fallback' in headers)) {
-          ignoreProxyResult = true;
-        } else {
-          res.writeHead(code, headers);
-        }
-      };
-
-      return httpProxy.web(req, res, {
-        target: `http://localhost:${port}/`,
-        headers: { 'x-reshuffle-dev-server-local-token': localToken },
-      });
+      }
+      next();
     });
   };
 }

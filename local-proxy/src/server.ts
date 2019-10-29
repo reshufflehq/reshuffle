@@ -17,6 +17,7 @@ import nanoid from 'nanoid';
 import { copy, mkdirpSync } from 'fs-extra';
 import env from 'env-var';
 import dotenv from 'dotenv';
+import proxy from 'http-proxy';
 
 const envStr = (name: string): string => {
   const val = env.get(name).required().asString();
@@ -55,6 +56,12 @@ async function setupEnv({ port }: { port: number }) {
   process.env.RESHUFFLE_APPLICATION_ENV = 'local';
   process.env.RESHUFFLE_ACCESS_TOKEN = '<unused>';
 }
+
+const httpProxy = new proxy();
+httpProxy.on('error', (err: any) => {
+  // tslint:disable-next-line:no-console
+  console.error(err.stack);
+});
 
 class ModuleWhitelist {
   private readonly whitelistedModulesArr =
@@ -248,9 +255,11 @@ router.options('*', (ctx) => {
 });
 
 app.use((ctx) => {
-  // Let CRA handle this request
-  ctx.status = 204;
-  ctx.set({ 'reshuffle-local-proxy-fallback': 'true' });
+  ctx.respond = false; // Required to prevent koa from sending out headers
+
+  httpProxy.web(ctx.req, ctx.res, {
+    target: `http://localhost:${ctx.get('x-reshuffle-webapp-port')}/`,
+  });
 });
 
 const appCallback = app.callback();
