@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@reshuffle/server-function",
-      "comment": "Remove checkHeadersLocalhost method",
+      "comment": "Use HTTP handler with support for user override",
       "type": "patch"
     }
   ],

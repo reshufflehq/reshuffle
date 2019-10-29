@@ -26,7 +26,7 @@ describe('hack', () => {
   });
 });
 
-describe('secret', () => {
+describe('user HTTP handler', () => {
   it('gets from express handler', () => {
     cy.visit('/');
     cy.get('.express').contains('hello from express');
