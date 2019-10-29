@@ -1,8 +1,7 @@
 import { defaultHandler, HTTPHandler } from './serveBinaris';
 export { Handler, HandlerError, UnauthorizedError, getHandler } from './handler';
-export { HTTPHandler };
+export { HTTPHandler, defaultHandler };
 
-export { defaultHandler };
 export function setHTTPHandler(override: HTTPHandler) {
   module.exports.defaultHandler = override;
 }
