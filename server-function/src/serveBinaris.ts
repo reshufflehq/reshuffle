@@ -1,4 +1,4 @@
-import { getHandler, Handler, HandlerError } from './index';
+import { getHandler, Handler, HandlerError } from './handler';
 import { resolve as pathResolve } from 'path';
 import express from 'express';
 import http from 'http';
