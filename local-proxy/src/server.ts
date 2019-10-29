@@ -2,7 +2,7 @@ import { promisify } from 'util';
 import { resolve as resolvePath, extname } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
 import { DBRouter } from '@reshuffle/interfaces-koa-server';
-import { getHandler, Handler, HandlerError } from '@reshuffle/server-function';
+import { getHandler, Handler, HandlerError, HTTPHandler, setHTTPHandler } from '@reshuffle/server-function';
 import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
@@ -264,7 +264,7 @@ app.use((ctx) => {
 
 const appCallback = app.callback();
 
-type HTTPHandler = (req: http.IncomingMessage, res: http.ServerResponse, defaultCallback?: HTTPHandler) => void;
+setHTTPHandler(appCallback);
 
 async function httpCallback(req: http.IncomingMessage, res: http.ServerResponse) {
   await transpilePromise;
@@ -276,7 +276,7 @@ async function httpCallback(req: http.IncomingMessage, res: http.ServerResponse)
   } catch (err) {
     fn = appCallback;
   }
-  fn(req, res, appCallback);
+  fn(req, res);
 }
 
 const server = http.createServer(httpCallback);

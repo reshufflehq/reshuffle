@@ -5,8 +5,7 @@ import proxy from 'http-proxy';
 import { Application } from 'express';
 import nanoid from 'nanoid';
 import { EventEmitter } from 'events';
-import { Server } from '@reshuffle/server-function';
-import { AddressInfo } from 'net';
+import net, { AddressInfo } from 'net';
 import address from 'address';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -29,6 +28,38 @@ function makePortPromise(portEmitter: EventEmitter): Promise<number> {
 
 interface PortPromiseHolder {
   portPromise: Promise<number>;
+}
+
+function checkLocalHost(
+  hostname: string,
+  publicHost: string = address.ip(),
+  listenHost: string = process.env.HOST || '0.0.0.0',
+) {
+  // always allow requests with explicit IPv4 or IPv6-address.
+  // A note on IPv6 addresses:
+  // hostHeader will always contain the brackets denoting
+  // an IPv6-address in URLs,
+  // these are removed from the hostname in url.parse(),
+  // so we have the pure IPv6-address in hostname.
+  if (net.isIPv4(hostname) || net.isIPv6(hostname)) {
+    return true;
+  }
+  // always allow localhost host, for convience
+  if (hostname === 'localhost') {
+    return true;
+  }
+  // allow hostname of listening adress
+  if (hostname === listenHost) {
+    return true;
+  }
+  // also allow public hostname if provided
+  const idxPublic = publicHost.indexOf(':');
+
+  const publicHostname = idxPublic >= 0 ? publicHost.substr(0, idxPublic) : publicHost;
+
+  if (hostname === publicHostname) {
+    return true;
+  }
 }
 
 export function startProxy(
@@ -78,11 +109,6 @@ export function startProxy(
 
 export function setupProxy(sourceDir: string) {
   const rootDir = path.resolve(sourceDir, '..');
-  const server = new Server({
-    directory: path.join(rootDir, 'public'),
-    publicHost: address.ip(),
-    listenHost: process.env.HOST || '0.0.0.0',
-  });
   const localToken = nanoid();
   const httpProxy = new proxy();
   httpProxy.on('error', (err: any) => console.error(err.stack));
@@ -91,8 +117,7 @@ export function setupProxy(sourceDir: string) {
     app.use(async (req, res, next) => {
       const { port: webappPort } = (req.socket.address() as AddressInfo);
       // pass empty headers since caching not used in local-proxy anyway
-      const decision = await server.handle(req.url, {});
-      if (!server.checkHeadersLocalHost(req.headers, 'host')) {
+      if (!checkLocalHost(req.hostname)) {
         return res.sendStatus(403);
       }
       const port = await promiseHolder.portPromise;
@@ -107,20 +132,6 @@ export function setupProxy(sourceDir: string) {
             'x-reshuffle-webapp-port': webappPort.toString(),
           },
         });
-      }
-
-      switch (decision.action) {
-        case 'sendStatus': {
-          // in dev environment static files do not exist on disk but are served by webpack-dev-server
-          if (/^\/static\//.test(req.url)) {
-            break;
-          }
-          return res.sendStatus(decision.status);
-        }
-        case 'serveFile': {
-          // TODO: handle logic when path doesn't match exactly
-          break;
-        }
       }
       next();
     });

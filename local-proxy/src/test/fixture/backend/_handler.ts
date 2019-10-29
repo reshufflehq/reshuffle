@@ -1,4 +1,6 @@
-export default function handler(req: any, res: any, defaultHandler: any) {
+import { handler as defaultHandler } from '@reshuffle/server-function';
+
+export default function handler(req: any, res: any) {
   if (req.url === '/userHandler') {
     const body = 'hello world';
     res.writeHead(200,  {
