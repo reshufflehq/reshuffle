@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/server-function",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Serving function of static files",
   "main": "dist/index.js",
   "files": [

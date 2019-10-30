@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/server-function
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Oct 2019 06:22:03 GMT and should not be manually modified.
+
+## 0.0.7
+Wed, 30 Oct 2019 06:22:03 GMT
+
+### Patches
+
+- Use HTTP handler with support for user override
 
 ## 0.0.6
 Mon, 16 Sep 2019 15:58:20 GMT

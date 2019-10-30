@@ -2,6 +2,23 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.2.13",
+      "tag": "@reshuffle/local-proxy_v0.2.13",
+      "date": "Wed, 30 Oct 2019 06:22:03 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow user to override local-proxy HTTP handler"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/server-function\" from `0.0.6` to `0.0.7`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.12",
       "tag": "@reshuffle/local-proxy_v0.2.12",
       "date": "Sun, 06 Oct 2019 15:54:01 GMT",
