@@ -1,6 +1,14 @@
 # Change Log - @reshuffle/server-function
 
-This log was last generated on Wed, 30 Oct 2019 06:22:03 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Oct 2019 10:35:06 GMT and should not be manually modified.
+
+## 0.0.8
+Thu, 31 Oct 2019 10:35:06 GMT
+
+### Patches
+
+- Add logging to help debug user HTTP handler
+- Fallback to index.html in HTTP handler
 
 ## 0.0.7
 Wed, 30 Oct 2019 06:22:03 GMT

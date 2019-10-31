@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/local-proxy",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "files": [
     "dist"
   ],
@@ -20,7 +20,7 @@
     "@reshuffle/code-transform": "0.0.3",
     "@reshuffle/interfaces-koa-server": "0.4.0",
     "@reshuffle/leveldb-server": "0.0.8",
-    "@reshuffle/server-function": "0.0.7",
+    "@reshuffle/server-function": "0.0.8",
     "@types/express": "^4.17.1",
     "address": "^1.1.2",
     "dotenv": "^8.2.0",

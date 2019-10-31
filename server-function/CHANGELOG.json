@@ -2,6 +2,21 @@
   "name": "@reshuffle/server-function",
   "entries": [
     {
+      "version": "0.0.8",
+      "tag": "@reshuffle/server-function_v0.0.8",
+      "date": "Thu, 31 Oct 2019 10:35:06 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add logging to help debug user HTTP handler"
+          },
+          {
+            "comment": "Fallback to index.html in HTTP handler"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.7",
       "tag": "@reshuffle/server-function_v0.0.7",
       "date": "Wed, 30 Oct 2019 06:22:03 GMT",
