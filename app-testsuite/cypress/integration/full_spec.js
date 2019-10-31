@@ -28,8 +28,7 @@ describe('hack', () => {
 
 describe('user HTTP handler', () => {
   it('gets from express handler', () => {
-    cy.visit('/');
+    cy.visit('/express');
     cy.get('.express').contains('hello from express');
   });
 });
-

@@ -1,5 +1,7 @@
 import '@reshuffle/code-transform/macro';
 import React, { useState, useEffect, useCallback } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import { get, update, getSecret } from '../backend/index';
 import { notExposed, invalidFile } from './hack';
 
@@ -71,11 +73,19 @@ const ExpressHandler = () => {
 
 function App() {
   return (<>
-    <Counter keyName='counter' />
-    <Secret />
-    <NotExposed />
-    <InvalidFile />
-    <ExpressHandler />
+    <Router>
+      <Switch>
+        <Route exact path='/'>
+          <Counter keyName='counter' />
+          <Secret />
+          <NotExposed />
+          <InvalidFile />
+        </Route>
+        <Route exact path='/express'>
+          <ExpressHandler />
+        </Route>
+      </Switch>
+    </Router>
   </>);
 }
 
