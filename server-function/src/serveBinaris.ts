@@ -1,7 +1,9 @@
-import { getHandler, Handler, HandlerError } from './handler';
+// tslint:disable:no-console
 import { resolve as pathResolve } from 'path';
 import express from 'express';
 import http from 'http';
+import once from 'lodash.once';
+import { getHandler, getHTTPHandler, Handler, HandlerError } from './handler';
 
 const backendDir = pathResolve('./backend');
 const buildDir = pathResolve('./build');
@@ -51,7 +53,6 @@ app.post('/invoke', express.json(), async (req, res) => {
     }
     return res.status(200).json(response);
   } catch (error) {
-    // tslint:disable-next-line:no-console
     console.error('Failed to invoke handler', { error });
     return res.status(500).json({ error: 'Failed to invoke' });
   }
@@ -64,15 +65,24 @@ export type HTTPHandler = (req: http.IncomingMessage, res: http.ServerResponse) 
 
 export const defaultHandler: HTTPHandler = app;
 
-export const handler: HTTPHandler = (req, res) => {
-  let fn: HTTPHandler;
+const getHTTPHandlerOnceAndLog = once((): HTTPHandler => {
   try {
-    const joinedDir = pathResolve(backendDir, '_handler');
-    const mod = require(joinedDir);
-    fn = mod.default || app;
+    const userHandler = getHTTPHandler(backendDir);
+    if (userHandler === undefined) {
+      return app;
+    }
+    // tslint:disable-next-line:no-console
+    console.log('Using handler from', userHandler.path);
+    return userHandler.fn;
   } catch (err) {
-    fn = app;
+    // tslint:disable-next-line:no-console
+    console.error('Failed to require _handler', err);
+    return app;
   }
+});
+
+export const handler: HTTPHandler = (req, res) => {
+  const fn = getHTTPHandlerOnceAndLog();
   fn(req, res);
 };
 

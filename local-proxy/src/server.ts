@@ -2,7 +2,7 @@ import { promisify } from 'util';
 import { resolve as resolvePath, extname } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
 import { DBRouter } from '@reshuffle/interfaces-koa-server';
-import { getHandler, Handler, HandlerError, HTTPHandler, setHTTPHandler } from '@reshuffle/server-function';
+import { getHandler, getHTTPHandler, Handler, HandlerError, HTTPHandler, setHTTPHandler } from '@reshuffle/server-function';
 import http from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
@@ -266,16 +266,26 @@ const appCallback = app.callback();
 
 setHTTPHandler(appCallback);
 
-async function httpCallback(req: http.IncomingMessage, res: http.ServerResponse) {
+const initPromise = (async (): Promise<HTTPHandler> => {
   await transpilePromise;
-  let fn: HTTPHandler;
   try {
-    const joinedDir = resolvePath(genDir, '_handler');
-    const mod = require(joinedDir);
-    fn = mod.default || appCallback;
+    const userHandler = getHTTPHandler(genDir);
+    if (userHandler === undefined) {
+      return appCallback;
+    }
+    // Replace the path to avoid confusion
+    // tslint:disable-next-line:no-console
+    console.log('Using handler from', userHandler.path.replace(genDir, basePath));
+    return userHandler.fn;
   } catch (err) {
-    fn = appCallback;
+    // tslint:disable-next-line:no-console
+    console.error('Failed to require _handler', err);
+    return appCallback;
   }
+})();
+
+async function httpCallback(req: http.IncomingMessage, res: http.ServerResponse) {
+  const fn = await initPromise;
   fn(req, res);
 }
 
