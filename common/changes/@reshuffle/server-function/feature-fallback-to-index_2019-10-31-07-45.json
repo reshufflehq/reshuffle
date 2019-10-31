@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Fallback to index.html in HTTP handler",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "roey@reshuffle.com"
+}

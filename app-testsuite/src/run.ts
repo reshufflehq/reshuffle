@@ -195,6 +195,13 @@ class App {
       },
     });
     await copy(path.resolve(__dirname, '..', 'app'), this.appDir);
+    log('Installing react-router-dom');
+    // We intentionally do not put dependencies in package.json because it's created by CRA
+    await spawn('npm', ['install', 'react-router-dom'], {
+      cwd: this.appDir,
+      stdio: 'inherit',
+      shell,
+    });
   }
 
   public async run(runMode: string, fn: (url: string) => Promise<void>) {

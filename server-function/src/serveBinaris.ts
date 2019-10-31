@@ -58,6 +58,7 @@ app.post('/invoke', express.json(), async (req, res) => {
 });
 
 app.use(express.static(buildDir));
+app.use((_req, res) => res.sendfile(pathResolve(buildDir, 'index.html')));
 
 export type HTTPHandler = (req: http.IncomingMessage, res: http.ServerResponse) => void;
 
