@@ -6,8 +6,8 @@ import { remove } from 'fs-extra';
 import fetch, { Response } from 'node-fetch';
 import { spawn } from '@binaris/utils-subprocess';
 import Command from '../utils/command';
-import { Project } from '../utils/helpers';
 import flags from '../utils/cli-flags';
+import { findProjectByDirectory } from '../utils/helpers';
 import { Application } from '@binaris/spice-node-client/interfaces';
 
 export function statusNotOk(code: number): boolean {
@@ -69,14 +69,14 @@ export default class Download extends Command {
     }
     const { downloadUrl, downloadDir, targetDir } = source;
     const projectDir = path.resolve(targetDir);
-    const projects = this.conf.get('projects') as Project[] | undefined || [];
+    const projects = this.conf.get('projects') || [];
     this.drop(this.lycanClient.reportAnalytics([{
       type: 'event',
       category: 'user',
       action: 'download::build',
       label: appName,
     }]));
-    const project = projects.find(({ directory }) => directory === projectDir);
+    const project = findProjectByDirectory(projects, projectDir);
     const env = 'default'; // hardcoded for now
     const newProject = {
         directory: projectDir,

@@ -45,8 +45,8 @@ test('missing application', async (t) => {
 });
 
 test('permission error', async (t) => {
-  td.when(t.context.lycanFake.destroyAppByName(anything, 'no-perm')).thenReject(new UnauthorizedError('no auth'));
+  td.when(t.context.lycanFake.renameApp(anything, 'fluffy-samaritan', 'no-perm')).thenReject(new UnauthorizedError('no auth'));
 
-  const result = await t.context.shell.run(`${t.context.run} destroy no-perm`, 'utf-8');
+  const result = await t.context.shell.run(`${t.context.run} rename no-perm`, 'utf-8');
   t.snapshot(result);
 });
