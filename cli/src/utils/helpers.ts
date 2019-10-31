@@ -10,6 +10,14 @@ export interface Project {
   defaultEnv: string;
 }
 
+export function findProjectByDirectory(projects: Project[] | undefined, projectDir: string) {
+  if (projects === undefined) {
+    return undefined;
+  }
+  // TODO: case insensitive search dependening on OS
+  return projects.find(({ directory }) => directory === projectDir);
+}
+
 export async function getProjectRootDir(): Promise<string> {
   const packageJsonPath = await findUp('package.json', { type: 'file' });
   if (packageJsonPath === undefined) {

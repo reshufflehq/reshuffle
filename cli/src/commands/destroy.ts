@@ -2,7 +2,7 @@ import { CLIError } from '@oclif/errors';
 import Command from '../utils/command';
 import {
   getProjectRootDir,
-  Project,
+  findProjectByDirectory,
 } from '../utils/helpers';
 
 export default class Destroy extends Command {
@@ -24,12 +24,12 @@ export default class Destroy extends Command {
   public async run() {
     const { id: idFromArgs } = this.parse(Destroy).args;
     await this.authenticate();
-    const projects = this.conf.get('projects') as Project[] | undefined || [];
+    const projects = this.conf.get('projects') || [];
 
     let appId = idFromArgs;
     if (!appId) {
       const projectDir = await getProjectRootDir();
-      const project = projects.find(({ directory }) => directory === projectDir);
+      const project = findProjectByDirectory(projects, projectDir);
       if (project === undefined) {
         throw new CLIError('"id" argument not provided and could not locate project settings');
       }

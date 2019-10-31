@@ -2,7 +2,7 @@ import Command from '../utils/command';
 import flags from '../utils/cli-flags';
 import {
   getProjectRootDir,
-  Project,
+  findProjectByDirectory,
 } from '../utils/helpers';
 import ms = require('ms');
 
@@ -78,8 +78,8 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
   protected async getAppDetails(appName?: string): Promise<{ applicationId: string, env: string }> {
     if (appName === undefined) {
       const projectDir = await getProjectRootDir();
-      const projects = this.conf.get('projects') as Project[] | undefined || [];
-      const project = projects.find(({ directory }) => directory === projectDir);
+      const projects = this.conf.get('projects');
+      const project = findProjectByDirectory(projects, projectDir);
       if (project === undefined) {
         return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);
       }

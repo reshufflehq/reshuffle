@@ -29,7 +29,7 @@ export default abstract class BaseCommand extends Command {
 
   protected get lycanClient(): LycanClient {
     if (!this._lycanClient) {
-      this._lycanClient = this.createLycanClient(this.conf.get('accessToken') as string | undefined);
+      this._lycanClient = this.createLycanClient(this.conf.get('accessToken'));
     }
     return this._lycanClient;
   }
@@ -49,7 +49,7 @@ export default abstract class BaseCommand extends Command {
   }
 
   public get apiHeaders(): Record<string, string> {
-    return this.apiHeadersWithKey(this.conf.get('accessToken') as string | undefined);
+    return this.apiHeadersWithKey(this.conf.get('accessToken'));
   }
 
   private apiHeadersWithKey(apiKey?: string): Record<string, string> {
@@ -132,7 +132,7 @@ export default abstract class BaseCommand extends Command {
 
   public async authenticate(forceBrowserAuthFlow = false): Promise<string> {
     if (!forceBrowserAuthFlow) {
-      const storedAccessToken = this.conf.get('accessToken') as string | undefined;
+      const storedAccessToken = this.conf.get('accessToken');
       if (storedAccessToken) {
         return storedAccessToken;
       }

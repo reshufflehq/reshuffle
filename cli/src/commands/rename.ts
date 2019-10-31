@@ -3,7 +3,7 @@ import Command from '../utils/command';
 import flags from '../utils/cli-flags';
 import {
   getProjectRootDir,
-  Project,
+  findProjectByDirectory,
 } from '../utils/helpers';
 
 export default class Rename extends Command {
@@ -33,7 +33,7 @@ export default class Rename extends Command {
   public async run() {
     const { flags: { sourceName }, args: { targetName } } = this.parse(Rename);
     await this.authenticate();
-    const projects = this.conf.get('projects') as Project[] | undefined || [];
+    const projects = this.conf.get('projects');
 
     let appIdOrName = sourceName;
     if (!appIdOrName) {
@@ -43,7 +43,7 @@ export default class Rename extends Command {
       } catch (err) {
         throw new CLIError(`"sourceName" flag not provided and ${err.message}`);
       }
-      const project = projects.find(({ directory }) => directory === projectDir);
+      const project = findProjectByDirectory(projects, projectDir);
       if (project === undefined) {
         throw new CLIError('"sourceName" flag not provided and could not locate project settings');
       }

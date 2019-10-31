@@ -14,7 +14,7 @@ import { getDependencies } from '../utils/getdeps';
 import {
   getProjectRootDir,
   getProjectEnv,
-  Project,
+  findProjectByDirectory,
 } from '../utils/helpers';
 
 // TODO: test flows:
@@ -174,7 +174,7 @@ export default class Deploy extends Command {
     this.startStage('get project');
     const projectDir = await getProjectRootDir();
     const envVars = await getProjectEnv();
-    const projects = this.conf.get('projects') as Project[] | undefined || [];
+    const projects = this.conf.get('projects') || [];
 
     this.startStage('build');
     const stagingDir = await this.build(projectDir);
@@ -191,7 +191,7 @@ export default class Deploy extends Command {
 
     this.startStage('register app on local');
     const env = 'default'; // hardcoded for now
-    let project = projects.find(({ directory }) => directory === projectDir);
+    let project = findProjectByDirectory(projects, projectDir);
 
     let application: Application;
     if (!project) {
