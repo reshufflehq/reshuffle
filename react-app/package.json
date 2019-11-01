@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.0.20",
+    "@types/jest": "^24.0.21",
     "@types/node": "^10.14.6",
     "@types/rmfr": "^2.0.0",
     "fixture-stdout": "^0.2.1",

@@ -20,10 +20,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^16.34.0",
+    "@octokit/rest": "^16.34.1",
     "jju": "^1.4.0",
     "lodash.once": "^4.1.1",
-    "npm-check-updates": "^3.1.25",
+    "npm-check-updates": "^3.1.26",
     "yargs": "^14.2.0"
   },
   "devDependencies": {

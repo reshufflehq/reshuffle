@@ -21,7 +21,7 @@
   "devDependencies": {
     "@babel/types": "^7.6.3",
     "@types/babel__traverse": "^7.0.7",
-    "@types/jest": "^24.0.20",
+    "@types/jest": "^24.0.21",
     "@types/node": "^10.14.14",
     "babel-plugin-tester": "^7.0.1",
     "jest": "^24.9.0",
