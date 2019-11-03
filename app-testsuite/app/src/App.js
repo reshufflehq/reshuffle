@@ -71,6 +71,11 @@ const ExpressHandler = () => {
   return stateful(state, (data) => (<div className='express'>{data}</div>));
 }
 
+const ExpressVariablesHandler = () => {
+  const [state] = useGetter(() => fetch('/express/variables').then((body) => body.json()));
+  return stateful(state, (data) => (<div className='express-variables'>url:{data.url} originalUrl:{data.originalUrl}</div>));
+}
+
 function App() {
   return (<>
     <Router>
@@ -83,6 +88,7 @@ function App() {
         </Route>
         <Route exact path='/express'>
           <ExpressHandler />
+          <ExpressVariablesHandler />
         </Route>
       </Switch>
     </Router>
