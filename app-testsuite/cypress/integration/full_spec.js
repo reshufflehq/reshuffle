@@ -30,6 +30,6 @@ describe('user HTTP handler', () => {
   it('gets from express handler', () => {
     cy.visit('/express');
     cy.get('.express').contains('hello from express');
-    cy.get('.express-variables').contains('url:/express/variables originalUrl:/express/variables');
+    cy.get('.express-variables').contains('url:/variables originalUrl:/express/variables baseUrl:/express');
   });
 });

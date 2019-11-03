@@ -73,7 +73,14 @@ const ExpressHandler = () => {
 
 const ExpressVariablesHandler = () => {
   const [state] = useGetter(() => fetch('/express/variables').then((body) => body.json()));
-  return stateful(state, (data) => (<div className='express-variables'>url:{data.url} originalUrl:{data.originalUrl}</div>));
+  return stateful(
+    state,
+    (data) => (
+      <div className='express-variables'>
+        url:{data.url} originalUrl:{data.originalUrl} baseUrl:{data.baseUrl}
+      </div>
+    )
+  );
 }
 
 function App() {
