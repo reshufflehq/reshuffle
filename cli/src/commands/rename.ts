@@ -9,7 +9,7 @@ import {
 export default class Rename extends Command {
   public static description = 'rename an application';
   public static examples = [
-    `$ ${Command.cliBinName} rename great-rhinoceros-42 surpassing-lemur-17`,
+    `$ ${Command.cliBinName} rename -s great-rhinoceros-42 surpassing-lemur-17`,
   ];
 
   public static flags = {
