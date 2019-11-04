@@ -232,8 +232,6 @@ const db = new DBHandler(dbPath, initData, (err) => {
     process.exit(1);
   }
 });
-const dbRouter = new DBRouter(db);
-router.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
 // nodemon uses SIGUSR2
 process.once('SIGUSR2', () => {
   rimraf.sync(genDir);
@@ -289,12 +287,25 @@ async function httpCallback(req: http.IncomingMessage, res: http.ServerResponse)
   fn(req, res);
 }
 
-const server = http.createServer(httpCallback);
-server.listen(0, '127.0.0.1', async () => {
-  const { port } = server.address() as AddressInfo;
-  registry.logger.info('Listening for HTTP requests', { port });
-  await setupEnv({ port });
-  // Environment variables are set, can load whitelisted modules.
-  whitelisted.loadModules();
-  if (process.send) process.send({ type: 'ready', port });
+const dbApp = new Koa();
+const dbBaseRouter = new KoaRouter();
+const dbRouter = new DBRouter(db);
+dbBaseRouter.use('/v1', dbRouter.koaRouter.routes(), dbRouter.koaRouter.allowedMethods());
+dbApp.use(dbBaseRouter.routes());
+dbApp.use(dbBaseRouter.allowedMethods());
+
+const dbServer = dbApp.listen(0, '127.0.0.1');
+dbServer.once('listening', async () => {
+  const { port: dbPort } = dbServer.address() as AddressInfo;
+  registry.logger.info('DB listening for HTTP requests', { port: dbPort });
+
+  const server = http.createServer(httpCallback);
+  server.listen(0, '127.0.0.1', async () => {
+    const { port } = server.address() as AddressInfo;
+    registry.logger.info('Listening for HTTP requests', { port });
+    await setupEnv({ port: dbPort });
+    // Environment variables are set, can load whitelisted modules.
+    whitelisted.loadModules();
+    if (process.send) process.send({ type: 'ready', port });
+  });
 });
