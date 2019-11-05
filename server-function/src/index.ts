@@ -6,6 +6,7 @@ export {
   getHandler,
   getHTTPHandler,
 } from './handler';
+export { getInvokeHandler } from './invoke';
 
 export { HTTPHandler, defaultHandler };
 
