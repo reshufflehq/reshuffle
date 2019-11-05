@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Export invoke handler",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "roey@reshuffle.com"
+}

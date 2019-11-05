@@ -2,11 +2,11 @@ import { promisify } from 'util';
 import { resolve as resolvePath, extname } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
 import { DBRouter } from '@reshuffle/interfaces-koa-server';
-import { getHandler, getHTTPHandler, Handler, HandlerError, HTTPHandler, setHTTPHandler } from '@reshuffle/server-function';
+import { getInvokeHandler, getHTTPHandler, HTTPHandler, setHTTPHandler } from '@reshuffle/server-function';
 import http from 'http';
+import express from 'express';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
-import bodyParser from 'koa-bodyparser';
 import { mkdtempSync, readFile, readFileSync, existsSync } from 'fs';
 import * as rimraf from 'rimraf';
 import babelDir from '@babel/cli/lib/babel/dir';
@@ -99,9 +99,7 @@ class ModuleWhitelist {
 
 const whitelisted = new ModuleWhitelist();
 
-const app = new Koa();
-app.use(bodyParser({ enableTypes: ['json'], strict: false }));
-const router = new KoaRouter();
+const app = express();
 
 const genDir = mkdtempSync(resolvePath(tmpDir, 'local_proxy_'));
 
@@ -150,53 +148,22 @@ function reportInvocationDurationUs(startTime: [number, number], requestId: stri
   return durationMicro;
 }
 
-router.post('/invoke', async (ctx) => {
-  if (ctx.get('x-reshuffle-dev-server-local-token') !== localToken) {
-    ctx.throw(403, 'bad or missing local token');
+const invokeHandler = getInvokeHandler(genDir);
+
+app.post('/invoke', express.json(), async (req, res) => {
+  if (req.get('x-reshuffle-dev-server-local-token') !== localToken) {
+    res.status(403).end('bad or missing local token');
     return;
   }
   const startHrtime = process.hrtime();
   const requestId = nanoid();
-  // TODO: validate request
-  const { path, handler, args } = ctx.request.body;
   registry.register(requestId);
-  let fn: Handler;
-
+  // TODO: readd support for whitelisted functions
   try {
-    if (whitelisted.has(path)) {
-      fn = whitelisted.get(path, handler);
-    } else {
-      await transpilePromise;
-      if (!process.env.RESHUFFLE_DB_BASE_URL) {
-        // This can never happen, because POST can only occur after we
-        // start listening and set RESHUFFLE_DB_BASE_URL.  Verify it just
-        // in case.
-
-        // tslint:disable-next-line:no-console
-        console.error('[I] Invoked before local RESHUFFLE_DB_BASE_URL was set; local DB might break');
-      }
-      fn = getHandler(genDir, path, handler);
-    }
-    const ret = await fn(...args);
-    if (ret === undefined) {
-      ctx.status = 204;
-      return;
-    }
-    // ret might be a scalar, which Koa does not auto-JSONify.  So
-    // JSON manually.
-    ctx.response.type = 'application/json';
-    ctx.body = JSON.stringify(ret);
-  } catch (err) {
-    if (err instanceof HandlerError) {
-      ctx.status = err.status;
-      ctx.response.body = { error: err.message };
-      return;
-    }
-    // tslint:disable-next-line:no-console
-    console.error('Failed to invoke function', err);
-    ctx.throw(500, err);
+    await invokeHandler(req, res);
   } finally {
     // Not logging args to avoid sensitive info log (?)
+    const { path, handler } = req.body;
     reportInvocationDurationUs(startHrtime, requestId, { path, handler });
     registry.unregister(requestId);
   }
@@ -244,32 +211,35 @@ process.once('SIGINT', () => {
   process.kill(process.pid, 'SIGINT');
 });
 
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-router.options('*', (ctx) => {
+app.options('*', (_, res) => {
   // Don't allow CORS
-  ctx.status = 200;
+  res.sendStatus(200);
 });
 
-app.use((ctx) => {
-  ctx.respond = false; // Required to prevent koa from sending out headers
-
-  httpProxy.web(ctx.req, ctx.res, {
-    target: `http://localhost:${ctx.get('x-reshuffle-webapp-port')}/`,
+app.use((req, res) => {
+  httpProxy.web(req, res, {
+    target: `http://localhost:${req.get('x-reshuffle-webapp-port')}/`,
   });
 });
 
-const appCallback = app.callback();
-
-setHTTPHandler(appCallback);
+setHTTPHandler(app);
 
 const initPromise = (async (): Promise<HTTPHandler> => {
   await transpilePromise;
+
+  if (!process.env.RESHUFFLE_DB_BASE_URL) {
+    // This can never happen, because POST can only occur after we
+    // start listening and set RESHUFFLE_DB_BASE_URL.  Verify it just
+    // in case.
+
+    // tslint:disable-next-line:no-console
+    console.error('[I] Invoked before local RESHUFFLE_DB_BASE_URL was set; local DB might break');
+  }
+
   try {
     const userHandler = getHTTPHandler(genDir);
     if (userHandler === undefined) {
-      return appCallback;
+      return app;
     }
     // Replace the path to avoid confusion
     // tslint:disable-next-line:no-console
@@ -278,7 +248,7 @@ const initPromise = (async (): Promise<HTTPHandler> => {
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error('Failed to require _handler', err);
-    return appCallback;
+    return app;
   }
 })();
 

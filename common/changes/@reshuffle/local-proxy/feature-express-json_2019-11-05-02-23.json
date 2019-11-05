@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Use express for default handler",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "roey@reshuffle.com"
+}
