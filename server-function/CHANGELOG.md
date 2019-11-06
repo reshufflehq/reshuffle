@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/server-function
 
-This log was last generated on Thu, 31 Oct 2019 10:35:06 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Nov 2019 01:12:56 GMT and should not be manually modified.
+
+## 0.0.9
+Wed, 06 Nov 2019 01:12:56 GMT
+
+### Patches
+
+- Export invoke handler
 
 ## 0.0.8
 Thu, 31 Oct 2019 10:35:06 GMT

@@ -2,6 +2,26 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.2.15",
+      "tag": "@reshuffle/local-proxy_v0.2.15",
+      "date": "Wed, 06 Nov 2019 01:12:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Listen to DB requests on separate port"
+          },
+          {
+            "comment": "Use express for default handler"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/server-function\" from `0.0.8` to `0.0.9`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.14",
       "tag": "@reshuffle/local-proxy_v0.2.14",
       "date": "Thu, 31 Oct 2019 10:35:06 GMT",

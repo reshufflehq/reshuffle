@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Sun, 13 Oct 2019 09:22:01 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Nov 2019 01:12:56 GMT and should not be manually modified.
+
+## 0.4.4
+Wed, 06 Nov 2019 01:12:56 GMT
+
+### Patches
+
+- Add rename command
 
 ## 0.4.3
 Sun, 13 Oct 2019 09:22:01 GMT

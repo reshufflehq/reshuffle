@@ -2,6 +2,18 @@
   "name": "@reshuffle/server-function",
   "entries": [
     {
+      "version": "0.0.9",
+      "tag": "@reshuffle/server-function_v0.0.9",
+      "date": "Wed, 06 Nov 2019 01:12:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Export invoke handler"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.8",
       "tag": "@reshuffle/server-function_v0.0.8",
       "date": "Thu, 31 Oct 2019 10:35:06 GMT",

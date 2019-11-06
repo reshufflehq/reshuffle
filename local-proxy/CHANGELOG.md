@@ -1,6 +1,14 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Thu, 31 Oct 2019 10:35:06 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Nov 2019 01:12:56 GMT and should not be manually modified.
+
+## 0.2.15
+Wed, 06 Nov 2019 01:12:56 GMT
+
+### Patches
+
+- Listen to DB requests on separate port
+- Use express for default handler
 
 ## 0.2.14
 Thu, 31 Oct 2019 10:35:06 GMT
