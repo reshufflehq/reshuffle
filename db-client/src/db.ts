@@ -22,7 +22,9 @@ import {
   Document,
   Patch,
   PollOptions,
-  Serializable,
+  // Rename to avoid typescript 3.7 error:
+  // Import declaration conflicts with local declaration of 'Serializable'
+  Serializable as _Serializable,
   UpdateOptions,
   Version,
   VersionedMaybeObject,
@@ -39,7 +41,7 @@ import * as Q from './query';
  * references are invalid inside a serializable object.
  */
 // Use this strange type copy to get Typedoc to allow us to document.
-export type Serializable = Serializable;
+export type Serializable = _Serializable;
 
 /**
  * Object containing interface for constructing queries.  These

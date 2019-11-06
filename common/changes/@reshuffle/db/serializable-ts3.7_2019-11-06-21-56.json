@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/db",
+      "comment": "Fix typescript 3.7 compilation of db types",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/db",
+  "email": "roey@reshuffle.com"
+}
