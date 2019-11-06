@@ -3,6 +3,7 @@ import { DeepReadonly } from 'deep-freeze';
 import {
   Document,
   Patch,
+  PollOptions,
   Serializable,
   UpdateOptions,
   Version,
@@ -132,8 +133,11 @@ export async function find(query: Q.Query): Promise<Document[]> {
  *
  * This function is not supported yet.
  */
-export async function poll(keysToVersions: Array<[string, Version]>): Promise<Array<[string, Patch[]]>> {
-  return db.poll(keysToVersions);
+export async function poll(
+  keysToVersions: Array<[string, Version]>,
+  opts: PollOptions = {},
+): Promise<Array<[string, Patch[]]>> {
+  return db.poll(keysToVersions, opts);
 }
 poll.__reshuffle__ = { exposed: true };
 

@@ -189,7 +189,9 @@ export class DB {
     keysToVersions: Array<[string, Version]>,
     opts: PollOptions = {},
   ): Promise<Array<[string, Patch[]]>> {
-    return this.client.poll(this.ctx, keysToVersions, opts);
+    return this.client.poll(this.ctx, keysToVersions, opts, {
+      timeoutMs: Math.max(opts.readBlockTimeMs || 50000, 50000) + 1000,
+    });
   }
 
   /**
