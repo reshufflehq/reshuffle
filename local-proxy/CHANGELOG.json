@@ -2,6 +2,18 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.2.17",
+      "tag": "@reshuffle/local-proxy_v0.2.17",
+      "date": "Thu, 07 Nov 2019 21:41:21 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Do not load default babel config for backend transiplation"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.16",
       "tag": "@reshuffle/local-proxy_v0.2.16",
       "date": "Thu, 07 Nov 2019 00:59:51 GMT",

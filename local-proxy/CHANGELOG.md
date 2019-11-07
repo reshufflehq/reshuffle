@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Thu, 07 Nov 2019 00:59:51 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Nov 2019 21:41:21 GMT and should not be manually modified.
+
+## 0.2.17
+Thu, 07 Nov 2019 21:41:21 GMT
+
+### Patches
+
+- Do not load default babel config for backend transiplation
 
 ## 0.2.16
 Thu, 07 Nov 2019 00:59:51 GMT

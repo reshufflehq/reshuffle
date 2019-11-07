@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.5",
+      "tag": "reshuffle_v0.4.5",
+      "date": "Thu, 07 Nov 2019 21:41:21 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Do not use babelrc and babel config for backend transpilation"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.4",
       "tag": "reshuffle_v0.4.4",
       "date": "Wed, 06 Nov 2019 01:12:56 GMT",
