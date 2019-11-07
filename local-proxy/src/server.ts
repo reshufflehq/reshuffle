@@ -111,6 +111,7 @@ async function transpileAndCopy() {
     },
     babelOptions: {
       sourceMaps: true,
+      configFile: __dirname + '/babelBackendConfig.js',
       plugins: [
         '@babel/plugin-transform-modules-commonjs',
         'module:@reshuffle/code-transform',

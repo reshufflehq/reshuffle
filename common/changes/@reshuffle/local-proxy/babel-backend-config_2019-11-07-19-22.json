@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Do not load default babel config for backend transiplation",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "vladimir@reshuffle.com"
+}
