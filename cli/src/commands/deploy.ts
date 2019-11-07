@@ -81,6 +81,8 @@ export default class Deploy extends Command {
         '--no-babelrc',
         '--config-file',
         pathResolve(__dirname, '../../lib/utils/babelBackendConfig.js'),
+        '--source-maps',
+        'true',
         '--plugins',
         ['@babel/plugin-transform-modules-commonjs',
           'module:@reshuffle/code-transform'].join(','),
