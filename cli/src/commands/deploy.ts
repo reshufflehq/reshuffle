@@ -78,6 +78,9 @@ export default class Deploy extends Command {
       });
 
       await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
+        '--no-babelrc',
+        '--config-file',
+        pathResolve(__dirname, '../../lib/utils/babelBackendConfig.js'),
         '--plugins',
         ['@babel/plugin-transform-modules-commonjs',
           'module:@reshuffle/code-transform'].join(','),
