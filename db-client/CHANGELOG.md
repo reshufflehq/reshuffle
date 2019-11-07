@@ -1,6 +1,14 @@
 # Change Log - @reshuffle/db
 
-This log was last generated on Thu, 26 Sep 2019 15:16:00 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Nov 2019 00:59:51 GMT and should not be manually modified.
+
+## 0.5.4
+Thu, 07 Nov 2019 00:59:51 GMT
+
+### Patches
+
+- Support custom timeout for poll()
+- Fix typescript 3.7 compilation of db types
 
 ## 0.5.3
 Thu, 26 Sep 2019 15:16:00 GMT

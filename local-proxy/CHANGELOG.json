@@ -2,6 +2,21 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.2.16",
+      "tag": "@reshuffle/local-proxy_v0.2.16",
+      "date": "Thu, 07 Nov 2019 00:59:51 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/leveldb-server\" from `0.0.8` to `0.0.9`"
+          },
+          {
+            "comment": "Updating dependency \"@reshuffle/db\" from `0.5.3` to `0.5.4`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.15",
       "tag": "@reshuffle/local-proxy_v0.2.15",
       "date": "Wed, 06 Nov 2019 01:12:56 GMT",

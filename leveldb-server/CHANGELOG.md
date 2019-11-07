@@ -1,6 +1,11 @@
 # Change Log - @reshuffle/leveldb-server
 
-This log was last generated on Thu, 26 Sep 2019 15:16:00 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Nov 2019 00:59:51 GMT and should not be manually modified.
+
+## 0.0.9
+Thu, 07 Nov 2019 00:59:51 GMT
+
+*Version update only*
 
 ## 0.0.8
 Thu, 26 Sep 2019 15:16:00 GMT
