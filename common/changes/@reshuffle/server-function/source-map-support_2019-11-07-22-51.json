@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Enable source maps in exceptions",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "vladimir@reshuffle.com"
+}

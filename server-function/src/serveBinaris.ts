@@ -5,6 +5,9 @@ import http from 'http';
 import once from 'lodash.once';
 import { getHTTPHandler } from './handler';
 import { getInvokeHandler } from './invoke';
+import sourceMapSupport from 'source-map-support';
+// not handling uncaughtException - both local-proxy and runtime expected to handle them
+sourceMapSupport.install({ handleUncaughtExceptions: false, environment: 'node' });
 
 const backendDir = pathResolve('./backend');
 const buildDir = pathResolve('./build');

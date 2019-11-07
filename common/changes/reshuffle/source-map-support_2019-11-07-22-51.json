@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Generate source maps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "vladimir@reshuffle.com"
+}

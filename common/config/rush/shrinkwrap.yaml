@@ -57,6 +57,7 @@ dependencies:
   '@types/rimraf': 2.0.3
   '@types/rmfr': 2.0.0
   '@types/sinon': 7.5.0
+  '@types/source-map-support': 0.5.0
   '@types/tail': 1.2.2
   '@types/tar': 4.0.3
   '@types/uuid': 3.4.6
@@ -112,6 +113,7 @@ dependencies:
   rxjs: 6.5.3
   sinon: 7.5.0
   sleep-promise: 8.0.1
+  source-map-support: 0.5.16
   specshell: 0.0.3
   tail: 2.0.3
   tar: 5.0.5
@@ -1300,6 +1302,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NyzhuSBy97B/zE58cDw4NyGvByQbAHNP9069KVSgnXt/sc0T6MFRh0InKAeBVHJWdSXG1S3+PxgVIgKo9mTHbw==
+  /@types/source-map-support/0.5.0:
+    dependencies:
+      '@types/node': 12.12.6
+    dev: false
+    resolution:
+      integrity: sha512-OrnAz5K5dXDgMdeRRoXIjDAvkodQ9ESvVJCyzrhzUJKmCkXgmYx/KLUBcVFe5eS4FiohfcY7YPxsdkmSwJz9wA==
   /@types/stack-utils/1.0.1:
     dev: false
     resolution:
@@ -9965,13 +9973,15 @@ packages:
       '@types/express': 4.17.2
       '@types/lodash.once': 4.1.6
       '@types/node': 10.17.4
+      '@types/source-map-support': 0.5.0
       express: 4.17.1
       lodash.once: 4.1.1
+      source-map-support: 0.5.16
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-QBhNffFf/av0aJqebAlLS7l4wSmXIJlaiKn7hAKptTyKEwpZwOL5Tkwp076gNIzWLHCTlzpO+uxrz5G4m3Rj+Q==
+      integrity: sha512-z//xxJ+QhHlZeGiR3Z0LwKrx1P/+5vMiFF1TjC2cCgvbzldgCKo3YwSs0yTfe2ovvs1qmiJAcwSJk6DWMGB1WA==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10066,6 +10076,7 @@ specifiers:
   '@types/rimraf': ^2.0.3
   '@types/rmfr': ^2.0.0
   '@types/sinon': ^7.5.0
+  '@types/source-map-support': ^0.5.0
   '@types/tail': ^1.2.2
   '@types/tar': ^4.0.3
   '@types/uuid': ^3.4.6
@@ -10121,6 +10132,7 @@ specifiers:
   rxjs: ^6.5.3
   sinon: ^7.5.0
   sleep-promise: ^8.0.1
+  source-map-support: ^0.5.16
   specshell: ^0.0.3
   tail: ^2.0.3
   tar: ^5.0.5
