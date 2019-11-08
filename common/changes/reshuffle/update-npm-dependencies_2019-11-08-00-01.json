@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "reshuffle",
+      "type": "none"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "auto-npm-dep-update@shiftjs.com"
+}
