@@ -50,6 +50,13 @@ pluginTester({
       `,
       error: /Cannot find module/,
     },
+    'Throws if function file can not be parsed': {
+      code: `
+        import "../../macro";
+        import { notThere } from '../backend/mockBackendParse';
+      `,
+      error: /File .*mockBackendParse.js parse error SyntaxError: Unexpected token \(1:9\)/,
+    },
     'Throws if function is not exported and has @expose decorator': {
       code: `
         import "../../macro";
