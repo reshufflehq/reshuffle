@@ -19,13 +19,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "concord": "^0.2.3",
+    "concord": "^0.2.4",
     "fast-json-patch": "^2.2.1"
   },
   "devDependencies": {
     "@types/node": "^10.14.9",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2",
     "typescript-json-schema": "^0.40.0"
   }
 }

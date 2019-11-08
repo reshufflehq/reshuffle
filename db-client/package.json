@@ -34,6 +34,6 @@
     "@types/ramda": "^0.26.33",
     "ava": "^2.4.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   }
 }

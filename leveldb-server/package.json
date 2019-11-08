@@ -17,12 +17,12 @@
   "dependencies": {
     "@reshuffle/interfaces-koa-server": "0.4.0",
     "@types/deep-freeze": "^0.1.2",
-    "@types/leveldown": "^4.0.0",
+    "@types/leveldown": "^4.0.2",
     "@types/levelup": "^3.1.1",
     "async-mutex": "^0.1.4",
     "deep-freeze": "^0.0.1",
     "fast-json-patch": "^2.2.1",
-    "koa": "^2.10.0",
+    "koa": "^2.11.0",
     "leveldown": "^5.4.1",
     "levelup": "^4.3.2",
     "nanoid": "^2.1.6",
@@ -30,14 +30,14 @@
   },
   "devDependencies": {
     "@reshuffle/db-testsuite": "0.0.6",
-    "@types/koa": "^2.0.51",
+    "@types/koa": "^2.0.52",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^10.14.9",
     "@types/ramda": "^0.26.33",
     "@types/rmfr": "^2.0.0",
     "ava": "^2.4.0",
     "rmfr": "^2.0.0",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   }
 }

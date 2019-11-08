@@ -35,7 +35,7 @@ dependencies:
   '@types/babel__core': 7.1.3
   '@types/babel__traverse': 7.0.7
   '@types/deep-freeze': 0.1.2
-  '@types/dotenv': 6.1.1
+  '@types/dotenv': 8.2.0
   '@types/fs-extra': 8.0.1
   '@types/got': 9.6.9
   '@types/http-proxy': 1.17.1
@@ -103,7 +103,7 @@ dependencies:
   mz: 2.7.0
   nanoid: 2.1.6
   nodemon: 1.19.4
-  npm-check-updates: 3.2.0
+  npm-check-updates: 3.2.1
   open: 7.0.0
   prompts: 2.2.1
   ramda: 0.26.1
@@ -124,7 +124,7 @@ dependencies:
   typedoc: 0.15.0
   typescript: 3.7.2
   typescript-json-schema: 0.40.0
-  validator: 11.1.0
+  validator: 12.0.0
   walkdir: 0.4.1
   winston: 3.2.1
   yargs: 14.2.0
@@ -503,7 +503,7 @@ packages:
       integrity: sha512-h3XyMTKEMeo4VpVT7dkraa6VsoEv78URQ3VeNVmBHHgoH70rlK8PoCYUGBExcOQ3QQ3uNFwR4DhYx5f6c1nL8A==
   /@binaris/spice-koa-server/0.1.3:
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
       '@types/koa-bodyparser': 5.0.2
       '@types/koa-router': 7.0.35
       ajv: 6.10.2
@@ -518,7 +518,7 @@ packages:
       integrity: sha512-CBZhCu4sdKRQr6L2hCoDQkBIw7hH/SmJXa1iOC4tu/kGV9ygW7AbgmCRCmGEqi0BtBFNJLgYHGwAh3hBoDc/bQ==
   /@binaris/spice-koa-server/0.1.3/@types!node@10.17.4:
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
       '@types/koa-bodyparser': 5.0.2
       '@types/koa-router': 7.0.35
       '@types/node': 10.17.4
@@ -549,7 +549,7 @@ packages:
       integrity: sha512-1IgkZmxeM3XHGdVwYjpYR0YDGOwhnWVcC8fYxCdaxPzjX5hkkodTNuPtpmDfQnDszxufRXwElJZqrFE8IJTwHw==
   /@cnakazawa/watch/1.0.3:
     dependencies:
-      exec-sh: 0.3.2
+      exec-sh: 0.3.4
       minimist: 1.2.0
     dev: false
     engines:
@@ -1037,12 +1037,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-M6x29Vk4681dght4IMnPIcF1SNmeEm0c4uatlTFhp+++H1oDK1THEIzuCC2WeCBVhX+gU0NndsseDS3zaCtlcQ==
-  /@types/dotenv/6.1.1:
+  /@types/dotenv/8.2.0:
     dependencies:
-      '@types/node': 12.12.6
+      dotenv: 8.2.0
+    deprecated: 'This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.'
     dev: false
     resolution:
-      integrity: sha512-ftQl3DtBvqHl9L16tpqqzA4YzCSXZfi7g8cQceTz5rOlYtk/IZbFjAv3mLOQlNIgOaylCQWQoBdDQHPgEBJPHg==
+      integrity: sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==
   /@types/events/3.0.0:
     dev: false
     resolution:
@@ -1139,39 +1140,39 @@ packages:
       integrity: sha1-/1QEYtL7TQqIRBzq8n0oewHD2Hg=
   /@types/koa-bodyparser/5.0.2:
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
     dev: false
     resolution:
       integrity: sha512-prJC/gtxnurTTOpYkSwMwzbkiZ6BCW7arIvjmNVbEziauhcndQeCewzsSphmtlI6wnwFnGGAAOznQR1OYrhhgw==
-  /@types/koa-compose/3.2.4:
+  /@types/koa-compose/3.2.5:
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
     dev: false
     resolution:
-      integrity: sha512-ioou0rxkuWL+yBQYsHUQAzRTfVxAg8Y2VfMftU+Y3RA03/MzuFL0x/M2sXXj3PkfnENbHsjeHR1aMdezLYpTeA==
+      integrity: sha512-B8nG/OoE1ORZqCkBVsup/AKcvjdgoHnfi4pZMn5UwAPCbhk/96xyv284eBYW8JlQbQ7zDmnpFr68I/40mFoIBQ==
   /@types/koa-router/7.0.35:
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
     dev: false
     resolution:
       integrity: sha512-WSdZ0FkUSCDiGQBtsEAmTjsM3l5o4eq2WDSCR9UXm/buLY73b5MSkfSt4f8+LAhoZYa9uNNcEyiE43J0xISF5A==
   /@types/koa-router/7.0.42:
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
     dev: false
     resolution:
       integrity: sha512-mggrNY7Ywwjt7QjaMAlbb1ixE+v7AFskOeyKdmZT/NvPVEAo48gYUxIcF8ILlMc3eg1bo6SxNoUcbxhTv7edrA==
-  /@types/koa/2.0.51:
+  /@types/koa/2.0.52:
     dependencies:
       '@types/accepts': 1.3.5
       '@types/cookies': 0.7.4
       '@types/http-assert': 1.5.1
       '@types/keygrip': 1.0.1
-      '@types/koa-compose': 3.2.4
+      '@types/koa-compose': 3.2.5
       '@types/node': 12.12.6
     dev: false
     resolution:
-      integrity: sha512-L5e/l6Z+SR9Jk6HM0wNYdkvWhSUBOvi+7Q5Uwn7kE/VmBXX7NIxARMigARWAyXAtXiv5Ry1P2HmebolFdvuIVg==
+      integrity: sha512-cp/GTOhOYwomlSKqEoG0kaVEVJEzP4ojYmfa7EKaGkmkkRwJ4B/1VBLbQZ49Z+WJNvzXejQB/9GIKqMo9XLgFQ==
   /@types/leveldown/4.0.2:
     dependencies:
       '@types/abstract-leveldown': 5.0.1
@@ -1188,26 +1189,26 @@ packages:
       integrity: sha512-LjvlfctJYj23Xuqq3jCT8ZPSUSSgDcRJg8+XFDBasoYzefFbB4cHzlDmBVjc2rBOYvklpYHJRayD0jBsbJLD9w==
   /@types/lodash.has/4.5.6:
     dependencies:
-      '@types/lodash': 4.14.144
+      '@types/lodash': 4.14.145
     dev: false
     resolution:
       integrity: sha512-SpUCvze0uHilQX/mt4K/cak5OQny1pVfz3pJx6H70dE3Tvw9s7EtlMK+vY6UBS+PQgETDfv6vhwoa3FPS2wrhg==
   /@types/lodash.memoize/4.1.6:
     dependencies:
-      '@types/lodash': 4.14.144
+      '@types/lodash': 4.14.145
     dev: false
     resolution:
       integrity: sha512-mYxjKiKzRadRJVClLKxS4wb3Iy9kzwJ1CkbyKiadVxejnswnRByyofmPMscFKscmYpl36BEEhCMPuWhA1R/1ZQ==
   /@types/lodash.once/4.1.6:
     dependencies:
-      '@types/lodash': 4.14.144
+      '@types/lodash': 4.14.145
     dev: false
     resolution:
       integrity: sha512-kawTe2cBNZ5OI4CvTJT9cs8wacGZK4BoakKAGASl/jH3LxflMTuy82wN2U5klYsxYjrABkNWmzgO33volt7urQ==
-  /@types/lodash/4.14.144:
+  /@types/lodash/4.14.145:
     dev: false
     resolution:
-      integrity: sha512-ogI4g9W5qIQQUhXAclq6zhqgqNUr7UlFaqDHbch7WLSLeeM/7d3CRaw7GLajxvyFvhJqw4Rpcz5bhoaYtIx6Tg==
+      integrity: sha512-7lX5bZFO3YG3AG0XVIm5L1SB6wDLtuaJksTkTWrux3/XwCZgw3MPWZBt3Jgj0w98uqUXWVypT2msxo0A1t22lw==
   /@types/mime/2.0.1:
     dev: false
     resolution:
@@ -3383,10 +3384,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-qerSRB0p+UDEssxTtm6EDKcE7W4OaoisfIMl4CngyEhjpYglocpNg6UEqCvemdGhosAsg4sO2dXJOdyBifPGCg==
-  /exec-sh/0.3.2:
+  /exec-sh/0.3.4:
     dev: false
     resolution:
-      integrity: sha512-9sLAvzhI5nc8TpuQUh4ahMdCrWT00wPWz7j47/emR5+2qEfoZP5zzUXvx+vdx+H6ohhnsYC31iX04QLYJK8zTg==
+      integrity: sha512-sEFIkc61v75sWeOe72qyrqg2Qg0OuLESziUDk/O/z2qgS15y2gWVFrI6f2Qn/qw/0/NCfCEsmNA4zOjkwEZT1A==
   /execa/0.10.0:
     dependencies:
       cross-spawn: 6.0.5
@@ -5504,10 +5505,6 @@ packages:
       node: '>= 4'
     resolution:
       integrity: sha1-2kCHXfSd4FOQmNFwC1CCDOvNIdA=
-  /koa-is-json/1.0.0:
-    dev: false
-    resolution:
-      integrity: sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
   /koa-router/7.4.0:
     dependencies:
       debug: 3.2.6
@@ -5521,38 +5518,6 @@ packages:
       node: '>= 4'
     resolution:
       integrity: sha512-IWhaDXeAnfDBEpWS6hkGdZ1ablgr6Q6pGdXCyK38RbzuH4LkUOpPqPw+3f8l8aTDrQmBQ7xJc0bs2yV4dzcO+g==
-  /koa/2.10.0:
-    dependencies:
-      accepts: 1.3.7
-      cache-content-type: 1.0.1
-      content-disposition: 0.5.3
-      content-type: 1.0.4
-      cookies: 0.8.0
-      debug: 3.1.0
-      delegates: 1.0.0
-      depd: 1.1.2
-      destroy: 1.0.4
-      encodeurl: 1.0.2
-      error-inject: 1.0.0
-      escape-html: 1.0.3
-      fresh: 0.5.2
-      http-assert: 1.4.1
-      http-errors: 1.7.3
-      is-generator-function: 1.0.7
-      koa-compose: 4.1.0
-      koa-convert: 1.2.0
-      koa-is-json: 1.0.0
-      on-finished: 2.3.0
-      only: 0.0.2
-      parseurl: 1.3.3
-      statuses: 1.5.0
-      type-is: 1.6.18
-      vary: 1.1.2
-    dev: false
-    engines:
-      node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4
-    resolution:
-      integrity: sha512-vcZopGEWHDokchYtjU6jF1BCy+2MA2hnvGP7xPi26qWoIS0OiAUb4+lCqkqf05qG5ULnGYUFTvFnSK9RyOoiKw==
   /koa/2.11.0:
     dependencies:
       accepts: 1.3.7
@@ -6436,7 +6401,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-8/JCaftHwbd//k6y2rEWp6k1wxVfpFzB6t1p825+cUb7Ym2XQfhwIC5KwhrvzZRJu+LtDE585zVaS32+CGtf0g==
-  /npm-check-updates/3.2.0:
+  /npm-check-updates/3.2.1:
     dependencies:
       chalk: 2.4.2
       cint: 8.2.1
@@ -6463,7 +6428,7 @@ packages:
       node: '>=8'
     hasBin: true
     resolution:
-      integrity: sha512-Gqxd6Fv+EoGNKg2thclx3LPs9dHa1Tp/R+/59iYAgbliJ5NsDd/D6j6kjhnLtKh+7XMX7co3gTrVzsSqTPNRAg==
+      integrity: sha512-gYXHGc9mAncGrEMjs2uRJgOdWRP5CR9iZ+HyUNf4eqjtdDV6jLvi2e19G5BEpdvc8fU73J+B5m8ALYB49du/EA==
   /npm-package-arg/6.1.1:
     dependencies:
       hosted-git-info: 2.8.5
@@ -7942,7 +7907,7 @@ packages:
       '@cnakazawa/watch': 1.0.3
       anymatch: 2.0.0
       capture-exit: 2.0.0
-      exec-sh: 0.3.2
+      exec-sh: 0.3.4
       execa: 1.0.0
       fb-watchman: 2.0.0
       micromatch: 3.1.10
@@ -9398,12 +9363,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-X6kS2B630MdK/BQN5zF/DKffQ34=
-  /validator/11.1.0:
+  /validator/12.0.0:
     dev: false
     engines:
       node: '>= 0.10'
     resolution:
-      integrity: sha512-qiQ5ktdO7CD6C/5/mYV4jku/7qnqzjrxb3C/Q5wR3vGGinHTgJZN/TdFT3ZX4vXhX2R1PXx42fB1cn5W+uJ4lg==
+      integrity: sha512-r5zA1cQBEOgYlesRmSEwc9LkbfNLTtji+vWyaHzRZUxCTHdsX3bd+sdHfs5tGZ2W6ILGGsxWxCNwT/h3IY/3ng==
   /vary/1.1.2:
     dev: false
     engines:
@@ -9722,7 +9687,7 @@ packages:
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-U9MiNPtDT1vSwGpNk5ImpP7IbeEJynvQr0EL4fCIt4pvbtwxyePuqxY/6QD0S6ID6h8xgDdseVSyn+b1Kk2cFA==
+      integrity: sha512-pcpPw4BPX/AnhXqrGQFX7/C4EyzwqHYYgyKW9UR1F78EVmSGLCd210wTNk12pX4HjIahZTfCoKD5tDAdGqQczw==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -9741,18 +9706,18 @@ packages:
     dev: false
     name: '@rush-temp/code-transform'
     resolution:
-      integrity: sha512-Sdwt0rUVKrvtHrKygvN6+/93lPj2+0SytM1ZeXZas9f0beqi8Ot5Zfbz8090yrHLqWPpkBpMU4SCpwf/5sstDQ==
+      integrity: sha512-VhX3gjKcOdudlYFxsM84IXu8E6hKaz0q4jMJUZVKEbCSmxWhYO/oL8Q9v6DQ02VbqfPItrHyxVCYq7CUhBT10A==
       tarball: 'file:projects/code-transform.tgz'
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
       '@types/koa-router': 7.0.42
       '@types/nanoid': 2.1.0
       '@types/node': 12.12.6
       '@types/ramda': 0.26.33
       ava: 2.4.0
-      koa: 2.10.0
+      koa: 2.11.0
       koa-router: 7.4.0
       nanoid: 2.1.6
       ramda: 0.26.1
@@ -9761,7 +9726,7 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-+ZCSoED0SaxPBeF0dSCLG2bFUaUCaKrCeyxVccZcjsBAQeWWwjtX0cI50RFUORD1lIpGJtP+WkTTLmgUMvYwJg==
+      integrity: sha512-aGsqkd7Y61DkwWjyULxuINXOAGvcrDFaBMHL6szJ+ge8E8WdEsa1AebxURZPbuUqH9vvmseOYE4FWjVW4+SU7w==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
@@ -9777,7 +9742,7 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-iALiyEZj4ynw3zamGsVIQSLidKgyLB55J6b8nymTYufTy2Ljma4oG1qjI9v4/AIILLlQEFVLah9w7LfjrN65jQ==
+      integrity: sha512-e8M1GmYyJ8PgYVx01EQeN4CYAJc8nOxT/QkrJJV6EkgBkzL7u30pRmY9N/96LMzLnZzlgNlQqyhz0fne/Nbnrg==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -9788,15 +9753,15 @@ packages:
     dev: false
     name: '@rush-temp/fetch-runtime'
     resolution:
-      integrity: sha512-LI0r2ERPl1IJ0ud4ML8BVy79OmFkvDWBkjAAUyd93qxGcuvKMiaC5C0XXM3prUMydvV+NZXN+GwEiPsVH3Ig4g==
+      integrity: sha512-anPKGeZqB6V+NXsSIcfCprAcq+lPF7gadjKoPchduh+nywSrBOFQte6pbfjmWNq+Co74VnI4qfZYLjKbdtIcsQ==
       tarball: 'file:projects/fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/interfaces-koa-server.tgz':
     dependencies:
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
       '@types/koa-bodyparser': 5.0.2
       '@types/koa-router': 7.0.35
-      '@types/lodash': 4.14.144
+      '@types/lodash': 4.14.145
       '@types/node': 10.17.4
       ajv: 6.10.2
       koa: 2.11.0
@@ -9806,12 +9771,12 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-koa-server'
     resolution:
-      integrity: sha512-7l4YsRHs1m5aAzSgbEO4BRI+a60NGw/tD5myfUjCGAANieQLMDPi71zsWRPCj0PyMHPY+19Xux0cnTold+fnQA==
+      integrity: sha512-qynMJ8XCt/J9jmRbL8/HyxYn6jEAkgDlPkuPPsXzC4LJstCW2ZHOZTDbhcezin41Snln//p8+/+xgEICwDskGg==
       tarball: 'file:projects/interfaces-koa-server.tgz'
     version: 0.0.0
   'file:projects/interfaces-node-client.tgz':
     dependencies:
-      '@types/lodash': 4.14.144
+      '@types/lodash': 4.14.145
       '@types/node': 10.17.4
       '@types/node-fetch': 2.5.3
       abort-controller: 2.0.3
@@ -9821,7 +9786,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-node-client'
     resolution:
-      integrity: sha512-taVg+qCoc2JQY1oZFtenzAw0wHAWf/GOQFtW6DDRDl5tTxGgfbmJp4p93lMA+xblXZyfVapccdLtVYaUXXJVkA==
+      integrity: sha512-q6jWrIgz/njVJC+UQ/L3YIbZSYT1ecPSFJJY3fL9wwALhqK4hb2SW/Pa8htFYUm6mqkeOD1rMX5YObsM95Iyww==
       tarball: 'file:projects/interfaces-node-client.tgz'
     version: 0.0.0
   'file:projects/interfaces.tgz':
@@ -9835,13 +9800,13 @@ packages:
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-nWhTzU5a0Oz4LFeJIRibzxjgfhr/MewcCNYpzdm5zl3wqPD+Si8HA91c/AZpE9VSXbGVtyo8Uifq/W+jvS45Dw==
+      integrity: sha512-bORj7YS0FsLfdexlQc45cQxBUqTmyVnQ8Ly+Jin2h1EZqZI8lWX0MYZ96qiWQFUPQnALHc/gAbE+UsOk2xY94w==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
     dependencies:
       '@types/deep-freeze': 0.1.2
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
       '@types/leveldown': 4.0.2
       '@types/levelup': 3.1.1
       '@types/nanoid': 2.1.0
@@ -9863,7 +9828,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-saonGbcwPBy+ZGnEnoLfpPo+2EVaGSwwis21uiSfcgiFzcGwyb/JtYSc3AHeG1ujaVPIRi9RLV66OKVIHuu5Gg==
+      integrity: sha512-RMMJdm2r1LK0HIAec5/N+hJf28XzFGK9cpwp7R+U3WJOFKsQtIyhaLoq/TmvNw6SoEn+l8CbXSMs2OY02W6IPA==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -9872,14 +9837,14 @@ packages:
       '@babel/core': 7.7.2
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.7.0/@babel!core@7.7.2
       '@types/babel__core': 7.1.3
-      '@types/dotenv': 6.1.1
+      '@types/dotenv': 8.2.0
       '@types/express': 4.17.2
       '@types/fs-extra': 8.0.1
       '@types/got': 9.6.9
       '@types/http-proxy': 1.17.1
-      '@types/koa': 2.0.51
+      '@types/koa': 2.0.52
       '@types/koa-router': 7.0.42
-      '@types/lodash': 4.14.144
+      '@types/lodash': 4.14.145
       '@types/mkdirp': 0.5.2
       '@types/mz': 0.0.32
       '@types/nanoid': 2.1.0
@@ -9909,7 +9874,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-ihghRgUbSzoMMznOslcvPd97Cvr1Ee2kSOx6KIOwr3YEZ49FfB196xAhhIb3ht/lLUmZckwWsyYh817aajuTQg==
+      integrity: sha512-1qPgzdEbTjrB+n4hd9UFsBReYsqsTXZKJ9Cfb2+m2xsgsxGgrzGoBEAUYw10+W4Z0FsQ6e+P7Y/c5GoBgn99TA==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -9925,7 +9890,7 @@ packages:
     dev: false
     name: '@rush-temp/react-app'
     resolution:
-      integrity: sha512-3O73br/cB3HgIxmA5Qe6JmsCYbEV2o3fP2MMGIMTg1qxy3BvNbng1RBi/x/2M8d6+N0ds+m0ZrvBqlhTkUBXRA==
+      integrity: sha512-jeLbet4gh63KYsbTV9bqsvwcbANRfMhuUe+DmwD7B+UWBXgUnuWx3p+QIUcIhf2jX7Xioxf1zF2a+9dS47CPSg==
       tarball: 'file:projects/react-app.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
@@ -9941,7 +9906,7 @@ packages:
       '@oclif/parser': 3.8.4
       '@oclif/plugin-help': 2.2.1
       '@oclif/tslint': 3.1.1
-      '@types/dotenv': 6.1.1
+      '@types/dotenv': 8.2.0
       '@types/fs-extra': 8.0.1
       '@types/js-yaml': 3.12.1
       '@types/lodash.has': 4.5.6
@@ -9979,11 +9944,11 @@ packages:
       tslib: 1.10.0
       tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
-      validator: 11.1.0
+      validator: 12.0.0
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-G8SjDdkY9sjG6FXWQbTHD/3GQS6H6n3AuFNyaIjDCvhphD9Oz7dC7focSMVA9DAZyvETyt6fPQWUlSgFngYXZg==
+      integrity: sha512-v47pk+TnRTGyTJByF9L2hqU98+Osv7dIWWbpL1pLe4mwiQGTVqHtvn4aD1NVufqiFOgQpgyaTinyAwUKEKwJVw==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -9995,14 +9960,14 @@ packages:
       '@types/yargs': 13.0.3
       jju: 1.4.0
       lodash.once: 4.1.1
-      npm-check-updates: 3.2.0
+      npm-check-updates: 3.2.1
       tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
       yargs: 14.2.0
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-RCrEL2+i1V1QFIDnQOLJXHExj1seuFngtVbpg4jQmb9tH4WAnQ+0nnfkf81M8YkfH/iuO9AlcHaKQLjmytO84Q==
+      integrity: sha512-7TkCy7dVB9u58qfeDH+zAW2idh40+IR/0+6muwstR0Msa6yapZVIldVDTS5MuNnyxRd9alwrfnglBJpEIOUuyw==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/server-function.tgz':
@@ -10016,7 +9981,7 @@ packages:
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-fmT0hQXfZw1Reb8uQRAGsm7M3/hvx45uqSJsQSyEsWbOk7sjUqJVsypimxkoTcOWuIgFtVb1w+uTTN03GEyqUw==
+      integrity: sha512-txSIBL8HYUyaTmJjmRFvZ0jCtfbcVZKUp+hbdz65t+rugU0pcjINeo6rmP9r/LXnS37aGQjw+dg2UMl6/f1/eg==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10036,7 +10001,7 @@ packages:
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-yt28C2dNbJ6hAjTtCS/FgEJg5veAA2+CSPIMkeRnDSqDn6v44FrFh92mDRmktl+TWS4RPBpp4dgJJvcnQ0GRIg==
+      integrity: sha512-LOTBiFZrn0jFwYmjyMWN85Y1Hl/BYbf173XcpAFxemeHIb67Doa3XHsjgUpCYu5nefRS0T4HgRSVJLtuFMS6vQ==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
@@ -10046,18 +10011,18 @@ packages:
     dev: false
     name: '@rush-temp/utils-subprocess'
     resolution:
-      integrity: sha512-OH78Ex0+ThVomccYzgl0oVizINdaAHY7F3w4SmtxzRnCDsojPQOb3BFwZp5udj7vFGXPjj1VG8yVDz1DC36iBg==
+      integrity: sha512-RME4B31ZaTLkOLSfbptIp0cpP/+Ymd74yH0rJZY1iiE2JCeXTm3NswGwo3Ga8gCRlDLUP+N6puf/lJPoOhLwQg==
       tarball: 'file:projects/utils-subprocess.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  '@babel/cli': ^7.6.4
-  '@babel/core': ^7.6.4
-  '@babel/parser': ^7.6.4
-  '@babel/plugin-transform-modules-commonjs': ^7.6.0
-  '@babel/types': ^7.6.3
+  '@babel/cli': ^7.7.0
+  '@babel/core': ^7.7.2
+  '@babel/parser': ^7.7.2
+  '@babel/plugin-transform-modules-commonjs': ^7.7.0
+  '@babel/types': ^7.7.2
   '@binaris/oclif-plugin-not-found': ^1.2.4
   '@binaris/spice-koa-server': ^0.1.3
   '@binaris/spice-node-client': ^0.1.3
@@ -10069,7 +10034,7 @@ specifiers:
   '@oclif/parser': ^3.8.4
   '@oclif/plugin-help': ^2.2.1
   '@oclif/tslint': ^3.1.1
-  '@octokit/rest': ^16.34.0
+  '@octokit/rest': ^16.34.1
   '@rush-temp/app-testsuite': 'file:./projects/app-testsuite.tgz'
   '@rush-temp/code-transform': 'file:./projects/code-transform.tgz'
   '@rush-temp/db': 'file:./projects/db.tgz'
@@ -10089,15 +10054,15 @@ specifiers:
   '@types/babel__core': ^7.1.3
   '@types/babel__traverse': ^7.0.7
   '@types/deep-freeze': ^0.1.2
-  '@types/dotenv': ^6.1.1
+  '@types/dotenv': ^8.2.0
   '@types/fs-extra': ^8.0.1
-  '@types/got': ^9.6.7
-  '@types/http-proxy': ^1.17.0
-  '@types/jest': ^24.0.20
+  '@types/got': ^9.6.9
+  '@types/http-proxy': ^1.17.1
+  '@types/jest': ^24.0.22
   '@types/jju': ^1.4.1
   '@types/js-yaml': ^3.12.1
   '@types/koa-bodyparser': ^5.0.1
-  '@types/leveldown': ^4.0.0
+  '@types/leveldown': ^4.0.2
   '@types/levelup': ^3.1.1
   '@types/lodash.has': ^4.5.6
   '@types/lodash.memoize': ^4.1.6
@@ -10106,7 +10071,7 @@ specifiers:
   '@types/ms': ^0.7.31
   '@types/mz': ^0.0.32
   '@types/nanoid': ^2.1.0
-  '@types/prompts': ^2.0.2
+  '@types/prompts': ^2.0.3
   '@types/ramda': ^0.26.33
   '@types/react': ^16.9.11
   '@types/rimraf': ^2.0.3
@@ -10114,7 +10079,7 @@ specifiers:
   '@types/sinon': ^7.5.0
   '@types/tail': ^1.2.2
   '@types/tar': ^4.0.3
-  '@types/uuid': ^3.4.5
+  '@types/uuid': ^3.4.6
   '@types/validator': ^10.11.3
   '@types/yargs': ^13.0.3
   abort-controller: ^2.0.2
@@ -10128,8 +10093,8 @@ specifiers:
   chalk: ^2.4.2
   cli-ux: ^5.3.3
   columnify: ^1.5.4
-  concord: ^0.2.3
-  conf: ^6.1.0
+  concord: ^0.2.4
+  conf: ^6.2.0
   dotenv: ^8.2.0
   env-var: ^5.1.0
   express: ^4.17.1
@@ -10157,7 +10122,7 @@ specifiers:
   mz: ^2.7.0
   nanoid: ^2.1.6
   nodemon: ^1.19.4
-  npm-check-updates: ^3.1.25
+  npm-check-updates: ^3.2.1
   open: ^7.0.0
   prompts: ^2.2.1
   ramda: ^0.26.1
@@ -10174,11 +10139,11 @@ specifiers:
   testdouble: ^3.12.4
   ts-node: ^8.4.1
   tslib: ^1.10.0
-  tslint: ^5.20.0
+  tslint: ^5.20.1
   typedoc: ^0.15.0
-  typescript: ^3.6.4
+  typescript: ^3.7.2
   typescript-json-schema: ^0.40.0
-  validator: ^11.1.0
+  validator: ^12.0.0
   walkdir: ^0.4.1
   winston: ^3.2.1
   yargs: ^14.2.0
