@@ -98,7 +98,12 @@ function exposeMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosB
           throw new Error(`File ${node.source.value} could not be read ${err}`);
           // handle this error somehow
         }
-        const importedFileAst = parse(content, { sourceType: 'module' });
+        let importedFileAst: babelTypes.File;
+        try {
+          importedFileAst = parse(content, { sourceType: 'module' });
+        } catch (err) {
+          throw new Error(`File ${resolvedImportedPath} parse error ${err}`);
+        }
         const methods = findExportedMethods(importedFileAst, babel, names);
         const namesSet = new Set(names);
         const methodsSet = new Set(methods);
