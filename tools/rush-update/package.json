@@ -20,10 +20,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^16.34.0",
+    "@octokit/rest": "^16.34.1",
     "jju": "^1.4.0",
     "lodash.once": "^4.1.1",
-    "npm-check-updates": "^3.1.25",
+    "npm-check-updates": "^3.2.1",
     "yargs": "^14.2.0"
   },
   "devDependencies": {
@@ -31,7 +31,7 @@
     "@types/lodash.once": "^4.1.6",
     "@types/node": "^12.0.12",
     "@types/yargs": "^13.0.3",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   }
 }

@@ -16,18 +16,18 @@
     "@reshuffle/db": "0.5.4",
     "@reshuffle/interfaces-koa-server": "0.4.0",
     "ava": "^2.4.0",
-    "koa": "~2.10.0",
+    "koa": "~2.11.0",
     "koa-router": "~7.4.0",
     "nanoid": "^2.1.6",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
-    "@types/koa": "~2.0.51",
+    "@types/koa": "~2.0.52",
     "@types/koa-router": "~7.0.42",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.7.2",
     "@types/ramda": "^0.26.33",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   }
 }

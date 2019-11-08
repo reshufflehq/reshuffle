@@ -23,7 +23,7 @@
     "@types/mz": "^0.0.32",
     "@types/node": "^10.14.9",
     "@types/tail": "^1.2.2",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   }
 }
