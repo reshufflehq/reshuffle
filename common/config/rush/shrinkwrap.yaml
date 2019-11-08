@@ -35,7 +35,6 @@ dependencies:
   '@types/babel__core': 7.1.3
   '@types/babel__traverse': 7.0.7
   '@types/deep-freeze': 0.1.2
-  '@types/dotenv': 8.2.0
   '@types/fs-extra': 8.0.1
   '@types/got': 9.6.9
   '@types/http-proxy': 1.17.1
@@ -1037,13 +1036,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-M6x29Vk4681dght4IMnPIcF1SNmeEm0c4uatlTFhp+++H1oDK1THEIzuCC2WeCBVhX+gU0NndsseDS3zaCtlcQ==
-  /@types/dotenv/8.2.0:
-    dependencies:
-      dotenv: 8.2.0
-    deprecated: 'This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.'
-    dev: false
-    resolution:
-      integrity: sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==
   /@types/events/3.0.0:
     dev: false
     resolution:
@@ -9687,7 +9679,7 @@ packages:
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-pcpPw4BPX/AnhXqrGQFX7/C4EyzwqHYYgyKW9UR1F78EVmSGLCd210wTNk12pX4HjIahZTfCoKD5tDAdGqQczw==
+      integrity: sha512-jvIyxxiReIXSuJrCzy1Doy5Oe43fTKEfZAV9YUNxlbIsAmC4A+9h+RAKRyk73C8XI/7kIlFd5d5QEBDnBN1+og==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -9706,7 +9698,7 @@ packages:
     dev: false
     name: '@rush-temp/code-transform'
     resolution:
-      integrity: sha512-VhX3gjKcOdudlYFxsM84IXu8E6hKaz0q4jMJUZVKEbCSmxWhYO/oL8Q9v6DQ02VbqfPItrHyxVCYq7CUhBT10A==
+      integrity: sha512-ky9owqbYBMgE4G5QMbzYY2HaIKXv8AalK5pv1+BliGtpqxg8WvcBEtuYmUaMvAGHXL+POrSLOvZMCTUKIxkPJA==
       tarball: 'file:projects/code-transform.tgz'
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
@@ -9726,7 +9718,7 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-aGsqkd7Y61DkwWjyULxuINXOAGvcrDFaBMHL6szJ+ge8E8WdEsa1AebxURZPbuUqH9vvmseOYE4FWjVW4+SU7w==
+      integrity: sha512-FDvlryN84uMSyARp6gc/+w4b6La1frXMLGW5gwgdTUrPjfcrIeA4oPl8J1SfsT+RLflh6GTAkJbaf8KJrRGdOg==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
@@ -9742,7 +9734,7 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-e8M1GmYyJ8PgYVx01EQeN4CYAJc8nOxT/QkrJJV6EkgBkzL7u30pRmY9N/96LMzLnZzlgNlQqyhz0fne/Nbnrg==
+      integrity: sha512-Lgn8+EoVRI0Wz2ZRwmEQAvyvxEJIoULsehGf54xvhK+PAi8Ro45lM6nW9X+EfuQWe1Lb/GCcQXm3eqfcbfFI8g==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -9753,7 +9745,7 @@ packages:
     dev: false
     name: '@rush-temp/fetch-runtime'
     resolution:
-      integrity: sha512-anPKGeZqB6V+NXsSIcfCprAcq+lPF7gadjKoPchduh+nywSrBOFQte6pbfjmWNq+Co74VnI4qfZYLjKbdtIcsQ==
+      integrity: sha512-YqNSDFWM8rHHsy3bKx/WZ6+1ApPqrU0+c1tINOo9eNtvOOqy2IzxfUq9UemUUUCaljqHbLzkY4MOHlW63wypTQ==
       tarball: 'file:projects/fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/interfaces-koa-server.tgz':
@@ -9771,7 +9763,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-koa-server'
     resolution:
-      integrity: sha512-qynMJ8XCt/J9jmRbL8/HyxYn6jEAkgDlPkuPPsXzC4LJstCW2ZHOZTDbhcezin41Snln//p8+/+xgEICwDskGg==
+      integrity: sha512-7l4YsRHs1m5aAzSgbEO4BRI+a60NGw/tD5myfUjCGAANieQLMDPi71zsWRPCj0PyMHPY+19Xux0cnTold+fnQA==
       tarball: 'file:projects/interfaces-koa-server.tgz'
     version: 0.0.0
   'file:projects/interfaces-node-client.tgz':
@@ -9786,7 +9778,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-node-client'
     resolution:
-      integrity: sha512-q6jWrIgz/njVJC+UQ/L3YIbZSYT1ecPSFJJY3fL9wwALhqK4hb2SW/Pa8htFYUm6mqkeOD1rMX5YObsM95Iyww==
+      integrity: sha512-taVg+qCoc2JQY1oZFtenzAw0wHAWf/GOQFtW6DDRDl5tTxGgfbmJp4p93lMA+xblXZyfVapccdLtVYaUXXJVkA==
       tarball: 'file:projects/interfaces-node-client.tgz'
     version: 0.0.0
   'file:projects/interfaces.tgz':
@@ -9800,7 +9792,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-bORj7YS0FsLfdexlQc45cQxBUqTmyVnQ8Ly+Jin2h1EZqZI8lWX0MYZ96qiWQFUPQnALHc/gAbE+UsOk2xY94w==
+      integrity: sha512-Q4tUV6M/oHxToctCW7DNezyDkPPJ+bvmjEQcssEGa+tQaPTT0yNvamWImvKFUKBv/e4icuuZSTz3/zd5eMq6wQ==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
@@ -9828,7 +9820,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-RMMJdm2r1LK0HIAec5/N+hJf28XzFGK9cpwp7R+U3WJOFKsQtIyhaLoq/TmvNw6SoEn+l8CbXSMs2OY02W6IPA==
+      integrity: sha512-IOZ+IL8HG7braFfr36yc8LgRQYDyde1FVG+hfbTf30XfLuJBgyO8T4mzmIQh3s8t/nKQhfvOvSvXgAEDYWMA4g==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -9837,7 +9829,6 @@ packages:
       '@babel/core': 7.7.2
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.7.0/@babel!core@7.7.2
       '@types/babel__core': 7.1.3
-      '@types/dotenv': 8.2.0
       '@types/express': 4.17.2
       '@types/fs-extra': 8.0.1
       '@types/got': 9.6.9
@@ -9874,7 +9865,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-1qPgzdEbTjrB+n4hd9UFsBReYsqsTXZKJ9Cfb2+m2xsgsxGgrzGoBEAUYw10+W4Z0FsQ6e+P7Y/c5GoBgn99TA==
+      integrity: sha512-kwYLAKcguuv8WFVcq+TNob2pd602Cbt/iyFrJRuOvvi9zqSRsYZbpJ7aQGaXMbQ8++C1KaMZBhbCJQjpYUXDlQ==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -9890,7 +9881,7 @@ packages:
     dev: false
     name: '@rush-temp/react-app'
     resolution:
-      integrity: sha512-jeLbet4gh63KYsbTV9bqsvwcbANRfMhuUe+DmwD7B+UWBXgUnuWx3p+QIUcIhf2jX7Xioxf1zF2a+9dS47CPSg==
+      integrity: sha512-c/ALJLGOnfsK695ZDUSTQP686VciDKBGRR6WRFsgKARBwW1FDZgxBvGduZKY73blqMt60mddi72InxX1laOiEw==
       tarball: 'file:projects/react-app.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
@@ -9906,7 +9897,6 @@ packages:
       '@oclif/parser': 3.8.4
       '@oclif/plugin-help': 2.2.1
       '@oclif/tslint': 3.1.1
-      '@types/dotenv': 8.2.0
       '@types/fs-extra': 8.0.1
       '@types/js-yaml': 3.12.1
       '@types/lodash.has': 4.5.6
@@ -9948,7 +9938,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-v47pk+TnRTGyTJByF9L2hqU98+Osv7dIWWbpL1pLe4mwiQGTVqHtvn4aD1NVufqiFOgQpgyaTinyAwUKEKwJVw==
+      integrity: sha512-z+8j7kLtN3DRT6U3oNfkenRk9tNyeQTvyWXDF6PezvrhoeDdbftqWf4doR2s+ZgYpV6/e62m5xFLNf8aLBssJg==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -9967,7 +9957,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-7TkCy7dVB9u58qfeDH+zAW2idh40+IR/0+6muwstR0Msa6yapZVIldVDTS5MuNnyxRd9alwrfnglBJpEIOUuyw==
+      integrity: sha512-e53ONtzSobI5FY0L/+ZPdRqjl3DFvs/a5Wjy5hZn1A/DsSrwUiT0M42QSo1e6lZzPor628vhyGmhTWVsqXZkEg==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/server-function.tgz':
@@ -9981,7 +9971,7 @@ packages:
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-txSIBL8HYUyaTmJjmRFvZ0jCtfbcVZKUp+hbdz65t+rugU0pcjINeo6rmP9r/LXnS37aGQjw+dg2UMl6/f1/eg==
+      integrity: sha512-QBhNffFf/av0aJqebAlLS7l4wSmXIJlaiKn7hAKptTyKEwpZwOL5Tkwp076gNIzWLHCTlzpO+uxrz5G4m3Rj+Q==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10001,7 +9991,7 @@ packages:
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-LOTBiFZrn0jFwYmjyMWN85Y1Hl/BYbf173XcpAFxemeHIb67Doa3XHsjgUpCYu5nefRS0T4HgRSVJLtuFMS6vQ==
+      integrity: sha512-Cu+uiNVDTF12fg0sCHilGbfrvfqGSxULBn86nGMvM4Y91q9pSLI3xaW4JpOOTgifSA9g1DZp4OlQdw5hnUY3DQ==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
@@ -10011,7 +10001,7 @@ packages:
     dev: false
     name: '@rush-temp/utils-subprocess'
     resolution:
-      integrity: sha512-RME4B31ZaTLkOLSfbptIp0cpP/+Ymd74yH0rJZY1iiE2JCeXTm3NswGwo3Ga8gCRlDLUP+N6puf/lJPoOhLwQg==
+      integrity: sha512-6WEUQ2hyTaWNhNRZ6aqwJ495A0rC9d1fbR06/LQAnc+wRhYE7fcK+GOBQpqkdLozSH/gPcMqdYnIfX/wKuO3Rg==
       tarball: 'file:projects/utils-subprocess.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
@@ -10054,7 +10044,6 @@ specifiers:
   '@types/babel__core': ^7.1.3
   '@types/babel__traverse': ^7.0.7
   '@types/deep-freeze': ^0.1.2
-  '@types/dotenv': ^8.2.0
   '@types/fs-extra': ^8.0.1
   '@types/got': ^9.6.9
   '@types/http-proxy': ^1.17.1
