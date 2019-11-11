@@ -1,8 +1,8 @@
 declare module 'nodemon' {
   import { EventEmitter } from 'events';
-  // export default function nodemon(options: any): void;
+  // export default function nodemon(options: any): Nodemon;
   interface Nodemon extends EventEmitter {
-    (options: any): void;
+    (options: any): Nodemon;
   }
 
   const nodemon: Nodemon;
