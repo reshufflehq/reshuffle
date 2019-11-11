@@ -7,11 +7,14 @@ import { tmpdir } from 'os';
 import { AddressInfo } from 'net';
 import { setupProxy } from '../index';
 import { copy, remove } from 'fs-extra';
+import nodemon from 'nodemon';
 
 export interface LocalProxyTestInterface {
   port: number;
   server: http.Server;
   workdir: string;
+  stderr: string[];
+  stdout: string[];
 }
 
 // TODO: each file setups a single test since nodemon must be used in exactly one proces
@@ -22,6 +25,12 @@ export function setupTestHooks(test: TestInterface<LocalProxyTestInterface>) {
     t.context.workdir = workdir;
     await copy(path.join(__dirname, 'fixture'), workdir);
     setupProxy(path.join(workdir, 'backend'))(app);
+    t.context.stderr = [];
+    t.context.stdout = [];
+    nodemon.on('readable', function(this: any) {
+      this.stderr.on('data', (chunk: string | Buffer) => t.context.stderr.push(chunk.toString()));
+      this.stdout.on('data', (chunk: string | Buffer) => t.context.stdout.push(chunk.toString()));
+    });
     const server = t.context.server = http.createServer(app);
     await new Promise((resolve, reject) => {
       server.once('error', reject);
