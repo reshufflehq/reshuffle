@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Thu, 07 Nov 2019 21:41:21 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Nov 2019 09:47:52 GMT and should not be manually modified.
+
+## 0.4.6
+Mon, 11 Nov 2019 09:47:52 GMT
+
+### Patches
+
+- Generate source maps
 
 ## 0.4.5
 Thu, 07 Nov 2019 21:41:21 GMT

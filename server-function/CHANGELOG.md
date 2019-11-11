@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/server-function
 
-This log was last generated on Wed, 06 Nov 2019 01:12:56 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Nov 2019 09:47:52 GMT and should not be manually modified.
+
+## 0.0.10
+Mon, 11 Nov 2019 09:47:52 GMT
+
+### Patches
+
+- Enable source maps in exceptions
 
 ## 0.0.9
 Wed, 06 Nov 2019 01:12:56 GMT

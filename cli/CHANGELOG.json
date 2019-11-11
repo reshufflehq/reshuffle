@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.6",
+      "tag": "reshuffle_v0.4.6",
+      "date": "Mon, 11 Nov 2019 09:47:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Generate source maps"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.5",
       "tag": "reshuffle_v0.4.5",
       "date": "Thu, 07 Nov 2019 21:41:21 GMT",

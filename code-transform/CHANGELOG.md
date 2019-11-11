@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/code-transform
 
-This log was last generated on Mon, 16 Sep 2019 15:58:20 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Nov 2019 09:47:52 GMT and should not be manually modified.
+
+## 0.0.4
+Mon, 11 Nov 2019 09:47:52 GMT
+
+### Patches
+
+- Add file location to parse error context
 
 ## 0.0.3
 Mon, 16 Sep 2019 15:58:20 GMT

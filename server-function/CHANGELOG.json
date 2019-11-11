@@ -2,6 +2,18 @@
   "name": "@reshuffle/server-function",
   "entries": [
     {
+      "version": "0.0.10",
+      "tag": "@reshuffle/server-function_v0.0.10",
+      "date": "Mon, 11 Nov 2019 09:47:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Enable source maps in exceptions"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.9",
       "tag": "@reshuffle/server-function_v0.0.9",
       "date": "Wed, 06 Nov 2019 01:12:56 GMT",

@@ -2,6 +2,18 @@
   "name": "@reshuffle/code-transform",
   "entries": [
     {
+      "version": "0.0.4",
+      "tag": "@reshuffle/code-transform_v0.0.4",
+      "date": "Mon, 11 Nov 2019 09:47:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add file location to parse error context"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.3",
       "tag": "@reshuffle/code-transform_v0.0.3",
       "date": "Mon, 16 Sep 2019 15:58:20 GMT",
