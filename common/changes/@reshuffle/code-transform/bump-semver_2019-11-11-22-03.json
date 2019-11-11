@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/code-transform",
+      "comment": "Bump to 1.0.0",
+      "type": "major"
+    }
+  ],
+  "packageName": "@reshuffle/code-transform",
+  "email": "vladimir@reshuffle.com"
+}

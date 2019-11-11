@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Bump to 1.0.0",
+      "type": "major"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "vladimir@reshuffle.com"
+}

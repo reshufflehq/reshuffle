@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/db",
+      "comment": "Bump to 1.0.0",
+      "type": "major"
+    }
+  ],
+  "packageName": "@reshuffle/db",
+  "email": "vladimir@reshuffle.com"
+}

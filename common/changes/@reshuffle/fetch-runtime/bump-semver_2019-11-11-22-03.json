@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/fetch-runtime",
+      "comment": "Bump to 1.0.0",
+      "type": "major"
+    }
+  ],
+  "packageName": "@reshuffle/fetch-runtime",
+  "email": "vladimir@reshuffle.com"
+}
