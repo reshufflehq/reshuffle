@@ -83,7 +83,8 @@ test('verbose no source url', async (t) => {
   });
 
   const result = await t.context.shell.run(`${t.context.run} download -v app-with-no-source`, 'utf-8');
-  t.snapshot(result);
+  // console.log(application) output differs between node versions, squash it for test
+  t.snapshot({ ...result, out: result.out.replace(/\n/g, '').replace('{  ', '{ ').replace(/([^ ])}/, '$1 }') });
 });
 
 test('bad url', async (t) => {
