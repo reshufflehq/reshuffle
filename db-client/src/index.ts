@@ -1,5 +1,7 @@
 import process from 'process';
 import { DeepReadonly } from 'deep-freeze';
+import http from 'http';
+import https from 'https';
 import {
   Document,
   Patch,
@@ -20,8 +22,10 @@ function assertEnv(name: string): string {
   return val;
 }
 
+const dbURL = assertEnv('RESHUFFLE_DB_BASE_URL');
+
 const db = new DB(
-  `${assertEnv('RESHUFFLE_DB_BASE_URL')}/v1`,
+  `${dbURL}/v1`,
   {
     appId: assertEnv('RESHUFFLE_APPLICATION_ID'),
     appEnv: assertEnv('RESHUFFLE_APPLICATION_ENV'),
@@ -34,6 +38,9 @@ const db = new DB(
   },
   {
     timeoutMs: 2000,
+    agent: dbURL.startsWith('https://')
+      ? new https.Agent({ keepAlive: true })
+      : new http.Agent({ keepAlive: true }),
   },
 );
 
