@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Make server-function a peer dependency of local-proxy",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "michael@reshuffle.com"
+}
