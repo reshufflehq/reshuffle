@@ -262,7 +262,12 @@ class App {
       await fn(apps[0].URL);
     } finally {
       try {
-        await spawn('node', [CLI, 'logs'], { cwd: path.resolve(__dirname, '..'), stdio: 'inherit', shell });
+        log('------ App logs ------');
+        // Logs are available with a delay.
+        // Wait a bit to increase chances of getting all logs.
+        await sleep(3000);
+        await spawn('node', [CLI, 'logs'], { cwd: this.appDir, stdio: 'inherit' });
+        log('----------------------');
       } catch (e) {
         log('failed to fetch logs', e);
       }
