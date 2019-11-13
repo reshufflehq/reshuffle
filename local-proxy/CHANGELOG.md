@@ -1,6 +1,14 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Mon, 11 Nov 2019 09:47:52 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Nov 2019 14:35:01 GMT and should not be manually modified.
+
+## 0.3.0
+Wed, 13 Nov 2019 14:35:01 GMT
+
+### Minor changes
+
+- Make server-function a peer dependency of local-proxy
+- Use peer dependencies in local-proxy
 
 ## 0.2.18
 Mon, 11 Nov 2019 09:47:52 GMT

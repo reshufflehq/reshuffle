@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/db-testsuite",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "files": [
     "dist"
   ],
@@ -13,7 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@reshuffle/db": "0.5.4",
+    "@reshuffle/db": "0.5.5",
     "@reshuffle/interfaces-koa-server": "0.4.0",
     "ava": "^2.4.0",
     "koa": "~2.11.0",

@@ -2,6 +2,18 @@
   "name": "@reshuffle/db",
   "entries": [
     {
+      "version": "0.5.5",
+      "tag": "@reshuffle/db_v0.5.5",
+      "date": "Wed, 13 Nov 2019 14:35:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use keepalive in DB client connections"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.4",
       "tag": "@reshuffle/db_v0.5.4",
       "date": "Thu, 07 Nov 2019 00:59:51 GMT",

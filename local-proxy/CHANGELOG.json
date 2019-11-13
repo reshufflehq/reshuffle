@@ -2,6 +2,29 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.3.0",
+      "tag": "@reshuffle/local-proxy_v0.3.0",
+      "date": "Wed, 13 Nov 2019 14:35:01 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Make server-function a peer dependency of local-proxy"
+          },
+          {
+            "comment": "Use peer dependencies in local-proxy"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/leveldb-server\" from `0.0.9` to `0.0.10`"
+          },
+          {
+            "comment": "Updating dependency \"@reshuffle/db\" from `0.5.4` to `0.5.5`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.18",
       "tag": "@reshuffle/local-proxy_v0.2.18",
       "date": "Mon, 11 Nov 2019 09:47:52 GMT",

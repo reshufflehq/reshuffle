@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/local-proxy",
-  "version": "0.2.18",
+  "version": "0.3.0",
   "files": [
     "dist"
   ],
@@ -19,7 +19,7 @@
     "@babel/core": "^7.7.2",
     "@babel/plugin-transform-modules-commonjs": "^7.7.0",
     "@reshuffle/interfaces-koa-server": "0.4.0",
-    "@reshuffle/leveldb-server": "0.0.9",
+    "@reshuffle/leveldb-server": "0.0.10",
     "@types/express": "^4.17.1",
     "address": "^1.1.2",
     "dotenv": "^8.2.0",
@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@reshuffle/code-transform": "0.0.4",
-    "@reshuffle/db": "0.5.4",
+    "@reshuffle/db": "0.5.5",
     "@reshuffle/server-function": "0.0.10"
   },
   "devDependencies": {
