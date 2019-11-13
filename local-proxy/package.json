@@ -21,7 +21,6 @@
     "@reshuffle/code-transform": "0.0.4",
     "@reshuffle/interfaces-koa-server": "0.4.0",
     "@reshuffle/leveldb-server": "0.0.9",
-    "@reshuffle/server-function": "0.0.10",
     "@types/express": "^4.17.1",
     "address": "^1.1.2",
     "dotenv": "^8.2.0",
@@ -40,7 +39,8 @@
     "winston": "^3.2.1"
   },
   "peerDependencies": {
-    "@reshuffle/db": "0.5.4"
+    "@reshuffle/db": "0.5.4",
+    "@reshuffle/server-function": "0.0.10"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.3",
