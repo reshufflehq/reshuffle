@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Use peer dependencies in local-proxy",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "michael@reshuffle.com"
+}
