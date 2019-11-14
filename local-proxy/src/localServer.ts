@@ -3,6 +3,8 @@
 import express from 'express';
 import { setupProxy } from './index';
 import program from 'commander';
+import path from 'path';
+
 const NAME = 'reshuffle-local-server';
 program.option('-p, --port', 'listening port (3000 by default)');
 program.description(`Run the ${NAME} outside of create-react-app server`);
@@ -14,7 +16,7 @@ function main() {
 
   // reshuffle currently assumes running from src and uses
   // a relative path resolution to reach backend
-  setupProxy(process.cwd() + '/src')(app);
+  setupProxy(path.join(process.cwd(), 'src'))(app);
 
   const port = program.port === undefined ? 3000 : +program.port;
   const server = app.listen(port);

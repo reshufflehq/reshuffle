@@ -8,8 +8,7 @@ import { Tail } from 'tail';
 import sleep from 'sleep-promise';
 import { spawn, waitOnChild } from '@reshuffle/utils-subprocess';
 import got from 'got';
-import _assert from 'assert';
-const assert = _assert.strict;
+import { strict as assert } from 'assert';
 
 const shell = process.platform === 'win32';
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
