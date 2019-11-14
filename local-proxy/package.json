@@ -6,6 +6,9 @@
   ],
   "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "reshuffle-local-server": "./dist/localServer.js"
+  },
   "scripts": {
     "build": "rm -rf dist/ && tsc && cp src/test/fixture/backend/testStackTrace.js dist/test/fixture/backend",
     "build:watch": "tsc && cp src/test/fixture/backend/testStackTrace.js dist/test/fixture/backend && tsc -w",
@@ -22,6 +25,7 @@
     "@reshuffle/leveldb-server": "0.0.10",
     "@types/express": "^4.17.1",
     "address": "^1.1.2",
+    "commander": "^4.0.1",
     "dotenv": "^8.2.0",
     "env-var": "^5.1.0",
     "express": "^4.17.1",
