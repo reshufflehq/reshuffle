@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Wed, 13 Nov 2019 14:35:01 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Nov 2019 14:26:29 GMT and should not be manually modified.
+
+## 0.3.1
+Thu, 14 Nov 2019 14:26:29 GMT
+
+### Patches
+
+- Add reshuffle-local-server helper script
 
 ## 0.3.0
 Wed, 13 Nov 2019 14:35:01 GMT

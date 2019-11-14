@@ -2,6 +2,18 @@
   "name": "@reshuffle/db-testsuite",
   "entries": [
     {
+      "version": "0.1.0",
+      "tag": "@reshuffle/db-testsuite_v0.1.0",
+      "date": "Thu, 14 Nov 2019 14:26:29 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Bump to 0.1.0"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.7",
       "tag": "@reshuffle/db-testsuite_v0.0.7",
       "date": "Wed, 13 Nov 2019 14:35:01 GMT",

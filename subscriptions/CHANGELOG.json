@@ -2,6 +2,18 @@
   "name": "@reshuffle/subscriptions",
   "entries": [
     {
+      "version": "0.0.9",
+      "tag": "@reshuffle/subscriptions_v0.0.9",
+      "date": "Thu, 14 Nov 2019 14:26:29 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/fetch-runtime\" from `0.0.6` to `0.1.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.8",
       "tag": "@reshuffle/subscriptions_v0.0.8",
       "date": "Thu, 24 Oct 2019 13:40:21 GMT",

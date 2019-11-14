@@ -2,6 +2,23 @@
   "name": "@reshuffle/leveldb-server",
   "entries": [
     {
+      "version": "0.1.0",
+      "tag": "@reshuffle/leveldb-server_v0.1.0",
+      "date": "Thu, 14 Nov 2019 14:26:29 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Bump to 0.1.0"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/db-testsuite\" from `0.0.7` to `0.1.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.10",
       "tag": "@reshuffle/leveldb-server_v0.0.10",
       "date": "Wed, 13 Nov 2019 14:35:01 GMT",

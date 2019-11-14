@@ -2,6 +2,18 @@
   "name": "@reshuffle/server-function",
   "entries": [
     {
+      "version": "0.1.0",
+      "tag": "@reshuffle/server-function_v0.1.0",
+      "date": "Thu, 14 Nov 2019 14:26:29 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Bump to 0.1.0"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.10",
       "tag": "@reshuffle/server-function_v0.0.10",
       "date": "Mon, 11 Nov 2019 09:47:52 GMT",

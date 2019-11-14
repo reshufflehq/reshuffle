@@ -2,6 +2,29 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.3.1",
+      "tag": "@reshuffle/local-proxy_v0.3.1",
+      "date": "Thu, 14 Nov 2019 14:26:29 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add reshuffle-local-server helper script"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/leveldb-server\" from `0.0.10` to `0.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@reshuffle/code-transform\" from `0.0.4` to `0.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@reshuffle/server-function\" from `0.0.10` to `0.1.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@reshuffle/local-proxy_v0.3.0",
       "date": "Wed, 13 Nov 2019 14:35:01 GMT",

@@ -2,6 +2,18 @@
   "name": "@reshuffle/fetch-runtime",
   "entries": [
     {
+      "version": "0.1.0",
+      "tag": "@reshuffle/fetch-runtime_v0.1.0",
+      "date": "Thu, 14 Nov 2019 14:26:29 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Bump to 0.1.0"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.6",
       "tag": "@reshuffle/fetch-runtime_v0.0.6",
       "date": "Thu, 24 Oct 2019 13:40:21 GMT",
