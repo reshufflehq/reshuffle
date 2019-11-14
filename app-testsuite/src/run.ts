@@ -1,12 +1,15 @@
 // tslint:disable:no-console
 import path from 'path';
-import { mkdtemp, readFile } from 'mz/fs';
+import { mkdtemp, readFile, writeFile } from 'mz/fs';
 import { tmpdir } from 'os';
 import { spawn as spawnChild, ChildProcess } from 'child_process';
 import { copy, remove, pathExists } from 'fs-extra';
 import { Tail } from 'tail';
 import sleep from 'sleep-promise';
 import { spawn, waitOnChild } from '@reshuffle/utils-subprocess';
+import got from 'got';
+import _assert from 'assert';
+const assert = _assert.strict;
 
 const shell = process.platform === 'win32';
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
@@ -202,11 +205,20 @@ class App {
       stdio: 'inherit',
       shell,
     });
+    log('Adding local-server script to package.json');
+    const packageJsonPath = path.resolve(this.appDir, 'package.json');
+    const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf8'));
+    packageJson.scripts = packageJson.scripts || {};
+    packageJson.scripts['local-server'] = 'reshuffle-local-server';
+    await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n', { encoding: 'utf8' });
   }
 
   public async run(runMode: string, fn: (url: string) => Promise<void>) {
     const run = runMode === 'remote' ? this.runRemote : this.runLocal;
-    await run.bind(this)(fn);
+    await run.call(this, fn);
+    if (runMode !== 'remote') {
+      await this.runLocalServerTests();
+    }
   }
 
   public async runLocal(fn: (url: string) => Promise<void>) {
@@ -227,6 +239,28 @@ class App {
     } finally {
       log('Killing app');
       await killGroup(reactApp);
+    }
+  }
+
+  public async runLocalServerTests() {
+    log('Starting local-server');
+    const localServer = spawnChild('npm', ['run', 'local-server'], {
+      cwd: this.appDir,
+      stdio: 'pipe',
+      detached: true,
+      shell,
+      env: {
+        ...process.env,
+        BROWSER: 'none',
+      },
+    });
+    try {
+      await readUntilPattern(localServer.stdout, /reshuffle-local-server is listening on port 3000/);
+      const response = await got('http://localhost:3000/express/hello');
+      assert.equal(response.body, 'hello from express');
+    } finally {
+      log('Killing local-server');
+      await killGroup(localServer);
     }
   }
 
