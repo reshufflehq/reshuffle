@@ -54,7 +54,7 @@
     "@types/http-proxy": "^1.17.1",
     "@types/koa": "^2.0.52",
     "@types/koa-router": "^7.0.42",
-    "@types/lodash": "^4.14.145",
+    "@types/lodash": "^4.14.147",
     "@types/mkdirp": "^0.5.2",
     "@types/mz": "^0.0.32",
     "@types/nanoid": "^2.1.0",

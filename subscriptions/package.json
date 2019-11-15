@@ -18,7 +18,7 @@
     "@reshuffle/interfaces-node-client": "0.4.0",
     "fast-json-patch": "^2.2.1",
     "immutable": "^4.0.0-rc.12",
-    "react": "^16.11.0",
+    "react": "^16.12.0",
     "rxjs": "^6.5.3"
   },
   "devDependencies": {
