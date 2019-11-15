@@ -52,7 +52,7 @@
     "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2.2.1",
     "any-shell-escape": "^0.1.1",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "cli-ux": "^5.3.3",
     "columnify": "^1.5.4",
     "conf": "^6.2.0",
@@ -66,7 +66,7 @@
     "mz": "^2.7.0",
     "node-fetch": "^2.6.0",
     "open": "^7.0.0",
-    "prompts": "^2.2.1",
+    "prompts": "^2.3.0",
     "tar": "^5.0.5",
     "terminal-link": "^2.0.0",
     "tslib": "^1.10.0",
@@ -91,7 +91,7 @@
     "globby": "^10.0.1",
     "specshell": "^0.0.3",
     "testdouble": "^3.12.4",
-    "ts-node": "^8.4.1",
+    "ts-node": "^8.5.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   }

@@ -33,7 +33,7 @@
     "@types/koa": "^2.0.52",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^10.14.9",
-    "@types/ramda": "^0.26.33",
+    "@types/ramda": "^0.26.34",
     "@types/rmfr": "^2.0.0",
     "ava": "^2.4.0",
     "rmfr": "^2.0.0",
