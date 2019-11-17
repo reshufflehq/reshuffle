@@ -1,0 +1,34 @@
+{
+  "name": "@reshuffle/react-auth",
+  "version": "0.1.0",
+  "description": "React provider for working with Reshuffle authentication",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "echo No tests yet"
+  },
+  "keywords": [
+    "binaris",
+    "reshuffle",
+    "authentication",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "react-async-hook": "^3.6.1"
+  },
+  "devDependencies": {
+    "react": "^16.12.0",
+    "@types/react": "^16.9.11",
+    "typescript": "^3.7.2"
+  }
+}

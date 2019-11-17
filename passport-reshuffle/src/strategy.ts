@@ -2,11 +2,11 @@ import { Profile, Strategy as StrategyType } from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as Auth0Strategy } from 'passport-auth0';
 import { titlecase } from 'stringcase';
-const stickFigure = require('./stick-figure');
+import { stickFigure } from './stick-figure';
 
 // Currently the *base* Passport Profile.  But could be anything
 // supported by the underlying Passport strategy.
-export type Profile = Profile;
+export { Profile };
 
 function getMissingOauthEnvariables() {
   return ['OAUTH_DOMAIN', 'OAUTH_CLIENT_ID', 'OAUTH_CLIENT_SECRET']
@@ -46,7 +46,7 @@ function localVerifyUser(
 }
 
 class FakeLocalStrategy extends LocalStrategy {
-  public readonly fake: true;
+  public readonly fake: boolean = true;
 
   // Just inherit the constructor from LocalStrategy.
 }
@@ -54,12 +54,11 @@ class FakeLocalStrategy extends LocalStrategy {
 export function makeStrategy(): Auth0Strategy | FakeLocalStrategy {
   if (process.env.NODE_ENV === 'production' || process.env.OAUTH_CLIENT_ID) {
     validateEnv();
-    const baseUrl = process.env.APPLICATION_DOMAINS[0];
+    const baseUrl = process.env.APPLICATION_DOMAINS![0];
     return new Auth0Strategy({
-      clientID: process.env.OAUTH_CLIENT_ID,
-      clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      domain: process.env.OAUTH_DOMAIN,
-      //      callbackURL: '/callback',
+      clientID: process.env.OAUTH_CLIENT_ID!,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET!,
+      domain: process.env.OAUTH_DOMAIN!,
       callbackURL: `${baseUrl}/callback`,
     }, verifyUser);
   }

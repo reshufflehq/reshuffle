@@ -410,6 +410,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@reshuffle/react-auth",
+        "projectFolder": "react-auth",
+        "shouldPublish": true
+    },
+    {
         "packageName": "rush-update",
         "projectFolder": "tools/rush-update",
         "shouldPublish": true
