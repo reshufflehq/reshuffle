@@ -52,7 +52,7 @@
     "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2.2.1",
     "any-shell-escape": "^0.1.1",
-    "chalk": "^3.0.0",
+    "chalk": "^2.4.2",
     "cli-ux": "^5.3.3",
     "columnify": "^1.5.4",
     "conf": "^6.2.0",
