@@ -1,4 +1,5 @@
 import express from 'express';
+import get from 'lodash.get';
 import { getHandler, Handler, HandlerError } from './handler';
 
 interface InvokeRequest {
@@ -21,6 +22,8 @@ function isValidInvokeRequest(body: any, contentType?: string): body is InvokeRe
 }
 type ExpressHandler = (req: express.Request, res: express.Response) => any;
 
+export let currentSession = undefined;
+
 export function getInvokeHandler(backendDir: string): ExpressHandler {
   return async (req: express.Request, res: express.Response) => {
     // TODO: check for allowed origins when supporting CORS
@@ -41,7 +44,11 @@ export function getInvokeHandler(backendDir: string): ExpressHandler {
         }
         throw error;
       }
-      const response = await fn(...args);
+      // Support "passport" session only
+      module.exports.currentSession = get(req, ['session', 'passport', 'user']);
+      const promise = fn(...args);
+      module.exports.currentSession = undefined;
+      const response = await promise;
       if (response === undefined) {
         return res.sendStatus(204);
       }
