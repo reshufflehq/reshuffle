@@ -71,7 +71,7 @@ dependencies:
   ava: 2.4.0
   babel-plugin-macros: 2.6.1
   babel-plugin-tester: 7.0.4
-  chalk: 3.0.0
+  chalk: 2.4.2
   cli-ux: 5.3.3
   columnify: 1.5.4
   commander: 4.0.1
@@ -2251,15 +2251,6 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
-  /chalk/3.0.0:
-    dependencies:
-      ansi-styles: 4.2.0
-      supports-color: 7.1.0
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
   /chokidar/2.1.8:
     dependencies:
       anymatch: 2.0.0
@@ -9705,7 +9696,7 @@ packages:
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-+BF0LB2IRkVf1E8YPzSdhMGwy0XHoTXlO7PcirQpM6Aw9ipBmdkhTrP9kqEt3t60PXbQCHviIeNVhC5z625Kxw==
+      integrity: sha512-XWZILtnC6qOfCLjMZB1MgAoHKIj5oYdQs//Qq/QQNY5NCfzrHFQB4D1LGyMhzVeZMS8RTkwrz58XwbSkLhGCvA==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -9724,7 +9715,7 @@ packages:
     dev: false
     name: '@rush-temp/code-transform'
     resolution:
-      integrity: sha512-r/T28A6l0MMns4mvMqZbnfAfjMP2wTli3HyWKAbrx7+pLDVTwsNdJoPdxK5trYzTgqBtiWf7/ceT4oq6P5d+qg==
+      integrity: sha512-XWw/KWjZ3Mlt5IinMlq3ezng5GpiIQ3Hx1xPYdpayOF9I811ITZ5W4i4lS0+ta9IA0dML9Pb7Y01PUL7XCxsKA==
       tarball: 'file:projects/code-transform.tgz'
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
@@ -9744,7 +9735,7 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-ILOKJgE+aduUWMhyQfPtj2eILAPyMsgYg9QrSeEuKhhPrmYmHNnwpzg/M0s0AIDgyzD8j2h9mJmfrES2g0/Zdw==
+      integrity: sha512-vyKT2ju9ozSwOXPZhvgsxs4N4HAv4yNgLAMcdag14F8Zp3YyE2Q3Y6eWSfLlYm9l8ug62pT7ouAApMaqAGlF3w==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
@@ -9760,7 +9751,7 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-3l2eHwjcI7WCz5YFTZugeAyvPzjGPArV1LIgK0yoly8qp36JR2REOo2ZvAkS0tIzwoYwSrkG4KKuPT5Bcl4RYg==
+      integrity: sha512-yxhZM8Ihy+SxWjhofygj6DjevYRuh7dioYOuif9bUZ3G0CUCZ7ALr1ssn0jWVZQ1M1taHKpGbuqHpBpJa6Rl/A==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -9771,7 +9762,7 @@ packages:
     dev: false
     name: '@rush-temp/fetch-runtime'
     resolution:
-      integrity: sha512-anPKGeZqB6V+NXsSIcfCprAcq+lPF7gadjKoPchduh+nywSrBOFQte6pbfjmWNq+Co74VnI4qfZYLjKbdtIcsQ==
+      integrity: sha512-YqNSDFWM8rHHsy3bKx/WZ6+1ApPqrU0+c1tINOo9eNtvOOqy2IzxfUq9UemUUUCaljqHbLzkY4MOHlW63wypTQ==
       tarball: 'file:projects/fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/interfaces-koa-server.tgz':
@@ -9789,7 +9780,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-koa-server'
     resolution:
-      integrity: sha512-qynMJ8XCt/J9jmRbL8/HyxYn6jEAkgDlPkuPPsXzC4LJstCW2ZHOZTDbhcezin41Snln//p8+/+xgEICwDskGg==
+      integrity: sha512-7l4YsRHs1m5aAzSgbEO4BRI+a60NGw/tD5myfUjCGAANieQLMDPi71zsWRPCj0PyMHPY+19Xux0cnTold+fnQA==
       tarball: 'file:projects/interfaces-koa-server.tgz'
     version: 0.0.0
   'file:projects/interfaces-node-client.tgz':
@@ -9804,7 +9795,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-node-client'
     resolution:
-      integrity: sha512-q6jWrIgz/njVJC+UQ/L3YIbZSYT1ecPSFJJY3fL9wwALhqK4hb2SW/Pa8htFYUm6mqkeOD1rMX5YObsM95Iyww==
+      integrity: sha512-taVg+qCoc2JQY1oZFtenzAw0wHAWf/GOQFtW6DDRDl5tTxGgfbmJp4p93lMA+xblXZyfVapccdLtVYaUXXJVkA==
       tarball: 'file:projects/interfaces-node-client.tgz'
     version: 0.0.0
   'file:projects/interfaces.tgz':
@@ -9818,7 +9809,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-bORj7YS0FsLfdexlQc45cQxBUqTmyVnQ8Ly+Jin2h1EZqZI8lWX0MYZ96qiWQFUPQnALHc/gAbE+UsOk2xY94w==
+      integrity: sha512-Q4tUV6M/oHxToctCW7DNezyDkPPJ+bvmjEQcssEGa+tQaPTT0yNvamWImvKFUKBv/e4icuuZSTz3/zd5eMq6wQ==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
@@ -9846,7 +9837,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-7lEq/12Q/dsD8Al55Qgx5noDAPoPBN29YGIJiRcHr4E2ivo961QVaTbnOiiJV9a63LnASGMqgzTOKcSPZJgREg==
+      integrity: sha512-IQ4unpLmeI7sY+deHT4Z/TnWpzaGJ5JMQ9dmLXHOay43jt1TfOH6hQuQYSP9P5mNHXxgMXklU34PZtemb6vrMA==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -9892,7 +9883,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-Zt50Qpfd8PHtqNP3kDRLU+gGrHHZMJvRIkXxlA3Z3KE19k7CK9hEAA+JYh677KNUwWPFO/j91g8mt1pla6oZXg==
+      integrity: sha512-ViEXym9LWTm1yhmfSMtyzcjfk7DOT9sc0O095ePjEqhQoQoeLVneKCkE18ouPmK9Ooc0Z1VpsAjZCAUdKIvkGg==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -9908,7 +9899,7 @@ packages:
     dev: false
     name: '@rush-temp/react-app'
     resolution:
-      integrity: sha512-UZZ2er4CCHjQwvTLZo/EoQg7I9swKHmpvnwIbV83AUQQkf8JuS82JAR2Qlgv4BC7xMHBKg4bEpNRZB+7oYisxg==
+      integrity: sha512-xLwv1NR7hPss23cejG1GzY3JsxmxMJmvM8cbsjOBv2FqSQ1ly2P/KKo5fS5RplJOyqehOLSXvvzvfgWqKiSseg==
       tarball: 'file:projects/react-app.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
@@ -9937,7 +9928,7 @@ packages:
       '@types/validator': 10.11.3
       any-shell-escape: 0.1.1
       ava: 2.4.0
-      chalk: 3.0.0
+      chalk: 2.4.2
       cli-ux: 5.3.3
       columnify: 1.5.4
       conf: 6.2.0
@@ -9965,7 +9956,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-dZyE5LVJ9TrTd+bFsgBBZoCjYCSeEV3c7MGPiN8U/rrSygDjgzJ6m6wkKn0hM42+yXenWuzxZOnRDqEflz4kHg==
+      integrity: sha512-rmOKHcWbI9FbIQ146qS51xG7gc/bvgTlSaFfIL9DQvzQIEhubawefoj3zM2RsmVyCZSdOtmkRf2YrRisVpOS9Q==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -9984,7 +9975,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-uW7lyAo0lxnfyCdPgBLmJhSfMAYXJGXbJjvoUU1xHZ/s6OGty4o/6LphglO66n3lGzYNg+OWmBJfbtpC7DQf/Q==
+      integrity: sha512-xrLjPAmbk9Nhy05bcpdhaOSAT91O77o3ZiYGQ7UU7nBP4DMBgZ1Kc4hnyzFHRiTJgNCWU0U6n0BaHmbplRjpag==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/server-function.tgz':
@@ -10000,7 +9991,7 @@ packages:
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-/hzuzJo9x1MlURcPx9HnDsSenN3AhcUCbvpgiFttQdglzvemnEVy9dsUIGa5kA74pyIZcDPo+1AaoxoX3dgFiA==
+      integrity: sha512-z//xxJ+QhHlZeGiR3Z0LwKrx1P/+5vMiFF1TjC2cCgvbzldgCKo3YwSs0yTfe2ovvs1qmiJAcwSJk6DWMGB1WA==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10020,7 +10011,7 @@ packages:
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-ZK/0GYZNkGWc+O0/y8okGxa4GDq/5X+9RV+HWoi+A+1nDMQr/j/pT4Z9V2OwiK0LQDbz2Y3illGQpmvpJPiWVw==
+      integrity: sha512-EPWA1MshMx0B6+AvDpgJtaHCTu1NUzVvvwvvx0ftfB7OaGFEwyie/OZ4GCz+2uBr30wZdL64C1daG56iUMhnHw==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
@@ -10030,7 +10021,7 @@ packages:
     dev: false
     name: '@rush-temp/utils-subprocess'
     resolution:
-      integrity: sha512-RME4B31ZaTLkOLSfbptIp0cpP/+Ymd74yH0rJZY1iiE2JCeXTm3NswGwo3Ga8gCRlDLUP+N6puf/lJPoOhLwQg==
+      integrity: sha512-6WEUQ2hyTaWNhNRZ6aqwJ495A0rC9d1fbR06/LQAnc+wRhYE7fcK+GOBQpqkdLozSH/gPcMqdYnIfX/wKuO3Rg==
       tarball: 'file:projects/utils-subprocess.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
@@ -10109,7 +10100,7 @@ specifiers:
   ava: ^2.4.0
   babel-plugin-macros: ^2.6.1
   babel-plugin-tester: ^7.0.4
-  chalk: ^3.0.0
+  chalk: ^2.4.2
   cli-ux: ^5.3.3
   columnify: ^1.5.4
   commander: ^4.0.1
