@@ -9,6 +9,12 @@ class MismatchedPackageAndPackageLockError extends CLIError {
   }
 }
 
+export interface PackageScope {
+  dependencies?: Record<string, PackageScope>;
+  requires?: Record<string, string>;
+  bundled?: boolean;
+}
+
 export async function getDependencies(projectDir: string) {
   const packageJsonPath = pathResolve(projectDir, 'package.json');
   const packageLockPath = pathResolve(projectDir, 'package-lock.json');
@@ -29,7 +35,7 @@ export async function getDependencies(projectDir: string) {
 
   const dependencies = new Set<string>();
   while (toProcess.length) {
-    const p: string = toProcess.shift()!;
+    const p = toProcess.shift()!;
     // ignore bulk of react-scripts
     if (p === 'react-scripts') continue;
     // exclude local-proxy needed only for development
@@ -38,10 +44,26 @@ export async function getDependencies(projectDir: string) {
     if (p === '@reshuffle/code-transform') continue;
     // exclude already visited deps
     if (dependencies.has(p)) continue;
-    dependencies.add(p);
-    for (const subpackage of Object.keys(lockDeps[p].requires || {})) {
-      toProcess.push(subpackage);
+
+    if (lockHasProperty(p)) {
+      dependencies.add(p);
+      toProcess.push(...recurseRequires(lockDeps[p]));
+    } else {
+      // tslint:disable-next-line:no-console
+      console.error(`WARN: Cannot find dependency ${p} in package-lock.json, skipping upload`);
     }
   }
   return dependencies;
+}
+
+function recurseRequires(scope: PackageScope) {
+  const deps = scope.dependencies || {};
+  const reqs = Object.keys(scope.requires || {}).filter((req) =>
+    deps[req] === undefined || !deps[req].bundled);
+  for (const subscope of Object.values(deps)) {
+    if (!subscope.bundled) {
+      reqs.push(...recurseRequires(subscope));
+    }
+  }
+  return reqs;
 }

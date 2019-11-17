@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Fix package lock parsing for nested deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "roey@reshuffle.com"
+}
