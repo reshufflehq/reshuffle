@@ -423,6 +423,11 @@
         "packageName": "@reshuffle/utils-subprocess",
         "projectFolder": "utils-subprocess",
         "shouldPublish": true
+    },
+    {
+        "packageName": "@reshuffle/passport",
+        "projectFolder": "passport-reshuffle",
+        "shouldPublish": true
     }
   ]
 }
