@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 
 const strategy = makeStrategy();
 
-passport.use(makeStrategy());
+passport.use(strategy);
 
 passport.serializeUser((user, cb) => cb(null, user));
 passport.deserializeUser((obj, cb) => cb(null, obj));
@@ -93,9 +93,8 @@ const oauthPage: express.Handler[] = [
   (_req, res) => res.redirect('/'),
 ];
 
-// BUG: Use a remote shared per-app secret.
 // TODO(ariels): Support secret rotation.
-const sessionSecretKey = process.env.SESSION_SECRET || 'fancy crab';
+const sessionSecretKey = process.env.RESHUFFLE_SESSION_SECRET || 'fancy crab';
 
 export function authRouter(): express.IRouter {
   const router = express.Router();

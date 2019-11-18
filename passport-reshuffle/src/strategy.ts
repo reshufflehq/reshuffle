@@ -31,7 +31,7 @@ function verifyUser(
   return done(null, profile);
 }
 
-function localVerifyUser(
+function fakeVerifyUser(
   username: string, _password: string, done: (error: any, user?: Profile | false) => void
 ) {
   if (username.startsWith('error')) return done(`Error ${username}`);
@@ -66,7 +66,7 @@ export function makeStrategy(): Auth0Strategy | FakeLocalStrategy {
   return new FakeLocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
-  }, localVerifyUser);
+  }, fakeVerifyUser);
 }
 
 export function isFake(strategy: StrategyType): strategy is FakeLocalStrategy {
