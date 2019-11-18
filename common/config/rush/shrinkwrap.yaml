@@ -26,7 +26,9 @@ dependencies:
   '@rush-temp/interfaces-node-client': 'file:projects/interfaces-node-client.tgz'
   '@rush-temp/leveldb-server': 'file:projects/leveldb-server.tgz'
   '@rush-temp/local-proxy': 'file:projects/local-proxy.tgz'
+  '@rush-temp/passport': 'file:projects/passport.tgz'
   '@rush-temp/react-app': 'file:projects/react-app.tgz'
+  '@rush-temp/react-auth': 'file:projects/react-auth.tgz'
   '@rush-temp/reshuffle': 'file:projects/reshuffle.tgz'
   '@rush-temp/rush-update': 'file:projects/rush-update.tgz'
   '@rush-temp/server-function': 'file:projects/server-function.tgz'
@@ -34,6 +36,8 @@ dependencies:
   '@rush-temp/utils-subprocess': 'file:projects/utils-subprocess.tgz'
   '@types/babel__core': 7.1.3
   '@types/babel__traverse': 7.0.7
+  '@types/body-parser': 1.17.1
+  '@types/cookie-session': 2.0.37
   '@types/deep-freeze': 0.1.2
   '@types/fs-extra': 8.0.1
   '@types/got': 9.6.9
@@ -44,6 +48,7 @@ dependencies:
   '@types/koa-bodyparser': 5.0.2
   '@types/leveldown': 4.0.2
   '@types/levelup': 3.1.1
+  '@types/lodash.get': 4.4.6
   '@types/lodash.has': 4.5.6
   '@types/lodash.memoize': 4.1.6
   '@types/lodash.once': 4.1.6
@@ -51,6 +56,9 @@ dependencies:
   '@types/ms': 0.7.31
   '@types/mz': 0.0.32
   '@types/nanoid': 2.1.0
+  '@types/passport': 1.0.1
+  '@types/passport-auth0': 1.0.2
+  '@types/passport-local': 1.0.33
   '@types/prompts': 2.0.3
   '@types/ramda': 0.26.34
   '@types/react': 16.9.11
@@ -71,12 +79,14 @@ dependencies:
   ava: 2.4.0
   babel-plugin-macros: 2.6.1
   babel-plugin-tester: 7.0.4
+  body-parser: 1.19.0
   chalk: 2.4.2
   cli-ux: 5.3.3
   columnify: 1.5.4
   commander: 4.0.1
   concord: 0.2.4
   conf: 6.2.0
+  cookie-session: 1.3.3
   dotenv: 8.2.0
   env-var: 5.1.0
   express: 4.17.1
@@ -95,6 +105,7 @@ dependencies:
   koa-bodyparser: 4.2.1
   leveldown: 5.4.1
   levelup: 4.3.2
+  lodash.get: 4.4.2
   lodash.has: 4.5.2
   lodash.memoize: 4.1.2
   lodash.once: 4.1.1
@@ -106,9 +117,12 @@ dependencies:
   nodemon: 1.19.4
   npm-check-updates: 3.2.1
   open: 7.0.0
+  passport: 0.4.0
+  passport-auth0: 1.2.1
+  passport-local: 1.0.0
   prompts: 2.3.0
   ramda: 0.26.1
-  react: 16.12.0
+  react-async-hook: 3.6.1
   rimraf: 3.0.0
   rmfr: 2.0.0
   rxjs: 6.5.3
@@ -116,6 +130,7 @@ dependencies:
   sleep-promise: 8.0.1
   source-map-support: 0.5.16
   specshell: 0.0.3
+  stringcase: 4.3.1
   tail: 2.0.3
   tar: 5.0.5
   terminal-link: 2.0.0
@@ -1030,6 +1045,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-4r8qa0quOvh7lGD0pre62CAb1oni1OO6ecJLGCezTmhQ8Fz50Arx9RUszryR8KlgK6avuSXvviL6yWyViQABOg==
+  /@types/cookie-session/2.0.37:
+    dependencies:
+      '@types/express': 4.17.2
+      '@types/keygrip': 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-h8uZLDGyfAgER6kHbHlYWm1g/P/7zCBMOW6yT5/fQydVJxByJD4tohSvHBzJrGoLVmQJefQdfwuNkKb23cq29Q==
   /@types/cookies/0.7.4:
     dependencies:
       '@types/connect': 3.4.32
@@ -1182,6 +1204,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LjvlfctJYj23Xuqq3jCT8ZPSUSSgDcRJg8+XFDBasoYzefFbB4cHzlDmBVjc2rBOYvklpYHJRayD0jBsbJLD9w==
+  /@types/lodash.get/4.4.6:
+    dependencies:
+      '@types/lodash': 4.14.148
+    dev: false
+    resolution:
+      integrity: sha512-E6zzjR3GtNig8UJG/yodBeJeIOtgPkMgsLjDU3CbgCAPC++vJ0eCMnJhVpRZb/ENqEFlov1+3K9TKtY4UdWKtQ==
   /@types/lodash.has/4.5.6:
     dependencies:
       '@types/lodash': 4.14.147
@@ -1204,6 +1232,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+0zY1Axql6ru5T85Rh6aR6Zr0xT7c0USLqsHv01b3ID//dOrV3OvpXJGjm69+4QpxoZ0oMNEfmW1ltwXe2WVzQ==
+  /@types/lodash/4.14.148:
+    dev: false
+    resolution:
+      integrity: sha512-05+sIGPev6pwpHF7NZKfP3jcXhXsIVFnYyVRT4WOB0me62E8OlWfTN+sKyt2/rqN+ETxuHAtgTSK1v71F0yncg==
   /@types/mime/2.0.1:
     dev: false
     resolution:
@@ -1254,6 +1286,38 @@ packages:
     dev: false
     resolution:
       integrity: sha512-E6Zn0rffhgd130zbCbAr/JdXfXkoOUFAKNs/rF8qnafSJ8KYaA/j3oz7dcwal+lYjLA7xvdd5J4wdYpCTlP8+w==
+  /@types/node/12.12.8:
+    dev: false
+    resolution:
+      integrity: sha512-XLla8N+iyfjvsa0KKV+BP/iGSoTmwxsu5Ci5sM33z9TjohF72DEz95iNvD6pPmemvbQgxAv/909G73gUn8QR7w==
+  /@types/passport-auth0/1.0.2:
+    dependencies:
+      '@types/express': 4.17.2
+      '@types/passport': 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-zI0N49BouH6p8ZV1gTJ3YMS0dvLecO/MAC7dYnG6YDxURHjfv4H2XFoCvdV37bb9tFhZObsxzd57AsuULyeHqg==
+  /@types/passport-local/1.0.33:
+    dependencies:
+      '@types/express': 4.17.2
+      '@types/passport': 1.0.1
+      '@types/passport-strategy': 0.2.35
+    dev: false
+    resolution:
+      integrity: sha512-+rn6ZIxje0jZ2+DAiWFI8vGG7ZFKB0hXx2cUdMmudSWsigSq6ES7Emso46r4HJk0qCgrZVfI8sJiM7HIYf4SbA==
+  /@types/passport-strategy/0.2.35:
+    dependencies:
+      '@types/express': 4.17.2
+      '@types/passport': 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-o5D19Jy2XPFoX2rKApykY15et3Apgax00RRLf0RUotPDUsYrQa7x4howLYr9El2mlUApHmCMv5CZ1IXqKFQ2+g==
+  /@types/passport/1.0.1:
+    dependencies:
+      '@types/express': 4.17.2
+    dev: false
+    resolution:
+      integrity: sha512-oK87JjN8i8kmqb0RN0sCUB/ZjrWf3b8U45eAzZVy1ssYYgBrMOuALmvoqp7MglsilXAjxum+LS29VQqeQx6ddA==
   /@types/prompts/2.0.3:
     dev: false
     resolution:
@@ -1925,6 +1989,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg==
+  /base64url/3.0.1:
+    dev: false
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==
   /bcrypt-pbkdf/1.0.2:
     dependencies:
       tweetnacl: 0.14.5
@@ -2714,6 +2784,14 @@ packages:
       node: '>= 4'
     resolution:
       integrity: sha1-fj5Iu+bZl7FBfdyihoIEtNPYVxU=
+  /cookie-session/1.3.3:
+    dependencies:
+      cookies: 0.7.3
+      debug: 2.6.9
+      on-headers: 1.0.2
+    dev: false
+    resolution:
+      integrity: sha512-GrMdrU1YTQWtmVTo0Rj3peeZRMc2xJrBslFYtZcYTo+hrSLmrcf69OrRkDi84xTfylgCy2wgpRHyY4le6lE5+A==
   /cookie-signature/1.0.6:
     dev: false
     resolution:
@@ -2724,6 +2802,15 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /cookies/0.7.3:
+    dependencies:
+      depd: 1.1.2
+      keygrip: 1.0.3
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-+gixgxYSgQLTaTIilDHAdlNPZDENDQernEMiIcZpYYP14zgHsCt4Ce1FEjFtcp6GefhozebB6orvhAAWx/IS0A==
   /cookies/0.8.0:
     dependencies:
       depd: 2.0.0
@@ -5435,6 +5522,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-FrLwOgm+iXrPV+5zDU6Jqu4gCRXbWEQg2O3SKONsWE4w7AXFRkryS53bpWdaL9cNol+AmR3AEYz6kn+o0fCPnw==
+  /keygrip/1.0.3:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-/PpesirAIfaklxUzp4Yb7xBper9MwP6hNRA6BGGUFCgbJ+BM5CKBtsoxinNXkLHAr+GXS1/lSlF2rP7cv5Fl+g==
   /keygrip/1.1.0:
     dependencies:
       tsscmp: 1.0.6
@@ -6616,6 +6709,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
+  /oauth/0.9.15:
+    dev: false
+    resolution:
+      integrity: sha1-vR/vr2hslrdUda7VGWQS/2DPucE=
   /object-assign/4.1.1:
     dev: false
     engines:
@@ -6705,6 +6802,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=
+  /on-headers/1.0.2:
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
   /once/1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -7005,6 +7108,67 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
+  /passport-auth0/1.2.1:
+    dependencies:
+      passport-oauth: 1.0.0
+      request: 2.88.0
+    dev: false
+    resolution:
+      integrity: sha512-nruVLvQJycTuUfAY0jQa0PYljbuF9HQOq9TxoAs9lE/D9oKeve6wTjkJdZD1DDpzUKvS5BGMoPe1fL3HFX5STQ==
+  /passport-local/1.0.0:
+    dependencies:
+      passport-strategy: 1.0.0
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-H+YyaMkudWBmJkN+O5BmYsFbpu4=
+  /passport-oauth/1.0.0:
+    dependencies:
+      passport-oauth1: 1.1.0
+      passport-oauth2: 1.5.0
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-kK/2M4dUDwIImvKM2tOep/gNd98=
+  /passport-oauth1/1.1.0:
+    dependencies:
+      oauth: 0.9.15
+      passport-strategy: 1.0.0
+      utils-merge: 1.0.1
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-p96YiiEfnPRoc3cTDqdN8ycwyRg=
+  /passport-oauth2/1.5.0:
+    dependencies:
+      base64url: 3.0.1
+      oauth: 0.9.15
+      passport-strategy: 1.0.0
+      uid2: 0.0.3
+      utils-merge: 1.0.1
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha512-kqBt6vR/5VlCK8iCx1/KpY42kQ+NEHZwsSyt4Y6STiNjU+wWICG1i8ucc1FapXDGO15C5O5VZz7+7vRzrDPXXQ==
+  /passport-strategy/1.0.0:
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-tVOaqPwiWj0a0XlHbd8ja0QPUuQ=
+  /passport/0.4.0:
+    dependencies:
+      passport-strategy: 1.0.0
+      pause: 0.0.1
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-xQlWkTR71a07XhgCOMORTRbwWBE=
   /password-prompt/1.1.2:
     dependencies:
       ansi-escapes: 3.2.0
@@ -7079,6 +7243,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
+  /pause/0.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-HUCLP9t2kjuVQ9lvtMnf1TXZy10=
   /performance-now/2.1.0:
     dev: false
     resolution:
@@ -7434,6 +7602,27 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==
+  /react-async-hook/3.6.1:
+    dev: false
+    engines:
+      node: '>=8'
+      npm: '>=5'
+    peerDependencies:
+      react: '>=16.8'
+    resolution:
+      integrity: sha512-YWBB2feVQF79t5u2raMPHlZ8975Jds+guCvkWVC4kRLDlSCouLsYpQm4DGSqPeHvoHYVVcDfqNayLZAXQmnxnw==
+  /react-async-hook/3.6.1/react@16.12.0:
+    dependencies:
+      react: 16.12.0
+    dev: false
+    engines:
+      node: '>=8'
+      npm: '>=5'
+    id: registry.npmjs.org/react-async-hook/3.6.1
+    peerDependencies:
+      react: '>=16.8'
+    resolution:
+      integrity: sha512-YWBB2feVQF79t5u2raMPHlZ8975Jds+guCvkWVC4kRLDlSCouLsYpQm4DGSqPeHvoHYVVcDfqNayLZAXQmnxnw==
   /react-is/16.12.0:
     dev: false
     resolution:
@@ -8392,6 +8581,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==
+  /stringcase/4.3.1:
+    dev: false
+    engines:
+      node: '>=8'
+      npm: '>=5'
+    resolution:
+      integrity: sha512-Ov7McNX1sFaEX9NWijD1hIOVDDhKdnFzN9tvoa1N8xgrclouhsO4kBPVrTPhjO/zP5mn1Ww03uZ2SThNMXS7zg==
   /stringify-object-es5/2.5.0:
     dependencies:
       is-plain-obj: 1.1.0
@@ -9886,6 +10082,32 @@ packages:
       integrity: sha512-ViEXym9LWTm1yhmfSMtyzcjfk7DOT9sc0O095ePjEqhQoQoeLVneKCkE18ouPmK9Ooc0Z1VpsAjZCAUdKIvkGg==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
+  'file:projects/passport.tgz':
+    dependencies:
+      '@types/body-parser': 1.17.1
+      '@types/cookie-session': 2.0.37
+      '@types/express': 4.17.2
+      '@types/got': 9.6.9
+      '@types/node': 12.12.8
+      '@types/passport': 1.0.1
+      '@types/passport-auth0': 1.0.2
+      '@types/passport-local': 1.0.33
+      ava: 2.4.0
+      body-parser: 1.19.0
+      cookie-session: 1.3.3
+      express: 4.17.1
+      got: 9.6.0
+      passport: 0.4.0
+      passport-auth0: 1.2.1
+      passport-local: 1.0.0
+      stringcase: 4.3.1
+      typescript: 3.7.2
+    dev: false
+    name: '@rush-temp/passport'
+    resolution:
+      integrity: sha512-0RmThmE9zzM6mw7S9mIdreLQWmtpMkBLsOU0EN6AeNi8nmqezJsCqT+Iw/GKoC/IDjjXoEWAw4xqR8FSmMjZAA==
+      tarball: 'file:projects/passport.tgz'
+    version: 0.0.0
   'file:projects/react-app.tgz':
     dependencies:
       '@types/jest': 24.0.23
@@ -9901,6 +10123,18 @@ packages:
     resolution:
       integrity: sha512-xLwv1NR7hPss23cejG1GzY3JsxmxMJmvM8cbsjOBv2FqSQ1ly2P/KKo5fS5RplJOyqehOLSXvvzvfgWqKiSseg==
       tarball: 'file:projects/react-app.tgz'
+    version: 0.0.0
+  'file:projects/react-auth.tgz':
+    dependencies:
+      '@types/react': 16.9.11
+      react: 16.12.0
+      react-async-hook: /react-async-hook/3.6.1/react@16.12.0
+      typescript: 3.7.2
+    dev: false
+    name: '@rush-temp/react-auth'
+    resolution:
+      integrity: sha512-LwVVdCFEKqnoC3rWBs5lsbwgTDpo4VrXQWuSflgPE/XdY1EFmprSeH0lV4B/PVvwgi5byUV3W0nAucD6hLWt0g==
+      tarball: 'file:projects/react-auth.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
     dependencies:
@@ -9981,17 +10215,19 @@ packages:
   'file:projects/server-function.tgz':
     dependencies:
       '@types/express': 4.17.2
+      '@types/lodash.get': 4.4.6
       '@types/lodash.once': 4.1.6
       '@types/node': 10.17.5
       '@types/source-map-support': 0.5.0
       express: 4.17.1
+      lodash.get: 4.4.2
       lodash.once: 4.1.1
       source-map-support: 0.5.16
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-z//xxJ+QhHlZeGiR3Z0LwKrx1P/+5vMiFF1TjC2cCgvbzldgCKo3YwSs0yTfe2ovvs1qmiJAcwSJk6DWMGB1WA==
+      integrity: sha512-ahGwqLLOWeVlbyJC8QCs0rSXPh5v1cl/uDHZ0O2pWM3Gkl4Z6M+n5x62KiR4sdRMykU/EhQJq+Y9cbmXg/akhw==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10055,7 +10291,9 @@ specifiers:
   '@rush-temp/interfaces-node-client': 'file:./projects/interfaces-node-client.tgz'
   '@rush-temp/leveldb-server': 'file:./projects/leveldb-server.tgz'
   '@rush-temp/local-proxy': 'file:./projects/local-proxy.tgz'
+  '@rush-temp/passport': 'file:./projects/passport.tgz'
   '@rush-temp/react-app': 'file:./projects/react-app.tgz'
+  '@rush-temp/react-auth': 'file:./projects/react-auth.tgz'
   '@rush-temp/reshuffle': 'file:./projects/reshuffle.tgz'
   '@rush-temp/rush-update': 'file:./projects/rush-update.tgz'
   '@rush-temp/server-function': 'file:./projects/server-function.tgz'
@@ -10063,6 +10301,8 @@ specifiers:
   '@rush-temp/utils-subprocess': 'file:./projects/utils-subprocess.tgz'
   '@types/babel__core': ^7.1.3
   '@types/babel__traverse': ^7.0.7
+  '@types/body-parser': ^1.17.1
+  '@types/cookie-session': ^2.0.37
   '@types/deep-freeze': ^0.1.2
   '@types/fs-extra': ^8.0.1
   '@types/got': ^9.6.9
@@ -10073,6 +10313,7 @@ specifiers:
   '@types/koa-bodyparser': ^5.0.1
   '@types/leveldown': ^4.0.2
   '@types/levelup': ^3.1.1
+  '@types/lodash.get': ^4.4.6
   '@types/lodash.has': ^4.5.6
   '@types/lodash.memoize': ^4.1.6
   '@types/lodash.once': ^4.1.6
@@ -10080,6 +10321,9 @@ specifiers:
   '@types/ms': ^0.7.31
   '@types/mz': ^0.0.32
   '@types/nanoid': ^2.1.0
+  '@types/passport': ^1.0.1
+  '@types/passport-auth0': ^1.0.2
+  '@types/passport-local': ^1.0.33
   '@types/prompts': ^2.0.3
   '@types/ramda': ^0.26.34
   '@types/react': ^16.9.11
@@ -10100,12 +10344,14 @@ specifiers:
   ava: ^2.4.0
   babel-plugin-macros: ^2.6.1
   babel-plugin-tester: ^7.0.4
+  body-parser: ^1.19.0
   chalk: ^2.4.2
   cli-ux: ^5.3.3
   columnify: ^1.5.4
   commander: ^4.0.1
   concord: ^0.2.4
   conf: ^6.2.0
+  cookie-session: ^1.3.3
   dotenv: ^8.2.0
   env-var: ^5.1.0
   express: ^4.17.1
@@ -10124,6 +10370,7 @@ specifiers:
   koa-bodyparser: ^4.2.1
   leveldown: ^5.4.1
   levelup: ^4.3.2
+  lodash.get: ^4.4.2
   lodash.has: ^4.5.2
   lodash.memoize: ^4.1.2
   lodash.once: ^4.1.1
@@ -10135,9 +10382,12 @@ specifiers:
   nodemon: ^1.19.4
   npm-check-updates: ^3.2.1
   open: ^7.0.0
+  passport: ^0.4.0
+  passport-auth0: ^1.2.1
+  passport-local: ^1.0.0
   prompts: ^2.3.0
   ramda: ^0.26.1
-  react: ^16.12.0
+  react-async-hook: ^3.6.1
   rimraf: ^3.0.0
   rmfr: ^2.0.0
   rxjs: ^6.5.3
@@ -10145,6 +10395,7 @@ specifiers:
   sleep-promise: ^8.0.1
   source-map-support: ^0.5.16
   specshell: ^0.0.3
+  stringcase: ^4.3.1
   tail: ^2.0.3
   tar: ^5.0.5
   terminal-link: ^2.0.0
