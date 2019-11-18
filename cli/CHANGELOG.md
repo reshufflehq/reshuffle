@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 11 Nov 2019 09:47:52 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Nov 2019 18:38:53 GMT and should not be manually modified.
+
+## 0.4.7
+Mon, 18 Nov 2019 18:38:53 GMT
+
+### Patches
+
+- Fix package lock parsing for nested deps
 
 ## 0.4.6
 Mon, 11 Nov 2019 09:47:52 GMT

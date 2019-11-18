@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.7",
+      "tag": "reshuffle_v0.4.7",
+      "date": "Mon, 18 Nov 2019 18:38:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix package lock parsing for nested deps"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.6",
       "tag": "reshuffle_v0.4.6",
       "date": "Mon, 11 Nov 2019 09:47:52 GMT",

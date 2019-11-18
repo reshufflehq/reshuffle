@@ -1,0 +1,17 @@
+{
+  "name": "@reshuffle/react-auth",
+  "entries": [
+    {
+      "version": "0.1.1",
+      "tag": "@reshuffle/react-auth_v0.1.1",
+      "date": "Mon, 18 Nov 2019 18:38:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Frontend support for Reshuffle auth on react"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/server-function
 
-This log was last generated on Thu, 14 Nov 2019 14:26:29 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Nov 2019 18:38:53 GMT and should not be manually modified.
+
+## 0.2.0
+Mon, 18 Nov 2019 18:38:53 GMT
+
+### Minor changes
+
+- Session support (for auth)
 
 ## 0.1.0
 Thu, 14 Nov 2019 14:26:29 GMT

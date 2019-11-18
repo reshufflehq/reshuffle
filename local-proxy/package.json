@@ -44,7 +44,7 @@
   "peerDependencies": {
     "@reshuffle/code-transform": "0.1.0",
     "@reshuffle/db": "0.5.5",
-    "@reshuffle/server-function": "0.1.0"
+    "@reshuffle/server-function": "0.2.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.3",
