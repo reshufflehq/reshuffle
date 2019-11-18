@@ -16,7 +16,8 @@ function fakeLoginPage(req: express.Request, res: express.Response) {
   if (req.session) {
     req.session.returnTo = req.query.returnTo || '/';
   }
-  return res.end(`
+  return res.header('content-type', 'text/html')
+    .end(`
 <!doctype html>
 <html lang="en">
   <head>
@@ -103,7 +104,8 @@ export function mw(): express.IRouter {
   router.use(passport.session());
 
   // TODO: this shouldn't be added on non-fake
-  router.post('/login',
+  router.post(
+    '/login',
     bodyParser.urlencoded({ extended: true }),
     passport.authenticate('local', { failureRedirect: '/login' }),
     (req, res) => {
