@@ -47,7 +47,7 @@ export async function getDependencies(projectDir: string) {
 
     if (lockHasProperty(p)) {
       dependencies.add(p);
-      toProcess.push(...recurseRequires(lockDeps[p]));
+      toProcess.push(...deepRequires(lockDeps[p]));
     } else {
       // tslint:disable-next-line:no-console
       console.error(`WARN: Cannot find dependency ${p} in package-lock.json, skipping upload`);
@@ -56,13 +56,13 @@ export async function getDependencies(projectDir: string) {
   return dependencies;
 }
 
-function recurseRequires(scope: PackageScope) {
+function deepRequires(scope: PackageScope) {
   const deps = scope.dependencies || {};
   const reqs = Object.keys(scope.requires || {}).filter((req) =>
     deps[req] === undefined || !deps[req].bundled);
   for (const subscope of Object.values(deps)) {
     if (!subscope.bundled) {
-      reqs.push(...recurseRequires(subscope));
+      reqs.push(...deepRequires(subscope));
     }
   }
   return reqs;
