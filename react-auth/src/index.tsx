@@ -69,8 +69,7 @@ export const AuthProvider: FC = ({ children }) => {
     if (!req.ok) {
       throw new Error(`Failed to get /whoami ${req.statusText}`);
     }
-    // tslint:disable-next-line:no-return-await
-    return await req.json();
+    return req.json();
   }, []);
   return (
     <AuthContext.Provider value={{ ...defaultContext, state: { loading, error, ...result } }}>
