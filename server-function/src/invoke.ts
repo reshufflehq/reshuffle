@@ -22,7 +22,7 @@ function isValidInvokeRequest(body: any, contentType?: string): body is InvokeRe
 }
 type ExpressHandler = (req: express.Request, res: express.Response) => any;
 
-export let currentSession = undefined;
+export let currentSession: any;
 
 export function getInvokeHandler(backendDir: string): ExpressHandler {
   return async (req: express.Request, res: express.Response) => {

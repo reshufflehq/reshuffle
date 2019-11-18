@@ -56,17 +56,20 @@ const defaultContext: AuthContextProps = {
   loginManager: loginManager('/login', '/logout'),
 };
 
+// tslint:disable-next-line:variable-name
 const AuthContext = createContext<AuthContextProps>(defaultContext);
 
 export const useAuth = (): AuthState => useContext(AuthContext).state;
 export const useAuthFlow = (): LoginManager => useContext(AuthContext).loginManager;
 
+// tslint:disable-next-line:variable-name
 export const AuthProvider: FC = ({ children }) => {
   const { result, error, loading } = useAsync<AuthState>(async () => {
     const req = await fetch('/whoami', { credentials: 'include' });
     if (!req.ok) {
       throw new Error(`Failed to get /whoami ${req.statusText}`);
     }
+    // tslint:disable-next-line:no-return-await
     return await req.json();
   }, []);
   return (
