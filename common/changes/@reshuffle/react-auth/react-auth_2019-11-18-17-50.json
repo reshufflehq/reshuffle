@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-auth",
+      "comment": "Frontend support for Reshuffle auth on react",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-auth",
+  "email": "ariels@reshuffle.com"
+}

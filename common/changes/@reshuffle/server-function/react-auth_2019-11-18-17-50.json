@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Session support (for auth)",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "ariels@reshuffle.com"
+}
