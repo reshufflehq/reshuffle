@@ -99,7 +99,8 @@ const sessionSecretKey = process.env.SESSION_SECRET || 'fancy crab';
 
 export function authRouter(): express.IRouter {
   const router = express.Router();
-  router.use(session({ keys: [sessionSecretKey], sameSite: true, httpOnly: true }));
+  router.use(session({ keys: [sessionSecretKey], sameSite: 'lax', httpOnly: true }));
+  router.use(bodyParser.urlencoded({ extended: false }));
   router.use(passport.initialize());
   router.use(passport.session());
 
