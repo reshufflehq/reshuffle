@@ -97,22 +97,11 @@ const oauthPage: express.Handler[] = [
 // TODO(ariels): Support secret rotation.
 const sessionSecretKey = process.env.SESSION_SECRET || 'fancy crab';
 
-export function mw(): express.IRouter {
+export function authRouter(): express.IRouter {
   const router = express.Router();
   router.use(session({ keys: [sessionSecretKey], sameSite: true, httpOnly: true }));
   router.use(passport.initialize());
   router.use(passport.session());
-
-  // TODO: this shouldn't be added on non-fake
-  router.post(
-    '/login',
-    bodyParser.urlencoded({ extended: true }),
-    passport.authenticate('local', { failureRedirect: '/login' }),
-    (req, res) => {
-      res.redirect(req.session?.returnTo || '/');
-      delete req.session?.returnTo;
-    }
-  );
 
   router.get('/whoami', (req, res) => {
     if (req.session?.passport?.user) {
@@ -123,6 +112,18 @@ export function mw(): express.IRouter {
 
   // A fake login page for the local server.
   router.get('/login', isFake(strategy) ? fakeLoginPage : oauthPage);
+
+  if (isFake(strategy)) {
+    router.post(
+      '/login',
+      bodyParser.urlencoded({ extended: true }),
+      passport.authenticate('local', { failureRedirect: '/login' }),
+      (req, res) => {
+        res.redirect(req.session?.returnTo || '/');
+        delete req.session?.returnTo;
+      }
+    );
+  }
 
   if (!isFake(strategy)) {
     router.get('/callback', onCallback);
@@ -136,4 +137,4 @@ export function mw(): express.IRouter {
   return router;
 }
 
-export default mw;
+export default authRouter;
