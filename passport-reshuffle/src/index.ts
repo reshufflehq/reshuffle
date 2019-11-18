@@ -1,1 +1,1 @@
-export { mw } from './auth-handler';
+export { authRouter } from './auth-handler';
