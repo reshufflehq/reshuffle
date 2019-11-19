@@ -4,6 +4,7 @@ import express from 'express';
 import session from 'cookie-session';
 import passport from 'passport';
 import bodyParser from 'body-parser';
+import { URLSearchParams } from 'url';
 
 const strategy = makeStrategy();
 
@@ -140,7 +141,18 @@ export function authRouter(): express.Express {
 
   app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    if (isFake(strategy)) {
+      res.redirect('/');
+    } else {
+      const oauthDomain = process.env.OAUTH_DOMAIN!;
+      const baseUrl = process.env.RESHUFFLE_APPLICATION_DOMAINS!.split(',')[0];
+      const clientId = process.env.OAUTH_CLIENT_ID!;
+      const params = new URLSearchParams({
+        returnTo: `https://${baseUrl}`,
+        client_id: clientId,
+      }).toString();
+      res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
+    }
   });
 
   return app;
