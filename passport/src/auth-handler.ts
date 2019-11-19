@@ -96,14 +96,23 @@ const oauthPage: express.Handler[] = [
 // TODO(ariels): Support secret rotation.
 const sessionSecretKey = process.env.RESHUFFLE_SESSION_SECRET || 'fancy crab';
 
-export function authRouter(): express.IRouter {
-  const router = express.Router();
-  router.use(session({ keys: [sessionSecretKey], sameSite: 'lax', httpOnly: true }));
-  router.use(bodyParser.urlencoded({ extended: false }));
-  router.use(passport.initialize());
-  router.use(passport.session());
+export function authRouter(): express.Express {
+  const app = express();
+  const sessionOpt: CookieSessionInterfaces.CookieSessionOptions = {
+    keys: [sessionSecretKey],
+    sameSite: 'lax',
+    httpOnly: true,
+  };
+  if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+    sessionOpt.secure = true;
+  }
+  app.use(session(sessionOpt));
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-  router.get('/whoami', (req, res) => {
+  app.get('/whoami', (req, res) => {
     if (req.session?.passport?.user) {
       return res.json({ authenticated: true, profile: req.session.passport.user });
     }
@@ -111,10 +120,10 @@ export function authRouter(): express.IRouter {
   });
 
   // A fake login page for the local server.
-  router.get('/login', isFake(strategy) ? fakeLoginPage : oauthPage);
+  app.get('/login', isFake(strategy) ? fakeLoginPage : oauthPage);
 
   if (isFake(strategy)) {
-    router.post(
+    app.post(
       '/login',
       bodyParser.urlencoded({ extended: true }),
       passport.authenticate('local', { failureRedirect: '/login' }),
@@ -126,15 +135,15 @@ export function authRouter(): express.IRouter {
   }
 
   if (!isFake(strategy)) {
-    router.get('/callback', onCallback);
+    app.get('/callback', onCallback);
   }
 
-  router.get('/logout', (req, res) => {
+  app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
-  return router;
+  return app;
 }
 
 export default authRouter;

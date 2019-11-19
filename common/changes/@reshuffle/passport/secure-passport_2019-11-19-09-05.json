@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/passport",
+      "comment": "Use secure cookies",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/passport",
+  "email": "vladimir@reshuffle.com"
+}
