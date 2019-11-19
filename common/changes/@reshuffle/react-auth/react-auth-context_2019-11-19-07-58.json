@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-auth",
+      "comment": "Make AuthContext usable with class components",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-auth",
+  "email": "roey@reshuffle.com"
+}
