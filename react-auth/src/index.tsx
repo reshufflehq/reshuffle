@@ -36,10 +36,7 @@ interface LoginManager {
   logout(): void;
 }
 
-interface AuthContextProps {
-  authState: AuthState;
-  loginManager: LoginManager;
-}
+interface AuthContextProps extends AuthState, LoginManager {}
 
 function loginManager(loginUrl: string, logoutUrl: string): LoginManager {
   const getLoginURL = (returnTo: string = window.location.pathname) =>
@@ -53,14 +50,13 @@ function loginManager(loginUrl: string, logoutUrl: string): LoginManager {
 }
 
 const defaultContext: AuthContextProps = {
-  authState: { loading: true },
-  loginManager: loginManager('/login', '/logout'),
+  loading: true,
+  ...loginManager('/login', '/logout'),
 };
 
 // tslint:disable-next-line:variable-name
 export const AuthContext = createContext<AuthContextProps>(defaultContext);
-export const useAuth = (): AuthState => useContext(AuthContext).authState;
-export const useAuthFlow = (): LoginManager => useContext(AuthContext).loginManager;
+export const useAuth = (): AuthContextProps => useContext(AuthContext);
 
 // tslint:disable-next-line:variable-name
 export const AuthProvider: FC = ({ children }) => {
@@ -72,7 +68,7 @@ export const AuthProvider: FC = ({ children }) => {
     return req.json();
   }, []);
   return (
-    <AuthContext.Provider value={{ ...defaultContext, authState: { loading, error, ...result } }}>
+    <AuthContext.Provider value={{ ...defaultContext, loading, error, ...result }}>
       {children}
     </AuthContext.Provider>
   );
