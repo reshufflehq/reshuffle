@@ -1,0 +1,26 @@
+{
+  "name": "@reshuffle/auth",
+  "version": "0.0.0",
+  "description": "Auth related shared helpers",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "tslint -c ../common/tslint.yml -p .",
+    "test": "echo no tests"
+  },
+  "keywords": [
+    "binaris",
+    "reshuffle",
+    "auth",
+    "identity"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  }
+}

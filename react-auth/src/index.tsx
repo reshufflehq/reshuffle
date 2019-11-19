@@ -1,26 +1,8 @@
 import React, { FC, createContext, useContext } from 'react';
 import { useAsync } from 'react-async-hook';
+import { Profile } from '@reshuffle/auth';
 
-// Copied from @types/passport/index.d.ts
-// TODO: remove duplication in passport/src/index.ts
-export interface Profile {
-  provider: string;
-  id: string;
-  displayName: string;
-  username?: string;
-  name?: {
-    familyName: string;
-    givenName: string;
-    middleName?: string;
-  };
-  emails?: Array<{
-    value: string;
-    type?: string;
-  }>;
-  photos?: Array<{
-    value: string;
-  }>;
-}
+export { Profile };
 
 export interface AuthState {
   loading: boolean;

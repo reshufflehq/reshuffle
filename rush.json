@@ -410,6 +410,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@reshuffle/auth",
+        "projectFolder": "auth",
+        "shouldPublish": true
+    },
+    {
         "packageName": "@reshuffle/react-auth",
         "projectFolder": "react-auth",
         "shouldPublish": true
