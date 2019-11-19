@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/passport",
+      "comment": "Fix and share Profile interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/passport",
+  "email": "roey@reshuffle.com"
+}

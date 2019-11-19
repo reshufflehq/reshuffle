@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/auth",
+      "comment": "Create shared Profile interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/auth",
+  "email": "roey@reshuffle.com"
+}

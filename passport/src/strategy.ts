@@ -1,12 +1,9 @@
-import { Profile, Strategy as StrategyType } from 'passport';
+import { Strategy as StrategyType } from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as Auth0Strategy } from 'passport-auth0';
+import { Profile } from '@reshuffle/auth';
 import { titlecase } from 'stringcase';
 import { stickFigure } from './stick-figure';
-
-// Currently the *base* Passport Profile.  But could be anything
-// supported by the underlying Passport strategy.
-export { Profile };
 
 function getMissingOauthEnvariables() {
   return ['OAUTH_DOMAIN', 'OAUTH_CLIENT_ID', 'OAUTH_CLIENT_SECRET']
@@ -28,7 +25,8 @@ function verifyUser(
   done: (error: any, user?: any, info?: any) => void,
 ) {
   // _extraParams.id_token has a JWT, if needed.
-  return done(null, profile);
+  const { id, displayName, emails, picture } = profile;
+  return done(null, { provider: 'auth0', id, displayName, emails, picture });
 }
 
 function fakeVerifyUser(
@@ -41,7 +39,7 @@ function fakeVerifyUser(
     id: username,
     displayName: titlecase(username),
     emails: [{ value: `${username}@example.com` }],
-    photos: [{ value: stickFigure }],
+    picture: stickFigure,
   });
 }
 

@@ -6,7 +6,7 @@ dependencies:
   '@babel/types': 7.7.2
   '@binaris/oclif-plugin-not-found': 1.2.4
   '@binaris/spice-koa-server': 0.1.3
-  '@binaris/spice-node-client': 0.1.3
+  '@binaris/spice-node-client': 0.1.6
   '@binaris/utils-subprocess': 0.0.1
   '@oclif/command': 1.5.19
   '@oclif/config': 1.13.3
@@ -17,6 +17,7 @@ dependencies:
   '@oclif/tslint': 3.1.1
   '@octokit/rest': 16.35.0
   '@rush-temp/app-testsuite': 'file:projects/app-testsuite.tgz'
+  '@rush-temp/auth': 'file:projects/auth.tgz'
   '@rush-temp/code-transform': 'file:projects/code-transform.tgz'
   '@rush-temp/db': 'file:projects/db.tgz'
   '@rush-temp/db-testsuite': 'file:projects/db-testsuite.tgz'
@@ -548,7 +549,7 @@ packages:
       '@types/node': '>=8.0.0'
     resolution:
       integrity: sha512-CBZhCu4sdKRQr6L2hCoDQkBIw7hH/SmJXa1iOC4tu/kGV9ygW7AbgmCRCmGEqi0BtBFNJLgYHGwAh3hBoDc/bQ==
-  /@binaris/spice-node-client/0.1.3:
+  /@binaris/spice-node-client/0.1.6:
     dependencies:
       '@types/node-fetch': 2.5.3
       abort-controller: 2.0.3
@@ -557,7 +558,7 @@ packages:
       node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-GzV9DXGaf7lVG7qF28O2hJnDwkBAwSw5zjbeb1AgL75fXjZ9gQeaiCbv0qBeV3sqRFqyskAblr92XQvWrmSbjQ==
+      integrity: sha512-Qs6HKeTB+fTH6yDgM0531kwsf3Da1kcjXo25VYaHkDHWkzArZLfOybLhG00z00ecxc8m8bzb+YRM8B3LbULwww==
   /@binaris/utils-subprocess/0.0.1:
     dev: false
     resolution:
@@ -9873,6 +9874,15 @@ packages:
       integrity: sha512-XWZILtnC6qOfCLjMZB1MgAoHKIj5oYdQs//Qq/QQNY5NCfzrHFQB4D1LGyMhzVeZMS8RTkwrz58XwbSkLhGCvA==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
+  'file:projects/auth.tgz':
+    dependencies:
+      typescript: 3.7.2
+    dev: false
+    name: '@rush-temp/auth'
+    resolution:
+      integrity: sha512-RfKzr0Pta8ZBEoLKlu9kHbhpx3VuvPUN1gngPm9mAhGj8F5pl8TqUDzZdPHDMQpKFHOr+gOnTAT5yYVUZzVDtA==
+      tarball: 'file:projects/auth.tgz'
+    version: 0.0.0
   'file:projects/code-transform.tgz':
     dependencies:
       '@babel/parser': 7.7.3
@@ -10057,7 +10067,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-WdScb7N8gb9Nko5prvdKPelJGnfLryWYcy8zFRl7OUjzxzAuWGlCWm7gDQDq7rvFEw592wCmX+lSpdjPg62PMA==
+      integrity: sha512-AhfrnEhKpswAZjC+QyS7C5DyTATvKA6V5z/KsRLh5gW9kwoAKIqDvbk17vqUM8GPyXDQZvdyLY6Cl9wPyJIqJQ==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
@@ -10083,7 +10093,7 @@ packages:
     dev: false
     name: '@rush-temp/passport'
     resolution:
-      integrity: sha512-0RmThmE9zzM6mw7S9mIdreLQWmtpMkBLsOU0EN6AeNi8nmqezJsCqT+Iw/GKoC/IDjjXoEWAw4xqR8FSmMjZAA==
+      integrity: sha512-xpXDxJ26kdx13PMX67aLpdupxvNnhfRmvKg4DPw9Om5oBgAVH1gvKjIVZpJT9awB1aPekk5nc3UwYm80cCKCxw==
       tarball: 'file:projects/passport.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -10111,14 +10121,14 @@ packages:
     dev: false
     name: '@rush-temp/react-auth'
     resolution:
-      integrity: sha512-LwVVdCFEKqnoC3rWBs5lsbwgTDpo4VrXQWuSflgPE/XdY1EFmprSeH0lV4B/PVvwgi5byUV3W0nAucD6hLWt0g==
+      integrity: sha512-ziETOLIt527oF5BYsNqcSq3I7631ebndAnuGcqxBgDWWPYyx033Z66GxRz8YA2gNfA1NS4u42N++4TH/wA3/LA==
       tarball: 'file:projects/react-auth.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
     dependencies:
       '@binaris/oclif-plugin-not-found': 1.2.4
       '@binaris/spice-koa-server': /@binaris/spice-koa-server/0.1.3/@types!node@10.17.5
-      '@binaris/spice-node-client': 0.1.3
+      '@binaris/spice-node-client': 0.1.6
       '@binaris/utils-subprocess': 0.0.1
       '@oclif/command': 1.5.19
       '@oclif/config': 1.13.3
@@ -10203,7 +10213,7 @@ packages:
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-z//xxJ+QhHlZeGiR3Z0LwKrx1P/+5vMiFF1TjC2cCgvbzldgCKo3YwSs0yTfe2ovvs1qmiJAcwSJk6DWMGB1WA==
+      integrity: sha512-/Bxf/FLWtdum8n1qQLacNWMz0FZERbVnpNUPb2gihibzYAY3Vyq85jucRC8OjpkyGhFL5gynR17ls2bSm+Nz/Q==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -10258,6 +10268,7 @@ specifiers:
   '@oclif/tslint': ^3.1.1
   '@octokit/rest': ^16.35.0
   '@rush-temp/app-testsuite': 'file:./projects/app-testsuite.tgz'
+  '@rush-temp/auth': 'file:./projects/auth.tgz'
   '@rush-temp/code-transform': 'file:./projects/code-transform.tgz'
   '@rush-temp/db': 'file:./projects/db.tgz'
   '@rush-temp/db-testsuite': 'file:./projects/db-testsuite.tgz'
