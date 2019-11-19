@@ -139,11 +139,14 @@ export function authRouter(): express.Express {
     app.get('/callback', onCallback);
   }
 
-  app.get('/logout', (req, res) => {
-    req.logout();
-    if (isFake(strategy)) {
+  if (isFake(strategy)) {
+    app.get('/logout', (req, res) => {
+      req.logout();
       res.redirect('/');
-    } else {
+    });
+  } else {
+    app.get('/logout', (req, res) => {
+      req.logout();
       const oauthDomain = process.env.OAUTH_DOMAIN!;
       const baseUrl = process.env.RESHUFFLE_APPLICATION_DOMAINS!.split(',')[0];
       const clientId = process.env.OAUTH_CLIENT_ID!;
@@ -152,8 +155,8 @@ export function authRouter(): express.Express {
         client_id: clientId,
       }).toString();
       res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
-    }
-  });
+    });
+  }
 
   return app;
 }
