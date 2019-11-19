@@ -35,11 +35,17 @@ Use with react hooks.
 `src/components/Main`
 ```jsx
 import React from 'react';
-import { useAuth, useAuthFlow } from '@reshuffle/react-auth';
+import { useAuth } from '@reshuffle/react-auth';
 
 export default function Main() {
-  const { loading, error, authenticated, profile } = useAuth();
-  const { getLoginURL, getLogoutURL } = useAuthFlow();
+  const {
+    loading,
+    error,
+    authenticated,
+    profile,
+    getLoginURL,
+    getLogoutURL,
+  } = useAuth();
 
   if (loading) {
     return <div><h2>Loading...</h2></div>;
@@ -71,8 +77,14 @@ export default class Main extends React.Component {
   static contextType = AuthContext;
 
   render() {
-    const { loading, error, authenticated, profile } = this.context.authState;
-    const { getLoginURL, getLogoutURL } = this.context.loginManager;
+    const {
+      loading,
+      error,
+      authenticated,
+      profile,
+      getLoginURL,
+      getLogoutURL,
+    } = this.context;
 
     if (loading) {
       return <div><h2>Loading...</h2></div>;
