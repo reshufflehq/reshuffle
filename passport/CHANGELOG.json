@@ -2,6 +2,21 @@
   "name": "@reshuffle/passport",
   "entries": [
     {
+      "version": "0.0.3",
+      "tag": "@reshuffle/passport_v0.0.3",
+      "date": "Tue, 19 Nov 2019 12:38:38 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add README.md"
+          },
+          {
+            "comment": "Use secure cookies"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.2",
       "tag": "@reshuffle/passport_v0.0.2",
       "date": "Mon, 18 Nov 2019 18:38:53 GMT",

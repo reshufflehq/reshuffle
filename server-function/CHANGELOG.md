@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/server-function
 
-This log was last generated on Mon, 18 Nov 2019 18:38:53 GMT and should not be manually modified.
+This log was last generated on Tue, 19 Nov 2019 12:38:38 GMT and should not be manually modified.
+
+## 0.2.1
+Tue, 19 Nov 2019 12:38:38 GMT
+
+### Patches
+
+- Rename useSession to getCurrentUser
 
 ## 0.2.0
 Mon, 18 Nov 2019 18:38:53 GMT

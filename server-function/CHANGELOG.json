@@ -2,6 +2,18 @@
   "name": "@reshuffle/server-function",
   "entries": [
     {
+      "version": "0.2.1",
+      "tag": "@reshuffle/server-function_v0.2.1",
+      "date": "Tue, 19 Nov 2019 12:38:38 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename useSession to getCurrentUser"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.0",
       "tag": "@reshuffle/server-function_v0.2.0",
       "date": "Mon, 18 Nov 2019 18:38:53 GMT",

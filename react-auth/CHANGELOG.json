@@ -2,6 +2,21 @@
   "name": "@reshuffle/react-auth",
   "entries": [
     {
+      "version": "0.1.2",
+      "tag": "@reshuffle/react-auth_v0.1.2",
+      "date": "Tue, 19 Nov 2019 12:38:38 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Make AuthContext usable with class components"
+          },
+          {
+            "comment": "Add README.md"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.1",
       "tag": "@reshuffle/react-auth_v0.1.1",
       "date": "Mon, 18 Nov 2019 18:38:53 GMT",
