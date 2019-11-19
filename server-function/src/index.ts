@@ -6,18 +6,49 @@ export {
   getHandler,
   getHTTPHandler,
 } from './handler';
-import * as invoke from './invoke';
-export { getInvokeHandler } from './invoke';
+import { getInvokeHandler, currentUser, AuthenticationError } from './invoke';
 
-export { HTTPHandler, defaultHandler };
+export {
+  getInvokeHandler,
+  AuthenticationError,
+  HTTPHandler,
+  defaultHandler,
+};
 
 export function setHTTPHandler(override: HTTPHandler) {
   module.exports.defaultHandler = override;
 }
 
+// Copied from @types/passport/index.d.ts
+// TODO: remove duplication in react-auth/src/index.tsx
+export interface UserProfile {
+  provider: string;
+  id: string;
+  displayName: string;
+  username?: string;
+  name?: {
+    familyName: string;
+    givenName: string;
+    middleName?: string;
+  };
+  emails?: Array<{
+    value: string;
+    type?: string;
+  }>;
+  photos?: Array<{
+    value: string;
+  }>;
+}
+
+export function getCurrentUser(required?: false): UserProfile | undefined;
+export function getCurrentUser(required: true): UserProfile;
+
 /**
  * Use with caution, must be called from @exposed handler before any async operations
  */
-export function useSession() {
-  return invoke.currentSession;
+export function getCurrentUser(required?: boolean): UserProfile | undefined {
+  if (required && currentUser === undefined) {
+    throw new AuthenticationError('Authentication required');
+  }
+  return currentUser;
 }

@@ -1,11 +1,14 @@
 import express from 'express';
-import get from 'lodash.get';
 import { getHandler, Handler, HandlerError } from './handler';
 
 interface InvokeRequest {
   path: string;
   handler: string;
   args: any[];
+}
+
+export class AuthenticationError extends Error {
+  public readonly name: string = 'AuthenticationError';
 }
 
 function isValidInvokeRequest(body: any, contentType?: string): body is InvokeRequest {
@@ -22,7 +25,7 @@ function isValidInvokeRequest(body: any, contentType?: string): body is InvokeRe
 }
 type ExpressHandler = (req: express.Request, res: express.Response) => any;
 
-export let currentSession: any;
+export let currentUser: any;
 
 export function getInvokeHandler(backendDir: string): ExpressHandler {
   return async (req: express.Request, res: express.Response) => {
@@ -44,16 +47,18 @@ export function getInvokeHandler(backendDir: string): ExpressHandler {
         }
         throw error;
       }
-      // Support "passport" session only
-      module.exports.currentSession = get(req, ['session', 'passport', 'user']);
+      currentUser = (req as any).user;
       const promise = fn(...args);
-      module.exports.currentSession = undefined;
+      currentUser = undefined;
       const response = await promise;
       if (response === undefined) {
         return res.sendStatus(204);
       }
       return res.status(200).json(response);
     } catch (error) {
+      if (error.name === 'AuthenticationError') {
+        return res.status(403).json({ error: error.message });
+      }
       // tslint:disable-next-line:no-console
       console.error('Failed to invoke handler', error);
       return res.status(500).json({ error: 'Failed to invoke' });

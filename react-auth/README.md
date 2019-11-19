@@ -10,7 +10,7 @@ $ npm install @reshuffle/react-auth
 
 ### Prerequisites
 * Install `@reshuffle/passport`
-* Configure `backend/_handler.js` to use `@reshuffle/passort`, see [instructions](../passport/README.md#Installation)
+* Configure `backend/_handler.js` to use `@reshuffle/passport`, see [instructions](../passport/README.md#usage)
 
 ### Usage
 Wrap your root component with `AuthProvider`.
@@ -69,7 +69,7 @@ import { AuthContext } from '@reshuffle/react-auth';
 
 export default class Main extends React.Component {
   static contextType = AuthContext;
-  
+
   render() {
     const { loading, error, authenticated, profile } = this.context.authState;
     const { getLoginURL, getLogoutURL } = this.context.loginManager;
