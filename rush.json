@@ -431,7 +431,7 @@
     },
     {
         "packageName": "@reshuffle/passport",
-        "projectFolder": "passport-reshuffle",
+        "projectFolder": "passport",
         "shouldPublish": true
     }
   ]
