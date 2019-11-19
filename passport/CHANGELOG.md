@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Tue, 19 Nov 2019 12:38:38 GMT and should not be manually modified.
+This log was last generated on Tue, 19 Nov 2019 14:37:24 GMT and should not be manually modified.
+
+## 0.0.4
+Tue, 19 Nov 2019 14:37:24 GMT
+
+### Patches
+
+- Properly logout from oauth provider
 
 ## 0.0.3
 Tue, 19 Nov 2019 12:38:38 GMT
