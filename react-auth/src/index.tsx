@@ -2,6 +2,7 @@ import React, { FC, createContext, useContext } from 'react';
 import { useAsync } from 'react-async-hook';
 
 // Copied from @types/passport/index.d.ts
+// TODO: remove duplication in passport/src/index.ts
 export interface Profile {
   provider: string;
   id: string;

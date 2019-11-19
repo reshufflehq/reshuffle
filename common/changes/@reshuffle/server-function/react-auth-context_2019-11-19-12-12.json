@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/server-function",
+      "comment": "Rename useSession to getCurrentUser",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/server-function",
+  "email": "roey@reshuffle.com"
+}
