@@ -24,7 +24,7 @@
     "react": ">=16.8"
   },
   "dependencies": {
-    "@reshuffle/auth": "0.1.0",
+    "@reshuffle/auth": "0.0.0",
     "react-async-hook": "^3.6.1"
   },
   "devDependencies": {
