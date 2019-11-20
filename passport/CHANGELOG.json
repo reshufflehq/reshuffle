@@ -2,6 +2,18 @@
   "name": "@reshuffle/passport",
   "entries": [
     {
+      "version": "0.1.2",
+      "tag": "@reshuffle/passport_v0.1.2",
+      "date": "Wed, 20 Nov 2019 19:42:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Export a pre-created authHandler"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.1",
       "tag": "@reshuffle/passport_v0.1.1",
       "date": "Wed, 20 Nov 2019 18:14:33 GMT",

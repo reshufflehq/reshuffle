@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Wed, 20 Nov 2019 18:14:33 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 19:42:04 GMT and should not be manually modified.
+
+## 0.1.2
+Wed, 20 Nov 2019 19:42:04 GMT
+
+### Patches
+
+- Export a pre-created authHandler
 
 ## 0.1.1
 Wed, 20 Nov 2019 18:14:33 GMT
