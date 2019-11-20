@@ -97,7 +97,7 @@ const oauthPage: express.Handler[] = [
 // TODO(ariels): Support secret rotation.
 const sessionSecretKey = process.env.RESHUFFLE_SESSION_SECRET || 'fancy crab';
 
-export function authRouter(): express.Express {
+export function createAuthHandler(): express.Express {
   const app = express();
   const sessionOpt: CookieSessionInterfaces.CookieSessionOptions = {
     keys: [sessionSecretKey],
@@ -161,4 +161,4 @@ export function authRouter(): express.Express {
   return app;
 }
 
-export default authRouter;
+export default createAuthHandler;
