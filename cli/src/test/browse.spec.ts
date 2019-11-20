@@ -19,6 +19,7 @@ test('browse lists templates on dumb terminal', async (t) => {
       author: 'someone',
       description: 'something',
       similarTemplatesIds: [],
+      tags: [],
     }, {
       id: 'two',
       name: 'toucan',
@@ -30,6 +31,7 @@ test('browse lists templates on dumb terminal', async (t) => {
       similarTemplatesIds: [
         'uniqueorn',
       ],
+      tags: [],
     },
   ]);
 

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Fix failing browse.spec",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "roey@reshuffle.com"
+}
