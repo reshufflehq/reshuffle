@@ -42,31 +42,31 @@ test.beforeEach(async (t) => {
   t.log(t.context.projectDir);
 });
 
-test('no args', async (t) => {
+test.serial('no args', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} download`, 'utf-8');
   t.snapshot(result);
 });
 
-test('too many args', async (t) => {
+test.serial('too many args', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} download arg extra-arg`, 'utf-8');
   t.snapshot(result);
 });
 
-test('missing application', async (t) => {
+test.serial('missing application', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'no-such-app-id')).thenReject(new Error('not found'));
 
   const result = await t.context.shell.run(`${t.context.run} download no-such-app-id`, 'utf-8');
   t.snapshot(result);
 });
 
-test('verbose missing application', async (t) => {
+test.serial('verbose missing application', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'no-such-app-id')).thenReject(new Error('not found'));
 
   const result = await t.context.shell.run(`${t.context.run} download -v no-such-app-id`, 'utf-8');
   t.snapshot(result);
 });
 
-test('no source url', async (t) => {
+test.serial('no source url', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-no-source')).thenResolve({
     ...defaultApp,
     id: 'app-with-no-source',
@@ -76,7 +76,7 @@ test('no source url', async (t) => {
   t.snapshot(result);
 });
 
-test('verbose no source url', async (t) => {
+test.serial('verbose no source url', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-no-source')).thenResolve({
     ...defaultApp,
     id: 'app-with-no-source',
@@ -87,7 +87,7 @@ test('verbose no source url', async (t) => {
   t.snapshot({ ...result, out: result.out.replace(/\n/g, '').replace('{  ', '{ ').replace(/([^ ])}/, '$1 }') });
 });
 
-test('bad url', async (t) => {
+test.serial('bad url', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-bad-url')).thenResolve({
     ...defaultApp,
     id: 'ff-ff-ff',
@@ -109,7 +109,7 @@ test('bad url', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('bad tgz', async (t) => {
+test.serial('bad tgz', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-bad-tgz')).thenResolve({
     ...defaultApp,
     id: 'foo',
@@ -134,7 +134,7 @@ test('bad tgz', async (t) => {
   t.snapshot(result);
 });
 
-test('verbose bad tgz', async (t) => {
+test.serial('verbose bad tgz', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-bad-tgz')).thenResolve({
     ...defaultApp,
     id: 'ff-ff-ff',
@@ -159,7 +159,7 @@ test('verbose bad tgz', async (t) => {
   t.snapshot(result);
 });
 
-test('bad request', async (t) => {
+test.serial('bad request', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-bad-req')).thenResolve({
     ...defaultApp,
     id: 'ff-ff-ff',
@@ -181,7 +181,7 @@ test('bad request', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('verbose bad request', async (t) => {
+test.serial('verbose bad request', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'app-with-bad-req')).thenResolve({
     ...defaultApp,
     id: 'ff-ff-ff',
@@ -203,7 +203,7 @@ test('verbose bad request', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('tgz with wrong dir', async (t) => {
+test.serial('tgz with wrong dir', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'bad-dir')).thenResolve({
     ...defaultApp,
     id: 'ff-ff-ff',
@@ -227,7 +227,7 @@ test('tgz with wrong dir', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('good tgz existing target file', async (t) => {
+test.serial('good tgz existing target file', async (t) => {
   const targetDir = 'fubar';
   td.when(t.context.lycanFake.getAppByName(anything, 'exist-app')).thenResolve({
     ...defaultApp,
@@ -251,7 +251,7 @@ test('good tgz existing target file', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('good tgz existing non empty target dir', async (t) => {
+test.serial('good tgz existing non empty target dir', async (t) => {
   const targetDir = 'fubar';
   td.when(t.context.lycanFake.getAppByName(anything, 'exist-app')).thenResolve({
     ...defaultApp,
@@ -275,7 +275,7 @@ test('good tgz existing non empty target dir', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('good tgz existing empty target dir', async (t) => {
+test.serial('good tgz existing empty target dir', async (t) => {
   const targetDir = 'fubar';
   td.when(t.context.lycanFake.getAppByName(anything, 'exist-app')).thenResolve({
     ...defaultApp,
@@ -299,7 +299,7 @@ test('good tgz existing empty target dir', async (t) => {
   t.snapshot(stabilize(result));
 });
 
-test('good tgz', async (t) => {
+test.serial('good tgz', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'good-app')).thenResolve({
     ...defaultApp,
     id: 'ff-ff-ff',
