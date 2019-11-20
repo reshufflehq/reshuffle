@@ -113,6 +113,7 @@ export default abstract class BaseCommand extends Command {
 
   public async catch(err: Error) {
     if (err instanceof ValidationError) {
+      this.debug(JSON.stringify(err.errors));
       this.error(`Failed to communicate with server: ${err.message}.`, { exit: 7 });
     }
     throw err;
