@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "es5",
     "outDir": "dist",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["dom", "esnext"],
     "jsx": "react",
     "moduleResolution": "node"
