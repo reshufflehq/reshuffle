@@ -2,6 +2,18 @@
   "name": "@reshuffle/passport",
   "entries": [
     {
+      "version": "0.1.1",
+      "tag": "@reshuffle/passport_v0.1.1",
+      "date": "Wed, 20 Nov 2019 18:14:33 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove TypeScript dependency"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.0",
       "tag": "@reshuffle/passport_v0.1.0",
       "date": "Wed, 20 Nov 2019 15:52:32 GMT",

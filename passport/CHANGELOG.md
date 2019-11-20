@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 18:14:33 GMT and should not be manually modified.
+
+## 0.1.1
+Wed, 20 Nov 2019 18:14:33 GMT
+
+### Patches
+
+- Remove TypeScript dependency
 
 ## 0.1.0
 Wed, 20 Nov 2019 15:52:32 GMT
