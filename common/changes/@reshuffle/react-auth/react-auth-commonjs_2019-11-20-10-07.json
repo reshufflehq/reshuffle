@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-auth",
+      "comment": "Use CommonJS output",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-auth",
+  "email": "vladimir@reshuffle.com"
+}
