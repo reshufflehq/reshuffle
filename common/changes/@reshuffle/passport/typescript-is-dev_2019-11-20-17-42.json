@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/passport",
+      "comment": "Remove TypeScript dependency",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/passport",
+  "email": "vladimir@reshuffle.com"
+}
