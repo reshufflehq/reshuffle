@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/passport",
+      "comment": "Update passport to v0.1.0",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@reshuffle/passport",
+  "email": "vladimir@reshuffle.com"
+}
