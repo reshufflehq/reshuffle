@@ -1,7 +1,7 @@
 // Tests the local fake auth serving logic, and that general wiring works.
 
 import anyTest, { TestInterface } from 'ava';
-import { authRouter } from '../auth-handler';
+import { createAuthHandler } from '../auth-handler';
 import express = require('express');
 import * as http from 'http';
 import { AddressInfo } from 'net';
@@ -25,7 +25,7 @@ const test = anyTest as TestInterface<TestContext>;
 
 test.beforeEach(async (t) => {
   const app = express();
-  app.use(authRouter());
+  app.use(createAuthHandler());
   const { port } = await listen(app);
   t.context.port = port;
 });

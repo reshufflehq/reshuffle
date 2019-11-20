@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/passport",
+      "comment": "Export a pre-created authHandler",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/passport",
+  "email": "vladimir@reshuffle.com"
+}
