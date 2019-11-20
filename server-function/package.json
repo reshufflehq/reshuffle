@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@reshuffle/auth": "0.1.0",
+    "@reshuffle/auth": "0.0.0",
     "@types/express": "^4.17.2",
     "express": "^4.17.1",
     "lodash.once": "^4.1.1",
