@@ -2,6 +2,23 @@
   "name": "@reshuffle/passport",
   "entries": [
     {
+      "version": "0.0.5",
+      "tag": "@reshuffle/passport_v0.0.5",
+      "date": "Wed, 20 Nov 2019 12:32:11 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix and share Profile interface"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/auth\" from `0.0.0` to `0.0.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.4",
       "tag": "@reshuffle/passport_v0.0.4",
       "date": "Tue, 19 Nov 2019 14:37:24 GMT",

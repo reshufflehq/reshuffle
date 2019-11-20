@@ -1,0 +1,17 @@
+{
+  "name": "@reshuffle/auth",
+  "entries": [
+    {
+      "version": "0.0.1",
+      "tag": "@reshuffle/auth_v0.0.1",
+      "date": "Wed, 20 Nov 2019 12:32:11 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Create shared Profile interface"
+          }
+        ]
+      }
+    }
+  ]
+}

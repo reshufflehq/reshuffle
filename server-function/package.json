@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/server-function",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Serving function of static files",
   "main": "dist/index.js",
   "files": [
@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@reshuffle/auth": "0.0.0",
+    "@reshuffle/auth": "0.0.1",
     "@types/express": "^4.17.2",
     "express": "^4.17.1",
     "lodash.once": "^4.1.1",

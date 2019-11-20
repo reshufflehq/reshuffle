@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 18 Nov 2019 18:38:53 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 12:32:11 GMT and should not be manually modified.
+
+## 0.4.8
+Wed, 20 Nov 2019 12:32:11 GMT
+
+### Patches
+
+- Fix failing browse.spec
 
 ## 0.4.7
 Mon, 18 Nov 2019 18:38:53 GMT

@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/react-auth",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React provider for working with Reshuffle authentication",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "react": ">=16.8"
   },
   "dependencies": {
-    "@reshuffle/auth": "0.0.0",
+    "@reshuffle/auth": "0.0.1",
     "react-async-hook": "^3.6.1"
   },
   "devDependencies": {

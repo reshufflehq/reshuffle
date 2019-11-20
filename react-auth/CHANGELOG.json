@@ -2,6 +2,23 @@
   "name": "@reshuffle/react-auth",
   "entries": [
     {
+      "version": "0.1.3",
+      "tag": "@reshuffle/react-auth_v0.1.3",
+      "date": "Wed, 20 Nov 2019 12:32:11 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix and share Profile interface"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/auth\" from `0.0.0` to `0.0.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.2",
       "tag": "@reshuffle/react-auth_v0.1.2",
       "date": "Tue, 19 Nov 2019 12:38:38 GMT",

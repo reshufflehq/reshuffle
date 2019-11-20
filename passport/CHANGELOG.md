@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Tue, 19 Nov 2019 14:37:24 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 12:32:11 GMT and should not be manually modified.
+
+## 0.0.5
+Wed, 20 Nov 2019 12:32:11 GMT
+
+### Patches
+
+- Fix and share Profile interface
 
 ## 0.0.4
 Tue, 19 Nov 2019 14:37:24 GMT

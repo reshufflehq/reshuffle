@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.8",
+      "tag": "reshuffle_v0.4.8",
+      "date": "Wed, 20 Nov 2019 12:32:11 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix failing browse.spec"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.7",
       "tag": "reshuffle_v0.4.7",
       "date": "Mon, 18 Nov 2019 18:38:53 GMT",
