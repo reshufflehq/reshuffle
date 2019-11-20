@@ -4,11 +4,12 @@
   "description": "React provider for working with Reshuffle authentication",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "module": "dist/react-auth.esm.js",
   "files": [
     "dist/"
   ],
   "scripts": {
-    "build": "rm -rf dist/ && tsc",
+    "build": "rm -rf dist/ && tsdx build",
     "lint": "tslint -c ../common/tslint.yml -p .",
     "test": "echo No tests yet"
   },
@@ -28,8 +29,9 @@
     "react-async-hook": "^3.6.1"
   },
   "devDependencies": {
-    "react": "^16.12.0",
     "@types/react": "^16.9.11",
+    "react": "^16.12.0",
+    "tsdx": "^0.11.0",
     "typescript": "^3.7.2"
   }
 }
