@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Wed, 20 Nov 2019 12:32:11 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+
+## 0.1.0
+Wed, 20 Nov 2019 15:52:32 GMT
+
+### Minor changes
+
+- Update passport to v0.1.0
 
 ## 0.0.5
 Wed, 20 Nov 2019 12:32:11 GMT

@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 20 Nov 2019 12:32:11 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+
+## 0.4.9
+Wed, 20 Nov 2019 15:52:32 GMT
+
+### Patches
+
+- Republish with locked dependency
 
 ## 0.4.8
 Wed, 20 Nov 2019 12:32:11 GMT

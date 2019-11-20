@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.4.9",
+      "tag": "reshuffle_v0.4.9",
+      "date": "Wed, 20 Nov 2019 15:52:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Republish with locked dependency"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.8",
       "tag": "reshuffle_v0.4.8",
       "date": "Wed, 20 Nov 2019 12:32:11 GMT",

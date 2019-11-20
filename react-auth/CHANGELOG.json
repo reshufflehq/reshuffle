@@ -2,6 +2,18 @@
   "name": "@reshuffle/react-auth",
   "entries": [
     {
+      "version": "0.1.4",
+      "tag": "@reshuffle/react-auth_v0.1.4",
+      "date": "Wed, 20 Nov 2019 15:52:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use CommonJS output"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.3",
       "tag": "@reshuffle/react-auth_v0.1.3",
       "date": "Wed, 20 Nov 2019 12:32:11 GMT",

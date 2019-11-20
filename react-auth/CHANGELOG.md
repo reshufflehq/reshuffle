@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/react-auth
 
-This log was last generated on Wed, 20 Nov 2019 12:32:11 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+
+## 0.1.4
+Wed, 20 Nov 2019 15:52:32 GMT
+
+### Patches
+
+- Use CommonJS output
 
 ## 0.1.3
 Wed, 20 Nov 2019 12:32:11 GMT
