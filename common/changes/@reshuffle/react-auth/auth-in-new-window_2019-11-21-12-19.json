@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-auth",
+      "comment": "Support auth flow in new window",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-auth",
+  "email": "roey@reshuffle.com"
+}
