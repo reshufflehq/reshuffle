@@ -92,10 +92,10 @@ export const AuthProvider: FC = ({ children }) => {
     return req.json();
   });
   useEffect(() => {
-    execute();
+    execute().catch(() => { /* ignore - handled by async callback */ });
     const listener = (ev: StorageEvent) => {
       if (ev.key === '__reshuffle__login') {
-        execute();
+        execute().catch(() => { /* ignore - handled by async callback */ });
       }
     };
     window.addEventListener('storage', listener);
