@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/react-auth
 
-This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Nov 2019 10:19:06 GMT and should not be manually modified.
+
+## 0.1.5
+Thu, 21 Nov 2019 10:19:06 GMT
+
+### Patches
+
+- Clearly describe missing backend error
 
 ## 0.1.4
 Wed, 20 Nov 2019 15:52:32 GMT

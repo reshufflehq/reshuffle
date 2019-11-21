@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/react-auth",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "React provider for working with Reshuffle authentication",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

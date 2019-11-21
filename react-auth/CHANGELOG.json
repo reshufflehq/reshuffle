@@ -2,6 +2,18 @@
   "name": "@reshuffle/react-auth",
   "entries": [
     {
+      "version": "0.1.5",
+      "tag": "@reshuffle/react-auth_v0.1.5",
+      "date": "Thu, 21 Nov 2019 10:19:06 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Clearly describe missing backend error"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.4",
       "tag": "@reshuffle/react-auth_v0.1.4",
       "date": "Wed, 20 Nov 2019 15:52:32 GMT",
