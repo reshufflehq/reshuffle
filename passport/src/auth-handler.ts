@@ -90,6 +90,12 @@ function onCallback(req: express.Request, res: express.Response, next: (err: any
 }
 
 const oauthPage: express.Handler[] = [
+  (req, _res, next) => {
+    if (req.session) {
+      req.session.returnTo = req.query.returnTo || '/';
+    }
+    next();
+  },
   passport.authenticate('auth0', { scope: 'openid email profile' }),
   (_req, res) => res.redirect('/'),
 ];
@@ -101,14 +107,39 @@ export function createAuthHandler(): express.Express {
   const app = express();
   const sessionOpt: CookieSessionInterfaces.CookieSessionOptions = {
     keys: [sessionSecretKey],
-    sameSite: 'lax',
+    name: 'reshuffle_session',
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     httpOnly: true,
   };
+
+  if (process.env.RESHUFFLE_SESSION_SAME_SITE === 'none') {
+    // Not setting anything yet until the following issue is resolved.
+    // https://github.com/expressjs/cookie-session/issues/131
+  } else if (process.env.RESHUFFLE_SESSION_SAME_SITE === undefined
+    || process.env.RESHUFFLE_SESSION_SAME_SITE === 'lax') {
+    sessionOpt.sameSite = 'lax';
+  } else if (process.env.RESHUFFLE_SESSION_SAME_SITE === 'strict') {
+    sessionOpt.sameSite = 'strict';
+  } else {
+    // tslint:disable-next-line:no-console
+    console.error(
+      'Invalid value for RESHUFFLE_SESSION_SAME_SITE, should be one of (lax, strict, none), defaulting to lax');
+    sessionOpt.sameSite = 'lax';
+  }
   if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1);
     sessionOpt.secure = true;
   }
   app.use(session(sessionOpt));
+
+  // Auto extend session every minute
+  // https://github.com/expressjs/cookie-session#extending-the-session-expiration
+  app.use((req, _res, next) => {
+    if (req.session) {
+      req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
+    }
+    next();
+  });
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(passport.initialize());
   app.use(passport.session());
@@ -122,6 +153,25 @@ export function createAuthHandler(): express.Express {
 
   // A fake login page for the local server.
   app.get('/login', isFake(strategy) ? fakeLoginPage : oauthPage);
+
+  app.use('/logged-in', (_req, res) => {
+    return res.header('content-type', 'text/html')
+      .end(`
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <title>Redirect page</title>
+      <meta charset="utf-8">
+    </head>
+    <body>
+      <script>
+        window.localStorage.setItem('__reshuffle__login', new Date().toString());
+        window.close();
+      </script>
+    </body>
+  </html>
+    `);
+  });
 
   if (isFake(strategy)) {
     app.post(
