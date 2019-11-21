@@ -47,7 +47,8 @@ export const AuthProvider: FC = ({ children }) => {
     if (!req.ok) {
       throw new Error(`Failed to get /whoami ${req.statusText}`);
     }
-    if (!req.headers.get('content-type')!.startsWith('application/json')) {
+    const contentType = req.headers.get('content-type');
+    if (!(contentType && contentType.startsWith('application/json'))) {
       throw new Error('Failed to GET /whoami JSON data: backend may be missing file _handler.js.');
     }
     return req.json();
