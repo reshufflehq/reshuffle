@@ -2,6 +2,18 @@
   "name": "@reshuffle/react-auth",
   "entries": [
     {
+      "version": "0.1.6",
+      "tag": "@reshuffle/react-auth_v0.1.6",
+      "date": "Thu, 21 Nov 2019 14:20:45 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Better application/json detection"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.5",
       "tag": "@reshuffle/react-auth_v0.1.5",
       "date": "Thu, 21 Nov 2019 10:19:06 GMT",
