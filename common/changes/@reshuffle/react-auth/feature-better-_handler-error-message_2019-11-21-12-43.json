@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/react-auth",
+      "comment": "Better application/json detection",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/react-auth",
+  "email": "ariels@reshuffle.com"
+}
