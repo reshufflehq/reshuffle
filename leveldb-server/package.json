@@ -25,7 +25,7 @@
     "koa": "^2.11.0",
     "leveldown": "^5.4.1",
     "levelup": "^4.3.2",
-    "nanoid": "^2.1.6",
+    "nanoid": "^2.1.7",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
@@ -33,7 +33,7 @@
     "@types/koa": "^2.0.52",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^10.14.9",
-    "@types/ramda": "^0.26.34",
+    "@types/ramda": "^0.26.36",
     "@types/rmfr": "^2.0.0",
     "ava": "^2.4.0",
     "rmfr": "^2.0.0",

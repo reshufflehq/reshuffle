@@ -44,7 +44,7 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "@binaris/oclif-plugin-not-found": "^1.2.4",
-    "@binaris/spice-node-client": "0.1.3",
+    "@binaris/spice-node-client": "0.1.6",
     "@binaris/utils-subprocess": "0.0.1",
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
@@ -70,7 +70,7 @@
     "tar": "^5.0.5",
     "terminal-link": "^2.0.0",
     "tslib": "^1.10.0",
-    "validator": "^12.0.0"
+    "validator": "^12.1.0"
   },
   "devDependencies": {
     "@binaris/spice-koa-server": "^0.1.3",
@@ -86,12 +86,12 @@
     "@types/node-fetch": "^2.5.3",
     "@types/prompts": "^2.0.3",
     "@types/tar": "^4.0.3",
-    "@types/validator": "^10.11.3",
+    "@types/validator": "^12.0.0",
     "ava": "^2.4.0",
     "globby": "^10.0.1",
     "specshell": "^0.0.3",
     "testdouble": "^3.12.4",
-    "ts-node": "^8.5.0",
+    "ts-node": "^8.5.2",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   }

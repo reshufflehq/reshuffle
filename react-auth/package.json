@@ -22,7 +22,7 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.8"
+    "react": ">=16.12"
   },
   "dependencies": {
     "@reshuffle/auth": "0.0.1",

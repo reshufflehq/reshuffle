@@ -24,7 +24,7 @@
     "jju": "^1.4.0",
     "lodash.once": "^4.1.1",
     "npm-check-updates": "^3.2.1",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
     "@types/jju": "^1.4.1",

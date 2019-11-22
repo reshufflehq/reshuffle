@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
-    "@types/ramda": "^0.26.34",
+    "@types/ramda": "^0.26.36",
     "ava": "^2.4.0",
     "typedoc": "^0.15.2",
     "typescript": "^3.7.2"
