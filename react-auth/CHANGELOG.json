@@ -2,6 +2,18 @@
   "name": "@reshuffle/react-auth",
   "entries": [
     {
+      "version": "0.1.7",
+      "tag": "@reshuffle/react-auth_v0.1.7",
+      "date": "Sun, 24 Nov 2019 09:44:00 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Support auth flow in new window"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.6",
       "tag": "@reshuffle/react-auth_v0.1.6",
       "date": "Thu, 21 Nov 2019 14:20:45 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Wed, 20 Nov 2019 19:42:04 GMT and should not be manually modified.
+This log was last generated on Sun, 24 Nov 2019 09:44:00 GMT and should not be manually modified.
+
+## 0.1.3
+Sun, 24 Nov 2019 09:44:00 GMT
+
+### Patches
+
+- Support auth flow in new window
 
 ## 0.1.2
 Wed, 20 Nov 2019 19:42:04 GMT
