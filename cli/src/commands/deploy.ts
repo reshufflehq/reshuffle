@@ -12,6 +12,7 @@ import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import { getDependencies } from '../utils/getdeps';
 import {
+  getPrimaryDomain,
   getProjectRootDir,
   getProjectEnv,
   findProjectByDirectory,
@@ -34,7 +35,7 @@ function escapeWin32(filePath: string) {
 }
 
 function makeAppLink(app: Application) {
-  const domain = app.environments[0].domains[0].name;
+  const domain = getPrimaryDomain(app.environments[0]);
   return terminalLink(domain, `https://${domain}`, { fallback: (_, url) => url });
 }
 

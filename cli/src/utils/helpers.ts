@@ -3,6 +3,7 @@ import { readFile } from 'mz/fs';
 import findUp from 'find-up';
 import dotenv from 'dotenv';
 import { CLIError } from '@oclif/errors';
+import { Environment } from '@binaris/spice-node-client/interfaces';
 
 export interface Project {
   directory: string;
@@ -51,4 +52,12 @@ export async function getProjectPackageJson() {
     throw new Error('Malformed package.json');
   }
   return loaded;
+}
+
+export function getPrimaryDomain(environment: Environment) {
+  return(`${environment.domains.filter((d) => d.type === 'subdomain')[0].name}`);
+}
+
+export function getPrimaryURL(environment: Environment) {
+  return(`https://${getPrimaryDomain(environment)}`);
 }
