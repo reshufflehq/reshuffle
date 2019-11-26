@@ -116,6 +116,7 @@ export interface ClientContext {
 }
 
 export interface ServerOnlyContext {
+  verifiedToken: object | undefined; // Set on server from JWT
   tags?: { [key: string]: string };
   logLevel?: string;
   logExtra?: { [key: string]: any };
