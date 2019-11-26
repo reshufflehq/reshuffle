@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Nov 2019 14:13:17 GMT and should not be manually modified.
+
+## 0.4.10
+Tue, 26 Nov 2019 14:13:17 GMT
+
+### Patches
+
+- Use primary domain in CLI
 
 ## 0.4.9
 Wed, 20 Nov 2019 15:52:32 GMT
