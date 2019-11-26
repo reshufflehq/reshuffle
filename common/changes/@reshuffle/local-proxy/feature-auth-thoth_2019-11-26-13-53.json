@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/local-proxy",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "ariels@reshuffle.com"
+}
