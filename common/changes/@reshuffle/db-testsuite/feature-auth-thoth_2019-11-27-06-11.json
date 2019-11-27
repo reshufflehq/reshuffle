@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/db-testsuite",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/db-testsuite",
+  "email": "ariels@reshuffle.com"
+}
