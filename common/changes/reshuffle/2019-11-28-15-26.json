@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Update spice interface",
+      "type": "minor"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "michael@reshuffle.com"
+}
