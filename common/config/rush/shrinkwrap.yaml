@@ -16,8 +16,6 @@ dependencies:
   '@oclif/plugin-help': 2.2.1
   '@oclif/tslint': 3.1.1
   '@octokit/rest': 16.35.0
-  '@reshuffle/interfaces-koa-server': 0.5.1
-  '@reshuffle/interfaces-node-client': 0.5.1
   '@rush-temp/app-testsuite': 'file:projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:projects/auth.tgz'
   '@rush-temp/code-transform': 'file:projects/code-transform.tgz'
@@ -56,7 +54,7 @@ dependencies:
   '@types/lodash.once': 4.1.6
   '@types/mkdirp': 0.5.2
   '@types/ms': 0.7.31
-  '@types/mz': 0.0.32
+  '@types/mz': 2.7.0
   '@types/nanoid': 2.1.0
   '@types/passport': 1.0.2
   '@types/passport-auth0': 1.0.2
@@ -71,7 +69,7 @@ dependencies:
   '@types/tail': 2.0.0
   '@types/tar': 4.0.3
   '@types/uuid': 3.4.6
-  '@types/validator': 10.11.3
+  '@types/validator': 12.0.1
   '@types/yargs': 13.0.3
   abort-controller: 2.0.3
   address: 1.1.2
@@ -80,7 +78,7 @@ dependencies:
   async-mutex: 0.1.4
   ava: 2.4.0
   babel-plugin-macros: 2.7.1
-  babel-plugin-tester: 7.0.4
+  babel-plugin-tester: 8.0.0
   body-parser: 1.19.0
   chalk: 2.4.2
   cli-ux: 5.3.3
@@ -115,7 +113,7 @@ dependencies:
   ms: 2.1.2
   mz: 2.7.0
   nanoid: 2.1.7
-  nodemon: 1.19.4
+  nodemon: 2.0.1
   npm-check-updates: 3.2.2
   open: 7.0.0
   passport: 0.4.0
@@ -130,13 +128,13 @@ dependencies:
   sinon: 7.5.0
   sleep-promise: 8.0.1
   source-map-support: 0.5.16
-  specshell: 0.0.3
+  specshell: 0.1.0
   stringcase: 4.3.1
   tail: 2.0.3
   tar: 5.0.5
   terminal-link: 2.0.0
   testdouble: 3.12.4
-  ts-node: 8.5.3
+  ts-node: 8.5.4
   tsdx: 0.11.0
   tslib: 1.10.0
   tslint: 5.20.1
@@ -146,7 +144,7 @@ dependencies:
   validator: 12.1.0
   walkdir: 0.4.1
   winston: 3.2.1
-  yargs: 14.2.2
+  yargs: 15.0.2
 packages:
   /@ava/babel-plugin-throws-helper/4.0.0:
     dev: false
@@ -188,6 +186,26 @@ packages:
       source-map: 0.5.7
     dev: false
     hasBin: true
+    optionalDependencies:
+      chokidar: 2.1.8
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    resolution:
+      integrity: sha512-O7mmzaWdm+VabWQmxuM8hqNrWGGihN83KfhPUzp2lAW4kzIMwBxujXkZbD4fMwKMYY9FXTbDvXsJqU+5XHXi4A==
+  /@babel/cli/7.7.4/@babel!core@7.7.4:
+    dependencies:
+      '@babel/core': 7.7.4
+      commander: 4.0.1
+      convert-source-map: 1.7.0
+      fs-readdir-recursive: 1.1.0
+      glob: 7.1.6
+      lodash: 4.17.15
+      make-dir: 2.1.0
+      slash: 2.0.0
+      source-map: 0.5.7
+    dev: false
+    hasBin: true
+    id: registry.npmjs.org/@babel/cli/7.7.4
     optionalDependencies:
       chokidar: 2.1.8
     peerDependencies:
@@ -733,6 +751,7 @@ packages:
       integrity: sha512-k8iVS7Jhc367IcNF53KCwIXtKAH7czev866ThsTgy8CwlXjnKZna2VHwChglzLleYrcHz1eQEIJlGRQxB53nqA==
   /@babel/plugin-transform-modules-commonjs/7.7.4/@babel!core@7.7.4:
     dependencies:
+      '@babel/core': 7.7.4
       '@babel/helper-module-transforms': 7.7.4
       '@babel/helper-plugin-utils': 7.0.0
       '@babel/helper-simple-access': 7.7.4
@@ -1106,35 +1125,12 @@ packages:
       typescript: '>= 3.3.0 || >= 3.6.0-dev || >= 3.7.0-dev'
     resolution:
       integrity: sha512-ou8VU+nTmOW1jeg+FT+sn+an/M0Xb9G16RucrfhjXGWv1Q97kCoM5CG9Qj7GYOSdu7km72k7nY83Eyr53Bkakg==
-  /@fimbul/bifrost/0.21.0/tslint@5.20.1+typescript@3.7.2:
-    dependencies:
-      '@fimbul/ymir': /@fimbul/ymir/0.21.0/tsutils@3.17.1+typescript@3.7.2
-      tslint: /tslint/5.20.1/typescript@3.7.2
-      tsutils: /tsutils/3.17.1/typescript@3.7.2
-      typescript: 3.7.2
-    dev: false
-    id: registry.npmjs.org/@fimbul/bifrost/0.21.0
-    peerDependencies:
-      tslint: ^5.0.0
-      typescript: '>= 3.3.0 || >= 3.6.0-dev || >= 3.7.0-dev'
-    resolution:
-      integrity: sha512-ou8VU+nTmOW1jeg+FT+sn+an/M0Xb9G16RucrfhjXGWv1Q97kCoM5CG9Qj7GYOSdu7km72k7nY83Eyr53Bkakg==
   /@fimbul/ymir/0.21.0/tsutils@3.17.1:
     dependencies:
       inversify: 5.0.1
       reflect-metadata: 0.1.13
       tslib: 1.10.0
-    dev: false
-    id: registry.npmjs.org/@fimbul/ymir/0.21.0
-    peerDependencies:
-      tsutils: '>=2.29.0'
-      typescript: '>= 3.3.0 || >= 3.6.0-dev || >= 3.7.0-dev'
-    resolution:
-      integrity: sha512-T/y7WqPsm4n3zhT08EpB5sfdm2Kvw3gurAxr2Lr5dQeLi8ZsMlNT/Jby+ZmuuAAd1PnXYzKp+2SXgIkQIIMCUg==
-  /@fimbul/ymir/0.21.0/tsutils@3.17.1+typescript@3.7.2:
-    dependencies:
-      tsutils: /tsutils/3.17.1/typescript@3.7.2
-      typescript: 3.7.2
+      tsutils: 3.17.1
     dev: false
     id: registry.npmjs.org/@fimbul/ymir/0.21.0
     peerDependencies:
@@ -1433,16 +1429,6 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-B1ZWbgzwxDhNZLzVnn+JjyFf9u+J9wNwsz/ZX9YvA9edRYcdiJz9JikCttGPi35V0NU0TUV4UqTqo/q/wQ06jQ==
-  /@oclif/tslint/3.1.1/tslint@5.20.1+typescript@3.7.2:
-    dependencies:
-      tslint-eslint-rules: /tslint-eslint-rules/5.4.0/tslint@5.20.1+typescript@3.7.2
-      tslint-xo: /tslint-xo/0.9.0/tslint@5.20.1+typescript@3.7.2
-    dev: false
-    engines:
-      node: '>=8.0.0'
-    id: registry.npmjs.org/@oclif/tslint/3.1.1
-    resolution:
-      integrity: sha512-B1ZWbgzwxDhNZLzVnn+JjyFf9u+J9wNwsz/ZX9YvA9edRYcdiJz9JikCttGPi35V0NU0TUV4UqTqo/q/wQ06jQ==
   /@octokit/endpoint/5.5.1:
     dependencies:
       '@octokit/types': 2.0.2
@@ -1495,31 +1481,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-StASIL2lgT3TRjxv17z9pAqbnI7HGu9DrJlg3sEBFfCLaMEqp+O3IQPUF6EZtQ4xkAu2ml6kMBBCtGxjvmtmuQ==
-  /@reshuffle/interfaces-koa-server/0.5.1:
-    dependencies:
-      '@types/koa': 2.11.0
-      '@types/koa-bodyparser': 5.0.2
-      '@types/koa-router': 7.0.35
-      ajv: 6.10.2
-      koa: 2.11.0
-      koa-bodyparser: 4.2.1
-      koa-router: 7.4.0
-      lodash: 4.17.15
-    dev: false
-    peerDependencies:
-      '@types/node': '>=8.0.0'
-    resolution:
-      integrity: sha512-Ddg1wFa8jHBdYYcwlflppg3lqimxZx2IzCCK8T3KB+wJuP3i8RKX3h2gHy3szA842GYNkn9UQUq170RDbpCQlQ==
-  /@reshuffle/interfaces-node-client/0.5.1:
-    dependencies:
-      '@types/node-fetch': 2.5.4
-      abort-controller: 2.0.3
-      ajv: 6.10.2
-      lodash: 4.17.15
-      node-fetch: 2.6.0
-    dev: false
-    resolution:
-      integrity: sha512-vVUbz6PNgEGsY7K5bWMRjXyZG+S3t9d+DL35IVTbz+YFrujXefRynpvHa1HK/l1MvmdFOuyGA9Hcf2/y7yfh4A==
   /@sindresorhus/is/0.14.0:
     dev: false
     engines:
@@ -1761,17 +1722,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-mggrNY7Ywwjt7QjaMAlbb1ixE+v7AFskOeyKdmZT/NvPVEAo48gYUxIcF8ILlMc3eg1bo6SxNoUcbxhTv7edrA==
-  /@types/koa/2.0.52:
-    dependencies:
-      '@types/accepts': 1.3.5
-      '@types/cookies': 0.7.4
-      '@types/http-assert': 1.5.1
-      '@types/keygrip': 1.0.1
-      '@types/koa-compose': 3.2.5
-      '@types/node': 12.12.14
-    dev: false
-    resolution:
-      integrity: sha512-cp/GTOhOYwomlSKqEoG0kaVEVJEzP4ojYmfa7EKaGkmkkRwJ4B/1VBLbQZ49Z+WJNvzXejQB/9GIKqMo9XLgFQ==
   /@types/koa/2.11.0:
     dependencies:
       '@types/accepts': 1.3.5
@@ -1843,12 +1793,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
-  /@types/mz/0.0.32:
+  /@types/mz/2.7.0:
     dependencies:
       '@types/node': 12.12.14
     dev: false
     resolution:
-      integrity: sha512-cy3yebKhrHuOcrJGkfwNHhpTXQLgmXSv1BX+4p32j+VUQ6aP2eJ5cL7OvGcAQx75fCTFaAIIAKewvqL+iwSd4g==
+      integrity: sha512-Q5TZYMKnH0hdV5fNstmMWL2LLw5eRRtTd73KNtsZxoQ2gtCQyET5X79uERUEwGneuxPglg441I7OSY00+9CkSw==
   /@types/nanoid/2.1.0:
     dependencies:
       '@types/node': 12.12.14
@@ -1994,10 +1944,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-cCdlC/1kGEZdEglzOieLDYBxHsvEOIg7kp/2FYyVR9Pxakq+Qf/inL3RKQ+PA8gOlI/NnL+fXmQH12nwcGzsHw==
-  /@types/validator/10.11.3:
+  /@types/validator/12.0.1:
     dev: false
     resolution:
-      integrity: sha512-GKF2VnEkMmEeEGvoo03ocrP9ySMuX1ypKazIYMlsjfslfBMhOAtC5dmEWKdJioW4lJN7MZRS88kalTsVClyQ9w==
+      integrity: sha512-l57fIANZLMe8DArz+SDb+7ATXnDm15P7u2wHBw5mb0aSMd+UuvmvhouBF2hdLgQPDMJ39sh9g2MJO4GkZ0VAdQ==
   /@types/yargs-parser/13.1.0:
     dev: false
     resolution:
@@ -2457,6 +2407,7 @@ packages:
       integrity: sha512-+Ryf6g3BKoRc7jfp7ad8tM4TtMiaWvbF/1/sQcZPkkS7ag3D5nMBCe2UfOTONtAkaG0tO0ij3C5Lwmf1EiyjHg==
   /async-each/1.0.3:
     dev: false
+    optional: true
     resolution:
       integrity: sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
   /async-limiter/1.0.1:
@@ -2505,7 +2456,7 @@ packages:
       array-union: 2.1.0
       array-uniq: 2.1.0
       arrify: 2.0.1
-      bluebird: 3.7.1
+      bluebird: 3.7.2
       chalk: 2.4.2
       chokidar: 3.3.0
       chunkd: 1.0.0
@@ -2699,9 +2650,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-HNM284amlKSQ6FddI4jLXD+XTqF0cTYOe5uemOIZxHJHnamC+OhFQ57rMF9sgnYhkJQptVl9U1SKVZsV9/GLQQ==
-  /babel-plugin-tester/7.0.4:
+  /babel-plugin-tester/8.0.0:
     dependencies:
       lodash.mergewith: 4.6.2
+      prettier: 1.19.1
       strip-indent: 3.0.0
     dev: false
     engines:
@@ -2710,7 +2662,7 @@ packages:
     peerDependencies:
       '@babel/core': ^7.7.2
     resolution:
-      integrity: sha512-ZKhOa0aaaPNQVOZjxJ4svy8lIKjHswzCNxv3WROmirlFz+5IM22hzNg+p4MGC/C3Tv3sX5JfYSKJIcUE9aPdsA==
+      integrity: sha512-/aMDd8INt1aXV5X2gp6l1hnyQQevn/kQ21LtOPiL6HGGBPTCVoJbz3wx4fFT/0dxZM4+cQRiBIBb8JpJxe6Gdg==
   /babel-plugin-transform-async-to-promises/0.8.15:
     dev: false
     resolution:
@@ -2811,6 +2763,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    optional: true
     resolution:
       integrity: sha512-Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==
   /binary-extensions/2.0.0:
@@ -2825,10 +2778,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EUAyP5UHU5hxF8BPT0LKW8gjYLhq1DQIcneOX/pL/m2Alo+OYDQAJlHq+yseMP50Os2nHXOSic6Ss3vSQeyf4A==
-  /bluebird/3.7.1:
+  /bluebird/3.7.2:
     dev: false
     resolution:
-      integrity: sha512-DdmyoGCleJnkbp3nkbxTLJ18rjDsE4yCggEwKNXkeV123sPNfOCYeDoeuOY+F2FrSjO1YXcTU+dsy96KMy+gcg==
+      integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
   /blueimp-md5/2.12.0:
     dev: false
     resolution:
@@ -2976,7 +2929,7 @@ packages:
       integrity: sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
   /cacache/12.0.3:
     dependencies:
-      bluebird: 3.7.1
+      bluebird: 3.7.2
       chownr: 1.1.3
       figgy-pudding: 3.5.1
       glob: 7.1.6
@@ -3153,6 +3106,7 @@ packages:
       readdirp: 2.2.1
       upath: 1.2.0
     dev: false
+    optional: true
     optionalDependencies:
       fsevents: 1.2.9
     resolution:
@@ -3354,6 +3308,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==
+  /cliui/6.0.0:
+    dependencies:
+      string-width: 4.2.0
+      strip-ansi: 6.0.0
+      wrap-ansi: 6.2.0
+    dev: false
+    resolution:
+      integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==
   /clone-response/1.0.2:
     dependencies:
       mimic-response: 1.0.1
@@ -5237,6 +5199,7 @@ packages:
       is-glob: 3.1.0
       path-dirname: 1.0.2
     dev: false
+    optional: true
     resolution:
       integrity: sha1-nmr2KZ2NO9K9QEMIMr0RPfkGxa4=
   /glob-parent/5.1.0:
@@ -5826,6 +5789,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    optional: true
     resolution:
       integrity: sha1-dfFmQrSA8YenEcgUFh/TpKdlWJg=
   /is-binary-path/2.1.0:
@@ -5956,6 +5920,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10.0'
+    optional: true
     resolution:
       integrity: sha1-e6WuJCF4BKxwcHuWkiVnSGzD6Eo=
   /is-glob/4.0.1:
@@ -7822,9 +7787,9 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+IctMa7wIs8Cfsa8iYzeaLTFwv5Y4r5jZud+4AnfymzeEXKBCavFX0KBgzVaPVqf0ywa6PrO8/b+bPqdwjGBSg==
-  /nodemon/1.19.4:
+  /nodemon/2.0.1:
     dependencies:
-      chokidar: 2.1.8
+      chokidar: 3.3.0
       debug: 3.2.6
       ignore-by-default: 1.0.1
       minimatch: 3.0.4
@@ -7836,11 +7801,11 @@ packages:
       update-notifier: 2.5.0
     dev: false
     engines:
-      node: '>=4'
+      node: '>=8.10.0'
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-VGPaqQBNk193lrJFotBU8nvWZPqEZY2eIzymy2jjY0fJ9qIsxA0sxQ8ATPl0gZC645gijYEc1jtZvpS8QWzJGQ==
+      integrity: sha512-UC6FVhNLXjbbV4UzaXA3wUdbEkUZzLGgMGzmxvWAex5nzib/jhcSHVFlQODdbuUHq8SnnZ4/EABBAbC3RplvPg==
   /nopt/1.0.10:
     dependencies:
       abbrev: 1.1.1
@@ -7936,7 +7901,7 @@ packages:
   /npm-registry-fetch/4.0.2:
     dependencies:
       JSONStream: 1.3.5
-      bluebird: 3.7.1
+      bluebird: 3.7.2
       figgy-pudding: 3.5.1
       lru-cache: 5.1.1
       make-fetch-happen: 5.0.2
@@ -8454,7 +8419,7 @@ packages:
       integrity: sha512-k3bdm2n25tkyxcjSKzB5x8kfVxlMdgsbPr0GkZcwHsLpba6cBjqCt1KlcChKEvxHIcTB1FVMuwoijZ26xex5MQ==
   /pacote/9.5.9:
     dependencies:
-      bluebird: 3.7.1
+      bluebird: 3.7.2
       cacache: 12.0.3
       chownr: 1.1.3
       figgy-pudding: 3.5.1
@@ -8630,6 +8595,7 @@ packages:
       integrity: sha512-bpuBhROdrhuN3E7G/koAju0WjVw9/uQOG5Co5mokNj0MiOSBVZS1JTwM4zl55hu0WFmIEFvO9cU9sJQiBIYeIA==
   /path-dirname/1.0.2:
     dev: false
+    optional: true
     resolution:
       integrity: sha1-zDPSTVJeCZpTiMAzbG4yuRYGCeA=
   /path-exists/3.0.0:
@@ -9115,6 +9081,18 @@ packages:
       react: '>=16.8'
     resolution:
       integrity: sha512-YWBB2feVQF79t5u2raMPHlZ8975Jds+guCvkWVC4kRLDlSCouLsYpQm4DGSqPeHvoHYVVcDfqNayLZAXQmnxnw==
+  /react-async-hook/3.6.1/react@16.12.0:
+    dependencies:
+      react: 16.12.0
+    dev: false
+    engines:
+      node: '>=8'
+      npm: '>=5'
+    id: registry.npmjs.org/react-async-hook/3.6.1
+    peerDependencies:
+      react: '>=16.8'
+    resolution:
+      integrity: sha512-YWBB2feVQF79t5u2raMPHlZ8975Jds+guCvkWVC4kRLDlSCouLsYpQm4DGSqPeHvoHYVVcDfqNayLZAXQmnxnw==
   /react-is/16.12.0:
     dev: false
     resolution:
@@ -9206,6 +9184,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10'
+    optional: true
     resolution:
       integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==
   /readdirp/3.2.0:
@@ -10116,7 +10095,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-J+FWzZoynJEXGphVIS+XEh3kFSjZX/1i9gFBaWQcB+/tmpe2qUsSBABpcxqxnAxFdiUFEgAX1bjYGQvIZmoz9Q==
-  /specshell/0.0.3:
+  /specshell/0.1.0:
     dependencies:
       async-mutex: 0.1.4
       defer-promise: 2.0.1
@@ -10125,7 +10104,7 @@ packages:
       streamsearch: 0.1.2
     dev: false
     resolution:
-      integrity: sha512-vE9uZxxeH47p3ESRytGCDtclCa2jBbQ5JXEqtkV7i3uKD2YI32fUjas1WzetSAzgP7KjcDznx07CZ/XyQbDdIw==
+      integrity: sha512-vMNZuv6lrQejhhf4bxBpwZAAc7QikdtRyMUzGCXSbFh0wpKgWlfWP0TzzBRsYKpiY4QSYZhhPaWRbtIAzIs9Wg==
   /split-string/3.1.0:
     dependencies:
       extend-shallow: 3.0.2
@@ -10802,7 +10781,7 @@ packages:
       jest: '>=24 <25'
     resolution:
       integrity: sha512-Yc+HLyldlIC9iIK8xEN7tV960Or56N49MDP7hubCZUeI7EbIOTsas6rXCMB4kQjLACJ7eDOF4xWEO5qumpKsag==
-  /ts-node/8.5.3:
+  /ts-node/8.5.4:
     dependencies:
       arg: 4.1.2
       diff: 4.0.1
@@ -10816,8 +10795,8 @@ packages:
     peerDependencies:
       typescript: '>=2.0'
     resolution:
-      integrity: sha512-B4dYs62o9ioIilzh7Npby5grYvw3lLwttTSIzf7QObf1FWUCzt+ELtyZJd+xYgxJ/n3A5nQJ2oG6VaZgwMMcjA==
-  /ts-node/8.5.3/typescript@3.7.2:
+      integrity: sha512-izbVCRV68EasEPQ8MSIGBNK9dc/4sYJJKYA+IarMQct1RtEot6Xp0bXuClsbUSnKpg50ho+aOAx8en5c+y4OFw==
+  /ts-node/8.5.4/typescript@3.7.2:
     dependencies:
       arg: 4.1.2
       diff: 4.0.1
@@ -10829,11 +10808,11 @@ packages:
     engines:
       node: '>=4.2.0'
     hasBin: true
-    id: registry.npmjs.org/ts-node/8.5.3
+    id: registry.npmjs.org/ts-node/8.5.4
     peerDependencies:
       typescript: '>=2.0'
     resolution:
-      integrity: sha512-B4dYs62o9ioIilzh7Npby5grYvw3lLwttTSIzf7QObf1FWUCzt+ELtyZJd+xYgxJ/n3A5nQJ2oG6VaZgwMMcjA==
+      integrity: sha512-izbVCRV68EasEPQ8MSIGBNK9dc/4sYJJKYA+IarMQct1RtEot6Xp0bXuClsbUSnKpg50ho+aOAx8en5c+y4OFw==
   /ts-toolbelt/4.10.21:
     dev: false
     resolution:
@@ -10925,37 +10904,12 @@ packages:
       typescript: '>=2.1.4 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >=3.1.0-dev || >=3.2.0-dev || >=3.3.0-dev || >=3.4.0-dev'
     resolution:
       integrity: sha512-ebR/xHyMEuU36hGNOgCfjGBNYxBPixf0yU1Yoo6s3BrpBRFccjPOmIVaVvQsWAUAMdmfzHOCihVkcaMfimqvHw==
-  /tslint-consistent-codestyle/1.16.0/tslint@5.20.1+typescript@3.7.2:
-    dependencies:
-      '@fimbul/bifrost': /@fimbul/bifrost/0.21.0/tslint@5.20.1+typescript@3.7.2
-      tslint: /tslint/5.20.1/typescript@3.7.2
-      tsutils: /tsutils/2.29.0/typescript@3.7.2
-      typescript: 3.7.2
-    dev: false
-    id: registry.npmjs.org/tslint-consistent-codestyle/1.16.0
-    peerDependencies:
-      tslint: ^5.0.0
-      typescript: '>=2.1.4 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >=3.1.0-dev || >=3.2.0-dev || >=3.3.0-dev || >=3.4.0-dev'
-    resolution:
-      integrity: sha512-ebR/xHyMEuU36hGNOgCfjGBNYxBPixf0yU1Yoo6s3BrpBRFccjPOmIVaVvQsWAUAMdmfzHOCihVkcaMfimqvHw==
   /tslint-eslint-rules/5.4.0:
     dependencies:
       doctrine: 0.7.2
       tslib: 1.9.0
       tsutils: 3.17.1
     dev: false
-    peerDependencies:
-      tslint: ^5.0.0
-      typescript: ^2.2.0 || ^3.0.0
-    resolution:
-      integrity: sha512-WlSXE+J2vY/VPgIcqQuijMQiel+UtmXS+4nvK4ZzlDiqBfXse8FAvkNnTcYhnQyOTW5KFM+uRRGXxYhFpuBc6w==
-  /tslint-eslint-rules/5.4.0/tslint@5.20.1+typescript@3.7.2:
-    dependencies:
-      tslint: /tslint/5.20.1/typescript@3.7.2
-      tsutils: /tsutils/3.17.1/typescript@3.7.2
-      typescript: 3.7.2
-    dev: false
-    id: registry.npmjs.org/tslint-eslint-rules/5.4.0
     peerDependencies:
       tslint: ^5.0.0
       typescript: ^2.2.0 || ^3.0.0
@@ -10970,18 +10924,6 @@ packages:
       typescript: ^2.1.0 || ^3.0.0
     resolution:
       integrity: sha512-PDYjvpo0gN9IfMULwKk0KpVOPMhU6cNoT9VwCOLeDl/QS8v8W2yspRpFFuUS7/c5EIH/n8ApMi8TxJAz1tfFUA==
-  /tslint-microsoft-contrib/5.2.1/tslint@5.20.1+typescript@3.7.2:
-    dependencies:
-      tslint: /tslint/5.20.1/typescript@3.7.2
-      tsutils: /tsutils/2.28.0/typescript@3.7.2
-      typescript: 3.7.2
-    dev: false
-    id: registry.npmjs.org/tslint-microsoft-contrib/5.2.1
-    peerDependencies:
-      tslint: ^5.1.0
-      typescript: ^2.1.0 || ^3.0.0
-    resolution:
-      integrity: sha512-PDYjvpo0gN9IfMULwKk0KpVOPMhU6cNoT9VwCOLeDl/QS8v8W2yspRpFFuUS7/c5EIH/n8ApMi8TxJAz1tfFUA==
   /tslint-xo/0.9.0:
     dependencies:
       tslint-consistent-codestyle: 1.16.0
@@ -10990,20 +10932,6 @@ packages:
     dev: false
     engines:
       node: '>=6'
-    peerDependencies:
-      tslint: '>=5.11.0'
-    resolution:
-      integrity: sha512-Zk5jBdQVUaHEmR9TUoh1TJOjjCr7/nRplA+jDZBvucyBMx65pt0unTr6H/0HvrtSlucFvOMYsyBZE1W8b4AOig==
-  /tslint-xo/0.9.0/tslint@5.20.1+typescript@3.7.2:
-    dependencies:
-      tslint: /tslint/5.20.1/typescript@3.7.2
-      tslint-consistent-codestyle: /tslint-consistent-codestyle/1.16.0/tslint@5.20.1+typescript@3.7.2
-      tslint-eslint-rules: /tslint-eslint-rules/5.4.0/tslint@5.20.1+typescript@3.7.2
-      tslint-microsoft-contrib: /tslint-microsoft-contrib/5.2.1/tslint@5.20.1+typescript@3.7.2
-    dev: false
-    engines:
-      node: '>=6'
-    id: registry.npmjs.org/tslint-xo/0.9.0
     peerDependencies:
       tslint: '>=5.11.0'
     resolution:
@@ -11066,15 +10994,6 @@ packages:
     dependencies:
       tslib: 1.10.0
     dev: false
-    peerDependencies:
-      typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
-    resolution:
-      integrity: sha512-bh5nAtW0tuhvOJnx1GLRn5ScraRLICGyJV5wJhtRWOLsxW70Kk5tZtpK3O/hW6LDnqKS9mlUMPZj9fEMJ0gxqA==
-  /tsutils/2.28.0/typescript@3.7.2:
-    dependencies:
-      typescript: 3.7.2
-    dev: false
-    id: registry.npmjs.org/tsutils/2.28.0
     peerDependencies:
       typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
     resolution:
@@ -11368,6 +11287,7 @@ packages:
     dev: false
     engines:
       node: '>=4'
+    optional: true
     resolution:
       integrity: sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
   /update-notifier/2.5.0:
@@ -11690,6 +11610,16 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-QC1/iN/2/RPVJ5jYK8BGttj5z83LmSKmvbvrXPNCLZSEb32KKVDJDl/MOt2N01qU2H/FkzEa9PKto1BqDjtd7Q==
+  /wrap-ansi/6.2.0:
+    dependencies:
+      ansi-styles: 4.2.0
+      string-width: 4.2.0
+      strip-ansi: 6.0.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
   /wrappy/1.0.2:
     dev: false
     resolution:
@@ -11806,6 +11736,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-xLTUnCMc4JhxrPEPUYD5IBR1mWCK/aT6+RJ/K29JY2y1vD+FhtgKK0AXRWvI262q3QSffAQuTouFIKUuHX89wQ==
+  /yargs-parser/16.1.0:
+    dependencies:
+      camelcase: 5.3.1
+      decamelize: 1.2.0
+    dev: false
+    resolution:
+      integrity: sha512-H/V41UNZQPkUMIT5h5hiwg4QKIY1RPvoBV4XcjUbRM8Bk2oKqqyZ0DIEbTFZB0XjbtSPG8SAa/0DxCQmiRgzKg==
   /yargs/13.3.0:
     dependencies:
       cliui: 5.0.0
@@ -11837,6 +11774,22 @@ packages:
     dev: false
     resolution:
       integrity: sha512-/4ld+4VV5RnrynMhPZJ/ZpOCGSCeghMykZ3BhdFBDa9Wy/RH6uEGNWDJog+aUlq+9OM1CFTgtYRW5Is1Po9NOA==
+  /yargs/15.0.2:
+    dependencies:
+      cliui: 6.0.0
+      decamelize: 1.2.0
+      find-up: 4.1.0
+      get-caller-file: 2.0.5
+      require-directory: 2.1.1
+      require-main-filename: 2.0.0
+      set-blocking: 2.0.0
+      string-width: 4.2.0
+      which-module: 2.0.0
+      y18n: 4.0.0
+      yargs-parser: 16.1.0
+    dev: false
+    resolution:
+      integrity: sha512-GH/X/hYt+x5hOat4LMnCqMd8r5Cv78heOMIJn1hr7QPPBqfeC6p89Y78+WB9yGDvfpCvgasfmWLzNzEioOUD9Q==
   /ylru/1.2.1:
     dev: false
     engines:
@@ -11853,7 +11806,7 @@ packages:
     dependencies:
       '@types/fs-extra': 8.0.1
       '@types/got': 9.6.9
-      '@types/mz': 0.0.32
+      '@types/mz': 2.7.0
       '@types/node': 10.17.6
       '@types/tail': 2.0.0
       fs-extra: 8.1.0
@@ -11861,12 +11814,12 @@ packages:
       mz: 2.7.0
       sleep-promise: 8.0.1
       tail: 2.0.3
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-XWZILtnC6qOfCLjMZB1MgAoHKIj5oYdQs//Qq/QQNY5NCfzrHFQB4D1LGyMhzVeZMS8RTkwrz58XwbSkLhGCvA==
+      integrity: sha512-XypvSoqIsB1ro1KoO30NgpdE8c46J9rxEEvjKD0JkkxLvU+pCp3qz0VfD21V5RRNiiahswGY3wqgFV3ZEtHWDg==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/auth.tgz':
@@ -11875,7 +11828,7 @@ packages:
     dev: false
     name: '@rush-temp/auth'
     resolution:
-      integrity: sha512-RfKzr0Pta8ZBEoLKlu9kHbhpx3VuvPUN1gngPm9mAhGj8F5pl8TqUDzZdPHDMQpKFHOr+gOnTAT5yYVUZzVDtA==
+      integrity: sha512-Du0EoBa4f71Z38nDgjUhb6cbPshMNMiyMj3PcVyeX7YNFKyFSw2hXV1LuC5ZwMYY+6NbsSoSUWtar4XGmkVG3A==
       tarball: 'file:projects/auth.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -11886,21 +11839,20 @@ packages:
       '@types/jest': 24.0.23
       '@types/node': 10.17.6
       babel-plugin-macros: 2.7.1
-      babel-plugin-tester: 7.0.4
+      babel-plugin-tester: 8.0.0
       jest: 24.9.0
       jest-standard-reporter: 1.0.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/code-transform'
     resolution:
-      integrity: sha512-XWw/KWjZ3Mlt5IinMlq3ezng5GpiIQ3Hx1xPYdpayOF9I811ITZ5W4i4lS0+ta9IA0dML9Pb7Y01PUL7XCxsKA==
+      integrity: sha512-wu4sRA/bC1LkDTvnHsvWOBMxd0vcIopVw1P2NBS01qqit217+04nEmsHDj7np0tA5bO3mcQzIEldyqg1wg5RPA==
       tarball: 'file:projects/code-transform.tgz'
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
     dependencies:
-      '@reshuffle/interfaces-koa-server': 0.5.1
-      '@types/koa': 2.0.52
+      '@types/koa': 2.11.0
       '@types/koa-router': 7.0.42
       '@types/nanoid': 2.1.0
       '@types/node': 12.12.14
@@ -11910,17 +11862,16 @@ packages:
       koa-router: 7.4.0
       nanoid: 2.1.7
       ramda: 0.26.1
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-lycWqO5FxAsS7UNSe+mOpkrPZPcixh48GtFaO3IaZmzpxipP1249hfwyFyShPL9rmJo19BDRNCOqTGO0bolNyQ==
+      integrity: sha512-W+RNGGhxocQPKHZhYfI/F07j3dsiYkBTrjYyfb4G8C6YTECx90RR4S/UHRv+h4LvlKbPN1M9K90DbC7C5qb/bg==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
     dependencies:
-      '@reshuffle/interfaces-node-client': 0.5.1
       '@types/deep-freeze': 0.1.2
       '@types/node': 12.12.14
       '@types/ramda': 0.26.36
@@ -11932,18 +11883,18 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-4TkMM7ddX0slcZE1FZpIoVBh1dWw4zWis0UeaV42UtaJ2oOjw5+cf1Yd3hW0Sclc7z8207ZCDuBb9pcYfEpukg==
+      integrity: sha512-9mvPJnnX/Xq8TCv2Zesrsx+4z7dkE1SxEufuH+VB5DvFqHfoYQFCsIbJiPbBZ77dT68RzKh2u65ocV4HHRBG0g==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
     dependencies:
       '@types/node': 10.17.6
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/fetch-runtime'
     resolution:
-      integrity: sha512-YqNSDFWM8rHHsy3bKx/WZ6+1ApPqrU0+c1tINOo9eNtvOOqy2IzxfUq9UemUUUCaljqHbLzkY4MOHlW63wypTQ==
+      integrity: sha512-anPKGeZqB6V+NXsSIcfCprAcq+lPF7gadjKoPchduh+nywSrBOFQte6pbfjmWNq+Co74VnI4qfZYLjKbdtIcsQ==
       tarball: 'file:projects/fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/interfaces-koa-server.tgz':
@@ -11961,7 +11912,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-koa-server'
     resolution:
-      integrity: sha512-7l4YsRHs1m5aAzSgbEO4BRI+a60NGw/tD5myfUjCGAANieQLMDPi71zsWRPCj0PyMHPY+19Xux0cnTold+fnQA==
+      integrity: sha512-qynMJ8XCt/J9jmRbL8/HyxYn6jEAkgDlPkuPPsXzC4LJstCW2ZHOZTDbhcezin41Snln//p8+/+xgEICwDskGg==
       tarball: 'file:projects/interfaces-koa-server.tgz'
     version: 0.0.0
   'file:projects/interfaces-node-client.tgz':
@@ -11976,7 +11927,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces-node-client'
     resolution:
-      integrity: sha512-taVg+qCoc2JQY1oZFtenzAw0wHAWf/GOQFtW6DDRDl5tTxGgfbmJp4p93lMA+xblXZyfVapccdLtVYaUXXJVkA==
+      integrity: sha512-q6jWrIgz/njVJC+UQ/L3YIbZSYT1ecPSFJJY3fL9wwALhqK4hb2SW/Pa8htFYUm6mqkeOD1rMX5YObsM95Iyww==
       tarball: 'file:projects/interfaces-node-client.tgz'
     version: 0.0.0
   'file:projects/interfaces.tgz':
@@ -11984,18 +11935,17 @@ packages:
       '@types/node': 10.17.6
       concord: 0.2.4
       fast-json-patch: 2.2.1
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
       typescript-json-schema: 0.40.0
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-Q4tUV6M/oHxToctCW7DNezyDkPPJ+bvmjEQcssEGa+tQaPTT0yNvamWImvKFUKBv/e4icuuZSTz3/zd5eMq6wQ==
+      integrity: sha512-bORj7YS0FsLfdexlQc45cQxBUqTmyVnQ8Ly+Jin2h1EZqZI8lWX0MYZ96qiWQFUPQnALHc/gAbE+UsOk2xY94w==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
     dependencies:
-      '@reshuffle/interfaces-koa-server': 0.5.1
       '@types/deep-freeze': 0.1.2
       '@types/koa': 2.11.0
       '@types/leveldown': 4.0.2
@@ -12014,20 +11964,19 @@ packages:
       nanoid: 2.1.7
       ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-CwJ1oxIQ0nlFqbKwJwqbrMuqG8JtyMJ4M9E+MPezER2fYyBZEK4jhsIyvnUmrcZh/ey6taJJdmijCclP3QGNGA==
+      integrity: sha512-SkbiCABlkt2+UN8OA8nvlDYwzjoIL6QVbWzAecE+D5dpmiVZMfEI2wawf6mIS7VOd1iK7dUBiQxpuOWPvuySdA==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
     dependencies:
-      '@babel/cli': 7.7.4
+      '@babel/cli': /@babel/cli/7.7.4/@babel!core@7.7.4
       '@babel/core': 7.7.4
-      '@babel/plugin-transform-modules-commonjs': 7.7.4
-      '@reshuffle/interfaces-koa-server': 0.5.1
+      '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.7.4/@babel!core@7.7.4
       '@types/babel__core': 7.1.3
       '@types/express': 4.17.2
       '@types/fs-extra': 8.0.1
@@ -12037,7 +11986,7 @@ packages:
       '@types/koa-router': 7.0.42
       '@types/lodash': 4.14.149
       '@types/mkdirp': 0.5.2
-      '@types/mz': 0.0.32
+      '@types/mz': 2.7.0
       '@types/nanoid': 2.1.0
       '@types/node': 10.17.6
       '@types/rimraf': 2.0.3
@@ -12057,16 +12006,16 @@ packages:
       mkdirp: 0.5.1
       mz: 2.7.0
       nanoid: 2.1.7
-      nodemon: 1.19.4
+      nodemon: 2.0.1
       rimraf: 3.0.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
       walkdir: 0.4.1
       winston: 3.2.1
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-F0XJBe63a8HkSmlCeml/e+MMtRDIZxqnGUYsrNkoMQfynTTV5HXzvGygRYtZxcsdYnEgslsHAlNrFuUbWJdQbw==
+      integrity: sha512-tiavKmPAYogPKhqe2QEaqtiVUiAqMCaaNW9R/P4b1Qcc81rjcevacARJoezvS3+xBlp6acV6HDZk/EAlAG0ozw==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
@@ -12092,7 +12041,7 @@ packages:
     dev: false
     name: '@rush-temp/passport'
     resolution:
-      integrity: sha512-wwxL/1WQ+eooGux7dNSMTn+8tqBGt5XVEPjAIw0V5Ivii2Iu0OfAO3yjmK4APEIr9ZRaCy6vAb4uYcPCF6eiXA==
+      integrity: sha512-kRGHCkXeYJbuM3YbaaV1HOc50Jriae7tjQCC2CGmhMJ8i3byVn4yWWpnRCx7OufzVy4uRik9M03efx7ETwrKuw==
       tarball: 'file:projects/passport.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -12103,25 +12052,25 @@ packages:
       fixture-stdout: 0.2.1
       jest: 24.9.0
       rmfr: 2.0.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/react-app'
     resolution:
-      integrity: sha512-xLwv1NR7hPss23cejG1GzY3JsxmxMJmvM8cbsjOBv2FqSQ1ly2P/KKo5fS5RplJOyqehOLSXvvzvfgWqKiSseg==
+      integrity: sha512-UZZ2er4CCHjQwvTLZo/EoQg7I9swKHmpvnwIbV83AUQQkf8JuS82JAR2Qlgv4BC7xMHBKg4bEpNRZB+7oYisxg==
       tarball: 'file:projects/react-app.tgz'
     version: 0.0.0
   'file:projects/react-auth.tgz':
     dependencies:
       '@types/react': 16.9.13
       react: 16.12.0
-      react-async-hook: 3.6.1
+      react-async-hook: /react-async-hook/3.6.1/react@16.12.0
       tsdx: 0.11.0
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/react-auth'
     resolution:
-      integrity: sha512-wx2JEv3oytq4EM6BgnlxtDZUWM6JIAdxUkf7vInixK2lnmLHEeJ/evrgMmWXhR8IPN74dLS6E9c2tkXRtcmUFQ==
+      integrity: sha512-XS9anHBjBhzdt19/ssc2QIpXzo0eB6PPgDFN02ZKt9pqXLG3gECAQOrFNoavb2DnxFAkD/svyKU4WBY6GXIMyg==
       tarball: 'file:projects/react-auth.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
@@ -12136,18 +12085,18 @@ packages:
       '@oclif/errors': 1.2.2
       '@oclif/parser': 3.8.4
       '@oclif/plugin-help': 2.2.1
-      '@oclif/tslint': /@oclif/tslint/3.1.1/tslint@5.20.1+typescript@3.7.2
+      '@oclif/tslint': 3.1.1
       '@types/fs-extra': 8.0.1
       '@types/js-yaml': 3.12.1
       '@types/lodash.has': 4.5.6
       '@types/lodash.memoize': 4.1.6
       '@types/ms': 0.7.31
-      '@types/mz': 0.0.32
+      '@types/mz': 2.7.0
       '@types/node': 10.17.6
       '@types/node-fetch': 2.5.4
       '@types/prompts': 2.0.3
       '@types/tar': 4.0.3
-      '@types/validator': 10.11.3
+      '@types/validator': 12.0.1
       any-shell-escape: 0.1.1
       ava: 2.4.0
       chalk: 2.4.2
@@ -12166,11 +12115,11 @@ packages:
       node-fetch: 2.6.0
       open: 7.0.0
       prompts: 2.3.0
-      specshell: 0.0.3
+      specshell: 0.1.0
       tar: 5.0.5
       terminal-link: 2.0.0
       testdouble: 3.12.4
-      ts-node: /ts-node/8.5.3/typescript@3.7.2
+      ts-node: /ts-node/8.5.4/typescript@3.7.2
       tslib: 1.10.0
       tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
@@ -12178,7 +12127,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-gbgLAVXxT196viKdpVNNwLil1vu/T74eg48OS3OFgTek9NYQNfP90+05lxemDKjkhYNJE+Mr2mpJWvic4IaFrg==
+      integrity: sha512-3dyfg8uTttaEt5o4XljPSacW8xwtGpxUOoSoSZmhrUWbC9B5Sf7o7e7OstgsUVHy57s2cdELCrlBLup3tZ5TmQ==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -12191,13 +12140,13 @@ packages:
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.2.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
-      yargs: 14.2.2
+      yargs: 15.0.2
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-xrLjPAmbk9Nhy05bcpdhaOSAT91O77o3ZiYGQ7UU7nBP4DMBgZ1Kc4hnyzFHRiTJgNCWU0U6n0BaHmbplRjpag==
+      integrity: sha512-hp2JC2hrMm8NAkRVQSxKnTVOcH2DvYPc4laMJyFM/udjJUkEXA3o9GT/zAhw9Z2IbIn3FQvBRICsWLqDkdAp5A==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/server-function.tgz':
@@ -12213,12 +12162,11 @@ packages:
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-k3bbik1v1OCMNqhmwVzq9uircfP7OpV4Z5zDHb8Wbdj6V3EN8IWH3M4I2Rc7zIQNyymSwi2SKTrUWZcwj1J9EQ==
+      integrity: sha512-1fX1mr+5MkNI4mETsnLFbAic3wbsMzZ+qOooAX/N0Xfggl8SibWkYJ9+ScZC3/frKB4LqnVsyPe7XS0LQYC7kg==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
     dependencies:
-      '@reshuffle/interfaces-node-client': 0.5.1
       '@types/node': 10.17.6
       '@types/react': 16.9.13
       '@types/sinon': 7.5.1
@@ -12229,12 +12177,12 @@ packages:
       react: 16.12.0
       rxjs: 6.5.3
       sinon: 7.5.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-bucQFMbFgRYKm6fRyMaX8yfdFJhcgDt0jzQSKyiMp3TPDDgPnIXFDcdzTlxZJInFV4g7YRcnODowhLfdP7D69g==
+      integrity: sha512-IlFEiS7N4hX5IO3NoeFff9N5TOwXmm5HOOa9rC34LVSPLRsxkqZue6Bl1PafMcTOY7J7+9BL1LoHZJ7Ac89x5A==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
@@ -12244,18 +12192,18 @@ packages:
     dev: false
     name: '@rush-temp/utils-subprocess'
     resolution:
-      integrity: sha512-6WEUQ2hyTaWNhNRZ6aqwJ495A0rC9d1fbR06/LQAnc+wRhYE7fcK+GOBQpqkdLozSH/gPcMqdYnIfX/wKuO3Rg==
+      integrity: sha512-RME4B31ZaTLkOLSfbptIp0cpP/+Ymd74yH0rJZY1iiE2JCeXTm3NswGwo3Ga8gCRlDLUP+N6puf/lJPoOhLwQg==
       tarball: 'file:projects/utils-subprocess.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  '@babel/cli': ^7.7.0
-  '@babel/core': ^7.7.2
-  '@babel/parser': ^7.7.3
-  '@babel/plugin-transform-modules-commonjs': ^7.7.0
-  '@babel/types': ^7.7.2
+  '@babel/cli': ^7.7.4
+  '@babel/core': ^7.7.4
+  '@babel/parser': ^7.7.4
+  '@babel/plugin-transform-modules-commonjs': ^7.7.4
+  '@babel/types': ^7.7.4
   '@binaris/oclif-plugin-not-found': ^1.2.4
   '@binaris/spice-koa-server': 1.0.0-rc.1
   '@binaris/spice-node-client': 1.0.0-rc.1
@@ -12268,8 +12216,6 @@ specifiers:
   '@oclif/plugin-help': ^2.2.1
   '@oclif/tslint': ^3.1.1
   '@octokit/rest': ^16.35.0
-  '@reshuffle/interfaces-koa-server': 0.5.1
-  '@reshuffle/interfaces-node-client': 0.5.1
   '@rush-temp/app-testsuite': 'file:./projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:./projects/auth.tgz'
   '@rush-temp/code-transform': 'file:./projects/code-transform.tgz'
@@ -12290,13 +12236,13 @@ specifiers:
   '@rush-temp/subscriptions': 'file:./projects/subscriptions.tgz'
   '@rush-temp/utils-subprocess': 'file:./projects/utils-subprocess.tgz'
   '@types/babel__core': ^7.1.3
-  '@types/babel__traverse': ^7.0.7
+  '@types/babel__traverse': ^7.0.8
   '@types/body-parser': ^1.17.1
   '@types/cookie-session': ^2.0.37
   '@types/deep-freeze': ^0.1.2
   '@types/fs-extra': ^8.0.1
   '@types/got': ^9.6.9
-  '@types/http-proxy': ^1.17.1
+  '@types/http-proxy': ^1.17.2
   '@types/jest': ^24.0.23
   '@types/jju': ^1.4.1
   '@types/js-yaml': ^3.12.1
@@ -12308,22 +12254,22 @@ specifiers:
   '@types/lodash.once': ^4.1.6
   '@types/mkdirp': ^0.5.2
   '@types/ms': ^0.7.31
-  '@types/mz': ^0.0.32
+  '@types/mz': ^2.7.0
   '@types/nanoid': ^2.1.0
-  '@types/passport': ^1.0.1
+  '@types/passport': ^1.0.2
   '@types/passport-auth0': ^1.0.2
   '@types/passport-local': ^1.0.33
   '@types/prompts': ^2.0.3
-  '@types/ramda': ^0.26.34
-  '@types/react': ^16.9.11
+  '@types/ramda': ^0.26.36
+  '@types/react': ^16.9.13
   '@types/rimraf': ^2.0.3
   '@types/rmfr': ^2.0.0
-  '@types/sinon': ^7.5.0
+  '@types/sinon': ^7.5.1
   '@types/source-map-support': ^0.5.0
   '@types/tail': ^2.0.0
   '@types/tar': ^4.0.3
   '@types/uuid': ^3.4.6
-  '@types/validator': ^10.11.3
+  '@types/validator': ^12.0.1
   '@types/yargs': ^13.0.3
   abort-controller: ^2.0.2
   address: ^1.1.2
@@ -12331,8 +12277,8 @@ specifiers:
   any-shell-escape: ^0.1.1
   async-mutex: ^0.1.4
   ava: ^2.4.0
-  babel-plugin-macros: ^2.6.1
-  babel-plugin-tester: ^7.0.4
+  babel-plugin-macros: ^2.7.1
+  babel-plugin-tester: ^8.0.0
   body-parser: ^1.19.0
   chalk: ^2.4.2
   cli-ux: ^5.3.3
@@ -12342,7 +12288,7 @@ specifiers:
   conf: ^6.2.0
   cookie-session: ^1.3.3
   dotenv: ^8.2.0
-  env-var: ^5.1.0
+  env-var: ^5.2.0
   express: ^4.17.1
   fast-json-patch: ^2.2.1
   find-up: ^4.1.0
@@ -12366,12 +12312,12 @@ specifiers:
   mkdirp: ^0.5.1
   ms: ^2.1.2
   mz: ^2.7.0
-  nanoid: ^2.1.6
-  nodemon: ^1.19.4
-  npm-check-updates: ^3.2.1
+  nanoid: ^2.1.7
+  nodemon: ^2.0.1
+  npm-check-updates: ^3.2.2
   open: ^7.0.0
   passport: ^0.4.0
-  passport-auth0: ^1.2.1
+  passport-auth0: ^1.3.0
   passport-local: ^1.0.0
   prompts: ^2.3.0
   ramda: ^0.26.1
@@ -12382,20 +12328,20 @@ specifiers:
   sinon: ^7.5.0
   sleep-promise: ^8.0.1
   source-map-support: ^0.5.16
-  specshell: ^0.0.3
+  specshell: ^0.1.0
   stringcase: ^4.3.1
   tail: ^2.0.3
   tar: ^5.0.5
   terminal-link: ^2.0.0
   testdouble: ^3.12.4
-  ts-node: ^8.5.0
+  ts-node: ^8.5.4
   tsdx: ^0.11.0
   tslib: ^1.10.0
   tslint: ^5.20.1
-  typedoc: ^0.15.2
+  typedoc: ^0.15.3
   typescript: ^3.7.2
   typescript-json-schema: ^0.40.0
-  validator: ^12.0.0
+  validator: ^12.1.0
   walkdir: ^0.4.1
   winston: ^3.2.1
-  yargs: ^14.2.0
+  yargs: ^15.0.2

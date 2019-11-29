@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
     "@types/got": "^9.6.9",
-    "@types/mz": "^0.0.32",
+    "@types/mz": "^2.7.0",
     "@types/node": "^10.14.9",
     "@types/tail": "^2.0.0",
     "tslint": "^5.20.1",
