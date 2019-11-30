@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Add debug for communication errors",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "vladimir@reshuffle.com"
+}
