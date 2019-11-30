@@ -118,6 +118,7 @@ export default abstract class BaseCommand extends Command {
 
   public async catch(err: Error) {
     if (err instanceof ValidationError) {
+      this.debug(JSON.stringify(err.errors, null, 2));
       this.error(`Failed to communicate with server: ${err.message}. Please verify that reshuffle CLI is up to date.`,
         { exit: 7 });
     }
