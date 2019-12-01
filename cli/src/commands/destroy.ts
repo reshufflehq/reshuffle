@@ -1,9 +1,5 @@
 import { CLIError } from '@oclif/errors';
 import Command from '../utils/command';
-import {
-  getProjectRootDir,
-  findProjectByDirectory,
-} from '../utils/helpers';
 
 export default class Destroy extends Command {
   public static description = 'destroy an application';
@@ -26,15 +22,7 @@ export default class Destroy extends Command {
     await this.authenticate();
     const projects = this.conf.get('projects') || [];
 
-    let appId = idFromArgs;
-    if (!appId) {
-      const projectDir = await getProjectRootDir();
-      const project = findProjectByDirectory(projects, projectDir);
-      if (project === undefined) {
-        throw new CLIError('"id" argument not provided and could not locate project settings');
-      }
-      appId = project.applicationId;
-    }
+    const appId = idFromArgs || await this.getLocalAppId();
 
     try {
       if (idFromArgs) {

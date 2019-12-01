@@ -1,9 +1,5 @@
 import { CLIError } from '@oclif/errors';
 import Command from '../utils/command';
-import {
-  getProjectRootDir,
-  findProjectByDirectory,
-} from '../utils/helpers';
 
 export default class AddDomain extends Command {
   public static description = 'add custom domain';
@@ -25,13 +21,7 @@ export default class AddDomain extends Command {
   public async run() {
     const { domain } = this.parse(AddDomain).args;
     await this.authenticate();
-    const projects = this.conf.get('projects') || [];
-    const projectDir = await getProjectRootDir();
-    const project = findProjectByDirectory(projects, projectDir);
-    if (project === undefined) {
-      throw new CLIError('Could not find local project settings');
-    }
-    const { applicationId } = project;
+    const applicationId = await this.getLocalAppId();
     try {
         await this.lycanClient.addAppDomain(applicationId, 'default', domain);
     } catch (error) {
