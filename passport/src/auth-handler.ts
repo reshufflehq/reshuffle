@@ -1,10 +1,18 @@
-import { makeStrategies, isFake } from './strategy';
+import { makeStrategy, makeFakeLocalStrategy, isFake } from './strategy';
 
 import express from 'express';
 import session from 'cookie-session';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 import { URLSearchParams } from 'url';
+
+function makeStrategies() {
+  if (process.env.NODE_ENV === 'production' || process.env.OAUTH_CLIENT_ID) {
+    const domains = process.env.RESHUFFLE_APPLICATION_DOMAINS!.split(',');
+    return domains.map((d) => ({ domain: d, strategy: makeStrategy(d) }));
+  }
+  return [{ domain: '*', strategy: makeFakeLocalStrategy() }];
+}
 
 const strategies = makeStrategies();
 for (const { domain, strategy } of strategies) {
