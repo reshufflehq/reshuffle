@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/passport
 
-This log was last generated on Sun, 24 Nov 2019 09:44:00 GMT and should not be manually modified.
+This log was last generated on Sun, 01 Dec 2019 10:22:45 GMT and should not be manually modified.
+
+## 0.2.0
+Sun, 01 Dec 2019 10:22:45 GMT
+
+### Minor changes
+
+- Support strategies for multiple domains
 
 ## 0.1.3
 Sun, 24 Nov 2019 09:44:00 GMT
