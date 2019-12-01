@@ -96,9 +96,11 @@ function createOnCallback(domain: string): express.Handler {
   return (req, res, next) => {
     passport.authenticate(`auth0-${domain}`, (err, user, _info, _extra) => {
       if (err) { return next(err); }
+      // TODO: redirecting to /login, a misconfiguration causes a confusing redirect loop
       if (!user) { return res.redirect('/login'); }
       req.logIn(user, (loginErr) => {
-        if (err) { return next(loginErr); }
+        // loginErr usually indicates a failure to serialize when using a session store
+        if (loginErr) { return next(loginErr); }
         res.redirect(req.session?.returnTo || '/');
         delete req.session?.returnTo;
       });
