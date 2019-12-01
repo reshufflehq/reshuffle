@@ -1,6 +1,20 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 20 Nov 2019 15:52:32 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Nov 2019 16:07:29 GMT and should not be manually modified.
+
+## 0.5.0
+Thu, 28 Nov 2019 16:07:29 GMT
+
+### Minor changes
+
+- Update spice interface
+
+## 0.4.10
+Tue, 26 Nov 2019 14:13:17 GMT
+
+### Patches
+
+- Use primary domain in CLI
 
 ## 0.4.9
 Wed, 20 Nov 2019 15:52:32 GMT

@@ -45,6 +45,7 @@ export default function Main() {
     profile,
     getLoginURL,
     getLogoutURL,
+    login,
   } = useAuth();
 
   if (loading) {
@@ -54,7 +55,12 @@ export default function Main() {
     return <div className='error'><h1>{error.toString()}</h1></div>;
   }
   if (!authenticated) {
-    return <a href={getLoginURL()}>Login</a>;
+    return (
+      <>
+        <a href={getLoginURL()}>Login in same window</a>
+        <a href='/login' onClick={(e) => { login({ newWindow: true }); e.preventDefault(); }}>Login from new window</a>
+      </>
+    );
   }
   return (
     <>
@@ -84,6 +90,7 @@ export default class Main extends React.Component {
       profile,
       getLoginURL,
       getLogoutURL,
+      login,
     } = this.context;
 
     if (loading) {
@@ -93,7 +100,10 @@ export default class Main extends React.Component {
       return <div className='error'><h1>{error.toString()}</h1></div>;
     }
     if (!authenticated) {
-      return <a href={getLoginURL()}>Login</a>;
+      <>
+        <a href={getLoginURL()}>Login in same window</a>
+        <a href='/login' onClick={(e) => { login({ newWindow: true }); e.preventDefault(); }}>Login from new window</a>
+      </>
     }
     return (
       <>

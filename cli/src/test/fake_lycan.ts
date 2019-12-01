@@ -70,6 +70,9 @@ projects:
       reportAnalytics: td.function<LycanHandler['reportAnalytics']>(),
       renameApp: td.function<LycanHandler['renameApp']>(),
       renameAppByName: td.function<LycanHandler['renameAppByName']>(),
+      addAppDomain: td.function<LycanHandler['addAppDomain']>(),
+      removeAppDomain: td.function<LycanHandler['removeAppDomain']>(),
+      triggerAppDomainVerification: td.function<LycanHandler['triggerAppDomainVerification']>(),
     };
 
     t.context.lycanServer = new LycanServer(t.context.lycanFake, true);

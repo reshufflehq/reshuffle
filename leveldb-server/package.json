@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@reshuffle/interfaces-koa-server": "0.4.0",
+    "@reshuffle/interfaces-koa-server": "0.5.1",
     "@types/deep-freeze": "^0.1.2",
     "@types/leveldown": "^4.0.2",
     "@types/levelup": "^3.1.1",

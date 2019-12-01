@@ -2,6 +2,7 @@ import columnify from 'columnify';
 
 import Command from '../utils/command';
 import flags from '../utils/cli-flags';
+import { getPrimaryURL } from '../utils/helpers';
 
 export default class List extends Command {
   public static description = 'list applications';
@@ -30,7 +31,7 @@ export default class List extends Command {
     const mappedApps = apps.map(({ name, updatedAt, environments }) => ({
       name,
       updatedAt: updatedAt.toISOString(),
-      URL: `https://${environments[0].domains[0].name}`,
+      URL: getPrimaryURL(environments[0]),
     }));
 
     switch (format) {

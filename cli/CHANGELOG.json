@@ -2,6 +2,30 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.5.0",
+      "tag": "reshuffle_v0.5.0",
+      "date": "Thu, 28 Nov 2019 16:07:29 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Update spice interface"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.4.10",
+      "tag": "reshuffle_v0.4.10",
+      "date": "Tue, 26 Nov 2019 14:13:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use primary domain in CLI"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.9",
       "tag": "reshuffle_v0.4.9",
       "date": "Wed, 20 Nov 2019 15:52:32 GMT",
