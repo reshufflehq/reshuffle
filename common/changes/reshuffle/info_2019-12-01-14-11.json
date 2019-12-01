@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Add a few hidden commands",
+      "type": "minor"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "michael@reshuffle.com"
+}
