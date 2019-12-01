@@ -2,6 +2,18 @@
   "name": "@reshuffle/passport",
   "entries": [
     {
+      "version": "0.2.0",
+      "tag": "@reshuffle/passport_v0.2.0",
+      "date": "Sun, 01 Dec 2019 10:22:45 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Support strategies for multiple domains"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.3",
       "tag": "@reshuffle/passport_v0.1.3",
       "date": "Sun, 24 Nov 2019 09:44:00 GMT",
