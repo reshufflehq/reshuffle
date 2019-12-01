@@ -8,11 +8,7 @@ import { URLSearchParams } from 'url';
 
 const strategies = makeStrategies();
 for (const { domain, strategy } of strategies) {
-  if (isFake(strategy)) {
-    passport.use(strategy);
-  } else {
-    passport.use(`auth0-${domain}`, strategy);
-  }
+  passport.use(isFake(strategy) ? 'fake' : `auth0-${domain}`, strategy);
 }
 
 passport.serializeUser((user, cb) => cb(null, user));
@@ -151,7 +147,7 @@ function createPerDomainAuth(domain: string, strategy: passport.Strategy) {
     router.post(
       '/login',
       bodyParser.urlencoded({ extended: true }),
-      passport.authenticate('local', { failureRedirect: '/login' }),
+      passport.authenticate('fake', { failureRedirect: '/login' }),
       (req, res) => {
         res.redirect(req.session?.returnTo || '/');
         delete req.session?.returnTo;
