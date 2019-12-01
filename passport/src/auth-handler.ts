@@ -108,7 +108,7 @@ function createOnCallback(domain: string): express.Handler {
   };
 }
 
-function createOauthApp(domain: string) {
+function createOAuthRouter(domain: string) {
   // using Router and not an appp to avoid duplicating app.set-s
   const router = express.Router();
   router.use(
@@ -135,6 +135,59 @@ function createLogout(domain: string): express.Handler {
       }).toString();
       res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
     };
+}
+
+function createPerDomainAuth(domain: string, strategy: passport.Strategy) {
+  const router = express.Router();
+  router.get('/whoami', (req, res) => {
+    if (req.session?.passport?.user) {
+      return res.json({ authenticated: true, profile: req.session.passport.user });
+    }
+    return res.json({ authenticated: false });
+  });
+  // A fake login page for the local server.
+  router.get('/login', isFake(strategy) ? fakeLoginPage : createOAuthRouter(domain));
+  if (isFake(strategy)) {
+    router.post(
+      '/login',
+      bodyParser.urlencoded({ extended: true }),
+      passport.authenticate('local', { failureRedirect: '/login' }),
+      (req, res) => {
+        res.redirect(req.session?.returnTo || '/');
+        delete req.session?.returnTo;
+      }
+    );
+  }
+  router.all('/logged-in', (_req, res) => {
+    return res.header('content-type', 'text/html')
+      .end(`
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <title>Redirect page</title>
+      <meta charset="utf-8">
+    </head>
+    <body>
+      <script>
+        window.localStorage.setItem('__reshuffle__login', new Date().toISOString());
+        window.close();
+      </script>
+    </body>
+  </html>
+    `);
+  });
+  if (!isFake(strategy)) {
+    router.get('/callback', createOnCallback(domain));
+  }
+  if (isFake(strategy)) {
+    router.get('/logout', (req, res) => {
+      req.logout();
+      res.redirect('/');
+    });
+  } else {
+    router.get('/logout', createLogout(domain));
+  }
+  return router;
 }
 
 // TODO(ariels): Support secret rotation.
@@ -180,67 +233,8 @@ export function createAuthHandler(): express.Express {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(passport.initialize());
   app.use(passport.session());
-
-  app.get('/whoami', (req, res) => {
-    if (req.session?.passport?.user) {
-      return res.json({ authenticated: true, profile: req.session.passport.user });
-    }
-    return res.json({ authenticated: false });
-  });
-
-  // A fake login page for the local server.
   for (const { strategy, domain } of strategies) {
-    app.get('/login', ifMatch(domain, isFake(strategy) ? fakeLoginPage : createOauthApp(domain)));
-  }
-
-  app.use('/logged-in', (_req, res) => {
-    return res.header('content-type', 'text/html')
-      .end(`
-  <!doctype html>
-  <html lang="en">
-    <head>
-      <title>Redirect page</title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-      <script>
-        window.localStorage.setItem('__reshuffle__login', new Date().toString());
-        window.close();
-      </script>
-    </body>
-  </html>
-    `);
-  });
-
-  for (const { strategy } of strategies) {
-    if (isFake(strategy)) {
-      app.post(
-        '/login',
-        bodyParser.urlencoded({ extended: true }),
-        passport.authenticate('local', { failureRedirect: '/login' }),
-        (req, res) => {
-          res.redirect(req.session?.returnTo || '/');
-          delete req.session?.returnTo;
-        }
-      );
-    }
-  }
-
-  for (const { domain, strategy } of strategies) {
-    if (!isFake(strategy)) {
-      app.get('/callback', ifMatch(domain, createOnCallback(domain)));
-    }
-  }
-
-  for (const { domain, strategy } of strategies) {
-    if (isFake(strategy)) {
-      app.get('/logout', (req, res) => {
-        req.logout();
-        res.redirect('/');
-      });
-      continue;
-    }
-    app.get('/logout', ifMatch(domain, createLogout(domain)));
+    app.use(ifMatch(domain, createPerDomainAuth(domain, strategy)));
   }
 
   return app;
