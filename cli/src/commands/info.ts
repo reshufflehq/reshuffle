@@ -1,11 +1,6 @@
 import { inspect } from 'util';
 import { Application } from '@binaris/spice-node-client/interfaces';
-
 import Command from '../utils/command';
-import {
-  findProjectByDirectory,
-  getProjectRootDir,
-} from '../utils/helpers';
 
 export default class Info extends Command {
   public static description = 'get application info';
@@ -33,13 +28,7 @@ export default class Info extends Command {
         return this.error(`Cannot find application ${appName}`);
       }
     } else {
-      const projectDir = await getProjectRootDir();
-      const projects = this.conf.get('projects');
-      const project = findProjectByDirectory(projects, projectDir);
-      if (project === undefined) {
-        return this.error(`No project deployments found, please run ${Command.cliBinName} deploy`);
-      }
-      const { applicationId } = project;
+      const applicationId = await this.getLocalAppId();
       try {
         return await this.lycanClient.getApp(applicationId);
       } catch (e) {

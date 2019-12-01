@@ -11,6 +11,10 @@ import { LycanClient, ValidationError } from '@binaris/spice-node-client';
 import flags from './cli-flags';
 import * as userConfig from './user-config';
 import { hrtime } from 'process';
+import {
+  getProjectRootDir,
+  findProjectByDirectory,
+} from '../utils/helpers';
 
 const pjson = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf-8'));
 
@@ -190,5 +194,15 @@ export default abstract class BaseCommand extends Command {
   private createLycanClient(apiKey?: string): LycanClient {
     const options = { headers: this.apiHeadersWithKey(apiKey) };
     return new LycanClient(this.apiEndpoint, options);
+  }
+
+  protected async getLocalAppId(): Promise<string> {
+    const projects = this.conf.get('projects') || [];
+    const projectDir = await getProjectRootDir();
+    const project = findProjectByDirectory(projects, projectDir);
+    if (project === undefined) {
+      throw new CLIError('Could not find local project settings');
+    }
+    return project.applicationId;
   }
 }
