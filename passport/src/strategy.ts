@@ -49,17 +49,8 @@ class FakeLocalStrategy extends LocalStrategy {
   // Just inherit the constructor from LocalStrategy.
 }
 
-export function makeStrategies() {
-  if (process.env.NODE_ENV === 'production' || process.env.OAUTH_CLIENT_ID) {
-    validateEnv();
-    const domains = process.env.RESHUFFLE_APPLICATION_DOMAINS!.split(',');
-    return domains.map((d) => ({ domain: d, strategy: makeStrategy(d) }));
-  } else {
-    return [{ domain: '*', strategy: makeFakeLocalStrategy() }];
-  }
-}
-
-function makeStrategy(appDomain: string) {
+export function makeStrategy(appDomain: string) {
+  validateEnv();
   return new Auth0Strategy({
     clientID: process.env.OAUTH_CLIENT_ID!,
     clientSecret: process.env.OAUTH_CLIENT_SECRET!,
@@ -69,7 +60,7 @@ function makeStrategy(appDomain: string) {
 
 }
 
-function makeFakeLocalStrategy() {
+export function makeFakeLocalStrategy() {
   return new FakeLocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
