@@ -1,4 +1,4 @@
-import { makeStrategy, isFake } from './strategy';
+import { makeStrategies, isFake } from './strategy';
 
 import express from 'express';
 import session from 'cookie-session';
@@ -6,9 +6,14 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 import { URLSearchParams } from 'url';
 
-const strategy = makeStrategy();
-
-passport.use(strategy);
+const strategies = makeStrategies();
+for (const { domain, strategy } of strategies) {
+  if (isFake(strategy)) {
+    passport.use(strategy);
+  } else {
+    passport.use(`auth0-${domain}`, strategy);
+  }
+}
 
 passport.serializeUser((user, cb) => cb(null, user));
 passport.deserializeUser((obj, cb) => cb(null, obj));
@@ -77,28 +82,58 @@ form {
 `);
 }
 
-function onCallback(req: express.Request, res: express.Response, next: (err: any) => void) {
-  passport.authenticate('auth0', (err, user, _info) => {
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
-    req.logIn(user, (loginErr) => {
-      if (err) { return next(loginErr); }
-      res.redirect(req.session?.returnTo || '/');
-      delete req.session?.returnTo;
-    });
-  })(req, res, next);
-}
-
-const oauthPage: express.Handler[] = [
-  (req, _res, next) => {
-    if (req.session) {
-      req.session.returnTo = req.query.returnTo || '/';
+// A poor man's vhost module - calls handler if the hostname matches
+function ifMatch(domain: string, handler: express.Handler): express.Handler {
+  return (req, res, next) => {
+    if (domain === '*' || domain === req.hostname) {
+      return handler(req, res, next);
     }
     next();
-  },
-  passport.authenticate('auth0', { scope: 'openid email profile' }),
-  (_req, res) => res.redirect('/'),
-];
+  };
+}
+
+function createOnCallback(domain: string): express.Handler {
+  return (req, res, next) => {
+    passport.authenticate(`auth0-${domain}`, (err, user, _info, _extra) => {
+      if (err) { return next(err); }
+      if (!user) { return res.redirect('/login'); }
+      req.logIn(user, (loginErr) => {
+        if (err) { return next(loginErr); }
+        res.redirect(req.session?.returnTo || '/');
+        delete req.session?.returnTo;
+      });
+    })(req, res, next);
+  };
+}
+
+function createOauthApp(domain: string) {
+  // using Router and not an appp to avoid duplicating app.set-s
+  const router = express.Router();
+  router.use(
+    (req, _res, next) => {
+      if (req.session) {
+        req.session.returnTo = req.query.returnTo || '/';
+      }
+      next();
+    },
+    passport.authenticate(`auth0-${domain}`, { scope: 'openid email profile' }),
+    (_req, res) => res.redirect('/'),
+  );
+  return router;
+}
+
+function createLogout(domain: string): express.Handler {
+  return (req, res) => {
+      req.logout();
+      const oauthDomain = process.env.OAUTH_DOMAIN!;
+      const clientId = process.env.OAUTH_CLIENT_ID!;
+      const params = new URLSearchParams({
+        returnTo: `https://${domain}`,
+        client_id: clientId,
+      }).toString();
+      res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
+    };
+}
 
 // TODO(ariels): Support secret rotation.
 const sessionSecretKey = process.env.RESHUFFLE_SESSION_SECRET || 'fancy crab';
@@ -152,7 +187,9 @@ export function createAuthHandler(): express.Express {
   });
 
   // A fake login page for the local server.
-  app.get('/login', isFake(strategy) ? fakeLoginPage : oauthPage);
+  for (const { strategy, domain } of strategies) {
+    app.get('/login', ifMatch(domain, isFake(strategy) ? fakeLoginPage : createOauthApp(domain)));
+  }
 
   app.use('/logged-in', (_req, res) => {
     return res.header('content-type', 'text/html')
@@ -173,39 +210,35 @@ export function createAuthHandler(): express.Express {
     `);
   });
 
-  if (isFake(strategy)) {
-    app.post(
-      '/login',
-      bodyParser.urlencoded({ extended: true }),
-      passport.authenticate('local', { failureRedirect: '/login' }),
-      (req, res) => {
-        res.redirect(req.session?.returnTo || '/');
-        delete req.session?.returnTo;
-      }
-    );
+  for (const { strategy } of strategies) {
+    if (isFake(strategy)) {
+      app.post(
+        '/login',
+        bodyParser.urlencoded({ extended: true }),
+        passport.authenticate('local', { failureRedirect: '/login' }),
+        (req, res) => {
+          res.redirect(req.session?.returnTo || '/');
+          delete req.session?.returnTo;
+        }
+      );
+    }
   }
 
-  if (!isFake(strategy)) {
-    app.get('/callback', onCallback);
+  for (const { domain, strategy } of strategies) {
+    if (!isFake(strategy)) {
+      app.get('/callback', ifMatch(domain, createOnCallback(domain)));
+    }
   }
 
-  if (isFake(strategy)) {
-    app.get('/logout', (req, res) => {
-      req.logout();
-      res.redirect('/');
-    });
-  } else {
-    app.get('/logout', (req, res) => {
-      req.logout();
-      const oauthDomain = process.env.OAUTH_DOMAIN!;
-      const baseUrl = process.env.RESHUFFLE_APPLICATION_DOMAINS!.split(',')[0];
-      const clientId = process.env.OAUTH_CLIENT_ID!;
-      const params = new URLSearchParams({
-        returnTo: `https://${baseUrl}`,
-        client_id: clientId,
-      }).toString();
-      res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
-    });
+  for (const { domain, strategy } of strategies) {
+    if (isFake(strategy)) {
+      app.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+      });
+      continue;
+    }
+    app.get('/logout', ifMatch(domain, createLogout(domain)));
   }
 
   return app;
