@@ -5,7 +5,7 @@ export default class RemoveDomain extends Command {
   public static description = 'remove custom domain';
   public static hidden = true;
   public static examples = [
-    `$ ${Command.cliBinName} remove-domain subdomain.invalid`,
+    `$ ${Command.cliBinName} remove-domain example.com`,
   ];
 
   public static args = [

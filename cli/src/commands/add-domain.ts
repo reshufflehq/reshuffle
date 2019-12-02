@@ -5,7 +5,7 @@ export default class AddDomain extends Command {
   public static description = 'add custom domain';
   public static hidden = true;
   public static examples = [
-    `$ ${Command.cliBinName} add-domain subdomain.invalid`,
+    `$ ${Command.cliBinName} add-domain example.com`,
   ];
 
   public static args = [
