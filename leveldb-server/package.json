@@ -1,6 +1,6 @@
 {
   "name": "@reshuffle/leveldb-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "files": [
     "dist"
   ],
@@ -29,7 +29,7 @@
     "ramda": "^0.26.1"
   },
   "devDependencies": {
-    "@reshuffle/db-testsuite": "0.1.0",
+    "@reshuffle/db-testsuite": "0.2.0",
     "@types/koa": "^2.0.52",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^10.14.9",

@@ -2,6 +2,18 @@
   "name": "@reshuffle/db-testsuite",
   "entries": [
     {
+      "version": "0.2.0",
+      "tag": "@reshuffle/db-testsuite_v0.2.0",
+      "date": "Mon, 02 Dec 2019 14:26:04 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Allow configuring authentication token in test DB client"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.0",
       "tag": "@reshuffle/db-testsuite_v0.1.0",
       "date": "Thu, 14 Nov 2019 14:26:29 GMT",
