@@ -1,6 +1,17 @@
 # Change Log - reshuffle
 
-This log was last generated on Thu, 28 Nov 2019 16:07:29 GMT and should not be manually modified.
+This log was last generated on Mon, 02 Dec 2019 09:28:36 GMT and should not be manually modified.
+
+## 0.6.0
+Mon, 02 Dec 2019 09:28:36 GMT
+
+### Minor changes
+
+- Add a few hidden commands
+
+### Patches
+
+- Update spice to 2.0.0
 
 ## 0.5.0
 Thu, 28 Nov 2019 16:07:29 GMT
