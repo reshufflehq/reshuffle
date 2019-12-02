@@ -1879,7 +1879,7 @@ packages:
       integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
   /@types/ramda/0.26.36:
     dependencies:
-      ts-toolbelt: 4.12.8
+      ts-toolbelt: 4.12.10
     dev: false
     resolution:
       integrity: sha512-uo22Nf32Cc3EURp9tYlFttY8MVQZ1zoVum+D+yQ2jm4IqQFxDtwCQlP/WMwbuj4ey5kw1rJ7v6OacDszfWiqLA==
@@ -9686,7 +9686,7 @@ packages:
       rollup: 1.27.8
       rollup-pluginutils: 2.8.2
       serialize-javascript: 1.9.1
-      terser: 4.4.1
+      terser: 4.4.2
     dev: false
     id: registry.npmjs.org/rollup-plugin-terser/5.1.2
     peerDependencies:
@@ -10550,7 +10550,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-rdBAY35jUvVapqCuhehjenLbYY73cVgRQ6podD6u9EDBomBBHjCOtmq2InPgPpTysOIOsQ5PdBzwSC/sKjv6ew==
-  /terser/4.4.1:
+  /terser/4.4.2:
     dependencies:
       commander: 2.20.3
       source-map: 0.6.1
@@ -10560,7 +10560,7 @@ packages:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-e05giplw+8sIYh50qXYHZmr0b76O5dOSm9JwSDebGFLri4ItYzxsnumiAK+yuI56R+H7uIjT9KbVEKNkrprzHw==
+      integrity: sha512-Uufrsvhj9O1ikwgITGsZ5EZS6qPokUOkCegS7fYOdGTv+OA90vndUbU6PEjr5ePqHfNUbGyMO7xyIZv2MhsALQ==
   /test-exclude/5.2.3:
     dependencies:
       glob: 7.1.6
@@ -10836,10 +10836,10 @@ packages:
       typescript: '>=2.0'
     resolution:
       integrity: sha512-izbVCRV68EasEPQ8MSIGBNK9dc/4sYJJKYA+IarMQct1RtEot6Xp0bXuClsbUSnKpg50ho+aOAx8en5c+y4OFw==
-  /ts-toolbelt/4.12.8:
+  /ts-toolbelt/4.12.10:
     dev: false
     resolution:
-      integrity: sha512-RffgzBVRdSoBZxgd8oIuX9h0Q2ouyG/mF+NdXxvj/qywAXITAoB2aQWIn8QxjiY2E2QONn9ZI0XLVgfrB2pCnQ==
+      integrity: sha512-7HWn694UYyRgDhybR1b5ColAmLW9ErE2AE2xxon+tGN4kaHa6RXnJhTzryF4nbDAixHYHvnnP1XBkwvHqavabQ==
   /tsdx/0.11.0:
     dependencies:
       '@babel/core': 7.7.4
@@ -11958,7 +11958,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-KF6WjiDZMfASZVetZf5FJLJkgafWShGVyY3D+N9E+ycHBqF/WV62tJSNSAMqnvfRXmCZxEe9KEg8VK3ZE5By1w==
+      integrity: sha512-Cd1Ee4JbMLP7hksEkyGLWcjcsEBbDm8CS92Cf7jjEYhK174ABATl3FYKrgqccNiVqCqcTDtEcwva+4OPi5sK4A==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -12004,7 +12004,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-2ALd2c84OgzrRb7+IetL9zpBEB66Z9PxIxTc3NQs68MsDuo35simaAXJpiIcP4AR1VZeRo04mOpAaJAbKKx7mQ==
+      integrity: sha512-CUtJFeO9Y0bbJPZRTmKCZwc9C7T2HNedKdR1vpvBqfwbYaS5e8wFBNBhOi+FsQ5gLHGybqHICz/qW8T7igLTBw==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
