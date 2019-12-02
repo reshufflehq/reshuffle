@@ -56,6 +56,8 @@ rules:
       - check-typecast
       - check-type-operator
       - check-preblock
+    indent: [true, "spaces", 2]
+    align: [true, "members", "parameters", "statements"]
 
 rulesDirectory: []
 linterOptions:

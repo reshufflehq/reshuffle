@@ -85,8 +85,10 @@ export default class Deploy extends Command {
         '--source-maps',
         'true',
         '--plugins',
-        ['@babel/plugin-transform-modules-commonjs',
-          'module:@reshuffle/code-transform'].join(','),
+        [
+          '@babel/plugin-transform-modules-commonjs',
+          'module:@reshuffle/code-transform',
+        ].join(','),
         'backend/',
         '-d',
         escapeWin32(pathResolve(stagingDir, 'backend')),
