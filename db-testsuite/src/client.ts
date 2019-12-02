@@ -56,6 +56,7 @@ const requiresPolling: Macro<[Implementation<Context>], Context> = (t, fn) => {
 
 export function setUpTests<T>(
   { setUp, tearDown }: TestHooks<T>,
+  token = 'SETEC Astronomy',
 ) {
   test.beforeEach(async (t) => {
     const appId = `${nanoid(6)}: ${t.title.replace(/^beforeEach hook for /,  '')}`;
@@ -79,7 +80,7 @@ export function setUpTests<T>(
         collection: 'default',
         auth: {
           v1: {
-            token: 'test',
+            token,
           },
         },
       },
