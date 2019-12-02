@@ -5,6 +5,7 @@ import {
   findProjectByDirectory,
 } from '../utils/helpers';
 import ms = require('ms');
+import dedent from 'dedent';
 
 const detailedLogsRegexps = [
   /^Function invocation took [\d.]+(e[-+]?\d+)? us$/m,
@@ -15,29 +16,29 @@ export default class Logs extends Command {
   public static description = 'show logs';
 
   public static examples = [
-`// retrieve all logs (except "function invocation")
-$ ${Command.cliBinName} logs
-`,
-`// retrieve all logs (including "function invocation")
-$ ${Command.cliBinName} logs --all
-`,
-`// tail all logs
-$ ${Command.cliBinName} logs --follow
-`,
-`// retrieve logs of specific app
-$ ${Command.cliBinName} logs cool-dragon-17
-`,
-`// ISO
-$ ${Command.cliBinName} logs --since 2018-03-09T22:12:21.861Z
-`,
-`// offset format
-$ ${Command.cliBinName} logs --since 3d
-$ ${Command.cliBinName} logs --since 13hours
-$ ${Command.cliBinName} logs --since 9s
-`,
-`// show all logs from 2 minutes ago and follow in real time
-$ ${Command.cliBinName} logs --since 2m --follow`,
-];
+    dedent`// retrieve all logs (except "function invocation")
+    $ ${Command.cliBinName} logs`,
+    '',
+    dedent`// retrieve all logs (including "function invocation")
+    $ ${Command.cliBinName} logs --all`,
+    '',
+    dedent`// tail all logs
+    $ ${Command.cliBinName} logs --follow`,
+    '',
+    dedent`// retrieve logs of specific app
+    $ ${Command.cliBinName} logs cool-dragon-17`,
+    '',
+    dedent`// ISO
+    $ ${Command.cliBinName} logs --since 2018-03-09T22:12:21.861Z`,
+    '',
+    dedent`// offset format
+    $ ${Command.cliBinName} logs --since 3d
+    $ ${Command.cliBinName} logs --since 13hours
+    $ ${Command.cliBinName} logs --since 9s`,
+    '',
+    dedent`// show all logs from 2 minutes ago and follow in real time
+    $ ${Command.cliBinName} logs --since 2m --follow`,
+  ];
 
   public static flags = {
     ...Command.flags,

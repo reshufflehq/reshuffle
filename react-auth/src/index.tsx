@@ -55,10 +55,10 @@ function loginManager(loginUrl: string, logoutUrl: string): LoginManager {
           getLoginURL('/logged-in'),
           'newwindow',
           [
-          `width=${width}`,
-          `height=${height}`,
-          `top=${top || (window.outerHeight - height) / 2}`,
-          `left=${left || (window.outerWidth - width) / 2}`,
+            `width=${width}`,
+            `height=${height}`,
+            `top=${top || (window.outerHeight - height) / 2}`,
+            `left=${left || (window.outerWidth - width) / 2}`,
           ].join(','),
         );
       } else {

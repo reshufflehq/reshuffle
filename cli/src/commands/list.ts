@@ -35,30 +35,30 @@ export default class List extends Command {
     }));
 
     switch (format) {
-      case 'table':
-        if (apps.length === 0) {
-          this.log('You do not have any apps yet.');
-          return;
-        }
-        this.log(columnify(mappedApps, {
-          columns: ['name', 'updatedAt', 'URL'],
-          config: {
-            name: {
-              headingTransform: () => 'APPLICATION',
-              minWidth: 25,
-            },
-            updatedAt: {
-              headingTransform: () => 'LAST UPDATED',
-              minWidth: 25,
-            },
+    case 'table':
+      if (apps.length === 0) {
+        this.log('You do not have any apps yet.');
+        return;
+      }
+      this.log(columnify(mappedApps, {
+        columns: ['name', 'updatedAt', 'URL'],
+        config: {
+          name: {
+            headingTransform: () => 'APPLICATION',
+            minWidth: 25,
           },
-        }));
-        return;
-      case 'json':
-        this.log(JSON.stringify(mappedApps));
-        return;
-      default:
-        throw new Error(`Invalid output format requested: ${format}`);
+          updatedAt: {
+            headingTransform: () => 'LAST UPDATED',
+            minWidth: 25,
+          },
+        },
+      }));
+      return;
+    case 'json':
+      this.log(JSON.stringify(mappedApps));
+      return;
+    default:
+      throw new Error(`Invalid output format requested: ${format}`);
     }
   }
 }
