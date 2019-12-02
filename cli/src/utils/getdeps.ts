@@ -16,44 +16,44 @@ export interface PackageScope {
 }
 
 export async function getDependencies(projectDir: string) {
-  const packageJsonPath = pathResolve(projectDir, 'package.json');
-  const packageLockPath = pathResolve(projectDir, 'package-lock.json');
+   const packageJsonPath = pathResolve(projectDir, 'package.json');
+   const packageLockPath = pathResolve(projectDir, 'package-lock.json');
 
-  const { dependencies: lockDeps } = JSON.parse(await readFile(packageLockPath, 'utf8'));
-  const { dependencies: pkgDeps } = JSON.parse(await readFile(packageJsonPath, 'utf8'));
+   const { dependencies: lockDeps } = JSON.parse(await readFile(packageLockPath, 'utf8'));
+   const { dependencies: pkgDeps } = JSON.parse(await readFile(packageJsonPath, 'utf8'));
 
-  const toProcess = Object.keys(pkgDeps);
+   const toProcess = Object.keys(pkgDeps);
 
-  // If package.json contains packages that are not in
-  // package-lock.json then they are out of sync.  Complain.
-  const lockHasProperty = (p: string) => has(lockDeps, p);
-  for (const p of toProcess) {
-    if (!lockHasProperty(p)) {
-      throw new MismatchedPackageAndPackageLockError(p);
-    }
-  }
+   // If package.json contains packages that are not in
+   // package-lock.json then they are out of sync.  Complain.
+   const lockHasProperty = (p: string) => has(lockDeps, p);
+   for (const p of toProcess) {
+     if (!lockHasProperty(p)) {
+       throw new MismatchedPackageAndPackageLockError(p);
+     }
+   }
 
-  const dependencies = new Set<string>();
-  while (toProcess.length) {
-    const p = toProcess.shift()!;
-    // ignore bulk of react-scripts
-    if (p === 'react-scripts') continue;
-    // exclude local-proxy needed only for development
-    if (p === '@reshuffle/local-proxy') continue;
-    // exclude code-transform needed only for development
-    if (p === '@reshuffle/code-transform') continue;
-    // exclude already visited deps
-    if (dependencies.has(p)) continue;
+   const dependencies = new Set<string>();
+   while (toProcess.length) {
+     const p = toProcess.shift()!;
+     // ignore bulk of react-scripts
+     if (p === 'react-scripts') continue;
+     // exclude local-proxy needed only for development
+     if (p === '@reshuffle/local-proxy') continue;
+     // exclude code-transform needed only for development
+     if (p === '@reshuffle/code-transform') continue;
+     // exclude already visited deps
+     if (dependencies.has(p)) continue;
 
-    if (lockHasProperty(p)) {
-      dependencies.add(p);
-      toProcess.push(...deepRequires(lockDeps[p]));
-    } else {
-      // tslint:disable-next-line:no-console
-      console.error(`WARN: Cannot find dependency ${p} in package-lock.json, skipping upload`);
-    }
-  }
-  return dependencies;
+     if (lockHasProperty(p)) {
+       dependencies.add(p);
+       toProcess.push(...deepRequires(lockDeps[p]));
+     } else {
+       // tslint:disable-next-line:no-console
+       console.error(`WARN: Cannot find dependency ${p} in package-lock.json, skipping upload`);
+     }
+   }
+   return dependencies;
 }
 
 function deepRequires(scope: PackageScope) {

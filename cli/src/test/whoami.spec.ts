@@ -29,5 +29,5 @@ test('whoami (and other commands) receiving incomprehensible server reply compla
 
   const result = await t.context.shell.run(`${t.context.run} whoami`, 'utf-8');
   t.assert(!success(result));
-  t.assert(result.err.match(/Failed to communicate with server: .*\./));
+  t.assert(/Failed to communicate with server: .*\./.exec(result.err));
 });

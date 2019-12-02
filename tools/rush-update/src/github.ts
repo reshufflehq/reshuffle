@@ -22,6 +22,7 @@ export async function createPullRequest(
     await octokit.pulls.createReviewRequest({
       owner: prParams.owner,
       repo: prParams.repo,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       pull_number: pr.number,
       reviewers,
     });

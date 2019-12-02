@@ -7,7 +7,7 @@ import { execSync } from 'child_process';
 interface RushConfig {
   rushVersion: string;
   projects: Array<{
-    packageName: string;
+    packageName: string,
     projectFolder: string,
   }>;
 }

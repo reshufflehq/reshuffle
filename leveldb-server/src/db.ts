@@ -344,12 +344,13 @@ function match(doc: Document, filter: Filter): boolean {
       return value !== undefined;
     case 'isNull':
       return value === null;
-    case 'matches':
+    case 'matches': {
       if (typeof value !== 'string') {
         return false;
       }
       const regexp = new RegExp(filter.pattern, filter.caseInsensitive ? 'i' : undefined);
       return regexp.test(value);
+    }
     case 'startsWith':
       if (typeof value !== 'string') {
         return false;

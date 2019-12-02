@@ -21,6 +21,7 @@ export function getHandler(backendDir: string, fnPath: string, handler: string, 
   if (path.relative(backendDir, joinedDir).startsWith('..')) {
     throw new UnauthorizedError(`Cannot reference path outside of root dir: ${fnPath}`);
   }
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const mod = require(joinedDir);
   const fn = mod[handler];
   // Cast to any so typescript doesn't complain against accessing __reshuffle__ on a function
@@ -29,7 +30,7 @@ export function getHandler(backendDir: string, fnPath: string, handler: string, 
   }
   const { __reshuffle__ } = fn;
   if (checkExposed && !(__reshuffle__ && __reshuffle__.exposed)) {
-    throw new  UnauthorizedError(`Cannot invoke ${fnPath}.${handler} - not an exposed function`);
+    throw new UnauthorizedError(`Cannot invoke ${fnPath}.${handler} - not an exposed function`);
   }
   return fn;
 }

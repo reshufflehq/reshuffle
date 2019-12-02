@@ -80,7 +80,7 @@ export default abstract class BaseCommand extends Command {
     this.timings.push({ stage, timeHr: hrtime() });
   }
 
-  public static flags: Parser.flags.Input<any>  = {
+  public static flags: Parser.flags.Input<any> = {
     help: flags.help({ char: 'h' }),
     config: flags.string({
       env: 'RESHUFFLE_CONFIG',

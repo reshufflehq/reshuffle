@@ -30,7 +30,7 @@ export default async function main({
   prReviewers,
   excludePackages,
 }: {
-  ncuParams?: Partial<NCUParams>
+  ncuParams?: Partial<NCUParams>,
   noCommit?: boolean,
   branch?: string,
   commitMessage?: string,
@@ -40,7 +40,7 @@ export default async function main({
   noPr?: boolean,
   ghUsername?: string,
   ghApikey?: string,
-  repoOwner?: string
+  repoOwner?: string,
   repoName?: string,
   baseBranch?: string,
   prTitle?: string,

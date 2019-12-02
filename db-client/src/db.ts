@@ -171,9 +171,9 @@ export class DB {
       if (await this.setIfVersion(key, version, newValue, options)) return deepFreeze(newValue);
       await delay;
     }
-    throw Error('Timed out');   // backoff() is currently infinite but
-                                // won't stay that way.  Needed for
-                                // TypeScript.
+    throw Error('Timed out'); // backoff() is currently infinite but
+                              // won't stay that way.  Needed for
+                              // TypeScript.
   }
 
   private getWithVersion(key: string): Promise<VersionedMaybeObject> {

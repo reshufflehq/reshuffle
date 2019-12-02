@@ -71,6 +71,8 @@ dependencies:
   '@types/uuid': 3.4.6
   '@types/validator': 10.11.3
   '@types/yargs': 13.0.3
+  '@typescript-eslint/eslint-plugin': 2.10.0
+  '@typescript-eslint/parser': 2.10.0
   abort-controller: 2.0.3
   address: 1.1.2
   ajv: 6.10.2
@@ -89,6 +91,9 @@ dependencies:
   cookie-session: 1.3.3
   dotenv: 8.2.0
   env-var: 5.2.0
+  eslint: 6.7.2
+  eslint-plugin-no-only-tests: 2.4.0
+  eslint-plugin-react: 7.17.0
   express: 4.17.1
   fast-json-patch: 2.2.1
   find-up: 4.1.0
@@ -1976,6 +1981,39 @@ packages:
     dev: false
     resolution:
       integrity: sha512-K8/LfZq2duW33XW/tFwEAfnZlqIfVsoyRB3kfXdPXYhl0nfM8mmh7GS0jg7WrX2Dgq/0Ha/pR1PaR+BvmWwjiQ==
+  /@typescript-eslint/eslint-plugin/2.10.0:
+    dependencies:
+      '@typescript-eslint/experimental-utils': 2.10.0
+      eslint-utils: 1.4.3
+      functional-red-black-tree: 1.0.1
+      regexpp: 3.0.0
+      tsutils: 3.17.1
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    peerDependencies:
+      '@typescript-eslint/parser': ^2.0.0
+      eslint: ^5.0.0 || ^6.0.0
+    resolution:
+      integrity: sha512-rT51fNLW0u3fnDGnAHVC5nu+Das+y2CpW10yqvf6/j5xbuUV3FxA3mBaIbM24CXODXjbgUznNb4Kg9XZOUxKAw==
+  /@typescript-eslint/eslint-plugin/2.10.0/1ffb5770c1d5c4e2e4f4948c947ae105:
+    dependencies:
+      '@typescript-eslint/experimental-utils': /@typescript-eslint/experimental-utils/2.10.0/eslint@6.7.2
+      '@typescript-eslint/parser': /@typescript-eslint/parser/2.10.0/eslint@6.7.2
+      eslint: 6.7.2
+      eslint-utils: 1.4.3
+      functional-red-black-tree: 1.0.1
+      regexpp: 3.0.0
+      tsutils: /tsutils/3.17.1/typescript@3.7.2
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    id: registry.npmjs.org/@typescript-eslint/eslint-plugin/2.10.0
+    peerDependencies:
+      '@typescript-eslint/parser': ^2.0.0
+      eslint: ^5.0.0 || ^6.0.0
+    resolution:
+      integrity: sha512-rT51fNLW0u3fnDGnAHVC5nu+Das+y2CpW10yqvf6/j5xbuUV3FxA3mBaIbM24CXODXjbgUznNb4Kg9XZOUxKAw==
   /@typescript-eslint/eslint-plugin/2.9.0/23c0702e685a1d5aad1a73b60234aba6:
     dependencies:
       '@typescript-eslint/experimental-utils': /@typescript-eslint/experimental-utils/2.9.0/eslint@6.7.2+typescript@3.7.2
@@ -1994,6 +2032,32 @@ packages:
       eslint: ^5.0.0 || ^6.0.0
     resolution:
       integrity: sha512-98rfOt3NYn5Gr9wekTB8TexxN6oM8ZRvYuphPs1Atfsy419SDLYCaE30aJkRiiTCwGEY98vOhFsEVm7Zs4toQQ==
+  /@typescript-eslint/experimental-utils/2.10.0:
+    dependencies:
+      '@types/json-schema': 7.0.3
+      '@typescript-eslint/typescript-estree': 2.10.0
+      eslint-scope: 5.0.0
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    peerDependencies:
+      eslint: '*'
+    resolution:
+      integrity: sha512-FZhWq6hWWZBP76aZ7bkrfzTMP31CCefVIImrwP3giPLcoXocmLTmr92NLZxuIcTL4GTEOE33jQMWy9PwelL+yQ==
+  /@typescript-eslint/experimental-utils/2.10.0/eslint@6.7.2:
+    dependencies:
+      '@types/json-schema': 7.0.3
+      '@typescript-eslint/typescript-estree': 2.10.0
+      eslint: 6.7.2
+      eslint-scope: 5.0.0
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    id: registry.npmjs.org/@typescript-eslint/experimental-utils/2.10.0
+    peerDependencies:
+      eslint: '*'
+    resolution:
+      integrity: sha512-FZhWq6hWWZBP76aZ7bkrfzTMP31CCefVIImrwP3giPLcoXocmLTmr92NLZxuIcTL4GTEOE33jQMWy9PwelL+yQ==
   /@typescript-eslint/experimental-utils/2.9.0/eslint@6.7.2+typescript@3.7.2:
     dependencies:
       '@types/json-schema': 7.0.3
@@ -2008,6 +2072,34 @@ packages:
       eslint: '*'
     resolution:
       integrity: sha512-0lOLFdpdJsCMqMSZT7l7W2ta0+GX8A3iefG3FovJjrX+QR8y6htFlFdU7aOVPL6pDvt6XcsOb8fxk5sq+girTw==
+  /@typescript-eslint/parser/2.10.0:
+    dependencies:
+      '@types/eslint-visitor-keys': 1.0.0
+      '@typescript-eslint/experimental-utils': 2.10.0
+      '@typescript-eslint/typescript-estree': 2.10.0
+      eslint-visitor-keys: 1.1.0
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    peerDependencies:
+      eslint: ^5.0.0 || ^6.0.0
+    resolution:
+      integrity: sha512-wQNiBokcP5ZsTuB+i4BlmVWq6o+oAhd8en2eSm/EE9m7BgZUIfEeYFd6z3S+T7bgNuloeiHA1/cevvbBDLr98g==
+  /@typescript-eslint/parser/2.10.0/eslint@6.7.2:
+    dependencies:
+      '@types/eslint-visitor-keys': 1.0.0
+      '@typescript-eslint/experimental-utils': /@typescript-eslint/experimental-utils/2.10.0/eslint@6.7.2
+      '@typescript-eslint/typescript-estree': 2.10.0
+      eslint: 6.7.2
+      eslint-visitor-keys: 1.1.0
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    id: registry.npmjs.org/@typescript-eslint/parser/2.10.0
+    peerDependencies:
+      eslint: ^5.0.0 || ^6.0.0
+    resolution:
+      integrity: sha512-wQNiBokcP5ZsTuB+i4BlmVWq6o+oAhd8en2eSm/EE9m7BgZUIfEeYFd6z3S+T7bgNuloeiHA1/cevvbBDLr98g==
   /@typescript-eslint/parser/2.9.0/eslint@6.7.2+typescript@3.7.2:
     dependencies:
       '@types/eslint-visitor-keys': 1.0.0
@@ -2023,6 +2115,20 @@ packages:
       eslint: ^5.0.0 || ^6.0.0
     resolution:
       integrity: sha512-fJ+dNs3CCvEsJK2/Vg5c2ZjuQ860ySOAsodDPwBaVlrGvRN+iCNC8kUfLFL8cT49W4GSiLPa/bHiMjYXA7EhKQ==
+  /@typescript-eslint/typescript-estree/2.10.0:
+    dependencies:
+      debug: 4.1.1
+      eslint-visitor-keys: 1.1.0
+      glob: 7.1.6
+      is-glob: 4.0.1
+      lodash.unescape: 4.0.1
+      semver: 6.3.0
+      tsutils: 3.17.1
+    dev: false
+    engines:
+      node: ^8.10.0 || ^10.13.0 || >=11.10.1
+    resolution:
+      integrity: sha512-oOYnplddQNm/LGVkqbkAwx4TIBuuZ36cAQq9v3nFIU9FmhemHuVzAesMSXNQDdAzCa5bFgCrfD3JWhYVKlRN2g==
   /@typescript-eslint/typescript-estree/2.9.0/typescript@3.7.2:
     dependencies:
       debug: 4.1.1
@@ -4349,6 +4455,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-H6DOj+ejw7Tesdgbfs4jeS4YMFrT8uI8xwd1gtQqXssaR0EQ26L+2O/w6wkYFy2MymON0fTwHmXBvvfLNZVZEw==
+  /eslint-plugin-eslint-plugin/2.1.0:
+    dev: false
+    engines:
+      node: ^6.14.0 || ^8.10.0 || >=9.10.0
+    peerDependencies:
+      eslint: '>=5.0.0'
+    resolution:
+      integrity: sha512-kT3A/ZJftt28gbl/Cv04qezb/NQ1dwYIbi8lyf806XMxkus7DvOVCLIfTXMrorp322Pnoez7+zabXH29tADIDg==
   /eslint-plugin-eslint-plugin/2.1.0/eslint@6.7.2:
     dependencies:
       eslint: 6.7.2
@@ -4414,6 +4528,12 @@ packages:
       eslint: ^3 || ^4 || ^5 || ^6
     resolution:
       integrity: sha512-CawzfGt9w83tyuVekn0GDPU9ytYtxyxyFZ3aSWROmnRRFQFT2BiPJd7jvRdzNDi6oLWaS2asMeYSNMjWTV4eNg==
+  /eslint-plugin-no-only-tests/2.4.0:
+    dev: false
+    engines:
+      node: '>=4.0.0'
+    resolution:
+      integrity: sha512-azP9PwQYfGtXJjW273nIxQH9Ygr+5/UyeW2wEjYoDtVYPI+WPKwbj0+qcAKYUXFZLRumq4HKkFaoDBAwBoXImQ==
   /eslint-plugin-prettier/3.1.1/eslint@6.7.2+prettier@1.19.1:
     dependencies:
       eslint: 6.7.2
@@ -4439,6 +4559,25 @@ packages:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
     resolution:
       integrity: sha512-iXTCFcOmlWvw4+TOE8CLWj6yX1GwzT0Y6cUfHHZqWnSk144VmVIRcVGtUAzrLES7C798lmvnt02C7rxaOX1HNA==
+  /eslint-plugin-react/7.17.0:
+    dependencies:
+      array-includes: 3.0.3
+      doctrine: 2.1.0
+      eslint-plugin-eslint-plugin: 2.1.0
+      has: 1.0.3
+      jsx-ast-utils: 2.2.3
+      object.entries: 1.1.0
+      object.fromentries: 2.0.1
+      object.values: 1.1.0
+      prop-types: 15.7.2
+      resolve: 1.13.1
+    dev: false
+    engines:
+      node: '>=4'
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
+    resolution:
+      integrity: sha512-ODB7yg6lxhBVMeiH1c7E95FLD4E/TwmFjltiU+ethv7KPdCwgiFuOZg9zNRHyufStTDLl/dEFqI2Q1VPmCd78A==
   /eslint-plugin-react/7.17.0/eslint@6.7.2:
     dependencies:
       array-includes: 3.0.3
@@ -11798,6 +11937,7 @@ packages:
       '@types/mz': 0.0.32
       '@types/node': 10.17.6
       '@types/tail': 2.0.0
+      eslint: 6.7.2
       fs-extra: 8.1.0
       got: 9.6.0
       mz: 2.7.0
@@ -11808,16 +11948,18 @@ packages:
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-XWZILtnC6qOfCLjMZB1MgAoHKIj5oYdQs//Qq/QQNY5NCfzrHFQB4D1LGyMhzVeZMS8RTkwrz58XwbSkLhGCvA==
+      integrity: sha512-Ntb14wsr5epBqDkFtuqHT3vH+VqsW6E0Z3kSW9c6WQtkKFC+7Aw7inwEGE05IXBhtGj3IueMJfOh5qImWDz9zw==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/auth.tgz':
     dependencies:
+      eslint: 6.7.2
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/auth'
     resolution:
-      integrity: sha512-RfKzr0Pta8ZBEoLKlu9kHbhpx3VuvPUN1gngPm9mAhGj8F5pl8TqUDzZdPHDMQpKFHOr+gOnTAT5yYVUZzVDtA==
+      integrity: sha512-5cQneSP3Ex2Har1eD0SbEU/rUHPpnYkbb5eBYPlNzqdIXJbtV31CjCYnZaItjEropiqEghHHk6zRbMNNhR0qMQ==
       tarball: 'file:projects/auth.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -11829,6 +11971,7 @@ packages:
       '@types/node': 10.17.6
       babel-plugin-macros: 2.7.1
       babel-plugin-tester: 7.0.4
+      eslint: 6.7.2
       jest: 24.9.0
       jest-standard-reporter: 1.0.2
       tslint: /tslint/5.20.1/typescript@3.7.2
@@ -11836,7 +11979,7 @@ packages:
     dev: false
     name: '@rush-temp/code-transform'
     resolution:
-      integrity: sha512-XWw/KWjZ3Mlt5IinMlq3ezng5GpiIQ3Hx1xPYdpayOF9I811ITZ5W4i4lS0+ta9IA0dML9Pb7Y01PUL7XCxsKA==
+      integrity: sha512-F3p4GGEl/0rEkKDmP4N8No5dhoLcJyzn8TzIapqpxKNtsWWbxiMzTM6lib7Mv2P2Tq+38R5AlbZMnDFee8CUAg==
       tarball: 'file:projects/code-transform.tgz'
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
@@ -11847,6 +11990,7 @@ packages:
       '@types/node': 12.12.14
       '@types/ramda': 0.26.36
       ava: 2.4.0
+      eslint: 6.7.2
       koa: 2.11.0
       koa-router: 7.4.0
       nanoid: 2.1.7
@@ -11856,7 +12000,7 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-ksjewn+4kl55Hy5Rbd8ixACZHMDJfm1s4pkrDo0nWKgBFlIA07dDUvc6R3/PJM7Irz38Il82/Unm5E8un4W3pw==
+      integrity: sha512-MBax4JZ2pEdcJAdRViBXUJY/hoJyoRfzbEKIwj3kgYR/kvPt+Q96V4ip0Ek/srNjsQqn1Ywwe9atglT+/NnRQQ==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
@@ -11866,24 +12010,27 @@ packages:
       '@types/ramda': 0.26.36
       ava: 2.4.0
       deep-freeze: 0.0.1
+      eslint: 6.7.2
       ramda: 0.26.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typedoc: 0.15.3
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-LnQHL0l/ypvPJIJ/zFt7TQOEqDZiW0I0mlTgGSfeRHtu0lMdHSplKOQKMHsXvp8tq+fbb29aK3xip8Og4cWPgA==
+      integrity: sha512-vd29Sre2+W6rjt3prS6iNb2xnrRUzHY4bulbgIGmMsXLInyMvMG8tPjFs1rzPmFF7qmTM9KqGdSR49Bc/xQU6w==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
     dependencies:
       '@types/node': 10.17.6
+      eslint: 6.7.2
       tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/fetch-runtime'
     resolution:
-      integrity: sha512-YqNSDFWM8rHHsy3bKx/WZ6+1ApPqrU0+c1tINOo9eNtvOOqy2IzxfUq9UemUUUCaljqHbLzkY4MOHlW63wypTQ==
+      integrity: sha512-xvGc3KWBOnV/hQA9OGv6vk96sA/vxv+NKfPx2I2vxe3IBbkl7Kpoxwrej6Ipwzj/GXvsZohk52I70o7U6ajGTA==
       tarball: 'file:projects/fetch-runtime.tgz'
     version: 0.0.0
   'file:projects/interfaces-koa-server.tgz':
@@ -11923,6 +12070,7 @@ packages:
     dependencies:
       '@types/node': 10.17.6
       concord: 0.2.4
+      eslint: 6.7.2
       fast-json-patch: 2.2.1
       tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
@@ -11930,7 +12078,7 @@ packages:
     dev: false
     name: '@rush-temp/interfaces'
     resolution:
-      integrity: sha512-Q4tUV6M/oHxToctCW7DNezyDkPPJ+bvmjEQcssEGa+tQaPTT0yNvamWImvKFUKBv/e4icuuZSTz3/zd5eMq6wQ==
+      integrity: sha512-8SpOhuXwx7s8ouEnpxxqq1ar3/oFpBztcCuqCZ/+hdRURa771ubRorYt5su+P04BNF2/Kyvxr5vhtAQwVtvgVg==
       tarball: 'file:projects/interfaces.tgz'
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
@@ -11946,6 +12094,7 @@ packages:
       async-mutex: 0.1.4
       ava: 2.4.0
       deep-freeze: 0.0.1
+      eslint: 6.7.2
       fast-json-patch: 2.2.1
       koa: 2.11.0
       leveldown: 5.4.1
@@ -11958,7 +12107,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-Cd1Ee4JbMLP7hksEkyGLWcjcsEBbDm8CS92Cf7jjEYhK174ABATl3FYKrgqccNiVqCqcTDtEcwva+4OPi5sK4A==
+      integrity: sha512-M34Kux0RGLb0ja/2c9K6t/QtBZRsAUHKhOBrow9Pj158P0M+uksgyvbQTNpu1kG6QRj67YcW+ojbfrSAlT3PrA==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -11984,6 +12133,7 @@ packages:
       commander: 4.0.1
       dotenv: 8.2.0
       env-var: 5.2.0
+      eslint: 6.7.2
       express: 4.17.1
       fs-extra: 8.1.0
       got: 9.6.0
@@ -12004,7 +12154,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-CUtJFeO9Y0bbJPZRTmKCZwc9C7T2HNedKdR1vpvBqfwbYaS5e8wFBNBhOi+FsQ5gLHGybqHICz/qW8T7igLTBw==
+      integrity: sha512-t5BZmlDeFZqgcjiNDWqlH6BwJlFgGRXJmnQwMvmQsXG9w0lk/v1BdiDgDSOqVdY47pdbGrp95Gtb+DJb4AXs9w==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
@@ -12020,17 +12170,19 @@ packages:
       ava: 2.4.0
       body-parser: 1.19.0
       cookie-session: 1.3.3
+      eslint: 6.7.2
       express: 4.17.1
       got: 9.6.0
       passport: 0.4.0
       passport-auth0: 1.3.0
       passport-local: 1.0.0
       stringcase: 4.3.1
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/passport'
     resolution:
-      integrity: sha512-wwxL/1WQ+eooGux7dNSMTn+8tqBGt5XVEPjAIw0V5Ivii2Iu0OfAO3yjmK4APEIr9ZRaCy6vAb4uYcPCF6eiXA==
+      integrity: sha512-/mW73UXooK9rOfWewtSEU+ZNUQ4i0OLdYGVzy3iCO1q7NDrjVg6N0KMnvk3L6AODhTtEgn/LGmkKFvg8lEnrZA==
       tarball: 'file:projects/passport.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -12038,6 +12190,7 @@ packages:
       '@types/jest': 24.0.23
       '@types/node': 10.17.6
       '@types/rmfr': 2.0.0
+      eslint: 6.7.2
       fixture-stdout: 0.2.1
       jest: 24.9.0
       rmfr: 2.0.0
@@ -12046,20 +12199,23 @@ packages:
     dev: false
     name: '@rush-temp/react-app'
     resolution:
-      integrity: sha512-xLwv1NR7hPss23cejG1GzY3JsxmxMJmvM8cbsjOBv2FqSQ1ly2P/KKo5fS5RplJOyqehOLSXvvzvfgWqKiSseg==
+      integrity: sha512-/SXNrKo3k3jYDK7TAfvYRV2mMwIKg3Z7E/m7ZgTTPDcgDvm/pTCmXttBxdDB+wSzfSYyofttef8Qnl3x211TJg==
       tarball: 'file:projects/react-app.tgz'
     version: 0.0.0
   'file:projects/react-auth.tgz':
     dependencies:
       '@types/react': 16.9.13
+      eslint: 6.7.2
+      eslint-plugin-react: /eslint-plugin-react/7.17.0/eslint@6.7.2
       react: 16.12.0
       react-async-hook: /react-async-hook/3.6.1/react@16.12.0
       tsdx: 0.11.0
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/react-auth'
     resolution:
-      integrity: sha512-wx2JEv3oytq4EM6BgnlxtDZUWM6JIAdxUkf7vInixK2lnmLHEeJ/evrgMmWXhR8IPN74dLS6E9c2tkXRtcmUFQ==
+      integrity: sha512-XDzg47gB+kZC0WyrcWY/slUfyXuwTR9vlYNtexrUFJGIq7G30ZbkIz3SysiRYy2XLE23u0kQf+rAClvaYY2N3Q==
       tarball: 'file:projects/react-auth.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
@@ -12086,6 +12242,8 @@ packages:
       '@types/prompts': 2.0.3
       '@types/tar': 4.0.3
       '@types/validator': 10.11.3
+      '@typescript-eslint/eslint-plugin': /@typescript-eslint/eslint-plugin/2.10.0/1ffb5770c1d5c4e2e4f4948c947ae105
+      '@typescript-eslint/parser': /@typescript-eslint/parser/2.10.0/eslint@6.7.2
       any-shell-escape: 0.1.1
       ava: 2.4.0
       chalk: 2.4.2
@@ -12093,6 +12251,8 @@ packages:
       columnify: 1.5.4
       conf: 6.2.0
       dotenv: 8.2.0
+      eslint: 6.7.2
+      eslint-plugin-no-only-tests: 2.4.0
       find-up: 4.1.0
       fs-extra: 8.1.0
       globby: 10.0.1
@@ -12116,7 +12276,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-VcpYshvT0XcZi6Z+yB+GmHRCAtjfFFDZlJHLdTHUEyrFjhPw0l43BlvtRWEW4OnTB5wPddO8M2ZtEP67iPuiXA==
+      integrity: sha512-Adazd0ojO7dcG/zwXkUeRpwT6D2FmKMCy52piTND5pqPktScT5zLrLioy9Un/jaQusc51P4qC5Yy1yN/ZuWWbA==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -12126,6 +12286,7 @@ packages:
       '@types/lodash.once': 4.1.6
       '@types/node': 12.12.14
       '@types/yargs': 13.0.3
+      eslint: 6.7.2
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.2.2
@@ -12135,7 +12296,7 @@ packages:
     dev: false
     name: '@rush-temp/rush-update'
     resolution:
-      integrity: sha512-xrLjPAmbk9Nhy05bcpdhaOSAT91O77o3ZiYGQ7UU7nBP4DMBgZ1Kc4hnyzFHRiTJgNCWU0U6n0BaHmbplRjpag==
+      integrity: sha512-6jFY495LFN5h45irDcfwO5SU6zVDWYP1gEE4kLE9PxZ8m+NdfY5wAkdaE/3VXFLAy7rCmfAJWc/COovM+MhcpA==
       tarball: 'file:projects/rush-update.tgz'
     version: 0.0.0
   'file:projects/server-function.tgz':
@@ -12144,14 +12305,16 @@ packages:
       '@types/lodash.once': 4.1.6
       '@types/node': 10.17.6
       '@types/source-map-support': 0.5.0
+      eslint: 6.7.2
       express: 4.17.1
       lodash.once: 4.1.1
       source-map-support: 0.5.16
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-k3bbik1v1OCMNqhmwVzq9uircfP7OpV4Z5zDHb8Wbdj6V3EN8IWH3M4I2Rc7zIQNyymSwi2SKTrUWZcwj1J9EQ==
+      integrity: sha512-kp+5yyMuUNm0vD/1zLl9pPkgRr92Kslz8rGvCjHUI8zYP0F5AFCCc0xVXMCJlg3VvqhMA4ba49qLMWKd3sVRhg==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -12161,6 +12324,7 @@ packages:
       '@types/sinon': 7.5.1
       '@types/uuid': 3.4.6
       ava: 2.4.0
+      eslint: 6.7.2
       fast-json-patch: 2.2.1
       immutable: 4.0.0-rc.12
       react: 16.12.0
@@ -12171,17 +12335,19 @@ packages:
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-R8YCa0e+QviZ9qTtvDd4Dlyy3rzEHE9RJBMJwASWU+t9EGAFkFMIf/Ai486cwhNnqgOCGpCixJl8HoyaK6Cm5w==
+      integrity: sha512-CyPAWvRvZ53FpK+oJmu5US+X6lsX3upORdIv+dTWUE2SYuN7V028K2SfY31bPPrBNHZ2wyfT17W0VJiitO/ZQQ==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
     dependencies:
       '@types/node': 10.17.6
+      eslint: 6.7.2
+      tslint: /tslint/5.20.1/typescript@3.7.2
       typescript: 3.7.2
     dev: false
     name: '@rush-temp/utils-subprocess'
     resolution:
-      integrity: sha512-6WEUQ2hyTaWNhNRZ6aqwJ495A0rC9d1fbR06/LQAnc+wRhYE7fcK+GOBQpqkdLozSH/gPcMqdYnIfX/wKuO3Rg==
+      integrity: sha512-OQNfGrCsyp603jo+i3RqFPVY31XYtpiZMP5cfcBR+mZUG6MmkvF+9yv3kfn2DoetE8sGoMdrF1C39EOwIAZCWg==
       tarball: 'file:projects/utils-subprocess.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
@@ -12260,6 +12426,8 @@ specifiers:
   '@types/uuid': ^3.4.6
   '@types/validator': ^10.11.3
   '@types/yargs': ^13.0.3
+  '@typescript-eslint/eslint-plugin': ^2.9.0
+  '@typescript-eslint/parser': ^2.9.0
   abort-controller: ^2.0.2
   address: ^1.1.2
   ajv: ^6.5.5
@@ -12278,6 +12446,9 @@ specifiers:
   cookie-session: ^1.3.3
   dotenv: ^8.2.0
   env-var: ^5.1.0
+  eslint: ^6.7.2
+  eslint-plugin-no-only-tests: ^2.3.1
+  eslint-plugin-react: ^7.17.0
   express: ^4.17.1
   fast-json-patch: ^2.2.1
   find-up: ^4.1.0

@@ -18,8 +18,8 @@ declare module 'columnify' {
     columns?: string[];
     columnSplitter?: string;
     config?: {
-      [columnName: string]: Options;
-    }
+      [columnName: string]: Options,
+    };
   }
 }
 

@@ -120,7 +120,7 @@ $ ${Command.cliBinName} logs --since 2m --follow`,
 
       // TODO: fix EOL, multiple sources, formatting
       for (const record of records) {
-        if (all || detailedLogsRegexps.every((regexp) => !record.msg.match(regexp))) {
+        if (all || detailedLogsRegexps.every((regexp) => !regexp.exec(record.msg))) {
           printed++;
           process.stdout.write(record.msg);
         }

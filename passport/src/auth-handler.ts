@@ -135,6 +135,7 @@ function createLogout(domain: string): express.Handler {
       const clientId = process.env.OAUTH_CLIENT_ID!;
       const params = new URLSearchParams({
         returnTo: `https://${domain}`,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         client_id: clientId,
       }).toString();
       res.redirect(`https://${oauthDomain}/v2/logout?${params}`);

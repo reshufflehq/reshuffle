@@ -76,6 +76,7 @@ class ModuleWhitelist {
     this.whitelistedModules = new Map(
       this.whitelistedModulesArr.map((name) => {
         try {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
           const mod = require(name);
           return [name, mod] as [string, any];
         } catch (err) {

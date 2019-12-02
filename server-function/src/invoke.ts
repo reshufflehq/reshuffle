@@ -24,6 +24,7 @@ function isValidInvokeRequest(body: any, contentType?: string): body is InvokeRe
     typeof maybeInvoke.handler === 'string' &&
     Array.isArray(maybeInvoke.args);
 }
+
 type ExpressHandler = (req: express.Request, res: express.Response) => any;
 
 export let currentUser: Profile | undefined;
