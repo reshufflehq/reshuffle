@@ -19,7 +19,7 @@ export default class Browse extends Command {
       this.log('Sorry. Templates are not available yet.');
       return;
     }
-    for (const { id, name, previewImageUrl, githubUrl} of templates) {
+    for (const { id, name, previewImageUrl, githubUrl } of templates) {
       const previewImageLink = terminalLink('preview image', previewImageUrl);
       const githubLink = terminalLink('source', githubUrl);
       this.log(`${name}: See ${previewImageLink}, get the ${githubLink} from GitHub, or try it with '${Command.cliBinName} try ${id}'`);

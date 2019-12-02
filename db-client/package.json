@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "docs": "typedoc",
-    "lint": "tslint -c ../common/tslint.yml -p .",
+    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
     "test": "ava -v dist/test/**/*.test.js"
   },
   "keywords": [
@@ -33,6 +33,8 @@
     "@types/node": "^12.7.2",
     "@types/ramda": "^0.26.34",
     "ava": "^2.4.0",
+    "eslint": "^6.7.2",
+    "tslint": "^5.20.1",
     "typedoc": "^0.15.2",
     "typescript": "^3.7.2"
   }

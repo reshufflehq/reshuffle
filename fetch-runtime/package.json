@@ -8,13 +8,14 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
-    "lint": "tslint -c ../common/tslint.yml -p .",
+    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
     "build": "rm -rf dist/ && tsc"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^10.14.14",
+    "eslint": "^6.7.2",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   }

@@ -98,18 +98,25 @@ export function initRegistry(logDir: string) {
     logger.info(payload, { reqid: registry.lookup() || 'global', isErr });
     return origWrite.apply(origStream, [chunk, encoding, cb]);
   }
+
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const origStdoutWrite = process.stdout.write;
   // tslint:disable-next-line:ban-types
   function hookedStdoutWrite(chunk: string | Buffer, encoding?: string | Function, cb?: Function) {
     return decoratedStreamWrite(origStdoutWrite, process.stdout, false, chunk, encoding, cb);
   }
+
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   process.stdout.write = hookedStdoutWrite;
 
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const origStderrWrite = process.stderr.write;
   // tslint:disable-next-line:ban-types
   function hookedStderrWrite(chunk: string | Buffer, encoding?: string | Function, cb?: Function) {
     return decoratedStreamWrite(origStderrWrite, process.stderr, true, chunk, encoding, cb);
   }
+
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   process.stderr.write = hookedStderrWrite;
 
   try {

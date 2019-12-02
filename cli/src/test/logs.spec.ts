@@ -77,7 +77,7 @@ test('logs drops detailed logs without --all', async (t) => {
     time: new Date('2019-09-22T12:36:12'),
   };
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
-    .thenResolve({ records: [ detailed1, ...fakeLogs, detailed2 ] });
+    .thenResolve({ records: [detailed1, ...fakeLogs, detailed2] });
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
   t.snapshot(result);
 });
@@ -92,7 +92,7 @@ test('logs --all shows detailed logs', async (t) => {
     time: new Date('2019-09-22T12:36:12'),
   };
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
-    .thenResolve({ records: [ detailed1, ...fakeLogs, detailed2 ] });
+    .thenResolve({ records: [detailed1, ...fakeLogs, detailed2] });
   const result = await t.context.shell.run(`${t.context.run} logs --all`, 'utf-8');
   t.snapshot(result);
 });

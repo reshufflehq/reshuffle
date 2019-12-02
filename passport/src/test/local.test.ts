@@ -5,7 +5,7 @@ import { createAuthHandler } from '../auth-handler';
 import express = require('express');
 import * as http from 'http';
 import { AddressInfo } from 'net';
-import got  = require('got');
+import got = require('got');
 
 // Returns port of listening app.
 async function listen(app: express.Application): Promise<AddressInfo> {

@@ -19,10 +19,10 @@ interface SameWindowLoginOptions {
 interface NewWindowLoginOptions {
   newWindow: true;
   windowProps?: {
-    top?: number;
-    left?: number;
-    height?: number;
-    width?: number;
+    top?: number,
+    left?: number,
+    height?: number,
+    width?: number,
   };
 }
 

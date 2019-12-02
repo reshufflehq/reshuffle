@@ -7,7 +7,7 @@
   "description": "Test suite for Reshuffle DB",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
-    "lint": "tslint -c ../common/tslint.yml -p .",
+    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
     "test": "echo Not tested here"
   },
   "author": "",
@@ -27,6 +27,7 @@
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.7.2",
     "@types/ramda": "^0.26.34",
+    "eslint": "^6.7.2",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   }

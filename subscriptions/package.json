@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
-    "lint": "tslint -c ../common/tslint.yml -p .",
+    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
     "test": "ava -v dist/test/*.js"
   },
   "author": "",
@@ -27,6 +27,7 @@
     "@types/sinon": "^7.5.0",
     "@types/uuid": "^3.4.6",
     "ava": "^2.4.0",
+    "eslint": "^6.7.2",
     "sinon": "^7.5.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"

@@ -86,7 +86,7 @@ export function ignoreReshuffle(): string {
   if (found) {
     return `Did not need to update ${gitIgnoreFile}`;
   }
-  const newContent = initialContent ?  initialContent + EOL + ignoreText : ignoreText;
+  const newContent = initialContent ? initialContent + EOL + ignoreText : ignoreText;
   writeFileSync(gitIgnoreFile, newContent);
   return `Updated ${gitIgnoreFile}, please commit this file`;
 }

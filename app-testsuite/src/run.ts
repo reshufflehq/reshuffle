@@ -132,7 +132,7 @@ class Registry {
       shell,
     });
     const npmrc = await readFile(path.resolve(this.workdir, '.npmrc'), 'utf8');
-    const line = npmrc.split('\n').find((l) => /:_authToken=/.test(l));
+    const line = npmrc.split('\n').find((l) => l.includes(':_authToken='));
     if (!line) {
       throw new Error('No auth token created');
     }
@@ -213,6 +213,7 @@ class App {
   }
 
   public async run(runMode: string, fn: (url: string) => Promise<void>) {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const run = runMode === 'remote' ? this.runRemote : this.runLocal;
     await run.call(this, fn);
     if (runMode !== 'remote') {
@@ -334,6 +335,7 @@ async function main() {
         shell,
         env: {
           ...process.env,
+          // eslint-disable-next-line @typescript-eslint/camelcase
           CYPRESS_baseUrl: baseUrl,
         },
       });

@@ -83,7 +83,8 @@ projects:
         ...processEnv,
         RESHUFFLE_CONFIG: t.context.configPath,
         RESHUFFLE_API_ENDPOINT: t.context.lycanUrl,
-      }});
+      },
+    });
     t.assert(success(await t.context.shell.run(`cd ${shellEscape(t.context.projectDir)}`, 'utf-8')));
   });
 

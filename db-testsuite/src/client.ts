@@ -59,7 +59,7 @@ export function setUpTests<T>(
   makeToken = (_appId: string, _appEnv: string) => 'SETEC Astronomy',
 ) {
   test.beforeEach(async (t) => {
-    const appId = `${nanoid(6)}: ${t.title.replace(/^beforeEach hook for /,  '')}`;
+    const appId = `${nanoid(6)}: ${t.title.replace(/^beforeEach hook for /, '')}`;
     const appEnv = 'testing';
 
     const { context, handler, supportsPolling } = await setUp({ appId, appEnv });
@@ -339,15 +339,15 @@ test('DB.update throws TypeError if trying to modify returned object', async (t)
   const { client } = t.context;
   await client.create('test', { a: 1, b: { c: 2, d: [5] } });
   await t.throwsAsync(client.update('test', (obj) => {
-    (obj as any).a = 2;
+    obj.a = 2;
     return obj;
   }), TypeError);
   await t.throwsAsync(client.update('test', (obj) => {
-    (obj as any).b.c = 3;
+    obj.b.c = 3;
     return obj;
   }), TypeError);
   await t.throwsAsync(client.update('test', (obj) => {
-    (obj as any).b.d[0] = 6;
+    obj.b.d[0] = 6;
     return obj;
   }), TypeError);
 });

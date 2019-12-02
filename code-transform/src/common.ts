@@ -9,7 +9,7 @@ interface WithBabelLeadingComments {
 }
 
 export function isExposedStatement(node: WithBabelLeadingComments) {
-  return node.leadingComments && node.leadingComments.some((comment) => /@expose/.test(comment.value));
+  return node.leadingComments && node.leadingComments.some((comment) => comment.value.includes('@expose'));
 }
 
 export function isTypeScriptGeneratedExport(e: object, t: typeof BabelTypes, funcName: string) {
