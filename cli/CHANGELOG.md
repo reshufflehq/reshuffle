@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 02 Dec 2019 09:28:36 GMT and should not be manually modified.
+This log was last generated on Mon, 02 Dec 2019 13:28:15 GMT and should not be manually modified.
+
+## 0.6.1
+Mon, 02 Dec 2019 13:28:15 GMT
+
+### Patches
+
+- Show connected custom domain after deploy if exists
 
 ## 0.6.0
 Mon, 02 Dec 2019 09:28:36 GMT

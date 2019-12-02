@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.6.1",
+      "tag": "reshuffle_v0.6.1",
+      "date": "Mon, 02 Dec 2019 13:28:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Show connected custom domain after deploy if exists"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.0",
       "tag": "reshuffle_v0.6.0",
       "date": "Mon, 02 Dec 2019 09:28:36 GMT",
