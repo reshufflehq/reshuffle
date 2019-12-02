@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/db-testsuite",
+      "comment": "Allow configuring authentication token in test DB client",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@reshuffle/db-testsuite",
+  "email": "ariels@reshuffle.com"
+}
