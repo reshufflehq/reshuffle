@@ -70,15 +70,15 @@ export function pollReducer(
   input: PollerInput | UpdatePollerInput,
 ): im.Map<string, Version> {
   switch (input.action) {
-    case REGISTER:
-      return keysToVersions.set(input.key, input.version);
-    case DEREGISTER:
-      return keysToVersions.delete(input.key);
-    case UPDATE:
-      // Only update existing keys in case key was updated after deregister
-      return keysToVersions.withMutations((m) =>
-        input.keysToVersions.forEach(([k, v]) => m.update(k, (prev) => prev === undefined ? prev : v))
-      );
+  case REGISTER:
+    return keysToVersions.set(input.key, input.version);
+  case DEREGISTER:
+    return keysToVersions.delete(input.key);
+  case UPDATE:
+    // Only update existing keys in case key was updated after deregister
+    return keysToVersions.withMutations(
+      (m) => input.keysToVersions.forEach(([k, v]) => m.update(k, (prev) => prev === undefined ? prev : v))
+    );
   }
 }
 
@@ -121,28 +121,28 @@ export function publishInputMapper(
   input: PollerInputWithObserver | PublishPollerInput,
 ): StateAndOutput<im.Map<string, Observer<NonEmptyArray<Patch>>>, PollerInputWithObserver | null> {
   switch (input.action) {
-    case 'register':
-      return {
-        state: observers.set(input.key, input.observer),
-        output: input,
-      };
-    case 'deregister':
-      return {
-        state: observers.delete(input.key),
-        output: input,
-      };
-    case 'publish':
-      // Side-effect
-      for (const [key, patches] of input.results) {
-        const observer = observers.get(key);
-        if (observer !== undefined) {
-          observer.next(patches);
-        }
+  case 'register':
+    return {
+      state: observers.set(input.key, input.observer),
+      output: input,
+    };
+  case 'deregister':
+    return {
+      state: observers.delete(input.key),
+      output: input,
+    };
+  case 'publish':
+    // Side-effect
+    for (const [key, patches] of input.results) {
+      const observer = observers.get(key);
+      if (observer !== undefined) {
+        observer.next(patches);
       }
-      return {
-        state: observers,
-        output: null,
-      };
+    }
+    return {
+      state: observers,
+      output: null,
+    };
   }
 }
 
@@ -178,8 +178,8 @@ export function serverUpdates<T>(
         return {
           version: patches[patches.length - 1].version,
           value: ([] as Operation[])
-          .concat(...patches.map(({ ops }) => ops))
-          .reduce<{ root: T }>(applyReducer, { root: value }).root,
+            .concat(...patches.map(({ ops }) => ops))
+            .reduce<{ root: T }>(applyReducer, { root: value }).root,
           patches,
         };
       }, initialState),

@@ -23,7 +23,7 @@ export default class AddDomain extends Command {
     await this.authenticate();
     const applicationId = await this.getLocalAppId();
     try {
-        await this.lycanClient.addAppDomain(applicationId, 'default', domain);
+      await this.lycanClient.addAppDomain(applicationId, 'default', domain);
     } catch (error) {
       // TODO: add verbose logging of the entire error
       throw new CLIError(error.message);

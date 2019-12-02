@@ -79,9 +79,9 @@ export default class Download extends Command {
     const project = findProjectByDirectory(projects, projectDir);
     const env = 'default'; // hardcoded for now
     const newProject = {
-        directory: projectDir,
-        applicationId: application.id,
-        defaultEnv: env,
+      directory: projectDir,
+      applicationId: application.id,
+      defaultEnv: env,
     };
     if (project) {
       if (application.id !== project.applicationId) {
@@ -156,12 +156,12 @@ export default class Download extends Command {
       } catch (err) {
         verboseLog('rename', err);
         switch (err.code) {
-          case 'ENOTEMPTY':
-            throw new CLIError(`Directory ${targetDir} is not empty`);
-          case 'ENOTDIR':
-            throw new CLIError(`${targetDir} is not a directory`);
-          default:
-            throw err;
+        case 'ENOTEMPTY':
+          throw new CLIError(`Directory ${targetDir} is not empty`);
+        case 'ENOTDIR':
+          throw new CLIError(`${targetDir} is not a directory`);
+        default:
+          throw err;
         }
       }
     } finally {

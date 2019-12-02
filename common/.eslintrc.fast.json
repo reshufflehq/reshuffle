@@ -42,6 +42,8 @@
         "error",
         { "blankLine": "always", "prev": "function", "next": "*" }
     ],
-    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2, { "ignoreComments": true, "flatTernaryExpressions": true }]
   }
 }

@@ -130,16 +130,16 @@ function createOAuthRouter(domain: string) {
 
 function createLogout(domain: string): express.Handler {
   return (req, res) => {
-      req.logout();
-      const oauthDomain = process.env.OAUTH_DOMAIN!;
-      const clientId = process.env.OAUTH_CLIENT_ID!;
-      const params = new URLSearchParams({
-        returnTo: `https://${domain}`,
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        client_id: clientId,
-      }).toString();
-      res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
-    };
+    req.logout();
+    const oauthDomain = process.env.OAUTH_DOMAIN!;
+    const clientId = process.env.OAUTH_CLIENT_ID!;
+    const params = new URLSearchParams({
+      returnTo: `https://${domain}`,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      client_id: clientId,
+    }).toString();
+    res.redirect(`https://${oauthDomain}/v2/logout?${params}`);
+  };
 }
 
 function createPerDomainAuth(domain: string, strategy: passport.Strategy) {

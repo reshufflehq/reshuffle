@@ -82,10 +82,10 @@ export interface NotFilter {
 }
 
 export type Filter = EqFilter | NeFilter
-  | GtFilter | GteFilter | LtFilter | LteFilter
-  | ExistsFilter | IsNullFilter
-  | MatchesFilter | StartsWithFilter
-  | AndFilter | OrFilter | NotFilter;
+| GtFilter | GteFilter | LtFilter | LteFilter
+| ExistsFilter | IsNullFilter
+| MatchesFilter | StartsWithFilter
+| AndFilter | OrFilter | NotFilter;
 
 export type Direction = 'ASC' | 'DESC';
 export const ASC: 'ASC' = 'ASC';

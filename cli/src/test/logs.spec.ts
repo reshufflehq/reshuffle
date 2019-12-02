@@ -33,7 +33,7 @@ test('logs', async (t) => {
 
 test('logs limit', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-                                      { limit: 2, since: anything, follow: false }))
+    { limit: 2, since: anything, follow: false }))
   // Could return any number of records, give 3 rather than the
   // expected 2.  Verify logs prints required fields.
     .thenResolve({ records: fakeLogs.slice(0, 3) });
@@ -46,7 +46,7 @@ test('logs since absolute time', async (t) => {
   const sinceStr = '1978-01-01T01:02:03';
   const since = new Date(sinceStr);
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-                                      { since, limit: anything, follow: false }))
+    { since, limit: anything, follow: false }))
     .thenResolve( { records: fakeLogs.filter(({ time }) => time > since) });
   const result = await t.context.shell.run(`${t.context.run} logs --since ${sinceStr}`, 'utf-8');
   t.snapshot(result);
@@ -54,13 +54,13 @@ test('logs since absolute time', async (t) => {
 
 test('logs paginate', async (t) => {
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-                                      { since: anything, limit: anything, follow: false }))
+    { since: anything, limit: anything, follow: false }))
     .thenResolve({ records: fakeLogs.slice(0, 2), nextToken: 'one' });
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-                                      { since: anything, limit: anything, follow: false, nextToken: 'one', }))
+    { since: anything, limit: anything, follow: false, nextToken: 'one', }))
     .thenResolve({ records: fakeLogs.slice(2, 3), nextToken: 'two' });
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-                                      { since: anything, limit: anything, follow: false, nextToken: 'two', }))
+    { since: anything, limit: anything, follow: false, nextToken: 'two', }))
     .thenResolve({ records: fakeLogs.slice(3) });
 
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
@@ -134,7 +134,7 @@ test('logs when empty', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');
   const snapshotErr = result.err.replace(
     /(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z/,
-   '1978-01-01T01:02:03'
+    '1978-01-01T01:02:03'
   );
   t.snapshot({ ...result, err: snapshotErr });
 });

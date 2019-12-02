@@ -65,7 +65,7 @@ httpProxy.on('error', (err: any) => {
 
 class ModuleWhitelist {
   private readonly whitelistedModulesArr =
-    env.get('RESHUFFLE_DEV_SERVER_MODULES_WHITELIST').asArray() || ['@reshuffle/db'];
+  env.get('RESHUFFLE_DEV_SERVER_MODULES_WHITELIST').asArray() || ['@reshuffle/db'];
 
   private whitelistedModules?: Map<string, any>;
 

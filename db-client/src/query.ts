@@ -80,11 +80,11 @@ interface NotFilter extends Marked<dbi.NotFilter> {
  * );
  * ```
  */
-export type Filter = EqFilter | NeFilter
-  | GtFilter | GteFilter | LtFilter | LteFilter
-  | ExistsFilter | IsNullFilter
-  | MatchesFilter | StartsWithFilter
-  | AndFilter | OrFilter | NotFilter;
+export type Filter = EqFilter | NeFilter |
+GtFilter | GteFilter | LtFilter | LteFilter |
+ExistsFilter | IsNullFilter |
+MatchesFilter | StartsWithFilter |
+AndFilter | OrFilter | NotFilter;
 
 const proxyHandler = {
   get(obj: Path, prop: string) {
@@ -482,7 +482,7 @@ export class Query {
       }
     }
     return new Query(this._filter, this._limit, this._skip,
-                     [...(this._orderBy || []), { path: parts, direction: order }]);
+      [...(this._orderBy || []), { path: parts, direction: order }]);
   }
 
   /**

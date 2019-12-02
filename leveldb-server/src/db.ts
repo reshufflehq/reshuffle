@@ -317,47 +317,47 @@ export function wrappedMatch(doc: Document, filter: Filter): boolean {
 
 function match(doc: Document, filter: Filter): boolean {
   switch (filter.operator) {
-    case 'and':
-      return filter.filters.every((f) => wrappedMatch(doc, f));
-    case 'or':
-      return filter.filters.some((f) => wrappedMatch(doc, f));
-    case 'not':
-      return !wrappedMatch(doc, filter.filter);
+  case 'and':
+    return filter.filters.every((f) => wrappedMatch(doc, f));
+  case 'or':
+    return filter.filters.some((f) => wrappedMatch(doc, f));
+  case 'not':
+    return !wrappedMatch(doc, filter.filter);
   }
 
   const value = path(filter.path, doc);
 
   switch (filter.operator) {
-    case 'eq':
-      return value === filter.value;
-    case 'ne':
-      return value !== filter.value;
-    case 'gt':
-      return typeof value === typeof filter.value && value as any > filter.value;
-    case 'gte':
-      return typeof value === typeof filter.value && value as any >= filter.value;
-    case 'lt':
-      return typeof value === typeof filter.value && value as any < filter.value;
-    case 'lte':
-      return typeof value === typeof filter.value && value as any <= filter.value;
-    case 'exists':
-      return value !== undefined;
-    case 'isNull':
-      return value === null;
-    case 'matches': {
-      if (typeof value !== 'string') {
-        return false;
-      }
-      const regexp = new RegExp(filter.pattern, filter.caseInsensitive ? 'i' : undefined);
-      return regexp.test(value);
+  case 'eq':
+    return value === filter.value;
+  case 'ne':
+    return value !== filter.value;
+  case 'gt':
+    return typeof value === typeof filter.value && value as any > filter.value;
+  case 'gte':
+    return typeof value === typeof filter.value && value as any >= filter.value;
+  case 'lt':
+    return typeof value === typeof filter.value && value as any < filter.value;
+  case 'lte':
+    return typeof value === typeof filter.value && value as any <= filter.value;
+  case 'exists':
+    return value !== undefined;
+  case 'isNull':
+    return value === null;
+  case 'matches': {
+    if (typeof value !== 'string') {
+      return false;
     }
-    case 'startsWith':
-      if (typeof value !== 'string') {
-        return false;
-      }
-      return value.startsWith(filter.value);
-    // We don't add a default case here to let typescript catch when new operators are added and not implemented here.
-    // (see wrappedMatch)
+    const regexp = new RegExp(filter.pattern, filter.caseInsensitive ? 'i' : undefined);
+    return regexp.test(value);
+  }
+  case 'startsWith':
+    if (typeof value !== 'string') {
+      return false;
+    }
+    return value.startsWith(filter.value);
+  // We don't add a default case here to let typescript catch when new operators are added and not implemented here.
+  // (see wrappedMatch)
   }
 }
 

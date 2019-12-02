@@ -111,9 +111,9 @@ test('DB.create creates a new document and returns true', async (t) => {
 });
 
 test('DB.create returns false if key already exists', async (t) => {
-   const { client } = t.context;
-   await client.create('test', { a: 1 });
-   t.false(await client.create('test', { a: 2 }));
+  const { client } = t.context;
+  await client.create('test', { a: 1 });
+  t.false(await client.create('test', { a: 2 }));
 });
 
 test('DB.create throws TypeError when value forced undefined', async (t) => {
@@ -371,7 +371,7 @@ test('DB.find returns an list of documents', async (t) => {
   const { client } = t.context;
   await client.create('abc', { a: 1 });
   t.deepEqual(await client.find(Q.filter(Q.key.eq('abc'))),
-              [{ key: 'abc', value: { a: 1 } }]);
+    [{ key: 'abc', value: { a: 1 } }]);
 });
 
 test('DB.find returns all matching documents', async (t) => {
