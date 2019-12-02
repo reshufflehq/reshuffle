@@ -23,7 +23,7 @@ export default class RemoveDomain extends Command {
     await this.authenticate();
     const applicationId = await this.getLocalAppId();
     try {
-        await this.lycanClient.removeAppDomain(applicationId, 'default', domain);
+      await this.lycanClient.removeAppDomain(applicationId, 'default', domain);
     } catch (error) {
       // TODO: add verbose logging of the entire error
       throw new CLIError(error.message);

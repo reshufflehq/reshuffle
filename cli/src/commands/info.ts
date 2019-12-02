@@ -36,6 +36,7 @@ export default class Info extends Command {
       }
     }
   }
+
   public async run() {
     const { name: appName } = this.parse(Info).args;
     await this.authenticate();
