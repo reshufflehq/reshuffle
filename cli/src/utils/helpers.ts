@@ -55,7 +55,12 @@ export async function getProjectPackageJson() {
 }
 
 export function getPrimaryDomain(environment: Environment) {
-  return(`${environment.domains.filter((d) => d.type === 'subdomain')[0].name}`);
+  const { domains } = environment;
+  const connectedCustomDomain = domains.find((d) => d.type === 'custom' && d.connected);
+  if (connectedCustomDomain) {
+    return connectedCustomDomain.name;
+  }
+  return(`${domains.find((d) => d.type === 'subdomain')!.name}`);
 }
 
 export function getPrimaryURL(environment: Environment) {
