@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Update spice to 2.0.0",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "roey@reshuffle.com"
+}
