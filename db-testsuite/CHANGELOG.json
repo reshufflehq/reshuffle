@@ -2,6 +2,18 @@
   "name": "@reshuffle/db-testsuite",
   "entries": [
     {
+      "version": "0.3.0",
+      "tag": "@reshuffle/db-testsuite_v0.3.0",
+      "date": "Tue, 03 Dec 2019 06:59:43 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Use useful API to set auth token in tests: a real token requires signing the appId, support that."
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.0",
       "tag": "@reshuffle/db-testsuite_v0.2.0",
       "date": "Mon, 02 Dec 2019 14:26:04 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/db-testsuite
 
-This log was last generated on Mon, 02 Dec 2019 14:26:04 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Dec 2019 06:59:43 GMT and should not be manually modified.
+
+## 0.3.0
+Tue, 03 Dec 2019 06:59:43 GMT
+
+### Minor changes
+
+- Use useful API to set auth token in tests: a real token requires signing the appId, support that.
 
 ## 0.2.0
 Mon, 02 Dec 2019 14:26:04 GMT
