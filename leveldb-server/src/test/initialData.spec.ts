@@ -38,7 +38,7 @@ test('DB.get gets value from initial data', async (t) => {
   const { ctx, db } = t.context;
   // TODO: creation of new items begins in constructor so there's nothing to await
   // .get()s are not queued the same way as .create()s
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const value = await db.get(ctx, 'initial_data');
   t.deepEqual(value, { spam: 'ham' });
 });
