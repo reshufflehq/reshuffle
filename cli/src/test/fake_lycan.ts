@@ -7,8 +7,19 @@ import { tmpdir } from 'os';
 import { mkdir, mkdtemp , realpath, writeFile } from 'mz/fs';
 import { env as processEnv } from 'process';
 import * as path from 'path';
-import { remove } from 'fs-extra';
+import { remove, mkdirp } from 'fs-extra';
 import shellEscape from 'any-shell-escape';
+
+export interface UploadSuccess {
+  ok: true;
+  digest: string;
+}
+
+export interface UploadError {
+  ok: false;
+}
+
+export type UploadResult = UploadSuccess | UploadError;
 
 export interface Context {
   shell: Shell;
@@ -18,6 +29,7 @@ export interface Context {
   projectConfig: string;
   projectDir: string;
   lycanUrl: string;
+  uploadFake: td.TestDouble<() => UploadResult>;
   lycanFake: td.TestDouble<LycanHandler>;
   lycanServer: LycanServer;
   server: Server;
@@ -44,8 +56,18 @@ projects:
 `;
     await writeFile(t.context.configPath, t.context.projectConfig);
     await mkdir(t.context.projectDir);
-    // CLI only needs package.json to mark a project root.
-    await writeFile(path.join(t.context.projectDir, 'package.json'), '');
+    await mkdir(path.join(t.context.projectDir, 'backend'));
+    await writeFile(path.join(t.context.projectDir, 'backend', 'index.js'), '');
+    await mkdirp(path.join(t.context.projectDir, 'node_modules/.bin'));
+    await writeFile(path.join(t.context.projectDir, 'node_modules/.bin/babel'), 'echo built', { mode: 0o755 });
+    await writeFile(path.join(t.context.projectDir, 'package.json'), JSON.stringify({
+      name: 'poll',
+      scripts: {
+        build: 'echo nothing to do',
+      },
+      dependencies: {},
+    }));
+    await writeFile(path.join(t.context.projectDir, 'package-lock.json'), JSON.stringify({}));
   });
 
   test.serial.beforeEach(async (t) => {
@@ -75,7 +97,17 @@ projects:
       triggerAppDomainVerification: td.function<LycanHandler['triggerAppDomainVerification']>(),
     };
 
+    t.context.uploadFake = td.function<() => UploadResult>();
     t.context.lycanServer = new LycanServer(t.context.lycanFake, true);
+    // Router is private, hackily access it
+    (t.context.lycanServer as any).router.koaRouter.post('/code', (ctx: any) => {
+      const res = t.context.uploadFake();
+      if (res.ok) {
+        ctx.body = { digest: res.digest };
+      } else {
+        ctx.throw(500);
+      }
+    });
     t.context.server = await t.context.lycanServer.listen(0);
     t.context.lycanUrl = `http://localhost:${(t.context.server.address() as AddressInfo).port}`;
     t.context.shell = new Shell(undefined, {

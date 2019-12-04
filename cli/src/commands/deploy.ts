@@ -11,24 +11,20 @@ import { spawn } from '@binaris/utils-subprocess';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import { getDependencies } from '../utils/getdeps';
+import flags from '../utils/cli-flags';
 import {
   getPrimaryDomain,
   getProjectRootDir,
   getProjectEnv,
+  getEnvFromArgs,
   findProjectByDirectory,
+  mergeEnvArrays,
 } from '../utils/helpers';
 
 // TODO: test flows:
-// * no project associated and no apps deployed deploys a new app and associates directory
-// * no project associated and 1 app deployed
-//   prompts user to select app and deploys to selected app and associates directory
-// * no project associated and 1 app deployed
-//   prompts user to select app and deploys new of new app selected and associates directory
 // * no project associated and 1 app deployed prompts user to select app and exits when user aborts (Ctrl-C)
-// * project associated deploys to associated app
-// * project associated and deploy fails shows meaningful message
-//
-// TODO: add --app-id and --env flags to bypass app association mechanism
+// * deploy fails with meaningful message during (code upload|build|node_modules copy)
+// TODO: add --env flag to bypass app association mechanism
 
 function escapeWin32(filePath: string) {
   return process.platform === 'win32' ? shellEcape(filePath) : filePath;
@@ -47,6 +43,18 @@ export default class Deploy extends Command {
   ];
 
   public static args = [];
+
+  public static flags = {
+    ...Command.flags,
+    'app-name': flags.string({
+      char: 'n',
+      description: 'If provided replace given app',
+    }),
+    env: flags.string({
+      char: 'e',
+      multiple: true,
+    }),
+  };
 
   public static strict = true;
 
@@ -172,16 +180,27 @@ export default class Deploy extends Command {
     return value === NEW_APPLICATION ? undefined : value;
   }
 
+  public async findApplicationIdByName(appName: string): Promise<string> {
+    const apps = await this.lycanClient.listApps();
+    const app = apps.find(({ name }) => name === appName);
+    if (app === undefined) {
+      this.error(`Could not find application named: "${appName}"`);
+    }
+    return app.id;
+  }
+
   public async run() {
-    this.parse(Deploy);
+    const { flags: { 'app-name': givenAppName, env: givenEnv } } = this.parse(Deploy);
     this.startStage('authenticate');
     await this.authenticate();
 
     this.startStage('get project');
     const projectDir = await getProjectRootDir();
-    const envVars = await getProjectEnv();
+    // tslint:disable-next-line strict-boolean-expressions
+    const envVars = mergeEnvArrays(await getProjectEnv(), getEnvFromArgs(givenEnv || []));
     const projects = this.conf.get('projects') || [];
 
+    // TODO: select target before this block
     this.startStage('build');
     const stagingDir = await this.build(projectDir);
     let digest: string;
@@ -200,16 +219,22 @@ export default class Deploy extends Command {
     let project = findProjectByDirectory(projects, projectDir);
 
     let application: Application;
-    if (!project) {
-      const applicationId = await this.selectApplicationForProject();
+    if (!project || givenAppName) {
+      const applicationId = givenAppName !== undefined
+        ? await this.findApplicationIdByName(givenAppName)
+        : await this.selectApplicationForProject();
+
       if (applicationId !== undefined) {
         project = {
           directory: projectDir,
           applicationId,
           defaultEnv: env,
         };
-        projects.push(project);
-        this.conf.set('projects', projects);
+        // Don't update association if given --app-name option
+        if (!givenAppName) {
+          projects.push(project);
+          this.conf.set('projects', projects);
+        }
       }
     }
 
