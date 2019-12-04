@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Make deploy command CI friendly",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "roey@reshuffle.com"
+}
