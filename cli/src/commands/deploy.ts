@@ -181,8 +181,7 @@ export default class Deploy extends Command {
   }
 
   public async findApplicationIdByName(appName: string): Promise<string> {
-    const apps = await this.lycanClient.listApps();
-    const app = apps.find(({ name }) => name === appName);
+    const app = await this.lycanClient.getAppByName(appName);
     if (app === undefined) {
       this.error(`Could not find application named: "${appName}"`);
     }
