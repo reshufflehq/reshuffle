@@ -27,6 +27,30 @@ export async function getProjectRootDir(): Promise<string> {
   return dirname(packageJsonPath);
 }
 
+export function getEnvFromArgs(args: string[]): Array<[string, string]> {
+  return args.map((a) => {
+    const [key, ...rest] = a.split('=');
+    if (rest.length === 0) {
+      const val = process.env[key];
+      if (!val) {
+        throw new CLIError(`Missing environment variable ${key}`);
+      }
+      return [key, val];
+    }
+    return [key, rest.join('=')];
+  });
+}
+
+export function mergeEnvArrays(...arrs: Array<Array<[string, string]>>): Array<[string, string]> {
+  const merged: Record<string, string> = {};
+  for (const arr of arrs) {
+    for (const [k, v] of arr) {
+      merged[k] = v;
+    }
+  }
+  return Object.entries(merged);
+}
+
 export async function getProjectEnv(): Promise<Array<[string, string]>> {
   const envFile = join(await getProjectRootDir(), '.env');
   try {
