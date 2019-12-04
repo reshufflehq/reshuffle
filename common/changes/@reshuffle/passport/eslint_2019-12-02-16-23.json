@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/passport",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/passport",
+  "email": "vladimir@reshuffle.com"
+}
