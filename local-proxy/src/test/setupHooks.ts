@@ -2,7 +2,7 @@ import { TestInterface } from 'ava';
 import express from 'express';
 import path from 'path';
 import http from 'http';
-import fs from 'mz/fs';
+import { promises as fs } from 'fs';
 import { tmpdir } from 'os';
 import { AddressInfo } from 'net';
 import { setupProxy } from '../index';
