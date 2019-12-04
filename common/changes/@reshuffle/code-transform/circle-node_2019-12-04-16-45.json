@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/code-transform",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/code-transform",
+  "email": "vladimir@reshuffle.com"
+}

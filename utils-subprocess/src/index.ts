@@ -20,7 +20,11 @@ export async function spawn(
   options?: SpawnOptions
 ): Promise<void> {
   try {
-    await waitOnChild(origSpawn(command, args, options));
+    // Workaround @types/node - avoid choosing overloads per options.stdio variants
+    await waitOnChild(options === undefined ?
+      origSpawn(command, args) :
+      origSpawn(command, args || [], options)
+    );
   } catch (err) {
     if (err instanceof ChildProcessError) {
       err.command = command;

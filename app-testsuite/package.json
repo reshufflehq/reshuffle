@@ -23,7 +23,7 @@
     "@types/fs-extra": "^8.0.1",
     "@types/got": "^9.6.9",
     "@types/mz": "^0.0.32",
-    "@types/node": "^10.14.9",
+    "@types/node": "^12.12.14",
     "@types/tail": "^2.0.0",
     "eslint": "^6.7.2",
     "tslint": "^5.20.1",

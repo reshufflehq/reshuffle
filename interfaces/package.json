@@ -23,7 +23,7 @@
     "fast-json-patch": "^2.2.1"
   },
   "devDependencies": {
-    "@types/node": "^10.14.9",
+    "@types/node": "^12.12.14",
     "eslint": "^6.7.2",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2",

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Use Buffer.from instead of deprecated new Buffer",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "vladimir@reshuffle.com"
+}
