@@ -1,8 +1,11 @@
 version: 2.1
 aliases:
-  - &docker
+  - &docker10
     docker:
       - image: circleci/node:10-browsers
+  - &docker
+    docker:
+      - image: circleci/node:12-browsers
   - &attach_workspace
     - restore_cache:
         key: build-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
@@ -14,7 +17,7 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "common/config/rush/shrinkwrap.yaml" }}
-      - run:
+      - run: &generate_interfaces
           name: Generate interface packages
           command: scripts/generate_interfaces
       - run:
@@ -44,16 +47,28 @@ jobs:
     <<: *docker
     steps:
       - <<: *attach_workspace
-      - run:
+      - run: &test_steps
           name: Run tests
           command: node common/scripts/install-run-rush.js test --verbose
+  test-10:
+    <<: *docker10
+    steps:
+      - <<: *attach_workspace
+      - run:
+          <<: *test_steps
   integration-test:
     <<: *docker
     steps:
       - <<: *attach_workspace
-      - run:
+      - run: &integration_test_steps
           name: Run integration tests
           command: cd app-testsuite && node ../common/scripts/install-run-rushx.js integration-test
+  integration-test-10:
+    <<: *docker10
+    steps:
+      - <<: *attach_workspace
+      - run:
+          <<: *integration_test_steps
   verify_change_logs:
     <<: *docker
     steps:
@@ -75,8 +90,7 @@ jobs:
             git config user.email "auto-npm-dep-update@shiftjs.com"
             git config user.name "autoupdate"
       - run:
-          name: Generate interface packages
-          command: scripts/generate_interfaces
+          <<: *generate_interfaces
       - run:
           name: Update npm dependencies
           # we do not upgrade @types/node since we want node and @types/node versions to be synchronized
@@ -94,22 +108,20 @@ workflows:
                 # according to https://circleci.com/docs/2.0/configuration-reference/#filters-1
                 # regex should capture the whole string, so not /^publish-/
                 - /publish-.*/
-      - lint:
+      - lint: &post_build_step
           requires:
             - build
           filters: *ignore_publish
       - test:
-          requires:
-            - build
-          filters: *ignore_publish
+          <<: *post_build_step
+      - test-10:
+          <<: *post_build_step
       - verify_change_logs:
-          requires:
-            - build
-          filters: *ignore_publish
+          <<: *post_build_step
       - integration-test:
-          requires:
-            - build
-          filters: *ignore_publish
+          <<: *post_build_step
+      - integration-test-10:
+          <<: *post_build_step
   weekly:
     triggers:
        - schedule:
