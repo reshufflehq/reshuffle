@@ -94,7 +94,7 @@ export function initRegistry(logDir: string) {
   ): boolean {
     const payload = Buffer.isBuffer(chunk)
       ? chunk.toString('utf8')
-      : typeof encoding === 'string' ? new Buffer(chunk, encoding).toString('utf8') : chunk;
+      : typeof encoding === 'string' ? Buffer.from(chunk, encoding as BufferEncoding).toString('utf8') : chunk;
     logger.info(payload, { reqid: registry.lookup() || 'global', isErr });
     return origWrite.apply(origStream, [chunk, encoding, cb]);
   }

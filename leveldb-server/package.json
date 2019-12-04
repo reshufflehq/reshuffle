@@ -32,7 +32,7 @@
     "@reshuffle/db-testsuite": "0.3.0",
     "@types/koa": "^2.0.52",
     "@types/nanoid": "^2.1.0",
-    "@types/node": "^10.14.9",
+    "@types/node": "^12.12.14",
     "@types/ramda": "^0.26.34",
     "@types/rmfr": "^2.0.0",
     "ava": "^2.4.0",
