@@ -113,9 +113,8 @@ test('project associated deploys to associated app', async (t) => {
 });
 
 test('project associated with --app-name deploys to named app and does not update association', async (t) => {
-  const app = makeApp({ id: 'fluffy-samaritan' });
   const targetApp = makeApp({ id: 'abc', name: 'targeted-app-32' });
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([app, targetApp]);
+  td.when(t.context.lycanFake.getAppByName(anything, targetApp.name)).thenResolve(targetApp);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deploy(anything, targetApp.id, 'default', 'abcabc', [])).thenResolve(targetApp);
   const result = await t.context.shell.run(`${t.context.run} deploy --app-name ${targetApp.name}`, 'utf-8');
@@ -125,7 +124,7 @@ test('project associated with --app-name deploys to named app and does not updat
 
 test('project not associated with --app-name deploys to named app and does not update association', async (t) => {
   const targetApp = makeApp({ id: 'abc', name: 'targeted-app-32' });
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([targetApp]);
+  td.when(t.context.lycanFake.getAppByName(anything, targetApp.name)).thenResolve(targetApp);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deploy(anything, targetApp.id, 'default', 'abcabc', [])).thenResolve(targetApp);
   t.context.projectConfig = JSON.stringify({ accessToken: 'setec-astronomy' });
@@ -136,7 +135,7 @@ test('project not associated with --app-name deploys to named app and does not u
 });
 
 test('given --app-name but app not in list gives informative message', async (t) => {
-  td.when(t.context.lycanFake.listApps(anything)).thenResolve([]);
+  td.when(t.context.lycanFake.getAppByName(anything, 'not-found')).thenResolve();
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   const result = await t.context.shell.run(`${t.context.run} deploy --app-name not-found`, 'utf-8');
   t.snapshot({ ...result, out: result.out.replace(t.context.projectDir, 'PROJECT_DIR') });
