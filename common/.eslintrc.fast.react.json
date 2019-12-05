@@ -18,6 +18,7 @@
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
     "no-only-tests/no-only-tests": "error",
+    "no-new-wrappers": "error",
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "never"],
     "require-atomic-updates": "off",
