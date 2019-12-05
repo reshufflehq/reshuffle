@@ -5,48 +5,10 @@
     "no-only-tests"
   ],
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
+    "./.eslintrc.fast.json",
     "plugin:react/recommended"
   ],
   "rules": {
-    "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-inferrable-types": ["error", { "ignoreParameters": true }],
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
-    "no-only-tests/no-only-tests": "error",
-    "no-new-wrappers": "error",
-    "object-curly-spacing": ["error", "always"],
-    "array-bracket-spacing": ["error", "never"],
-    "require-atomic-updates": "off",
-    "semi": "off",
-    "@typescript-eslint/semi": ["error"],
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/member-delimiter-style": ["error", {
-      "overrides": {
-        "typeLiteral": {
-          "multiline": {
-            "delimiter": "comma",
-            "requireLast": true
-          },
-          "singleline": {
-            "delimiter": "comma",
-            "requireLast": false
-          }
-        }
-      }
-    }],
-    "no-multi-spaces": "error",
-    "padding-line-between-statements": [
-        "error",
-        { "blankLine": "always", "prev": "function", "next": "*" }
-    ],
-    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-    "indent": "off",
-    "@typescript-eslint/indent": ["error", 2, { "ignoreComments": true, "flatTernaryExpressions": true }],
     "react/prop-types": "off",
     "react/display-name": "off"
   },
