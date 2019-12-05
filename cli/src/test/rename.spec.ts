@@ -39,13 +39,15 @@ test('sourceName not in project dir', async (t) => {
 });
 
 test('missing application', async (t) => {
-  td.when(t.context.lycanFake.renameApp(anything, 'fluffy-samaritan', 'new-name')).thenReject(new NotFoundError('not found'));
+  td.when(t.context.lycanFake.renameApp(anything, 'fluffy-samaritan', 'new-name'))
+    .thenReject(new NotFoundError('not found'));
   const result = await t.context.shell.run(`${t.context.run} rename new-name`, 'utf-8');
   t.snapshot(result);
 });
 
 test('permission error', async (t) => {
-  td.when(t.context.lycanFake.renameApp(anything, 'fluffy-samaritan', 'no-perm')).thenReject(new UnauthorizedError('no auth'));
+  td.when(t.context.lycanFake.renameApp(anything, 'fluffy-samaritan', 'no-perm'))
+    .thenReject(new UnauthorizedError('no auth'));
 
   const result = await t.context.shell.run(`${t.context.run} rename no-perm`, 'utf-8');
   t.snapshot(result);

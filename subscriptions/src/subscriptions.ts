@@ -174,15 +174,13 @@ export function serverUpdates<T>(
     map((versioned): SubscriptionState<T> => ({ ...versioned, patches: [] })),
     tap(({ version }) => pollerInputSubject.next({ action: 'register', key, version, observer: patchesSubject })),
     flatMap((initialState) => patchesSubject.pipe(
-      scan(({ value }, patches) => {
-        return {
-          version: patches[patches.length - 1].version,
-          value: ([] as Operation[])
-            .concat(...patches.map(({ ops }) => ops))
-            .reduce<{ root: T }>(applyReducer, { root: value }).root,
-          patches,
-        };
-      }, initialState),
+      scan(({ value }, patches) => ({
+        version: patches[patches.length - 1].version,
+        value: ([] as Operation[])
+          .concat(...patches.map(({ ops }) => ops))
+          .reduce<{ root: T }>(applyReducer, { root: value }).root,
+        patches,
+      }), initialState),
       startWith(initialState),
     )),
     finalize(() => pollerInputSubject.next({ action: 'deregister', key })),

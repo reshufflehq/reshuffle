@@ -13,7 +13,7 @@ test('Regression #36', async (t) => {
   const responses = await Promise.all(
     range(100).map(() => got.post(`http://127.0.0.1:${t.context.port}/invoke`, {
       headers: {},
-      body: { path: 'dummyBackend.js', args: [], handler: 'hello', },
+      body: { path: 'dummyBackend.js', args: [], handler: 'hello' },
       json: true,
     }))
   );

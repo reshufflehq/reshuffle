@@ -2,7 +2,8 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "no-only-tests"
+    "no-only-tests",
+    "import"
   ],
   "extends": [
     "eslint:recommended",
@@ -10,14 +11,25 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "@typescript-eslint/array-type": ["error", { "default": "array-simple", "readonly": "generic" }],
     "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/consistent-type-definitions": "error",
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error",
+      {
+        "accessibility": "explicit",
+        "overrides": { "constructors": "no-public" }
+      }
+    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/prefer-for-of": "error",
+    "@typescript-eslint/prefer-function-type": "error",
+    "@typescript-eslint/unified-signatures": "error",
     "@typescript-eslint/no-inferrable-types": ["error", { "ignoreParameters": true }],
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
     "no-only-tests/no-only-tests": "error",
-    "no-new-wrappers": "error",
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "never"],
     "require-atomic-updates": "off",
@@ -45,6 +57,82 @@
     ],
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "indent": "off",
-    "@typescript-eslint/indent": ["error", 2, { "ignoreComments": true, "flatTernaryExpressions": true }]
+    "@typescript-eslint/indent": ["error", 2, { "ignoreComments": true, "flatTernaryExpressions": true }],
+    "guard-for-in": "error",
+    "new-parens": "error",
+    "no-bitwise": "error",
+    "no-caller": "error",
+    "no-console": "error",
+    "no-eval": "error",
+    "no-new-wrappers": "error",
+    "no-shadow": "error",
+    "no-throw-literal": "error",
+    "no-trailing-spaces": "error",
+    "no-undef-init": "error",
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": ["error"],
+    "no-var": "error",
+    "object-shorthand": "error",
+    "one-var": ["error", "never"],
+    "prefer-const": "error",
+    "prefer-arrow-callback": "error",
+    "quote-props": ["error", "as-needed"],
+    "radix": "error",
+    "spaced-comment": "error",
+    "eqeqeq": ["error", "smart"],
+    "quotes": "off",
+    "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
+    "curly": ["error", "multi-line"],
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "only-multiline"
+    }],
+    "no-whitespace-before-property": "error",
+    "space-infix-ops": "error",
+    "keyword-spacing": "error",
+    "key-spacing": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": "off",
+    "@typescript-eslint/space-before-function-paren": ["error", {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+    }],
+    "space-in-parens": "error",
+    "space-unary-ops": "error",
+    "semi-spacing": "error",
+    "arrow-spacing": "error",
+    "switch-colon-spacing": "error",
+    "template-tag-spacing": "error",
+    "semi-style": "error",
+    "comma-style": "error",
+    "comma-spacing": "error",
+    "func-call-spacing": "error",
+    "generator-star-spacing": ["error", {
+        "before": false,
+        "after": true,
+        "anonymous": "neither",
+        "method": {"before": true, "after": true}
+    }],
+    "rest-spread-spacing": "error",
+    "template-curly-spacing": "error",
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "linebreak-style": ["error", "unix"],
+    "arrow-body-style": "error",
+    "arrow-parens": "error",
+    "dot-notation": "error",
+    "eol-last": "error",
+    "import/no-extraneous-dependencies": "error",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+    "no-multiple-empty-lines": ["error", { "max": 1 }]
   }
 }

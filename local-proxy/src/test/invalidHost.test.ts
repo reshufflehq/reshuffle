@@ -10,7 +10,7 @@ test('Invalid Host', async (t) => {
     headers: {
       host: 'evil.com',
     },
-    body: { path: 'dummyBackend.js', args: [], handler: 'hello', },
+    body: { path: 'dummyBackend.js', args: [], handler: 'hello' },
     json: true,
   });
   await t.throwsAsync(reqPromise, 'Response code 403 (Forbidden)');

@@ -26,6 +26,7 @@ function fakeLoginPage(req: express.Request, res: express.Response) {
   if (req.session) {
     req.session.returnTo = req.query.returnTo || '/';
   }
+  /* eslint-disable max-len */
   return res.header('content-type', 'text/html')
     .end(`
 <!doctype html>
@@ -84,6 +85,7 @@ form {
   </body>
 </html>
 `);
+  /* eslint-enable max-len */
 }
 
 // A poor man's vhost module - calls handler if the hostname matches
@@ -164,7 +166,7 @@ function createPerDomainAuth(domain: string, strategy: passport.Strategy) {
     );
   }
   router.all('/logged-in', (_req, res) => {
-    return res.header('content-type', 'text/html')
+    res.header('content-type', 'text/html')
       .end(`
   <!doctype html>
   <html lang="en">
@@ -216,7 +218,7 @@ export function createAuthHandler(): express.Express {
   } else if (process.env.RESHUFFLE_SESSION_SAME_SITE === 'strict') {
     sessionOpt.sameSite = 'strict';
   } else {
-    // tslint:disable-next-line:no-console
+    /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
     console.error(
       'Invalid value for RESHUFFLE_SESSION_SAME_SITE, should be one of (lax, strict, none), defaulting to lax');
     sessionOpt.sameSite = 'lax';

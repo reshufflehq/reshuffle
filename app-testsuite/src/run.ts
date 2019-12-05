@@ -1,4 +1,5 @@
 // tslint:disable:no-console
+/* eslint-disable no-console */
 import path from 'path';
 import { mkdtemp, readFile, writeFile } from 'mz/fs';
 import { tmpdir } from 'os';

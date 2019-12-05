@@ -130,7 +130,7 @@ test('DB.remove sets a tombstone with an updatedAt attribute', async (t) => {
   t.true(await db.remove(ctx, 'test'));
   const doc = await db.getWithMeta(ctx, 'test');
   t.truthy(doc);
-  t.assert(! ('value' in doc!));
+  t.assert(!('value' in doc!));
   t.true(doc!.updatedAt >= t0);
 });
 

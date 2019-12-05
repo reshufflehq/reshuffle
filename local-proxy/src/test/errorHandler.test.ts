@@ -8,7 +8,7 @@ setupTestHooks(test);
 test('error invoke', async (t) => {
   await t.throwsAsync(got.post(`http://127.0.0.1:${t.context.port}/invoke`, {
     headers: {},
-    body: { path: 'testStackTrace.js', args: [], handler: 'testStackTrace', },
+    body: { path: 'testStackTrace.js', args: [], handler: 'testStackTrace' },
     json: true,
   }), /Internal Server Error/);
   const stderr = t.context.stderr.join('\n');

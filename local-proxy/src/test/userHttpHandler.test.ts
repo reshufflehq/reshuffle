@@ -16,7 +16,7 @@ test('user handler overrides', async (t) => {
   {
     const response = await got.post(`http://127.0.0.1:${t.context.port}/invoke`, {
       headers: {},
-      body: { path: 'dummyBackend.js', args: [], handler: 'hello', },
+      body: { path: 'dummyBackend.js', args: [], handler: 'hello' },
       json: true,
     });
     t.is(response.body, 'hello');

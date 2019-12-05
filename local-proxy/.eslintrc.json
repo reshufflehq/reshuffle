@@ -1,0 +1,8 @@
+{
+    "extends": [
+        "../common/.eslintrc.json"
+    ],
+    "rules": {
+        "no-console": "off"
+    }
+}

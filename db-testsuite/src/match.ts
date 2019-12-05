@@ -11,7 +11,7 @@ interface Context {
 
 export const test = anyTest as TestInterface<Context>;
 
-function *nest(testValue: any) {
+function* nest(testValue: any) {
   const paths = [[], ['a'], ['a', 0]];
   for (const path of paths) {
     const fullPath = ['value', ...path.map((x) => x.toString())];

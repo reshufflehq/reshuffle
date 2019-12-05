@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // tslint:disable:no-console
+/* eslint-disable no-console */
 
 import {
   sanityCheck,
@@ -29,5 +30,5 @@ async function reactApp() {
   }
 }
 
-// tslint:disable-next-line:no-floating-promises all rejections handled by process.exit(1)
-reactApp();
+// all promises handled by process.exit(1)
+void reactApp();

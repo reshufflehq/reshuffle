@@ -75,7 +75,7 @@ function exposeMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosB
       if (!node.source.value.startsWith('.')) {
         return;
       }
-      if (!node.specifiers.length ) {
+      if (!node.specifiers.length) {
         return;
       }
       // support ImportDefaultSpecifier (together with default export in the future)
