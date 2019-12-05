@@ -15,6 +15,10 @@ export interface PackageScope {
   bundled?: boolean;
 }
 
+export interface Dependency {
+  optional: boolean;
+}
+
 export async function getDependencies(projectDir: string) {
   const packageJsonPath = pathResolve(projectDir, 'package.json');
   const packageLockPath = pathResolve(projectDir, 'package-lock.json');
@@ -33,7 +37,7 @@ export async function getDependencies(projectDir: string) {
     }
   }
 
-  const dependencies = new Set<string>();
+  const dependencies = new Map<string, Dependency>();
   while (toProcess.length) {
     const p = toProcess.shift()!;
     // ignore bulk of react-scripts
@@ -46,7 +50,7 @@ export async function getDependencies(projectDir: string) {
     if (dependencies.has(p)) continue;
 
     if (lockHasProperty(p)) {
-      dependencies.add(p);
+      dependencies.set(p, { optional: Boolean(lockDeps[p].optional) });
       toProcess.push(...deepRequires(lockDeps[p]));
     } else {
       // tslint:disable-next-line:no-console
