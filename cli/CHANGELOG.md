@@ -1,6 +1,14 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 02 Dec 2019 13:28:15 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Dec 2019 18:51:08 GMT and should not be manually modified.
+
+## 0.6.2
+Thu, 05 Dec 2019 18:51:08 GMT
+
+### Patches
+
+- Make deploy command CI friendly
+- Don't fail node_modules copy on missing deps
 
 ## 0.6.1
 Mon, 02 Dec 2019 13:28:15 GMT

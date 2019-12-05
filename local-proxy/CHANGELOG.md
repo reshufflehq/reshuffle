@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Tue, 03 Dec 2019 06:59:43 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Dec 2019 18:51:08 GMT and should not be manually modified.
+
+## 0.3.4
+Thu, 05 Dec 2019 18:51:08 GMT
+
+### Patches
+
+- Use Buffer.from instead of deprecated new Buffer
 
 ## 0.3.3
 Tue, 03 Dec 2019 06:59:43 GMT

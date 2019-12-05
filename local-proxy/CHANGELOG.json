@@ -2,6 +2,18 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.3.4",
+      "tag": "@reshuffle/local-proxy_v0.3.4",
+      "date": "Thu, 05 Dec 2019 18:51:08 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use Buffer.from instead of deprecated new Buffer"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.3",
       "tag": "@reshuffle/local-proxy_v0.3.3",
       "date": "Tue, 03 Dec 2019 06:59:43 GMT",

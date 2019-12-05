@@ -2,6 +2,21 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.6.2",
+      "tag": "reshuffle_v0.6.2",
+      "date": "Thu, 05 Dec 2019 18:51:08 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Make deploy command CI friendly"
+          },
+          {
+            "comment": "Don't fail node_modules copy on missing deps"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.1",
       "tag": "reshuffle_v0.6.1",
       "date": "Mon, 02 Dec 2019 13:28:15 GMT",
