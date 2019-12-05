@@ -1,5 +1,5 @@
 import path, { resolve as pathResolve } from 'path';
-import { createReadStream, stat, mkdtemp } from 'mz/fs';
+import { createReadStream, stat, mkdtemp, exists } from 'mz/fs';
 import { mkdirp, remove, copy } from 'fs-extra';
 import { tmpdir } from 'os';
 import tar from 'tar';
@@ -71,11 +71,16 @@ export default class Deploy extends Command {
       });
       this.log('Preparing backend...');
       const deps = await getDependencies(projectDir);
-      for (const dep of deps) {
+      for (const [dep, props] of deps) {
         const source = pathResolve(projectDir, 'node_modules', dep);
         const target = pathResolve(stagingDir, 'node_modules', dep);
-        await mkdirp(target);
-        await copy(source, target);
+        if (await exists(source)) {
+          await mkdirp(target);
+          await copy(source, target);
+        } else if (!props.optional) {
+          // tslint:disable-next-line:no-console
+          console.error(`WARN: Cannot find dependency ${dep} in node_modules, skipping upload`);
+        }
       }
 
       const filesToExclude = new Set(['node_modules', 'backend', 'src'].map((f) => pathResolve(projectDir, f)));

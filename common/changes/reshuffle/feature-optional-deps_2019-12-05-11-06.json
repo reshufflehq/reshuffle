@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "Don't fail node_modules copy on missing deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "roey@reshuffle.com"
+}
