@@ -41,7 +41,7 @@ export default class Download extends Command {
 
   public async run() {
     const {
-      args : { ID: appName },
+      args: { ID: appName },
       flags: { verbose },
     } = this.parse(Download);
     await this.authenticate();

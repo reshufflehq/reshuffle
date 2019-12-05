@@ -84,9 +84,9 @@ export function getPrimaryDomain(environment: Environment) {
   if (connectedCustomDomain) {
     return connectedCustomDomain.name;
   }
-  return(`${domains.find((d) => d.type === 'subdomain')!.name}`);
+  return `${domains.find((d) => d.type === 'subdomain')!.name}`;
 }
 
 export function getPrimaryURL(environment: Environment) {
-  return(`https://${getPrimaryDomain(environment)}`);
+  return `https://${getPrimaryDomain(environment)}`;
 }

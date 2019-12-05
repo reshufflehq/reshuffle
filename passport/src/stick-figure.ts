@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // A generic user found via a generic web search.  This is a
 // stick-figure of a person.
 // https://publicdomainvectors.org/en/free-clipart/Stick-Figure/58220.html,

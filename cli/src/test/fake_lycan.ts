@@ -4,7 +4,7 @@ import { Shell, success } from 'specshell';
 import { LycanHandler, LycanServer } from '@binaris/spice-koa-server';
 import { AddressInfo, Server } from 'net';
 import { tmpdir } from 'os';
-import { mkdir, mkdtemp , realpath, writeFile } from 'mz/fs';
+import { mkdir, mkdtemp, realpath, writeFile } from 'mz/fs';
 import { env as processEnv } from 'process';
 import * as path from 'path';
 import { remove, mkdirp } from 'fs-extra';

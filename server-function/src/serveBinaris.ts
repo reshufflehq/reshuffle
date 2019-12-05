@@ -27,11 +27,11 @@ const getHTTPHandlerOnceAndLog = once((): HTTPHandler => {
     if (userHandler === undefined) {
       return app;
     }
-    // tslint:disable-next-line:no-console
+    /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
     console.log('Using handler from', userHandler.path);
     return userHandler.fn;
   } catch (err) {
-    // tslint:disable-next-line:no-console
+    /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
     console.error('Failed to require _handler', err);
     return app;
   }

@@ -5,7 +5,8 @@ import has from 'lodash.has';
 
 class MismatchedPackageAndPackageLockError extends CLIError {
   constructor(public missingPackage: string) {
-    super(`Mismatched package files: package.json refers to ${missingPackage}, which is not in package-lock.json. Re-run "npm install".`);
+    super(`Mismatched package files: package.json refers to ${missingPackage}, ` +
+      'which is not in package-lock.json. Re-run "npm install".');
   }
 }
 
@@ -53,7 +54,7 @@ export async function getDependencies(projectDir: string) {
       dependencies.set(p, { optional: Boolean(lockDeps[p].optional) });
       toProcess.push(...deepRequires(lockDeps[p]));
     } else {
-      // tslint:disable-next-line:no-console
+      /* tslint:disable-next-line:no-console */ /* eslint-disable-next-line no-console */
       console.error(`WARN: Cannot find dependency ${p} in package-lock.json, skipping upload`);
     }
   }

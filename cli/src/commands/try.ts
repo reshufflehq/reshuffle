@@ -20,7 +20,6 @@ export default class Try extends Command {
 
   public async run() {
     const { args } = this.parse(Try);
-
     const { token, expiresAt, domain } = await this.lycanClient.tryTemplate(args.ID);
     const link = terminalLink(domain, `https://${domain}`, { fallback: (_, url) => url });
     this.log(`Try the app at ${link}. The trial will expire at ${expiresAt.toISOString()}`);

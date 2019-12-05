@@ -22,7 +22,8 @@ export default class Browse extends Command {
     for (const { id, name, previewImageUrl, githubUrl } of templates) {
       const previewImageLink = terminalLink('preview image', previewImageUrl);
       const githubLink = terminalLink('source', githubUrl);
-      this.log(`${name}: See ${previewImageLink}, get the ${githubLink} from GitHub, or try it with '${Command.cliBinName} try ${id}'`);
+      this.log(`${name}: See ${previewImageLink}, get the ${githubLink} from GitHub, ` +
+        `or try it with '${Command.cliBinName} try ${id}'`);
     }
   }
 }

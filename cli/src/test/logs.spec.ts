@@ -47,7 +47,7 @@ test('logs since absolute time', async (t) => {
   const since = new Date(sinceStr);
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
     { since, limit: anything, follow: false }))
-    .thenResolve( { records: fakeLogs.filter(({ time }) => time > since) });
+    .thenResolve({ records: fakeLogs.filter(({ time }) => time > since) });
   const result = await t.context.shell.run(`${t.context.run} logs --since ${sinceStr}`, 'utf-8');
   t.snapshot(result);
 });
@@ -57,10 +57,10 @@ test('logs paginate', async (t) => {
     { since: anything, limit: anything, follow: false }))
     .thenResolve({ records: fakeLogs.slice(0, 2), nextToken: 'one' });
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-    { since: anything, limit: anything, follow: false, nextToken: 'one', }))
+    { since: anything, limit: anything, follow: false, nextToken: 'one' }))
     .thenResolve({ records: fakeLogs.slice(2, 3), nextToken: 'two' });
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default',
-    { since: anything, limit: anything, follow: false, nextToken: 'two', }))
+    { since: anything, limit: anything, follow: false, nextToken: 'two' }))
     .thenResolve({ records: fakeLogs.slice(3) });
 
   const result = await t.context.shell.run(`${t.context.run} logs`, 'utf-8');

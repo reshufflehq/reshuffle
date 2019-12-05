@@ -78,7 +78,7 @@ export default class Deploy extends Command {
           await mkdirp(target);
           await copy(source, target);
         } else if (!props.optional) {
-          // tslint:disable-next-line:no-console
+          /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
           console.error(`WARN: Cannot find dependency ${dep} in node_modules, skipping upload`);
         }
       }

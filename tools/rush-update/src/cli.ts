@@ -6,7 +6,7 @@ import main, {
   DEFAULT_COMMIT_MESSAGE,
   DEFAULT_PR_TITLE,
   DEFAULT_PR_BODY,
-  DEFAULT_CHANGE_COMMIT_MESSAGE
+  DEFAULT_CHANGE_COMMIT_MESSAGE,
 } from './main';
 
 const { argv } = yargs

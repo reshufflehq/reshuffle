@@ -10,6 +10,7 @@ export const withTimeout = async <T>(promise: Promise<T>, timeout: number = 5000
   });
 
   try {
+    // eslint-disable-next-line @typescript-eslint/return-await
     return await Promise.race([
       promise,
       timeoutPromise,

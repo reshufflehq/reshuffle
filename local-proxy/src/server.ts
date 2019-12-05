@@ -1,3 +1,5 @@
+// tslint:disable:no-console
+
 import { promisify } from 'util';
 import { resolve as resolvePath, extname } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
@@ -59,7 +61,6 @@ async function setupEnv({ port }: { port: number }) {
 
 const httpProxy = new proxy();
 httpProxy.on('error', (err: any) => {
-  // tslint:disable-next-line:no-console
   console.error(err.stack);
 });
 
@@ -80,7 +81,6 @@ class ModuleWhitelist {
           const mod = require(name);
           return [name, mod] as [string, any];
         } catch (err) {
-          // tslint:disable-next-line:no-console
           console.error('Could not require whitelisted module', name);
           return undefined;
         }
@@ -128,7 +128,6 @@ async function transpileAndCopy() {
 }
 
 const transpilePromise = transpileAndCopy();
-// tslint:disable-next-line:no-console
 transpilePromise.catch((error: Error) => console.error(error));
 
 const logDir = process.env.NODE_ENV === 'test' ? resolvePath(basePath, '.reshuffle/logs') :
@@ -184,20 +183,17 @@ if (!existsSync(dbPath) && existsSync(initDataPath)) {
   } catch (err) {
     // Logging during startup will usually get cleared by create-react-app
     // screen clear, but the log will still be saved in the log directory
-    // tslint:disable-next-line:no-console
     console.error('Error processing template_init_data.json', err);
   }
 }
 const db = new DBHandler(dbPath, initData, (err) => {
   if (err) {
     if (err.name === 'OpenError') {
-      // tslint:disable-next-line:no-console
       console.error(
         'Failed opening db. ' +
         'Please note: only one instance of the local reshuffle environment can be launched concurrently.'
       );
     }
-    // tslint:disable-next-line:no-console
     console.error(err);
     process.exit(1);
   }
@@ -234,8 +230,6 @@ const initPromise = (async (): Promise<HTTPHandler> => {
     // This can never happen, because POST can only occur after we
     // start listening and set RESHUFFLE_DB_BASE_URL.  Verify it just
     // in case.
-
-    // tslint:disable-next-line:no-console
     console.error('[I] Invoked before local RESHUFFLE_DB_BASE_URL was set; local DB might break');
   }
 
@@ -245,11 +239,9 @@ const initPromise = (async (): Promise<HTTPHandler> => {
       return app;
     }
     // Replace the path to avoid confusion
-    // tslint:disable-next-line:no-console
     console.log('Using handler from', userHandler.path.replace(genDir, basePath));
     return userHandler.fn;
   } catch (err) {
-    // tslint:disable-next-line:no-console
     console.error('Failed to require _handler', err);
     return app;
   }
