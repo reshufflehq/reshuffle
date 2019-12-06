@@ -26,7 +26,7 @@
     "@types/node": "^12.12.14",
     "eslint": "^6.7.2",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.2",
+    "typescript": "^3.7.3",
     "typescript-json-schema": "^0.40.0"
   }
 }

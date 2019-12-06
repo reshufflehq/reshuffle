@@ -14,7 +14,7 @@
   "dependencies": {
     "@reshuffle/utils-subprocess": "0.0.2",
     "fs-extra": "^8.1.0",
-    "got": "^9.6.0",
+    "got": "^10.0.1",
     "mz": "^2.7.0",
     "sleep-promise": "^8.0.1",
     "tail": "^2.0.3"
@@ -22,11 +22,11 @@
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
     "@types/got": "^9.6.9",
-    "@types/mz": "^0.0.32",
+    "@types/mz": "^2.7.0",
     "@types/node": "^12.12.14",
     "@types/tail": "^2.0.0",
     "eslint": "^6.7.2",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.3"
   }
 }
