@@ -205,4 +205,29 @@ export default abstract class BaseCommand extends Command {
     }
     return project.applicationId;
   }
+
+  protected async getAppId(appName?: string): Promise<{ applicationId: string }> {
+    try {
+      if ( appName ) {
+        const app  = await this.lycanClient.getAppByName(appName);
+        return {
+          applicationId: app.id,
+        };
+        } else {
+            try {
+              const appId = await this.getLocalAppId();
+              return {
+                applicationId: appId,
+              };
+            } catch {
+              throw new CLIError('"appName" flag not provided and could not locate project settings');
+            }
+        }
+    } catch (err) {
+      if (err.name === 'NotFoundError') {
+        throw new CLIError('The current appName is not found');
+      }
+      throw err;
+    }
+  }
 }
