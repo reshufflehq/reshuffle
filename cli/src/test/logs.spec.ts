@@ -118,6 +118,7 @@ test('logs by name', async (t) => {
       accountId: 'foo',
       createdAt: new Date(),
       updatedAt: new Date(),
+      locked: false,
       environments: [{ name: 'wow', domains: [] }],
     });
   td.when(t.context.lycanFake.getLogs(anything, 'spiky-martian', 'wow', anything))

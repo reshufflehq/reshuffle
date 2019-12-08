@@ -12,6 +12,7 @@ const defaultApp = {
   accountId: 'fake-account-id',
   createdAt: new Date('1977-09-05T12:55:55Z'),
   updatedAt: new Date('1977-09-09T12:55:55Z'),
+  locked: false,
   name: 'fake-name',
   environments: [],
 };

@@ -28,35 +28,40 @@ export default class List extends Command {
     const { format } = this.parse(List).flags;
     await this.authenticate();
     const apps = await this.lycanClient.listApps();
-    const mappedApps = apps.map(({ name, updatedAt, environments }) => ({
+    const mappedApps = apps.map(({ name, updatedAt, environments, lockReason }) => ({
       name,
       updatedAt: updatedAt.toISOString(),
+      lockReason,
       URL: getPrimaryURL(environments[0]),
     }));
 
     switch (format) {
-    case 'table':
-      if (apps.length === 0) {
-        this.log('You do not have any apps yet.');
+      case 'table':
+        if (apps.length === 0) {
+          this.log('You do not have any apps yet.');
+          return;
+        }
+        this.log(columnify(mappedApps, {
+          columns: ['name', 'updatedAt', 'lockReason', 'URL'],
+          config: {
+            name: {
+              headingTransform: () => 'APPLICATION',
+              minWidth: 25,
+            },
+            updatedAt: {
+              headingTransform: () => 'LAST UPDATED',
+              minWidth: 25,
+            },
+            lockReason: {
+              headingTransform: () => 'LOCK REASON',
+              minWidth: 25,
+            },
+          },
+        }));
         return;
-      }
-      this.log(columnify(mappedApps, {
-        columns: ['name', 'updatedAt', 'URL'],
-        config: {
-          name: {
-            headingTransform: () => 'APPLICATION',
-            minWidth: 25,
-          },
-          updatedAt: {
-            headingTransform: () => 'LAST UPDATED',
-            minWidth: 25,
-          },
-        },
-      }));
-      return;
-    case 'json':
-      this.log(JSON.stringify(mappedApps));
-      return;
+      case 'json':
+        this.log(JSON.stringify(mappedApps));
+        return;
     default:
       throw new Error(`Invalid output format requested: ${format}`);
     }

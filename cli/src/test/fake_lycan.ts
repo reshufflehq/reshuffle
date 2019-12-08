@@ -95,6 +95,8 @@ projects:
       addAppDomain: td.function<LycanHandler['addAppDomain']>(),
       removeAppDomain: td.function<LycanHandler['removeAppDomain']>(),
       triggerAppDomainVerification: td.function<LycanHandler['triggerAppDomainVerification']>(),
+      lockApp: td.function<LycanHandler['lockApp']>(),
+      unlockApp: td.function<LycanHandler['unlockApp']>(),
     };
 
     t.context.uploadFake = td.function<() => UploadResult>();
