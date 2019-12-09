@@ -94,6 +94,7 @@ dependencies:
   env-var: 5.2.0
   eslint: 6.7.2
   eslint-import-resolver-node: 0.3.2
+  eslint-import-resolver-typescript: 2.0.0
   eslint-plugin-import: 2.18.2
   eslint-plugin-no-only-tests: 2.4.0
   eslint-plugin-react: 7.17.0
@@ -194,6 +195,26 @@ packages:
       source-map: 0.5.7
     dev: false
     hasBin: true
+    optionalDependencies:
+      chokidar: 2.1.8
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    resolution:
+      integrity: sha512-O7mmzaWdm+VabWQmxuM8hqNrWGGihN83KfhPUzp2lAW4kzIMwBxujXkZbD4fMwKMYY9FXTbDvXsJqU+5XHXi4A==
+  /@babel/cli/7.7.4/@babel!core@7.7.4:
+    dependencies:
+      '@babel/core': 7.7.4
+      commander: 4.0.1
+      convert-source-map: 1.7.0
+      fs-readdir-recursive: 1.1.0
+      glob: 7.1.6
+      lodash: 4.17.15
+      make-dir: 2.1.0
+      slash: 2.0.0
+      source-map: 0.5.7
+    dev: false
+    hasBin: true
+    id: registry.npmjs.org/@babel/cli/7.7.4
     optionalDependencies:
       chokidar: 2.1.8
     peerDependencies:
@@ -739,6 +760,7 @@ packages:
       integrity: sha512-k8iVS7Jhc367IcNF53KCwIXtKAH7czev866ThsTgy8CwlXjnKZna2VHwChglzLleYrcHz1eQEIJlGRQxB53nqA==
   /@babel/plugin-transform-modules-commonjs/7.7.4/@babel!core@7.7.4:
     dependencies:
+      '@babel/core': 7.7.4
       '@babel/helper-module-transforms': 7.7.4
       '@babel/helper-plugin-utils': 7.0.0
       '@babel/helper-simple-access': 7.7.4
@@ -1119,35 +1141,12 @@ packages:
       typescript: '>= 3.3.0 || >= 3.6.0-dev || >= 3.7.0-dev'
     resolution:
       integrity: sha512-ou8VU+nTmOW1jeg+FT+sn+an/M0Xb9G16RucrfhjXGWv1Q97kCoM5CG9Qj7GYOSdu7km72k7nY83Eyr53Bkakg==
-  /@fimbul/bifrost/0.21.0/tslint@5.20.1+typescript@3.7.3:
-    dependencies:
-      '@fimbul/ymir': /@fimbul/ymir/0.21.0/tsutils@3.17.1+typescript@3.7.3
-      tslint: /tslint/5.20.1/typescript@3.7.3
-      tsutils: /tsutils/3.17.1/typescript@3.7.3
-      typescript: 3.7.3
-    dev: false
-    id: registry.npmjs.org/@fimbul/bifrost/0.21.0
-    peerDependencies:
-      tslint: ^5.0.0
-      typescript: '>= 3.3.0 || >= 3.6.0-dev || >= 3.7.0-dev'
-    resolution:
-      integrity: sha512-ou8VU+nTmOW1jeg+FT+sn+an/M0Xb9G16RucrfhjXGWv1Q97kCoM5CG9Qj7GYOSdu7km72k7nY83Eyr53Bkakg==
   /@fimbul/ymir/0.21.0/tsutils@3.17.1:
     dependencies:
       inversify: 5.0.1
       reflect-metadata: 0.1.13
       tslib: 1.10.0
-    dev: false
-    id: registry.npmjs.org/@fimbul/ymir/0.21.0
-    peerDependencies:
-      tsutils: '>=2.29.0'
-      typescript: '>= 3.3.0 || >= 3.6.0-dev || >= 3.7.0-dev'
-    resolution:
-      integrity: sha512-T/y7WqPsm4n3zhT08EpB5sfdm2Kvw3gurAxr2Lr5dQeLi8ZsMlNT/Jby+ZmuuAAd1PnXYzKp+2SXgIkQIIMCUg==
-  /@fimbul/ymir/0.21.0/tsutils@3.17.1+typescript@3.7.3:
-    dependencies:
-      tsutils: /tsutils/3.17.1/typescript@3.7.3
-      typescript: 3.7.3
+      tsutils: 3.17.1
     dev: false
     id: registry.npmjs.org/@fimbul/ymir/0.21.0
     peerDependencies:
@@ -1446,16 +1445,6 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-B1ZWbgzwxDhNZLzVnn+JjyFf9u+J9wNwsz/ZX9YvA9edRYcdiJz9JikCttGPi35V0NU0TUV4UqTqo/q/wQ06jQ==
-  /@oclif/tslint/3.1.1/tslint@5.20.1+typescript@3.7.3:
-    dependencies:
-      tslint-eslint-rules: /tslint-eslint-rules/5.4.0/tslint@5.20.1+typescript@3.7.3
-      tslint-xo: /tslint-xo/0.9.0/tslint@5.20.1+typescript@3.7.3
-    dev: false
-    engines:
-      node: '>=8.0.0'
-    id: registry.npmjs.org/@oclif/tslint/3.1.1
-    resolution:
-      integrity: sha512-B1ZWbgzwxDhNZLzVnn+JjyFf9u+J9wNwsz/ZX9YvA9edRYcdiJz9JikCttGPi35V0NU0TUV4UqTqo/q/wQ06jQ==
   /@octokit/endpoint/5.5.1:
     dependencies:
       '@octokit/types': 2.0.2
@@ -1508,8 +1497,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-StASIL2lgT3TRjxv17z9pAqbnI7HGu9DrJlg3sEBFfCLaMEqp+O3IQPUF6EZtQ4xkAu2ml6kMBBCtGxjvmtmuQ==
-  /@reshuffle/interfaces-koa-server/0.5.1:
+  /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.14:
+    dependencies:
+      '@types/node': 12.12.14
     dev: false
+    id: registry.npmjs.org/@reshuffle/interfaces-koa-server/0.5.1
     peerDependencies:
       '@types/node': '>=8.0.0'
     resolution:
@@ -1741,6 +1733,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Il2DtDVRGDcqjDtE+rF8iqg1CArehSK84HZJCT7AMITlyXRBpuPhqGLDQMowraqqu1coEaimg4ZOqggt6L6L+A==
+  /@types/json5/0.0.29:
+    dev: false
+    resolution:
+      integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
   /@types/keygrip/1.0.1:
     dev: false
     resolution:
@@ -4429,6 +4425,39 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sfmTqJfPSizWu4aymbPr4Iidp5yKm8yDkHp+Ir3YiTHiiDfxh69mOUsmiqW6RZ9zRXFaF64GtYmN7e+8GHBv6Q==
+  /eslint-import-resolver-typescript/2.0.0:
+    dependencies:
+      debug: 4.1.1
+      is-glob: 4.0.1
+      resolve: 1.13.1
+      tiny-glob: 0.2.6
+      tsconfig-paths: 3.9.0
+    dev: false
+    engines:
+      node: '>=4'
+    peerDependencies:
+      eslint: '*'
+      eslint-plugin-import: '*'
+    resolution:
+      integrity: sha512-bT5Frpl8UWoHBtY25vKUOMoVIMlJQOMefHLyQ4Tz3MQpIZ2N6yYKEEIHMo38bszBNUuMBW6M3+5JNYxeiGFH4w==
+  /eslint-import-resolver-typescript/2.0.0/5e9070aea58cdfed41951c2cac23c677:
+    dependencies:
+      debug: 4.1.1
+      eslint: 6.7.2
+      eslint-plugin-import: /eslint-plugin-import/2.18.2/eslint@6.7.2
+      is-glob: 4.0.1
+      resolve: 1.13.1
+      tiny-glob: 0.2.6
+      tsconfig-paths: 3.9.0
+    dev: false
+    engines:
+      node: '>=4'
+    id: registry.npmjs.org/eslint-import-resolver-typescript/2.0.0
+    peerDependencies:
+      eslint: '*'
+      eslint-plugin-import: '*'
+    resolution:
+      integrity: sha512-bT5Frpl8UWoHBtY25vKUOMoVIMlJQOMefHLyQ4Tz3MQpIZ2N6yYKEEIHMo38bszBNUuMBW6M3+5JNYxeiGFH4w==
   /eslint-module-utils/2.4.1:
     dependencies:
       debug: 2.6.9
@@ -4585,6 +4614,7 @@ packages:
     dependencies:
       array-includes: 3.0.3
       doctrine: 2.1.0
+      eslint: 6.7.2
       eslint-plugin-eslint-plugin: /eslint-plugin-eslint-plugin/2.1.0/eslint@6.7.2
       has: 1.0.3
       jsx-ast-utils: 2.2.3
@@ -6928,6 +6958,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
+  /json5/1.0.1:
+    dependencies:
+      minimist: 1.2.0
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
   /json5/2.1.1:
     dependencies:
       minimist: 1.2.0
@@ -9246,6 +9283,18 @@ packages:
       react: '>=16.8'
     resolution:
       integrity: sha512-YWBB2feVQF79t5u2raMPHlZ8975Jds+guCvkWVC4kRLDlSCouLsYpQm4DGSqPeHvoHYVVcDfqNayLZAXQmnxnw==
+  /react-async-hook/3.6.1/react@16.12.0:
+    dependencies:
+      react: 16.12.0
+    dev: false
+    engines:
+      node: '>=8'
+      npm: '>=5'
+    id: registry.npmjs.org/react-async-hook/3.6.1
+    peerDependencies:
+      react: '>=16.8'
+    resolution:
+      integrity: sha512-YWBB2feVQF79t5u2raMPHlZ8975Jds+guCvkWVC4kRLDlSCouLsYpQm4DGSqPeHvoHYVVcDfqNayLZAXQmnxnw==
   /react-is/16.12.0:
     dev: false
     resolution:
@@ -10969,6 +11018,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-tnMgohN582PAv9u5xX8tsbdTzawRwyhvrg2r1qOgiAUOXB8ABGwYQeOh0qfE43wKF0ygvbBrM/CTZMED6ow5ZQ==
+  /tsconfig-paths/3.9.0:
+    dependencies:
+      '@types/json5': 0.0.29
+      json5: 1.0.1
+      minimist: 1.2.0
+      strip-bom: 3.0.0
+    dev: false
+    resolution:
+      integrity: sha512-dRcuzokWhajtZWkQsDVKbWyY+jgcLC5sqJhg2PSgf4ZkH2aHPvaOY8YWGhmjb68b5qqTfasSsDO9k7RUiEmZAw==
   /tsdx/0.11.0:
     dependencies:
       '@babel/core': 7.7.4
@@ -11056,37 +11114,12 @@ packages:
       typescript: '>=2.1.4 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >=3.1.0-dev || >=3.2.0-dev || >=3.3.0-dev || >=3.4.0-dev'
     resolution:
       integrity: sha512-ebR/xHyMEuU36hGNOgCfjGBNYxBPixf0yU1Yoo6s3BrpBRFccjPOmIVaVvQsWAUAMdmfzHOCihVkcaMfimqvHw==
-  /tslint-consistent-codestyle/1.16.0/tslint@5.20.1+typescript@3.7.3:
-    dependencies:
-      '@fimbul/bifrost': /@fimbul/bifrost/0.21.0/tslint@5.20.1+typescript@3.7.3
-      tslint: /tslint/5.20.1/typescript@3.7.3
-      tsutils: /tsutils/2.29.0/typescript@3.7.3
-      typescript: 3.7.3
-    dev: false
-    id: registry.npmjs.org/tslint-consistent-codestyle/1.16.0
-    peerDependencies:
-      tslint: ^5.0.0
-      typescript: '>=2.1.4 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >=3.1.0-dev || >=3.2.0-dev || >=3.3.0-dev || >=3.4.0-dev'
-    resolution:
-      integrity: sha512-ebR/xHyMEuU36hGNOgCfjGBNYxBPixf0yU1Yoo6s3BrpBRFccjPOmIVaVvQsWAUAMdmfzHOCihVkcaMfimqvHw==
   /tslint-eslint-rules/5.4.0:
     dependencies:
       doctrine: 0.7.2
       tslib: 1.9.0
       tsutils: 3.17.1
     dev: false
-    peerDependencies:
-      tslint: ^5.0.0
-      typescript: ^2.2.0 || ^3.0.0
-    resolution:
-      integrity: sha512-WlSXE+J2vY/VPgIcqQuijMQiel+UtmXS+4nvK4ZzlDiqBfXse8FAvkNnTcYhnQyOTW5KFM+uRRGXxYhFpuBc6w==
-  /tslint-eslint-rules/5.4.0/tslint@5.20.1+typescript@3.7.3:
-    dependencies:
-      tslint: /tslint/5.20.1/typescript@3.7.3
-      tsutils: /tsutils/3.17.1/typescript@3.7.3
-      typescript: 3.7.3
-    dev: false
-    id: registry.npmjs.org/tslint-eslint-rules/5.4.0
     peerDependencies:
       tslint: ^5.0.0
       typescript: ^2.2.0 || ^3.0.0
@@ -11101,18 +11134,6 @@ packages:
       typescript: ^2.1.0 || ^3.0.0
     resolution:
       integrity: sha512-PDYjvpo0gN9IfMULwKk0KpVOPMhU6cNoT9VwCOLeDl/QS8v8W2yspRpFFuUS7/c5EIH/n8ApMi8TxJAz1tfFUA==
-  /tslint-microsoft-contrib/5.2.1/tslint@5.20.1+typescript@3.7.3:
-    dependencies:
-      tslint: /tslint/5.20.1/typescript@3.7.3
-      tsutils: /tsutils/2.28.0/typescript@3.7.3
-      typescript: 3.7.3
-    dev: false
-    id: registry.npmjs.org/tslint-microsoft-contrib/5.2.1
-    peerDependencies:
-      tslint: ^5.1.0
-      typescript: ^2.1.0 || ^3.0.0
-    resolution:
-      integrity: sha512-PDYjvpo0gN9IfMULwKk0KpVOPMhU6cNoT9VwCOLeDl/QS8v8W2yspRpFFuUS7/c5EIH/n8ApMi8TxJAz1tfFUA==
   /tslint-xo/0.9.0:
     dependencies:
       tslint-consistent-codestyle: 1.16.0
@@ -11121,20 +11142,6 @@ packages:
     dev: false
     engines:
       node: '>=6'
-    peerDependencies:
-      tslint: '>=5.11.0'
-    resolution:
-      integrity: sha512-Zk5jBdQVUaHEmR9TUoh1TJOjjCr7/nRplA+jDZBvucyBMx65pt0unTr6H/0HvrtSlucFvOMYsyBZE1W8b4AOig==
-  /tslint-xo/0.9.0/tslint@5.20.1+typescript@3.7.3:
-    dependencies:
-      tslint: /tslint/5.20.1/typescript@3.7.3
-      tslint-consistent-codestyle: /tslint-consistent-codestyle/1.16.0/tslint@5.20.1+typescript@3.7.3
-      tslint-eslint-rules: /tslint-eslint-rules/5.4.0/tslint@5.20.1+typescript@3.7.3
-      tslint-microsoft-contrib: /tslint-microsoft-contrib/5.2.1/tslint@5.20.1+typescript@3.7.3
-    dev: false
-    engines:
-      node: '>=6'
-    id: registry.npmjs.org/tslint-xo/0.9.0
     peerDependencies:
       tslint: '>=5.11.0'
     resolution:
@@ -11197,15 +11204,6 @@ packages:
     dependencies:
       tslib: 1.10.0
     dev: false
-    peerDependencies:
-      typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
-    resolution:
-      integrity: sha512-bh5nAtW0tuhvOJnx1GLRn5ScraRLICGyJV5wJhtRWOLsxW70Kk5tZtpK3O/hW6LDnqKS9mlUMPZj9fEMJ0gxqA==
-  /tsutils/2.28.0/typescript@3.7.3:
-    dependencies:
-      typescript: 3.7.3
-    dev: false
-    id: registry.npmjs.org/tsutils/2.28.0
     peerDependencies:
       typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
     resolution:
@@ -11993,7 +11991,7 @@ packages:
       mz: 2.7.0
       sleep-promise: 8.0.1
       tail: 2.0.3
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/app-testsuite'
@@ -12004,7 +12002,7 @@ packages:
   'file:projects/auth.tgz':
     dependencies:
       eslint: 6.7.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/auth'
@@ -12024,7 +12022,7 @@ packages:
       eslint: 6.7.2
       jest: 24.9.0
       jest-standard-reporter: 1.0.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/code-transform'
@@ -12034,7 +12032,7 @@ packages:
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
     dependencies:
-      '@reshuffle/interfaces-koa-server': 0.5.1
+      '@reshuffle/interfaces-koa-server': /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.14
       '@types/koa': 2.0.52
       '@types/koa-router': 7.0.42
       '@types/nanoid': 2.1.0
@@ -12046,7 +12044,7 @@ packages:
       koa-router: 7.4.0
       nanoid: 2.1.7
       ramda: 0.26.1
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/db-testsuite'
@@ -12064,7 +12062,7 @@ packages:
       deep-freeze: 0.0.1
       eslint: 6.7.2
       ramda: 0.26.1
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typedoc: 0.15.3
       typescript: 3.7.3
     dev: false
@@ -12077,7 +12075,7 @@ packages:
     dependencies:
       '@types/node': 12.12.14
       eslint: 6.7.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/fetch-runtime'
@@ -12124,7 +12122,7 @@ packages:
       concord: 0.2.4
       eslint: 6.7.2
       fast-json-patch: 2.2.1
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
       typescript-json-schema: 0.40.0
     dev: false
@@ -12135,7 +12133,7 @@ packages:
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
     dependencies:
-      '@reshuffle/interfaces-koa-server': 0.5.1
+      '@reshuffle/interfaces-koa-server': /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.14
       '@types/deep-freeze': 0.1.2
       '@types/koa': 2.11.0
       '@types/leveldown': 4.0.2
@@ -12155,7 +12153,7 @@ packages:
       nanoid: 2.1.7
       ramda: 0.26.1
       rmfr: 2.0.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/leveldb-server'
@@ -12165,10 +12163,10 @@ packages:
     version: 0.0.0
   'file:projects/local-proxy.tgz':
     dependencies:
-      '@babel/cli': 7.7.4
+      '@babel/cli': /@babel/cli/7.7.4/@babel!core@7.7.4
       '@babel/core': 7.7.4
-      '@babel/plugin-transform-modules-commonjs': 7.7.4
-      '@reshuffle/interfaces-koa-server': 0.5.1
+      '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.7.4/@babel!core@7.7.4
+      '@reshuffle/interfaces-koa-server': /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.14
       '@types/babel__core': 7.1.3
       '@types/express': 4.17.2
       '@types/fs-extra': 8.0.1
@@ -12201,7 +12199,7 @@ packages:
       nanoid: 2.1.7
       nodemon: 1.19.4
       rimraf: 3.0.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
       walkdir: 0.4.1
       winston: 3.2.1
@@ -12231,7 +12229,7 @@ packages:
       passport-auth0: 1.3.0
       passport-local: 1.0.0
       stringcase: 4.3.1
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/passport'
@@ -12248,7 +12246,7 @@ packages:
       fixture-stdout: 0.2.1
       jest: 24.9.0
       rmfr: 2.0.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/react-app'
@@ -12260,11 +12258,11 @@ packages:
     dependencies:
       '@types/react': 16.9.14
       eslint: 6.7.2
-      eslint-plugin-react: 7.17.0
+      eslint-plugin-react: /eslint-plugin-react/7.17.0/eslint@6.7.2
       react: 16.12.0
-      react-async-hook: 3.6.1
+      react-async-hook: /react-async-hook/3.6.1/react@16.12.0
       tsdx: 0.11.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/react-auth'
@@ -12284,7 +12282,7 @@ packages:
       '@oclif/errors': 1.2.2
       '@oclif/parser': 3.8.4
       '@oclif/plugin-help': 2.2.2
-      '@oclif/tslint': /@oclif/tslint/3.1.1/tslint@5.20.1+typescript@3.7.3
+      '@oclif/tslint': 3.1.1
       '@types/dedent': 0.7.0
       '@types/fs-extra': 8.0.1
       '@types/js-yaml': 3.12.1
@@ -12309,6 +12307,7 @@ packages:
       dotenv: 8.2.0
       eslint: 6.7.2
       eslint-import-resolver-node: 0.3.2
+      eslint-import-resolver-typescript: /eslint-import-resolver-typescript/2.0.0/5e9070aea58cdfed41951c2cac23c677
       eslint-plugin-import: /eslint-plugin-import/2.18.2/eslint@6.7.2
       eslint-plugin-no-only-tests: 2.4.0
       find-up: 4.1.0
@@ -12334,7 +12333,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-C6oBCJPKecyxdZb6XX4WXHdWWqpf+RcNEFC424pJzWyAMx7UDy+ccsl7R5IBpFP8J3lXTLrj4g/LDjoTJfZCpA==
+      integrity: sha512-3EkFvPgcfoyoFsklHTWoMsdSdaUF7tTRaxggQrE+0OGQuTkN7FgqNnLSkp/QXg+fYauAv9I9VZaoais1Xaz4kA==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -12348,7 +12347,7 @@ packages:
       jju: 1.4.0
       lodash.once: 4.1.1
       npm-check-updates: 3.2.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
       yargs: 14.2.2
     dev: false
@@ -12367,7 +12366,7 @@ packages:
       express: 4.17.1
       lodash.once: 4.1.1
       source-map-support: 0.5.16
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/server-function'
@@ -12389,7 +12388,7 @@ packages:
       react: 16.12.0
       rxjs: 6.5.3
       sinon: 7.5.0
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/subscriptions'
@@ -12401,7 +12400,7 @@ packages:
     dependencies:
       '@types/node': 12.12.14
       eslint: 6.7.2
-      tslint: 5.20.1
+      tslint: /tslint/5.20.1/typescript@3.7.3
       typescript: 3.7.3
     dev: false
     name: '@rush-temp/utils-subprocess'
@@ -12508,6 +12507,7 @@ specifiers:
   env-var: ^5.1.0
   eslint: ^6.7.2
   eslint-import-resolver-node: ^0.3.2
+  eslint-import-resolver-typescript: ^2.0.0
   eslint-plugin-import: ^2.18.2
   eslint-plugin-no-only-tests: ^2.3.1
   eslint-plugin-react: ^7.17.0
