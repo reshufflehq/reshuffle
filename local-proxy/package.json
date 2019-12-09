@@ -12,7 +12,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc && cp src/test/fixture/backend/testStackTrace.js dist/test/fixture/backend",
     "build:watch": "tsc && cp src/test/fixture/backend/testStackTrace.js dist/test/fixture/backend && tsc -w",
-    "lint": "tslint -c ../common/tslint.yml -p .  && eslint -c ./.eslintrc.json --ext .ts src",
+    "lint": "eslint -c ./.eslintrc.json --ext .ts src",
     "test": "ava -v dist/test/*.test.js"
   },
   "author": "",

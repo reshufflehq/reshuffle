@@ -11,7 +11,7 @@
   "description": "interfaces for serving Reshuffle",
   "scripts": {
     "build": "echo interfaces are built waaay before Rush build step",
-    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
+    "lint": "eslint -c ../common/.eslintrc.json --ext .ts src",
     "test": "echo interface needs no tests",
     "generate-koa-server": "rm -fr ${npm_package_config_server_dir} && npx concord node --nocompile --server koa -o ${npm_package_config_server_dir} ${npm_package_name}-koa-server@${npm_package_version} src/db.ts",
     "generate-node-client": "rm -fr ${npm_package_config_client_dir} && npx concord --allow-extra-props node --nocompile --client fetch -o ${npm_package_config_client_dir} ${npm_package_name}-node-client@${npm_package_version} src/db.ts"

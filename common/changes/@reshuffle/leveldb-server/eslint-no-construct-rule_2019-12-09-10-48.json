@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/leveldb-server",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/leveldb-server",
+  "email": "vladimir@reshuffle.com"
+}
