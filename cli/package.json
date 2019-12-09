@@ -34,9 +34,8 @@
   "repository": "reshufflehq/reshuffle",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "posttest": "tslint -c ../common/tslint.yml -p . -t stylish",
     "prepack": "rm -rf lib && tsc && oclif-dev manifest",
-    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
+    "lint": "eslint -c ../common/.eslintrc.json --ext .ts src",
     "test": "ava lib/test/**.spec.js lib/test/**.test.js",
     "test:update": "ava -u lib/test/**.spec.js lib/test/**.test.js",
     "build": "npm run prepack"

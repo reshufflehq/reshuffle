@@ -5,7 +5,7 @@
   "main": "dist/run.js",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
-    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.json --ext .ts src",
+    "lint": "eslint -c ../common/.eslintrc.json --ext .ts src",
     "test": "echo No tests",
     "integration-test": "node dist/run.js"
   },

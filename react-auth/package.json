@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist/ && tsdx build",
-    "lint": "tslint -c ../common/tslint.yml -p . && eslint -c ../common/.eslintrc.react.json --ext .ts,.tsx src",
+    "lint": "eslint -c ../common/.eslintrc.react.json --ext .ts,.tsx src",
     "test": "echo No tests yet"
   },
   "keywords": [
