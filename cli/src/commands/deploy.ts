@@ -200,7 +200,7 @@ export default class Deploy extends Command {
 
     this.startStage('get project');
     const projectDir = await getProjectRootDir();
-    // tslint:disable-next-line strict-boolean-expressions
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const envVars = mergeEnvArrays(await getProjectEnv(), getEnvFromArgs(givenEnv || []));
     const projects = this.conf.get('projects') || [];
 

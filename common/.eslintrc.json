@@ -10,6 +10,7 @@
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-misused-promises": ["error", { "checksVoidReturn": false }],
     "@typescript-eslint/return-await": "error",
-    "@typescript-eslint/no-floating-promises": ["error", { "ignoreVoid": true }]
+    "@typescript-eslint/no-floating-promises": ["error", { "ignoreVoid": true }],
+    "@typescript-eslint/no-unnecessary-condition": ["error", { "ignoreRhs": true, "allowConstantLoopConditions": true }]
   }
 }

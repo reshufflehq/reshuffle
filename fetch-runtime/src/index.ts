@@ -7,7 +7,7 @@ export function createRuntime(methodNames: string[], fileId: Record<'filename', 
   // TODO: consider changing signature to return an object with only the imported methods
   const runtime: Record<string, (...args: any[]) => any> = {};
   for (const method of methodNames) {
-    // tslint:disable-next-line:strict-boolean-expressions type of Record is defined for all values
+    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */ /* Record is defined for all values */
     if (runtime[method]) {
       throw new Error(`Can not redefine ${method}`);
     }
