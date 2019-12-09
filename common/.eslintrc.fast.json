@@ -131,7 +131,7 @@
     "arrow-parens": "error",
     "dot-notation": "error",
     "eol-last": "error",
-    "import/no-extraneous-dependencies": "error",
+    "import/no-unresolved": "error",
     "max-len": [
       "error",
       {
@@ -140,5 +140,16 @@
       }
     ],
     "no-multiple-empty-lines": ["error", { "max": 1 }]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+          "alwaysTryTypes": false,
+          "directory": "../*/tsconfig.json"
+      }
+    }
   }
 }
