@@ -40,7 +40,6 @@ test('cli with no args lists all commands', async (t) => {
   const commandsStr = commandsMatch![1];
   const commands = new Set<string>();
   let commandGroup: RegExpMatchArray | null;
-  // tslint:disable-next-line no-conditional-assignment (MDN does it this way)
   while ((commandGroup = commandRegExp.exec(commandsStr)) != null) {
     commands.add(commandGroup[1]);
   }

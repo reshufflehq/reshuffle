@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import path from 'path';
 import nodemon from 'nodemon';
 import proxy from 'http-proxy';

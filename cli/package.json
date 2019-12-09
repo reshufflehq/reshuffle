@@ -75,7 +75,6 @@
   "devDependencies": {
     "@binaris/spice-koa-server": "2.0.0",
     "@oclif/dev-cli": "^1.22.2",
-    "@oclif/tslint": "^3.1.1",
     "@types/dedent": "^0.7.0",
     "@types/fs-extra": "^8.0.1",
     "@types/js-yaml": "^3.12.1",
@@ -100,7 +99,6 @@
     "specshell": "^0.0.3",
     "testdouble": "^3.12.4",
     "ts-node": "^8.5.0",
-    "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   }
 }

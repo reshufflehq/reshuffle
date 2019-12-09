@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import { resolve as pathResolve } from 'path';
 import express from 'express';
 import http from 'http';
@@ -27,11 +26,11 @@ const getHTTPHandlerOnceAndLog = once((): HTTPHandler => {
     if (userHandler === undefined) {
       return app;
     }
-    /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.log('Using handler from', userHandler.path);
     return userHandler.fn;
   } catch (err) {
-    /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.error('Failed to require _handler', err);
     return app;
   }
