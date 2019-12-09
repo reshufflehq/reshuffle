@@ -13,6 +13,12 @@
   "rules": {
     "@typescript-eslint/array-type": ["error", { "default": "array-simple", "readonly": "generic" }],
     "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": { "Function": "Use a concrete function type instead" }
+      }
+    ],
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
