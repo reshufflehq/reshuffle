@@ -1,30 +1,28 @@
 import { CLIError } from '@oclif/errors';
 import Command from '../utils/command';
-import flags from '../utils/cli-flags';
 
-export default class Lock extends Command {
+export default class Unlock extends Command {
   public static description = 'unlock an application';
+  public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} unlock`,
-    `$ ${Command.cliBinName} lock -s 'my-unlock-app' `,
+    `$ ${Command.cliBinName} unlock great-unicorn-42 `,
   ];
 
-public static flags = {
-  ...Command.flags,
-  appName: flags.string({
-    char: 's',
-    description: 'Application to unlock (defaults to working directory\'s deployed application)',
-  }),
-};
-
-  public static args = [];
+  public static args = [
+    {
+      name: 'appName',
+      required: false,
+      description: 'Application to unlock (defaults to working directory\'s deployed application)',
+    },
+  ];
 
   public static strict = true;
 
   public async run() {
-    const { appName } = this.parse(Lock).flags;
+    const { appName } = this.parse(Unlock).args;
     await this.authenticate();
-    const { applicationId } = await this.getAppId(appName);
+    const applicationId  = await this.getAppIdByNameOrWorkingDirectory(appName);
     try {
        await this.lycanClient.unlockApp(applicationId);
     } catch (error) {
