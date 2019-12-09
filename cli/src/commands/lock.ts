@@ -4,38 +4,39 @@ import flags from '../utils/cli-flags';
 
 export default class Lock extends Command {
   public static description = 'lock an application';
+  public static hidden = true;
   public static examples = [
-    `$ ${Command.cliBinName} lock 'locking my application example'`,
-    `$ ${Command.cliBinName} lock -s 'my-unlock-app' 'application is a template' `,
+    `$ ${Command.cliBinName} lock --reason template application`,
+    `$ ${Command.cliBinName} lock --reason application is a template great-unicorn-42`,
   ];
 
 public static flags = {
   ...Command.flags,
-  appName: flags.string({
-    char: 's',
-    description: 'Application to lock (defaults to working directory\'s deployed application)',
+  reason: flags.string({
+    required: true,
+    description: 'Reason to lock an application)',
   }),
 };
 
   public static args = [
     {
-      name: 'lockReason',
-      required: true,
-      description: 'Reason to lock an application',
+      name: 'appName',
+      required: false,
+      description: 'Application to lock (defaults to working directory\'s deployed application',
     },
   ];
 
   public static strict = true;
 
   public async run() {
-    const { flags: { appName }, args: { lockReason } } = this.parse(Lock);
+    const { flags: { reason }, args: { appName } } = this.parse(Lock);
     await this.authenticate();
-    const { applicationId } = await this.getAppId(appName);
+    const  applicationId  = await this.getAppIdByNameOrWorkingDirectory(appName);
     try {
-       await this.lycanClient.lockApp(applicationId, lockReason);
+       await this.lycanClient.lockApp(applicationId, reason);
     } catch (error) {
       throw new CLIError(error.message);
     }
-    this.log(`Application: ${applicationId} successfully locked with the reason ${lockReason}`);
+    this.log(`Application: ${applicationId} successfully locked with the reason ${reason}`);
   }
 }

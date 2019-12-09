@@ -2,34 +2,14 @@ import anyTest, { TestInterface } from 'ava';
 import * as td from 'testdouble';
 import { Context, addFake } from './fake_lycan';
 import { success } from 'specshell';
-import { Application } from '@binaris/spice-node-client/interfaces';
+import { createApp } from './createApp';
 import { UnauthorizedError, NotFoundError } from '@binaris/spice-koa-server/interfaces';
 
 const test = anyTest as TestInterface<Context>;
 
 addFake(test);
 
-const makeApp = (overrides?: Partial<Application>): Application => ({
-  accountId: '127001',
-  createdAt: new Date('1999-12-31T23:59:59.999Z'),
-  updatedAt: new Date('1999-12-31T23:59:59.999Z'),
-  locked: true,
-  lockReason: 'my-lock-app',
-  id: 'abc',
-  name: 'fluffy-pancake-66',
-  environments: [
-    {
-      name: 'default',
-      domains: [
-        {
-          type: 'subdomain',
-          name: 'a.b.c',
-        },
-      ],
-    },
-  ],
-  ...overrides,
-});
+const makeApp = createApp(true, 'template application');
 
 const anything = td.matchers.anything();
 
@@ -38,10 +18,10 @@ test.beforeEach(async (t) => {
   t.log(t.context.projectDir);
 });
 
-test('application successfully unlocked', async (t) => {
+test('unlockApp unlock a locked application by appName', async (t) => {
   const app = makeApp();
   td.when(t.context.lycanFake.getAppByName(anything, app.name)).thenResolve(app);
-  const result = await t.context.shell.run(`${t.context.run} unlock -s ${app.name} `, 'utf-8');
+  const result = await t.context.shell.run(`${t.context.run} unlock ${app.name} `, 'utf-8');
   t.snapshot(result);
   td.verify(t.context.lycanFake.unlockApp(anything, app.id));
 });
@@ -53,7 +33,7 @@ test('appName not in project dir', async (t) => {
 
 test('missing application', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, 'fluffy-test')).thenReject(new NotFoundError('not found'));
-  const result = await t.context.shell.run(`cd .. && ${t.context.run} unlock -s fluffy-test`, 'utf-8');
+  const result = await t.context.shell.run(`cd .. && ${t.context.run} unlock fluffy-test`, 'utf-8');
   t.snapshot(result);
 });
 
