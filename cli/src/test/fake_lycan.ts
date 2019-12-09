@@ -121,7 +121,7 @@ projects:
   });
 
   test.afterEach.always(async (t) => {
-    // tslint:disable-next-line strict-boolean-expressions (server not set until late in beforeEach)
+    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */ // server set only late in beforeEach
     if (t.context.server) t.context.server.close();
     await remove(t.context.configDir);
   });
