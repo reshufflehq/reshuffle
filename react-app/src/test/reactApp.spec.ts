@@ -159,7 +159,6 @@ test('ignore edits .gitignore', async () => {
     },
     {
       initial: '.reshuffle*\\ ',
-      // tslint:disable-next-line:no-trailing-whitespace
       expected: `.reshuffle*\\ 
 # The following lines were added by Reshuffle
 .reshuffle*

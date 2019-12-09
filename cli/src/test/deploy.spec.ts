@@ -59,7 +59,7 @@ test('no project associated and no apps deployed deploys a new app and associate
   ]);
 });
 
-/* tslint:disable-next-line max-line-length */ /* eslint-disable-next-line max-len */
+/* eslint-disable-next-line max-len */
 test('no project associated and 1 app deployed prompts user to select app, deploys correct app and associates directory', async (t) => {
   const app = makeApp({ id: 'def', name: 'crunchy-pancake-03' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([app]);
@@ -80,7 +80,7 @@ test('no project associated and 1 app deployed prompts user to select app, deplo
   ]);
 });
 
-/* tslint:disable-next-line max-line-length */ /* eslint-disable-next-line max-len */
+/* eslint-disable-next-line max-len */
 test('no project associated and 1 app deployed prompts user to select app, deploys new app and associates directory', async (t) => {
   const exisitingApp = makeApp({ id: 'def', name: 'crunchy-pancake-03' });
   const app = makeApp({ id: 'abc' });

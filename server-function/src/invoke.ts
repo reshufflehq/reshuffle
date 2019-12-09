@@ -61,7 +61,7 @@ export function getInvokeHandler(backendDir: string): ExpressHandler {
       if (error.name === 'AuthenticationError') {
         return res.status(403).json({ error: error.message });
       }
-      /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
+      /* eslint-disable-next-line no-console */
       console.error('Failed to invoke handler', error);
       return res.status(500).json({ error: 'Failed to invoke' });
     }

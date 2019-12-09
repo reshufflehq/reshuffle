@@ -218,7 +218,7 @@ export function createAuthHandler(): express.Express {
   } else if (process.env.RESHUFFLE_SESSION_SAME_SITE === 'strict') {
     sessionOpt.sameSite = 'strict';
   } else {
-    /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.error(
       'Invalid value for RESHUFFLE_SESSION_SAME_SITE, should be one of (lax, strict, none), defaulting to lax');
     sessionOpt.sameSite = 'lax';

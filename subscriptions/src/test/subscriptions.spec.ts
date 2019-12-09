@@ -17,7 +17,6 @@ import {
   serverUpdates,
 } from '../subscriptions';
 
-// tslint:disable-next-line:variable-name
 const Version = (major: number, minor: number): Version => ({ major, minor });
 const eqVersion = (v1: Version, v2: Version): boolean => v1.major === v2.major && v1.minor === v2.minor;
 const mockPoller = () => stub<Parameters<Poller>, ReturnType<Poller>>().resolves([]);

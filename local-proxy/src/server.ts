@@ -1,5 +1,3 @@
-// tslint:disable:no-console
-
 import { promisify } from 'util';
 import { resolve as resolvePath, extname } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';

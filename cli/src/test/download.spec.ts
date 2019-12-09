@@ -30,9 +30,8 @@ const anything = td.matchers.anything();
 
 const drainToBuffer = async (stream: NodeJS.ReadableStream): Promise<Buffer> => {
   const data: Buffer[] = [];
-  // as due to  https://github.com/palantir/tslint/issues/3997
-  for await (const chunk of stream as AsyncIterable<Buffer>) {
-    data.push(chunk);
+  for await (const chunk of stream) {
+    data.push(chunk as Buffer); // assume ReadableStream with no encoding
   }
   return Buffer.concat(data);
 };

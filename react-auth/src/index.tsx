@@ -74,11 +74,9 @@ const defaultContext: AuthContextProps = {
   ...loginManager('/login', '/logout'),
 };
 
-// tslint:disable-next-line:variable-name
 export const AuthContext = createContext<AuthContextProps>(defaultContext);
 export const useAuth = (): AuthContextProps => useContext(AuthContext);
 
-// tslint:disable-next-line:variable-name
 export const AuthProvider: FC = ({ children }) => {
   const { result, error, loading, execute } = useAsyncCallback<AuthState>(async () => {
     const req = await fetch('/whoami', { credentials: 'include' });

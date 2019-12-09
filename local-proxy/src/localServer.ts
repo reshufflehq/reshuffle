@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// tslint:disable:no-console
 import express from 'express';
 import { setupProxy } from './index';
 import program from 'commander';

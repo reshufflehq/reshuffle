@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// tslint:disable:no-console
 /* eslint-disable no-console */
 
 import {

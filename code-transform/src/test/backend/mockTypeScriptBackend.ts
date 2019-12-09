@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 /* eslint-disable no-console */
 
 // @expose

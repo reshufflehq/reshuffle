@@ -103,7 +103,6 @@ export interface Query {
   orderBy?: ReadonlyArray<Order>;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface ClientContext {
   appId: string;
   appEnv: string;

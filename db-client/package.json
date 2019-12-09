@@ -34,7 +34,6 @@
     "@types/ramda": "^0.26.34",
     "ava": "^2.4.0",
     "eslint": "^6.7.2",
-    "tslint": "^5.20.1",
     "typedoc": "^0.15.2",
     "typescript": "^3.7.2"
   }

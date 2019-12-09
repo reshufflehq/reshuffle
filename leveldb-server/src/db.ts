@@ -98,7 +98,7 @@ export class Handler implements DBHandler {
         ).catch(() => {
           // Logging during startup will usually get cleared by create-react-app
           // screen clear, but the log will still be saved in the log directory
-          /* tslint:disable-next-line:no-console*/ /* eslint-disable-next-line no-console */
+          /* eslint-disable-next-line no-console */
           console.error('Failed create initial data', item);
         });
       }

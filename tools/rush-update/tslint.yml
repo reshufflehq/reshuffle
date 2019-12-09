@@ -1,4 +1,0 @@
-extends:
-    - ../../common/tslint.yml
-rules:
-    no-console: false
