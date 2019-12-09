@@ -13,7 +13,7 @@
   "rules": {
     "@typescript-eslint/array-type": ["error", { "default": "array-simple", "readonly": "generic" }],
     "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/consistent-type-definitions": "error",
+    "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
@@ -102,7 +102,7 @@
         "asyncArrow": "always"
     }],
     "space-in-parens": "error",
-    "space-unary-ops": "error",
+    "space-unary-ops": ["error", { "words": true, "nonwords": false }],
     "semi-spacing": "error",
     "arrow-spacing": "error",
     "switch-colon-spacing": "error",
