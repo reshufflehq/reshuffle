@@ -82,14 +82,14 @@ export function initRegistry(logDir: string) {
   const registry = new RequestIdRegistry(logger);
 
   function decoratedStreamWrite(
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     origWrite: Function,
     origStream: NodeJS.WriteStream,
     isErr: boolean,
     chunk: string | Buffer,
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     encoding?: string | Function,
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     cb?: Function
   ): boolean {
     const payload = Buffer.isBuffer(chunk)
@@ -101,7 +101,7 @@ export function initRegistry(logDir: string) {
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const origStdoutWrite = process.stdout.write;
-  // tslint:disable-next-line:ban-types
+  // eslint-disable-next-line @typescript-eslint/ban-types
   function hookedStdoutWrite(chunk: string | Buffer, encoding?: string | Function, cb?: Function) {
     return decoratedStreamWrite(origStdoutWrite, process.stdout, false, chunk, encoding, cb);
   }
@@ -111,7 +111,7 @@ export function initRegistry(logDir: string) {
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const origStderrWrite = process.stderr.write;
-  // tslint:disable-next-line:ban-types
+  // eslint-disable-next-line @typescript-eslint/ban-types
   function hookedStderrWrite(chunk: string | Buffer, encoding?: string | Function, cb?: Function) {
     return decoratedStreamWrite(origStderrWrite, process.stderr, true, chunk, encoding, cb);
   }
@@ -120,7 +120,6 @@ export function initRegistry(logDir: string) {
   process.stderr.write = hookedStderrWrite;
 
   try {
-    // eslint-disable-next-line
     hooks.createHook({
       init: (asyncId: number, _type: string, triggerAsyncId: number) => {
         // When a new Async context is created, we keep track of which context caused it
