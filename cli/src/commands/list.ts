@@ -23,7 +23,7 @@ export default class List extends Command {
     }),
   };
 
-  protected getListTable(isLocked: boolean) {
+  protected getListTable(showLockedColumn: boolean) {
     const listTable = {
       columns: ['name', 'updatedAt', 'URL'],
       config: {
@@ -37,18 +37,11 @@ export default class List extends Command {
         },
       },
     };
-    if ( isLocked ) {
+    if (showLockedColumn) {
       listTable.columns.push('lockReason');
-      const lockTmp = {
-        lockReason: {
-        headingTransform: () => 'LOCK REASON',
-        minWidth: 25,
-      },
-    };
-      return Object.assign(listTable, lockTmp);
-    } else {
-      return listTable;
+      return {...listTable, lockReason: { headingTransform: () => 'LOCK REASON', minWidth: 25, }};
     }
+    return listTable;
   }
 
   public async run() {
@@ -62,8 +55,8 @@ export default class List extends Command {
       URL: getPrimaryURL(environments[0]),
       locked,
     }));
-    const isLocked = mappedApps.some((item) => item.locked);
-    const returnTarget = this.getListTable(isLocked);
+    const showLockedColumn = mappedApps.some((item) => item.locked);
+    const listTable = this.getListTable(showLockedColumn);
 
     switch (format) {
       case 'table':
@@ -71,7 +64,7 @@ export default class List extends Command {
           this.log('You do not have any apps yet.');
           return;
         }
-        this.log(columnify(mappedApps, returnTarget));
+        this.log(columnify(mappedApps, listTable));
         return;
       case 'json':
         this.log(JSON.stringify(mappedApps));

@@ -7,14 +7,17 @@ export default class Lock extends Command {
   public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} lock --reason template application`,
+    `$ ${Command.cliBinName} lock --r template`,
     `$ ${Command.cliBinName} lock --reason application is a template great-unicorn-42`,
+    `$ ${Command.cliBinName} lock --r application is a template great-fluffy-142`,
   ];
 
 public static flags = {
   ...Command.flags,
   reason: flags.string({
+    char: 'r',
     required: true,
-    description: 'Reason to lock an application)',
+    description: 'Reason to lock an application. Can pass either --reason or -r',
   }),
 };
 
@@ -22,7 +25,7 @@ public static flags = {
     {
       name: 'appName',
       required: false,
-      description: 'Application to lock (defaults to working directory\'s deployed application',
+      description: 'Application to lock (defaults to working directory\'s deployed application)',
     },
   ];
 
@@ -37,6 +40,6 @@ public static flags = {
     } catch (error) {
       throw new CLIError(error.message);
     }
-    this.log(`Application: ${applicationId} successfully locked with the reason ${reason}`);
+    this.log(`Application: ${applicationId} successfully locked with, ${reason}`);
   }
 }
