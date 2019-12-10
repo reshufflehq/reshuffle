@@ -15,6 +15,7 @@ import {
   getProjectRootDir,
   findProjectByDirectory,
 } from '../utils/helpers';
+import path from 'path';
 
 const pjson = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf-8'));
 
@@ -216,12 +217,12 @@ export default abstract class BaseCommand extends Command {
               const appId = await this.getLocalAppId();
               return appId;
             } catch {
-              throw new CLIError('"appName" flag not provided and could not locate project settings');
+              throw new CLIError(`No app in current working directory, ${path.resolve()}`);
             }
         }
     } catch (err) {
       if (err.name === 'NotFoundError') {
-        throw new CLIError('The current appName is not found');
+        throw new CLIError('Cannot find application');
       }
       throw err;
     }
