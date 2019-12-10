@@ -4,11 +4,10 @@ import * as td from 'testdouble';
 import { success } from 'specshell';
 import { readFile, writeFile } from 'mz/fs';
 import yaml from 'js-yaml';
-import { Application } from '@binaris/spice-node-client/interfaces';
 import { Configuration } from '../utils/user-config';
 import { Context, addFake } from './fake_lycan';
-// import { NotFoundError, UnauthorizedError } from '@binaris/spice-node-client/interfaces';
-// import { safeLoad } from 'js-yaml';
+import { createApp } from './utils';
+
 
 const test = anyTest as TestInterface<Context>;
 
@@ -21,30 +20,13 @@ test.beforeEach(async (t) => {
   t.log(t.context.projectDir);
 });
 
-const makeApp = (overrides?: Partial<Application>): Application => ({
-  accountId: '127001',
-  createdAt: new Date('1999-12-31T23:59:59.999Z'),
-  updatedAt: new Date('1999-12-31T23:59:59.999Z'),
-  id: 'abc',
-  name: 'fluffy-pancake-66',
-  environments: [
-    {
-      name: 'default',
-      domains: [
-        {
-          type: 'subdomain',
-          name: 'a.b.c',
-        },
-      ],
-    },
-  ],
-  ...overrides,
-});
+
 
 test('no project associated and no apps deployed deploys a new app and associates directory', async (t) => {
+  const app = createApp({ id: 'abc' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([]);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
-  td.when(t.context.lycanFake.deployInitial(anything, 'default', 'abcabc', [])).thenResolve(makeApp({ id: 'abc' }));
+  td.when(t.context.lycanFake.deployInitial(anything, 'default', 'abcabc', [])).thenResolve(app);
   t.context.projectConfig = JSON.stringify({ accessToken: 'setec-astronomy' });
   await writeFile(t.context.configPath, t.context.projectConfig);
   const result = await t.context.shell.run(`${t.context.run} deploy`, 'utf-8');
@@ -61,7 +43,7 @@ test('no project associated and no apps deployed deploys a new app and associate
 
 /* eslint-disable-next-line max-len */
 test('no project associated and 1 app deployed prompts user to select app, deploys correct app and associates directory', async (t) => {
-  const app = makeApp({ id: 'def', name: 'crunchy-pancake-03' });
+  const app = createApp({ id: 'def', name: 'crunchy-pancake-03' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([app]);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deploy(anything, app.id, 'default', 'abcabc', [])).thenResolve(app);
@@ -82,8 +64,8 @@ test('no project associated and 1 app deployed prompts user to select app, deplo
 
 /* eslint-disable-next-line max-len */
 test('no project associated and 1 app deployed prompts user to select app, deploys new app and associates directory', async (t) => {
-  const exisitingApp = makeApp({ id: 'def', name: 'crunchy-pancake-03' });
-  const app = makeApp({ id: 'abc' });
+  const exisitingApp = createApp({ id: 'def', name: 'crunchy-pancake-03' });
+  const app = createApp({ id: 'abc' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([exisitingApp]);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deployInitial(anything, 'default', 'abcabc', [])).thenResolve(app);
@@ -103,7 +85,7 @@ test('no project associated and 1 app deployed prompts user to select app, deplo
 });
 
 test('project associated deploys to associated app', async (t) => {
-  const app = makeApp({ id: 'fluffy-samaritan' });
+  const app = createApp({ id: 'fluffy-samaritan' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([app]);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deploy(anything, app.id, 'default', 'abcabc', [])).thenResolve(app);
@@ -113,7 +95,7 @@ test('project associated deploys to associated app', async (t) => {
 });
 
 test('project associated with --app-name deploys to named app and does not update association', async (t) => {
-  const targetApp = makeApp({ id: 'abc', name: 'targeted-app-32' });
+  const targetApp = createApp({ id: 'abc', name: 'targeted-app-32' });
   td.when(t.context.lycanFake.getAppByName(anything, targetApp.name)).thenResolve(targetApp);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deploy(anything, targetApp.id, 'default', 'abcabc', [])).thenResolve(targetApp);
@@ -123,7 +105,7 @@ test('project associated with --app-name deploys to named app and does not updat
 });
 
 test('project not associated with --app-name deploys to named app and does not update association', async (t) => {
-  const targetApp = makeApp({ id: 'abc', name: 'targeted-app-32' });
+  const targetApp = createApp({ id: 'abc', name: 'targeted-app-32' });
   td.when(t.context.lycanFake.getAppByName(anything, targetApp.name)).thenResolve(targetApp);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deploy(anything, targetApp.id, 'default', 'abcabc', [])).thenResolve(targetApp);
@@ -142,7 +124,7 @@ test('given --app-name but app not in list gives informative message', async (t)
 });
 
 test('upload takes .env and --env options', async (t) => {
-  const app = makeApp({ id: 'fluffy-samaritan' });
+  const app = createApp({ id: 'fluffy-samaritan' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([app]);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(
@@ -155,7 +137,7 @@ test('upload takes .env and --env options', async (t) => {
 });
 
 test('upload throws if given --env option with no value', async (t) => {
-  const app = makeApp({ id: 'fluffy-samaritan' });
+  const app = createApp({ id: 'fluffy-samaritan' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([app]);
   const result = await t.context.shell.run(`${t.context.run} deploy -e env_missing`, 'utf-8');
   t.snapshot(result);

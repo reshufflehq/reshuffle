@@ -9,7 +9,7 @@ const test = anyTest as TestInterface<Context>;
 
 addFake(test);
 
-const makeApp = createApp({});
+const app = createApp({});
 
 const anything = td.matchers.anything();
 
@@ -19,7 +19,6 @@ test.beforeEach(async (t) => {
 });
 
 test('lockApp locks a unlocked application by given app name and lock reason', async (t) => {
-  const app = makeApp;
   td.when(t.context.lycanFake.getAppByName(anything, app.name)).thenResolve(app);
   const result = await t.context.shell.run(`${t.context.run} lock --reason lock-my-app ${app.name}`, 'utf-8');
   t.snapshot(result);

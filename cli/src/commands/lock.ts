@@ -6,10 +6,10 @@ export default class Lock extends Command {
   public static description = 'lock an application';
   public static hidden = true;
   public static examples = [
-    `$ ${Command.cliBinName} lock --reason template application`,
-    `$ ${Command.cliBinName} lock --r template`,
-    `$ ${Command.cliBinName} lock --reason application is a template great-unicorn-42`,
-    `$ ${Command.cliBinName} lock --r application is a template great-fluffy-142`,
+    `$ ${Command.cliBinName} lock --reason template-application`,
+    `$ ${Command.cliBinName} lock -r template`,
+    `$ ${Command.cliBinName} lock --reason application-is-a-template great-unicorn-42`,
+    `$ ${Command.cliBinName} lock -r application-is-a-template great-fluffy-142`,
   ];
 
 public static flags = {
