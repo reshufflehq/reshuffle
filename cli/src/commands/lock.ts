@@ -40,6 +40,6 @@ public static flags = {
     } catch (error) {
       throw new CLIError(error.message);
     }
-    this.log(`Application: ${applicationId} successfully locked with, ${reason}`);
+    this.log(`Application: ${appName} successfully locked with, ${reason}`);
   }
 }
