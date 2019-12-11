@@ -209,17 +209,17 @@ export default abstract class BaseCommand extends Command {
 
   protected async getAppIdByNameOrWorkingDirectory(appName?: string): Promise<string> {
     try {
-      if ( appName ) {
-        const app  = await this.lycanClient.getAppByName(appName);
-        return  app.id;
-        } else {
-            try {
-              const appId = await this.getLocalAppId();
-              return appId;
-            } catch {
-              throw new CLIError(`No app in current working directory, ${path.resolve()}`);
-            }
+      if (appName) {
+        const app = await this.lycanClient.getAppByName(appName);
+        return app.id;
+      } else {
+        try {
+          const appId = await this.getLocalAppId();
+          return appId;
+        } catch {
+          throw new CLIError(`No app in current working directory, ${path.resolve()}`);
         }
+      }
     } catch (err) {
       if (err.name === 'NotFoundError') {
         throw new CLIError('Cannot find application');

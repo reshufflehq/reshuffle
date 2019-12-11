@@ -22,9 +22,9 @@ export default class Unlock extends Command {
   public async run() {
     const { appName } = this.parse(Unlock).args;
     await this.authenticate();
-    const applicationId  = await this.getAppIdByNameOrWorkingDirectory(appName);
+    const applicationId = await this.getAppIdByNameOrWorkingDirectory(appName);
     try {
-       await this.lycanClient.unlockApp(applicationId);
+      await this.lycanClient.unlockApp(applicationId);
     } catch (error) {
       throw new CLIError(error.message);
     }

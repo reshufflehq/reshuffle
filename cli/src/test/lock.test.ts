@@ -38,7 +38,8 @@ test('lock command throws NotFoundError when given app name not found', async (t
 });
 
 test('lock command throws UnauthorizedError if no permission', async (t) => {
-  td.when(t.context.lycanFake.lockApp(anything, 'fluffy-samaritan', 'no-permission')).thenReject(new UnauthorizedError('no auth'));
+  td.when(t.context.lycanFake.lockApp(anything, 'fluffy-samaritan', 'no-permission'))
+    .thenReject(new UnauthorizedError('no auth'));
   const result = await t.context.shell.run(`${t.context.run} lock --reason no-permission`, 'utf-8');
   t.snapshot(result);
 });
