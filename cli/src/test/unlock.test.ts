@@ -9,7 +9,7 @@ const test = anyTest as TestInterface<Context>;
 
 addFake(test);
 
-const app = createApp({locked: true, lockReason: 'template application'});
+const app = createApp({ locked: true, lockReason: 'template application' });
 
 const anything = td.matchers.anything();
 

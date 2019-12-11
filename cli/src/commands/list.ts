@@ -39,7 +39,7 @@ export default class List extends Command {
     };
     if (showLockedColumn) {
       listTable.columns.push('lockReason');
-      return {...listTable, lockReason: { headingTransform: () => 'LOCK REASON', minWidth: 25, }};
+      return { ...listTable, lockReason: { headingTransform: () => 'LOCK REASON', minWidth: 25 } };
     }
     return listTable;
   }
@@ -59,16 +59,16 @@ export default class List extends Command {
     const listTable = this.getListTable(showLockedColumn);
 
     switch (format) {
-      case 'table':
-        if (apps.length === 0) {
-          this.log('You do not have any apps yet.');
-          return;
-        }
-        this.log(columnify(mappedApps, listTable));
+    case 'table':
+      if (apps.length === 0) {
+        this.log('You do not have any apps yet.');
         return;
-      case 'json':
-        this.log(JSON.stringify(mappedApps));
-        return;
+      }
+      this.log(columnify(mappedApps, listTable));
+      return;
+    case 'json':
+      this.log(JSON.stringify(mappedApps));
+      return;
     default:
       throw new Error(`Invalid output format requested: ${format}`);
     }

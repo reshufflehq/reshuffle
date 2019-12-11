@@ -8,7 +8,6 @@ import { Configuration } from '../utils/user-config';
 import { Context, addFake } from './fake_lycan';
 import { createApp } from './utils';
 
-
 const test = anyTest as TestInterface<Context>;
 
 addFake(test);
@@ -19,8 +18,6 @@ test.beforeEach(async (t) => {
   t.assert(success(await t.context.shell.run(`cd ${t.context.projectDir}`)));
   t.log(t.context.projectDir);
 });
-
-
 
 test('no project associated and no apps deployed deploys a new app and associates directory', async (t) => {
   const app = createApp({ id: 'abc' });
