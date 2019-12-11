@@ -28,6 +28,6 @@ export default class Unlock extends Command {
     } catch (error) {
       throw new CLIError(error.message);
     }
-    this.log(`Application: ${applicationId} successfully unlocked`);
+    this.log(`Application: ${appName} successfully unlocked`);
   }
 }

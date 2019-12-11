@@ -27,7 +27,8 @@ test('unlockApp unlocks a locked application by given app name', async (t) => {
 
 test('lock command fails when app name not in local project dir', async (t) => {
   const result = await t.context.shell.run(`cd .. && ${t.context.run} unlock`, 'utf-8');
-  t.snapshot(result);
+  const err = result.err.split('\n');
+  t.snapshot({ ...result, err: err[0] });
 });
 
 test('unlock command throws NotFoundError when given app name not found', async (t) => {
