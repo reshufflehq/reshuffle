@@ -6,7 +6,7 @@ export default class Unlock extends Command {
   public static hidden = true;
   public static examples = [
     `$ ${Command.cliBinName} unlock`,
-    `$ ${Command.cliBinName} unlock great-unicorn-42 `,
+    `$ ${Command.cliBinName} unlock great-unicorn-42`,
   ];
 
   public static args = [

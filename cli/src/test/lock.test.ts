@@ -18,16 +18,26 @@ test.beforeEach(async (t) => {
   t.log(t.context.projectDir);
 });
 
-test('lockApp locks a unlocked application by given app name and lock reason', async (t) => {
+test('lockApp locks an unlocked application by given app name and lock reason', async (t) => {
   td.when(t.context.lycanFake.getAppByName(anything, app.name)).thenResolve(app);
   const result = await t.context.shell.run(`${t.context.run} lock --reason lock-my-app ${app.name}`, 'utf-8');
   t.snapshot(result);
   td.verify(t.context.lycanFake.lockApp(anything, app.id, 'lock-my-app'));
 });
 
+test('lockApp locks an unlocked application by current directory with given lock reason', async (t) => {
+  const projectApp = createApp({ id: 'fluffy-samaritan' });
+  td.when(t.context.lycanFake.getApp(anything, projectApp.id)).thenResolve(projectApp);
+  const result = await t.context.shell.run(`${t.context.run} lock -r lock-my-app`, 'utf-8');
+  t.snapshot(result);
+  td.verify(t.context.lycanFake.lockApp(anything, projectApp.id, 'lock-my-app'));
+});
+
 test('lock command fails when app name not in local project dir', async (t) => {
   const result = await t.context.shell.run(`cd .. && ${t.context.run} lock --reason lock-reason`, 'utf-8');
-  const err = result.err.split(',');
+  // This snapshot will always break on another machine beacuse every machine has it's own path
+  // The first value in result.err contains the global error message (splited by /)
+  const err = result.err.split('/');
   t.snapshot({ ...result, err: err[0] });
 });
 

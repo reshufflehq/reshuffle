@@ -214,10 +214,9 @@ export default abstract class BaseCommand extends Command {
         return app.id;
       } else {
         try {
-          const appId = await this.getLocalAppId();
-          return appId;
+          return await this.getLocalAppId();
         } catch {
-          throw new CLIError(`No app in current working directory, ${path.resolve()}`);
+          throw new CLIError(`No app in current working directory: ${path.resolve()}`);
         }
       }
     } catch (err) {
