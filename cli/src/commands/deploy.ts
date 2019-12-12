@@ -7,7 +7,7 @@ import terminalLink from 'terminal-link';
 import fetch from 'node-fetch';
 import shellEcape from 'any-shell-escape';
 import prompts from 'prompts';
-import { spawn } from '@binaris/utils-subprocess';
+import { spawn } from '@reshuffle/utils-subprocess';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import { getDependencies } from '../utils/getdeps';

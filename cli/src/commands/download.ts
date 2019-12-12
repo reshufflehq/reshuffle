@@ -4,7 +4,7 @@ import * as tar from 'tar';
 import { rename, mkdtemp } from 'mz/fs';
 import { remove } from 'fs-extra';
 import fetch, { Response } from 'node-fetch';
-import { spawn } from '@binaris/utils-subprocess';
+import { spawn } from '@reshuffle/utils-subprocess';
 import Command from '../utils/command';
 import flags from '../utils/cli-flags';
 import { findProjectByDirectory } from '../utils/helpers';

@@ -38,8 +38,9 @@ export default class List extends Command {
       },
     };
     if (showLockedColumn) {
-      listTable.columns.push('lockReason');
-      return { ...listTable, lockReason: { headingTransform: () => 'LOCK REASON', minWidth: 25 } };
+      return { ...listTable,
+        columns: listTable.columns.concat('lockReason'),
+        lockReason: { headingTransform: () => 'LOCK REASON', minWidth: 25 } };
     }
     return listTable;
   }

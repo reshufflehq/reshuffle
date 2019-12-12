@@ -32,14 +32,19 @@ export default class Lock extends Command {
   public static strict = true;
 
   public async run() {
-    const { flags: { reason }, args: { appName } } = this.parse(Lock);
+    const { flags: { reason }, args: { appName: appNameFromArgs } } = this.parse(Lock);
     await this.authenticate();
-    const applicationId = await this.getAppIdByNameOrWorkingDirectory(appName);
+    const applicationId = await this.getAppIdByNameOrWorkingDirectory(appNameFromArgs);
     try {
       await this.lycanClient.lockApp(applicationId, reason);
     } catch (error) {
       throw new CLIError(error.message);
     }
-    this.log(`Application: ${appName} successfully locked with, ${reason}`);
+    let appName = appNameFromArgs;
+    if (appName === undefined) {
+      const app = await this.lycanClient.getApp(applicationId);
+      appName = app.name;
+    }
+    this.log(`Application: ${appName} successfully locked, reason: ${reason}`);
   }
 }

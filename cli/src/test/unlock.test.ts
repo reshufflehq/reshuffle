@@ -25,9 +25,19 @@ test('unlockApp unlocks a locked application by given app name', async (t) => {
   td.verify(t.context.lycanFake.unlockApp(anything, app.id));
 });
 
-test('lock command fails when app name not in local project dir', async (t) => {
+test('unlockApp locks a locked application by current directory', async (t) => {
+  const projectApp = createApp({ id: 'fluffy-samaritan' });
+  td.when(t.context.lycanFake.getApp(anything, projectApp.id)).thenResolve(projectApp);
+  const result = await t.context.shell.run(`${t.context.run} unlock`, 'utf-8');
+  t.snapshot(result);
+  td.verify(t.context.lycanFake.unlockApp(anything, projectApp.id));
+});
+
+test('unlock command fails when not given an app name in local project dir', async (t) => {
   const result = await t.context.shell.run(`cd .. && ${t.context.run} unlock`, 'utf-8');
-  const err = result.err.split(',');
+  // This snapshot will always break on another machine beacuse every machine has it's own path
+  // The first value in result.err contains the global error message (splited by /)
+  const err = result.err.split('/');
   t.snapshot({ ...result, err: err[0] });
 });
 
