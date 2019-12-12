@@ -5619,12 +5619,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-OFPDWmzPN1l7atOV1TgBVmNtBxaIysToK6Ve9DK+vT6pYuklw/nPNT+HJbZi0KDcI6vWB+9tgvZ5YD7fA3CXcA==
-  /highlight.js/9.17.0:
+  /highlight.js/9.17.1:
     dependencies:
       handlebars: 4.5.3
     dev: false
     resolution:
-      integrity: sha512-PyO7FK7z8ZC7FqBlmAxm4d+1DYaoS6+uaxt9KGkyP1AnmGRLnWmNod1yp9BFjUyHoDF00k+V57gF6X9ifY7f/A==
+      integrity: sha512-TA2/doAur5Ol8+iM3Ov7qy3jYcr/QiJ2eDTdRF4dfbjG7AaaB99J5G+zSl11ljbl6cIcahgPY6SKb3sC3EJ0fw==
   /hosted-git-info/2.8.5:
     dev: false
     resolution:
@@ -11190,7 +11190,7 @@ packages:
       '@types/minimatch': 3.0.3
       fs-extra: 8.1.0
       handlebars: 4.5.3
-      highlight.js: 9.17.0
+      highlight.js: 9.17.1
       lodash: 4.17.15
       marked: 0.7.0
       minimatch: 3.0.4
