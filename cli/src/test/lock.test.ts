@@ -36,8 +36,8 @@ test('lockApp locks an unlocked application by current directory with given lock
 test('lock command fails when app name not in local project dir', async (t) => {
   const result = await t.context.shell.run(`cd .. && ${t.context.run} lock --reason lock-reason`, 'utf-8');
   // This snapshot will always break on another machine beacuse every machine has it's own path
-  // The first value in result.err contains the global error message (splited by /)
-  const err = result.err.split('/');
+  // The first value in result.err contains the global error message (splited by \n)
+  const err = result.err.split('\n');
   t.snapshot({ ...result, err: err[0] });
 });
 
