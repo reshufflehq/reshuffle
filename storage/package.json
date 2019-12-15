@@ -1,0 +1,46 @@
+{
+  "name": "@reshuffle/storage",
+  "version": "0.0.0",
+  "description": "File storage for the reshuffle framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "lint": "eslint -c ../common/.eslintrc.json --ext .ts src",
+    "test": "echo No tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reshufflehq/reshuffle.git"
+  },
+  "keywords": [
+    "file",
+    "storage",
+    "upload",
+    "s3",
+    "reshuffle"
+  ],
+  "author": "Ariel Shaqed (Scolnicov)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reshufflehq/reshuffle/issues"
+  },
+  "homepage": "https://github.com/reshufflehq/reshuffle#readme",
+  "dependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.8",
+    "aws-sdk": "^2.590.0",
+    "env-var": "^5.2.0",
+    "ms": "^2.1.2",
+    "uuid": "^3.3.3"
+  },
+  "peerDependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/ms": "^0.7.31",
+    "@types/uuid": "^3.4.6",
+    "eslint": "^6.7.2",
+    "express": "^4.17.1",
+    "typescript": "^3.7.2"
+  }
+}
