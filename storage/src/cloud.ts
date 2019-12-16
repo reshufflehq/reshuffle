@@ -29,29 +29,32 @@ export class CloudStorage implements Storage {
     return `${this.config.cdnBaseUrl}/${this.config.keyPrefix}/${objectId}`;
   }
 
-  public async createUpload({ contentType }: PutOptions): Promise<{ token: string, signedUrl: string }> {
+  protected key(objectId: string, prefix: string = ''): string {
+    return `${prefix}${this.config.keyPrefix}/${objectId}`;
+  }
+
+  public async createUpload(opts?: PutOptions): Promise<{ token: string, signedUrl: string }> {
     const objectId = uuid4();
     const signedUrl = await this.s3.getSignedUrlPromise('putObject', {
       Bucket: this.config.bucket,
-      Key: `tmp/${this.config.keyPrefix}/${objectId}`,
+      Key: this.key(objectId, 'tmp/'),
       Expires: Math.floor(this.config.uploadExpirationMs / 1000),
-      ContentType: contentType,
+      ContentType: opts && opts.contentType,
     });
     return { token: objectId, signedUrl };
   }
 
   protected putOpts(objectId: string) {
-    const key = `${this.config.keyPrefix}/${objectId}`;
     return {
       Bucket: this.config.bucket,
-      Key: key,
+      Key: this.key(objectId),
       ACL: 'public-read',
     };
   }
 
   public async finalizeUpload(token: UploadToken): Promise<string> {
     const sourceId = typeof token === 'string' ? token : token.token;
-    const source = `/${this.config.bucket}/tmp/${this.config.keyPrefix}/${sourceId}`;
+    const source = `/${this.config.bucket}/${this.key(sourceId, 'tmp/')}`;
     const objectId = uuid4();
     try {
       await this.s3.copyObject({
@@ -79,11 +82,10 @@ export class CloudStorage implements Storage {
   }
 
   public async head(id: string): Promise<FileInfo | undefined> {
-    const key = `${this.config.keyPrefix}/${id}`;
     try {
       const { ContentLength, ContentType, ContentEncoding } = await this.s3.headObject({
         Bucket: this.config.bucket,
-        Key: key,
+        Key: this.key(id),
       }).promise();
       if (ContentLength === undefined || ContentType === undefined) {
         throw new Error('Missing expected properties');
@@ -104,10 +106,9 @@ export class CloudStorage implements Storage {
   }
 
   protected content(id: string): stream.Readable {
-    const key = `${this.config.keyPrefix}/${id}`;
     const req = this.s3.getObject({
       Bucket: this.config.bucket,
-      Key: key,
+      Key: this.key(id),
     });
     return req.createReadStream();
   }
@@ -122,10 +123,9 @@ export class CloudStorage implements Storage {
   }
 
   public async delete(id: string): Promise<void> {
-    const key = `${this.config.keyPrefix}/${id}`;
     await this.s3.deleteObject({
       Bucket: this.config.bucket,
-      Key: key,
+      Key: this.key(id),
     }).promise();
   }
 }

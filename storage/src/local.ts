@@ -16,6 +16,17 @@ interface Config {
   baseUrl: string;
 }
 
+async function ignoreNotFound<T>(promise: Promise<T>): Promise<T | undefined> {
+  try {
+    return await promise;
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return undefined;
+    }
+    throw err;
+  }
+}
+
 export class LocalStorage implements Storage {
   constructor(
     protected readonly config: Config,
@@ -34,9 +45,9 @@ export class LocalStorage implements Storage {
     return path.join(this.config.basePath, `${prefix}${objectId}.data`);
   }
 
-  public async createUpload(opts: PutOptions): Promise<{ token: string, signedUrl: string }> {
+  public async createUpload(opts?: PutOptions): Promise<{ token: string, signedUrl: string }> {
     const objectId = uuid4();
-    await fs.writeFile(this.metaPath(objectId, 'tmp.'), JSON.stringify(opts));
+    await fs.writeFile(this.metaPath(objectId, 'tmp.'), JSON.stringify(opts || {}));
     return { token: objectId, signedUrl: `${this.config.baseUrl}/upload/${objectId}` };
   }
 
@@ -75,64 +86,63 @@ export class LocalStorage implements Storage {
   public async put(input: Buffer | stream.Readable, opts: PutOptions): Promise<string> {
     const objectId = uuid4();
     await fs.writeFile(this.metaPath(objectId), JSON.stringify(opts));
-    if (input instanceof Buffer) {
-      await fs.writeFile(this.dataPath(objectId), input);
-    } else {
-      const output = createWriteStream(this.dataPath(objectId));
-      input.pipe(output);
-      await new Promise((resolve, reject) => {
-        output.on('error', reject);
-        output.on('close', resolve);
-      });
-    }
-
-    return objectId;
-  }
-
-  public async head(id: string): Promise<FileInfo | undefined> {
     try {
-      const [metaRaw, { size }] = await Promise.all([
-        fs.readFile(this.metaPath(id), 'utf8'),
-        fs.stat(this.dataPath(id)),
-      ]);
-      const meta = JSON.parse(metaRaw);
-      return {
-        id,
-        contentLength: size,
-        ...meta,
-      };
-    } catch (err) {
-      if (err.code === 'ENOENT') {
-        return undefined;
+      if (input instanceof Buffer) {
+        await fs.writeFile(this.dataPath(objectId), input);
+      } else {
+        const output = createWriteStream(this.dataPath(objectId));
+        input.pipe(output);
+        await new Promise((resolve, reject) => {
+          output.on('error', reject);
+          output.on('close', resolve);
+        });
       }
+      return objectId;
+    } catch (err) {
+      await this.delete(objectId);
       throw err;
     }
   }
 
-  protected content(id: string): stream.Readable {
-    return createReadStream(this.dataPath(id));
+  public async head(id: string): Promise<FileInfo | undefined> {
+    const [metaRaw, stat] = await Promise.all([
+      ignoreNotFound(fs.readFile(this.metaPath(id), 'utf8')),
+      ignoreNotFound(fs.stat(this.dataPath(id))),
+    ]);
+    if (metaRaw === undefined || stat === undefined) {
+      return undefined;
+    }
+    const meta = JSON.parse(metaRaw);
+    return {
+      id,
+      contentLength: stat.size,
+      ...meta,
+    };
+  }
+
+  protected async content(id: string): Promise<stream.Readable | undefined> {
+    const handle = await ignoreNotFound(fs.open(this.dataPath(id), 'r'));
+    if (handle === undefined) {
+      return undefined;
+    }
+    return createReadStream('', { fd: handle.fd, autoClose: true });
   }
 
   public async get(id: string): Promise<FileInfoWithContent | undefined> {
-    const info = await this.head(id);
-    if (info === undefined) {
+    const [info, content] = await Promise.all([
+      this.head(id),
+      this.content(id),
+    ]);
+    if (info === undefined || content === undefined) {
       return undefined;
     }
-    const content = this.content(id);
     return { ...info, content };
   }
 
   public async delete(id: string): Promise<void> {
-    try {
-      await Promise.all([
-        fs.unlink(this.metaPath(id)),
-        fs.unlink(this.dataPath(id)),
-      ]);
-    } catch (err) {
-      if (err.code === 'ENOENT') {
-        return;
-      }
-      throw err;
-    }
+    await Promise.all([
+      ignoreNotFound(fs.unlink(this.metaPath(id))),
+      ignoreNotFound(fs.unlink(this.dataPath(id))),
+    ]);
   }
 }
