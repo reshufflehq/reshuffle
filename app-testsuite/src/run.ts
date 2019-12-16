@@ -182,7 +182,7 @@ class App {
 
   public async create() {
     log('Creating react app');
-    await spawn('npx', ['create-react-app', this.appName], {
+    await spawn('npx', ['create-react-app', '--use-npm', this.appName], {
       cwd: this.testDir,
       stdio: 'inherit',
       shell,
