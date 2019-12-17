@@ -28,7 +28,7 @@ export class InvalidTokenError extends Error {
 
 export interface Storage {
   publicUrl(objectId: string): string;
-  createUpload(opts?: PutOptions): Promise<{ token: string, signedUrl: string }>;
+  createUpload(opts?: Partial<PutOptions>): Promise<{ token: string, signedUrl: string }>;
   finalizeUpload(token: UploadToken): Promise<string>;
   put(input: Buffer | stream.Readable, opts: PutOptions): Promise<string>;
   head(id: string): Promise<FileInfo | undefined>;

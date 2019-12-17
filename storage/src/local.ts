@@ -45,7 +45,7 @@ export class LocalStorage implements Storage {
     return path.join(this.config.basePath, `${prefix}${objectId}.data`);
   }
 
-  public async createUpload(opts?: PutOptions): Promise<{ token: string, signedUrl: string }> {
+  public async createUpload(opts?: Partial<PutOptions>): Promise<{ token: string, signedUrl: string }> {
     const objectId = uuid4();
     await fs.writeFile(this.metaPath(objectId, 'tmp.'), JSON.stringify(opts || {}));
     return { token: objectId, signedUrl: `${this.config.baseUrl}/upload/${objectId}` };
