@@ -10,9 +10,9 @@ function logError(...args: any[]) {
 
 router.post('/storage/upload/sign', express.json(), async (req, res) => {
   const { contentType } = req.body;
-  if (typeof contentType !== 'string') {
+  if (typeof contentType !== undefined && typeof contentType !== 'string') {
     res.statusCode = 400;
-    res.json({ error: 'Expected contentType to be passed in body' });
+    res.json({ error: 'Expected contentType param to be missing or a string' });
     return;
   }
 
