@@ -33,7 +33,7 @@ export class CloudStorage implements Storage {
     return `${prefix}${this.config.keyPrefix}/${objectId}`;
   }
 
-  public async createUpload(opts?: PutOptions): Promise<{ token: string, signedUrl: string }> {
+  public async createUpload(opts?: Partial<PutOptions>): Promise<{ token: string, signedUrl: string }> {
     const objectId = uuid4();
     const signedUrl = await this.s3.getSignedUrlPromise('putObject', {
       Bucket: this.config.bucket,
