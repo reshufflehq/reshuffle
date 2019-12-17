@@ -23,6 +23,11 @@ if (process.env.NODE_ENV === 'production') {
     bucket: envStr('RESHUFFLE_STORAGE_S3_BUCKET'),
     keyPrefix: envStr('RESHUFFLE_STORAGE_S3_KEY_PREFIX'),
     uploadExpirationMs: ms('1h'),
+    credentials: {
+      accessKeyId: envStr('RESHUFFLE_STORAGE_AWS_ACCESS_KEY_ID'),
+      secretAccessKey: envStr('RESHUFFLE_STORAGE_AWS_SECRET_ACCESS_KEY'),
+      sessionToken: process.env.RESHUFFLE_STORAGE_AWS_SESSION_TOKEN,
+    },
   });
 } else {
   const basePath = path.join(envStr('RESHUFFLE_TMP_DIR'), 'storage');
