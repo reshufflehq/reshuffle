@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.7.0",
+      "tag": "reshuffle_v0.7.0",
+      "date": "Tue, 17 Dec 2019 11:44:31 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "add two new commands: lock and unlock app"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.2",
       "tag": "reshuffle_v0.6.2",
       "date": "Thu, 05 Dec 2019 18:51:08 GMT",

@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Thu, 05 Dec 2019 18:51:08 GMT and should not be manually modified.
+This log was last generated on Tue, 17 Dec 2019 11:44:31 GMT and should not be manually modified.
+
+## 0.7.0
+Tue, 17 Dec 2019 11:44:31 GMT
+
+### Minor changes
+
+- add two new commands: lock and unlock app
 
 ## 0.6.2
 Thu, 05 Dec 2019 18:51:08 GMT
