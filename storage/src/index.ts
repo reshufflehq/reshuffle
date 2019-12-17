@@ -1,5 +1,5 @@
 import storage from './storage';
-import router from './handler';
+import createFileUploadHandler from './handler';
 
-export { router };
+export { createFileUploadHandler };
 export default storage;
