@@ -16,12 +16,20 @@ interface Config {
   bucket: string;
   keyPrefix: string;
   uploadExpirationMs: number;
+  credentials: {
+    accessKeyId: string,
+    secretAccessKey: string,
+    sessionToken?: string,
+  };
 }
 
 export class CloudStorage implements Storage {
   constructor(
     protected readonly config: Config,
-    protected readonly s3: S3 = new S3({ region: config.region }),
+    protected readonly s3: S3 = new S3({
+      region: config.region,
+      credentials: config.credentials,
+    }),
   ) {
   }
 
