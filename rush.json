@@ -443,6 +443,11 @@
         "packageName": "@reshuffle/storage",
         "projectFolder": "storage",
         "shouldPublish": true
+    },
+    {
+        "packageName": "@reshuffle/react-storage",
+        "projectFolder": "react-storage",
+        "shouldPublish": true
     }
   ]
 }
