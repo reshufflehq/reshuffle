@@ -199,10 +199,14 @@ class App {
     await copy(path.resolve(__dirname, '..', 'app'), this.appDir);
     log('Installing react-router-dom');
     // We intentionally do not put dependencies in package.json because it's created by CRA
-    await spawn('npm', ['install', 'react-router-dom'], {
+    await spawn('npm', ['install', 'react-router-dom', '@reshuffle/storage', '@reshuffle/react-storage'], {
       cwd: this.appDir,
       stdio: 'inherit',
       shell,
+      env: {
+        ...process.env,
+        NPM_CONFIG_REGISTRY: REGISTRY_URL,
+      },
     });
     log('Adding local-server script to package.json');
     const packageJsonPath = path.resolve(this.appDir, 'package.json');

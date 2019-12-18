@@ -1,8 +1,9 @@
 import '@reshuffle/code-transform/macro';
 import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useFileUpload } from '@reshuffle/react-storage';
 
-import { get, update, getSecret } from '../backend/index';
+import { get, update, getSecret, saveImage } from '../backend/index';
 import { notExposed, invalidFile } from './hack';
 
 const useGetter = (getter) => {
@@ -45,7 +46,7 @@ const Counter = ({ keyName }) => {
     }
   }, [keyName, setState, state]);
 
-  return stateful(state, (data) => (<div>
+  return stateful(state, (data) => (<div className="counterContainer">
     <span className='counter'>{data || 0}</span>
     <input type="button" onClick={increment} value="Increment" />
   </div>));
@@ -65,6 +66,33 @@ const InvalidFile = () => {
   const [state] = useGetter(invalidFile);
   return <div className='invalidFile'>{stateful(state, (data) => (<div className='hacked'>{data}</div>))}</div>;
 }
+
+const Upload = () => {
+  const { status, uploads, inputProps } = useFileUpload();
+  const [imgUrl, setImgUrl] = useState();
+  const [error, setError] = useState();
+  useEffect(() => {
+    (async () => {
+      if (status === 'complete' && !(imgUrl || error)) {
+        try {
+          const { publicUrl } = await saveImage(uploads[0].token);
+          setImgUrl(publicUrl);
+        } catch (err) {
+          setError(err);
+        }
+      }
+    })();
+  }, [uploads, status, imgUrl, setImgUrl, error, setError]);
+  if (error) {
+    return <div className='error'>{error.toString()}</div>;
+  }
+  return (
+    <div className='upload'>
+      <input {...inputProps} />
+      {imgUrl && (<img src={imgUrl} alt='profile' />)}
+    </div>
+  );
+};
 
 const ExpressHandler = () => {
   const [state] = useGetter(() => fetch('/express/hello').then((body) => body.text()));
@@ -92,6 +120,7 @@ function App() {
           <Secret />
           <NotExposed />
           <InvalidFile />
+          <Upload />
         </Route>
         <Route exact path='/express'>
           <ExpressHandler />

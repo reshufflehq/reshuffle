@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/storage",
+      "comment": "Handle edge cases in local provider",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/storage",
+  "email": "roey@reshuffle.com"
+}

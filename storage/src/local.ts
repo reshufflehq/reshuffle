@@ -16,9 +16,11 @@ interface Config {
   baseUrl: string;
 }
 
-async function ignoreNotFound<T>(promise: Promise<T>): Promise<T | undefined> {
+type AsyncFunction<T> = () => Promise<T>;
+
+async function ignoreNotFound<T>(f: AsyncFunction<T>): Promise<T | undefined> {
   try {
-    return await promise;
+    return await f();
   } catch (err) {
     if (err.code === 'ENOENT') {
       return undefined;
@@ -106,8 +108,8 @@ export class LocalStorage implements Storage {
 
   public async head(id: string): Promise<FileInfo | undefined> {
     const [metaRaw, stat] = await Promise.all([
-      ignoreNotFound(fs.readFile(this.metaPath(id), 'utf8')),
-      ignoreNotFound(fs.stat(this.dataPath(id))),
+      ignoreNotFound(() => fs.readFile(this.metaPath(id), 'utf8')),
+      ignoreNotFound(() => fs.stat(this.dataPath(id))),
     ]);
     if (metaRaw === undefined || stat === undefined) {
       return undefined;
@@ -120,29 +122,26 @@ export class LocalStorage implements Storage {
     };
   }
 
-  protected async content(id: string): Promise<stream.Readable | undefined> {
-    const handle = await ignoreNotFound(fs.open(this.dataPath(id), 'r'));
-    if (handle === undefined) {
-      return undefined;
-    }
-    return createReadStream('', { fd: handle.fd, autoClose: true });
+  protected content(id: string): stream.Readable {
+    return createReadStream(this.dataPath(id));
   }
 
   public async get(id: string): Promise<FileInfoWithContent | undefined> {
-    const [info, content] = await Promise.all([
-      this.head(id),
-      this.content(id),
-    ]);
-    if (info === undefined || content === undefined) {
+    const info = await this.head(id);
+    if (info === undefined) {
       return undefined;
     }
+    // There's a race here, file could be deleted between the head call and creating the read stream.
+    // TODO: Figure out how to properly create a readstream from a file descriptor without getting warnings
+    // of the file descriptor being closed on GC.
+    const content = this.content(id);
     return { ...info, content };
   }
 
   public async delete(id: string): Promise<void> {
     await Promise.all([
-      ignoreNotFound(fs.unlink(this.metaPath(id))),
-      ignoreNotFound(fs.unlink(this.dataPath(id))),
+      ignoreNotFound(() => fs.unlink(this.metaPath(id))),
+      ignoreNotFound(() => fs.unlink(this.dataPath(id))),
     ]);
   }
 }
