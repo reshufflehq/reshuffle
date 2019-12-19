@@ -119,11 +119,16 @@ export default class Logs extends Command {
         applicationId, env,
         { follow, limit: currentLimit, since: sinceDate, nextToken: token });
 
-      // TODO: fix EOL, multiple sources, formatting
+      // TODO: fix EOL, multiple sources
       for (const record of records) {
         if (all || detailedLogsRegexps.every((regexp) => !regexp.exec(record.msg))) {
           printed++;
-          process.stdout.write(record.msg);
+          let msg = `[${record.time.toISOString()}] `;
+          if (record.invocation) {
+            msg += `<RequestID: ${record.invocation.reqid}> `;
+          }
+          msg += record.msg;
+          (record.isErr ? process.stderr : process.stdout).write(msg);
         }
       }
       token = nextToken;

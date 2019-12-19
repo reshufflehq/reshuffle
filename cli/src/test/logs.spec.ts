@@ -16,11 +16,11 @@ test.beforeEach(async (t) => {
 });
 
 const fakeLogs = [
-  { source: 'foo', msg: 'main engine fire\n', isErr: false, time: new Date('1977-09-05T12:55:55') },
-  { source: 'bar', msg: 'liftoff\n', isErr: true, time: new Date('1977-09-05T12:56:00'),
+  { source: 'foo', msg: 'main engine fire\n', isErr: false, time: new Date('1977-09-05T12:55:55Z') },
+  { source: 'bar', msg: 'liftoff\n', isErr: true, time: new Date('1977-09-05T12:56:00Z'),
     invocation: { durUs: 10000, reqid: 'launch-voyager-1' } },
-  { source: 'space', msg: 'Amalthea flyby\n', isErr: false, time: new Date('1979-03-05T06:54:00') },
-  { source: 'space', msg: 'Jupiter closest approach\n', isErr: false, time: new Date('1979-03-05T12:05:26') },
+  { source: 'space', msg: 'Amalthea flyby\n', isErr: false, time: new Date('1979-03-05T06:54:00Z') },
+  { source: 'space', msg: 'Jupiter closest approach\n', isErr: false, time: new Date('1979-03-05T12:05:26Z') },
 ];
 
 test('logs', async (t) => {
@@ -70,11 +70,11 @@ test('logs paginate', async (t) => {
 test('logs drops detailed logs without --all', async (t) => {
   const detailed1 = {
     source: 'spice', msg: 'Function plan_mariner_mission deployed (version digest: f11eb1e)\n',
-    isErr: false, time: new Date('1972-07-01T00:00:00'),
+    isErr: false, time: new Date('1972-07-01T00:00:00Z'),
   };
   const detailed2 = {
     source: 'voyager2', msg: 'Function invocation took 1.32819343e15 us\n', isErr: false,
-    time: new Date('2019-09-22T12:36:12'),
+    time: new Date('2019-09-22T12:36:12Z'),
   };
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
     .thenResolve({ records: [detailed1, ...fakeLogs, detailed2] });
@@ -85,11 +85,11 @@ test('logs drops detailed logs without --all', async (t) => {
 test('logs --all shows detailed logs', async (t) => {
   const detailed1 = {
     source: 'spice', msg: 'Function plan_mariner_mission deployed (version digest: f11eb1e)\n',
-    isErr: false, time: new Date('1972-07-01T00:00:00'),
+    isErr: false, time: new Date('1972-07-01T00:00:00Z'),
   };
   const detailed2 = {
     source: 'voyager2', msg: 'Function invocation took 1.32819343e15 us\n', isErr: false,
-    time: new Date('2019-09-22T12:36:12'),
+    time: new Date('2019-09-22T12:36:12Z'),
   };
   td.when(t.context.lycanFake.getLogs(anything, 'fluffy-samaritan', 'default', anything))
     .thenResolve({ records: [detailed1, ...fakeLogs, detailed2] });
