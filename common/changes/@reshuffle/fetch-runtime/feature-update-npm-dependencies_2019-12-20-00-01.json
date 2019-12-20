@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/fetch-runtime",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/fetch-runtime",
+  "email": "auto-npm-dep-update@shiftjs.com"
+}
