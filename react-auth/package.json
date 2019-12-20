@@ -26,14 +26,14 @@
     "react-async-hook": "^3.6.1"
   },
   "peerDependencies": {
-    "react": ">=16.8"
+    "react": ">=16.12"
   },
   "devDependencies": {
-    "@types/react": "^16.9.11",
+    "@types/react": "^16.9.16",
     "eslint": "^6.7.2",
     "eslint-plugin-react": "^7.17.0",
     "react": "^16.12.0",
-    "tsdx": "^0.11.0",
-    "typescript": "^3.7.2"
+    "tsdx": "^0.12.0",
+    "typescript": "^3.7.3"
   }
 }

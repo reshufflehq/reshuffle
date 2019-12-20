@@ -17,6 +17,6 @@
   "devDependencies": {
     "@types/node": "^12.12.14",
     "eslint": "^6.7.2",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.3"
   }
 }
