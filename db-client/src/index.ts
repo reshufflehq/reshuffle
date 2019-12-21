@@ -10,6 +10,7 @@ import {
   UpdateOptions,
   Version,
 } from '@reshuffle/interfaces-node-client/interfaces';
+import { Options } from '@reshuffle/interfaces-node-client';
 import { DB, Versioned, Q } from './db';
 
 export { Q };
@@ -24,7 +25,7 @@ function assertEnv(name: string): string {
 
 const dbURL = assertEnv('RESHUFFLE_DB_BASE_URL');
 
-const db = new DB(
+const makeDb = (options: Options = {}) => new DB(
   `${dbURL}/v1`,
   {
     appId: assertEnv('RESHUFFLE_APPLICATION_ID'),
@@ -41,8 +42,28 @@ const db = new DB(
     agent: dbURL.startsWith('https://')
       ? new https.Agent({ keepAlive: true })
       : new http.Agent({ keepAlive: true }),
+    ...options,
   },
 );
+
+let db = makeDb();
+
+/**
+ * Set HTTP options for DB requests
+ *
+ * ## Example: increase timeouts for large queries
+ *
+ * ```js
+ * db.setDbOptions({ timeoutMs: 10000 });
+ * ```
+ */
+export function setDbOptions(options: Options = {}) {
+  if (options.timeoutMs !== undefined &&
+    (typeof options.timeoutMs !== 'number' || options.timeoutMs >= 60000 || options.timeoutMs <= 0)) {
+    throw new Error('Resshuffle DB configuration error: timeoutMs must be a number between 0 and 60000');
+  }
+  db = makeDb(options);
+}
 
 /**
  * Gets a single document.
