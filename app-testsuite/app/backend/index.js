@@ -34,7 +34,7 @@ export async function saveImage(token) {
 
   // Duplicate file to check functionality
   const { content, contentType: ctBefore, contentLength: lengthBefore } = await storage.get(uploadedId);
-  const id = await storage.put(content, { contentType: ctBefore });
+  const id = await storage.put(content, { contentType: ctBefore, contentLength: lengthBefore });
 
   if (lengthBefore !== 924) {
     throw new Error(`Expected contentLength to be 924, got: ${lengthBefore}`);
