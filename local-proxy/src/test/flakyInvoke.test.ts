@@ -12,9 +12,8 @@ test('Regression #36', async (t) => {
   t.timeout(10000);
   const responses = await Promise.all(
     range(100).map(() => got.post(`http://127.0.0.1:${t.context.port}/invoke`, {
-      headers: {},
-      body: { path: 'dummyBackend.js', args: [], handler: 'hello' },
-      json: true,
+      json: { path: 'dummyBackend.js', args: [], handler: 'hello' },
+      responseType: 'json',
     }))
   );
   t.is(responses.length, 100);

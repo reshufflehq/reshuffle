@@ -5,7 +5,7 @@ import { createAuthHandler } from '../auth-handler';
 import express = require('express');
 import * as http from 'http';
 import { AddressInfo } from 'net';
-import got = require('got');
+import got from 'got';
 
 // Returns port of listening app.
 async function listen(app: express.Application): Promise<AddressInfo> {
@@ -40,7 +40,7 @@ test('local auth serves login page', async (t) => {
 test('local auth logs in successfully', async (t) => {
   const res = await got.post(
     `http://localhost:${t.context.port}/login`, {
-      form: true, body: { username: 'ok user', password: 's3cr3t' }, throwHttpErrors: false,
+      form: { username: 'ok user', password: 's3cr3t' }, throwHttpErrors: false, followRedirect: false,
     });
   t.is(res.statusCode, 302);
   t.is(res.headers.location, '/');
@@ -49,7 +49,7 @@ test('local auth logs in successfully', async (t) => {
 test('local auth fails to log in', async (t) => {
   const res = await got.post(
     `http://localhost:${t.context.port}/login`, {
-      form: true, body: { username: 'fail user', password: 'wr0ng' }, throwHttpErrors: false,
+      form: { username: 'fail user', password: 'wr0ng' }, throwHttpErrors: false, followRedirect: false,
     });
   t.is(res.statusCode, 302);
   t.is(res.headers.location, '/login');

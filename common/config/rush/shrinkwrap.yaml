@@ -14,8 +14,6 @@ dependencies:
   '@oclif/parser': 3.8.4
   '@oclif/plugin-help': 2.2.3
   '@octokit/rest': 16.35.2
-  '@reshuffle/interfaces-koa-server': 0.5.1
-  '@reshuffle/interfaces-node-client': 0.5.1
   '@rush-temp/app-testsuite': 'file:projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:projects/auth.tgz'
   '@rush-temp/code-transform': 'file:projects/code-transform.tgz'
@@ -44,11 +42,11 @@ dependencies:
   '@types/dedent': 0.7.0
   '@types/deep-freeze': 0.1.2
   '@types/fs-extra': 8.0.1
-  '@types/got': 9.6.9
   '@types/http-proxy': 1.17.2
   '@types/jest': 24.0.24
   '@types/jju': 1.4.1
   '@types/js-yaml': 3.12.1
+  '@types/keyv': 3.1.0
   '@types/koa-bodyparser': 5.0.2
   '@types/leveldown': 4.0.2
   '@types/levelup': 3.1.1
@@ -65,6 +63,7 @@ dependencies:
   '@types/prompts': 2.0.3
   '@types/ramda': 0.26.38
   '@types/react': 16.9.17
+  '@types/responselike': 1.0.0
   '@types/rimraf': 2.0.3
   '@types/rmfr': 2.0.0
   '@types/sinon': 7.5.1
@@ -110,7 +109,7 @@ dependencies:
   fixture-stdout: 0.2.1
   fs-extra: 8.1.0
   globby: 10.0.1
-  got: 9.6.0
+  got: 10.1.0
   http-proxy: 1.18.0
   immutable: 4.0.0-rc.12
   jest: 24.9.0
@@ -1466,21 +1465,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-StASIL2lgT3TRjxv17z9pAqbnI7HGu9DrJlg3sEBFfCLaMEqp+O3IQPUF6EZtQ4xkAu2ml6kMBBCtGxjvmtmuQ==
-  /@reshuffle/interfaces-koa-server/0.5.1:
-    dependencies:
-      '@types/koa': 2.11.0
-      '@types/koa-bodyparser': 5.0.2
-      '@types/koa-router': 7.0.35
-      ajv: 6.10.2
-      koa: 2.11.0
-      koa-bodyparser: 4.2.1
-      koa-router: 7.4.0
-      lodash: 4.17.15
-    dev: false
-    peerDependencies:
-      '@types/node': '>=8.0.0'
-    resolution:
-      integrity: sha512-Ddg1wFa8jHBdYYcwlflppg3lqimxZx2IzCCK8T3KB+wJuP3i8RKX3h2gHy3szA842GYNkn9UQUq170RDbpCQlQ==
   /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.21:
     dependencies:
       '@types/koa': 2.11.0
@@ -1514,6 +1498,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
+  /@sindresorhus/is/1.2.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-mwhXGkRV5dlvQc4EgPDxDxO6WuMBVymGFd1CA+2Y+z5dG9MNspoQ+AWjl/Ld1MnpCL8AKbosZlDVohqcIwuWsw==
   /@sinonjs/commons/1.7.0:
     dependencies:
       type-detect: 4.0.8
@@ -1547,6 +1537,14 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-XIB2XbzHTN6ieIjfIMV9hlVcfPU26s2vafYWQcZHWXHOxiaRZYEDKEwdl129Zyg50+foYV2jCgtrqSA6qNuNSA==
+  /@szmarczak/http-timer/3.1.1:
+    dependencies:
+      defer-to-connect: 1.1.1
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-F7vS53bV9NXT+mmYFeSBr2nXaOI1h6qxdlLDVP+4CPG/c60MMStT7aaqYD2TSNWob1DA3GH9ikFY0UW31bUsWA==
   /@types/abstract-leveldown/5.0.1:
     dev: false
     resolution:
@@ -1593,6 +1591,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-RoX2EZjMiFMjZh9lmYrwgoP9RTpAjSHiJxdp4oidAQVO02T7HER3xj9UKue5534ULWeqVEkujhWcyvUce+d68w==
+  /@types/cacheable-request/6.0.1:
+    dependencies:
+      '@types/http-cache-semantics': 4.0.0
+      '@types/keyv': 3.1.0
+      '@types/node': 12.12.21
+      '@types/responselike': 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-ykFq2zmBGOCbpIXtoVbz4SKY5QriWPh3AjyU4G74RYbtt5yOc5OfaY75ftjg7mikMOla1CTGpX3lLbuJh8DTrQ==
   /@types/color-name/1.1.1:
     dev: false
     resolution:
@@ -1684,6 +1691,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-PGAK759pxyfXE78NbKxyfRcWYA/KwW17X290cNev/qAsn9eQIxkH4shoNBafH37wewhDG/0p1cHPbK6+SzZjWQ==
+  /@types/http-cache-semantics/4.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-c3Xy026kOF7QOTn00hbIllV1dLR9hG9NkSrLQgCVs8NF6sBU+VGWjD3wLPhmh1TYAc7ugCFsvHYMN4VcBN1U1A==
   /@types/http-proxy/1.17.2:
     dependencies:
       '@types/node': 12.12.21
@@ -1733,6 +1744,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-/1QEYtL7TQqIRBzq8n0oewHD2Hg=
+  /@types/keyv/3.1.0:
+    dependencies:
+      '@types/node': 12.12.21
+    dev: false
+    resolution:
+      integrity: sha512-OxT2IEeRdwvoUyp8n1v1hTIFzATb3NQYN8OHv/XbXRHiF2DXwKyzoI4UUaQgwZkRflLaSgyttat+RfWgsKIMIQ==
   /@types/koa-bodyparser/5.0.2:
     dependencies:
       '@types/koa': 2.11.0
@@ -1940,6 +1957,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-auApPaJf3NPfe18hSoJkp8EbZzer2ISk7o8mCC3M9he/a04+gbMF97NkpD2S8riMGvm4BMRI59/SZQSaLTKpsQ==
+  /@types/responselike/1.0.0:
+    dependencies:
+      '@types/node': 12.12.21
+    dev: false
+    resolution:
+      integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==
   /@types/rimraf/2.0.3:
     dependencies:
       '@types/glob': 7.1.1
@@ -3123,6 +3146,12 @@ packages:
       node: '>= 6.0.0'
     resolution:
       integrity: sha512-IKufZ1o4Ut42YUrZSo8+qnMTrFuKkvyoLXUywKz9GJ5BrhOFGhLdkx9sG4KAnVvbY6kEcSFjLQul+DVmBm2bgA==
+  /cacheable-lookup/0.2.1:
+    dependencies:
+      keyv: 3.1.0
+    dev: false
+    resolution:
+      integrity: sha512-BQ8MRjxJASEq2q+w0SusPU3B054gS278K8sj58QCLMZIso5qG05+MdCdmXxuyVlfvI8h4bPsNOavVUauVCGxrg==
   /cacheable-request/6.1.0:
     dependencies:
       clone-response: 1.0.2
@@ -3137,6 +3166,20 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Oj3cAGPCqOZX7Rz64Uny2GYAZNliQSqfbePrgAQ1wKAihYmCUnraBtJtKcGR4xz7wF+LoJC+ssFZvv5BgF9Igg==
+  /cacheable-request/7.0.0:
+    dependencies:
+      clone-response: 1.0.2
+      get-stream: 5.1.0
+      http-cache-semantics: 4.0.3
+      keyv: 3.1.0
+      lowercase-keys: 2.0.0
+      normalize-url: 4.5.0
+      responselike: 2.0.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-UVG4gMn3WjnAeFBBx7RFoprgOANIAkMwN5Dta6ONmfSwrCxfm0Ip7g0mIBxIRJZX9aDsoID0Ry3dU5Pr0csKKA==
   /call-matcher/1.1.0:
     dependencies:
       core-js: 2.6.11
@@ -4017,6 +4060,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-gKTdMjdIOEv6JICDYirt7Jgq3/M=
+  /decompress-response/5.0.0:
+    dependencies:
+      mimic-response: 2.0.0
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-TLZWWybuxWgoW7Lykv+gq9xvzOsUjQ9tF09Tj6NSTYGMTCHNXzrPnD6Hi+TgZq19PyTAGH4Ll/NIM/eTGglnMw==
   /dedent/0.7.0:
     dev: false
     resolution:
@@ -5565,6 +5616,27 @@ packages:
     dev: false
     resolution:
       integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
+  /got/10.1.0:
+    dependencies:
+      '@sindresorhus/is': 1.2.0
+      '@szmarczak/http-timer': 3.1.1
+      '@types/cacheable-request': 6.0.1
+      cacheable-lookup: 0.2.1
+      cacheable-request: 7.0.0
+      decompress-response: 5.0.0
+      duplexer3: 0.1.4
+      get-stream: 5.1.0
+      lowercase-keys: 2.0.0
+      mimic-response: 2.0.0
+      p-cancelable: 2.0.0
+      responselike: 2.0.0
+      to-readable-stream: 2.1.0
+      type-fest: 0.8.1
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-7tFtiOkTc47O9PyQ8or0urxjs8XF+4K7CfZMRM9RiZAm4kbllG3D8tGlA04PloiFDA2e178mS8yiLSZut1C6Zw==
   /got/6.7.1:
     dependencies:
       create-error-class: 3.0.2
@@ -7830,6 +7902,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
+  /mimic-response/2.0.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-8ilDoEapqA4uQ3TwS0jakGONKXVJqpy+RpM+3b7pLdOjghCrEiGp9SRkFbUHAmZW9vdnrENWHjaweIoTIJExSQ==
   /min-indent/1.0.0:
     dev: false
     engines:
@@ -8622,6 +8700,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-s73XxOZ4zpt1edZYZzvhqFa6uvQc1vwUa0K0BdtIZgQMAJj9IbebH+JkgKZc9h+B05PKHLOTl4ajG1BmNrVZlw==
+  /p-cancelable/2.0.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-wvPXDmbMmu2ksjkB4Z3nZWTSkJEb9lqVdMaCKpZUGJG9TMiNp9XcbG3fn9fPKjem04fJMJnXoyFPk2FmgiaiNg==
   /p-each-series/1.0.0:
     dependencies:
       p-reduce: 1.0.0
@@ -9848,6 +9932,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-kYcg7ztjHFZCvgaPFa3lpG9Loec=
+  /responselike/2.0.0:
+    dependencies:
+      lowercase-keys: 2.0.0
+    dev: false
+    resolution:
+      integrity: sha512-xH48u3FTB9VsZw7R+vvgaKeLKzT6jOogbQhEe/jewwnZgzPcnyWui2Av6JpoYZF/91uueC+lqhWqeURw5/qhCw==
   /restore-cursor/2.0.0:
     dependencies:
       onetime: 2.0.1
@@ -11015,6 +11105,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Iq25XBt6zD5npPhlLVXGFN3/gyR2/qODcKNNyTMd4vbm39HUaOiAM4PMq0eMVC/Tkxz+Zjdsc55g9yyz+Yq00Q==
+  /to-readable-stream/2.1.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-o3Qa6DGg1CEXshSdvWNX2sN4QHqg03SPq7U6jPXRahlQdl5dK8oXjkU/2/sGrnOZKeGV1zLSO8qPwyKklPPE7w==
   /to-regex-range/2.1.1:
     dependencies:
       is-number: 3.0.0
@@ -12040,7 +12136,7 @@ packages:
       cypress-file-upload: 3.5.1
       eslint: 6.8.0
       fs-extra: 8.1.0
-      got: 9.6.0
+      got: 10.1.0
       mz: 2.7.0
       sleep-promise: 8.0.1
       tail: 2.0.3
@@ -12048,7 +12144,7 @@ packages:
     dev: false
     name: '@rush-temp/app-testsuite'
     resolution:
-      integrity: sha512-8/NKCwTJH6N6hrBUlaIdZJP9jPgik+MUuR0GrZrjyWBQ3wwV3GqRpqNkVC5qZ3aAwf+bsCPTcieUUZGWIF8prQ==
+      integrity: sha512-rcBDAwTgkh7Q98CCbh1aD5F/Jxei0Hjx6jq7ivyVZz0936ro0ULAe61po5auUekygEsHsT/ukNmHS8GIqnj/LA==
       tarball: 'file:projects/app-testsuite.tgz'
     version: 0.0.0
   'file:projects/auth.tgz':
@@ -12098,7 +12194,7 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-iGloaGaUma2TMNWJLVTqoRgFLTsAEsjXvPKJ5LYxLU5haKu1sPyIovGIR+dSDL4ox3kceDdk+7OVAF0UgzEo5Q==
+      integrity: sha512-2bO5MK4mbDz8n0KTeiDIKUpDfH3XlUj45U5JT0wFgHtmgV0UW+hydg6TWCD24CfZQwJUl9AHaQwTjZgWvsgUlw==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
@@ -12116,7 +12212,7 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-Stm1OBcruU9I6Amqr1jwJabDSY15ZbJjgkdT5dfr+QNnnaSWQ5Dg+0QF/btcGZn3hasFaJeSwptETe76ZQwCpw==
+      integrity: sha512-b1pgP+zM8dLHrJ1ucVhYSLcezggHzWnyYA5qTfhetgeIiiGSXQy+7X/dVRmagXhtTQchAhQsQQiBv2k1PXvG1g==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -12203,7 +12299,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-u68AFRBWVc/4s06r8Dexb4HznbUG7rX8MYBki7GyZlEPbOzqhTfIfpgjvS9Avp3FG6av9ZIw5j4QIXBOZCzavQ==
+      integrity: sha512-2EZkjMCXKtnKoDfw+/BZu6oJYpGtHa3DkwcXd45HoRBuPuDyYR1nsMTSSCIwxzYSGQBGgOV7cM0AoRx4G5qROQ==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -12217,12 +12313,14 @@ packages:
       '@types/fs-extra': 8.0.1
       '@types/got': 9.6.9
       '@types/http-proxy': 1.17.2
+      '@types/keyv': 3.1.0
       '@types/koa': 2.11.0
       '@types/koa-router': 7.0.42
       '@types/lodash': 4.14.149
       '@types/mkdirp': 0.5.2
       '@types/nanoid': 2.1.0
       '@types/node': 12.12.21
+      '@types/responselike': 1.0.0
       '@types/rimraf': 2.0.3
       address: 1.1.2
       ava: 2.4.0
@@ -12232,7 +12330,7 @@ packages:
       eslint: 6.8.0
       express: 4.17.1
       fs-extra: 8.1.0
-      got: 9.6.0
+      got: 10.1.0
       http-proxy: 1.18.0
       koa: 2.11.0
       koa-router: 7.4.0
@@ -12248,7 +12346,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-JdiZbVFmPPIl4hZ9oliScvuZUxMtdqKpibuUNALrd+pPeNA2pVA57H+q02gxTQQ5QySgH3HwTf26fD5qVlfEJQ==
+      integrity: sha512-Qlogn76+vLPxG3pw6r3YpqPJBrecx42P4yvwbG7A8VLIQOtFf2l5+3/CWeJZ3rlqKqzjIgPfobaTbAcd2vDOvQ==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
@@ -12266,7 +12364,7 @@ packages:
       cookie-session: 1.3.3
       eslint: 6.8.0
       express: 4.17.1
-      got: 9.6.0
+      got: 10.1.0
       passport: 0.4.1
       passport-auth0: 1.3.1
       passport-local: 1.0.0
@@ -12275,7 +12373,7 @@ packages:
     dev: false
     name: '@rush-temp/passport'
     resolution:
-      integrity: sha512-9ohrXqT57//NPZ2fEU0GHdI8BVDJIdAnq/Ck2DG1j8WsvDKUED5TBv/1UIjqUZpBoaY8AFAJpNkXRVRuFa6iaA==
+      integrity: sha512-8D7qP/gMBPVNOOs/Xp6jme3cQ9z0KanwovpNG7HVn7hcs9RYO5lzfnpUweyllVFgGrQ6K9qumSLibLN2vIu+Cg==
       tarball: 'file:projects/passport.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
@@ -12464,7 +12562,7 @@ packages:
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-C/qZfITS4lb+RD28BpEQJazYwBciDQsvUmS/mhfmfdoWiRaDdqK5Xxs3r5ZirnxkCANmgDxR/rKD05hWTdLf5w==
+      integrity: sha512-xW4c8SpP1ZfVU8xM7fe1GHsoYuxY3mJxFPAcb55ZTum3Ktpw6Nj/9LykMve6noYkEWsfcjxtVlaE/XJUcRA+Jg==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
@@ -12497,8 +12595,6 @@ specifiers:
   '@oclif/parser': ^3.8.4
   '@oclif/plugin-help': ^2.2.1
   '@octokit/rest': ^16.35.0
-  '@reshuffle/interfaces-koa-server': 0.5.1
-  '@reshuffle/interfaces-node-client': 0.5.1
   '@rush-temp/app-testsuite': 'file:./projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:./projects/auth.tgz'
   '@rush-temp/code-transform': 'file:./projects/code-transform.tgz'
@@ -12527,11 +12623,11 @@ specifiers:
   '@types/dedent': ^0.7.0
   '@types/deep-freeze': ^0.1.2
   '@types/fs-extra': ^8.0.1
-  '@types/got': ^9.6.9
   '@types/http-proxy': ^1.17.1
   '@types/jest': ^24.0.23
   '@types/jju': ^1.4.1
   '@types/js-yaml': ^3.12.1
+  '@types/keyv': ^3.1.0
   '@types/koa-bodyparser': ^5.0.1
   '@types/leveldown': ^4.0.2
   '@types/levelup': ^3.1.1
@@ -12548,6 +12644,7 @@ specifiers:
   '@types/prompts': ^2.0.3
   '@types/ramda': ^0.26.34
   '@types/react': ^16.9.11
+  '@types/responselike': ^1.0.0
   '@types/rimraf': ^2.0.3
   '@types/rmfr': ^2.0.0
   '@types/sinon': ^7.5.0
@@ -12593,7 +12690,7 @@ specifiers:
   fixture-stdout: ^0.2.1
   fs-extra: ^8.1.0
   globby: ^10.0.1
-  got: ^9.6.0
+  got: ^10.1.0
   http-proxy: ^1.18.0
   immutable: ^4.0.0-rc.12
   jest: ^24.9.0
