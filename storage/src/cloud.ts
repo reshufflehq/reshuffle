@@ -107,7 +107,9 @@ export class CloudStorage implements Storage {
         contentEncoding: ContentEncoding,
       };
     } catch (err) {
-      if (err.code === 'NotFound' || err.code === 'NoSuchKey') {
+      // Since the credentials given do not have ListBucket permissions, we get a Forbidden error
+      // on missing objects
+      if (err.code === 'NotFound' || err.code === 'NoSuchKey' || err.code === 'Forbidden') {
         return undefined;
       }
       throw err;
