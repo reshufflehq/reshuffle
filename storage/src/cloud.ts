@@ -80,6 +80,9 @@ export class CloudStorage implements Storage {
   }
 
   public async put(input: Buffer | stream.Readable, opts: PutOptions & { contentLength?: number }): Promise<string> {
+    if (!(input instanceof Buffer) && opts.contentLength === undefined) {
+      throw new Error('No contentLength provided for input stream');
+    }
     const objectId = uuid4();
     await this.s3.putObject({
       ...this.putOpts(objectId),

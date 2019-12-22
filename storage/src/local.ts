@@ -86,6 +86,9 @@ export class LocalStorage implements Storage {
   }
 
   public async put(input: Buffer | stream.Readable, opts: PutOptions & { contentLength?: number }): Promise<string> {
+    if (!(input instanceof Buffer) && opts.contentLength === undefined) {
+      throw new Error('No contentLength provided for input stream');
+    }
     const objectId = uuid4();
     await fs.writeFile(this.metaPath(objectId), JSON.stringify(opts));
     try {
