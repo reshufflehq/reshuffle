@@ -85,7 +85,7 @@ export class LocalStorage implements Storage {
     return objectId;
   }
 
-  public async put(input: Buffer | stream.Readable, opts: PutOptions): Promise<string> {
+  public async put(input: Buffer | stream.Readable, opts: PutOptions & { contentLength?: number }): Promise<string> {
     const objectId = uuid4();
     await fs.writeFile(this.metaPath(objectId), JSON.stringify(opts));
     try {

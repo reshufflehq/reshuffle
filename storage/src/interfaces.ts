@@ -30,7 +30,8 @@ export interface Storage {
   publicUrl(objectId: string): string;
   createUpload(opts?: Partial<PutOptions>): Promise<{ token: string, signedUrl: string }>;
   finalizeUpload(token: UploadToken): Promise<string>;
-  put(input: Buffer | stream.Readable, opts: PutOptions): Promise<string>;
+  put(input: Buffer, opts: PutOptions): Promise<string>;
+  put(input: stream.Readable, opts: PutOptions & { contentLength: number }): Promise<string>;
   head(id: string): Promise<FileInfo | undefined>;
   get(id: string): Promise<FileInfoWithContent | undefined>;
   delete(id: string): Promise<void>;

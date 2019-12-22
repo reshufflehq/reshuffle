@@ -79,11 +79,12 @@ export class CloudStorage implements Storage {
     }
   }
 
-  public async put(input: Buffer | stream.Readable, opts: PutOptions): Promise<string> {
+  public async put(input: Buffer | stream.Readable, opts: PutOptions & { contentLength?: number }): Promise<string> {
     const objectId = uuid4();
     await this.s3.putObject({
       ...this.putOpts(objectId),
       ContentType: opts.contentType,
+      ContentLength: opts.contentLength,
       Body: input,
     }).promise();
     return objectId;
