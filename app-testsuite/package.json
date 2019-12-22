@@ -15,14 +15,13 @@
     "@reshuffle/utils-subprocess": "0.0.2",
     "cypress-file-upload": "^3.5.1",
     "fs-extra": "^8.1.0",
-    "got": "^9.6.0",
+    "got": "^10.1.0",
     "mz": "^2.7.0",
     "sleep-promise": "^8.0.1",
     "tail": "^2.0.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
-    "@types/got": "^9.6.9",
     "@types/mz": "^0.0.32",
     "@types/node": "^12.12.14",
     "@types/tail": "^2.0.0",
