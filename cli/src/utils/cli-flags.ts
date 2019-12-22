@@ -1,6 +1,6 @@
 import { flags } from '@oclif/command';
 import { error } from '@oclif/errors';
-import { isISO8601, isInt } from 'validator';
+import validator from 'validator';
 import ms from 'ms';
 
 export type MinMaxIntFlagOptions = Parameters<(typeof flags.integer)>[0] & Partial<{
@@ -12,7 +12,7 @@ export default {
   ...flags,
   minMaxInt: ({ min, max, ...options }: MinMaxIntFlagOptions) => flags.integer({
     parse(val) {
-      if (!isInt(val, { min, max })) {
+      if (!validator.isInt(val, { min, max })) {
         error(`Expected an integer between ${min} and ${max} but received: ${val}`);
       }
       return parseInt(val, 10);
@@ -21,7 +21,7 @@ export default {
   }),
   durationOrISO8601: flags.build({
     parse(val) {
-      if (isISO8601(val)) {
+      if (validator.isISO8601(val)) {
         return new Date(val);
       }
       const valMs = ms(val);
