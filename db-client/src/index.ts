@@ -56,11 +56,14 @@ let db = makeDb();
  * ```js
  * db.setDbOptions({ timeoutMs: 10000 });
  * ```
+ *
+ * Note: timeoutMs is limited to 60 seconds due to runtime invocation limits,
+ * accessing larger data sets must be done in batches using query limits.
  */
 export function setDbOptions(options: Options = {}) {
   if (options.timeoutMs !== undefined &&
     (typeof options.timeoutMs !== 'number' || options.timeoutMs >= 60000 || options.timeoutMs <= 0)) {
-    throw new Error('Resshuffle DB configuration error: timeoutMs must be a number between 0 and 60000');
+    throw new Error('Reshuffle DB configuration error: timeoutMs must be a number between 0 and 60000');
   }
   db = makeDb(options);
 }
