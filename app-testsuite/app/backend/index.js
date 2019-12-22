@@ -54,10 +54,12 @@ export async function saveImage(token) {
 
   const { contentType: ctAfter, contentLength: lengthAfter } = await storage.head(id);
   if (lengthBefore !== lengthAfter) {
-    throw new Error('Content length expected to be the same after put');
+    throw new Error(
+      `Content length expected to be the same after put, before: ${lengthBefore} !== after: ${lengthAfter}`);
   }
   if (ctBefore !== ctAfter) {
-    throw new Error('Content type expected to be the same after put');
+    throw new Error(
+      `Content type expected to be the same after put, before: ${ctBefore} !== after: ${ctAfter}`);
   }
 
   return db.update('/image', () => ({ id, publicUrl: storage.publicUrl(id) }));
