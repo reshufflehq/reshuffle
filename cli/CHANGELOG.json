@@ -2,6 +2,21 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.7.1",
+      "tag": "reshuffle_v0.7.1",
+      "date": "Mon, 23 Dec 2019 07:51:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add debug for communication errors"
+          },
+          {
+            "comment": "Add comment about checking CLI version on validation error"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.7.0",
       "tag": "reshuffle_v0.7.0",
       "date": "Tue, 17 Dec 2019 11:44:31 GMT",

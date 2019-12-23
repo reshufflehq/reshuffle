@@ -1,0 +1,17 @@
+{
+  "name": "@reshuffle/react-storage",
+  "entries": [
+    {
+      "version": "0.1.0",
+      "tag": "@reshuffle/react-storage_v0.1.0",
+      "date": "Mon, 23 Dec 2019 07:51:13 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Initial commit"
+          }
+        ]
+      }
+    }
+  ]
+}

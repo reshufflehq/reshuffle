@@ -2,6 +2,18 @@
   "name": "@reshuffle/db",
   "entries": [
     {
+      "version": "0.5.6",
+      "tag": "@reshuffle/db_v0.5.6",
+      "date": "Mon, 23 Dec 2019 07:51:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow overriding db options"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.5",
       "tag": "@reshuffle/db_v0.5.5",
       "date": "Wed, 13 Nov 2019 14:35:01 GMT",

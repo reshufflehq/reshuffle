@@ -1,6 +1,14 @@
 # Change Log - reshuffle
 
-This log was last generated on Tue, 17 Dec 2019 11:44:31 GMT and should not be manually modified.
+This log was last generated on Mon, 23 Dec 2019 07:51:13 GMT and should not be manually modified.
+
+## 0.7.1
+Mon, 23 Dec 2019 07:51:13 GMT
+
+### Patches
+
+- Add debug for communication errors
+- Add comment about checking CLI version on validation error
 
 ## 0.7.0
 Tue, 17 Dec 2019 11:44:31 GMT
