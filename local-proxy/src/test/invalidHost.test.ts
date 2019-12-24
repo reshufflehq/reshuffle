@@ -11,6 +11,7 @@ test('Invalid Host', async (t) => {
       host: 'evil.com',
     },
     json: { path: 'dummyBackend.js', args: [], handler: 'hello' },
+    retry: 0, // 403 status is not retryable, check only 500 -> 403 flakiness
   });
   await t.throwsAsync(reqPromise, 'Response code 403 (Forbidden)');
 });
