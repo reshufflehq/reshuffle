@@ -8,6 +8,7 @@ setupTestHooks(test);
 test('error invoke', async (t) => {
   await t.throwsAsync(got.post(`http://127.0.0.1:${t.context.port}/invoke`, {
     json: { path: 'testStackTrace.js', args: [], handler: 'testStackTrace' },
+    retry: 0,
   }), /Internal Server Error/);
   const stderr = t.context.stderr.join('\n');
   // we are testing that the original file uses line 3 (not line 9)
