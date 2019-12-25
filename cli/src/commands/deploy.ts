@@ -55,6 +55,10 @@ export default class Deploy extends Command {
       multiple: true,
       description: 'Deprecated, prefer to use env command',
     }),
+    'new-app': flags.boolean({
+      default: false,
+      description: 'Do not show interactive prompt, always deploy a new app',
+    }),
   };
 
   public static strict = true;
@@ -195,7 +199,10 @@ export default class Deploy extends Command {
   }
 
   public async run() {
-    const { flags: { 'app-name': givenAppName, env: givenEnv } } = this.parse(Deploy);
+    const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp } } = this.parse(Deploy);
+    if (givenAppName && forceNewApp) {
+      this.error('--app-name and --new-app flags are incompatible');
+    }
     this.startStage('authenticate');
     await this.authenticate();
 
@@ -221,10 +228,10 @@ export default class Deploy extends Command {
 
     this.startStage('register app on local');
     const env = 'default'; // hardcoded for now
-    let project = findProjectByDirectory(projects, projectDir);
+    let project = forceNewApp ? undefined : findProjectByDirectory(projects, projectDir);
 
     let application: Application;
-    if (!project || givenAppName) {
+    if (!forceNewApp && (!project || givenAppName)) {
       const applicationId = givenAppName !== undefined
         ? await this.findApplicationIdByName(givenAppName)
         : await this.selectApplicationForProject();
@@ -235,7 +242,7 @@ export default class Deploy extends Command {
           applicationId,
           defaultEnv: env,
         };
-        // Don't update association if given --app-name option
+        // Don't update association if given --app-name
         if (!givenAppName) {
           projects.push(project);
           this.conf.set('projects', projects);
@@ -247,12 +254,15 @@ export default class Deploy extends Command {
     this.log('Preparing your cloud deployment! This may take a few moments, please wait');
     if (!project) {
       application = await this.lycanClient.deployInitial(env, digest, envVars);
-      projects.push({
-        directory: projectDir,
-        applicationId: application.id,
-        defaultEnv: application.environments[0].name,
-      });
-      this.conf.set('projects', projects);
+      // Don't update association if given --new-app
+      if (!forceNewApp) {
+        projects.push({
+          directory: projectDir,
+          applicationId: application.id,
+          defaultEnv: application.environments[0].name,
+        });
+        this.conf.set('projects', projects);
+      }
     } else {
       const { applicationId, defaultEnv } = project;
       application = await this.lycanClient.deploy(applicationId, defaultEnv, digest, envVars);
