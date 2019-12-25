@@ -120,6 +120,15 @@ test('given --app-name but app not in list gives informative message', async (t)
   t.snapshot({ ...result, out: result.out.replace(t.context.projectDir, 'PROJECT_DIR') });
 });
 
+test('project associated deploys to new app with --new-app', async (t) => {
+  const newApp = createApp({ id: 'hybrid-koala' }); // hybrid-koala != fluffy-samaritan (default)
+  td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
+  td.when(t.context.lycanFake.deployInitial(anything, 'default', 'abcabc', [])).thenResolve(newApp);
+  const result = await t.context.shell.run(`${t.context.run} deploy --new-app`, 'utf-8');
+  t.snapshot({ ...result, out: result.out.replace(t.context.projectDir, 'PROJECT_DIR') });
+  t.is(t.context.projectConfig, await readFile(t.context.configPath, 'utf-8'));
+});
+
 test('upload takes .env and --env options', async (t) => {
   const app = createApp({ id: 'fluffy-samaritan' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([app]);
