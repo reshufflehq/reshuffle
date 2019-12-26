@@ -148,3 +148,8 @@ test('upload throws if given --env option with no value', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} deploy -e env_missing`, 'utf-8');
   t.snapshot(result);
 });
+
+test('deploy fails with --app-name and --new-app', async (t) => {
+  const result = await t.context.shell.run(`${t.context.run} deploy --app-name snarky-ninja --new-app`, 'utf-8');
+  t.snapshot(result);
+});
