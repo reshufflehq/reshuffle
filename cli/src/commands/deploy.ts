@@ -7,6 +7,7 @@ import terminalLink from 'terminal-link';
 import fetch from 'node-fetch';
 import shellEcape from 'any-shell-escape';
 import prompts from 'prompts';
+import dedent from 'dedent';
 import { spawn } from '@reshuffle/utils-subprocess';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
@@ -57,7 +58,10 @@ export default class Deploy extends Command {
     }),
     'new-app': flags.boolean({
       default: false,
-      description: 'Do not show interactive prompt, deploy a new app even if current directory has an associated app',
+      description: dedent`Do not show interactive prompt
+                          Deploy a new app even if current directory associated with app
+                          Will create an app with a random name, for renaming use $ ${Command.cliBinName} rename`,
+      exclusive: ['app-name'],
     }),
   };
 
@@ -200,9 +204,6 @@ export default class Deploy extends Command {
 
   public async run() {
     const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp } } = this.parse(Deploy);
-    if (givenAppName && forceNewApp) {
-      this.error(`--app-name and --new-app flags are incompatible. For renaming use: $ ${Command.cliBinName} rename`);
-    }
     this.startStage('authenticate');
     await this.authenticate();
 
@@ -243,8 +244,6 @@ export default class Deploy extends Command {
     if (!project && updateAssociation) {
       const applicationId = await this.selectApplicationForProject();
       if (applicationId !== undefined) {
-        this.startStage('register app on local');
-
         project = makeProject(applicationId);
         projects.push(project);
         this.conf.set('projects', projects);
