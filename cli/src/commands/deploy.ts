@@ -57,7 +57,7 @@ export default class Deploy extends Command {
     }),
     'new-app': flags.boolean({
       default: false,
-      description: 'Do not show interactive prompt, always deploy a new app',
+      description: 'Do not show interactive prompt, deploy a new app even if current directory has an associated app',
     }),
   };
 
@@ -201,7 +201,7 @@ export default class Deploy extends Command {
   public async run() {
     const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp } } = this.parse(Deploy);
     if (givenAppName && forceNewApp) {
-      this.error('--app-name and --new-app flags are incompatible');
+      this.error(`--app-name and --new-app flags are incompatible. For renaming use: $ ${Command.cliBinName} rename`);
     }
     this.startStage('authenticate');
     await this.authenticate();
@@ -226,27 +226,28 @@ export default class Deploy extends Command {
       await remove(stagingDir);
     }
 
-    this.startStage('register app on local');
-    const env = 'default'; // hardcoded for now
-    let project = forceNewApp ? undefined : findProjectByDirectory(projects, projectDir);
-
+    const updateAssociation = !givenAppName && !forceNewApp;
     let application: Application;
-    if (!forceNewApp && (!project || givenAppName)) {
-      const applicationId = givenAppName !== undefined
-        ? await this.findApplicationIdByName(givenAppName)
-        : await this.selectApplicationForProject();
+    const env = 'default'; // hardcoded for now
+    const makeProject = (applicationId: string) => ({
+      directory: projectDir,
+      applicationId,
+      defaultEnv: env,
+    });
 
+    this.startStage('choose deployment target');
+    let project = forceNewApp ? undefined :
+      givenAppName ? makeProject(await this.findApplicationIdByName(givenAppName)) :
+      findProjectByDirectory(projects, projectDir);
+
+    if (!project && updateAssociation) {
+      const applicationId = await this.selectApplicationForProject();
       if (applicationId !== undefined) {
-        project = {
-          directory: projectDir,
-          applicationId,
-          defaultEnv: env,
-        };
-        // Don't update association if given --app-name
-        if (!givenAppName) {
-          projects.push(project);
-          this.conf.set('projects', projects);
-        }
+        this.startStage('register app on local');
+
+        project = makeProject(applicationId);
+        projects.push(project);
+        this.conf.set('projects', projects);
       }
     }
 
@@ -254,8 +255,7 @@ export default class Deploy extends Command {
     this.log('Preparing your cloud deployment! This may take a few moments, please wait');
     if (!project) {
       application = await this.lycanClient.deployInitial(env, digest, envVars);
-      // Don't update association if given --new-app
-      if (!forceNewApp) {
+      if (updateAssociation) {
         projects.push({
           directory: projectDir,
           applicationId: application.id,
