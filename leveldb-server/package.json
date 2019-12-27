@@ -18,26 +18,26 @@
     "@reshuffle/interfaces-koa-server": "0.5.1",
     "@types/deep-freeze": "^0.1.2",
     "@types/leveldown": "^4.0.2",
-    "@types/levelup": "^3.1.1",
+    "@types/levelup": "^4.3.0",
     "async-mutex": "^0.1.4",
     "deep-freeze": "^0.0.1",
     "fast-json-patch": "^2.2.1",
     "koa": "^2.11.0",
     "leveldown": "^5.4.1",
     "levelup": "^4.3.2",
-    "nanoid": "^2.1.6",
+    "nanoid": "^2.1.8",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
     "@reshuffle/db-testsuite": "0.3.1",
-    "@types/koa": "^2.0.52",
+    "@types/koa": "^2.11.0",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.12.14",
-    "@types/ramda": "^0.26.34",
+    "@types/ramda": "^0.26.39",
     "@types/rmfr": "^2.0.0",
     "ava": "^2.4.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "rmfr": "^2.0.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.4"
   }
 }
