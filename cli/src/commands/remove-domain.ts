@@ -1,5 +1,6 @@
 import { CLIError } from '@oclif/errors';
 import Command from '../utils/command';
+import flags from '../utils/cli-flags';
 
 export default class RemoveDomain extends Command {
   public static description = 'remove custom domain';
@@ -16,12 +17,20 @@ export default class RemoveDomain extends Command {
     },
   ];
 
+  public static flags = {
+    ...Command.flags,
+    'app-name': flags.string({
+      char: 'n',
+      description: 'If provided add domain to app by name',
+    }),
+  };
+
   public static strict = true;
 
   public async run() {
-    const { domain } = this.parse(RemoveDomain).args;
+    const { args: { domain }, flags: { 'app-name': givenAppName } } = this.parse(RemoveDomain);
     await this.authenticate();
-    const applicationId = await this.getLocalAppId();
+    const applicationId = await this.getAppIdByNameOrWorkingDirectory(givenAppName);
     try {
       await this.lycanClient.removeAppDomain(applicationId, 'default', domain);
     } catch (error) {
