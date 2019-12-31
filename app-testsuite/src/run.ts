@@ -166,7 +166,11 @@ async function withRegistry<T>(testDir: string, fn: () => Promise<T>) {
     await publishToLocalRegistry(token);
     return await fn();
   } finally {
-    await registry.destroy();
+    try {
+      await registry.destroy();
+    } catch (e) {
+      if (e.syscall === 'kill' && e.errno === 'ESRCH') void 1; // ignore
+    }
   }
 }
 
