@@ -52,9 +52,9 @@ const Counter = ({ keyName }) => {
   </div>));
 }
 
-const Secret = () => {
-  const [state] = useGetter(getSecret);
-  return stateful(state, (data) => (<div className='secret'>{data}</div>));
+const Secret = (props) => {
+  const [state] = useGetter(() => getSecret(props.name));
+  return stateful(state, (data) => (<div className={props.className}>{data}</div>));
 }
 
 const NotExposed = () => {
@@ -117,7 +117,9 @@ function App() {
       <Switch>
         <Route exact path='/'>
           <Counter keyName='counter' />
-          <Secret />
+          <Secret className='secret' name='MY_SECRET'/>
+          <Secret className='runningOn' name='REACT_APP_RUNNING_ON'/>
+          <Secret className='appSecret' name='APP_SECRET'/>
           <NotExposed />
           <InvalidFile />
           <Upload />

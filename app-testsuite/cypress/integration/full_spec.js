@@ -10,7 +10,16 @@ describe('counter', () => {
 describe('secret', () => {
   it('gets env var', () => {
     cy.visit('/');
-    cy.get('.secret').contains('shhh');
+    cy.get('.secret').should('have.text', 'shhhh');
+  });
+});
+
+describe('app secret', () => {
+  it('gets env var set from secrets API', () => {
+    cy.visit('/');
+    if (cy.get('.runningOn').invoke('text') === 'realm') {
+      cy.get('.appSecret').should('have.text', 'from CLI');
+    }
   });
 });
 

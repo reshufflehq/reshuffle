@@ -18,8 +18,8 @@ export async function get(key) {
 /**
  * @expose
  */
-export async function getSecret() {
-  return process.env.MY_SECRET;
+export async function getSecret(env) {
+  return process.env[env];
 }
 
 export async function hack() {
