@@ -29,7 +29,13 @@ export default {
         return val;
       }
       error(`Expected a formatted duration or ISO 8601 string format but received: ${val}`);
-      throw new Error('Should not get here');
+    },
+  }),
+  keyValue: flags.build({
+    parse(val) {
+      const kvMatch = val.match(/^([^=]+)=(.*)$/);
+      if (!kvMatch) return error(`Expected 'KEY=value' but received: ${val}`);
+      return { key: kvMatch[1], value: kvMatch[2] };
     },
   }),
 };
