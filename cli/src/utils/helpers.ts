@@ -27,6 +27,12 @@ export async function getProjectRootDir(): Promise<string> {
   return dirname(packageJsonPath);
 }
 
+export function getEnvOrDie(variable: string): string {
+  const ret = process.env[variable];
+  if (ret === undefined) throw new CLIError(`Missing environment variable ${variable}`);
+  return ret;
+}
+
 export function getEnvFromArgs(args: string[]): Array<[string, string]> {
   return args.map((a) => {
     const [key, ...rest] = a.split('=');

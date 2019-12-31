@@ -53,6 +53,7 @@ export default class Deploy extends Command {
     env: flags.string({
       char: 'e',
       multiple: true,
+      description: 'Deprecated, prefer to use env command',
     }),
   };
 
