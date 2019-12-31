@@ -81,6 +81,8 @@ test('env --set-from-env fails to set from missing env', async (t) => {
   const result = await t.context.shell.run(`${t.context.run} env --set-from-env FRUIT`, 'utf-8');
   t.snapshot(result);
   // Must not call setEnv.
-  td.verify(t.context.lycanFake.setEnv(anything, anything, anything, anything, anything),
-            { times: 0, ignoreExtraArgs: true });
+  td.verify(
+    t.context.lycanFake.setEnv(anything, anything, anything, anything, anything),
+    { times: 0, ignoreExtraArgs: true }
+  );
 });

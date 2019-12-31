@@ -33,7 +33,7 @@ export default {
   }),
   keyValue: flags.build({
     parse(val) {
-      const kvMatch = val.match(/^([^=]+)=(.*)$/);
+      const kvMatch = /^([^=]+)=(.*)$/.exec(val);
       if (!kvMatch) return error(`Expected 'KEY=value' but received: ${val}`);
       return { key: kvMatch[1], value: kvMatch[2] };
     },
