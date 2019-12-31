@@ -99,3 +99,14 @@ test('env --set-from-env fails to set from missing env', async (t) => {
     { times: 0, ignoreExtraArgs: true }
   );
 });
+
+test('env --unset unsets', async (t) => {
+  const result = await t.context.shell.run(`${t.context.run} env --unset FRUIT --unset ANIMAL`, 'utf-8');
+  t.snapshot(result);
+  td.verify(t.context.lycanFake.setEnv(
+    anything, 'fluffy-samaritan', false,
+    {
+      variables: [],
+    },
+    ['FRUIT', 'ANIMAL']));
+});
