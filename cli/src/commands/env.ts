@@ -3,7 +3,7 @@ import flags from '../utils/cli-flags';
 import { getEnvOrDie } from '../utils/helpers';
 import fromPairs from 'lodash.frompairs';
 
-function nonEmpty<T>(x: T[]) { return x.length > 0 }
+function nonEmpty<T>(x: T[]) { return x.length > 0; }
 
 export default class Env extends Command {
   public static description = 'manipulate environment of deployed app';
@@ -18,17 +18,17 @@ export default class Env extends Command {
 
   public static flags = {
     ...Command.flags,
-    'name': flags.string({
+    name: flags.string({
       char: 'n',
       description: 'If provided access variables for given app',
     }),
-    'set': flags.keyValue({
+    set: flags.keyValue({
       char: 's',
       description: 'set VAR=value ...',
       multiple: true,
       default: [],
     }),
-    'unset': flags.string({
+    unset: flags.string({
       char: 'u',
       description: 'unset VAR ...',
       multiple: true,
@@ -40,13 +40,13 @@ export default class Env extends Command {
       multiple: true,
       default: [],
     }),
-    'get': flags.string({
+    get: flags.string({
       char: 'g',
       description: 'get VAR',
       multiple: true,
       default: [],
     }),
-    'list': flags.boolean({
+    list: flags.boolean({
       char: 'l',
       description: 'list all variables',
       default: false,
@@ -56,7 +56,7 @@ export default class Env extends Command {
   public async run() {
     await this.authenticate();
     const { flags: {
-      'name': appName,
+      name: appName,
       get,
       set,
       'set-from-env': setFromEnv,
@@ -102,6 +102,6 @@ export default class Env extends Command {
       appId,
       false,
       { variables: variables.map((vv) => ({ ...vv, source: 'user:edit' })) },
-      unset || []);
+      unset);
   }
 }
