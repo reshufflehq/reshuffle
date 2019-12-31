@@ -295,6 +295,11 @@ class App {
     await spawn('node', [CLI, 'deploy'], {
       cwd: this.appDir,
       stdio: 'inherit',
+      env: { ...process.env, REACT_APP_RUNNING_ON: 'remote' },
+    });
+    await spawn('node', [CLI, 'env', '--set', 'APP_SECRET=from CLI'], {
+      cwd: this.appDir,
+      stdio: 'inherit',
     });
     try {
       const apps = await this.getDeployedApps();
