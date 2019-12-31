@@ -17,9 +17,13 @@ describe('secret', () => {
 describe('app secret', () => {
   it('gets env var set from secrets API', () => {
     cy.visit('/');
-    if (cy.get('.runningOn').invoke('text') === 'realm') {
-      cy.get('.appSecret').should('have.text', 'from CLI');
-    }
+    cy.get('.runningOn').then(
+      ({ text }) => {
+        const runningOn = text();
+        cy.log(`runningOn ${runningOn}`);
+        if (runningOn === 'realm') cy.get('.appSecret').should('have.text', 'from CLI');
+      }
+    );
   });
 });
 
