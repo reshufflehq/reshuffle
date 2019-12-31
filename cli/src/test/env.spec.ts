@@ -61,6 +61,19 @@ test('env --set sets', async (t) => {
     []));
 });
 
+test('env --set sets empty', async (t) => {
+  const result = await t.context.shell.run(`${t.context.run} env --set nothing=`, 'utf-8');
+  t.snapshot(result);
+  td.verify(t.context.lycanFake.setEnv(
+    anything, 'fluffy-samaritan', false,
+    {
+      variables: [
+        { variable: 'nothing', source: 'user:edit', value: '' },
+      ],
+    },
+    []));
+});
+
 test('env --set-from-env sets from env', async (t) => {
   const setupResult = await t.context.shell.run('export FRUIT=zebra ANIMAL=apple', 'utf-8');
   t.assert(success(setupResult));
