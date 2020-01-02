@@ -295,7 +295,7 @@ class App {
     await spawn('node', [CLI, 'deploy'], {
       cwd: this.appDir,
       stdio: 'inherit',
-      env: { ...process.env, REACT_APP_RUNNING_ON: 'remote' },
+      env: { ...process.env, REACT_APP_RUNNING_ON: 'realm' },
     });
     await spawn('node', [CLI, 'env', '--set', 'APP_SECRET=from CLI'], {
       cwd: this.appDir,
