@@ -5,11 +5,20 @@ import fromPairs from 'lodash.frompairs';
 
 function nonEmpty<T>(x: T[]) { return x.length > 0; }
 
+interface VariableValue {
+  variable: string;
+  value: string | undefined;
+}
+
+function vvToString({ variable, value }: VariableValue): string {
+  return `${variable}=${typeof value === 'string' ? `"${value}"` : value}`;
+}
+
 export default class Env extends Command {
   public static description = 'manipulate environment of deployed app';
 
   public static examples = [
-    `$ ${Command.cliBinName} env --list --name fluffy-teapot-76`,
+    `$ ${Command.cliBinName} env --list --app-name fluffy-teapot-76`,
     `$ ${Command.cliBinName} env --get PGUSER --get PGPASSWORD`,
     `$ PGPASSWORD=secret ${Command.cliBinName} env --set PGUSER=admin --set-from-env PGPASSWORD`,
   ];
@@ -18,7 +27,7 @@ export default class Env extends Command {
 
   public static flags = {
     ...Command.flags,
-    name: flags.string({
+    'app-name': flags.string({
       char: 'n',
       description: 'If provided access variables for given app',
     }),
@@ -56,7 +65,7 @@ export default class Env extends Command {
   public async run() {
     await this.authenticate();
     const { flags: {
-      name: appName,
+      'app-name': appName,
       get,
       set,
       'set-from-env': setFromEnv,
@@ -86,14 +95,14 @@ export default class Env extends Command {
     const indexed = fromPairs(variables.map(({ variable, value }) => [variable, value]));
     // Output in requested order.
     for (const variable of variableNames) {
-      this.log(`${variable}=${indexed[variable]}`);
+      this.log(vvToString({ variable, value: indexed[variable] }));
     }
   }
 
   protected async list(appId: string) {
     const { variables } = await this.lycanClient.getEnv(appId, null);
     // Output in sorted order (of variable names).
-    const sorted = variables.map(({ variable, value }) => `${variable}=${value}`).sort();
+    const sorted = variables.map(vvToString).sort();
     this.log(sorted.join('\n'));
   }
 
