@@ -30,12 +30,15 @@ test('env [whatever] --app-name accesses a different app', async (t) => {
     { variable: 'FRUIT', source: 'user:edit', value: 'bat' },
   ] });
 
-  const result = await t.context.shell.run(`${t.context.run} env --list --name=${otherApp.name}`, 'utf-8');
+  const result = await t.context.shell.run(
+    `${t.context.run} env --list --app-name=${otherApp.name}`, 'utf-8');
   t.snapshot(result);
 });
 
 test('env --get gets', async (t) => {
-  td.when(t.context.lycanFake.getEnv(anything, 'fluffy-samaritan', ['FRUIT', 'ANIMAL'])).thenResolve({
+  td.when(t.context.lycanFake.getEnv(
+    anything, 'fluffy-samaritan', ['FRUIT', 'ANIMAL', 'FUNGUS']
+  )).thenResolve({
     variables: [
       // Unsorted, in order that client requested them.
       { variable: 'FRUIT', source: 'user:edit', value: 'zebra' },
@@ -43,7 +46,9 @@ test('env --get gets', async (t) => {
     ],
   });
 
-  const result = await t.context.shell.run(`${t.context.run} env --get FRUIT --get ANIMAL`, 'utf-8');
+  const result = await t.context.shell.run(
+    `${t.context.run} env --get FRUIT --get ANIMAL --get FUNGUS`, 'utf-8'
+  );
   t.snapshot(result);
 });
 
