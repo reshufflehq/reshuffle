@@ -118,7 +118,7 @@ function App() {
         <Route exact path='/'>
           <Counter keyName='counter' />
           <Secret className='secret' name='MY_SECRET'/>
-          <Secret className='runningOn' name='REACT_APP_RUNNING_ON'/>
+          <div className='runningOn'>{process.env.REACT_APP_RUNNING_ON || ''}</div>
           <Secret className='appSecret' name='APP_SECRET'/>
           <NotExposed />
           <InvalidFile />
