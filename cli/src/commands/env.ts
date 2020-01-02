@@ -16,6 +16,7 @@ function vvToString({ variable, value }: VariableValue): string {
 
 export default class Env extends Command {
   public static description = 'manipulate environment of deployed app';
+  public static hidden = true;
 
   public static examples = [
     `$ ${Command.cliBinName} env --list --app-name fluffy-teapot-76`,
