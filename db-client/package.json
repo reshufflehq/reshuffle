@@ -31,10 +31,10 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
-    "@types/ramda": "^0.26.34",
+    "@types/ramda": "^0.26.39",
     "ava": "^2.4.0",
-    "eslint": "^6.7.2",
-    "typedoc": "^0.15.2",
-    "typescript": "^3.7.2"
+    "eslint": "^6.8.0",
+    "typedoc": "^0.15.6",
+    "typescript": "^3.7.4"
   }
 }
