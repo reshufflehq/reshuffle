@@ -18,10 +18,9 @@ describe('app secret', () => {
   it('gets env var set from secrets API', () => {
     cy.visit('/');
     cy.get('.runningOn').should('exist').then(
-      ({ text }) => {
-        const runningOn = text();
-        cy.log(`runningOn ${runningOn}`);
-        if (runningOn === 'realm') cy.get('.appSecret').should('have.text', 'from CLI');
+      ($runningOn) => {
+        if ($runningOn.text() === 'realm') cy.get('.appSecret').should('have.text', 'from CLI');
+        else cy.get('.runningOn').should('have.text', 'uninitialized');
       }
     );
   });
