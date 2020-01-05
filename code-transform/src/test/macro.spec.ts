@@ -21,11 +21,8 @@ pluginTester({
       `,
       output: `
         import { createRuntime } from "@reshuffle/fetch-runtime";
-        const {
-          foo,
-          bar
-        } = createRuntime(["foo", "bar"], {
-          "filename": "mockBackend.js"
+        const { foo, bar } = createRuntime(["foo", "bar"], {
+          filename: "mockBackend.js"
         });
       `,
     },
@@ -71,11 +68,8 @@ pluginTester({
       `,
       output: `
         import { createRuntime } from "@reshuffle/fetch-runtime";
-        const {
-          foo,
-          bar
-        } = createRuntime(["foo", "bar"], {
-          "filename": "subdir/mockBackendInSubdir.js"
+        const { foo, bar } = createRuntime(["foo", "bar"], {
+          filename: "subdir/mockBackendInSubdir.js"
         });
       `,
     },
@@ -87,17 +81,11 @@ pluginTester({
       `,
       output: `
         import { createRuntime } from "@reshuffle/fetch-runtime";
-        const {
-          foo,
-          bar
-        } = createRuntime(["foo", "bar"], {
-          "filename": "mockBackend.js"
+        const { foo, bar } = createRuntime(["foo", "bar"], {
+          filename: "mockBackend.js"
         });
-        const {
-          foo2,
-          bar2
-        } = createRuntime(["foo2", "bar2"], {
-          "filename": "mockBackend2.js"
+        const { foo2, bar2 } = createRuntime(["foo2", "bar2"], {
+          filename: "mockBackend2.js"
         });
       `,
     },
@@ -108,11 +96,8 @@ pluginTester({
       `,
       output: `
         import { createRuntime } from "@reshuffle/fetch-runtime";
-        const {
-          foo,
-          bar
-        } = createRuntime(["foo", "bar"], {
-          "filename": "mockTypeScriptBackend.js"
+        const { foo, bar } = createRuntime(["foo", "bar"], {
+          filename: "mockTypeScriptBackend.js"
         });
       `,
     },
