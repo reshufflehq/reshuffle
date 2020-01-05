@@ -342,7 +342,7 @@ async function main() {
     const app = await createApp(testDir);
     await app.run(process.env.APP_E2E_RUN_MODE || 'local', async (baseUrl) => {
       log('Running tests');
-      await spawn('npx', ['cypress@3.4.1', 'run'], {
+      await spawn('npx', ['cypress@3.8.1', 'run'], {
         cwd: path.resolve(__dirname, '..'),
         stdio: 'inherit',
         shell,
