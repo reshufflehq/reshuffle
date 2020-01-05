@@ -17,7 +17,7 @@ describe('secret', () => {
 describe('app secret', () => {
   it('gets env var set from secrets API', () => {
     cy.visit('/');
-    cy.get('.runningOn').then(
+    cy.get('.runningOn').should('exist').then(
       ({ text }) => {
         const runningOn = text();
         cy.log(`runningOn ${runningOn}`);
