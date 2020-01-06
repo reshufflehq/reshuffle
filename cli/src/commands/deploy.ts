@@ -1,18 +1,12 @@
-import path, { resolve as pathResolve } from 'path';
-import { createReadStream, stat, mkdtemp, exists } from 'mz/fs';
-import { mkdirp, remove, copy } from 'fs-extra';
-import { tmpdir } from 'os';
-import tar from 'tar';
+import { remove } from 'fs-extra';
 import terminalLink from 'terminal-link';
-import fetch from 'node-fetch';
-import shellEcape from 'any-shell-escape';
 import prompts from 'prompts';
 import dedent from 'dedent';
 import { spawn } from '@reshuffle/utils-subprocess';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
-import { getDependencies } from '../utils/getdeps';
 import flags from '../utils/cli-flags';
+import { CLIError } from '@oclif/errors';
 import {
   getPrimaryDomain,
   getProjectRootDir,
@@ -21,15 +15,11 @@ import {
   findProjectByDirectory,
   mergeEnvArrays,
 } from '../utils/helpers';
-
+import { build, createTarball, uploadCode, MismatchedPackageAndPackageLockError } from '@reshuffle/build-utils';
 // TODO: test flows:
 // * no project associated and 1 app deployed prompts user to select app and exits when user aborts (Ctrl-C)
 // * deploy fails with meaningful message during (code upload|build|node_modules copy)
 // TODO: add --env flag to bypass app association mechanism
-
-function escapeWin32(filePath: string) {
-  return process.platform === 'win32' ? shellEcape(filePath) : filePath;
-}
 
 function makeAppLink(app: Application) {
   const domain = getPrimaryDomain(app.environments[0]);
@@ -66,106 +56,6 @@ export default class Deploy extends Command {
   };
 
   public static strict = true;
-
-  public async build(projectDir: string): Promise<string> {
-    this.log('Building and bundling your app! This may take a few moments, please wait');
-    const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'reshuffle-bundle-'), { encoding: 'utf8' });
-    try {
-      await spawn('npm', ['run', 'build'], {
-        cwd: projectDir,
-        stdio: 'inherit',
-        // in win32 npm.cmd must be run in shell - no escaping needed since all
-        // arguments are constant strings
-        shell: process.platform === 'win32',
-      });
-      this.log('Preparing backend...');
-      const deps = await getDependencies(projectDir);
-      for (const [dep, props] of deps) {
-        const source = pathResolve(projectDir, 'node_modules', dep);
-        const target = pathResolve(stagingDir, 'node_modules', dep);
-        if (await exists(source)) {
-          await mkdirp(target);
-          await copy(source, target);
-        } else if (!props.optional) {
-          /* eslint-disable-next-line no-console */
-          console.error(`WARN: Cannot find dependency ${dep} in node_modules, skipping upload`);
-        }
-      }
-
-      const filesToExclude = new Set(['node_modules', 'backend', 'src'].map((f) => pathResolve(projectDir, f)));
-      await copy(projectDir, stagingDir, {
-        filter(src) {
-          return !filesToExclude.has(src) &&
-            !(path.dirname(src) === projectDir && path.basename(src).startsWith('.'));
-        },
-      });
-
-      await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
-        '--no-babelrc',
-        '--config-file',
-        pathResolve(__dirname, '../../lib/utils/babelBackendConfig.js'),
-        '--source-maps',
-        'true',
-        '--plugins',
-        ['@babel/plugin-transform-modules-commonjs',
-          'module:@reshuffle/code-transform'].join(','),
-        'backend/',
-        '-d',
-        escapeWin32(pathResolve(stagingDir, 'backend')),
-      ], {
-        cwd: projectDir,
-        stdio: 'inherit',
-        // in win32 babel.cmd must be run in shell - no escaping needed since
-        // the only dynamic variable used is stagingDir (result of tmpdir())
-        shell: process.platform === 'win32',
-      });
-
-      await copy(pathResolve(projectDir, 'backend'), pathResolve(stagingDir, 'backend'), {
-        filter(src) {
-          return path.extname(src) !== '.js';
-        },
-      });
-
-      return stagingDir;
-
-    } catch (err) {
-      await remove(stagingDir);
-      throw err;
-    }
-  }
-
-  public async createTarball(stagingDir: string): Promise<string> {
-    const tarPath = pathResolve(stagingDir, 'bundle.tgz');
-    await tar.create({
-      gzip: true,
-      file: tarPath,
-      cwd: stagingDir,
-      filter: (filePath) => filePath !== './bundle.tgz',
-    }, ['.']);
-    return tarPath;
-  }
-
-  public async uploadCode(tarPath: string) {
-    const { size: contentLength } = await stat(tarPath);
-    const stream = createReadStream(tarPath);
-    this.log('Uploading your assets! This may take a few moments, please wait');
-    const res = await fetch(`${this.apiEndpoint}/code`, {
-      method: 'POST',
-      headers: {
-        ...this.apiHeaders,
-        'Content-Type': 'application/gzip',
-        'Content-Length': `${contentLength}`,
-      },
-      body: stream,
-    });
-    if (res.status !== 200) {
-      // TODO: check error if response is not a json and display a nice error message
-      const { message } = await res.json();
-      this.error(message);
-    }
-    const { digest } = await res.json();
-    return digest;
-  }
 
   public async selectApplicationForProject(): Promise<string | undefined> {
     const NEW_APPLICATION = '__new_application__';
@@ -215,13 +105,26 @@ export default class Deploy extends Command {
 
     // TODO: select target before this block
     this.startStage('build');
-    const stagingDir = await this.build(projectDir);
+
+    let stagingDir: string;
+    try {
+      stagingDir = await build(projectDir, {
+        skipNpmInstall: true,
+        logger: this,
+      });
+    } catch (err) {
+      if (err instanceof MismatchedPackageAndPackageLockError) {
+        throw new CLIError(err);
+      }
+      throw err;
+    }
     let digest: string;
     try {
       this.startStage('zip');
-      const tarPath = await this.createTarball(stagingDir);
+      const tarPath = await createTarball(stagingDir);
       this.startStage('upload');
-      digest = await this.uploadCode(tarPath);
+      const uploadResp = await uploadCode(tarPath, `${this.apiEndpoint}/code`, this.apiHeaders, this);
+      digest = uploadResp.digest;
     } finally {
       this.startStage('remove staging');
       await remove(stagingDir);
