@@ -16,6 +16,7 @@ dependencies:
   '@octokit/rest': 16.36.0
   '@rush-temp/app-testsuite': 'file:projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:projects/auth.tgz'
+  '@rush-temp/build-utils': 'file:projects/build-utils.tgz'
   '@rush-temp/code-transform': 'file:projects/code-transform.tgz'
   '@rush-temp/db': 'file:projects/db.tgz'
   '@rush-temp/db-testsuite': 'file:projects/db-testsuite.tgz'
@@ -12205,6 +12206,15 @@ packages:
       integrity: sha512-sLHsMZMrc7YF9qkTE/qBiLf9L8VidBZNHdXSLpERReFpprOcZ805FxHJSnV8sxtJY0SnBCNe/081jXTRHq/unQ==
       tarball: 'file:projects/auth.tgz'
     version: 0.0.0
+  'file:projects/build-utils.tgz':
+    dependencies:
+      '@types/node': 13.1.4
+    dev: false
+    name: '@rush-temp/build-utils'
+    resolution:
+      integrity: sha512-z1vv8+HO28bWN5PTojy3pPOM7UhnwF2obCuxv0SPzftAXRaI1UdYl3nkk0YdTsISXajbInUTZsde7TuIymS+9Q==
+      tarball: 'file:projects/build-utils.tgz'
+    version: 0.0.0
   'file:projects/code-transform.tgz':
     dependencies:
       '@babel/parser': 7.7.7
@@ -12461,11 +12471,12 @@ packages:
       lodash.frompairs: 4.0.1
       react: 16.12.0
       tsdx: 0.12.1
+      tslib: 1.10.0
       typescript: 3.7.4
     dev: false
     name: '@rush-temp/react-storage'
     resolution:
-      integrity: sha512-zOx3ffilKMmFfomAbL0N8tQUkaWhfJwYAl/1kNUcPumXG17Ul2lNI0DBVhmzoQh8f+4yv+AZTd9hdNZrY6sIxA==
+      integrity: sha512-uSgpc2ru5W7+G9FNWEktlsPdLCOMwIE/pLMJGKaL0EagKSK7lho4t5uosNW7dcWPVH61ASFCBe1vMqH819XZeQ==
       tarball: 'file:projects/react-storage.tgz'
     version: 0.0.0
   'file:projects/reshuffle.tgz':
@@ -12587,7 +12598,7 @@ packages:
     dev: false
     name: '@rush-temp/storage'
     resolution:
-      integrity: sha512-ZDeKZeVvpDQDJOi8CEh9NVkQ4lYuHIlgjJnUSNd+ZztXHoAeuuCDRv3JxS+wTA4oYMXBaOahXmEqBrf84dOjTw==
+      integrity: sha512-YBP42LRimPeOI/cUytGO3Y86oUh3Orhq97Pffp1WxrLQV+f4SYnhCts0hyAp8X1Ep6yChUkjdyeoHiQ2V+nHNg==
       tarball: 'file:projects/storage.tgz'
     version: 0.0.0
   'file:projects/subscriptions.tgz':
@@ -12642,6 +12653,7 @@ specifiers:
   '@octokit/rest': ^16.36.0
   '@rush-temp/app-testsuite': 'file:./projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:./projects/auth.tgz'
+  '@rush-temp/build-utils': 'file:./projects/build-utils.tgz'
   '@rush-temp/code-transform': 'file:./projects/code-transform.tgz'
   '@rush-temp/db': 'file:./projects/db.tgz'
   '@rush-temp/db-testsuite': 'file:./projects/db-testsuite.tgz'
