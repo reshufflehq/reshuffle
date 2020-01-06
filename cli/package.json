@@ -49,6 +49,7 @@
     "@oclif/errors": "^1.2.2",
     "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2.2.3",
+    "@reshuffle/build-utils": "^0.0.1",
     "@reshuffle/utils-subprocess": "0.0.2",
     "any-shell-escape": "^0.1.1",
     "chalk": "^2.4.2",
