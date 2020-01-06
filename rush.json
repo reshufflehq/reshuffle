@@ -435,6 +435,11 @@
         "shouldPublish": true
     },
     {
+        "packageName": "@reshuffle/build-utils",
+        "projectFolder": "build-utils",
+        "shouldPublish": true
+    },
+    {
         "packageName": "@reshuffle/passport",
         "projectFolder": "passport",
         "shouldPublish": true
