@@ -103,6 +103,9 @@ const app = express();
 const genDir = mkdtempSync(resolvePath(tmpDir, 'local_proxy_'));
 
 async function transpileAndCopy() {
+  if (!existsSync(basePath)) {
+    return;
+  }
   await babelDir({
     cliOptions: {
       filenames: [basePath],
