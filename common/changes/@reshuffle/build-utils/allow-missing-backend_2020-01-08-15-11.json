@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/build-utils",
+      "comment": "Allow for missing backend/ directory during build",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/build-utils",
+  "email": "vladimir@reshuffle.com"
+}
