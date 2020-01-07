@@ -28,6 +28,7 @@ dependencies:
   '@rush-temp/leveldb-server': 'file:projects/leveldb-server.tgz'
   '@rush-temp/local-proxy': 'file:projects/local-proxy.tgz'
   '@rush-temp/passport': 'file:projects/passport.tgz'
+  '@rush-temp/project-config': 'file:projects/project-config.tgz'
   '@rush-temp/react-app': 'file:projects/react-app.tgz'
   '@rush-temp/react-auth': 'file:projects/react-auth.tgz'
   '@rush-temp/react-storage': 'file:projects/react-storage.tgz'
@@ -12303,7 +12304,7 @@ packages:
     dev: false
     name: '@rush-temp/build-utils'
     resolution:
-      integrity: sha512-Uble3oXock20XL0h5zu78TPgMR85BbUwi3IYUQnPqSPofbUNkIuk1LOnO2xRnJEhZI3mvlgIiTGNt8ZKleGGIA==
+      integrity: sha512-x5m63h4RSX8SrQDvwIo1aHodozdojYquSlEl4KTPUzz8MVHUJiuW16oezBJBDSAPQMrZHSgMY5SgEZ9K0RPW9A==
       tarball: 'file:projects/build-utils.tgz'
     version: 0.0.0
   'file:projects/code-transform.tgz':
@@ -12322,7 +12323,7 @@ packages:
     dev: false
     name: '@rush-temp/code-transform'
     resolution:
-      integrity: sha512-s3U8zFk9TR8SvRsqHWXWT63a9NvJ+UWl3fJ/T1SFQAF39CI/c7648O1Erkkjoh3geQse4ys3McgJ1KAY4Wh/Fg==
+      integrity: sha512-aLYXghWd3WV80Z2u66HrZqXFwnTANkIgHS1EMABok2qwC42pPcvruB6/TIcnGw2vssvGddHtIsgEyhAvSfpLZA==
       tarball: 'file:projects/code-transform.tgz'
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
@@ -12510,7 +12511,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-zO0NKppGKTAutD+WVCsUUgbHPx4KX1s2e+MTxLYBB8sybzwmk480nMeYU7CCIaeFeDjWgCcDg2nfhXzqlAlo/w==
+      integrity: sha512-xuONmCYSPY5Fp8Z4rBAAAnOMpKGtBc9yptvomCGkga73FEpT8AhG87Q3WdrU9Gn0m+RQQBN+i6thr6+4JaMITg==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
@@ -12538,6 +12539,15 @@ packages:
     resolution:
       integrity: sha512-R+Ort1jAWPJJwFkZD0YMPKVHrWCcSZgEtycm2aFBSwWiEjiPvq2DL5kEvU4f8/lM6wSGuys9R/yEr49kr9QSqQ==
       tarball: 'file:projects/passport.tgz'
+    version: 0.0.0
+  'file:projects/project-config.tgz':
+    dependencies:
+      typescript: 3.7.4
+    dev: false
+    name: '@rush-temp/project-config'
+    resolution:
+      integrity: sha512-1NLohnVhdoBhHtShc+XrqcjxIgoCLHOfzCKFWZEWj9iVnD7dy2k2tUYsNwHJZW148WUiE4Looe7RErDiTbUYaQ==
+      tarball: 'file:projects/project-config.tgz'
     version: 0.0.0
   'file:projects/react-app.tgz':
     dependencies:
@@ -12652,7 +12662,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-/2L9Ea5noxxxFxhpVbfrtZlHgkSRwLl2SNIZnj7vnqrJpeM+39+O7Z2oSsnu99l8shq7AOiNWOM4w1YXfPaHRg==
+      integrity: sha512-vYjLOZr4eQ+QYia3s0S87AcJdQ0BampAHGe7BOe+vS0iZOc68tPmRIpfJWsOv+zEz4kuoF5CmynGKk57WqqZVA==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -12688,7 +12698,7 @@ packages:
     dev: false
     name: '@rush-temp/server-function'
     resolution:
-      integrity: sha512-Nl9m9x5UGmVJ1Z5NzuE3tMiIMl47nyZOQz95utV0AK4Cs8RcFbOpen6WQbfakK9sZDPEQEid+wiWclHVxfSHbA==
+      integrity: sha512-JvEW4UDlm4xpWMrjHA0Jsn5j/MO7IjjZ2X5OQod1Fav4R7dU6RkpPlsX7xGSwX9SBuImovs8SHCBhvmrZp0TDw==
       tarball: 'file:projects/server-function.tgz'
     version: 0.0.0
   'file:projects/storage.tgz':
@@ -12775,6 +12785,7 @@ specifiers:
   '@rush-temp/leveldb-server': 'file:./projects/leveldb-server.tgz'
   '@rush-temp/local-proxy': 'file:./projects/local-proxy.tgz'
   '@rush-temp/passport': 'file:./projects/passport.tgz'
+  '@rush-temp/project-config': 'file:./projects/project-config.tgz'
   '@rush-temp/react-app': 'file:./projects/react-app.tgz'
   '@rush-temp/react-auth': 'file:./projects/react-auth.tgz'
   '@rush-temp/react-storage': 'file:./projects/react-storage.tgz'

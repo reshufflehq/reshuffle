@@ -6,6 +6,7 @@ import nanoid from 'nanoid';
 import { EventEmitter } from 'events';
 import net, { AddressInfo } from 'net';
 import address from 'address';
+import { config } from '@reshuffle/project-config';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -71,7 +72,7 @@ export function startProxy(
 
   nodemon({
     watch: [
-      path.join(rootDir, 'backend'),
+      path.join(rootDir, config.backendDirectory),
     ],
     script: path.join(__dirname, 'server.js'),
     delay: 100,
@@ -82,7 +83,7 @@ export function startProxy(
       // A '$PROJECT/.reshuffle' directory for hiding temporarily compiled assets and db
       RESHUFFLE_TMP_DIR: path.resolve(rootDir, '.reshuffle'),
       // The '$PROJECT/backend' directory containing @exposed functions and _handler.js
-      RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(rootDir, 'backend'),
+      RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH: path.resolve(rootDir, config.backendDirectory),
       // The '$PROJECT' directory itself
       RESHUFFLE_DEV_SERVER_ROOT_DIR: rootDir,
       RESHUFFLE_DEV_SERVER_LOCAL_TOKEN: localToken,

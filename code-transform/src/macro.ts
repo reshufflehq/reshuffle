@@ -3,6 +3,7 @@ import { parse } from '@babel/parser';
 // not using since not sure if babel.types is the very same babel.types or a different version
 // import * as t from '@babel/types';
 import * as babelTypes from '@babel/types';
+import { config } from '@reshuffle/project-config';
 import { getFunctionName, isExposedStatement, isTypeScriptGeneratedExport } from './common';
 import { readFileSync } from 'fs';
 import path from 'path';
@@ -85,7 +86,7 @@ function exposeMacro({ state, babel }: { state: MacrosPluginPass, babel: MacrosB
       const names = node.specifiers.map((specifier) => specifier.local.name);
       const dir = path.dirname(state.filename);
       const importedFile = path.join(dir, node.source.value);
-      const backendRoot = path.join(state.file.opts.root, 'backend');
+      const backendRoot = path.join(state.file.opts.root, config.backendDirectory);
       const relative = path.relative(backendRoot, importedFile);
       const isSubPath = relative && !relative.startsWith('..') && !path.isAbsolute(relative);
       if (isSubPath) {

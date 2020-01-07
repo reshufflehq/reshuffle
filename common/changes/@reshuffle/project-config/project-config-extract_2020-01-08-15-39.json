@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/project-config",
+      "comment": "Initial",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/project-config",
+  "email": "vladimir@reshuffle.com"
+}

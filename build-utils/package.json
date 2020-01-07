@@ -15,6 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@reshuffle/project-config": "0.1.0",
     "@reshuffle/utils-subprocess": "0.0.2",
     "any-shell-escape": "^0.1.1",
     "express": "^4.17.1",

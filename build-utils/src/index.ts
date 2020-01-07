@@ -5,6 +5,7 @@ import { tmpdir } from 'os';
 import tar from 'tar';
 import shellEcape from 'any-shell-escape';
 import { spawn } from '@reshuffle/utils-subprocess';
+import { config } from '@reshuffle/project-config';
 import { getDependencies, MismatchedPackageAndPackageLockError } from './getdeps';
 
 export { MismatchedPackageAndPackageLockError };
@@ -68,7 +69,8 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
       }
     }
 
-    const filesToExclude = new Set(['node_modules', 'backend', 'src'].map((f) => pathResolve(projectDir, f)));
+    const filesToExclude = new Set(
+      ['node_modules', config.backendDirectory, 'src'].map((f) => pathResolve(projectDir, f)));
     await copy(projectDir, stagingDir, {
       filter(src) {
         return !filesToExclude.has(src) &&
@@ -76,8 +78,9 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
       },
     });
 
-    const backendDir = pathResolve(projectDir, 'backend');
-    if (await exists(backendDir)) {
+    const projectBackendDir = pathResolve(projectDir, config.backendDirectory);
+    const stagingBackendDir = pathResolve(stagingDir, config.backendDirectory);
+    if (await exists(projectBackendDir)) {
       await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
         '--no-babelrc',
         '--config-file',
@@ -87,16 +90,16 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
         '--plugins',
         ['@babel/plugin-transform-modules-commonjs',
           'module:@reshuffle/code-transform'].join(','),
-        'backend/',
+        `${config.backendDirectory}/`,
         '-d',
-        escapeWin32(pathResolve(stagingDir, 'backend')),
+        escapeWin32(stagingBackendDir),
       ], {
         cwd: projectDir,
         stdio: 'inherit',
         shell,
       });
 
-      await copy(backendDir, pathResolve(stagingDir, 'backend'), {
+      await copy(projectBackendDir, stagingBackendDir, {
         filter(src) {
           return path.extname(src) !== '.js';
         },

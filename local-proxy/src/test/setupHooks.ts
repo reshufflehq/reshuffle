@@ -8,6 +8,7 @@ import { AddressInfo } from 'net';
 import { setupProxy } from '../index';
 import { copy, remove } from 'fs-extra';
 import nodemon from 'nodemon';
+import { config } from '@reshuffle/project-config';
 
 export interface LocalProxyTestInterface {
   port: number;
@@ -24,7 +25,7 @@ export function setupTestHooks(test: TestInterface<LocalProxyTestInterface>) {
     const workdir = await fs.mkdtemp(`${tmpdir()}/.reshuffle-local-proxy-test`, 'utf8');
     t.context.workdir = workdir;
     await copy(path.join(__dirname, 'fixture'), workdir);
-    setupProxy(path.join(workdir, 'backend'))(app);
+    setupProxy(path.join(workdir, config.backendDirectory))(app);
     t.context.stderr = [];
     t.context.stdout = [];
     nodemon.on('readable', function(this: any) {

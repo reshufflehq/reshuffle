@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.7.7",
+    "@reshuffle/project-config": "0.1.0",
     "babel-plugin-macros": "^2.8.0"
   },
   "devDependencies": {

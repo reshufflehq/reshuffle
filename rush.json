@@ -458,6 +458,11 @@
         "packageName": "@reshuffle/labs-db-iterator",
         "projectFolder": "labs/db-iterator",
         "shouldPublish": true
+    },
+    {
+        "packageName": "@reshuffle/project-config",
+        "projectFolder": "project-config",
+        "shouldPublish": true
     }
   ]
 }

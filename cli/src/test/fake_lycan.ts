@@ -9,6 +9,7 @@ import { env as processEnv } from 'process';
 import * as path from 'path';
 import { remove, mkdirp } from 'fs-extra';
 import shellEscape from 'any-shell-escape';
+import { config } from '@reshuffle/project-config';
 
 export interface UploadSuccess {
   ok: true;
@@ -56,8 +57,8 @@ projects:
 `;
     await writeFile(t.context.configPath, t.context.projectConfig);
     await mkdir(t.context.projectDir);
-    await mkdir(path.join(t.context.projectDir, 'backend'));
-    await writeFile(path.join(t.context.projectDir, 'backend', 'index.js'), '');
+    await mkdir(path.join(t.context.projectDir, config.backendDirectory));
+    await writeFile(path.join(t.context.projectDir, config.backendDirectory, 'index.js'), '');
     await mkdirp(path.join(t.context.projectDir, 'node_modules/.bin'));
     await writeFile(path.join(t.context.projectDir, 'node_modules/.bin/babel'), 'echo built', { mode: 0o755 });
     await writeFile(path.join(t.context.projectDir, 'package.json'), JSON.stringify({
