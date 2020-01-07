@@ -142,8 +142,7 @@ export async function uploadCode(
   const json = await res.json();
   if (res.status !== 200) {
     // TODO: check error if response is not a json and display a nice error message
-    const { message } = await res.json();
-    logger.error(message);
+    logger.error(json.message);
   }
   return json;
 }
