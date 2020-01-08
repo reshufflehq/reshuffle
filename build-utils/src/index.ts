@@ -1,9 +1,8 @@
 import path, { resolve as pathResolve } from 'path';
-import { createReadStream, stat, mkdtemp, exists } from 'mz/fs';
+import { mkdtemp, exists } from 'mz/fs';
 import { mkdirp, remove, copy } from 'fs-extra';
 import { tmpdir } from 'os';
 import tar from 'tar';
-import fetch from 'node-fetch';
 import shellEcape from 'any-shell-escape';
 import { spawn } from '@reshuffle/utils-subprocess';
 import { getDependencies, MismatchedPackageAndPackageLockError } from './getdeps';
@@ -119,30 +118,4 @@ export async function createTarball(stagingDir: string): Promise<string> {
     filter: (filePath) => filePath !== './bundle.tgz',
   }, ['.']);
   return tarPath;
-}
-
-export async function uploadCode(
-  tarPath: string,
-  url: string,
-  apiHeaders: Record<string, string> = {},
-  logger = DEFAULT_OPTIONS.logger
-) {
-  const { size: contentLength } = await stat(tarPath);
-  const stream = createReadStream(tarPath);
-  logger.log('Uploading your assets! This may take a few moments, please wait');
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      ...apiHeaders,
-      'Content-Type': 'application/gzip',
-      'Content-Length': `${contentLength}`,
-    },
-    body: stream,
-  });
-  const json = await res.json();
-  if (res.status !== 200) {
-    // TODO: check error if response is not a json and display a nice error message
-    logger.error(json.message);
-  }
-  return json;
 }
