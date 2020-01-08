@@ -1,8 +1,9 @@
+import { createReadStream, stat } from 'mz/fs';
 import { remove } from 'fs-extra';
 import terminalLink from 'terminal-link';
+import fetch from 'node-fetch';
 import prompts from 'prompts';
 import dedent from 'dedent';
-import { spawn } from '@reshuffle/utils-subprocess';
 import { Application } from '@binaris/spice-node-client/interfaces';
 import Command from '../utils/command';
 import flags from '../utils/cli-flags';
@@ -15,7 +16,7 @@ import {
   findProjectByDirectory,
   mergeEnvArrays,
 } from '../utils/helpers';
-import { build, createTarball, uploadCode, MismatchedPackageAndPackageLockError } from '@reshuffle/build-utils';
+import { build, createTarball, MismatchedPackageAndPackageLockError } from '@reshuffle/build-utils';
 // TODO: test flows:
 // * no project associated and 1 app deployed prompts user to select app and exits when user aborts (Ctrl-C)
 // * deploy fails with meaningful message during (code upload|build|node_modules copy)
@@ -56,6 +57,28 @@ export default class Deploy extends Command {
   };
 
   public static strict = true;
+
+  public async uploadCode(tarPath: string) {
+    const { size: contentLength } = await stat(tarPath);
+    const stream = createReadStream(tarPath);
+    this.log('Uploading your assets! This may take a few moments, please wait');
+    const res = await fetch(`${this.apiEndpoint}/code`, {
+      method: 'POST',
+      headers: {
+        ...this.apiHeaders,
+        'Content-Type': 'application/gzip',
+        'Content-Length': `${contentLength}`,
+      },
+      body: stream,
+    });
+    if (res.status !== 200) {
+      // TODO: check error if response is not a json and display a nice error message
+      const { message } = await res.json();
+      this.error(message);
+    }
+    const { digest } = await res.json();
+    return digest;
+  }
 
   public async selectApplicationForProject(): Promise<string | undefined> {
     const NEW_APPLICATION = '__new_application__';
@@ -123,8 +146,7 @@ export default class Deploy extends Command {
       this.startStage('zip');
       const tarPath = await createTarball(stagingDir);
       this.startStage('upload');
-      const uploadResp = await uploadCode(tarPath, `${this.apiEndpoint}/code`, this.apiHeaders, this);
-      digest = uploadResp.digest;
+      digest = await this.uploadCode(tarPath);
     } finally {
       this.startStage('remove staging');
       await remove(stagingDir);
