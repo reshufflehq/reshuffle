@@ -2,6 +2,21 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.8.1",
+      "tag": "reshuffle_v0.8.1",
+      "date": "Wed, 08 Jan 2020 13:51:34 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add --app-name flag in add-domain and remove-domain for CI support"
+          },
+          {
+            "comment": "Add support for --new-app flag for support in non-interactive CI"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.0",
       "tag": "reshuffle_v0.8.0",
       "date": "Wed, 08 Jan 2020 12:38:09 GMT",

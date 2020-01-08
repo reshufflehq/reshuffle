@@ -1,6 +1,14 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 08 Jan 2020 12:38:09 GMT and should not be manually modified.
+This log was last generated on Wed, 08 Jan 2020 13:51:34 GMT and should not be manually modified.
+
+## 0.8.1
+Wed, 08 Jan 2020 13:51:34 GMT
+
+### Patches
+
+- Add --app-name flag in add-domain and remove-domain for CI support
+- Add support for --new-app flag for support in non-interactive CI
 
 ## 0.8.0
 Wed, 08 Jan 2020 12:38:09 GMT
