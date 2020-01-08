@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.8.0",
+      "tag": "reshuffle_v0.8.0",
+      "date": "Wed, 08 Jan 2020 12:38:09 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add \"reshuffle env\" command"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.7.1",
       "tag": "reshuffle_v0.7.1",
       "date": "Mon, 23 Dec 2019 07:51:13 GMT",

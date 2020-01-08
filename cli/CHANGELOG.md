@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 23 Dec 2019 07:51:13 GMT and should not be manually modified.
+This log was last generated on Wed, 08 Jan 2020 12:38:09 GMT and should not be manually modified.
+
+## 0.8.0
+Wed, 08 Jan 2020 12:38:09 GMT
+
+### Minor changes
+
+- Add "reshuffle env" command
 
 ## 0.7.1
 Mon, 23 Dec 2019 07:51:13 GMT
