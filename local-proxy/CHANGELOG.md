@@ -1,6 +1,13 @@
 # Change Log - @reshuffle/local-proxy
 
-This log was last generated on Mon, 23 Dec 2019 07:51:13 GMT and should not be manually modified.
+This log was last generated on Wed, 08 Jan 2020 16:58:56 GMT and should not be manually modified.
+
+## 0.3.6
+Wed, 08 Jan 2020 16:58:56 GMT
+
+### Patches
+
+- Allow for missing backend/ directory in local server for raw create-react-app
 
 ## 0.3.5
 Mon, 23 Dec 2019 07:51:13 GMT

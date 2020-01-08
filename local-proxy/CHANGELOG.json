@@ -2,6 +2,18 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.3.6",
+      "tag": "@reshuffle/local-proxy_v0.3.6",
+      "date": "Wed, 08 Jan 2020 16:58:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow for missing backend/ directory in local server for raw create-react-app"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.5",
       "tag": "@reshuffle/local-proxy_v0.3.5",
       "date": "Mon, 23 Dec 2019 07:51:13 GMT",

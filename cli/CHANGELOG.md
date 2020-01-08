@@ -1,6 +1,11 @@
 # Change Log - reshuffle
 
-This log was last generated on Wed, 08 Jan 2020 13:51:34 GMT and should not be manually modified.
+This log was last generated on Wed, 08 Jan 2020 16:58:56 GMT and should not be manually modified.
+
+## 0.8.2
+Wed, 08 Jan 2020 16:58:56 GMT
+
+*Version update only*
 
 ## 0.8.1
 Wed, 08 Jan 2020 13:51:34 GMT

@@ -1,0 +1,22 @@
+{
+  "name": "@reshuffle/build-utils",
+  "entries": [
+    {
+      "version": "0.1.0",
+      "tag": "@reshuffle/build-utils_v0.1.0",
+      "date": "Wed, 08 Jan 2020 16:58:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow for missing backend/ directory during build"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Initial version"
+          }
+        ]
+      }
+    }
+  ]
+}

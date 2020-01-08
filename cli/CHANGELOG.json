@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.8.2",
+      "tag": "reshuffle_v0.8.2",
+      "date": "Wed, 08 Jan 2020 16:58:56 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@reshuffle/build-utils\" from `^0.0.1` to `^0.1.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.1",
       "tag": "reshuffle_v0.8.1",
       "date": "Wed, 08 Jan 2020 13:51:34 GMT",

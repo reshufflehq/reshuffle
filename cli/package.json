@@ -1,7 +1,7 @@
 {
   "name": "reshuffle",
   "description": "Reshuffle CLI Tool",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "author": "arikmaor @arikmaor",
   "bin": {
     "reshuffle": "./bin/run"
@@ -49,7 +49,7 @@
     "@oclif/errors": "^1.2.2",
     "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2.2.3",
-    "@reshuffle/build-utils": "^0.0.1",
+    "@reshuffle/build-utils": "^0.1.0",
     "@reshuffle/utils-subprocess": "0.0.2",
     "any-shell-escape": "^0.1.1",
     "chalk": "^2.4.2",
