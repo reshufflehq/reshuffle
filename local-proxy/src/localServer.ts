@@ -5,7 +5,7 @@ import program from 'commander';
 import path from 'path';
 
 const NAME = 'reshuffle-local-server';
-program.option('-p, --port', 'listening port (3000 by default)');
+program.option('-p, --port <port>', 'listening port (3000 by default)');
 program.description(`Run the ${NAME} outside of create-react-app server`);
 
 function main() {
