@@ -35,7 +35,7 @@ const basePath = envStr('RESHUFFLE_DEV_SERVER_BASE_REQUIRE_PATH');
 const localToken = envStr('RESHUFFLE_DEV_SERVER_LOCAL_TOKEN');
 
 async function loadDotEnv() {
-  const envFile = resolvePath(basePath, '.env');
+  const envFile = resolvePath(rootPath, '.env');
   try {
     const content = await promisify(readFile)(envFile);
     const parsed = dotenv.parse(content);
