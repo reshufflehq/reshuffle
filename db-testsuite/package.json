@@ -18,12 +18,12 @@
     "ava": "^2.4.0",
     "koa": "~2.11.0",
     "koa-router": "~7.4.0",
-    "nanoid": "^2.1.8",
+    "nanoid": "^2.1.9",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
     "@types/koa": "~2.11.0",
-    "@types/koa-router": "~7.0.42",
+    "@types/koa-router": "~7.4.0",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.7.2",
     "@types/ramda": "^0.26.39",
