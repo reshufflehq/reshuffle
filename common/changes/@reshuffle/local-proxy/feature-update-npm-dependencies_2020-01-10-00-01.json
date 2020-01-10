@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/local-proxy",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "auto-npm-dep-update@shiftjs.com"
+}
