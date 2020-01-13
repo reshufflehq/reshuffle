@@ -43,7 +43,7 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "@binaris/oclif-plugin-not-found": "^1.2.4",
-    "@binaris/spice-node-client": "^2.3.0",
+    "@binaris/spice-node-client": "2.3.1-rc1",
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/errors": "^1.2.2",

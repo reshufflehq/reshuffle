@@ -6,7 +6,7 @@ dependencies:
   '@babel/types': 7.7.4
   '@binaris/oclif-plugin-not-found': 1.2.4
   '@binaris/spice-koa-server': 2.3.0
-  '@binaris/spice-node-client': 2.3.0
+  '@binaris/spice-node-client': 2.3.1-rc1
   '@oclif/command': 1.5.19
   '@oclif/config': 1.13.3
   '@oclif/dev-cli': 1.22.2
@@ -1146,7 +1146,7 @@ packages:
       '@types/node': '>=8.0.0'
     resolution:
       integrity: sha512-mYu5cpGUPliUhMijkci2KtZ2NPDwE7yIYhR/m/QBqAhxfPC8/TO0QxKUw0Eg5/JVcRYeXKg3V3SNiBgj2KxKaA==
-  /@binaris/spice-node-client/2.3.0:
+  /@binaris/spice-node-client/2.3.1-rc1:
     dependencies:
       '@types/node-fetch': 2.5.4
       abort-controller: 2.0.3
@@ -1155,7 +1155,7 @@ packages:
       node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-pEA2tRqvytjMjYXN15pnoaAl/f8aPWdlbXDSRxTZDcMcYz3FL/qrSHgxE5GTmEYfoZEnd9mytS6lMsAubWvEPw==
+      integrity: sha512-o02rOv+arg4QTQMsAf5trwgFFFq+UlA/raH+Ks/7WsTyMjJ/8/TjrO+/TcB66wk1b5z6ThsqPf4aKYMZSz2ldA==
   /@cnakazawa/watch/1.0.3:
     dependencies:
       exec-sh: 0.3.4
@@ -12502,7 +12502,7 @@ packages:
     dependencies:
       '@binaris/oclif-plugin-not-found': 1.2.4
       '@binaris/spice-koa-server': /@binaris/spice-koa-server/2.3.0/@types!node@12.12.24
-      '@binaris/spice-node-client': 2.3.0
+      '@binaris/spice-node-client': 2.3.1-rc1
       '@oclif/command': 1.5.19
       '@oclif/config': 1.13.3
       '@oclif/dev-cli': 1.22.2
@@ -12560,7 +12560,7 @@ packages:
     dev: false
     name: '@rush-temp/reshuffle'
     resolution:
-      integrity: sha512-Ty2eUE796kho3LfpxEqya1cwYyT06e+GgjLbpvVvDPu6EBzF3lbs06QjfWTxYeyqTIxZp4tw0g2D9Zph75zM3Q==
+      integrity: sha512-k5DEWpYRTXW1VfUhcrZahdf8ZEy0HNPOYv9TXnMfBBUKmjkpKdHEwM7LMh6rOSdL/Josmgv2tZZx/mv6VCBYaA==
       tarball: 'file:projects/reshuffle.tgz'
     version: 0.0.0
   'file:projects/rush-update.tgz':
@@ -12662,7 +12662,7 @@ specifiers:
   '@babel/types': ^7.7.4
   '@binaris/oclif-plugin-not-found': ^1.2.4
   '@binaris/spice-koa-server': ^2.3.0
-  '@binaris/spice-node-client': ^2.3.0
+  '@binaris/spice-node-client': 2.3.1-rc1
   '@oclif/command': ^1.5.19
   '@oclif/config': ^1.13.3
   '@oclif/dev-cli': ^1.22.2
