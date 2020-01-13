@@ -54,6 +54,13 @@ export default class Deploy extends Command {
                           Will create an app with a random name, for renaming use $ ${Command.cliBinName} rename`,
       exclusive: ['app-name'],
     }),
+    'local-build': flags.boolean({
+      // TODO: in order to enable the feature, change default to false and remove allowNo
+      default: true,
+      allowNo: true,
+      hidden: true,
+      description: 'Build locally and skip server side build.',
+    }),
   };
 
   public static strict = true;
