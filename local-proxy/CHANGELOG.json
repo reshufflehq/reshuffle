@@ -2,6 +2,18 @@
   "name": "@reshuffle/local-proxy",
   "entries": [
     {
+      "version": "0.3.7",
+      "tag": "@reshuffle/local-proxy_v0.3.7",
+      "date": "Mon, 13 Jan 2020 15:16:08 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix parsing of port argument"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.6",
       "tag": "@reshuffle/local-proxy_v0.3.6",
       "date": "Wed, 08 Jan 2020 16:58:56 GMT",
