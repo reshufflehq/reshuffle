@@ -1,3 +1,4 @@
+import path from 'path';
 import { createReadStream, stat } from 'mz/fs';
 import { remove } from 'fs-extra';
 import terminalLink from 'terminal-link';
@@ -65,11 +66,11 @@ export default class Deploy extends Command {
 
   public static strict = true;
 
-  public async uploadCode(tarPath: string) {
+  public async uploadCode(tarPath: string, localBuild: boolean) {
     const { size: contentLength } = await stat(tarPath);
     const stream = createReadStream(tarPath);
     this.log('Uploading your assets! This may take a few moments, please wait');
-    const res = await fetch(`${this.apiEndpoint}/code`, {
+    const res = await fetch(`${this.apiEndpoint}/code${localBuild ? '' : '?source=true'}`, {
       method: 'POST',
       headers: {
         ...this.apiHeaders,
@@ -123,7 +124,14 @@ export default class Deploy extends Command {
   }
 
   public async run() {
-    const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp } } = this.parse(Deploy);
+    const {
+      flags: {
+        'app-name': givenAppName,
+        env: givenEnv,
+        'new-app': forceNewApp,
+        'local-build': localBuild,
+      },
+    } = this.parse(Deploy);
     this.startStage('authenticate');
     await this.authenticate();
 
@@ -133,30 +141,56 @@ export default class Deploy extends Command {
     const envVars = mergeEnvArrays(await getProjectEnv(), getEnvFromArgs(givenEnv || []));
     const projects = this.conf.get('projects') || [];
 
-    // TODO: select target before this block
-    this.startStage('build');
-
-    let stagingDir: string;
-    try {
-      stagingDir = await build(projectDir, {
-        skipNpmInstall: true,
-        logger: this,
-      });
-    } catch (err) {
-      if (err instanceof MismatchedPackageAndPackageLockError) {
-        throw new CLIError(err);
-      }
-      throw err;
-    }
     let digest: string;
-    try {
-      this.startStage('zip');
-      const tarPath = await createTarball(stagingDir);
-      this.startStage('upload');
-      digest = await this.uploadCode(tarPath);
-    } finally {
-      this.startStage('remove staging');
-      await remove(stagingDir);
+    if (localBuild) {
+      let stagingDir: string | undefined;
+      try {
+        // TODO: select target before this block
+        this.startStage('build');
+        stagingDir = await build(projectDir, {
+          skipNpmInstall: true,
+          logger: this,
+        });
+        this.startStage('zip');
+        const tarPath = await createTarball(stagingDir);
+        this.startStage('upload');
+        digest = await this.uploadCode(tarPath, localBuild);
+      } catch (err) {
+        if (err instanceof MismatchedPackageAndPackageLockError) {
+          throw new CLIError(err);
+        }
+        throw err;
+      } finally {
+        if (stagingDir) {
+          this.startStage('remove staging');
+          await remove(stagingDir);
+        }
+      }
+    } else {
+      let tarPath: string | undefined;
+      try {
+        this.startStage('zip');
+        tarPath = await createTarball(projectDir, (filePath: string) => {
+          const dirname = path.dirname(filePath);
+          const filename = path.basename(filePath);
+          return filename !== 'node_modules' &&
+            !(dirname === '.' && filename.length > 1 && filename.startsWith('.'));
+        });
+        this.startStage('upload');
+        const sourceDigest = await this.uploadCode(tarPath, localBuild);
+        this.startStage('build');
+        const finishMarker = `BUILD FINISHED - ${sourceDigest}`;
+        const buildPromise = this.lycanClient.buildSource(sourceDigest, finishMarker, envVars);
+
+          // TODO: stream logs until finishMarker;
+
+        digest = (await buildPromise).digest;
+      } finally {
+        if (tarPath) {
+          this.startStage('remove bundle tarball');
+          await remove(tarPath);
+        }
+      }
     }
 
     const updateAssociation = !givenAppName && !forceNewApp;

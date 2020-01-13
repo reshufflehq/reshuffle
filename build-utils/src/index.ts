@@ -112,13 +112,13 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
 
 }
 
-export async function createTarball(stagingDir: string): Promise<string> {
+export async function createTarball(stagingDir: string, filter?: tar.CreateOptions['filter']): Promise<string> {
   const tarPath = pathResolve(stagingDir, 'bundle.tgz');
   await tar.create({
     gzip: true,
     file: tarPath,
     cwd: stagingDir,
-    filter: (filePath) => filePath !== './bundle.tgz',
+    filter: (filePath, stat) => filePath !== './bundle.tgz' && (!filter || filter(filePath, stat)),
   }, ['.']);
   return tarPath;
 }
