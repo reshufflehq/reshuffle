@@ -64,7 +64,7 @@ export default class Deploy extends Command {
 
   public static strict = true;
 
-  quiet: boolean = false;
+  private quiet = false;
 
   public async uploadCode(tarPath: string) {
     const { size: contentLength } = await stat(tarPath);
@@ -130,7 +130,7 @@ export default class Deploy extends Command {
 
   public async run() {
     const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, format } } = this.parse(Deploy);
-    this.quiet = format == 'json';
+    this.quiet = format === 'json';
 
     this.startStage('authenticate');
     await this.authenticate();
@@ -210,7 +210,7 @@ export default class Deploy extends Command {
     const jsonApp = { ...application, link: makeAppLink(application) };
     this.log(`Project successfully deployed! Your project is now available at: ${jsonApp.link}`);
 
-    if (format == 'json') {
+    if (format === 'json') {
       super.log(JSON.stringify(jsonApp));
     }
   }
