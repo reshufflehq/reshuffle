@@ -146,6 +146,7 @@ export default class Deploy extends Command {
       stagingDir = await build(projectDir, {
         skipNpmInstall: true,
         logger: this,
+        quiet: json,
       });
     } catch (err) {
       if (err instanceof MismatchedPackageAndPackageLockError) {
