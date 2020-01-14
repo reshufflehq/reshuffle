@@ -57,8 +57,8 @@ export default class Deploy extends Command {
     json: flags.boolean({
       char: 'j',
       default: false,
-      description: 'Replaces command output with a serialized object version'
-    })
+      description: 'Replaces command output with a serialized object version',
+    }),
   };
 
   public static strict = true;
@@ -120,10 +120,10 @@ export default class Deploy extends Command {
     return app.id;
   }
 
-  log(str: string) {
+  public log(str: string) {
     const { flags: { json } } = this.parse(Deploy);
-    if(!json) {
-        super.log(str);
+    if (!json) {
+      super.log(str);
     }
   }
 
@@ -204,10 +204,10 @@ export default class Deploy extends Command {
       const { applicationId, defaultEnv } = project;
       application = await this.lycanClient.deploy(applicationId, defaultEnv, digest, envVars);
     }
-    const jsonApp = { ...application , link: makeAppLink(application)};
+    const jsonApp = { ...application, link: makeAppLink(application) };
     this.log(`Project successfully deployed! Your project is now available at: ${jsonApp.link}`);
 
-    if(json) {
+    if (json) {
       this.log(JSON.stringify(jsonApp));
     }
   }

@@ -17,7 +17,7 @@ export interface Logger {
 export interface BuildOptions {
   skipNpmInstall: boolean;
   logger: Logger;
-  quiet: Boolean;
+  quiet: boolean;
 }
 
 const DEFAULT_OPTIONS: BuildOptions = {
@@ -97,7 +97,7 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
 
     const backendDir = pathResolve(projectDir, 'backend');
     if (await exists(backendDir)) {
-      await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), 
+      await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')),
         quiet ? babelOptionsQuiet : babelOptions, {
         cwd: projectDir,
         stdio: 'inherit',
