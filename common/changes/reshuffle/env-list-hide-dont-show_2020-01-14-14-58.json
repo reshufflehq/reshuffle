@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "reshuffle",
+      "comment": "\"reshuffle env --list\" takes --hide-values flag not --include-values",
+      "type": "patch"
+    }
+  ],
+  "packageName": "reshuffle",
+  "email": "ariels@reshuffle.com"
+}
