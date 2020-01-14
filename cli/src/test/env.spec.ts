@@ -23,6 +23,18 @@ test('env --list returns all specified environment variables in order', async (t
   t.snapshot(result);
 });
 
+test('env --list --hide-values omits values', async (t) => {
+  td.when(t.context.lycanFake.getEnv(anything, 'fluffy-samaritan', null)).thenResolve({
+    variables: [
+      { variable: 'ANIMAL', source: 'user:edit', value: 'apple' },
+      { variable: 'FRUIT', source: 'user:edit', value: 'zebra' },
+    ],
+  });
+
+  const result = await t.context.shell.run(`${t.context.run} env --list --hide-values`, 'utf-8');
+  t.snapshot(result);
+});
+
 test('env [whatever] --app-name accesses a different app', async (t) => {
   const otherApp = createApp({ name: 'not-this-app', id: 'random-id' });
   td.when(t.context.lycanFake.getAppByName(anything, otherApp.name)).thenResolve(otherApp);

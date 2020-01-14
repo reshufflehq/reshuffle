@@ -2,6 +2,18 @@
   "name": "reshuffle",
   "entries": [
     {
+      "version": "0.8.3",
+      "tag": "reshuffle_v0.8.3",
+      "date": "Mon, 13 Jan 2020 15:16:08 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Hide values in \"reshuffle env --list\" unless \"--include-values\" is specified"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.2",
       "tag": "reshuffle_v0.8.2",
       "date": "Wed, 08 Jan 2020 16:58:56 GMT",

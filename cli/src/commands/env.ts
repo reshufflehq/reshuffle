@@ -3,15 +3,27 @@ import flags from '../utils/cli-flags';
 import { getEnvOrDie } from '../utils/helpers';
 import fromPairs from 'lodash.frompairs';
 
+const hiddenValue: unique symbol = Symbol('hidden');
+
 function nonEmpty<T>(x: T[]) { return x.length > 0; }
 
 interface VariableValue {
   variable: string;
-  value: string | undefined;
+  value: string | typeof hiddenValue | undefined;
+}
+
+function valueToString(value: string | typeof hiddenValue | undefined) {
+  if (value === undefined) return 'undefined';
+  if (value === hiddenValue) return '<hidden>';
+  return `"${value}"`;
 }
 
 function vvToString({ variable, value }: VariableValue): string {
-  return `${variable}=${typeof value === 'string' ? `"${value}"` : value}`;
+  return `${variable}=${valueToString(value)}`;
+}
+
+function eraseValues(variables: VariableValue[]): VariableValue[] {
+  return variables.map(({ variable }) => ({ variable, value: hiddenValue }));
 }
 
 export default class Env extends Command {
@@ -61,6 +73,11 @@ export default class Env extends Command {
       description: 'list all variables',
       default: false,
     }),
+    'hide-values': flags.boolean({
+      char: 'x',
+      description: 'omit values of all variables with --list',
+      default: false,
+    }),
   };
 
   public async run() {
@@ -72,6 +89,7 @@ export default class Env extends Command {
       'set-from-env': setFromEnv,
       unset,
       list,
+      'hide-values': hideValues,
     } } = this.parse(Env);
     const appId = await this.getAppIdByNameOrWorkingDirectory(appName);
     // Various commands are *not* executed in sequence of specified
@@ -87,7 +105,7 @@ export default class Env extends Command {
       await this.set(appId, setVariables, unset);
     }
     if (list) {
-      await this.list(appId);
+      await this.list(appId, hideValues);
     }
   }
 
@@ -100,10 +118,10 @@ export default class Env extends Command {
     }
   }
 
-  protected async list(appId: string) {
+  protected async list(appId: string, hideValues: boolean) {
     const { variables } = await this.lycanClient.getEnv(appId, null);
     // Output in sorted order (of variable names).
-    const sorted = variables.map(vvToString).sort();
+    const sorted = (hideValues ? eraseValues(variables) : variables).map(vvToString).sort();
     this.log(sorted.join('\n'));
   }
 
