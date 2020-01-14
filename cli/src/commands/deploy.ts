@@ -208,7 +208,7 @@ export default class Deploy extends Command {
     this.log(`Project successfully deployed! Your project is now available at: ${jsonApp.link}`);
 
     if (json) {
-      this.log(JSON.stringify(jsonApp));
+      super.log(JSON.stringify(jsonApp));
     }
   }
 }
