@@ -54,14 +54,17 @@ export default class Deploy extends Command {
                           Will create an app with a random name, for renaming use $ ${Command.cliBinName} rename`,
       exclusive: ['app-name'],
     }),
-    json: flags.boolean({
-      char: 'j',
-      default: false,
-      description: 'Replaces command output with a serialized object version',
+    format: flags.string({
+      char: 'f',
+      default: 'logs',
+      description: 'Pick between normal command output or json app output',
+      options: ['logs', 'json'],
     }),
   };
 
   public static strict = true;
+
+  quiet: boolean = false;
 
   public async uploadCode(tarPath: string) {
     const { size: contentLength } = await stat(tarPath);
@@ -121,14 +124,14 @@ export default class Deploy extends Command {
   }
 
   public log(str: string) {
-    const { flags: { json } } = this.parse(Deploy);
-    if (!json) {
-      super.log(str);
-    }
+    if (this.quiet) return;
+    super.log(str);
   }
 
   public async run() {
-    const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, json } } = this.parse(Deploy);
+    const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, format } } = this.parse(Deploy);
+    this.quiet = format == 'json';
+
     this.startStage('authenticate');
     await this.authenticate();
 
@@ -146,7 +149,7 @@ export default class Deploy extends Command {
       stagingDir = await build(projectDir, {
         skipNpmInstall: true,
         logger: this,
-        quiet: json,
+        quiet: this.quiet,
       });
     } catch (err) {
       if (err instanceof MismatchedPackageAndPackageLockError) {
@@ -207,7 +210,7 @@ export default class Deploy extends Command {
     const jsonApp = { ...application, link: makeAppLink(application) };
     this.log(`Project successfully deployed! Your project is now available at: ${jsonApp.link}`);
 
-    if (json) {
+    if (format == 'json') {
       super.log(JSON.stringify(jsonApp));
     }
   }
