@@ -23,7 +23,7 @@ test('env --list returns all specified environment variables in order', async (t
   t.snapshot(result);
 });
 
-test('env --list --include-values also shows values', async (t) => {
+test('env --list --hide-values omits values', async (t) => {
   td.when(t.context.lycanFake.getEnv(anything, 'fluffy-samaritan', null)).thenResolve({
     variables: [
       { variable: 'ANIMAL', source: 'user:edit', value: 'apple' },
@@ -31,7 +31,7 @@ test('env --list --include-values also shows values', async (t) => {
     ],
   });
 
-  const result = await t.context.shell.run(`${t.context.run} env --list --include-values`, 'utf-8');
+  const result = await t.context.shell.run(`${t.context.run} env --list --hide-values`, 'utf-8');
   t.snapshot(result);
 });
 

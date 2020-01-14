@@ -73,9 +73,9 @@ export default class Env extends Command {
       description: 'list all variables',
       default: false,
     }),
-    'include-values': flags.boolean({
-      char: 'i',
-      description: 'include values of all variables with --list',
+    'hide-values': flags.boolean({
+      char: 'x',
+      description: 'omit values of all variables with --list',
       default: false,
     }),
   };
@@ -89,7 +89,7 @@ export default class Env extends Command {
       'set-from-env': setFromEnv,
       unset,
       list,
-      'include-values': includeValues,
+      'hide-values': hideValues,
     } } = this.parse(Env);
     const appId = await this.getAppIdByNameOrWorkingDirectory(appName);
     // Various commands are *not* executed in sequence of specified
@@ -105,7 +105,7 @@ export default class Env extends Command {
       await this.set(appId, setVariables, unset);
     }
     if (list) {
-      await this.list(appId, includeValues);
+      await this.list(appId, hideValues);
     }
   }
 
@@ -118,10 +118,10 @@ export default class Env extends Command {
     }
   }
 
-  protected async list(appId: string, includeValues: boolean) {
+  protected async list(appId: string, hideValues: boolean) {
     const { variables } = await this.lycanClient.getEnv(appId, null);
     // Output in sorted order (of variable names).
-    const sorted = (includeValues ? variables : eraseValues(variables)).map(vvToString).sort();
+    const sorted = (hideValues ? eraseValues(variables) : variables).map(vvToString).sort();
     this.log(sorted.join('\n'));
   }
 
