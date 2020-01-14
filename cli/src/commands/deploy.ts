@@ -54,8 +54,8 @@ export default class Deploy extends Command {
                           Will create an app with a random name, for renaming use $ ${Command.cliBinName} rename`,
       exclusive: ['app-name'],
     }),
-    serializedResult: flags.boolean({
-      char: 's',
+    json: flags.boolean({
+      char: 'j',
       default: false,
       description: 'Replaces command output with a serialized object version'
     })
@@ -121,7 +121,7 @@ export default class Deploy extends Command {
   }
 
   public async run() {
-    const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, serializedResult } } = this.parse(Deploy);
+    const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, json } } = this.parse(Deploy);
     this.startStage('authenticate');
     await this.authenticate();
 
