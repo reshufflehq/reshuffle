@@ -17,11 +17,13 @@ export interface Logger {
 export interface BuildOptions {
   skipNpmInstall: boolean;
   logger: Logger;
+  quiet: Boolean;
 }
 
 const DEFAULT_OPTIONS: BuildOptions = {
   skipNpmInstall: false,
   logger: console,
+  quiet: false,
 };
 
 function escapeWin32(filePath: string) {
@@ -32,6 +34,7 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
   const {
     skipNpmInstall,
     logger,
+    quiet,
   } = {
     ...DEFAULT_OPTIONS,
     ...options,
