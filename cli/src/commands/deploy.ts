@@ -120,6 +120,13 @@ export default class Deploy extends Command {
     return app.id;
   }
 
+  log(str: string) {
+    const { flags: { json } } = this.parse(Deploy);
+    if(!json) {
+        super.log(str);
+    }
+  }
+
   public async run() {
     const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, json } } = this.parse(Deploy);
     this.startStage('authenticate');
