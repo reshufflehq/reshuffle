@@ -99,10 +99,10 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
     if (await exists(backendDir)) {
       await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')),
         quiet ? babelOptionsQuiet : babelOptions, {
-        cwd: projectDir,
-        stdio: 'inherit',
-        shell,
-      });
+          cwd: projectDir,
+          stdio: 'inherit',
+          shell,
+        });
 
       await copy(backendDir, pathResolve(stagingDir, 'backend'), {
         filter(src) {
