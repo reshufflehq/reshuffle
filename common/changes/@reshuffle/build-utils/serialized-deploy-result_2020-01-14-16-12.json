@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/build-utils",
+      "comment": "add ability to silence output",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@reshuffle/build-utils",
+  "email": "tomer@reshuffle.com"
+}
