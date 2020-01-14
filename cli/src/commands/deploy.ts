@@ -203,6 +203,11 @@ export default class Deploy extends Command {
       const { applicationId, defaultEnv } = project;
       application = await this.lycanClient.deploy(applicationId, defaultEnv, digest, envVars);
     }
-    this.log(`Project successfully deployed! Your project is now available at: ${makeAppLink(application)}`);
+    const jsonApp = { ...application , link: makeAppLink(application)};
+    this.log(`Project successfully deployed! Your project is now available at: ${jsonApp.link}`);
+
+    if(json) {
+      this.log(JSON.stringify(jsonApp));
+    }
   }
 }
