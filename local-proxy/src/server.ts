@@ -1,5 +1,5 @@
 import { promisify } from 'util';
-import { resolve as resolvePath, extname } from 'path';
+import { resolve as resolvePath, extname, relative } from 'path';
 import { Handler as DBHandler } from '@reshuffle/leveldb-server';
 import { DBRouter } from '@reshuffle/interfaces-koa-server';
 import { getInvokeHandler, getHTTPHandler, HTTPHandler, setHTTPHandler } from '@reshuffle/server-function';
@@ -100,7 +100,8 @@ const whitelisted = new ModuleWhitelist();
 
 const app = express();
 
-const genDir = mkdtempSync(resolvePath(tmpDir, 'local_proxy_'));
+const dstDir = mkdtempSync(resolvePath(tmpDir, 'local_proxy_'));
+const genDir = resolvePath(dstDir, relative(rootPath, basePath));
 
 async function transpileAndCopy() {
   if (!existsSync(basePath)) {
@@ -126,6 +127,12 @@ async function transpileAndCopy() {
       return extname(src) !== '.js';
     },
   });
+  try {
+    // Do we need to copy additional files from the root path?
+    await copy(resolvePath(rootPath, 'package.json'), resolvePath(dstDir, 'package.json'));
+  } catch (e) {
+    // Just ignore this. Existance of package.json is not guaranteed, for example in the tests
+  }
 }
 
 const transpilePromise = transpileAndCopy();
@@ -201,13 +208,13 @@ const db = new DBHandler(dbPath, initData, (err) => {
 });
 // nodemon uses SIGUSR2
 process.once('SIGUSR2', () => {
-  rimraf.sync(genDir);
+  rimraf.sync(dstDir);
   process.kill(process.pid, 'SIGUSR2');
 });
 
 // Handle Ctrl-C in terminal
 process.once('SIGINT', () => {
-  rimraf.sync(genDir);
+  rimraf.sync(dstDir);
   process.kill(process.pid, 'SIGINT');
 });
 

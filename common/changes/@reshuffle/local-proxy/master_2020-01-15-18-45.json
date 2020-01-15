@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/local-proxy",
+      "comment": "Keep backend dir structure in local proxy",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/local-proxy",
+  "email": "michael@reshuffle.com"
+}
