@@ -84,22 +84,22 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
     const backendDir = pathResolve(projectDir, 'backend');
     if (await exists(backendDir)) {
       await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
-          '--no-babelrc',
-          '--config-file',
-          require.resolve('./babelBackendConfig.js'),
-          '--source-maps',
-          'true',
-          '--plugins',
-          ['@babel/plugin-transform-modules-commonjs',
-            'module:@reshuffle/code-transform'].join(','),
-          'backend/',
-          '-d',
-          escapeWin32(pathResolve(stagingDir, 'backend')),
-        ], {
-          cwd: projectDir,
-          stdio: quiet ? stdioSuppress : stdioInherit,
-          shell,
-        });
+        '--no-babelrc',
+        '--config-file',
+        require.resolve('./babelBackendConfig.js'),
+        '--source-maps',
+        'true',
+        '--plugins',
+        ['@babel/plugin-transform-modules-commonjs',
+          'module:@reshuffle/code-transform'].join(','),
+        'backend/',
+        '-d',
+        escapeWin32(pathResolve(stagingDir, 'backend')),
+      ], {
+        cwd: projectDir,
+        stdio: quiet ? stdioSuppress : stdioInherit,
+        shell,
+      });
 
       await copy(backendDir, pathResolve(stagingDir, 'backend'), {
         filter(src) {
