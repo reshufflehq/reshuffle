@@ -125,7 +125,7 @@ export default class Deploy extends Command {
 
   public log(message?: string, ...args: any[]) {
     if (this.quiet) return;
-    super.log(message, args);
+    super.log(message, ...args);
   }
 
   public async run() {
