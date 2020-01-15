@@ -154,19 +154,19 @@ test('deploy fails with --app-name and --new-app', async (t) => {
   t.snapshot(result);
 });
 
-test.only('deploy with json format returns only app json', async (t) => {
+test('deploy with json format returns only app json', async (t) => {
   const app = createApp({ id: 'abc' });
   td.when(t.context.lycanFake.listApps(anything)).thenResolve([]);
   td.when(t.context.uploadFake()).thenReturn({ ok: true, digest: 'abcabc' });
   td.when(t.context.lycanFake.deployInitial(anything, 'default', 'abcabc', [])).thenResolve(app);
   t.context.projectConfig = JSON.stringify({ accessToken: 'setec-astronomy' });
   await writeFile(t.context.configPath, t.context.projectConfig);
-  
+
   // ReJSONing app object to match the date format for the resulting 'createdAt' and 'updatedAt'.
   const jsonApp = JSON.stringify(app);
-  const appWithLink = {...JSON.parse(jsonApp), link: 'https://a.b.c'};
+  const appWithLink = { ...JSON.parse(jsonApp), link: 'https://a.b.c' };
   const jsonResult = await t.context.shell.run(`${t.context.run} deploy --format json`, 'utf-8');
   let result;
-  t.notThrows(() => {result = JSON.parse(jsonResult.out)});
+  t.notThrows(() => {result = JSON.parse(jsonResult.out);});
   t.deepEqual(appWithLink, result);
 });
