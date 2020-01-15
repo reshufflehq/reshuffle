@@ -59,3 +59,18 @@ A login-error page is not provided, for example if using in a React app with a r
 ```jsx
 <Route exact path='/login-error'>
 ```
+
+### Advanced Configuration
+
+When using with the reshuffle platform an OAuth provider will be configured. If
+you wish to use an alternative oauth implementation you can override the
+following environment variables:
+
+- `OAUTH_DOMAIN` \
+  Domain of the OAuth provider (e.g. `oauth.example`)
+- `OAUTH_CLIENT_SECRET` \
+  The Client Secret received from the OAuth provider
+- `OAUTH_CLIENT_ID` \
+  The Client ID received from the OAuth provider
+- `RESHUFFLE_APPLICATION_DOMAINS` \
+  Comma separated list of the domains your applications is going to run (e.g. `a.domain.example,www.domain.example`)
