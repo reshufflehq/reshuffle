@@ -42,6 +42,8 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
   logger.log('Building and bundling your app! This may take a few moments, please wait');
   const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'reshuffle-bundle-'), { encoding: 'utf8' });
 
+  const stdioInherit = [0, 1, 2];
+  const stdioSuppress = [0, 2, 2];
   // in win32 npm.cmd must be run in shell - no escaping needed since all
   // arguments are constant strings
   const shell = process.platform === 'win32';
@@ -49,13 +51,13 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
     if (!skipNpmInstall) {
       await spawn('npm', ['install'], {
         cwd: projectDir,
-        stdio: 'inherit',
+        stdio: quiet ? stdioSuppress : stdioInherit,
         shell,
       });
     }
     await spawn('npm', ['run', 'build'], {
       cwd: projectDir,
-      stdio: 'inherit',
+      stdio: quiet ? stdioSuppress : stdioInherit,
       shell,
     });
     logger.log('Preparing backend...');
@@ -79,28 +81,23 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
       },
     });
 
-    const babelOptions = [
-      '--no-babelrc',
-      '--config-file',
-      require.resolve('./babelBackendConfig.js'),
-      '--source-maps',
-      'true',
-      '--plugins',
-      ['@babel/plugin-transform-modules-commonjs',
-        'module:@reshuffle/code-transform'].join(','),
-      'backend/',
-      '-d',
-      escapeWin32(pathResolve(stagingDir, 'backend')),
-    ];
-
-    const babelOptionsQuiet = babelOptions.concat(['--quiet']);
-
     const backendDir = pathResolve(projectDir, 'backend');
     if (await exists(backendDir)) {
-      await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')),
-        quiet ? babelOptionsQuiet : babelOptions, {
+      await spawn(escapeWin32(pathResolve(projectDir, 'node_modules', '.bin', 'babel')), [
+          '--no-babelrc',
+          '--config-file',
+          require.resolve('./babelBackendConfig.js'),
+          '--source-maps',
+          'true',
+          '--plugins',
+          ['@babel/plugin-transform-modules-commonjs',
+            'module:@reshuffle/code-transform'].join(','),
+          'backend/',
+          '-d',
+          escapeWin32(pathResolve(stagingDir, 'backend')),
+        ], {
           cwd: projectDir,
-          stdio: 'inherit',
+          stdio: quiet ? stdioSuppress : stdioInherit,
           shell,
         });
 
