@@ -49,3 +49,7 @@ export async function getTodos() {
   return get(`/todos/${user.id}`);
 });
 ```
+
+### Error handling
+
+If a login fails due to some reason (e.g. misconfiguration of the login provider) the user will be redirected to /login-error.
