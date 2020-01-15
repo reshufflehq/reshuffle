@@ -1,6 +1,13 @@
 # Change Log - reshuffle
 
-This log was last generated on Mon, 13 Jan 2020 15:16:08 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Jan 2020 07:32:14 GMT and should not be manually modified.
+
+## 0.8.4
+Wed, 15 Jan 2020 07:32:14 GMT
+
+### Patches
+
+- "reshuffle env --list" takes --hide-values flag not --include-values
 
 ## 0.8.3
 Mon, 13 Jan 2020 15:16:08 GMT
