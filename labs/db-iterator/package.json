@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint -c ../../common/.eslintrc.json --ext .ts src",
     "test": "RESHUFFLE_DB_BASE_URL=a RESHUFFLE_APPLICATION_ID=b RESHUFFLE_APPLICATION_ENV=c RESHUFFLE_ACCESS_TOKEN=d ava"
   },
   "repository": {
