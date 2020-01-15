@@ -14,6 +14,8 @@ dependencies:
   '@oclif/parser': 3.8.4
   '@oclif/plugin-help': 2.2.3
   '@octokit/rest': 16.36.0
+  '@reshuffle/interfaces-koa-server': 0.5.1
+  '@reshuffle/interfaces-node-client': 0.5.1
   '@rush-temp/app-testsuite': 'file:projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:projects/auth.tgz'
   '@rush-temp/build-utils': 'file:projects/build-utils.tgz'
@@ -1524,6 +1526,48 @@ packages:
     dev: false
     resolution:
       integrity: sha512-StASIL2lgT3TRjxv17z9pAqbnI7HGu9DrJlg3sEBFfCLaMEqp+O3IQPUF6EZtQ4xkAu2ml6kMBBCtGxjvmtmuQ==
+  /@reshuffle/interfaces-koa-server/0.5.1:
+    dependencies:
+      '@types/koa': 2.11.0
+      '@types/koa-bodyparser': 5.0.2
+      '@types/koa-router': 7.0.35
+      ajv: 6.10.2
+      koa: 2.11.0
+      koa-bodyparser: 4.2.1
+      koa-router: 7.4.0
+      lodash: 4.17.15
+    dev: false
+    peerDependencies:
+      '@types/node': '>=8.0.0'
+    resolution:
+      integrity: sha512-Ddg1wFa8jHBdYYcwlflppg3lqimxZx2IzCCK8T3KB+wJuP3i8RKX3h2gHy3szA842GYNkn9UQUq170RDbpCQlQ==
+  /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.24:
+    dependencies:
+      '@types/koa': 2.11.0
+      '@types/koa-bodyparser': 5.0.2
+      '@types/koa-router': 7.0.35
+      '@types/node': 12.12.24
+      ajv: 6.10.2
+      koa: 2.11.0
+      koa-bodyparser: 4.2.1
+      koa-router: 7.4.0
+      lodash: 4.17.15
+    dev: false
+    id: registry.npmjs.org/@reshuffle/interfaces-koa-server/0.5.1
+    peerDependencies:
+      '@types/node': '>=8.0.0'
+    resolution:
+      integrity: sha512-Ddg1wFa8jHBdYYcwlflppg3lqimxZx2IzCCK8T3KB+wJuP3i8RKX3h2gHy3szA842GYNkn9UQUq170RDbpCQlQ==
+  /@reshuffle/interfaces-node-client/0.5.1:
+    dependencies:
+      '@types/node-fetch': 2.5.4
+      abort-controller: 2.0.3
+      ajv: 6.10.2
+      lodash: 4.17.15
+      node-fetch: 2.6.0
+    dev: false
+    resolution:
+      integrity: sha512-vVUbz6PNgEGsY7K5bWMRjXyZG+S3t9d+DL35IVTbz+YFrujXefRynpvHa1HK/l1MvmdFOuyGA9Hcf2/y7yfh4A==
   /@rollup/plugin-json/4.0.1/rollup@1.28.0:
     dependencies:
       rollup: 1.28.0
@@ -12253,6 +12297,7 @@ packages:
     version: 0.0.0
   'file:projects/db-testsuite.tgz':
     dependencies:
+      '@reshuffle/interfaces-koa-server': /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.24
       '@types/koa': 2.11.0
       '@types/koa-router': 7.0.42
       '@types/nanoid': 2.1.0
@@ -12268,11 +12313,12 @@ packages:
     dev: false
     name: '@rush-temp/db-testsuite'
     resolution:
-      integrity: sha512-ac9Golk2GxdhjwVtC/Q1Jk1319pnpAq3bz/ZX1WetoNP9gexmXIU4jf6MoxmWvsNQbBRo/v8ymDqZ5oooXrlWw==
+      integrity: sha512-/DxFa1RkE5ujduMXDvp7v15fvLCP4QwAAkmB8fsp+rTLVkWup47wikK4o8xVlm3JmKEYGHuV9hWQWSxp1vx3Sw==
       tarball: 'file:projects/db-testsuite.tgz'
     version: 0.0.0
   'file:projects/db.tgz':
     dependencies:
+      '@reshuffle/interfaces-node-client': 0.5.1
       '@types/deep-freeze': 0.1.2
       '@types/node': 12.12.24
       '@types/ramda': 0.26.39
@@ -12285,7 +12331,7 @@ packages:
     dev: false
     name: '@rush-temp/db'
     resolution:
-      integrity: sha512-Py/vu4iTjsaHruwtpxC6yoHQRW8DciAR23J+6p1ImzdpbkNfXi39E6+axVcj8UmnDsDBdGBjwAHzfef8hko1aQ==
+      integrity: sha512-lBEw+RAvEf201qNaReiIWA+HWa26kS1wR+z2GDLbntdEse1A8Of6JkgamnTOkW/7QFsKqj2eiqNvqSmVIq0hCw==
       tarball: 'file:projects/db.tgz'
     version: 0.0.0
   'file:projects/fetch-runtime.tgz':
@@ -12348,6 +12394,7 @@ packages:
     version: 0.0.0
   'file:projects/leveldb-server.tgz':
     dependencies:
+      '@reshuffle/interfaces-koa-server': /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.24
       '@types/deep-freeze': 0.1.2
       '@types/koa': 2.11.0
       '@types/leveldown': 4.0.2
@@ -12371,7 +12418,7 @@ packages:
     dev: false
     name: '@rush-temp/leveldb-server'
     resolution:
-      integrity: sha512-6HvPmZOTjGFQDeiDH3cI3yv8wCcq5FTBP0CGwf5i4u3NOhTRhkXH97RHFLNu8kgVmJyAeHvlYjI9yJ6SXifsLw==
+      integrity: sha512-0vll/VEfvOIzfx+1CuTb/sY1HtisKf1hHB0qOmLiFKm087TcrRl/S5X/ufY8h39CCoL0Pienb9RUb3ZZXKsOxQ==
       tarball: 'file:projects/leveldb-server.tgz'
     version: 0.0.0
   'file:projects/local-proxy.tgz':
@@ -12379,6 +12426,7 @@ packages:
       '@babel/cli': /@babel/cli/7.7.7/@babel!core@7.7.7
       '@babel/core': 7.7.7
       '@babel/plugin-transform-modules-commonjs': /@babel/plugin-transform-modules-commonjs/7.7.5/@babel!core@7.7.7
+      '@reshuffle/interfaces-koa-server': /@reshuffle/interfaces-koa-server/0.5.1/@types!node@12.12.24
       '@types/babel__core': 7.1.3
       '@types/express': 4.17.2
       '@types/fs-extra': 8.0.1
@@ -12418,7 +12466,7 @@ packages:
     dev: false
     name: '@rush-temp/local-proxy'
     resolution:
-      integrity: sha512-3AkzFq8tW11m5VkMXzYrYXfGqU+pWyuiKsKCI672/3Gh7WV2rW4DCw/2eMvIVQBa8nP7zQs8cVrey5CXty+XXw==
+      integrity: sha512-Og6JpbEu+fcmB/4D3wptD3pPalU/vccd1gAwDzTAtVL7VoUhIyIJuVCogZHwwT7ODc/RM3RhXfu0T6oKZzOJuA==
       tarball: 'file:projects/local-proxy.tgz'
     version: 0.0.0
   'file:projects/passport.tgz':
@@ -12622,6 +12670,7 @@ packages:
     version: 0.0.0
   'file:projects/subscriptions.tgz':
     dependencies:
+      '@reshuffle/interfaces-node-client': 0.5.1
       '@types/node': 12.12.24
       '@types/react': 16.9.17
       '@types/sinon': 7.5.1
@@ -12637,7 +12686,7 @@ packages:
     dev: false
     name: '@rush-temp/subscriptions'
     resolution:
-      integrity: sha512-wLnqbnwGPuEZhVjui2c6ytSe40kJQ9lFsXIQBkfzpIoxZAtWj6OAB5LE3sc7tg2dZXw1CADix+RQoa0P0ui8zA==
+      integrity: sha512-++bIyQUWraLEfarNPphbN59pIS3LPPVXhrOL6gO2OPK8BaZ+PjIa1L06Evsmk6CccJIE+cmxSDC0w5wQ6r5+lQ==
       tarball: 'file:projects/subscriptions.tgz'
     version: 0.0.0
   'file:projects/utils-subprocess.tgz':
@@ -12670,6 +12719,8 @@ specifiers:
   '@oclif/parser': ^3.8.4
   '@oclif/plugin-help': ^2.2.3
   '@octokit/rest': ^16.36.0
+  '@reshuffle/interfaces-koa-server': 0.5.1
+  '@reshuffle/interfaces-node-client': 0.5.1
   '@rush-temp/app-testsuite': 'file:./projects/app-testsuite.tgz'
   '@rush-temp/auth': 'file:./projects/auth.tgz'
   '@rush-temp/build-utils': 'file:./projects/build-utils.tgz'
