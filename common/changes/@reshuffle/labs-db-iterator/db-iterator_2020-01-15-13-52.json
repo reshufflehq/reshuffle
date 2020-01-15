@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/labs-db-iterator",
+      "comment": "New package: DB iterator",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/labs-db-iterator",
+  "email": "ariels@reshuffle.com"
+}
