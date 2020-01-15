@@ -166,6 +166,7 @@ test.only('deploy with json format returns only app json', async (t) => {
   const jsonApp = JSON.stringify(app);
   const appWithLink = {...JSON.parse(jsonApp), link: 'https://a.b.c'};
   const jsonResult = await t.context.shell.run(`${t.context.run} deploy --format json`, 'utf-8');
-  const result = JSON.parse(jsonResult.out);
+  let result;
+  t.notThrows(() => {result = JSON.parse(jsonResult.out)});
   t.deepEqual(appWithLink, result);
 });
