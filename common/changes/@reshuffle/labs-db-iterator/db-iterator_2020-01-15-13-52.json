@@ -3,7 +3,7 @@
     {
       "packageName": "@reshuffle/labs-db-iterator",
       "comment": "New package: DB iterator",
-      "type": "patch"
+      "type": "minor"
     }
   ],
   "packageName": "@reshuffle/labs-db-iterator",
