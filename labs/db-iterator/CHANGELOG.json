@@ -1,0 +1,17 @@
+{
+  "name": "@reshuffle/labs-db-iterator",
+  "entries": [
+    {
+      "version": "0.1.0",
+      "tag": "@reshuffle/labs-db-iterator_v0.1.0",
+      "date": "Thu, 16 Jan 2020 08:11:09 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "New package: DB iterator"
+          }
+        ]
+      }
+    }
+  ]
+}
