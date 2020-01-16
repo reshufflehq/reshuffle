@@ -162,6 +162,6 @@ test('deploy with json format returns only app json', async (t) => {
   t.context.projectConfig = JSON.stringify({ accessToken: 'setec-astronomy' });
   await writeFile(t.context.configPath, t.context.projectConfig);
 
-  const jsonResult = await t.context.shell.run(`${t.context.run} deploy --format json`, 'utf-8');
-  t.snapshot(JSON.parse(jsonResult.out));
+  const result = await t.context.shell.run(`${t.context.run} deploy --format json`, 'utf-8');
+  t.snapshot(result);
 });
