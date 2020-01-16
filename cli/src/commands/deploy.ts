@@ -211,7 +211,7 @@ export default class Deploy extends Command {
 
     this.log(`Project successfully deployed! Your project is now available at: ${makeAppLink(application)}`);
 
-    if (format === 'json') {
+    if (this.jsonFormat) {
       const jsonApp = { ...application, primaryURL: getPrimaryURL(application.environments[0]) };
       super.log(JSON.stringify(jsonApp));
     }
