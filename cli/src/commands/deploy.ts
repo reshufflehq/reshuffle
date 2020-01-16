@@ -64,7 +64,7 @@ export default class Deploy extends Command {
 
   public static strict = true;
 
-  private quiet = false;
+  private jsonFormat = false;
 
   public async uploadCode(tarPath: string) {
     const { size: contentLength } = await stat(tarPath);
@@ -124,13 +124,13 @@ export default class Deploy extends Command {
   }
 
   public log(message?: string, ...args: any[]) {
-    if (this.quiet) return;
+    if (this.jsonFormat) return;
     super.log(message, ...args);
   }
 
   public async run() {
     const { flags: { 'app-name': givenAppName, env: givenEnv, 'new-app': forceNewApp, format } } = this.parse(Deploy);
-    this.quiet = format === 'json';
+    this.jsonFormat = format === 'json';
 
     this.startStage('authenticate');
     await this.authenticate();
@@ -149,7 +149,7 @@ export default class Deploy extends Command {
       stagingDir = await build(projectDir, {
         skipNpmInstall: true,
         logger: this,
-        quiet: this.quiet,
+        outputToErr: this.jsonFormat,
       });
     } catch (err) {
       if (err instanceof MismatchedPackageAndPackageLockError) {

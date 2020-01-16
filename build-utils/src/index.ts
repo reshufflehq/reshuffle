@@ -17,13 +17,13 @@ export interface Logger {
 export interface BuildOptions {
   skipNpmInstall: boolean;
   logger: Logger;
-  quiet: boolean;
+  outputToErr: boolean;
 }
 
 const DEFAULT_OPTIONS: BuildOptions = {
   skipNpmInstall: false,
   logger: console,
-  quiet: false,
+  outputToErr: false,
 };
 
 function escapeWin32(filePath: string) {
@@ -34,7 +34,7 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
   const {
     skipNpmInstall,
     logger,
-    quiet,
+    outputToErr,
   } = {
     ...DEFAULT_OPTIONS,
     ...options,
@@ -43,7 +43,7 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
   const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'reshuffle-bundle-'), { encoding: 'utf8' });
 
   const stdioInherit = [0, 1, 2];
-  const stdioSuppress = [0, 2, 2];
+  const stdioRedirect = [0, 2, 2];
   // in win32 npm.cmd must be run in shell - no escaping needed since all
   // arguments are constant strings
   const shell = process.platform === 'win32';
@@ -51,13 +51,13 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
     if (!skipNpmInstall) {
       await spawn('npm', ['install'], {
         cwd: projectDir,
-        stdio: quiet ? stdioSuppress : stdioInherit,
+        stdio: outputToErr ? stdioRedirect : stdioInherit,
         shell,
       });
     }
     await spawn('npm', ['run', 'build'], {
       cwd: projectDir,
-      stdio: quiet ? stdioSuppress : stdioInherit,
+      stdio: outputToErr ? stdioRedirect : stdioInherit,
       shell,
     });
     logger.log('Preparing backend...');
@@ -97,7 +97,7 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
         escapeWin32(pathResolve(stagingDir, 'backend')),
       ], {
         cwd: projectDir,
-        stdio: quiet ? stdioSuppress : stdioInherit,
+        stdio: outputToErr ? stdioRedirect : stdioInherit,
         shell,
       });
 
