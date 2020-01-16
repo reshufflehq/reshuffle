@@ -62,12 +62,12 @@ A login-error page is not provided, for example if using in a React app with a r
 
 ### Advanced Configuration
 
-When using with the reshuffle platform an OAuth provider will be configured. If
-you wish to use an alternative oauth implementation you can override the
-following environment variables:
+The Reshuffle platform automatically configures an OAuth provider.
+If you wish to use an alternative OAuth implementation, override the following
+environment variables:
 
 - `OAUTH_DOMAIN` \
-  Domain of the OAuth provider (e.g. `oauth.example`)
+  Domain of the OAuth provider (e.g. `example.auth0.com`)
 - `OAUTH_CLIENT_SECRET` \
   The Client Secret received from the OAuth provider
 - `OAUTH_CLIENT_ID` \
