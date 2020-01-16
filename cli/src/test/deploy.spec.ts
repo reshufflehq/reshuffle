@@ -162,11 +162,6 @@ test('deploy with json format returns only app json', async (t) => {
   t.context.projectConfig = JSON.stringify({ accessToken: 'setec-astronomy' });
   await writeFile(t.context.configPath, t.context.projectConfig);
 
-  // ReJSONing app object to match the date format for the resulting 'createdAt' and 'updatedAt'.
-  const jsonApp = JSON.stringify(app);
-  const appWithLink = { ...JSON.parse(jsonApp), link: 'https://a.b.c' };
   const jsonResult = await t.context.shell.run(`${t.context.run} deploy --format json`, 'utf-8');
-  let result;
-  t.notThrows(() => {result = JSON.parse(jsonResult.out);});
-  t.deepEqual(appWithLink, result);
+  t.snapshot(JSON.parse(jsonResult.out));
 });
