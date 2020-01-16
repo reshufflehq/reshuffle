@@ -163,5 +163,5 @@ test('deploy with json format returns only app json', async (t) => {
   await writeFile(t.context.configPath, t.context.projectConfig);
 
   const result = await t.context.shell.run(`${t.context.run} deploy --format json`, 'utf-8');
-  t.snapshot(result);
+  t.snapshot({ ...result, err: result.err.replace(t.context.projectDir, 'PROJECT_DIR') });
 });
