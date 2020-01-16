@@ -94,7 +94,7 @@ functions providing a more functional style.
 * *Non-atomicity*.  This version does not (yet) support iterating over
   a snapshot of data.  So items added during iteration might not
   appear, or might even cause some items to appear twice.  Please
-  [contact us](support@reshuffle.com) if you require this
+  [contact us](mailto:support@reshuffle.com) if you require this
   functionality
 
 ## What are Reshuffle labs?
@@ -108,10 +108,10 @@ This is a lab, so everything here is experimental!  Obviously we want
 to release these packages, and we probably will.  But _*all details are
 subject to change*_.
 
-Have fun, and [let us know](support@reshuffle.com)!
+Have fun, and [let us know](mailto:support@reshuffle.com)!
 
 
-[async-iterable] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
-[reshuffle-db] https://dev-docs.reshuffle.com/
-[reshuffle-db-find] https://dev-docs.reshuffle.com/modules/_index_.html#find
-[streaming-iterables] https://www.npmjs.com/package/streaming-iterables
+[async-iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+[reshuffle-db]: https://dev-docs.reshuffle.com/
+[reshuffle-db-find]: https://dev-docs.reshuffle.com/modules/_index_.html#find
+[streaming-iterables]: https://www.npmjs.com/package/streaming-iterables
