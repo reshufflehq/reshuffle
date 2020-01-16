@@ -80,6 +80,15 @@ Parameters:
     reduce this.
 * `db`: If specified, uses a non-default DB client.
 
+## About async iterables
+
+Async iterables are a feature in ES2018.  Several good comprehensive
+introductions exist, among them the MDN page on the new syntax [for
+await...of][async-iterable].
+
+[`streaming-iterables`][streaming-iterables] is a useful suite of
+functions providing a more functional style.
+
 ## Limitations
 
 * *Non-atomicity*.  This version does not (yet) support iterating over
@@ -105,3 +114,4 @@ Have fun, and [let us know](support@reshuffle.com)!
 [async-iterable] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
 [reshuffle-db] https://dev-docs.reshuffle.com/
 [reshuffle-db-find] https://dev-docs.reshuffle.com/modules/_index_.html#find
+[streaming-iterables] https://www.npmjs.com/package/streaming-iterables
