@@ -364,6 +364,11 @@ export const key = Path.proxied(['key']) as unknown as Doc<string>;
  */
 export const value = Path.proxied(['value']);
 
+/**
+ * A [[Path]] referring to the version of an object in the store.
+ */
+export const version = Path.proxied(['version']) as unknown as Doc<dbi.Version>;
+
 type NonEmptyArray<T> = [T, ...T[]];
 
 function checkFilters(...filters: any[]): void {

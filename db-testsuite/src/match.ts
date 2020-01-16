@@ -1,12 +1,12 @@
 import anyTest, { TestInterface, Macro } from 'ava';
-import { Document, Filter } from '@reshuffle/interfaces-koa-server/interfaces';
+import { Document, Filter, Version } from '@reshuffle/interfaces-koa-server/interfaces';
 import { set, lensPath } from 'ramda';
 
 type Operator = 'eq' | 'ne' | 'gt' | 'lt' | 'gte' | 'lte';
 type Scalar = string | number | boolean;
 
 interface Context {
-  match(doc: Document, filter: Filter): Promise<boolean>;
+  match(doc: Document & { version: Version }, filter: Filter): Promise<boolean>;
 }
 
 export const test = anyTest as TestInterface<Context>;
@@ -20,12 +20,14 @@ function* nest(testValue: any) {
   }
 }
 
+const version: Version = { major: 123, minor: 456 };
+
 const valueMatches: Macro<[any, Operator, Scalar], Context> = async (t, testValue, operator, matchValue) => {
   for (const [path, value] of nest(testValue)) {
     // TypeScript type system not strong enough to deduce this always
     // creates a legal filter, so just cast.
     const filter = { operator, path, value: matchValue } as Filter;
-    t.true(await t.context.match({ key: 'abc', value }, filter));
+    t.true(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 
@@ -37,7 +39,7 @@ const valueDoesntMatch: Macro<[any, Operator, Scalar], Context> = async (t, test
     // TypeScript type system not strong enough to deduce this always
     // creates a legal filter, so just cast.
     const filter = { operator, path, value: matchValue } as Filter;
-    t.false(await t.context.match({ key: 'abc', value }, filter));
+    t.false(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 valueDoesntMatch.title = (providedTitle = '', testValue, operator, matchValue) =>
@@ -47,7 +49,7 @@ const keyMatches: Macro<[string, Operator, string], Context> = async (t, testKey
   // TypeScript type system not strong enough to deduce this always
   // creates a legal filter, so just cast.
   const filter = { operator, path: ['key'], value: matchKey } as Filter;
-  t.true(await t.context.match({ key: testKey, value: 17 }, filter));
+  t.true(await t.context.match({ key: testKey, value: 17, version }, filter));
 };
 keyMatches.title = (providedTitle = '', testKey, operator, matchKey) =>
   `${providedTitle} ${operator}(key ${JSON.stringify(testKey)}, key ${JSON.stringify(matchKey)})`;
@@ -56,7 +58,7 @@ const keyDoesntMatch: Macro<[string, Operator, string], Context> = async (t, tes
   // TypeScript type system not strong enough to deduce this always
   // creates a legal filter, so just cast.
   const filter = { operator, path: ['key'], value: matchKey } as Filter;
-  t.false(await t.context.match({ key: testKey, value: 17 }, filter));
+  t.false(await t.context.match({ key: testKey, value: 17, version }, filter));
 };
 
 keyDoesntMatch.title = (providedTitle = '', testKey, operator, matchKey) =>
@@ -119,7 +121,7 @@ const predicateHolds: Macro<[any, PredicateOp], Context> = async (t, testValue, 
     // TypeScript type system not strong enough to deduce this always
     // creates a legal filter, so just cast.
     const filter = { operator, path } as Filter;
-    t.true(await t.context.match({ key: 'abc', value }, filter));
+    t.true(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 predicateHolds.title = (providedTitle = '', testValue, operator) =>
@@ -130,7 +132,7 @@ const predicateFails: Macro<[any, PredicateOp], Context> = async (t, testValue, 
     // TypeScript type system not strong enough to deduce this always
     // creates a legal filter, so just cast.
     const filter = { operator, path } as Filter;
-    t.false(await t.context.match({ key: 'abc', value }, filter));
+    t.false(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 predicateFails.title = (providedTitle = '', testValue, operator) =>
@@ -142,11 +144,11 @@ test('exists checks for undefined', predicateHolds, 'a', 'exists');
 test('exists sanity', async (t) => {
   for (const path of [['value', 'a']]) {
     const filter = { operator: 'exists' as 'exists', path };
-    t.false(await t.context.match({ key: 'abc', value: {} }, filter));
+    t.false(await t.context.match({ key: 'abc', value: {}, version }, filter));
   }
   for (const path of [['key'], ['value']]) {
     const filter = { operator: 'exists' as 'exists', path };
-    t.true(await t.context.match({ key: 'abc', value: {} }, filter));
+    t.true(await t.context.match({ key: 'abc', value: {}, version }, filter));
   }
 });
 
@@ -157,7 +159,7 @@ test('isNull checks for null', predicateFails, {}, 'isNull');
 test('isNull sanity', async (t) => {
   for (const path of [['key'], ['value'], ['value', 'a']]) {
     const filter = { operator: 'isNull' as 'isNull', path };
-    t.false(await t.context.match({ key: 'abc', value: {} }, filter));
+    t.false(await t.context.match({ key: 'abc', value: {}, version }, filter));
   }
 });
 
@@ -165,7 +167,7 @@ const stringMatches: Macro<[any, RegExp], Context> = async (t, testValue, patter
   const caseInsensitive = pattern.flags.includes('i');
   for (const [path, value] of nest(testValue)) {
     const filter = { operator: 'matches' as 'matches', path, pattern: pattern.source, caseInsensitive };
-    t.true(await t.context.match({ key: 'abc', value }, filter));
+    t.true(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 stringMatches.title = (providedTitle = '', testValue, pattern) =>
@@ -175,7 +177,7 @@ const stringDoesntMatch: Macro<[any, RegExp], Context> = async (t, testValue, pa
   const caseInsensitive = pattern.flags.includes('i');
   for (const [path, value] of nest(testValue)) {
     const filter = { operator: 'matches' as 'matches', path, pattern: pattern.source, caseInsensitive };
-    t.false(await t.context.match({ key: 'abc', value }, filter));
+    t.false(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 stringDoesntMatch.title = (providedTitle = '', testValue, pattern) =>
@@ -183,7 +185,7 @@ stringDoesntMatch.title = (providedTitle = '', testValue, pattern) =>
 
 test('matches matches key', async (t) => {
   const filter = { operator: 'matches' as 'matches', path: ['key'], pattern: '^ab', caseInsensitive: false };
-  t.true(await t.context.match({ key: 'abc', value: 666 }, filter));
+  t.true(await t.context.match({ key: 'abc', value: 666, version }, filter));
 });
 
 test('matches matches string', stringDoesntMatch, null, /abc/i);
@@ -195,7 +197,7 @@ test('matches matches string', stringDoesntMatch, 'ABC', /abc/);
 const startsWith: Macro<[any, string], Context> = async (t, testValue, matchValue) => {
   for (const [path, value] of nest(testValue)) {
     const filter = { operator: 'startsWith' as 'startsWith', path, value: matchValue };
-    t.true(await t.context.match({ key: 'abc', value }, filter));
+    t.true(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 startsWith.title = (providedTitle = '', testValue, value) =>
@@ -204,7 +206,7 @@ startsWith.title = (providedTitle = '', testValue, value) =>
 const doesntStartWith: Macro<[any, string], Context> = async (t, testValue, matchValue) => {
   for (const [path, value] of nest(testValue)) {
     const filter = { operator: 'startsWith' as 'startsWith', path, value: matchValue };
-    t.false(await t.context.match({ key: 'abc', value }, filter));
+    t.false(await t.context.match({ key: 'abc', value, version }, filter));
   }
 };
 doesntStartWith.title = (providedTitle = '', testValue, value) =>
@@ -212,7 +214,7 @@ doesntStartWith.title = (providedTitle = '', testValue, value) =>
 
 test('startsWith matches key', async (t) => {
   const filter = { operator: 'startsWith' as 'startsWith', path: ['key'], value: 'ab' };
-  t.true(await t.context.match({ key: 'abc', value: 666 }, filter));
+  t.true(await t.context.match({ key: 'abc', value: 666, version }, filter));
 });
 
 test('startsWith matches string', doesntStartWith, null, 'ab');
@@ -227,22 +229,22 @@ const equals1 = { operator: 'eq' as 'eq', path: ['value'], value: 1 };
 
 test('and applies all filters', async (t) => {
   const { match } = t.context;
-  t.true(await match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [startsWithAb, equals0] }));
-  t.false(await match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [startsWithAb, equals1] }));
-  t.false(await match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [equalsAb, equals0] }));
-  t.false(await match({ key: 'Abc', value: 0 }, { operator: 'and', filters: [equalsAb, equals1] }));
+  t.true(await match({ key: 'Abc', value: 0, version }, { operator: 'and', filters: [startsWithAb, equals0] }));
+  t.false(await match({ key: 'Abc', value: 0, version }, { operator: 'and', filters: [startsWithAb, equals1] }));
+  t.false(await match({ key: 'Abc', value: 0, version }, { operator: 'and', filters: [equalsAb, equals0] }));
+  t.false(await match({ key: 'Abc', value: 0, version }, { operator: 'and', filters: [equalsAb, equals1] }));
 });
 
 test('any applies all filters', async (t) => {
   const { match } = t.context;
-  t.true(await match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [startsWithAb, equals0] }));
-  t.true(await match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [startsWithAb, equals1] }));
-  t.true(await match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [equalsAb, equals0] }));
-  t.false(await match({ key: 'Abc', value: 0 }, { operator: 'or', filters: [equalsAb, equals1] }));
+  t.true(await match({ key: 'Abc', value: 0, version }, { operator: 'or', filters: [startsWithAb, equals0] }));
+  t.true(await match({ key: 'Abc', value: 0, version }, { operator: 'or', filters: [startsWithAb, equals1] }));
+  t.true(await match({ key: 'Abc', value: 0, version }, { operator: 'or', filters: [equalsAb, equals0] }));
+  t.false(await match({ key: 'Abc', value: 0, version }, { operator: 'or', filters: [equalsAb, equals1] }));
 });
 
 test('not negates a filter', async (t) => {
   const { match } = t.context;
-  t.true(await match({ key: 'Abc', value: 0 }, { operator: 'not', filter: equalsAb }));
-  t.false(await match({ key: 'Abc', value: 0 }, { operator: 'not', filter: startsWithAb }));
+  t.true(await match({ key: 'Abc', value: 0, version }, { operator: 'not', filter: equalsAb }));
+  t.false(await match({ key: 'Abc', value: 0, version }, { operator: 'not', filter: startsWithAb }));
 });

@@ -276,7 +276,7 @@ export class Handler implements DBHandler {
    * @return - an array of documents
    */
   public async find(_ctx: Context, { filter, limit, skip, orderBy }: Query): Promise<Document[]> {
-    const results: Document[] = [];
+    const results: Array<Document & { version: Version }> = [];
     await new Promise((resolve, reject) => {
       const it = this.db.iterator({
         keyAsBuffer: false,
@@ -290,9 +290,10 @@ export class Handler implements DBHandler {
           // Iteration complete
           return it.end(resolve);
         }
-        const { value } = JSON.parse(rawValue);
-        if (value !== undefined /* Not a tombstone */ && wrappedMatch({ key, value }, filter)) {
-          results.push({ key, value });
+        const { value, version } = JSON.parse(rawValue);
+        if (value !== undefined /* Not a tombstone */ &&
+            wrappedMatch({ key, value, version }, filter)) {
+          results.push({ key, value, version });
         }
         return it.next(next);
       };
@@ -307,7 +308,7 @@ export function buildComparator({ path: p, direction }: Order) {
   return direction === 'ASC' ? ascend(path(p)) : descend(path(p));
 }
 
-export function wrappedMatch(doc: Document, filter: Filter): boolean {
+export function wrappedMatch(doc: Document & { version: Version }, filter: Filter): boolean {
   const isMatch = match(doc, filter);
   if (isMatch === undefined) {
     throw new ValueError(`Got an unsupported filter operator: ${filter.operator}`);
@@ -315,7 +316,51 @@ export function wrappedMatch(doc: Document, filter: Filter): boolean {
   return isMatch;
 }
 
-function match(doc: Document, filter: Filter): boolean {
+function isVersion(a: unknown): a is Version {
+  return typeof a === 'object' && a !== null && 'major' in a && 'minor' in a;
+}
+
+function sameTypes(a: unknown, b: unknown): boolean {
+  if (typeof a !== typeof b) return false;
+  if (typeof a !== 'object') return true;
+  return isVersion(a) && isVersion(b);
+}
+
+type Scalar = number | string | boolean;
+
+type Pred2 = (a: Scalar, b: Scalar) => boolean;
+
+const lt: Pred2 = (a, b) => a < b;
+const lte: Pred2 = (a, b) => a <= b;
+const gt: Pred2 = (a, b) => a > b;
+const gte: Pred2 = (a, b) => a >= b;
+
+// Compares 2 objects that might be Versions using an *order* predicate
+// (gt, gte, lt, lte).
+function compareWithOrderPredicate(a: unknown, b: unknown, basePred: Pred2): boolean {
+  if (!sameTypes(a, b)) return false;
+  switch (typeof a) {
+  case 'string':
+  case 'number':
+  case 'boolean':
+    return basePred(a, b as Scalar);
+  case 'object':
+    if (!isVersion(a) || !isVersion(b)) return false;
+    return basePred(a.major, b.major) ||
+      a.major === b.major && basePred(a.minor, b.minor);
+  default:
+    return false;
+  }
+}
+
+function equals(a: unknown, b: unknown): boolean {
+  if (!sameTypes(a, b)) return false;
+  if (isVersion(a)) return a.major === (b as Version).major && a.minor === (b as Version).minor;
+  // All JavaScript objects can safely be passed to ===.
+  return a === (b as Scalar);
+}
+
+function match(doc: Document & { version: Version }, filter: Filter): boolean {
   switch (filter.operator) {
   case 'and':
     return filter.filters.every((f) => wrappedMatch(doc, f));
@@ -329,17 +374,13 @@ function match(doc: Document, filter: Filter): boolean {
 
   switch (filter.operator) {
   case 'eq':
-    return value === filter.value;
+    return equals(value, filter.value);
   case 'ne':
-    return value !== filter.value;
-  case 'gt':
-    return typeof value === typeof filter.value && value as any > filter.value;
-  case 'gte':
-    return typeof value === typeof filter.value && value as any >= filter.value;
-  case 'lt':
-    return typeof value === typeof filter.value && value as any < filter.value;
-  case 'lte':
-    return typeof value === typeof filter.value && value as any <= filter.value;
+    return !equals(value, filter.value);
+  case 'gt': return compareWithOrderPredicate(value, filter.value, gt);
+  case 'gte': return compareWithOrderPredicate(value, filter.value, gte);
+  case 'lt': return compareWithOrderPredicate(value, filter.value, lt);
+  case 'lte': return compareWithOrderPredicate(value, filter.value, lte);
   case 'exists':
     return value !== undefined;
   case 'isNull':

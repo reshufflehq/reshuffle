@@ -3,7 +3,7 @@ import { AddressInfo } from 'net';
 import { createServer, Server } from 'http';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
-import { range } from 'ramda';
+import { map, omit, range } from 'ramda';
 import nanoid from 'nanoid';
 import { DBRouter, DBHandler } from '@reshuffle/interfaces-koa-server';
 import { Version } from '@reshuffle/interfaces-koa-server/interfaces';
@@ -362,15 +362,17 @@ test('DB.update sets operationId', requiresPolling, async (t) => {
   t.is(patches[0][1][0].operationId, 'abc');
 });
 
+const withoutVersions = map(omit(['version']));
+
 test('DB.find returns an empty list when no documents', async (t) => {
   const { client } = t.context;
-  t.deepEqual(await client.find(Q.filter(Q.key.eq('abc'))), []);
+  t.deepEqual(withoutVersions(await client.find(Q.filter(Q.key.eq('abc')))), []);
 });
 
-test('DB.find returns an list of documents', async (t) => {
+test('DB.find returns a list of documents', async (t) => {
   const { client } = t.context;
   await client.create('abc', { a: 1 });
-  t.deepEqual(await client.find(Q.filter(Q.key.eq('abc'))),
+  t.deepEqual(withoutVersions(await client.find(Q.filter(Q.key.eq('abc')))),
     [{ key: 'abc', value: { a: 1 } }]);
 });
 
@@ -380,7 +382,7 @@ test('DB.find returns all matching documents', async (t) => {
   await client.create('b', { a: 2 });
   await client.create('c', { a: 3 });
 
-  t.deepEqual(await client.find(Q.filter(Q.value.a.gt(1))), [
+  t.deepEqual(withoutVersions(await client.find(Q.filter(Q.value.a.gt(1)))), [
     { key: 'b', value: { a: 2 } },
     { key: 'c', value: { a: 3 } },
   ]);
@@ -392,9 +394,9 @@ test('DB.find applies limit', async (t) => {
   await client.create('b', { a: 2 });
   await client.create('c', { a: 3 });
 
-  t.deepEqual(await client.find(
+  t.deepEqual(withoutVersions(await client.find(
     Q.filter(Q.value.a.gt(0)).limit(2)
-  ), [
+  )), [
     { key: 'a', value: { a: 1 } },
     { key: 'b', value: { a: 2 } },
   ]);
@@ -406,9 +408,9 @@ test('DB.find applies skip', async (t) => {
   await client.create('b', { a: 2 });
   await client.create('c', { a: 3 });
 
-  t.deepEqual(await client.find(
+  t.deepEqual(withoutVersions(await client.find(
     Q.filter(Q.value.a.gt(0)).skip(1)
-  ), [
+  )), [
     { key: 'b', value: { a: 2 } },
     { key: 'c', value: { a: 3 } },
   ]);
@@ -420,9 +422,9 @@ test('DB.find applies orderBy', async (t) => {
   await client.create('b', { a: 2, b: 3 });
   await client.create('c', { a: 3, b: 7 });
 
-  t.deepEqual(await client.find(
+  t.deepEqual(withoutVersions(await client.find(
     Q.filter(Q.value.a.gt(0)).skip(1).limit(1).orderBy(Q.value.b, Q.ASC)
-  ), [
+  )), [
     { key: 'a', value: { a: 1, b: 6 } },
   ]);
 });
@@ -432,5 +434,5 @@ test('DB.find ignores tombstones', async (t) => {
   await client.create('a', { a: 1, b: 6 });
   await client.remove('a');
 
-  t.deepEqual(await client.find(Q.filter(Q.key.eq('a'))), []);
+  t.deepEqual(withoutVersions(await client.find(Q.filter(Q.key.eq('a')))), []);
 });

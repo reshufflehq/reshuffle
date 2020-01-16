@@ -13,6 +13,9 @@ import { DBRouter } from '@reshuffle/interfaces-koa-server';
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { AddressInfo } from 'net';
+import { map, omit } from 'ramda';
+
+const withoutVersions = map(omit(['version']));
 
 // TODO(ariels): Extract; used also in db-client.
 interface Context {
@@ -73,7 +76,7 @@ test('iterateFind over nothing returns nothing', async (t) => {
   await db.create('b', 2);
   const filter = Q.key.eq('a');
   const result = await iteratorToArray(iterateFind(Q.filter(filter), undefined, db));
-  t.deepEqual(result, []);
+  t.deepEqual(withoutVersions(result), []);
 });
 
 test('iterateFind over single chunk returns that chunk', async (t) => {
@@ -82,7 +85,7 @@ test('iterateFind over single chunk returns that chunk', async (t) => {
   await db.create('b', 2);
   const filter = Q.key.gte('a');
   const result = await iteratorToArray(iterateFind(Q.filter(filter), undefined, db));
-  t.deepEqual(result, [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
+  t.deepEqual(withoutVersions(result), [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
 });
 
 test('iterateFind over multiple chunks', async (t) => {
@@ -93,7 +96,7 @@ test('iterateFind over multiple chunks', async (t) => {
   const filter = Q.key.startsWith('');
   const result = await iteratorToArray(
     iterateFind(Q.filter(filter).orderBy(Q.key), { chunkSize: 2 }, db));
-  t.deepEqual(result, [{ key: 'a', value: 1 }, { key: 'b', value: 2 }, { key: 'c', value: 3 }]);
+  t.deepEqual(withoutVersions(result), [{ key: 'a', value: 1 }, { key: 'b', value: 2 }, { key: 'c', value: 3 }]);
 });
 
 test.skip('iterateFind retrieves a snapshot', async (t) => {
@@ -105,7 +108,7 @@ test.skip('iterateFind retrieves a snapshot', async (t) => {
   t.deepEqual((await finder.next()).value, { key: 'a', value: 1 });
   await db.create('c', 3);
   const result = await iteratorToArray(finder);
-  t.deepEqual(result, [{ key: 'b', value: 2 }]);
+  t.deepEqual(withoutVersions(result), [{ key: 'b', value: 2 }]);
 });
 
 test('iterateFind works for DBs of non-trivial size', async (t) => {
@@ -119,5 +122,5 @@ test('iterateFind works for DBs of non-trivial size', async (t) => {
   const filter = Q.key.startsWith('');
   const result = await iteratorToArray(
     iterateFind(Q.filter(filter).orderBy(Q.key), { chunkSize: 37 }, db));
-  t.deepEqual(result, pairs);
+  t.deepEqual(withoutVersions(result), pairs);
 });
