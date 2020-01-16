@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@reshuffle/utils-subprocess": "0.0.2",
-    "cypress-file-upload": "^3.5.1",
+    "cypress-file-upload": "^3.5.3",
     "fs-extra": "^8.1.0",
     "got": "^10.2.1",
     "mz": "^2.7.0",

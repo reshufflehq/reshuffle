@@ -453,6 +453,11 @@
         "packageName": "@reshuffle/react-storage",
         "projectFolder": "react-storage",
         "shouldPublish": true
+    },
+    {
+        "packageName": "@reshuffle/labs-db-iterator",
+        "projectFolder": "labs/db-iterator",
+        "shouldPublish": true
     }
   ]
 }
