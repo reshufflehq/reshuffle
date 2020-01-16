@@ -145,12 +145,17 @@ export default class Deploy extends Command {
     // TODO: select target before this block
     this.startStage('build');
 
+    const stdioInherit = [0, 1, 2];
+    const stdioRedirect = [0, 2, 2];
+
     let stagingDir: string;
     try {
       stagingDir = await build(projectDir, {
         skipNpmInstall: true,
         logger: this,
-        outputToErr: this.jsonFormat,
+        spawnOptions:{
+          stdio: this.jsonFormat ? stdioRedirect : stdioInherit,
+        },
       });
     } catch (err) {
       if (err instanceof MismatchedPackageAndPackageLockError) {

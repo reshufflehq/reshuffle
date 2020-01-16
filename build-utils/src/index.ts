@@ -6,6 +6,7 @@ import tar from 'tar';
 import shellEcape from 'any-shell-escape';
 import { spawn } from '@reshuffle/utils-subprocess';
 import { getDependencies, MismatchedPackageAndPackageLockError } from './getdeps';
+import { SpawnOptions } from 'mz/child_process';
 
 export { MismatchedPackageAndPackageLockError };
 
@@ -17,13 +18,12 @@ export interface Logger {
 export interface BuildOptions {
   skipNpmInstall: boolean;
   logger: Logger;
-  outputToErr: boolean;
+  spawnOptions?: SpawnOptions;
 }
 
 const DEFAULT_OPTIONS: BuildOptions = {
   skipNpmInstall: false,
   logger: console,
-  outputToErr: false,
 };
 
 function escapeWin32(filePath: string) {
@@ -34,7 +34,7 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
   const {
     skipNpmInstall,
     logger,
-    outputToErr,
+    spawnOptions,
   } = {
     ...DEFAULT_OPTIONS,
     ...options,
@@ -42,22 +42,22 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
   logger.log('Building and bundling your app! This may take a few moments, please wait');
   const stagingDir = await mkdtemp(pathResolve(tmpdir(), 'reshuffle-bundle-'), { encoding: 'utf8' });
 
-  const stdioInherit = [0, 1, 2];
-  const stdioRedirect = [0, 2, 2];
   // in win32 npm.cmd must be run in shell - no escaping needed since all
   // arguments are constant strings
   const shell = process.platform === 'win32';
   try {
     if (!skipNpmInstall) {
       await spawn('npm', ['install'], {
+        stdio: 'inherit',
+        ...spawnOptions,
         cwd: projectDir,
-        stdio: outputToErr ? stdioRedirect : stdioInherit,
         shell,
       });
     }
     await spawn('npm', ['run', 'build'], {
+      stdio: 'inherit',
+      ...spawnOptions,
       cwd: projectDir,
-      stdio: outputToErr ? stdioRedirect : stdioInherit,
       shell,
     });
     logger.log('Preparing backend...');
@@ -96,8 +96,9 @@ export async function build(projectDir: string, options?: Partial<BuildOptions>)
         '-d',
         escapeWin32(pathResolve(stagingDir, 'backend')),
       ], {
+        stdio: 'inherit',
+        ...spawnOptions,
         cwd: projectDir,
-        stdio: outputToErr ? stdioRedirect : stdioInherit,
         shell,
       });
 
