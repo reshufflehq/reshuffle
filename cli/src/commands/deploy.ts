@@ -10,6 +10,7 @@ import flags from '../utils/cli-flags';
 import { CLIError } from '@oclif/errors';
 import {
   getPrimaryDomain,
+  getPrimaryURL,
   getProjectRootDir,
   getProjectEnv,
   getEnvFromArgs,
@@ -207,10 +208,11 @@ export default class Deploy extends Command {
       const { applicationId, defaultEnv } = project;
       application = await this.lycanClient.deploy(applicationId, defaultEnv, digest, envVars);
     }
-    const jsonApp = { ...application, link: makeAppLink(application) };
-    this.log(`Project successfully deployed! Your project is now available at: ${jsonApp.link}`);
+
+    this.log(`Project successfully deployed! Your project is now available at: ${makeAppLink(application)}`);
 
     if (format === 'json') {
+      const jsonApp = { ...application, primaryURL: getPrimaryURL(application.environments[0]) };
       super.log(JSON.stringify(jsonApp));
     }
   }
