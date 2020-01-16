@@ -7,7 +7,7 @@ export interface IteratorProps {
 }
 
 const defaultIteratorProps: IteratorProps = {
-  chunkSize: 100000,
+  chunkSize: 500,
 };
 
 export async function* iterateFind(
