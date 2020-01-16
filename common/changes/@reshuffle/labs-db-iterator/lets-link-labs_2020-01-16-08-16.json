@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@reshuffle/labs-db-iterator",
+      "comment": "Fix markdown links in README",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@reshuffle/labs-db-iterator",
+  "email": "ariels@reshuffle.com"
+}
