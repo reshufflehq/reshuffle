@@ -49,3 +49,13 @@ export async function getTodos() {
   return get(`/todos/${user.id}`);
 });
 ```
+
+### Error handling
+
+If a login fails due to some reason (e.g. misconfiguration of the login provider) the user will be redirected to /login-error.
+
+A login-error page is not provided, for example if using in a React app with a react-router the page should be handled by a
+
+```jsx
+<Route exact path='/login-error'>
+```

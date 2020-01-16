@@ -1,0 +1,46 @@
+{
+  "name": "@reshuffle/labs-db-iterator",
+  "version": "0.1.1",
+  "description": "Iterator for large DB queries",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint -c ../../common/.eslintrc.json --ext .ts src",
+    "test": "cross-env RESHUFFLE_DB_BASE_URL=a RESHUFFLE_APPLICATION_ID=b RESHUFFLE_APPLICATION_ENV=c RESHUFFLE_ACCESS_TOKEN=d ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reshufflehq/reshuffle.git"
+  },
+  "keywords": [
+    "reshuffle",
+    "db",
+    "iterator",
+    "labs"
+  ],
+  "author": "Ariel Shaqed (Scolnicov)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reshufflehq/reshuffle/issues"
+  },
+  "homepage": "https://github.com/reshufflehq/reshuffle#readme",
+  "dependencies": {
+    "@reshuffle/db": "^0.5.6",
+    "@reshuffle/interfaces-node-client": "^0.5.0"
+  },
+  "devDependencies": {
+    "@reshuffle/interfaces-koa-server": "^0.5.0",
+    "@reshuffle/leveldb-server": "^0.1.3",
+    "@types/koa": "^2.11.0",
+    "@types/koa-router": "^7.4.0",
+    "@types/node": "~12.12.24",
+    "@types/rmfr": "^2.0.0",
+    "ava": "^2.4.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.8.0",
+    "koa": "^2.11.0",
+    "koa-router": "^7.4.0",
+    "rmfr": "^2.0.0",
+    "typescript": "^3.7.4"
+  }
+}
