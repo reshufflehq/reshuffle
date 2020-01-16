@@ -153,7 +153,7 @@ export default class Deploy extends Command {
       stagingDir = await build(projectDir, {
         skipNpmInstall: true,
         logger: this,
-        spawnOptions:{
+        spawnOptions: {
           stdio: this.jsonFormat ? stdioRedirect : stdioInherit,
         },
       });
