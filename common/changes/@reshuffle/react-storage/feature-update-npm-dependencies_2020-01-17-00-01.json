@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/react-storage",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/react-storage",
+  "email": "auto-npm-dep-update@shiftjs.com"
+}

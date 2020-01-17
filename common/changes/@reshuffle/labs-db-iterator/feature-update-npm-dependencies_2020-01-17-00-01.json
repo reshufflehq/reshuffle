@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@reshuffle/labs-db-iterator",
+      "type": "none"
+    }
+  ],
+  "packageName": "@reshuffle/labs-db-iterator",
+  "email": "auto-npm-dep-update@shiftjs.com"
+}
