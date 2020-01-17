@@ -28,10 +28,10 @@
   "dependencies": {
     "@types/express": "^4.17.2",
     "@types/node": "^12.12.8",
-    "aws-sdk": "^2.600.0",
+    "aws-sdk": "^2.605.0",
     "env-var": "^5.2.0",
     "ms": "^2.1.2",
-    "uuid": "^3.3.3"
+    "uuid": "^3.4.0"
   },
   "peerDependencies": {
     "express": "^4.17.1"
@@ -42,6 +42,6 @@
     "ava": "^2.4.0",
     "eslint": "^6.8.0",
     "express": "^4.17.1",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   }
 }

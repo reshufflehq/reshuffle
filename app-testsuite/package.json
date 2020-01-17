@@ -15,7 +15,7 @@
     "@reshuffle/utils-subprocess": "0.0.2",
     "cypress-file-upload": "^3.5.3",
     "fs-extra": "^8.1.0",
-    "got": "^10.2.1",
+    "got": "^10.2.2",
     "mz": "^2.7.0",
     "sleep-promise": "^8.0.1",
     "tail": "^2.0.3"
@@ -26,6 +26,6 @@
     "@types/node": "^12.12.14",
     "@types/tail": "^2.0.0",
     "eslint": "^6.8.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   }
 }
