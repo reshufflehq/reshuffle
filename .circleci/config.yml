@@ -122,13 +122,3 @@ workflows:
           <<: *post_build_step
       - integration-test-10:
           <<: *post_build_step
-  weekly:
-    triggers:
-       - schedule:
-           cron: "0 0 * * 5"
-           filters:
-             branches:
-               only:
-                 - master
-    jobs:
-      - update_npm_dependencies
