@@ -1,3 +1,5 @@
+# We have terminated the backend for this project.  Old Reshuffle projects can not longer be deployed.
+
 [![CircleCI](https://circleci.com/gh/reshufflehq/reshuffle.svg?style=svg)](https://circleci.com/gh/reshufflehq/reshuffle.svg?style=svg)
 # Reshuffle
 
