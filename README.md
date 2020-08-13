@@ -59,7 +59,8 @@ app.addEvent('HTTP/GET/test',
   new HttpService().on({'method':'GET','path':'/test'}))
 
 app.when('HTTP/GET/test', (event) => {
-  event.getService('services/Slack').send('Somebody called this event!', '#reports');
+  event.getService('services/Slack')
+    .send('Somebody called this event!', '#reports');
 })
 
 app.start()
