@@ -156,7 +156,7 @@ $ npm install
 ```
 
 ```bash
-$ node HelloWorldHTTPExample
+$ node helloWorldHTTPExample
 ```
 
 got to http://localhost:8000/test
