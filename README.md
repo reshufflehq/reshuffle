@@ -1,5 +1,5 @@
-# Reshuffle Integration Fabric
-Reshuffle is a lightweight and open source integration platform. With Reshuffle you can build integrations, connect systems, and build workflows.
+# Reshuffle Integration Framework
+Reshuffle is a lightweight and open source integration framework. With Reshuffle you can build integrations, connect systems, and build workflows.
 
 Here is a simple workflow that listens to a cron event that runs every 5 sec: 
 ```js
@@ -143,16 +143,16 @@ $ npm install reshuffle-workflow-engine
   Install the engine
 
 ```bash
-$ npm install -g reshuffle-workflow-engine
+$ npm install -g reshuffle
 ```
 
-  Install dependencies:
+Copy the `helloWorldHTTPExample.js` example for the example folder into your /tmp/foo.
+
+Install dependencies:
 
 ```bash
 $ npm install
 ```
-
-Copy the `HelloWorldHTTPExample.js` example for the example folder into your /tmp/foo.
 
 ```bash
 $ node HelloWorldHTTPExample
