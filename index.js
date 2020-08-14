@@ -14,9 +14,14 @@ function Reshuffle() {
 
 }
 
-Reshuffle.prototype.addEvent = function addEvent(eventName, eventEmmiter) {
-  this.eventsNameToServices[eventName] = eventEmmiter;
-  eventEmmiter.addEventName(eventName);
+Reshuffle.prototype.addEvent = function addEvent(eventName, service) {
+  if (this.eventsNameToServices[eventName]) {
+    this.eventsNameToServices[eventName].push(service);
+  } else {
+    this.eventsNameToServices[eventName] = [service];
+  }
+  // todo: make sure all services can handle multipule event names
+  service.addEventName(eventName);
 }
 
 
@@ -77,8 +82,11 @@ function uuidv4() {
 
 Reshuffle.prototype.start = function start() {
   for (const eventName in this.eventsNameToServices) {
-    const service = this.eventsNameToServices[eventName]
-    service.start(this);
+    const services = this.eventsNameToServices[eventName];
+    for (const serviceIndex in services) {
+      let service = services[serviceIndex];
+      service.start(this);
+    }
   };
   if (this.shareResources.webserver) {
     this.shareResources.webserver.listen(8000);
@@ -109,4 +117,4 @@ avilableServices["CronService"] = module.exports.CronService = require('./lib/cr
 avilableServices["HttpService"] = module.exports.HttpService = require('./lib/http').HttpService
 avilableServices["SlackService"] = module.exports.SlackService = require('./lib/slack').SlackService
 
-module.exports.avilableServices = avilableServices;
+Reshuffle.prototype.avilableServices = avilableServices;
