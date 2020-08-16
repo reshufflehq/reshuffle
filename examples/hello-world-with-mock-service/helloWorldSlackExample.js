@@ -1,11 +1,12 @@
-const {Reshuffle, CronService, SlackService} = require('reshuffle')
+const {Reshuffle, CronService, SlackService} = require('../../index')
 const app = new Reshuffle();
+const cronService = new CronService();
+const slackService = new SlackService({'authkey':process.env.SLACK_AUTH_KEY});
 
-app.addEvent('cron/sec/5', new CronService(5000));
+app.use(cronService);
+app.use(slackService, 'services/Slack')
 
-app.addService("services/Slack", new SlackService("some options"))
-
-app.when('cron/sec/5', (event) => {
+app.when(cronService.on({'interval':5000}), (event) => {
   event.getService('services/Slack').send('Hello World!');
 })
 

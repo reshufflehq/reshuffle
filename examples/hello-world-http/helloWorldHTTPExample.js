@@ -1,13 +1,11 @@
 const {Reshuffle, HttpService} = require('../../index')
 const app = new Reshuffle();
+const service = new HttpService();
 
-app.addEvent('HTTP/GET/test', 
-  new HttpService().on({'method':'GET','path':'/test'}));
+app.use(service);
 
-app.when('HTTP/GET/test', (event) => {
+app.when(service.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 })
 
-app.start(() => {
-  console.log(`Example workflow`)
-})
+app.start()

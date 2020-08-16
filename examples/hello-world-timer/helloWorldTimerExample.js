@@ -1,13 +1,11 @@
-const {Reshuffle, CronService} = require('reshuffle')
+const {Reshuffle, CronService} = require('../../index')
 const app = new Reshuffle();
+const service = new CronService();
 
-app.addEvent('Cron/sec/5', new CronService().on({'interval':5000}))
+app.use(service);
 
-app.when('Cron/sec/5', (event) => {
+app.when(service.on({'interval':5000}), (event) => {
   console.log('Hello World!')
 })
 
-app.start(() => {
-  console.log(`Example workflow`)
-})
-
+app.start()

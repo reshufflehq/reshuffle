@@ -5,10 +5,11 @@ Here is a simple workflow that listens to a cron event that runs every 5 sec:
 ```js
 const {Reshuffle, CronService} = require('reshuffle')
 const app = new Reshuffle();
+const cronService = new CronService();
 
-app.addEvent('Cron/sec/5', new CronService().on({'interval':5000}))
+app.use(cronService);
 
-app.when('Cron/sec/5', (event) => {
+app.when(cronService.on({'interval':5000}), (event) => {
   console.log('Hello World!')
 })
 
@@ -26,11 +27,11 @@ Here is an example of listening to a HTTP get event on /test, using the HTTP ser
 ```js
 const {Reshuffle, HttpService} = require('reshuffle')
 const app = new Reshuffle();
+const httpService = new HttpService();
 
-app.addEvent('HTTP/GET/test', 
-  new HttpService().on({'method':'GET','path':'/test'}))
+app.use(httpService);
 
-app.when('HTTP/GET/test', (event) => {
+app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 })
 
@@ -52,20 +53,20 @@ const connectionOptions = {
   'APIToken':process.env.SLACK_AUTH_KEY,
   'team':'ourTeam',
 }
-app.addService('services/Slack', 
-  new SlackService(connectionOptions));
+const httpService = new HttpService();
+app.use(httpService)
 
-app.addEvent('HTTP/GET/test', 
-  new HttpService().on({'method':'GET','path':'/test'}))
+const slackService = new SlackService(connectionOptions);
+app.use(slackService, 'services/Slack');
 
-app.when('HTTP/GET/test', (event) => {
+app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.getService('services/Slack')
     .send('Somebody called this event!', '#reports');
 })
 
 app.start()
 ```
-Service objects expose the API and Events that the external service (from a DB to an ERP) provides. 
+Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can spesify an id when you register a service to the app with the *use(service, service_id)* and then access that service using the *getService(service_id)* method. 
 
 You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Services* are an easy way to seperate the connection configuration from your code, configure a connection to a service once and use it anywhere. 
 
@@ -86,8 +87,8 @@ const connectionOptions = {
   'team':'ourTeam',
 }
 
-let slackService = new SlackService(connectionOptions)
-app.addService('services/Slack', slackService);
+const slackService = new SlackService(connectionOptions);
+app.use(slackService, 'services/Slack');
 
 const eventOptions = {
   'event_type':'new_message',
@@ -95,15 +96,11 @@ const eventOptions = {
   'type':'new_message'
   }
 
-app.addEvent('Slack/new/message', slackService.on(eventOptions))
-
-app.when('Slack/new/message', (event) => {
+app.when(slackService.on(eventOptions), (event) => {
   event.getService('services/Slack').reply('Thank you for your message!');
 })
 
-app.start(() => {
-  console.log(`Example workflow`)
-})
+app.start()
 ```
 It is the responsibility of the SlackService to listen to the events in Slack and emit corresponding events in Reshuffle. Your code can listen to these events and run business logic.
 
