@@ -2,12 +2,12 @@ http = require('http');
 const fs = require("fs");
 const avilableServices = {};
 const util = require('util');
-
+const { nanoid } = require('nanoid');
 
 class Reshuffle {
   constructor() {
     this.services = {};
-    this.eventNamesToHandlers = {};
+    this.eventIdsToHandlers = {};
     this.shareResources = {};
     this.httpDelegetes = {};
     this.serviceNameToService = {};
@@ -16,6 +16,7 @@ class Reshuffle {
   }
   
   use(service, service_id) {
+    service.app = this;
     if(service_id){
       service.id = service_id;
     }
@@ -46,22 +47,22 @@ class Reshuffle {
     this.httpDelegetes[path] = delegate;
   }
 
-  when(eventName, handler) {
+  when(eventConsiguration, handler) {
     let handlerWrapper = handler;
     if (!handler.id) {
       handlerWrapper = {
         "handle": handler,
-        "id": uuidv4()
+        "id": nanoid()
       };
     }
 
-    if (this.eventNamesToHandlers[eventName]) {
-      this.eventNamesToHandlers[eventName].push(handlerWrapper);
+    if (this.eventIdsToHandlers[eventConsiguration.id]) {
+      this.eventIdsToHandlers[eventConsiguration.id].push(handlerWrapper);
     }
     else {
-      this.eventNamesToHandlers[eventName] = [handlerWrapper];
+      this.eventIdsToHandlers[eventConsiguration.id] = [handlerWrapper];
     }
-    console.log("Registering event " + eventName);
+    console.log("Registering event " + eventConsiguration.id);
   }
   start() {
     for (const serviceIndex in this.services) {
@@ -79,7 +80,7 @@ class Reshuffle {
       event = {};
     }
     event.getService = this.getService.bind(this);
-    let eventHandlers = this.eventNamesToHandlers[eventName];
+    let eventHandlers = this.eventIdsToHandlers[eventName];
     for (let index = 0; index < eventHandlers.length; index++) {
       const handler = eventHandlers[index];
       this._p_handle(handler, event);
@@ -89,26 +90,6 @@ class Reshuffle {
     handler.handle(event);
   }
 }
-
-
-
-
-
-
-
-
-
-
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
-
-
-
-
 
 module.exports = {
   Reshuffle: Reshuffle,

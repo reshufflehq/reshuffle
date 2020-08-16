@@ -3,7 +3,7 @@ Reshuffle is a lightweight and open source integration framework. With Reshuffle
 
 Here is a simple workflow that listens to a cron event that runs every 5 sec: 
 ```js
-const {Reshuffle, CronService} = require('reshuffle')
+const {Reshuffle, CronService} = require('reshuffle');
 const app = new Reshuffle();
 const cronService = new CronService();
 
@@ -11,9 +11,9 @@ app.use(cronService);
 
 app.when(cronService.on({'interval':5000}), (event) => {
   console.log('Hello World!')
-})
+});
 
-app.start()
+app.start();
 ```
 
 ## Basic concepts
@@ -25,7 +25,7 @@ Events can be anything from a file change, S3 bucket update, a cron job timer, y
 Here is an example of listening to a HTTP get event on /test, using the HTTP service:
 
 ```js
-const {Reshuffle, HttpService} = require('reshuffle')
+const {Reshuffle, HttpService} = require('reshuffle');
 const app = new Reshuffle();
 const httpService = new HttpService();
 
@@ -33,10 +33,24 @@ app.use(httpService);
 
 app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
-})
+});
 
-app.start()
+app.start();
 ```
+A service *on({eventOptions})* method is kinda smart, and enables shorthanding, so:
+```js
+app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
+  event.res.end("Hello World!");
+});
+```
+Is syntactically equivalent to: 
+```js
+service.on({'method':'GET','path':'/test'}).do((event) => {
+    event.res.end("Hello World!");
+});
+
+```
+Note: Remember to add the *app.use(service)* prior to *when(...)* or *on(...)*. 
 
 More examples can be found here [TBD]
 
@@ -52,9 +66,10 @@ const app = new Reshuffle();
 const connectionOptions = {
   'APIToken':process.env.SLACK_AUTH_KEY,
   'team':'ourTeam',
-}
+};
+
 const httpService = new HttpService();
-app.use(httpService)
+app.use(httpService);
 
 const slackService = new SlackService(connectionOptions);
 app.use(slackService, 'services/Slack');
@@ -64,7 +79,7 @@ app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
     .send('Somebody called this event!', '#reports');
 })
 
-app.start()
+app.start();
 ```
 Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can spesify an id when you register a service to the app with the *use(service, service_id)* and then access that service using the *getService(service_id)* method. 
 
@@ -79,13 +94,13 @@ As we saw, services are basically adaptors that connect external systems, such a
  
 Here is how you would configure a SlackService to listen to a message from Slack:
 ```js
-const {Reshuffle, SlackService} = require('reshuffle')
+const {Reshuffle, SlackService} = require('reshuffle');
 const app = new Reshuffle();
 
 const connectionOptions = {
   'APIToken':process.env.SLACK_AUTH_KEY,
   'team':'ourTeam',
-}
+};
 
 const slackService = new SlackService(connectionOptions);
 app.use(slackService, 'services/Slack');
@@ -94,13 +109,13 @@ const eventOptions = {
   'event_type':'new_message',
   'channel':'C6646754636',
   'type':'new_message'
-  }
+  };
 
 app.when(slackService.on(eventOptions), (event) => {
   event.getService('services/Slack').reply('Thank you for your message!');
 })
 
-app.start()
+app.start();
 ```
 It is the responsibility of the SlackService to listen to the events in Slack and emit corresponding events in Reshuffle. Your code can listen to these events and run business logic.
 
