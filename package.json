@@ -1,6 +1,6 @@
 {
   "name": "reshuffle",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Reshuffle is a fast, unopinionated, minimalist integration framework",
   "main": "index.js",
   "scripts": {
