@@ -1,16 +1,15 @@
 http = require('http');
 const fs = require("fs");
 const avilableServices = {};
-const util = require('util');
 const { nanoid } = require('nanoid');
 
 class Reshuffle {
   constructor() {
-    this.services = {};
+    this.servicesIdToServices = {};
     this.eventIdsToHandlers = {};
     this.shareResources = {};
     this.httpDelegetes = {};
-    this.serviceNameToService = {};
+    this.webserverStarted = false;
     console.log("Initiating Reshuffle");
 
   }
@@ -20,11 +19,17 @@ class Reshuffle {
     if(service_id){
       service.id = service_id;
     }
-    this.services[service.id] = service;
+    this.servicesIdToServices[service.id] = service;
+     
+  }
+
+  unuse(service,) {
+    service.stop()
+    delete this.servicesIdToServices[service.id];
   }
 
   getService(serviceId) {
-    return this.services[serviceId];
+    return this.servicesIdToServices[serviceId];
   }
 
   unregisterHTTPDelegate(path, delegate) {
@@ -36,10 +41,11 @@ class Reshuffle {
       this.shareResources.webserver = express();
       this.shareResources.webserver.route("*")
         .all((function (req, res, next) {
+          let handled = false;
           if (this.httpDelegetes[req.url]) {
-            this.httpDelegetes[req.url].handle(req, res, next);
+            handled = this.httpDelegetes[req.url].handle(req, res, next);
           }
-          else {
+          if(!handled) {
             res.end("no handler");
           }
         }).bind(this));
@@ -55,7 +61,6 @@ class Reshuffle {
         "id": nanoid()
       };
     }
-
     if (this.eventIdsToHandlers[eventConsiguration.id]) {
       this.eventIdsToHandlers[eventConsiguration.id].push(handlerWrapper);
     }
@@ -64,14 +69,22 @@ class Reshuffle {
     }
     console.log("Registering event " + eventConsiguration.id);
   }
-  start() {
-    for (const serviceIndex in this.services) {
-      let service = this.services[serviceIndex];
-      service.start(this);
+
+  start(port) {
+    if(!port) port = 8000;
+    
+    for (const serviceIndex in this.servicesIdToServices) {
+      let service = this.servicesIdToServices[serviceIndex];
+      if(!service.started){
+        service.start(this);
+        service.started = true;
+      }
     }
 
-    if (this.shareResources.webserver) {
-      this.shareResources.webserver.listen(8000);
+    if (this.shareResources.webserver && !this.webserverStarted){
+      this.shareResources.webserver.listen(port ,() => {
+        this.webserverStarted = true;
+     });
     }
     console.log("starting Reshuffle");
   }
@@ -81,10 +94,14 @@ class Reshuffle {
     }
     event.getService = this.getService.bind(this);
     let eventHandlers = this.eventIdsToHandlers[eventName];
+    if(eventHandlers.length == 0){
+      return false;
+    }
     for (let index = 0; index < eventHandlers.length; index++) {
       const handler = eventHandlers[index];
       this._p_handle(handler, event);
     }
+    return true;
   }
   _p_handle(handler, event) {
     handler.handle(event);
@@ -101,4 +118,5 @@ avilableServices["CronService"] = module.exports.CronService = require('./lib/cr
 avilableServices["HttpService"] = module.exports.HttpService = require('./lib/http').HttpService
 avilableServices["SlackService"] = module.exports.SlackService = require('./lib/slack').SlackService
 
+module.exports.EventConfiguration = require('./lib/eventConfiguration').EventConfiguration;
 Reshuffle.prototype.avilableServices = avilableServices;

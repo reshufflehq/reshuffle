@@ -35,9 +35,9 @@ app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 });
 
-app.start();
+app.start(8000);
 ```
-A service *on({eventOptions})* method is kinda smart, and enables shorthanding, so:
+A service *on({eventOptions})* method is kinda smart, and enables short-handing, so:
 ```js
 app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
@@ -45,7 +45,7 @@ app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
 ```
 Is syntactically equivalent to: 
 ```js
-service.on({'method':'GET','path':'/test'}).do((event) => {
+httpService.on({'method':'GET','path':'/test'}).do((event) => {
     event.res.end("Hello World!");
 });
 
@@ -57,7 +57,7 @@ More examples can be found here [TBD]
 ### Easy services configuration 
 A critical aspect of building integrations is configuring how to connect to different services we want to integrate with. With Reshuffle you can easily configure *Service* objects and inject them.
 
-Let's expend the example above and send a message to a Slack, everytime someone triggers the 'HTTP/GET/test' event:
+Let's expend the example above and send a message to a Slack, every time someone triggers the 'HTTP/GET/test' event:
 
 ```js
 const {Reshuffle, HttpService, SlackService} = require('reshuffle')
@@ -81,16 +81,16 @@ app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
 
 app.start();
 ```
-Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can spesify an id when you register a service to the app with the *use(service, service_id)* and then access that service using the *getService(service_id)* method. 
+Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can specify an id when you register a service to the app with the *use(service, service_id)* and then access that service using the *getService(service_id)* method. 
 
-You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Services* are an easy way to seperate the connection configuration from your code, configure a connection to a service once and use it anywhere. 
+You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Services* are an easy way to separate the connection configuration from your code, configure a connection to a service once and use it anywhere. 
 
 You can use the Service object to take action on a remote service (such as adding a row to a CRM) and configure events that trigger when something happens in that system. We will show you how to do that in the next section. 
 
 A full list of Services, and how to create your own Service, can be found here [TBD]
 
 ### Events
-As we saw, services are basically adaptors that connect external systems, such as Slack, Database, CRM, or any other system. Services can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
+As we saw, services are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. Services can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
  
 Here is how you would configure a SlackService to listen to a message from Slack:
 ```js
