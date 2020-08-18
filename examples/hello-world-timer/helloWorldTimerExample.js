@@ -4,6 +4,7 @@ const service = new CronService();
 
 app.use(service);
 
+// eslint-disable-next-line no-unused-vars
 app.when(service.on({'interval':5000}), (event) => {
   console.log('Hello World!');
 });

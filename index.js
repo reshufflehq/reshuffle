@@ -1,5 +1,3 @@
-http = require('http');
-const fs = require("fs");
 const avilableServices = {};
 const { nanoid } = require('nanoid');
 
@@ -32,6 +30,7 @@ class Reshuffle {
     return this.servicesIdToServices[serviceId];
   }
 
+  // eslint-disable-next-line no-unused-vars
   unregisterHTTPDelegate(path, delegate) {
     delete this.httpDelegetes[path];
   }
