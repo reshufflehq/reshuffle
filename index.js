@@ -8,6 +8,7 @@ class Reshuffle {
     this.shareResources = {};
     this.httpDelegetes = {};
     this.webserverStarted = false;
+    this.port =8000;
     console.log("Initiating Reshuffle");
 
   }
@@ -69,8 +70,8 @@ class Reshuffle {
     console.log("Registering event " + eventConsiguration.id);
   }
 
-  start(port) {
-    if(!port) port = 8000;
+  start(port, callback) {
+    if(port) this.port = port;
     
     for (const serviceIndex in this.servicesIdToServices) {
       let service = this.servicesIdToServices[serviceIndex];
@@ -81,12 +82,17 @@ class Reshuffle {
     }
 
     if (this.shareResources.webserver && !this.webserverStarted){
-      this.shareResources.webserver.listen(port ,() => {
+      this.shareResources.webserver.listen(this.port ,() => {
         this.webserverStarted = true;
      });
     }
-    console.log("starting Reshuffle");
+    if (callback) callback();
   }
+
+  restart(port) {
+    this.start(port, () => { console.log("Refreshing server config")});
+  }
+  
   handleEvent(eventName, event) {
     if (event == null) {
       event = {};
