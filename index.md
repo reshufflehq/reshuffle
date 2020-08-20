@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
+# RESHUFFLE. THE INTEGRATION PLATFORM FOR DEVELOPERS.
 
-You can use the [editor on GitHub](https://github.com/reshufflehq/reshuffle/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+[Express](https://expressjs.com) changed the way we build websites. [Reshuffle](https://github.com/reshufflehq/reshuffle) reinvents the way we integrate systems into workflows.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+```javascript
+const { Reshuffle, HttpService, S3Service } = require('reshuffle');
 
-### Markdown
+const app = new Reshuffle();
+const httpService = app.use(new HttpService());
+const s3Service = app.use(new S3Service({
+  AWSAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  AWSSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  bucket: 'my-bucket',
+}));
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+httpService.on({'method':'GET','path':'/test'}).do(async event => {
+  const filenames = await s3Service.getObjectKeys();
+  const images = filenames.filter(fn => fn.endsWith('.jpg') || fn.endsWith('.png'));
+  event.res.json(images);
+});
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+app.start(8000);
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Reshuffle connects to every system inside and outside your organization. You can use one of the built in connectors, or build your own.
 
-### Jekyll Themes
+Out built in connectors can be found [here](https://github.com/reshufflehq/reshuffle/tree/master/lib).
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/reshufflehq/reshuffle/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Open source
 
-### Support or Contact
+Reshuffle is free to use under the MIT license. You can clone it from out [GitHub Repo](https://github.com/reshufflehq/reshuffle).
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Reshuffle for enterprise
+
+Reshuffle has an enterprise version which offers a web based IDE and management system. Learn more at [reshuffle.com](https://reshuffle.com).
+
+### Contact us
+
+Having trouble? Want to learn more? Contact us at [info@reshuffle.com](mailto:info@reshuffle.com).
