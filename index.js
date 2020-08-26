@@ -1,127 +1,115 @@
-const avilableServices = {};
 const { nanoid } = require('nanoid');
 
 class Reshuffle {
-  constructor() {
-    this.servicesIdToServices = {};
-    this.eventIdsToHandlers = {};
-    this.shareResources = {};
-    this.httpDelegetes = {};
-    this.webserverStarted = false;
-    this.port =8000;
-    console.log("Initiating Reshuffle");
-
+  constructor(useHttp) {
+    this.registry = {
+      services : {},
+      handlers : {},
+      common : {
+        webserverStarted : false,
+      }
+    };
+    this.httpDelegates = {};
+    this.port = process.env.RESHUFFLE_PORT || 8000;
+    
+    if (useHttp) {
+      var express = require('express');
+      this.registry.common.webserver = express();
+      this.registry.common.webserver.route('*')
+        .all((req, res, next) => {
+          if (this.httpDelegates[req.url]) {
+           this.httpDelegates[req.url].handle(req, res, next);
+          } else {
+            res.end(`No handler registered for ${req.url}`);
+          }
+        });
+    }
+    console.log('Initializing Reshuffle');
   }
   
-  use(service, service_id) {
+  register(service) {
     service.app = this;
-    if(service_id){
-      service.id = service_id;
-    }
-    this.servicesIdToServices[service.id] = service;
-     
+    this.registry.services[service.id] = service;  
   }
 
-  unuse(service,) {
-    service.stop()
-    delete this.servicesIdToServices[service.id];
+  async unregister(service) {
+    await service.stop()
+    delete this.registry.services[service.id];
   }
 
   getService(serviceId) {
-    return this.servicesIdToServices[serviceId];
+    return this.registry.services[serviceId];
   }
 
-  // eslint-disable-next-line no-unused-vars
-  unregisterHTTPDelegate(path, delegate) {
-    delete this.httpDelegetes[path];
-  }
   registerHTTPDelegate(path, delegate) {
-    if (!this.shareResources.webserver) {
-      var express = require('express');
-      this.shareResources.webserver = express();
-      this.shareResources.webserver.route("*")
-        .all((function (req, res, next) {
-          let handled = false;
-          if (this.httpDelegetes[req.url]) {
-            handled = this.httpDelegetes[req.url].handle(req, res, next);
-          }
-          if(!handled) {
-            res.end("no handler");
-          }
-        }).bind(this));
-    }
-    this.httpDelegetes[path] = delegate;
+    this.httpDelegates[path] = delegate;
   }
 
-  when(eventConsiguration, handler) {
+  unregisterHTTPDelegate(path) {
+    delete this.httpDelegates[path];
+  }
+
+  when(eventConfiguration, handler) {
     let handlerWrapper = handler;
     if (!handler.id) {
       handlerWrapper = {
-        "handle": handler,
-        "id": nanoid()
+        'handle': handler,
+        'id': nanoid()
       };
     }
-    if (this.eventIdsToHandlers[eventConsiguration.id]) {
-      this.eventIdsToHandlers[eventConsiguration.id].push(handlerWrapper);
+    if (this.registry.handlers[eventConfiguration.id]) {
+      this.registry.handlers[eventConfiguration.id].push(handlerWrapper);
     }
     else {
-      this.eventIdsToHandlers[eventConsiguration.id] = [handlerWrapper];
+      this.registry.handlers[eventConfiguration.id] = [handlerWrapper];
     }
-    console.log("Registering event " + eventConsiguration.id);
+    console.log('Registering event ' + eventConfiguration.id);
   }
 
   start(port, callback) {
-    if(port) this.port = port;
+    this.port = port || this.port;
     
-    for (const serviceIndex in this.servicesIdToServices) {
-      let service = this.servicesIdToServices[serviceIndex];
+    for (const serviceIndex in this.registry.services) {
+      let service = this.registry.services[serviceIndex];
       if(!service.started){
         service.start(this);
         service.started = true;
       }
     }
 
-    if (this.shareResources.webserver && !this.webserverStarted){
-      this.shareResources.webserver.listen(this.port ,() => {
-        this.webserverStarted = true;
+    if (this.registry.common.webserver && !this.registry.common.webserverStarted){
+      this.registry.common.webserver.listen(this.port ,() => {
+        this.registry.common.webserverStarted = true;
      });
     }
     if (callback) callback();
   }
 
   restart(port) {
-    this.start(port, () => { console.log("Refreshing server config")});
+    this.start(port, () => { console.log('Refreshing Reshuffle configuration')});
   }
   
   handleEvent(eventName, event) {
     if (event == null) {
       event = {};
     }
-    event.getService = this.getService.bind(this);
-    let eventHandlers = this.eventIdsToHandlers[eventName];
+    
+    let eventHandlers = this.registry.handlers[eventName];
     if(eventHandlers.length == 0){
       return false;
     }
-    for (let index = 0; index < eventHandlers.length; index++) {
-      const handler = eventHandlers[index];
-      this._p_handle(handler, event);
-    }
+    event.getService = this.getService.bind(this);
+    
+    eventHandlers.forEach(handler => {
+      handler.handle(event);
+    });
+   
     return true;
   }
-  _p_handle(handler, event) {
-    handler.handle(event);
-  }
+  
 }
 
 module.exports = {
   Reshuffle: Reshuffle,
+  EventConfiguration : require('./lib/eventConfiguration').EventConfiguration,
 };
-
-
-// register our out of the box Service Connectors and Event Emmiters
-avilableServices["CronService"] = module.exports.CronService = require('./lib/cron').CronService
-avilableServices["HttpService"] = module.exports.HttpService = require('./lib/http').HttpService
-avilableServices["SlackService"] = module.exports.SlackService = require('./lib/slack').SlackService
-
-module.exports.EventConfiguration = require('./lib/eventConfiguration').EventConfiguration;
-Reshuffle.prototype.avilableServices = avilableServices;
