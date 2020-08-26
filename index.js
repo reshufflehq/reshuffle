@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
 
 class Reshuffle {
-  constructor(useHttp) {
+  constructor() {
     this.registry = {
       services : {},
       handlers : {},
@@ -11,19 +11,6 @@ class Reshuffle {
     };
     this.httpDelegates = {};
     this.port = process.env.RESHUFFLE_PORT || 8000;
-    
-    if (useHttp) {
-      var express = require('express');
-      this.registry.common.webserver = express();
-      this.registry.common.webserver.route('*')
-        .all((req, res, next) => {
-          if (this.httpDelegates[req.url]) {
-           this.httpDelegates[req.url].handle(req, res, next);
-          } else {
-            res.end(`No handler registered for ${req.url}`);
-          }
-        });
-    }
     console.log('Initializing Reshuffle');
   }
   
@@ -42,6 +29,18 @@ class Reshuffle {
   }
 
   registerHTTPDelegate(path, delegate) {
+    if (!this.registry.common.webserver) {
+     var express = require('express');
+      this.registry.common.webserver = express();
+      this.registry.common.webserver.route('*')
+        .all((req, res, next) => {
+          if (this.httpDelegates[req.url]) {
+           this.httpDelegates[req.url].handle(req, res, next);
+          } else {
+            res.end(`No handler registered for ${req.url}`);
+          }
+        });
+    }
     this.httpDelegates[path] = delegate;
   }
 
