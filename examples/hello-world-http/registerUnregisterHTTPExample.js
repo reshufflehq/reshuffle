@@ -10,7 +10,7 @@ app.start();
 app.start();
 
 app.when(service.on({'method':'GET','path':'/test'}), (event) => {
-  event.res.end("Hello World!");
+  event.res.end('Hello World!');
 });
 
 app.restart();
@@ -18,4 +18,4 @@ app.restart();
 setTimeout(async () => {
   console.log('Unregister service after 20 seconds');
   await app.unregister(service);
-}, 20000)
+}, 10000)
