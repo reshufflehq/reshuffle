@@ -81,7 +81,7 @@ app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
 
 app.start();
 ```
-Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can specify an id when you register a service to the app with the *use(service, service_id)* and then access that service using the *getService(service_id)* method. 
+Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can specify an id when you register a service to the app with the *use(service, serviceId)* and then access that service using the *getService(serviceId)* method. 
 
 You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Services* are an easy way to separate the connection configuration from your code, configure a connection to a service once and use it anywhere. 
 
