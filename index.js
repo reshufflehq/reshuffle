@@ -18,9 +18,11 @@ class Reshuffle {
     this.registry.common.webserver = express();
     this.registry.common.webserver.route('*')
         .all((req, res, next) => {
+          let handled = false
           if (this.httpDelegates[req.url]) {
-            this.httpDelegates[req.url].handle(req, res, next);
-          } else {
+            handled = this.httpDelegates[req.url].handle(req, res, next);
+          }
+          if (!handled) {
             res.end(`No handler registered for ${req.url}`);
           }
         });
@@ -98,12 +100,15 @@ class Reshuffle {
     event.getService = this.getService.bind(this);
     
     eventHandlers.forEach(handler => {
-      handler.handle(event);
+      this._p_handle(handler, event);
     });
    
     return true;
   }
-  
+
+  _p_handle(handler, event) {
+    handler.handle(event);
+  }
 }
 
 module.exports = {
