@@ -5,14 +5,16 @@ const service = new HttpService();
 
 app.register(service);
 
+app.start();
+app.start();
+
 app.when(service.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 });
 
-// the above is syntactically equivalent to:
-//service.on({'method':'GET','path':'/test'}).do((event) => {
-//    event.res.end("Hello World!");
-//})
+app.restart();
 
-
-app.start();
+setTimeout(async () => {
+  console.log('Unregister service after 20 seconds');
+  await app.unregister(service);
+}, 20000)

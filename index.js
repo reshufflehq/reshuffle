@@ -1,30 +1,29 @@
 const { nanoid } = require('nanoid');
+const express = require('express');
 
 class Reshuffle {
-  constructor(useHttp) {
+  constructor() {
     this.registry = {
       services : {},
       handlers : {},
-      common : {
-        webserverStarted : false,
-      }
+      common : {}
     };
     this.httpDelegates = {};
     this.port = process.env.RESHUFFLE_PORT || 8000;
-    
-    if (useHttp) {
-      var express = require('express');
-      this.registry.common.webserver = express();
-      this.registry.common.webserver.route('*')
+
+    console.log('Initializing Reshuffle');
+  }
+
+  createWebServer() {
+    this.registry.common.webserver = express();
+    this.registry.common.webserver.route('*')
         .all((req, res, next) => {
           if (this.httpDelegates[req.url]) {
-           this.httpDelegates[req.url].handle(req, res, next);
+            this.httpDelegates[req.url].handle(req, res, next);
           } else {
             res.end(`No handler registered for ${req.url}`);
           }
         });
-    }
-    console.log('Initializing Reshuffle');
   }
   
   register(service) {
@@ -66,23 +65,21 @@ class Reshuffle {
     console.log('Registering event ' + eventConfiguration.id);
   }
 
-  start(port, callback) {
+  start(port, callback = () => { console.log('Reshuffle started!')}) {
     this.port = port || this.port;
-    
-    for (const serviceIndex in this.registry.services) {
-      let service = this.registry.services[serviceIndex];
-      if(!service.started){
-        service.start(this);
-        service.started = true;
-      }
+
+    // Start all services
+    Object.values(this.registry.services).forEach(service => service.start(this))
+
+    // Start the webserver if we have http delegates
+    if(Object.keys(this.httpDelegates).length > 0 && !this.registry.common.webserver) {
+      this.createWebServer();
+      this.registry.common.webserver.listen(this.port ,() => {
+        console.log(`Web server listening on port ${this.port}`)
+      });
     }
 
-    if (this.registry.common.webserver && !this.registry.common.webserverStarted){
-      this.registry.common.webserver.listen(this.port ,() => {
-        this.registry.common.webserverStarted = true;
-     });
-    }
-    if (callback) callback();
+    callback && callback();
   }
 
   restart(port) {
@@ -95,7 +92,7 @@ class Reshuffle {
     }
     
     let eventHandlers = this.registry.handlers[eventName];
-    if(eventHandlers.length == 0){
+    if(eventHandlers.length === 0){
       return false;
     }
     event.getService = this.getService.bind(this);
@@ -110,6 +107,9 @@ class Reshuffle {
 }
 
 module.exports = {
-  Reshuffle: Reshuffle,
-  EventConfiguration : require('./lib/eventConfiguration').EventConfiguration,
+  Reshuffle,
+  CronService: require('./lib/cron').CronService,
+  HttpService: require('./lib/http').HttpService,
+  SlackService: require('./lib/slack').SlackService,
+  EventConfiguration: require('./lib/eventConfiguration').EventConfiguration
 };
