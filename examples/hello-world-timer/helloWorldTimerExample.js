@@ -15,3 +15,8 @@ app.when(service.on({'interval':5000}), (event) => {
 //});
 
 app.start()
+
+setTimeout(async () => {
+  console.log('Unregister the Cron service');
+  await app.unregister(service);
+}, 16000)
