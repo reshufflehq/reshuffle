@@ -5,6 +5,7 @@ const service = new HttpService();
 
 app.register(service);
 
+// Check 2 starts
 app.start();
 app.start();
 
