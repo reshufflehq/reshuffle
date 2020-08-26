@@ -1,8 +1,8 @@
-const {Reshuffle, CronService} = require('../../index')
+const {Reshuffle, CronService} = require('../../')
 const app = new Reshuffle();
 const service = new CronService();
 
-app.use(service);
+app.register(service);
 
 // eslint-disable-next-line no-unused-vars
 app.when(service.on({'interval':5000}), (event) => {
@@ -15,3 +15,8 @@ app.when(service.on({'interval':5000}), (event) => {
 //});
 
 app.start()
+
+setTimeout(async () => {
+  console.log('Unregister the Cron service');
+  await app.unregister(service);
+}, 16000)
