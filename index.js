@@ -1,8 +1,12 @@
 const { nanoid } = require('nanoid');
 const express = require('express');
+const availableServices = require('./lib');
+const EventConfiguration = require('./lib/eventConfiguration').EventConfiguration;
 
 class Reshuffle {
+
   constructor() {
+    this.availableServices = availableServices;
     this.registry = {
       services : {},
       handlers : {},
@@ -112,9 +116,7 @@ class Reshuffle {
 }
 
 module.exports = {
+  EventConfiguration,
   Reshuffle,
-  CronService: require('./lib/cron').CronService,
-  HttpService: require('./lib/http').HttpService,
-  SlackService: require('./lib/slack').SlackService,
-  EventConfiguration: require('./lib/eventConfiguration').EventConfiguration
+  ...availableServices,
 };
