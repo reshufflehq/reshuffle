@@ -34,7 +34,8 @@ class Reshuffle {
   
   register(service) {
     service.app = this;
-    this.registry.services[service.id] = service;  
+    this.registry.services[service.id] = service;
+    return service;
   }
 
   async unregister(service) {
@@ -48,6 +49,7 @@ class Reshuffle {
 
   registerHTTPDelegate(path, delegate) {
     this.httpDelegates[path] = delegate;
+    return delegate;
   }
 
   unregisterHTTPDelegate(path) {
