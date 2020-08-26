@@ -7,7 +7,7 @@ const {Reshuffle, CronService} = require('reshuffle');
 const app = new Reshuffle();
 const cronService = new CronService();
 
-app.use(cronService);
+app.register(cronService);
 
 app.when(cronService.on({'interval':5000}), (event) => {
   console.log('Hello World!')
@@ -29,7 +29,7 @@ const {Reshuffle, HttpService} = require('reshuffle');
 const app = new Reshuffle();
 const httpService = new HttpService();
 
-app.use(httpService);
+app.register(httpService);
 
 app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
@@ -50,7 +50,7 @@ httpService.on({'method':'GET','path':'/test'}).do((event) => {
 });
 
 ```
-Note: Remember to add the *app.use(service)* prior to *when(...)* or *on(...)*. 
+Note: Remember to add the *app.register(service)* prior to *when(...)* or *on(...)*. 
 
 More examples can be found here [TBD]
 
@@ -69,10 +69,11 @@ const connectionOptions = {
 };
 
 const httpService = new HttpService();
-app.use(httpService);
+app.register(httpService);
 
-const slackService = new SlackService(connectionOptions);
-app.use(slackService, 'services/Slack');
+// the 2nd parameter is used to identify the service later on
+const slackService = new SlackService(connectionOptions, 'services/Slack');
+app.register(slackService);
 
 app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
   event.getService('services/Slack')
@@ -81,7 +82,7 @@ app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
 
 app.start();
 ```
-Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can specify an id when you register a service to the app with the *use(service, serviceId)* and then access that service using the *getService(serviceId)* method. 
+Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can specify an id when you register a service to the app with the *register(service)*, providing a identifier in the service constructor, and then access that service using the *getService(serviceId)* method. 
 
 You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Services* are an easy way to separate the connection configuration from your code, configure a connection to a service once and use it anywhere. 
 
@@ -102,8 +103,8 @@ const connectionOptions = {
   'team':'ourTeam',
 };
 
-const slackService = new SlackService(connectionOptions);
-app.use(slackService, 'services/Slack');
+const slackService = new SlackService(connectionOptions, 'services/Slack');
+app.register(slackService);
 
 const eventOptions = {
   'event_type':'new_message',
