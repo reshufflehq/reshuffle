@@ -91,7 +91,7 @@ class Reshuffle {
       event = {};
     }
     
-    let eventHandlers = this.registry.handlers[eventName];
+    const eventHandlers = this.registry.handlers[eventName];
     if(eventHandlers.length === 0){
       return false;
     }
