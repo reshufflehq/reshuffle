@@ -2,7 +2,7 @@ version: 2.1
 aliases:
   - &defaults
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
   - &attach_workspace
     - attach_workspace:
         at: ~/
