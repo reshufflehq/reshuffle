@@ -179,12 +179,12 @@ got to http://localhost:8000/test
 npm run build:watch
 ```
 Watching build mode for development. 
-Converts TS files from `src` folder to commonJS files into `lib` folder.
+Converts TS files from `src` folder to commonJS files into `dist` folder.
 
 ```bash
 npm run build
 ```
-Builds reshuffle package at `lib`, cleaning the folder first.
+Builds reshuffle package at `dist`, cleaning the folder first.
 
 ```bash
 npm run lint

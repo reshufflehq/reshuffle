@@ -1,4 +1,4 @@
-const {HttpService, Reshuffle} = require('../../lib');
+const {HttpService, Reshuffle} = require('../../dist');
 
 const app = new Reshuffle();
 const service = new HttpService();
