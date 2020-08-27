@@ -1,4 +1,4 @@
-import Reshuffle from './reshuffle'
+import Reshuffle from './Reshuffle'
 import EventConfiguration from './eventConfiguration'
 
 // export all services
