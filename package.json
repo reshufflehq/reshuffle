@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "build:watch": "rimraf dist && tsc -w",
-    "lint": "eslint . --ext .ts --fix",
+    "lint": "eslint . --ext .ts,.js --fix",
     "prepublish": "rimraf dist && tsc",
     "test": "echo 'TBD'"
   },

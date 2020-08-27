@@ -1,11 +1,6 @@
-import CronService from './cron'
-import HttpService from './http'
-import SlackService from './slack'
-import SQLStoreStrategy from './sqlStoreStrategy'
+import CronService from './CronService'
+import HttpService from './HttpService'
+import SlackService from './SlackService'
+import SQLStoreStrategy from './SQLStoreStrategy'
 
-export {
-    CronService,
-    HttpService,
-    SlackService,
-    SQLStoreStrategy
-}
+export { CronService, HttpService, SlackService, SQLStoreStrategy }
