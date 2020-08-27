@@ -42,6 +42,8 @@ export default class Reshuffle {
     register(service : Service) {
         service.app = this;
         this.registry.services[service.id] = service;
+
+        return service;
     }
 
     async unregister(service : Service) {
@@ -55,6 +57,8 @@ export default class Reshuffle {
 
     registerHTTPDelegate(path: string, delegate) {
         this.httpDelegates[path] = delegate;
+
+        return delegate;
     }
 
     unregisterHTTPDelegate(path: string) {
