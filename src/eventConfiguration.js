@@ -11,7 +11,6 @@ class EventConfiguration {
     
 }
 
-module.exports = {
-    EventConfiguration,
-  }
+export default EventConfiguration
+
 

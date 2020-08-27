@@ -1,7 +1,7 @@
-const { EventConfiguration } = require('./eventConfiguration');
-const { nanoid } = require('nanoid');
+import EventConfiguration from '../eventConfiguration'
+import { nanoid } from 'nanoid'
 
-class SlackService {
+export default class SlackService {
     constructor(options, id) {
         if (!id) {
             id = nanoid();
@@ -29,9 +29,4 @@ class SlackService {
     }
     stop() {
     }
-}
-
-
-module.exports = {
-    SlackService,
 }

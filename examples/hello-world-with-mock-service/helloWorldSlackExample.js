@@ -1,4 +1,4 @@
-const {Reshuffle, CronService, SlackService} = require('../../')
+const {Reshuffle, CronService, SlackService} = require('../../dist')
 const app = new Reshuffle();
 const cronService = new CronService();
 // eslint-disable-next-line no-undef

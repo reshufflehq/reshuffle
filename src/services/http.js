@@ -1,7 +1,7 @@
-const {EventConfiguration} = require('./eventConfiguration');
-const { nanoid } = require('nanoid');
+import EventConfiguration from '../eventConfiguration'
+import { nanoid } from 'nanoid'
 
-class HttpService {
+export default class HttpService {
   constructor(options, id) {
     if(!id){
       id = nanoid();
@@ -64,8 +64,4 @@ class HttpService {
     Object.values(this.eventConfigurations)
         .forEach( eventConfiguration => this.app.unregisterHTTPDelegate(eventConfiguration.options.path))
   }
-}
-
-module.exports = {
-  HttpService,
 }

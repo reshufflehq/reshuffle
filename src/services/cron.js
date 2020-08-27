@@ -1,7 +1,7 @@
-const { EventConfiguration } = require('./eventConfiguration');
-const { nanoid } = require('nanoid');
+import EventConfiguration from '../eventConfiguration'
+import { nanoid } from 'nanoid'
 
-class CronService {
+export default class CronService {
     constructor(options, id) {
         if (!id) {
             id = nanoid();
@@ -59,8 +59,4 @@ class CronService {
         } 
     }
 
-}
-
-module.exports = {
-    CronService,
 }

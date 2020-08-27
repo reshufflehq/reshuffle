@@ -174,6 +174,22 @@ $ node helloWorldHTTPExample
 
 got to http://localhost:8000/test
 
+## Development
+```bash
+npm run build:watch
+```
+Watching build mode for development. 
+Converts TS files from `src` folder to commonJS files into `dist` folder.
+
+```bash
+npm run build
+```
+Builds reshuffle package at `dist`, cleaning the folder first.
+
+```bash
+npm run lint
+```
+Lints all files in `src` folder.
 
 ## Examples
-Examples can be found in the /examples folder
+Examples can be found in the `/examples` folder
