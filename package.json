@@ -2,11 +2,14 @@
   "name": "reshuffle",
   "version": "0.9.7",
   "description": "Reshuffle is a fast, unopinionated, minimalist integration framework",
-  "main": "dist",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
     "build:watch": "rimraf dist && tsc -w",
+    "postinstall": "npm run build",
     "lint": "eslint . --ext .ts",
+    "prepublish": "rimraf dist && tsc",
     "test": "echo 'TBD'"
   },
   "repository": {
