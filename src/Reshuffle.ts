@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction  } from "express"
 import {nanoid} from "nanoid"
 import * as availableServices from './services'
-import EventConfiguration from "./eventConfiguration";
+import EventConfiguration from "./eventConfiguration"
 
 export interface Service {
     id: number
@@ -20,7 +20,7 @@ export default class Reshuffle {
     availableServices: any
     httpDelegates: { [path: string]: Service }
     port: number
-    registry: { services: { [url: string]: Service}, handlers: { [id: string]: Handler[] }, common: { webserver?: Express }}
+    registry: { services: { [url: string]: Service}, handlers: { [id: string]: Handler[] }, common: { webserver?: Express, persistentStore?: any }}
 
     constructor() {
         this.availableServices = availableServices
@@ -120,6 +120,8 @@ export default class Reshuffle {
         if(eventHandlers.length === 0){
             return false;
         }
+
+        event.getPersistentStore = this.getPersistentStore.bind(this);
         event.getService = this.getService.bind(this);
 
         eventHandlers.forEach(handler => {
@@ -127,6 +129,14 @@ export default class Reshuffle {
         });
 
         return true;
+    }
+
+    setPersistentStore(persistentStore : any){
+        this.registry.common.persistentStore = persistentStore;
+    }
+
+    getPersistentStore(){
+        return this.registry.common.persistentStore;
     }
 
     _p_handle(handler: Handler, event: any): void {
