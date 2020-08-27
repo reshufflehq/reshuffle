@@ -2,10 +2,10 @@
   "name": "reshuffle",
   "version": "0.9.7",
   "description": "Reshuffle is a fast, unopinionated, minimalist integration framework",
-  "main": "dist",
+  "main": "lib",
   "scripts": {
-    "build": "rimraf ./dist && tsc",
-    "build:watch": "rimraf ./dist && tsc -w",
+    "build": "rimraf ./lib && tsc",
+    "build:watch": "rimraf ./lib && tsc -w",
     "lint": "eslint . --ext .ts",
     "test": "echo 'TBD'"
   },

@@ -1,4 +1,4 @@
-const {Reshuffle, CronService} = require('../../dist')
+const {Reshuffle, CronService} = require('../../lib')
 const app = new Reshuffle();
 const service = new CronService();
 

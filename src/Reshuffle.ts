@@ -6,15 +6,21 @@ import EventConfiguration from "./eventConfiguration";
 export interface Service {
     id: number
     app: Reshuffle
-    start: () => void
+    start: (app: Reshuffle) => void
     stop: () => void
+    handle?: any
+}
+
+export interface Handler {
+    handle: (event?: any) => void
+    id: string
 }
 
 export default class Reshuffle {
     availableServices: any
-    httpDelegates: any
+    httpDelegates: { [path: string]: Service }
     port: number
-    registry: { services: any, handlers: any, common: { webserver?: Express }}
+    registry: { services: { [url: string]: Service}, handlers: { [id: string]: Handler[] }, common: { webserver?: Express }}
 
     constructor() {
         this.availableServices = availableServices
@@ -25,7 +31,7 @@ export default class Reshuffle {
         console.log('Initializing Reshuffle');
     }
 
-    createWebServer() {
+    createWebServer(): Express {
         this.registry.common.webserver = express();
         this.registry.common.webserver.route('*')
             .all((req: Request, res: Response, next: NextFunction) => {
@@ -37,41 +43,42 @@ export default class Reshuffle {
                     res.end(`No handler registered for ${req.url}`);
                 }
             });
+
+        return this.registry.common.webserver
     }
 
-    register(service : Service) {
+    register(service : Service): Service {
         service.app = this;
         this.registry.services[service.id] = service;
 
         return service;
     }
 
-    async unregister(service : Service) {
+    async unregister(service : Service): Promise<void> {
         await service.stop()
         delete this.registry.services[service.id];
     }
 
-    getService(serviceId: Service['id']) {
+    getService(serviceId: Service['id']): Service {
         return this.registry.services[serviceId];
     }
 
-    registerHTTPDelegate(path: string, delegate) {
+    registerHTTPDelegate(path: string, delegate: Service): Service {
         this.httpDelegates[path] = delegate;
 
         return delegate;
     }
 
-    unregisterHTTPDelegate(path: string) {
+    unregisterHTTPDelegate(path: string): void {
         delete this.httpDelegates[path];
     }
 
-    when(eventConfiguration: EventConfiguration, handler) {
-        let handlerWrapper = handler;
-        if (!handler.id) {
-            handlerWrapper = {
-                'handle': handler,
-                'id': nanoid()
-            };
+
+
+    when(eventConfiguration: EventConfiguration, handler: () => void | Handler): void {
+        const handlerWrapper = typeof handler === 'object' ? handler : {
+            handle: handler,
+            id: nanoid()
         }
         if (this.registry.handlers[eventConfiguration.id]) {
             this.registry.handlers[eventConfiguration.id].push(handlerWrapper);
@@ -82,7 +89,7 @@ export default class Reshuffle {
         console.log('Registering event ' + eventConfiguration.id);
     }
 
-    start(port: number, callback = () => { console.log('Reshuffle started!')}) {
+    start(port: number, callback = () => { console.log('Reshuffle started!')}): void {
         this.port = port || this.port;
 
         // Start all services
@@ -90,8 +97,9 @@ export default class Reshuffle {
 
         // Start the webserver if we have http delegates
         if(Object.keys(this.httpDelegates).length > 0 && !this.registry.common.webserver) {
-            this.createWebServer();
-            this.registry.common.webserver!.listen(this.port ,() => {
+            const webserver = this.createWebServer();
+
+            webserver.listen(this.port ,() => {
                 console.log(`Web server listening on port ${this.port}`)
             });
         }
@@ -99,11 +107,11 @@ export default class Reshuffle {
         callback && callback();
     }
 
-    restart(port: number) {
+    restart(port: number): void {
         this.start(port, () => { console.log('Refreshing Reshuffle configuration')});
     }
 
-    handleEvent(eventName: string, event) {
+    handleEvent(eventName: string, event: any): boolean {
         if (event == null) {
             event = {};
         }
@@ -121,7 +129,7 @@ export default class Reshuffle {
         return true;
     }
 
-    _p_handle(handler, event) {
+    _p_handle(handler: Handler, event: any): void {
         handler.handle(event);
     }
 }
