@@ -18,6 +18,14 @@ class Reshuffle {
     console.log('Initializing Reshuffle');
   }
 
+  setPersistentStore(persistantStore){
+    this.registry.common.persistantStore = persistantStore;
+  }
+
+  getPersistentStore(){
+    return this.registry.common.persistantStore;
+  }
+
   createWebServer() {
     this.registry.common.webserver = express();
     this.registry.common.webserver.route('*')
@@ -104,6 +112,7 @@ class Reshuffle {
       return false;
     }
     event.getService = this.getService.bind(this);
+    event.getPersistentStore = this.getPersistentStore.bind(this);
     
     eventHandlers.forEach(handler => {
       this._p_handle(handler, event);
