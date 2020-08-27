@@ -1,0 +1,14 @@
+{
+  "name": "hello-world-persistant",
+  "version": "1.0.0",
+  "description": "example for persistent apps",
+  "main": "helloWorldSQLExample.js",
+  "scripts": {
+    "test": "node helloWorldSQLExample.js"
+  },
+  "author": "Amir Shevat",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.3.2"
+  }
+}
