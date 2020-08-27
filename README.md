@@ -17,7 +17,7 @@ app.start();
 ```
 
 ## Basic concepts
-### Reactive Programming
+### Event Based System
 At its core Reshuffle is an event-based engine. Very similar to programming with a web server, you just need to define a function that will be called when an event is triggered.
 
 Events can be anything from a file change, S3 bucket update, a cron job timer, your own custom event, or even an HTTP call.
