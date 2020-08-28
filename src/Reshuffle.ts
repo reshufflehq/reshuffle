@@ -39,10 +39,10 @@ export default class Reshuffle {
     this.registry.common.webserver = express()
     this.registry.common.webserver
       .route('*')
-      .all((req: Request, res: Response, next: NextFunction) => {
+      .all(async (req: Request, res: Response, next: NextFunction) => {
         let handled = false
         if (this.httpDelegates[req.url]) {
-          handled = this.httpDelegates[req.url].handle(req, res, next)
+          handled = await this.httpDelegates[req.url].handle(req, res, next)
         }
         if (!handled) {
           res.end(`No handler registered for ${req.url}`)
@@ -123,7 +123,7 @@ export default class Reshuffle {
     })
   }
 
-  handleEvent(eventName: string, event: any): boolean {
+  async handleEvent(eventName: string, event: any): Promise<boolean> {
     if (event == null) {
       event = {}
     }
@@ -136,9 +136,9 @@ export default class Reshuffle {
     event.getPersistentStore = this.getPersistentStore.bind(this)
     event.getService = this.getService.bind(this)
 
-    eventHandlers.forEach((handler) => {
-      this._p_handle(handler, event)
-    })
+    for (const handler of eventHandlers) {
+      await handler.handle(event);
+    }
 
     return true
   }
@@ -149,9 +149,5 @@ export default class Reshuffle {
 
   getPersistentStore() {
     return this.registry.common.persistentStore
-  }
-
-  _p_handle(handler: Handler, event: any): void {
-    handler.handle(event)
   }
 }
