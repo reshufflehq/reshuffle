@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs'
 import isValidPath from 'is-valid-path'
-import { Updater } from './types'
+import { PersistentStoreStrategy, Updater } from './types'
 
 type Data = Record<string, any>
 
@@ -35,7 +35,7 @@ class FileData {
   }
 }
 
-export default class FileStoreStrategy {
+export default class FileStoreStrategy implements PersistentStoreStrategy {
   private fileData: FileData
 
   constructor(path: string) {
