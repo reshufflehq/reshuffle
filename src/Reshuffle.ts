@@ -2,6 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableServices from './services'
 import EventConfiguration from './eventConfiguration'
+import { PersistentStore, PersistentStoreStrategy } from './persistency'
 
 export interface Service {
   id: number
@@ -137,14 +138,16 @@ export default class Reshuffle {
     event.getService = this.getService.bind(this)
 
     for (const handler of eventHandlers) {
-      await handler.handle(event);
+      await handler.handle(event)
     }
 
     return true
   }
 
-  setPersistentStore(persistentStore: any) {
-    this.registry.common.persistentStore = persistentStore
+  setPersistentStore(strategy: PersistentStoreStrategy) {
+    const ps = new PersistentStore(strategy)
+    this.registry.common.persistentStore = ps
+    return ps
   }
 
   getPersistentStore() {
