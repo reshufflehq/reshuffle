@@ -17,7 +17,7 @@ app.start();
 ```
 
 ## Basic concepts
-### Reactive Programming
+### Event Based System
 At its core Reshuffle is an event-based engine. Very similar to programming with a web server, you just need to define a function that will be called when an event is triggered.
 
 Events can be anything from a file change, S3 bucket update, a cron job timer, your own custom event, or even an HTTP call.
@@ -174,6 +174,22 @@ $ node helloWorldHTTPExample
 
 got to http://localhost:8000/test
 
+## Development
+```bash
+npm run build:watch
+```
+Watching build mode for development. 
+Converts TS files from `src` folder to commonJS files into `dist` folder.
+
+```bash
+npm run build
+```
+Builds reshuffle package under `dist`, cleaning the folder first.
+
+```bash
+npm run lint
+```
+Lints all files in `src` folder.
 
 ## Examples
-Examples can be found in the /examples folder
+Examples can be found in the `/examples` folder

@@ -1,4 +1,4 @@
-const {Reshuffle, CronService} = require('../../')
+const {Reshuffle, CronService} = require('../..')
 const app = new Reshuffle();
 const service = new CronService();
 

@@ -1,4 +1,4 @@
-const {Reshuffle, CronService, SQLStoreStategy} = require('../..');
+const {Reshuffle, CronService, SQLStoreStrategy} = require('../..');
 const { Pool } = require('pg')
 const app = new Reshuffle();
 
@@ -7,7 +7,7 @@ app.register(service);
 
 // see https://node-postgres.com/features/connecting on how to configure the pool
 const pool = new Pool();
-const persistentStore = new SQLStoreStategy(pool, "reshuffledb");
+const persistentStore = new SQLStoreStrategy(pool, "reshuffledb");
 app.setPersistentStore(persistentStore);
 
 app.when(service.on({'interval':5000}), async (event) =>  {
