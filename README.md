@@ -184,7 +184,7 @@ Converts TS files from `src` folder to commonJS files into `dist` folder.
 ```bash
 npm run build
 ```
-Builds reshuffle package at `dist`, cleaning the folder first.
+Builds reshuffle package under `dist`, cleaning the folder first.
 
 ```bash
 npm run lint
