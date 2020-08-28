@@ -45,7 +45,7 @@ export default class HttpService {
     this.started = true
   }
 
-  handle(req, res, next) {
+  async handle(req, res, next) {
     const { method, url } = req
     let handled = false
 
@@ -55,7 +55,7 @@ export default class HttpService {
 
     if (eventConfiguration) {
       console.log('Handling event')
-      handled = this.app.handleEvent(eventConfiguration.id, { req, res })
+      handled = await this.app.handleEvent(eventConfiguration.id, { req, res })
     }
 
     next()
