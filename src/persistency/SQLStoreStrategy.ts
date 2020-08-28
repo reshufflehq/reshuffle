@@ -1,48 +1,38 @@
+import { Updater } from './types'
+
 export default class SQLStoreStrategy {
-  constructor(pool, table) {
-    this.pool = pool
-    this.table = table
-    this.dbValidated = false
-  }
+  private dbValidated = false
 
-  async validateDB() {
-    if (this.dbValidated) return true
-    await this.pool.query(
-      `CREATE TABLE IF NOT EXISTS ${this.table} ` + '(id varchar primary key, value varchar);',
-    )
-    this.dbValidated = true
-    return true
-  }
+  constructor(private pool: any, private table: string) {}
 
-  validateKey(key) {
-    if (typeof key !== 'string' || key.length === 0) {
-      throw new Error(`Datastore: Invalid key: ${key}`)
+  private async validateDB(): Promise<void> {
+    if (!this.dbValidated) {
+      await this.pool.query(
+        `CREATE TABLE IF NOT EXISTS ${this.table} ` + '(id varchar primary key, value varchar);',
+      )
+      this.dbValidated = true
     }
   }
 
-  validateValue(value) {
-    if (value === undefined) {
-      throw new Error('Datastore: Invalid value: undefined')
-    }
-  }
-
-  async del(key) {
+  public async del(key: string): Promise<void> {
     await this.validateDB()
-    this.validateKey(key)
     await this.pool.query(`DELETE FROM ${this.table} WHERE id = $1`, [key])
   }
 
-  async get(key) {
+  public async get(key: string): Promise<any> {
     await this.validateDB()
-    this.validateKey(key)
     const res = await this.pool.query(`SELECT value FROM ${this.table} WHERE id = $1`, [key])
     return res.rowCount === 0 ? undefined : JSON.parse(res.rows[0].value)
   }
 
-  async set(key, value) {
+  public async list(prefix: string): Promise<string[]> {
+    const res = await this.pool.query(`SELECT id FROM ${this.table}`)
+    console.log(res)
+    throw new Error('Not implemented')
+  }
+
+  public async set(key: string, value: any): Promise<any> {
     await this.validateDB()
-    this.validateKey(key)
-    this.validateValue(value)
     await this.pool.query(
       `INSERT INTO ${this.table}(id, value) VALUES($1, $2) ` +
         'ON CONFLICT(id) DO UPDATE SET value = $2',
@@ -51,9 +41,8 @@ export default class SQLStoreStrategy {
     return value
   }
 
-  async update(key, updater) {
+  public async update(key: string, updater: Updater): Promise<any[]> {
     await this.validateDB()
-    this.validateKey(key)
 
     const conn = await this.pool.connect()
 
