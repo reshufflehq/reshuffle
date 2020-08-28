@@ -1,6 +1,6 @@
-import { Updater } from './types'
+import { PersistentStoreStrategy, Updater } from './types'
 
-export default class SQLStoreStrategy {
+export default class SQLStoreStrategy implements PersistentStoreStrategy {
   private dbValidated = false
 
   constructor(private pool: any, private table: string) {}

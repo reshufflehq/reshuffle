@@ -17,7 +17,7 @@ export default class PersistentStore {
       throw new Error(`Datastore: Invalid service: ${service}`)
     }
     if (options !== undefined && typeof options !== 'object') {
-      throw new Error(`Datastore; Invalids options: ${options}`)
+      throw new Error(`Datastore; Invalid options: ${options}`)
     }
     const prefix: string[] = [service, ':']
     if (options) {

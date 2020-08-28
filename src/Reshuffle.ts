@@ -138,10 +138,14 @@ export default class Reshuffle {
     event.getService = this.getService.bind(this)
 
     for (const handler of eventHandlers) {
-      await handler.handle(event)
+      await this._p_handle(handler, event)
     }
 
     return true
+  }
+
+  async _p_handle(handler: Handler, event: any): Promise<void> {
+    await handler.handle(event)
   }
 
   setPersistentStore(strategy: PersistentStoreStrategy) {
