@@ -1,15 +1,15 @@
 import objhash from 'object-hash'
-import { PersistentStoreStrategy, Updater } from './types'
+import { PersistentStoreAdapter, Updater } from './types'
 
 export default class PersistentStore {
-  constructor(private strategy: PersistentStoreStrategy, private prefix: string = '') {
+  constructor(private adapter: PersistentStoreAdapter, private prefix: string = '') {
     if (typeof prefix !== 'string') {
       throw new Error(`Datastore: Invalid prefix: ${prefix}`)
     }
   }
 
   public createNamespace(prefix: string): PersistentStore {
-    return new PersistentStore(this.strategy, prefix)
+    return new PersistentStore(this.adapter, prefix)
   }
 
   public createServiceNamespace(service: string, options: Record<string, any>): PersistentStore {
@@ -29,27 +29,27 @@ export default class PersistentStore {
 
   public del(key: string): Promise<void> {
     this.validateKey(key)
-    return this.strategy.del(this.prefix + key)
+    return this.adapter.del(this.prefix + key)
   }
 
   public get(key: string): Promise<any> {
     this.validateKey(key)
-    return this.strategy.get(this.prefix + key)
+    return this.adapter.get(this.prefix + key)
   }
 
   public list(): Promise<string[]> {
-    return this.strategy.list(this.prefix)
+    return this.adapter.list(this.prefix)
   }
 
   public set(key: string, value: any): Promise<any> {
     this.validateKey(key)
     this.validateValue(value)
-    return this.strategy.set(this.prefix + key, value)
+    return this.adapter.set(this.prefix + key, value)
   }
 
   public async update(key: string, updater: Updater): Promise<any[]> {
     this.validateKey(key)
-    return this.strategy.update(this.prefix + key, updater)
+    return this.adapter.update(this.prefix + key, updater)
   }
 
   public validateKey(key: string): void {

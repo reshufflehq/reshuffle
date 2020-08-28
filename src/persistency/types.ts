@@ -1,6 +1,6 @@
 export type Updater = (value: any) => Promise<any>
 
-export interface PersistentStoreStrategy {
+export interface PersistentStoreAdapter {
   del: (key: string) => Promise<void>
   get: (key: string) => Promise<any>
   list: (prefix: string) => Promise<string[]>

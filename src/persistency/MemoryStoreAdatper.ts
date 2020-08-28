@@ -1,6 +1,6 @@
-import { PersistentStoreStrategy, Updater } from './types'
+import { PersistentStoreAdapter, Updater } from './types'
 
-export default class MemoryStoreStrategy implements PersistentStoreStrategy {
+export default class MemoryStoreAdapter implements PersistentStoreAdapter {
   private data: Record<string, any> = {}
 
   async del(key: string): Promise<void> {
