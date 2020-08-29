@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs'
+import { Mutex } from 'async-mutex'
 import isValidPath from 'is-valid-path'
 import { PersistentStoreAdapter, Updater } from './types'
 
@@ -37,6 +38,7 @@ class FileData {
 
 export default class FileStoreAdapter implements PersistentStoreAdapter {
   private fileData: FileData
+  private mutex = new Mutex()
 
   constructor(path: string) {
     this.fileData = new FileData(path)
@@ -66,17 +68,23 @@ export default class FileStoreAdapter implements PersistentStoreAdapter {
   }
 
   public async update(key: string, updater: Updater): Promise<any[]> {
-    const data = await this.fileData.read()
+    const release = await this.mutex.acquire()
 
-    const val = data[key]
-    const oldValue = typeof val === 'object' ? { ...val } : val
+    try {
+      const data = await this.fileData.read()
 
-    const newValue = await updater(oldValue)
-    if (newValue !== undefined) {
-      data[key] = newValue
-      await this.fileData.write()
+      const val = data[key]
+      const oldValue = typeof val === 'object' ? { ...val } : val
+
+      const newValue = await updater(oldValue)
+      if (newValue !== undefined) {
+        data[key] = newValue
+        await this.fileData.write()
+      }
+
+      return [oldValue, newValue]
+    } finally {
+      release()
     }
-
-    return [oldValue, newValue]
   }
 }
