@@ -26,7 +26,7 @@ export default class CronService {
     this.eventConfigurations[event.id] = event
     // lazy run if already running
     if (this.started) {
-      const intervalId = setInterval(() => {
+      const intervalId = this.app.setInterval(() => {
         this.app.handleEvent(event.id)
       }, event.options.interval)
       this.cancelables[event.id] = intervalId
@@ -43,7 +43,7 @@ export default class CronService {
     this.app = app
     if (!this.started) {
       Object.values(this.eventConfigurations).forEach((eventConfiguration) => {
-        const intervalId = setInterval(() => {
+        const intervalId = this.app.setInterval(() => {
           this.app.handleEvent(eventConfiguration.id)
         }, eventConfiguration.options.interval)
         this.cancelables[eventConfiguration.id] = intervalId

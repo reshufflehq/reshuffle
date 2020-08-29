@@ -157,4 +157,12 @@ export default class Reshuffle {
   getPersistentStore() {
     return this.registry.common.persistentStore
   }
+
+  public clearInterval(intervalID: NodeJS.Timer): void {
+    global.clearInterval(intervalID)
+  }
+
+  public setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer {
+    return global.setInterval(callback, ms, args)
+  }
 }
