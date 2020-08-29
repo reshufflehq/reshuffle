@@ -55,9 +55,9 @@ export default class FileStoreAdapter implements PersistentStoreAdapter {
     return data[key]
   }
 
-  async list(prefix = ''): Promise<string[]> {
+  async list(): Promise<string[]> {
     const data = await this.fileData.read()
-    return Object.keys(data).filter((key) => key.startsWith(prefix))
+    return Object.keys(data)
   }
 
   async set(key: string, value: any): Promise<any> {

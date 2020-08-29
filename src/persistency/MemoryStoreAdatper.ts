@@ -13,8 +13,8 @@ export default class MemoryStoreAdapter implements PersistentStoreAdapter {
     return this.data[key]
   }
 
-  async list(prefix = ''): Promise<string[]> {
-    return Object.keys(this.data).filter((key) => key.startsWith(prefix))
+  async list(): Promise<string[]> {
+    return Object.keys(this.data)
   }
 
   async set(key: string, value: any): Promise<any> {

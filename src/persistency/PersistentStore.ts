@@ -37,8 +37,9 @@ export default class PersistentStore {
     return this.adapter.get(this.prefix + key)
   }
 
-  public list(): Promise<string[]> {
-    return this.adapter.list(this.prefix)
+  public async list(): Promise<string[]> {
+    const array = await this.adapter.list()
+    return array.filter((key) => key.startsWith(this.prefix))
   }
 
   public set(key: string, value: any): Promise<any> {

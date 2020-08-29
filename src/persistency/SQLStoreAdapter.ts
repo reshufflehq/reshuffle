@@ -25,10 +25,9 @@ export default class SQLStoreAdapter implements PersistentStoreAdapter {
     return res.rowCount === 0 ? undefined : JSON.parse(res.rows[0].value)
   }
 
-  public async list(prefix: string): Promise<string[]> {
+  public async list(): Promise<string[]> {
     const res = await this.pool.query(`SELECT id FROM ${this.table}`)
-    console.log(res)
-    throw new Error('Not implemented')
+    return res.rows.map((row: any) => row.id)
   }
 
   public async set(key: string, value: any): Promise<any> {
