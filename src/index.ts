@@ -1,9 +1,8 @@
 import Reshuffle from './Reshuffle'
-import EventConfiguration from './eventConfiguration'
+import EventConfiguration from './EventConfiguration'
 
-// export all services
 export * from './persistency'
 export * from './services'
+export * from './Service'
 
-type EventConfigurationSet = Record<string, EventConfiguration>
-export { EventConfiguration, EventConfigurationSet, Reshuffle }
+export { EventConfiguration, Reshuffle }

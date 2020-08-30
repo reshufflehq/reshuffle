@@ -1,8 +1,8 @@
 {
+  "target": "es7",
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
-    "lib": ["es6"],
+    "lib": ["es7"],
     "allowJs": true,
     "outDir": "dist",
     "rootDir": "src",

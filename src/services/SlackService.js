@@ -1,4 +1,4 @@
-import EventConfiguration from '../eventConfiguration'
+import EventConfiguration from '../EventConfiguration'
 import { nanoid } from 'nanoid'
 
 export default class SlackService {

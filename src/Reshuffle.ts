@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableServices from './services'
-import EventConfiguration from './eventConfiguration'
+import EventConfiguration from './EventConfiguration'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
 
 export interface Service {
