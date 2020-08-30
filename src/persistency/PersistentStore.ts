@@ -4,7 +4,7 @@ import { PersistentStoreAdapter, Updater } from './types'
 export default class PersistentStore {
   constructor(private adapter: PersistentStoreAdapter, private prefix: string = '') {
     if (typeof prefix !== 'string') {
-      throw new Error(`Datastore: Invalid prefix: ${prefix}`)
+      throw new Error(`PersistentStore: Invalid prefix: ${prefix}`)
     }
   }
 
@@ -13,11 +13,11 @@ export default class PersistentStore {
   }
 
   public createServiceNamespace(service: string, options: Record<string, any>): PersistentStore {
-    if (typeof service !== 'string' || !/^[a-z][a-z0-9]*$/.test(service)) {
-      throw new Error(`Datastore: Invalid service: ${service}`)
+    if (typeof service !== 'string' || !/^[A-Za-z][A-Za-z0-9]*$/.test(service)) {
+      throw new Error(`PersistentStore: Invalid service: ${service}`)
     }
     if (options !== undefined && typeof options !== 'object') {
-      throw new Error(`Datastore; Invalid options: ${options}`)
+      throw new Error(`PersistentStore; Invalid options: ${options}`)
     }
     const prefix: string[] = [service, ':']
     if (options) {
@@ -55,13 +55,13 @@ export default class PersistentStore {
 
   public validateKey(key: string): void {
     if (typeof key !== 'string' || key.length === 0) {
-      throw new Error(`Datastore: Invalid key: ${key}`)
+      throw new Error(`PersistentStore: Invalid key: ${key}`)
     }
   }
 
   public validateValue(value: any): void {
     if (value === undefined) {
-      throw new Error(`Datastore: Invalid value: ${value}`)
+      throw new Error(`PersistentStore: Invalid value: ${value}`)
     }
   }
 }
