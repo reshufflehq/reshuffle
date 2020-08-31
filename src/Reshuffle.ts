@@ -5,8 +5,8 @@ import EventConfiguration from './EventConfiguration'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
 
 export interface Connector {
-  id: number
-  app: Reshuffle
+  id: string
+  app?: Reshuffle
   start: (app: Reshuffle) => void
   stop: () => void
   handle?: any
@@ -95,12 +95,7 @@ export default class Reshuffle {
     console.log('Registering event ' + eventConfiguration.id)
   }
 
-  start(
-    port: number,
-    callback = () => {
-      console.log('Reshuffle started!')
-    },
-  ): void {
+  start(port?: number, callback?: () => void): void {
     this.port = port || this.port
 
     // Start all connectors
@@ -118,7 +113,7 @@ export default class Reshuffle {
     callback && callback()
   }
 
-  restart(port: number): void {
+  restart(port?: number): void {
     this.start(port, () => {
       console.log('Refreshing Reshuffle configuration')
     })
