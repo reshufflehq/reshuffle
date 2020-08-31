@@ -1,14 +1,14 @@
-const {Reshuffle, CronService, SlackService} = require('../..')
+const {Reshuffle, CronConnector, SlackConnector} = require('../..')
 const app = new Reshuffle();
-const cronService = new CronService();
+const cronConnector = new CronConnector();
 // eslint-disable-next-line no-undef
-const slackService = new SlackService({'authkey': process.env.SLACK_AUTH_KEY}, 'services/Slack');
+const slackConnector = new SlackConnector({'authkey': process.env.SLACK_AUTH_KEY}, 'connectors/Slack');
 
-app.register(cronService);
-app.register(slackService);
+app.register(cronConnector);
+app.register(slackConnector);
 
-app.when(cronService.on({'interval':5000}), (event) => {
-  event.getService('services/Slack').send('Hello World!');
+app.when(cronConnector.on({'interval':5000}), (event) => {
+  event.getConnector('connectors/Slack').send('Hello World!');
 })
 
 app.start(() => {
