@@ -1,7 +1,7 @@
 import EventConfiguration from '../EventConfiguration'
 import { nanoid } from 'nanoid'
 
-export default class CronService {
+export default class CronConnector {
   constructor(options, id) {
     if (!id) {
       id = nanoid()

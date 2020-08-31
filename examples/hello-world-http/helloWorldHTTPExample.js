@@ -1,16 +1,16 @@
-const {HttpService, Reshuffle} = require('../..');
+const {HttpConnector, Reshuffle} = require('../..');
 
 const app = new Reshuffle();
-const service = new HttpService();
+const connector = new HttpConnector();
 
-app.register(service);
+app.register(connector);
 
-app.when(service.on({'method':'GET','path':'/test'}), (event) => {
+app.when(connector.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 });
 
 // the above is syntactically equivalent to:
-//service.on({'method':'GET','path':'/test'}).do((event) => {
+//connector.on({'method':'GET','path':'/test'}).do((event) => {
 //    event.res.end("Hello World!");
 //})
 

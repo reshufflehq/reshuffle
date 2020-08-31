@@ -1,12 +1,12 @@
 class EventConfiguration {
-  constructor(id, service, options) {
+  constructor(id, connector, options) {
     this.id = id
-    this.service = service
+    this.connector = connector
     this.options = options
   }
 
   do(handler) {
-    this.service.app.when(this, handler)
+    this.connector.app.when(this, handler)
   }
 }
 

@@ -3,13 +3,13 @@ Reshuffle is a lightweight and open source integration framework. With Reshuffle
 
 Here is a simple workflow that listens to a cron event that runs every 5 sec: 
 ```js
-const {Reshuffle, CronService} = require('reshuffle');
+const {Reshuffle, CronConnector} = require('reshuffle');
 const app = new Reshuffle();
-const cronService = new CronService();
+const cronConnector = new CronConnector();
 
-app.register(cronService);
+app.register(cronConnector);
 
-app.when(cronService.on({'interval':5000}), (event) => {
+app.when(cronConnector.on({'interval':5000}), (event) => {
   console.log('Hello World!')
 });
 
@@ -22,45 +22,45 @@ At its core Reshuffle is an event-based engine. Very similar to programming with
 
 Events can be anything from a file change, S3 bucket update, a cron job timer, your own custom event, or even an HTTP call.
 
-Here is an example of listening to a HTTP get event on /test, using the HTTP service:
+Here is an example of listening to a HTTP get event on /test, using the HTTP connector:
 
 ```js
-const {Reshuffle, HttpService} = require('reshuffle');
+const {Reshuffle, HttpConnector} = require('reshuffle');
 const app = new Reshuffle();
-const httpService = new HttpService();
+const httpConnector = new HttpConnector();
 
-app.register(httpService);
+app.register(httpConnector);
 
-app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
+app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 });
 
 app.start(8000);
 ```
-A service *on({eventOptions})* method is kinda smart, and enables short-handing, so:
+A connector *on({eventOptions})* method is kinda smart, and enables short-handing, so:
 ```js
-app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
+app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
   event.res.end("Hello World!");
 });
 ```
 Is syntactically equivalent to: 
 ```js
-httpService.on({'method':'GET','path':'/test'}).do((event) => {
+httpConnector.on({'method':'GET','path':'/test'}).do((event) => {
     event.res.end("Hello World!");
 });
 
 ```
-Note: Remember to add the *app.register(service)* prior to *when(...)* or *on(...)*. 
+Note: Remember to add the *app.register(connector)* prior to *when(...)* or *on(...)*. 
 
 More examples can be found here [TBD]
 
-### Easy services configuration 
-A critical aspect of building integrations is configuring how to connect to different services we want to integrate with. With Reshuffle you can easily configure *Service* objects and inject them.
+### Connectors configuration 
+A critical aspect of building integrations is configuring how to connect to different services we want to integrate with. With Reshuffle you can configure *Connector* objects and inject them.
 
 Let's expend the example above and send a message to a Slack, every time someone triggers the 'HTTP/GET/test' event:
 
 ```js
-const {Reshuffle, HttpService, SlackService} = require('reshuffle')
+const {Reshuffle, HttpConnector, SlackConnector} = require('reshuffle')
 const app = new Reshuffle();
 
 const connectionOptions = {
@@ -68,34 +68,34 @@ const connectionOptions = {
   'team':'ourTeam',
 };
 
-const httpService = new HttpService();
-app.register(httpService);
+const httpConnector = new HttpConnector();
+app.register(httpConnector);
 
-// the 2nd parameter is used to identify the service later on
-const slackService = new SlackService(connectionOptions, 'services/Slack');
-app.register(slackService);
+// the 2nd parameter is used to identify the connector later on
+const slackConnector = new SlackConnector(connectionOptions, 'connectors/Slack');
+app.register(slackConnector);
 
-app.when(httpService.on({'method':'GET','path':'/test'}), (event) => {
-  event.getService('services/Slack')
+app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
+  event.getConnector('connectors/Slack')
     .send('Somebody called this event!', '#reports');
 })
 
 app.start();
 ```
-Service objects expose the API and Events that the external service (from a DB to an ERP) provides. You can specify an id when you register a service to the app with the *register(service)*, providing a identifier in the service constructor, and then access that service using the *getService(serviceId)* method. 
+Connector objects expose the API and Events that the external connector (from a DB to an ERP) provides. You can specify an id when you register a connector to the app with the *register(connector)*, providing a identifier in the connector constructor, and then access that connector using the *getConnector(connectorId)* method. 
 
-You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Services* are an easy way to separate the connection configuration from your code, configure a connection to a service once and use it anywhere. 
+You noticed in the code sample that we provided important information on how to connect to the 3rd party system (in that case, Slack). *Connectors* are a way to separate the connection configuration from your code, configure a connection to a connector once and use it anywhere. 
 
-You can use the Service object to take action on a remote service (such as adding a row to a CRM) and configure events that trigger when something happens in that system. We will show you how to do that in the next section. 
+You can use the Connector object to take action on a remote service (such as adding a row to a CRM) and configure events that trigger when something happens in that system. We will show you how to do that in the next section. 
 
-A full list of Services, and how to create your own Service, can be found here [TBD]
+A full list of Connectors, and how to create your own Connector, can be found here [TBD]
 
 ### Events
-As we saw, services are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. Services can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
+As we saw, connectors are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. Connectors can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
  
-Here is how you would configure a SlackService to listen to a message from Slack:
+Here is how you would configure a SlackConnector to listen to a message from Slack:
 ```js
-const {Reshuffle, SlackService} = require('reshuffle');
+const {Reshuffle, SlackConnector} = require('reshuffle');
 const app = new Reshuffle();
 
 const connectionOptions = {
@@ -103,8 +103,8 @@ const connectionOptions = {
   'team':'ourTeam',
 };
 
-const slackService = new SlackService(connectionOptions, 'services/Slack');
-app.register(slackService);
+const slackConnector = new SlackConnector(connectionOptions, 'connectors/Slack');
+app.register(slackConnector);
 
 const eventOptions = {
   'event_type':'new_message',
@@ -112,15 +112,15 @@ const eventOptions = {
   'type':'new_message'
   };
 
-app.when(slackService.on(eventOptions), (event) => {
-  event.getService('services/Slack').reply('Thank you for your message!');
+app.when(slackConnector.on(eventOptions), (event) => {
+  event.getConnector('connectors/Slack').reply('Thank you for your message!');
 })
 
 app.start();
 ```
-It is the responsibility of the SlackService to listen to the events in Slack and emit corresponding events in Reshuffle. Your code can listen to these events and run business logic.
+It is the responsibility of the SlackConnector to listen to the events in Slack and emit corresponding events in Reshuffle. Your code can listen to these events and run business logic.
 
-As you can see, both the event creation and the business logic, use the same Service configuration. This makes configuration easier to manage.
+As you can see, both the event creation and the business logic, use the same Connector configuration. This makes configuration easier to manage.
 
  A full list of events, and how to create your own event, can be found here [TBD]
 

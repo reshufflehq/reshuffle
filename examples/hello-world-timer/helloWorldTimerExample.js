@@ -1,22 +1,22 @@
-const {Reshuffle, CronService} = require('../..')
+const {Reshuffle, CronConnector} = require('../..')
 const app = new Reshuffle();
-const service = new CronService();
+const connector = new CronConnector();
 
-app.register(service);
+app.register(connector);
 
 // eslint-disable-next-line no-unused-vars
-app.when(service.on({'interval':5000}), (event) => {
+app.when(connector.on({'interval':5000}), (event) => {
   console.log('Hello World!');
 });
 
 // the above is syntactically equivalent to: 
-//service.on({'interval':5000}).do((event) => {
+//connector.on({'interval':5000}).do((event) => {
 //    console.log('Hello World!')
 //});
 
 app.start()
 
 setTimeout(async () => {
-  console.log('Unregister the Cron service');
-  await app.unregister(service);
+  console.log('Unregister the Cron connector');
+  await app.unregister(connector);
 }, 16000)

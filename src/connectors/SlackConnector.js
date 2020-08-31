@@ -1,7 +1,7 @@
 import EventConfiguration from '../EventConfiguration'
 import { nanoid } from 'nanoid'
 
-export default class SlackService {
+export default class SlackConnector {
   constructor(options, id) {
     if (!id) {
       id = nanoid()
