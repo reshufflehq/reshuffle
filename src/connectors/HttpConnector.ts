@@ -1,5 +1,4 @@
 import EventConfiguration from '../eventConfiguration'
-import { nanoid } from 'nanoid'
 import fetch, { RequestInfo, RequestInit } from 'node-fetch'
 import { format as _formatURL, URL } from 'url'
 import { Request, Response, NextFunction } from 'express'
@@ -12,15 +11,14 @@ interface HttpConnectorOptions {
   path: string
 }
 
-export default class HttpConnector implements Connector {
-  id: string
+export default class HttpConnector extends Connector {
   app?: Reshuffle
   eventConfigurations: { [eventId: string]: any }
   started: boolean
   options?: HttpConnectorOptions
 
   constructor(options?: HttpConnectorOptions, id?: string) {
-    this.id = id || nanoid()
+    super(id)
     this.options = options
     this.eventConfigurations = {}
     this.started = false

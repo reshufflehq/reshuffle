@@ -4,12 +4,27 @@ import * as availableConnectors from './connectors'
 import EventConfiguration from './EventConfiguration'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
 
-export interface Connector {
+export class Connector {
   id: string
   app?: Reshuffle
-  start: (app: Reshuffle) => void
-  stop: () => void
-  handle?: any
+
+  constructor(id?: string) {
+    this.id = id || nanoid()
+  }
+
+  start(app: Reshuffle) {
+    console.warn('start needs to be overridden by connector implementation')
+  }
+
+  stop() {
+    console.warn('stop needs to be overridden by connector implementation')
+  }
+
+  async handle(...args: any[]) {
+    console.warn('handle needs to be overridden by connector implementation')
+
+    return false
+  }
 }
 
 export interface Handler {
