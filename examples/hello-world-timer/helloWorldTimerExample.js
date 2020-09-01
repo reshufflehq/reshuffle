@@ -1,11 +1,12 @@
 const {Reshuffle, CronConnector} = require('../..')
 const app = new Reshuffle();
+
 const connector = new CronConnector();
 
 app.register(connector);
 
 // eslint-disable-next-line no-unused-vars
-app.when(connector.on({'interval':5000}), (event) => {
+app.when(connector.on({interval:5000}), (event) => {
   console.log('Hello World!');
 });
 
