@@ -8,7 +8,8 @@
     "build": "rimraf dist && tsc",
     "build:watch": "rimraf dist && tsc -w",
     "lint": "eslint . --ext .ts,.js --fix",
-    "prepublish": "rimraf dist && tsc",
+    "prepare": "rimraf dist && tsc",
+    "prepublishOnly": "rimraf dist && tsc",
     "test": "echo 'TBD'"
   },
   "repository": {
