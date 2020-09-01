@@ -16,6 +16,6 @@ app.when(connector.on({'method':'GET','path':'/test'}), (event) => {
 app.restart();
 
 setTimeout(async () => {
-  console.log('Unregister connector after 20 seconds');
+  console.log('Unregister connector after 10 seconds');
   await app.unregister(connector);
 }, 10000)
