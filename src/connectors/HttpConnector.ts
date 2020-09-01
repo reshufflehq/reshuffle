@@ -1,9 +1,8 @@
-import EventConfiguration from '../eventConfiguration'
-import { nanoid } from 'nanoid'
 import fetch, { RequestInfo, RequestInit } from 'node-fetch'
 import { format as _formatURL, URL } from 'url'
 import { Request, Response, NextFunction } from 'express'
-import Reshuffle, { Connector } from '../Reshuffle'
+import Reshuffle from '../Reshuffle'
+import { Connector, EventConfiguration } from 'reshuffle-base-connector'
 
 class TimeoutError extends Error {}
 
@@ -12,22 +11,12 @@ interface HttpConnectorOptions {
   path: string
 }
 
-export default class HttpConnector implements Connector {
-  id: string
-  app?: Reshuffle
-  eventConfigurations: { [eventId: string]: any }
-  started: boolean
-  options?: HttpConnectorOptions
-
+export default class HttpConnector extends Connector<HttpConnectorOptions> {
   constructor(options?: HttpConnectorOptions, id?: string) {
-    this.id = id || nanoid()
+    super(options, id)
     this.options = options
     this.eventConfigurations = {}
     this.started = false
-  }
-
-  update(options: HttpConnectorOptions) {
-    this.options = options
   }
 
   on(options: HttpConnectorOptions, eventId: string) {

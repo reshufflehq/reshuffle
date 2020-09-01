@@ -1,4 +1,4 @@
-import EventConfiguration from '../EventConfiguration'
+import { EventConfiguration } from 'reshuffle-base-connector'
 import { nanoid } from 'nanoid'
 
 export default class CronConnector {
