@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
 import { Connector, EventConfiguration } from 'reshuffle-base-connector'
+import { HttpConnector } from './connectors'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -11,7 +12,7 @@ export interface Handler {
 
 export default class Reshuffle {
   availableConnectors: any
-  httpDelegates: { [path: string]: Connector }
+  httpDelegates: { [path: string]: HttpConnector }
   port: number
   registry: {
     connectors: { [url: string]: Connector }
@@ -61,7 +62,7 @@ export default class Reshuffle {
     return this.registry.connectors[connectorId]
   }
 
-  registerHTTPDelegate(path: string, delegate: Connector): Connector {
+  registerHTTPDelegate(path: string, delegate: HttpConnector): Connector {
     this.httpDelegates[path] = delegate
 
     return delegate
