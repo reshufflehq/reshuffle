@@ -1,16 +1,8 @@
 import express, { Express, Request, Response, NextFunction } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
-import EventConfiguration from './EventConfiguration'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
-
-export interface Connector {
-  id: string
-  app?: Reshuffle
-  start: (app: Reshuffle) => void
-  stop: () => void
-  handle?: any
-}
+import { Connector, EventConfiguration } from 'reshuffle-base-connector'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -161,3 +153,5 @@ export default class Reshuffle {
     return global.setInterval(callback, ms, args)
   }
 }
+
+export { Reshuffle }

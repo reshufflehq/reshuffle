@@ -1,7 +1,3 @@
-import Reshuffle from './Reshuffle'
-import EventConfiguration from './EventConfiguration'
-
+export * from './Reshuffle'
 export * from './persistency'
 export * from './connectors'
-
-export { EventConfiguration, Reshuffle }
