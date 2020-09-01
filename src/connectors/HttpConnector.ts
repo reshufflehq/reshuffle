@@ -17,7 +17,7 @@ export default class HttpConnector extends Connector {
   started: boolean
   options?: HttpConnectorOptions
 
-  constructor(options?: HttpConnectorOptions, id?: string) {
+  constructor(id?: string, options?: HttpConnectorOptions) {
     super(id)
     this.options = options
     this.eventConfigurations = {}
