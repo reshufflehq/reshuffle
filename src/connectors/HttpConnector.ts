@@ -11,21 +11,12 @@ interface HttpConnectorOptions {
   path: string
 }
 
-export default class HttpConnector extends Connector {
-  app?: Reshuffle
-  eventConfigurations: { [eventId: string]: any }
-  started: boolean
-  options?: HttpConnectorOptions
-
-  constructor(id?: string, options?: HttpConnectorOptions) {
-    super(id)
+export default class HttpConnector extends Connector<HttpConnectorOptions> {
+  constructor(options?: HttpConnectorOptions, id?: string) {
+    super(options, id)
     this.options = options
     this.eventConfigurations = {}
     this.started = false
-  }
-
-  update(options: HttpConnectorOptions) {
-    this.options = options
   }
 
   on(options: HttpConnectorOptions, eventId: string) {

@@ -5,7 +5,7 @@ const httpConnectionName = 'myHttpConnection'
 const app = new Reshuffle();
 
 const cronConnector = new CronConnector();
-const httpConnector = new HttpConnector(httpConnectionName);
+const httpConnector = new HttpConnector(undefined, httpConnectionName);
 
 app.register(httpConnector);
 app.register(cronConnector);
