@@ -16,10 +16,6 @@ export default class CronConnector extends BaseConnector<CronConnectorOptions> {
     this.intervalsByEventId = {}
   }
 
-  update(options: CronConnectorOptions) {
-    this.options = options /* todo, implement update */
-  }
-
   on(options: CronConnectorOptions, eventId: string) {
     if (!eventId) {
       eventId = `CRON/${options.interval}/${this.id}`
@@ -38,26 +34,20 @@ export default class CronConnector extends BaseConnector<CronConnectorOptions> {
     return event
   }
 
-  removeEvent(event: EventConfiguration) {
-    delete this.eventConfigurations[event.id]
+  onRemoveEvent(event: EventConfiguration) {
     clearInterval(this.intervalsByEventId[event.id])
   }
 
-  start(app: Reshuffle) {
-    this.app = app
-    if (!this.started) {
-      Object.values(this.eventConfigurations).forEach((eventConfiguration) => {
-        const intervalId = this.app.setInterval(() => {
-          this.app.handleEvent(eventConfiguration.id, {})
-        }, eventConfiguration.options.interval)
-        this.intervalsByEventId[eventConfiguration.id] = intervalId
-      })
-    }
-    this.started = true
+  onStart(app: Reshuffle) {
+    Object.values(this.eventConfigurations).forEach((eventConfiguration) => {
+      const intervalId = this.app.setInterval(() => {
+        this.app.handleEvent(eventConfiguration.id, {})
+      }, eventConfiguration.options.interval)
+      this.intervalsByEventId[eventConfiguration.id] = intervalId
+    })
   }
 
-  stop() {
+  onStop() {
     Object.values((intervalId: Timeout) => clearInterval(intervalId))
-    this.started = false
   }
 }
