@@ -31,18 +31,10 @@ export default class HttpConnector extends BaseHttpConnector<HttpConnectorOption
     return event
   }
 
-  removeEvent(event: any) {
-    delete this.eventConfigurations[event.id]
-  }
-
-  start(app: Reshuffle) {
-    this.app = app
-    if (this.started) {
-      Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
-        app.registerHTTPDelegate(eventConfiguration.options.path, this),
-      )
-    }
-    this.started = true
+  onStart(app: Reshuffle) {
+    Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
+      app.registerHTTPDelegate(eventConfiguration.options.path, this),
+    )
   }
 
   async handle(req: Request, res: Response, next: NextFunction) {
@@ -63,23 +55,17 @@ export default class HttpConnector extends BaseHttpConnector<HttpConnectorOption
     return handled
   }
 
-  public stop() {
+  onStop() {
     Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
       this.app?.unregisterHTTPDelegate(eventConfiguration.options.path),
     )
-
-    this.started = false
   }
 
-  public fetch(url: RequestInfo, options?: RequestInit) {
+  fetch(url: RequestInfo, options?: RequestInit) {
     return fetch(url, options)
   }
 
-  public async fetchWithRetries(
-    url: string,
-    options: RequestInit = {},
-    retry: Record<string, any> = {},
-  ) {
+  async fetchWithRetries(url: string, options: RequestInit = {}, retry: Record<string, any> = {}) {
     const interval = retry.interval !== undefined ? retry.interval : 2000
     if (typeof interval !== 'number' || interval < 50 || 5000 < interval) {
       throw new Error(`Http: Invalid retry interval: ${interval}`)
