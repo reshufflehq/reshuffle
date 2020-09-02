@@ -37,7 +37,7 @@ export default class HttpConnector extends Connector<HttpConnectorOptions> {
 
   start(app: Reshuffle) {
     this.app = app
-    if (this.started) {
+    if (!this.started) {
       Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
         app.registerHTTPDelegate(eventConfiguration.options.path, this),
       )
