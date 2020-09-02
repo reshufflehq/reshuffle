@@ -1,4 +1,4 @@
-import { Connector, EventConfiguration } from 'reshuffle-base-connector'
+import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
 import Timeout = NodeJS.Timeout
 import Reshuffle from '../Reshuffle'
 
@@ -8,7 +8,7 @@ export interface CronConnectorOptions {
   interval: number
 }
 
-export default class CronConnector extends Connector<CronConnectorOptions> {
+export default class CronConnector extends BaseConnector<CronConnectorOptions> {
   intervalsByEventId: { [eventId: string]: Timeout }
 
   constructor(options: CronConnectorOptions = DEFAULT_CRON_OPTIONS, id: string) {

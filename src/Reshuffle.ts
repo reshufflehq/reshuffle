@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
-import { Connector, EventConfiguration } from 'reshuffle-base-connector'
+import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -11,10 +11,10 @@ export interface Handler {
 
 export default class Reshuffle {
   availableConnectors: any
-  httpDelegates: { [path: string]: Connector }
+  httpDelegates: { [path: string]: BaseHttpConnector }
   port: number
   registry: {
-    connectors: { [url: string]: Connector }
+    connectors: { [url: string]: BaseConnector }
     handlers: { [id: string]: Handler[] }
     common: { webserver?: Express; persistentStore?: any }
   }
@@ -45,23 +45,23 @@ export default class Reshuffle {
     return this.registry.common.webserver
   }
 
-  register(connector: Connector): Connector {
+  register(connector: BaseConnector): BaseConnector {
     connector.app = this
     this.registry.connectors[connector.id] = connector
 
     return connector
   }
 
-  async unregister(connector: Connector): Promise<void> {
+  async unregister(connector: BaseConnector): Promise<void> {
     await connector.stop()
     delete this.registry.connectors[connector.id]
   }
 
-  getConnector(connectorId: Connector['id']): Connector {
+  getConnector(connectorId: BaseConnector['id']): BaseConnector {
     return this.registry.connectors[connectorId]
   }
 
-  registerHTTPDelegate(path: string, delegate: Connector): Connector {
+  registerHTTPDelegate(path: string, delegate: BaseHttpConnector): BaseHttpConnector {
     this.httpDelegates[path] = delegate
 
     return delegate
