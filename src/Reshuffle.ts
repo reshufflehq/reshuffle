@@ -111,12 +111,12 @@ export default class Reshuffle {
     })
   }
 
-  async handleEvent(eventName: string, event: any): Promise<boolean> {
+  async handleEvent(eventId: string, event: any): Promise<boolean> {
     if (event == null) {
       event = {}
     }
 
-    const eventHandlers = this.registry.handlers[eventName]
+    const eventHandlers = this.registry.handlers[eventId]
     if (eventHandlers.length === 0) {
       return false
     }

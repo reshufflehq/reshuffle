@@ -88,7 +88,7 @@ You noticed in the code sample that we provided important information on how to 
 
 You can use the Connector object to take action on a remote service (such as adding a row to a CRM) and configure events that trigger when something happens in that system. We will show you how to do that in the next section. 
 
-A full list of Connectors, and how to create your own Connector, [can be found here](./docs/connector.md)
+A full list of Connectors, and how to create your own Connector, [can be found here](./docs/connectors.md)
 
 ### Events
 As we saw, connectors are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. Connectors can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
