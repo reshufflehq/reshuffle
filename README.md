@@ -52,7 +52,7 @@ httpConnector.on({'method':'GET','path':'/test'}).do((event) => {
 ```
 Note: Remember to add the *app.register(connector)* prior to *when(...)* or *on(...)*. 
 
-More examples can be found [here](./examples)
+More examples [can be found here](./examples)
 
 ### Connectors configuration 
 A critical aspect of building integrations is configuring how to connect to different services we want to integrate with. With Reshuffle you can configure *Connector* objects and inject them.
@@ -121,8 +121,6 @@ app.start();
 It is the responsibility of the SlackConnector to listen to the events in Slack and emit corresponding events in Reshuffle. Your code can listen to these events and run business logic.
 
 As you can see, both the event creation and the business logic, use the same Connector configuration. This makes configuration easier to manage.
-
-
 
 ## Installation
 
