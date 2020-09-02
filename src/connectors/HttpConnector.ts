@@ -2,21 +2,18 @@ import fetch, { RequestInfo, RequestInit } from 'node-fetch'
 import { format as _formatURL, URL } from 'url'
 import { Request, Response, NextFunction } from 'express'
 import Reshuffle from '../Reshuffle'
-import { Connector, EventConfiguration } from 'reshuffle-base-connector'
+import { BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 class TimeoutError extends Error {}
 
-interface HttpConnectorOptions {
+export interface HttpConnectorOptions {
   method: string
   path: string
 }
 
-export default class HttpConnector extends Connector<HttpConnectorOptions> {
+export default class HttpConnector extends BaseHttpConnector<HttpConnectorOptions> {
   constructor(options?: HttpConnectorOptions, id?: string) {
     super(options, id)
-    this.options = options
-    this.eventConfigurations = {}
-    this.started = false
   }
 
   on(options: HttpConnectorOptions, eventId: string) {
@@ -70,6 +67,8 @@ export default class HttpConnector extends Connector<HttpConnectorOptions> {
     Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
       this.app?.unregisterHTTPDelegate(eventConfiguration.options.path),
     )
+
+    this.started = false
   }
 
   public fetch(url: RequestInfo, options?: RequestInit) {
