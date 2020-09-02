@@ -1,5 +1,6 @@
 # Reshuffle Integration Framework
 Reshuffle is a lightweight and open source integration framework. With Reshuffle you can build integrations, connect systems, and build workflows.
+<!--There are several common [use cases](./docs/use-cases.md) where Reshuffle is a good framework to use. -->
 
 Here is a simple workflow that listens to a cron event that runs every 5 sec: 
 ```js
