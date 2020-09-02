@@ -3,7 +3,7 @@ Reshuffle is a framework that lets you connect to services, create integrations 
 Connectors facilitate that connector to a 3rd party service or system -  for example, if you want to connect to Saleforce you would use the Salesforce connector.
 
 Reshuffle comes with several connectors out of the box, to connect to common systems. 
-The framework is also extendable, and you can create connectors to your own proprietary system. If you want to build your own connector, please follow this [manual]("./building-connectors"). 
+The framework is also extendable, and you can create connectors to your own proprietary system. If you want to build your own connector, please follow this [manual]("./buidling-connectors.md"). 
 
 ## Common Reshuffle Connectors
 
@@ -29,7 +29,7 @@ app.register(emailConnector);
 
 app.when(connector.on({'interval':5000}), (event) => {
   event.getConnector('connectors/email')
-    .send('daily report!', 'the report itself', [list of emails]);
+    .send('daily report!', 'the report itself', ["email@email.com", "email2.."]);
 });
 
 app.start()
