@@ -104,13 +104,15 @@ const monitor = new ServerMonitorConnector({
 });
 
 app.register(monitor);
+
+// Configure a handler that subscribes to the ServerMonitor's `server-down` event with the id `server-crashed` 
 app.when(monitor.on({type:'server-down'},'server-crashed'), (event) => {
     console.log(`Server is down - ${event.server_ip}`)
 });
 app.start();
 ```
 
-When the `monitor.on({type:"server-down"},"server-crashed")` is called, `ServerMonitorConnector` registers the EventConfiguration, stores the fact that it needs to monitor the server for that type of event, and returns the EventConfiguration object:
+When your code calls `monitor.on({type:"server-down"},"server-crashed")`, the connector registers the EventConfiguration provided. It registers the handler subscribing to this specific event, and returns the EventConfiguration object:
 ````js
 on(options, eventId) {
   if (!eventId) {
@@ -119,9 +121,12 @@ on(options, eventId) {
 
   const event = new EventConfiguration(eventId, this, options)
 
-  // The connector's logic monitors all servers and events described by the
-  // events inside the `serverDownEventConfigurations` collection
-  this.serverDownEventConfigurations[event.id] = event;
+  // The connector's logic keeps track of which handlers are registered
+  // to various event ids. 
+  // Note that multiple handlers may be registered for each event id, and the 
+  // connector needs to account for that
+  if (!this.serve)
+  this.eventHandlers[event.id].push(event);
   return event
 }
 ````
