@@ -10,7 +10,7 @@ app.start();
 app.start();
 
 app.when(connector.on({'method':'GET','path':'/test'}), (event) => {
-  event.res.end('Hello World!');
+  event.context.res.end('Hello World!');
 });
 
 app.restart();
