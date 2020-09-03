@@ -1,16 +1,8 @@
 import express, { Express, Request, Response, NextFunction } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
-import EventConfiguration from './EventConfiguration'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
-
-export interface Connector {
-  id: number
-  app: Reshuffle
-  start: (app: Reshuffle) => void
-  stop: () => void
-  handle?: any
-}
+import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -19,10 +11,10 @@ export interface Handler {
 
 export default class Reshuffle {
   availableConnectors: any
-  httpDelegates: { [path: string]: Connector }
+  httpDelegates: { [path: string]: BaseHttpConnector }
   port: number
   registry: {
-    connectors: { [url: string]: Connector }
+    connectors: { [url: string]: BaseConnector }
     handlers: { [id: string]: Handler[] }
     common: { webserver?: Express; persistentStore?: any }
   }
@@ -53,23 +45,23 @@ export default class Reshuffle {
     return this.registry.common.webserver
   }
 
-  register(connector: Connector): Connector {
+  register(connector: BaseConnector): BaseConnector {
     connector.app = this
     this.registry.connectors[connector.id] = connector
 
     return connector
   }
 
-  async unregister(connector: Connector): Promise<void> {
+  async unregister(connector: BaseConnector): Promise<void> {
     await connector.stop()
     delete this.registry.connectors[connector.id]
   }
 
-  getConnector(connectorId: Connector['id']): Connector {
+  getConnector(connectorId: BaseConnector['id']): BaseConnector {
     return this.registry.connectors[connectorId]
   }
 
-  registerHTTPDelegate(path: string, delegate: Connector): Connector {
+  registerHTTPDelegate(path: string, delegate: BaseHttpConnector): BaseHttpConnector {
     this.httpDelegates[path] = delegate
 
     return delegate
@@ -95,12 +87,7 @@ export default class Reshuffle {
     console.log('Registering event ' + eventConfiguration.id)
   }
 
-  start(
-    port: number,
-    callback = () => {
-      console.log('Reshuffle started!')
-    },
-  ): void {
+  start(port?: number, callback?: () => void): void {
     this.port = port || this.port
 
     // Start all connectors
@@ -118,7 +105,7 @@ export default class Reshuffle {
     callback && callback()
   }
 
-  restart(port: number): void {
+  restart(port?: number): void {
     this.start(port, () => {
       console.log('Refreshing Reshuffle configuration')
     })
@@ -166,3 +153,5 @@ export default class Reshuffle {
     return global.setInterval(callback, ms, args)
   }
 }
+
+export { Reshuffle }
