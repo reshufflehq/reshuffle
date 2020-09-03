@@ -160,7 +160,7 @@ $ npm install reshuffle
 $ npm install -g reshuffle
 ```
 
-Copy the `helloWorldHTTPExample.js` example from the example folder into your /tmp/foo.
+Copy the `HTTPExample.js` example from the example folder into your /tmp/foo.
 
 Install dependencies:
 
