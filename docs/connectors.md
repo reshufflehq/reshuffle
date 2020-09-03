@@ -60,6 +60,7 @@ the interval attribute in milliseconds.
 {"interval":1000}
 ```
 
+Cron Connector detail [documentation](./connectors/CronConnector.md) 
 
 ### HTTP Connector
 *NPM Package:*  reshuffle
@@ -97,3 +98,6 @@ app.start();
 The code above creates an HTTP endpoint at `/status`. Sending a `GET` request to this endpoint with the following pattern, sets the 
 user status in Slack to the value of the `slack_status` query parameter.
 Ergo - hitting `/status?slack_status=happy` will set the user's status to happy.
+
+HTTP Connector detail [documentation](./connectors/HttpConnector.md) 
+
