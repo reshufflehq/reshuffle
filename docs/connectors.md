@@ -31,7 +31,7 @@ const smtpConnector = new SMTPConnector({
   port: 587,
   fromName: 'Spiderman II',
   fromEmail: 'admin@superheros.com'
-},'service/email');
+},'connectors/email');
 
 app.register(cronConnector);
 app.register(smtpConnector);
@@ -97,3 +97,44 @@ app.start();
 The code above creates an HTTP endpoint at `/status`. Sending a `GET` request to this endpoint with the following pattern, sets the 
 user status in Slack to the value of the `slack_status` query parameter.
 Ergo - hitting `/status?slack_status=happy` will set the user's status to happy.
+
+### SMTP Connector
+*NPM Package:*  reshuffle-smtp-connector
+
+The SMTP connector allows a developer to configure a transport that sends emails via SMTP.
+
+The following example exposes an endpoint that changes your status in Slack:
+```js
+const {HttpConnector, Reshuffle} = require('reshuffle');
+const {SMTPConnector} = require('reshuffle-smtp-connector')
+
+const app = new Reshuffle();
+const httpConnector = new HttpConnector();
+const smtpConnector = new SMTPConnector({
+  username:'superman',
+  password:'hunter123',
+  host:'email.some.com',
+  port: 587,
+  fromName: 'Spiderman III',
+  fromEmail: 'admin@superheros.com'
+},'connectors/smtp');
+
+app.register(httpConnector);
+app.register(smtpConnector);
+
+app.when(httpConnector.on({
+  'method':'GET',
+  'path':'/ping'
+}), (event) => {
+  event.getConnector('connectors/smtp')
+    .send({
+      to:event.req.query.to,
+      subject: 'Ping Email',
+      html: 'You have been pinged'
+    }); 
+});
+```
+The code above creates an HTTP endpoint at `/ping`. Sending a `GET` request to this endpoint with the following pattern, 
+sends an email to the address in the `to` query parameter.
+
+Ergo - hitting `/ping?to=doc@exmaple.com` will send a ping email to `doc@example.com`
