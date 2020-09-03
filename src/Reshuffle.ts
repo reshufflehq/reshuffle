@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
 import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
+import { createLogger } from './Logger'
+import { Logger } from 'winston'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -18,12 +20,14 @@ export default class Reshuffle {
     handlers: { [id: string]: Handler[] }
     common: { webserver?: Express; persistentStore?: any }
   }
+  logger: Logger
 
   constructor() {
     this.availableConnectors = availableConnectors
     this.port = parseInt(<string>process.env.PORT, 10) || 8000
     this.httpDelegates = {}
     this.registry = { connectors: {}, handlers: {}, common: {} }
+    this.logger = createLogger()
 
     console.log('Initializing Reshuffle')
   }
@@ -125,14 +129,21 @@ export default class Reshuffle {
     event.getConnector = this.getConnector.bind(this)
 
     for (const handler of eventHandlers) {
-      await this._p_handle(handler, event)
+      await this.handle(handler, event)
     }
 
     return true
   }
 
-  async _p_handle(handler: Handler, event: any): Promise<void> {
-    await handler.handle(event)
+  async handle(handler: Handler, event: any): Promise<void> {
+    this.logger.defaultMeta = { scriptId: handler.id }
+    try {
+      await handler.handle(event)
+    } catch (error) {
+      console.error(error.stack)
+    } finally {
+      this.logger.defaultMeta = {}
+    }
   }
 
   setPersistentStore(adapter: PersistentStoreAdapter) {
