@@ -22,20 +22,18 @@
     "enterprise",
     "reactive"
   ],
-  "author": "Amir Shevat",
+  "author": "Amir Shevat, Nimo Naamani",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/reshufflehq/reshuffle/issues"
   },
   "homepage": "https://github.com/reshufflehq/reshuffle#readme",
   "dependencies": {
-    "@types/nodemailer": "^6.4.0",
     "async-mutex": "^0.2.4",
     "express": "^4.17.1",
     "is-valid-path": "^0.1.1",
     "nanoid": "^3.1.12",
     "node-fetch": "^2.6.0",
-    "nodemailer": "^6.4.6",
     "prettier": "^2.1.1",
     "reshuffle-base-connector": "0.0.1"
   },
@@ -44,6 +42,7 @@
     "@types/is-valid-path": "^0.1.0",
     "@types/node": "^14.6.0",
     "@types/node-fetch": "^2.5.7",
+    "@types/nodemailer": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "eslint": "^7.7.0",

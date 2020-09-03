@@ -1,0 +1,14 @@
+{
+  "name": "email",
+  "version": "1.0.0",
+  "description": "Reshuffle example for email in apps",
+  "main": "SMTPSendEmailExample.js",
+  "scripts": {
+    "start": "node SMTPSendEmailExample.js"
+  },
+  "author": "Nimo Naamani",
+  "license": "MIT",
+  "dependencies": {
+    "reshuffle-smtp-connector": "^0.0.1"
+  }
+}
