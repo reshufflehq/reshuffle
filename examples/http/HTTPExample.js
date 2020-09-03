@@ -6,7 +6,7 @@ const connector = new HttpConnector();
 app.register(connector);
 
 app.when(connector.on({'method':'GET','path':'/test'}), (event) => {
-  event.res.end("Hello World!");
+  event.context.res.end("Hello World!");
 });
 
 // the above is syntactically equivalent to:
