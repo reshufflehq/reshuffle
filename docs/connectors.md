@@ -6,7 +6,7 @@ Reshuffle achieves this by using **Connectors** as the connection mechanism to a
 Reshuffle ships with an existing ecosystem comprising several connectors you can use to connect to common systems. A list of these Reshuffle-provided connectors can be found in this page, and their code can be found in the various repositories [here](https://github.com/reshufflehq/).  
 
 The framework is extendable, meaning you can create connectors to services you use or even your own proprietary systems. 
-The process for building new connectors is described in the [manual]("./buidling-connectors.md"). 
+The process for building new connectors is described in the [manual](./building-connectors.md). 
 
 ## Common Reshuffle Connectors
 
