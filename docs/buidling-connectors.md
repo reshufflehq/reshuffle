@@ -1,25 +1,27 @@
 # Building your own Reshuffle Connector 
-Reshuffle comes with several connectors that connects to common systems. 
-it is also extendable and lets you create your own connector. 
-You will want to create a connector when you need to integrate with a homegrown system, or a service that does not have a connector yet.
+Reshuffle comes with several connectors that connect to common systems. 
+It is also extendable and lets you create your own connector.
+ You will want to create a connector when you need to integrate with a homegrown system,
+  or a service that does not have a connector yet.
 
-The easiest way to create a new connector is you use the template in our `reshuffle-example-connector` repo.
-You can also install and extend the `reshuffle-base-connector` [repo](https://github.com/reshufflehq/reshuffle-base-connector) without using our example. 
-Lastly, if you like to do things all by yourself, you just need to create a class and implement the following methods. 
-
+The easiest way to create a new connector is you use the template in our
+reshuffle-example-connector repo (coming soon!). You can also install and
+extend the reshuffle-base-connector repo without using our example. Lastly,
+if you like to do things all by yourself, you just need to create a class
+and implement the following methods.
 ### The Connector class
 ```js
 class MyConnector{
     
-constructor(options, id) {...}
+constructor(connectorOptions, id) {...}
 
 start(app) {...}
 
 stop() {...}
 
-update(options) {...}
+update(connectorOptions) {...}
 
-on(options, eventId) {...}
+on(eventOptions, eventId) {...}
 }
 ```
 
