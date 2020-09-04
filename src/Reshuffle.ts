@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
-import {MemoryStoreAdapter, PersistentStoreAdapter} from './persistency'
+import { MemoryStoreAdapter, PersistentStoreAdapter } from './persistency'
 import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 export interface Handler {
@@ -136,16 +136,15 @@ export default class Reshuffle {
   }
 
   setPersistentStore(adapter: PersistentStoreAdapter) {
-    this.registry.common.persistentStore = adapter;
-    return adapter;
+    this.registry.common.persistentStore = adapter
+    return adapter
   }
 
   getPersistentStore() {
-
-    if(this.registry.common.persistentStore){
-      this.registry.common.persistentStore = new MemoryStoreAdapter();
+    if (!this.registry.common.persistentStore) {
+      this.registry.common.persistentStore = new MemoryStoreAdapter()
     }
-    return this.registry.common.persistentStore;
+    return this.registry.common.persistentStore
   }
 
   public clearInterval(intervalID: NodeJS.Timer): void {
