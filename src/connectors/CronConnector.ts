@@ -50,6 +50,8 @@ export default class CronConnector extends BaseConnector<CronConnectorOptions> {
   }
 
   onStop() {
-    Object.values((intervalId: Timer) => clearInterval(intervalId))
+    Object.values(this.intervalsByEventId).forEach((intervalId: Timer) =>
+      this.app?.clearInterval(intervalId),
+    )
   }
 }
