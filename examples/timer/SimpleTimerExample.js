@@ -4,13 +4,13 @@ const app = new Reshuffle();
 const connector = new CronConnector();
 
 app.register(connector);
+const logger = app.getLogger()
 
 // eslint-disable-next-line no-unused-vars
 app.when(connector.on({interval:5000}), (event) => {
-  console.log('Hello World!');
-  console.info('an info');
-  console.warn('a warning');
-  console.error('an error');
+  logger.info('an info');
+  logger.warn('a warning');
+  logger.error('an error');
 
   throw new Error('error thrown')
 });
