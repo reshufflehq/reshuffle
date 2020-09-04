@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { PersistentStore, PersistentStoreAdapter } from './persistency'
 import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
+import { URL } from 'url'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -34,8 +35,8 @@ export default class Reshuffle {
       .route('*')
       .all(async (req: Request, res: Response, next: NextFunction) => {
         let handled = false
-        if (this.httpDelegates[req.url]) {
-          handled = await this.httpDelegates[req.url].handle(req, res, next)
+        if (this.httpDelegates[req.params[0]]) {
+          handled = await this.httpDelegates[req.params[0]].handle(req, res, next)
         }
         if (!handled) {
           res.end(`No handler registered for ${req.url}`)
