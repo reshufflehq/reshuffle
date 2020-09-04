@@ -112,7 +112,7 @@ app.when(monitor.on({type:'server-down'},'server-crashed'), (event) => {
 app.start();
 ```
 
-When your code calls `monitor.on({type:"server-down"},"server-crashed")`, the connector registers the EventConfiguration provided. It registers the handler subscribing to this specific event, and returns the EventConfiguration object:
+When your code calls `monitor.on({type:"server-down"},"server-crashed")`, the connector registers the EventConfiguration provided. Reshuffle then registers the handler subscribing to this specific event.
 ````js
 on(options, eventId) {
   if (!eventId) {
@@ -121,16 +121,11 @@ on(options, eventId) {
 
   const event = new EventConfiguration(eventId, this, options)
 
-  // The connector's logic keeps track of which handlers are registered
-  // to various event ids. 
-  // Note that multiple handlers may be registered for each event id, and the 
-  // connector needs to account for that
-  if (!this.serve)
   this.eventHandlers[event.id].push(event);
   return event
 }
 ````
-Next, when `app.start()` is called, the Reshuffle app object calls `start(app)` on `ServerMonitorConnector`. The monitor's logic then starts monitoring the server.
+Next, when `app.start()` is called, the Reshuffle app object calls `start(app)` on the connector. The monitor's logic then starts monitoring the server.
 When the server is down the monitor connector will call the `app.handleEvent(eventId, event)`:
 
 ````js
