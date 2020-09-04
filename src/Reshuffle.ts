@@ -135,13 +135,13 @@ export default class Reshuffle {
     event.getConnector = this.getConnector.bind(this)
 
     for (const handler of eventHandlers) {
-      await this.handle(handler, event)
+      await this._p_handle(handler, event)
     }
 
     return true
   }
 
-  async handle(handler: Handler, event: any): Promise<void> {
+  async _p_handle(handler: Handler, event: any): Promise<void> {
     this.logger.getInstance().defaultMeta = { handlerId: handler.id }
     try {
       await handler.handle(event)
