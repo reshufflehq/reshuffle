@@ -1,4 +1,4 @@
-import { createLogger, format, Logger as WinstonLogger, transports } from 'winston'
+import { createLogger as winstonCreateLogger, format, LoggerOptions, transports } from 'winston'
 const { colorize, combine, printf, json, timestamp } = format
 
 const consoleFormat = printf(({ level, message, timestamp, handlerId }) => {
@@ -30,39 +30,6 @@ const loggerOptions = {
   ],
 }
 
-export default class Logger {
-  private readonly logger: WinstonLogger
-  private consoleFunctions = {
-    log: console.log,
-    info: console.info,
-    warn: console.warn,
-    error: console.error,
-    debug: console.debug,
-  }
+const createLogger = (options: LoggerOptions = loggerOptions) => winstonCreateLogger(options)
 
-  constructor(options = loggerOptions) {
-    this.logger = createLogger(options)
-  }
-
-  redirectConsoleToLogger(): void {
-    console.log = (...args) => this.logger.info(...args)
-    console.info = (...args) => this.logger.info(...args)
-    console.warn = (...args) => this.logger.warn(...args)
-    console.error = (...args) => this.logger.error(...args)
-    console.debug = (...args) => this.logger.debug(...args)
-  }
-
-  revertConsoleToStandard(): void {
-    console.log = this.consoleFunctions.log
-    console.info = this.consoleFunctions.info
-    console.warn = this.consoleFunctions.warn
-    console.error = this.consoleFunctions.error
-    console.debug = this.consoleFunctions.debug
-  }
-
-  getInstance(): WinstonLogger {
-    return this.logger
-  }
-}
-
-export { Logger }
+export { createLogger }
