@@ -17,10 +17,8 @@ app.when(connector.on({interval:5000}), (event) => {
 
 app.start()
 
-/*
+
 setTimeout(async () => {
   console.log('Unregister the Cron connector');
   await app.unregister(connector);
-}, 16000)
-
- */
+}, 11000)
