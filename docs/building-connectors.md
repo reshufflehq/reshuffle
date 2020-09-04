@@ -10,11 +10,10 @@ The easiest way to create a new connector is you use the template in our
 reshuffle-example-connector repo (coming soon!). You can also install and
 extend the reshuffle-base-connector repo without using our example. 
 
-Lastly, if you like to develop things all by yourself from scratch, you just need to create a class
-and implement the following methods.
-### The Connector class
+When using either of these methods, your connector class will need to implement the following methods:
+### Extending the BaseConnector class
 ```js
-class MyConnector {
+class MyConnector extends BaseConnector<MyConnectorOptions> {
     
   constructor(options, id) {...}
 
@@ -30,7 +29,6 @@ class MyConnector {
 
 }
 ```
-
 #### `constructor(options, id)`
 Create a new instance of the connector.
   
@@ -38,27 +36,27 @@ Create a new instance of the connector.
 * **options** - The details the connector needs in order to connect to the target service. If, for example, the service requires an authentication token or a service URL, this is the mechanism you will use to provide it.
 * **id** - the identifier of this connector instance, after this connector is registered to a Reshuffle app, it can be looked up using this id from anywhere.
 
-#### The `onStart(app)` method
-When the Reshuffle's app `start` function executes, it calls `start` on each of the connectors registered to it.
+#### `onStart(app)`
+When the Reshuffle's app `start` method executes, it calls `start` on each of the connectors registered to it.
 
-Connectors extending Reshuffle's `BaseConnector` can implement the `onStart` function. It functions as a hook for cases where the connector requires some special setup or initialization code to run upon start.
-The contract for this function stipulates that when it returns, the connector should be connected to service it exposes - ready to emit the relevant events and enable the specific actions.     
+Connectors extending Reshuffle's `BaseConnector` can implement the `onStart` method. It functions as a hook for cases where the connector requires some special setup or initialization code to run upon start.
+The contract for this method stipulates that when it returns, the connector should be connected to service it exposes - ready to emit the relevant events and enable the specific actions.     
 
 **Params:**
 * **app** - The Reshuffle app object. The connector code can use this object to access `app`'s methods (see, _Reshuffle `app` methods your connector can use_). Most importantly, your connector can use this `app` object to fire events using the `app.handleEvent(...)` method. 
 
-**Note: If your connector does not extend the `BaseConnector` - you need to implement `start(app)` rather than `onStart(app)`. The REshuffle **
+#### `onStop()` 
+When the Reshuffle app unregisters a connector, it calls the connector's `stop()` method.
+Connectors extending Reshuffle's `BaseConnector` can implement the `onStop` method. It functions as a hook for cases where the connector requires some special teardown code.
+When this method returns, the connector should disconnect from the service it exposes.
 
-#### The `onStop()` method
-This method is called by the Reshuffle app when the connector should stop. When this method returns, the connector should disconnect from the service it exposes.
-
-#### The `updateOptions(options)` method
+#### `updateOptions(options)`
 This method is called by the Reshuffle app when a change is made to the connector's parameters. For example, an update to the user password when connecting to an email server.  
 
 **Params:**
 * **options** - (See above too) - The details the connector needs in order to connect to the target service. If, for example, the service requires an authentication token or a service URL, this is the mechanism you will use to provide it.
 
-#### The `on(options, eventId)` method
+#### `on(options, eventId)`
 The on method configures events for this connector to emit. Developers can use this method to define which events the connector emit.
  
 The connector should only emit events after the `start(app)` method is called.
@@ -69,11 +67,49 @@ At the appropriate time after `start(app)` is called, the connector should emit 
 **Params:**
 * **options** - (See above too) - The details the connector needs in order to connect to the target service. If, for example, the service requires an authentication token or a service URL, this is the mechanism you will use to provide it.
 * **eventId** - connectors must use this eventId when emitting this event using the `app.handleEvent(eventId, event)` method. 
-Reshuffle uses this id to trigger the logic (scripts) subscribed to this event.  (see, _Reshuffle `app` methods, your connector can use_)
+Reshuffle uses this id to trigger the logic (handlers) subscribed to this event.  (see, _Reshuffle `app` methods, your connector can use_)
 
 **Returns:**
 * **EventConfiguration object** Event Configuration is a object that encapsulates all the information needed by the Connector to emit the relevant event. 
 see `EventConfiguration.js` in this package for more information. 
+
+## Creating your own connector from scratch
+If you choose to develop your own connector without using a Reshuffle template or the `BaseConnector` class, 
+you just need to create a class that provides implementation of the following interface:
+### The Connector class
+```js
+class MyConnector {
+    
+  constructor(options, id) {...}
+
+  start(app) {...}
+
+  stop() {...}
+
+  onRemoveEvent(event) {...}
+
+  updateOptions(options) {...}
+
+  on(eventOptions, eventId) {...}
+
+}
+```
+The difference between this and extending `BaseConnector` is that here you need to provide implementations for
+the `start(app)` and `stop()` methods directly, as the Reshuffle app expects to find them on a connector.
+
+#### `start(app)`
+When the Reshuffle's app `start` method executes, it calls `start` on each of the connectors registered to it.
+
+The contract for this method stipulates that when it returns, the connector should be connected to service it exposes - ready to emit the relevant events and enable the specific actions.     
+
+**Params:**
+* **app** - The Reshuffle app object. The connector code can use this object to access `app`'s methods (see, _Reshuffle `app` methods your connector can use_). Most importantly, your connector can use this `app` object to fire events using the `app.handleEvent(...)` method. 
+
+#### `stop()` 
+This method is called by the Reshuffle app when the connector should stop. When this method returns, the connector should disconnect from the service it exposes.
+
+The definitions of the rest of the method above - `constructor`, `onRemoveEvent`, `updateOptions` and `on` - are identical to the case where your connector extends `BaseConnector`.
+
 
 ### Reshuffle `app` methods your connector can use. 
 When Reshuffle starts (using `Reshuffle.start()`) - the framework calls `start(app)` on each of the connectors registered with it.
