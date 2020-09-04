@@ -141,10 +141,7 @@ export default class Reshuffle {
   }
 
   getPersistentStore() {
-    if (!this.registry.common.persistentStore) {
-      this.registry.common.persistentStore = new MemoryStoreAdapter()
-    }
-    return this.registry.common.persistentStore
+    return this.registry.common.persistentStore || this.setPersistentStore(new MemoryStoreAdapter());
   }
 
   public clearInterval(intervalID: NodeJS.Timer): void {
