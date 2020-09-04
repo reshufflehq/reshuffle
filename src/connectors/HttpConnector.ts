@@ -11,20 +11,24 @@ export interface HttpConnectorOptions {
   path: string
 }
 
+const sanitizePath = (path: string) => {
+  const pathNoQueryParam = path.split('?')[0]
+  return pathNoQueryParam.startsWith('/') ? pathNoQueryParam : `/${pathNoQueryParam}`
+}
+
 export default class HttpConnector extends BaseHttpConnector<HttpConnectorOptions> {
   constructor(options?: HttpConnectorOptions, id?: string) {
     super(options, id)
   }
 
   on(options: HttpConnectorOptions, eventId: string) {
-    if (!options.path.startsWith('/')) {
-      options.path = '/' + options.path
-    }
+    const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
+
     if (!eventId) {
-      eventId = `HTTP/${options.method}${options.path}/${this.id}`
+      eventId = `HTTP/${optionsSanitized.method}${optionsSanitized.path}/${this.id}`
     }
 
-    const event = new EventConfiguration(eventId, this, options)
+    const event = new EventConfiguration(eventId, this, optionsSanitized)
     this.eventConfigurations[event.id] = event
     this.app?.registerHTTPDelegate(event.options.path, this)
 
@@ -38,11 +42,12 @@ export default class HttpConnector extends BaseHttpConnector<HttpConnectorOption
   }
 
   async handle(req: Request, res: Response, next: NextFunction) {
-    const { method, url } = req
+    const { method, params } = req
+    const requestPath = params[0]
     let handled = false
 
     const eventConfiguration = Object.values(this.eventConfigurations).find(
-      ({ options }) => options.path === url && options.method === method,
+      ({ options }) => options.path === requestPath && options.method === method,
     )
 
     if (eventConfiguration) {
