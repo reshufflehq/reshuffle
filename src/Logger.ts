@@ -10,9 +10,9 @@ const loggerOptions = {
   format: combine(timestamp(), json()),
   exitOnError: false,
   transports: [
-    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `error` to `error.log`
     new transports.File({ filename: './logs/error.log', level: 'error' }),
-    // - Write all logs with level `info` and below to `combined.log`
+    // - Write all logs to `combined.log`
     new transports.File({ filename: './logs/combined.log' }),
     new transports.Console({
       format: combine(colorize({ level: true, message: true }), consoleFormat),
