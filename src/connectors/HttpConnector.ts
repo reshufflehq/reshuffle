@@ -6,7 +6,12 @@ import { BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 class TimeoutError extends Error {}
 
-export interface HttpConnectorOptions {
+export interface HttpConnectorConfigOptions {
+  authKey?: string
+  authScript?: string
+}
+
+export interface HttpConnectorEventOptions {
   method: string
   path: string
 }
@@ -16,12 +21,15 @@ const sanitizePath = (path: string) => {
   return pathNoQueryParam.startsWith('/') ? pathNoQueryParam : `/${pathNoQueryParam}`
 }
 
-export default class HttpConnector extends BaseHttpConnector<HttpConnectorOptions> {
-  constructor(options?: HttpConnectorOptions, id?: string) {
+export default class HttpConnector extends BaseHttpConnector<
+  HttpConnectorConfigOptions,
+  HttpConnectorEventOptions
+> {
+  constructor(options?: HttpConnectorConfigOptions, id?: string) {
     super(options, id)
   }
 
-  on(options: HttpConnectorOptions, eventId: string) {
+  on(options: HttpConnectorEventOptions, eventId?: string) {
     const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
 
     if (!eventId) {

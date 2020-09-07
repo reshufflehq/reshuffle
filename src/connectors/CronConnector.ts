@@ -2,21 +2,21 @@ import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
 import Timer = NodeJS.Timer
 import Reshuffle from '../Reshuffle'
 
-const DEFAULT_CRON_OPTIONS = { interval: 5000 }
+const DEFAULT_EVENT_OPTIONS = { interval: 5000 }
 
-export interface CronConnectorOptions {
+export interface CronEventOptions {
   interval: number
 }
 
-export default class CronConnector extends BaseConnector<CronConnectorOptions> {
+export default class CronConnector extends BaseConnector<null, CronEventOptions> {
   intervalsByEventId: { [eventId: string]: Timer }
 
-  constructor(options: CronConnectorOptions = DEFAULT_CRON_OPTIONS, id: string) {
-    super(options, id)
+  constructor(id?: string) {
+    super(undefined, id)
     this.intervalsByEventId = {}
   }
 
-  on(options: CronConnectorOptions, eventId: string) {
+  on(options: CronEventOptions = DEFAULT_EVENT_OPTIONS, eventId: string) {
     if (!eventId) {
       eventId = `CRON/${options.interval}/${this.id}`
     }
