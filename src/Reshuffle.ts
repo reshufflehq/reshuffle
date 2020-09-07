@@ -3,7 +3,8 @@ import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { MemoryStoreAdapter, PersistentStoreAdapter } from './persistency'
 import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
-import { URL } from 'url'
+import { createLogger } from './Logger'
+import { Logger, LoggerOptions } from 'winston'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -19,14 +20,16 @@ export default class Reshuffle {
     handlers: { [id: string]: Handler[] }
     common: { webserver?: Express; persistentStore?: any }
   }
+  logger: Logger
 
-  constructor() {
+  constructor(loggerOptions?: LoggerOptions) {
     this.availableConnectors = availableConnectors
     this.port = parseInt(<string>process.env.PORT, 10) || 8000
     this.httpDelegates = {}
     this.registry = { connectors: {}, handlers: {}, common: {} }
+    this.logger = createLogger(loggerOptions)
 
-    console.log('Initializing Reshuffle')
+    this.logger.info('Initializing Reshuffle')
   }
 
   createWebServer(): Express {
@@ -85,7 +88,7 @@ export default class Reshuffle {
     } else {
       this.registry.handlers[eventConfiguration.id] = [handlerWrapper]
     }
-    console.log('Registering event ' + eventConfiguration.id)
+    this.logger.info('Registering event ' + eventConfiguration.id)
   }
 
   start(port?: number, callback?: () => void): void {
@@ -99,7 +102,7 @@ export default class Reshuffle {
       const webserver = this.createWebServer()
 
       webserver.listen(this.port, () => {
-        console.log(`Web server listening on port ${this.port}`)
+        this.logger.info(`Web server listening on port ${this.port}`)
       })
     }
 
@@ -108,7 +111,7 @@ export default class Reshuffle {
 
   restart(port?: number): void {
     this.start(port, () => {
-      console.log('Refreshing Reshuffle configuration')
+      this.logger.info('Refreshing Reshuffle configuration')
     })
   }
 
@@ -133,7 +136,14 @@ export default class Reshuffle {
   }
 
   async _p_handle(handler: Handler, event: any): Promise<void> {
-    await handler.handle(event)
+    this.logger.defaultMeta = { handlerId: handler.id }
+    try {
+      await handler.handle(event)
+    } catch (error) {
+      this.logger.error(error.stack)
+    } finally {
+      this.logger.defaultMeta = {}
+    }
   }
 
   setPersistentStore(adapter: PersistentStoreAdapter) {
@@ -142,7 +152,7 @@ export default class Reshuffle {
   }
 
   getPersistentStore() {
-    return this.registry.common.persistentStore || this.setPersistentStore(new MemoryStoreAdapter());
+    return this.registry.common.persistentStore || this.setPersistentStore(new MemoryStoreAdapter())
   }
 
   public clearInterval(intervalID: NodeJS.Timer): void {
@@ -151,6 +161,10 @@ export default class Reshuffle {
 
   public setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer {
     return global.setInterval(callback, ms, args)
+  }
+
+  public getLogger(): Logger {
+    return this.logger
   }
 }
 

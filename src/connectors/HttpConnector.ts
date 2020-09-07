@@ -51,7 +51,7 @@ export default class HttpConnector extends BaseHttpConnector<HttpConnectorOption
     )
 
     if (eventConfiguration) {
-      console.log('Handling event')
+      this.app?.getLogger().info('Handling event')
       handled = this.app
         ? await this.app.handleEvent(eventConfiguration.id, {
             ...eventConfiguration,
