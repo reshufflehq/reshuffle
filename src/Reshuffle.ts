@@ -38,8 +38,8 @@ export default class Reshuffle {
       .route('*')
       .all(async (req: Request, res: Response, next: NextFunction) => {
         let handled = false
-        if (this.httpDelegates[req.url]) {
-          handled = await this.httpDelegates[req.url].handle(req, res, next)
+        if (this.httpDelegates[req.params[0]]) {
+          handled = await this.httpDelegates[req.params[0]].handle(req, res, next)
         }
         if (!handled) {
           res.end(`No handler registered for ${req.url}`)
