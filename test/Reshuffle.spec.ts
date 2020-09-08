@@ -22,7 +22,7 @@ describe('Reshuffle', () => {
         const app = new Reshuffle()
         expect(app.port).toEqual(parseInt(process.env.PORT, 10))
       })
-      it('creates a new app using my logger options', () => {
+      it('creates a new app using custom logger options', () => {
         const app = new Reshuffle({ level: 'debug' })
 
         expect(app.getLogger().isDebugEnabled()).toBe(true)
