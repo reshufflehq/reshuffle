@@ -1,5 +1,5 @@
-const {Reshuffle, CronConnector} = require('../..');
-const {SMTPConnector} = require('reshuffle-smtp-connector');
+const {Reshuffle, CronConnector} = require('../..')
+const {SMTPConnector} = require('reshuffle-smtp-connector')
 const app = new Reshuffle()
 
 const smtpConnector = new SMTPConnector(
