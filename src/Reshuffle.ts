@@ -5,6 +5,7 @@ import { MemoryStoreAdapter, PersistentStoreAdapter } from './persistency'
 import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 import { createLogger } from './Logger'
 import { Logger, LoggerOptions } from 'winston'
+import http from 'http'
 
 export interface Handler {
   handle: (event?: any) => void
@@ -18,7 +19,7 @@ export default class Reshuffle {
   registry: {
     connectors: { [url: string]: BaseConnector }
     handlers: { [id: string]: Handler[] }
-    common: { webserver?: Express; persistentStore?: any }
+    common: { webserver?: http.Server; persistentStore?: any }
   }
   logger: Logger
 
@@ -32,28 +33,26 @@ export default class Reshuffle {
     this.logger.info('Initializing Reshuffle')
   }
 
-  createWebServer(): Express {
-    this.registry.common.webserver = express()
-    this.registry.common.webserver
-      .route('*')
-      .all(async (req: Request, res: Response, next: NextFunction) => {
-        let handled = false
-        if (this.httpDelegates[req.params[0]]) {
-          handled = await this.httpDelegates[req.params[0]].handle(req, res, next)
-        }
-        if (!handled) {
-          res.end(`No handler registered for ${req.url}`)
-        }
-      })
+  prepareWebServer(): Express {
+    const server = express()
+    server.route('*').all(async (req: Request, res: Response, next: NextFunction) => {
+      let handled = false
+      if (this.httpDelegates[req.params[0]]) {
+        handled = await this.httpDelegates[req.params[0]].handle(req, res, next)
+      }
+      if (!handled) {
+        res.end(`No handler registered for ${req.url}`)
+      }
+    })
 
-    return this.registry.common.webserver
+    return server
   }
 
-  register(connector: BaseConnector): BaseConnector {
+  register(connector: BaseConnector): Reshuffle {
     connector.app = this
     this.registry.connectors[connector.id] = connector
 
-    return connector
+    return this
   }
 
   async unregister(connector: BaseConnector): Promise<void> {
@@ -65,17 +64,17 @@ export default class Reshuffle {
     return this.registry.connectors[connectorId]
   }
 
-  registerHTTPDelegate(path: string, delegate: BaseHttpConnector): BaseHttpConnector {
+  registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
     this.httpDelegates[path] = delegate
 
-    return delegate
+    return this
   }
 
   unregisterHTTPDelegate(path: string): void {
     delete this.httpDelegates[path]
   }
 
-  when(eventConfiguration: EventConfiguration, handler: () => void | Handler): void {
+  when(eventConfiguration: EventConfiguration, handler: () => void | Handler): Reshuffle {
     const handlerWrapper =
       typeof handler === 'object'
         ? handler
@@ -89,6 +88,8 @@ export default class Reshuffle {
       this.registry.handlers[eventConfiguration.id] = [handlerWrapper]
     }
     this.logger.info('Registering event ' + eventConfiguration.id)
+
+    return this
   }
 
   start(port?: number, callback?: () => void): void {
@@ -99,14 +100,18 @@ export default class Reshuffle {
 
     // Start the webserver if we have http delegates
     if (Object.keys(this.httpDelegates).length > 0 && !this.registry.common.webserver) {
-      const webserver = this.createWebServer()
+      const express = this.prepareWebServer()
 
-      webserver.listen(this.port, () => {
+      this.registry.common.webserver = express.listen(this.port, () => {
         this.logger.info(`Web server listening on port ${this.port}`)
       })
     }
 
     callback && callback()
+  }
+
+  stopWebServer(): void {
+    this.registry.common.webserver?.close()
   }
 
   restart(port?: number): void {
