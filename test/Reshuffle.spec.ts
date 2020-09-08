@@ -38,7 +38,7 @@ describe('Reshuffle', () => {
 
         expect(app.port).toBe(myPort)
       })
-      it('starts the app with callback', () => {
+      it('starts the app and invoke callback function id provided', () => {
         const callbackOnStart = jest.fn()
 
         const app = new Reshuffle()
