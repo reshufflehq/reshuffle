@@ -74,7 +74,7 @@ export default class Reshuffle {
     delete this.httpDelegates[path]
   }
 
-  when(eventConfiguration: EventConfiguration, handler: () => void | Handler): Reshuffle {
+  when(eventConfiguration: EventConfiguration, handler: (() => void) | Handler): Reshuffle {
     const handlerWrapper =
       typeof handler === 'object'
         ? handler
@@ -115,18 +115,15 @@ export default class Reshuffle {
   }
 
   restart(port?: number): void {
+    this.stopWebServer()
     this.start(port, () => {
       this.logger.info('Refreshing Reshuffle configuration')
     })
   }
 
-  async handleEvent(eventId: string, event: any): Promise<boolean> {
-    if (event == null) {
-      event = {}
-    }
-
+  async handleEvent(eventId: EventConfiguration['id'], event: any): Promise<boolean> {
     const eventHandlers = this.registry.handlers[eventId]
-    if (eventHandlers.length === 0) {
+    if (!eventHandlers || eventHandlers.length === 0) {
       return false
     }
 
