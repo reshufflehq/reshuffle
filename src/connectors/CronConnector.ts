@@ -16,7 +16,7 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     this.intervalsByEventId = {}
   }
 
-  on(options: CronEventOptions = DEFAULT_EVENT_OPTIONS, eventId: string) {
+  on(options: CronEventOptions = DEFAULT_EVENT_OPTIONS, eventId: string): EventConfiguration {
     if (!eventId) {
       eventId = `CRON/${options.interval}/${this.id}`
     }
