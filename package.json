@@ -10,7 +10,8 @@
     "lint": "eslint . --ext .ts,.js --fix",
     "prepare": "rimraf dist && tsc",
     "prepublishOnly": "rimraf dist && tsc",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest test --coverage"
   },
   "repository": {
     "type": "git",
@@ -63,5 +64,11 @@
     "hooks": {
       "pre-commit": "npm run lint"
     }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!<rootDir>/node_modules/"
+    ]
   }
 }
