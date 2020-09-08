@@ -117,7 +117,27 @@ describe('Reshuffle', () => {
 
       app.stopWebServer()
     })
+    it('unregisters http delegate', async () => {
+      const app = new Reshuffle()
 
+      expect(app.registry.common.webserver).toBeUndefined()
+
+      const connector1 = new HttpConnector()
+      connector1.start = jest.fn()
+      app.register(connector1)
+
+      app.when(connector1.on({ method: 'GET', path: '/test1' }), () => console.log('test1'))
+
+      expect(Object.keys(app.httpDelegates)).toHaveLength(1)
+
+      app.start()
+
+      await app.unregister(connector1)
+
+      expect(Object.keys(app.httpDelegates)).toHaveLength(0)
+
+      app.stopWebServer()
+    })
     describe('web server', () => {
       it('delegates to the connector handler if the route matches', async () => {
         const app = new Reshuffle()
@@ -181,6 +201,26 @@ describe('Reshuffle', () => {
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/foobar')
         expect(responseTest3Call.text).toEqual('No handler registered for /foobar')
+
+        app.stopWebServer()
+      })
+      it("returns a 200 with 'No handler registered for /route' if unregistered", async () => {
+        const app = new Reshuffle()
+
+        expect(app.registry.common.webserver).toBeUndefined()
+
+        const connector1 = new HttpConnector()
+        connector1.start = jest.fn()
+        app.register(connector1)
+
+        app.when(connector1.on({ method: 'GET', path: '/test' }), () => console.log('test'))
+
+        app.start()
+
+        await app.unregister(connector1)
+
+        const responseTest3Call = await request(app.registry.common.webserver).get('/test')
+        expect(responseTest3Call.text).toEqual('No handler registered for /test')
 
         app.stopWebServer()
       })
