@@ -1,24 +1,32 @@
 import request from 'supertest'
 import { CronConnector, HttpConnector, Reshuffle } from '../src'
 import { BaseConnector } from 'reshuffle-base-connector'
+import EventConfiguration from 'reshuffle-base-connector/dist/EventConfiguration'
 
 describe('Reshuffle', () => {
   describe('create, start and restart', () => {
-    it('creates a new app running on default port', () => {
-      const app = new Reshuffle()
+    describe('create Reshuffle application', () => {
+      it('creates a new app running on default port', () => {
+        const app = new Reshuffle()
 
-      expect(app.port).toEqual(8000)
-      expect(app.registry).toEqual({
-        common: { webserver: undefined },
-        connectors: {},
-        handlers: {},
+        expect(app.port).toEqual(8000)
+        expect(app.registry).toEqual({
+          common: { webserver: undefined },
+          connectors: {},
+          handlers: {},
+        })
+        expect(app.httpDelegates).toEqual({})
       })
-      expect(app.httpDelegates).toEqual({})
-    })
-    it('creates a new app running on a specific port', () => {
-      process.env.PORT = '1234'
-      const app = new Reshuffle()
-      expect(app.port).toEqual(parseInt(process.env.PORT, 10))
+      it('creates a new app running on a specific port', () => {
+        process.env.PORT = '1234'
+        const app = new Reshuffle()
+        expect(app.port).toEqual(parseInt(process.env.PORT, 10))
+      })
+      it('creates a new app using my logger options', () => {
+        const app = new Reshuffle({ level: 'debug' })
+
+        expect(app.getLogger().isDebugEnabled()).toBe(true)
+      })
     })
     describe('start', () => {
       it('starts the app on a specific port', () => {
@@ -45,9 +53,13 @@ describe('Reshuffle', () => {
         const myPort = 6789
         const app = new Reshuffle()
 
-        app.start = jest.fn()
+        app.start = jest.fn(app.start)
+
+        app.stopWebServer = jest.fn(app.stopWebServer)
+
         app.restart(myPort)
 
+        expect(app.stopWebServer).toHaveBeenCalled()
         expect(app.start).toHaveBeenCalledWith(myPort, expect.anything())
       })
     })
@@ -92,7 +104,102 @@ describe('Reshuffle', () => {
       expect(connector3.start).toHaveBeenCalledTimes(1)
     })
   })
-  describe('http services', () => {
+  describe('connect event and handlers using `when`', () => {
+    it('registers a new handler for the event', async (done) => {
+      const app = new Reshuffle()
+
+      const httpConnector = new HttpConnector()
+      const cronConnector = new CronConnector()
+
+      app.register(httpConnector)
+      app.register(cronConnector)
+
+      const cronHandler = jest.fn()
+
+      app.when(httpConnector.on({ method: 'GET', path: '/test1' }), () => console.log('http'))
+      app.when(cronConnector.on({ interval: 20 }), cronHandler)
+
+      expect(Object.keys(app.registry.handlers)).toHaveLength(2)
+
+      app.start()
+
+      setTimeout(() => {
+        expect(cronHandler).toHaveBeenCalledTimes(2)
+
+        app.unregister(httpConnector)
+        app.unregister(cronConnector)
+
+        app.stopWebServer()
+
+        done()
+      }, 50)
+    })
+    it('supports multi handlers per event', async (done) => {
+      const app = new Reshuffle()
+
+      const cronConnector = new CronConnector()
+
+      app.register(cronConnector)
+
+      const cronHandler1 = jest.fn()
+      const cronHandler2 = jest.fn()
+
+      const event = cronConnector.on({ interval: 20 })
+
+      app.when(event, cronHandler1)
+      app.when(event, cronHandler2)
+
+      expect(app.registry.handlers[event.id]).toHaveLength(2)
+
+      app.start()
+
+      setTimeout(() => {
+        expect(cronHandler1).toHaveBeenCalledTimes(2)
+        expect(cronHandler2).toHaveBeenCalledTimes(2)
+        done()
+
+        app.stopWebServer()
+      }, 50)
+    })
+    it('supports passing our own Handler object', () => {
+      const app = new Reshuffle()
+
+      const cronConnector = new CronConnector()
+
+      app.register(cronConnector)
+
+      const cronHandler = { handle: (e: any) => console.log(e), id: 'myCustomId' }
+
+      const event = cronConnector.on({ interval: 20 })
+
+      app.when(event, cronHandler)
+
+      expect(app.registry.handlers[event.id][0].id).toEqual('myCustomId')
+    })
+  })
+  describe('handleEvent', () => {
+    it('returns false if no handler found', async () => {
+      const app = new Reshuffle()
+
+      const connector = new BaseConnector()
+      const anEvent = new EventConfiguration('id', connector, {})
+
+      expect(await app.handleEvent('id', anEvent)).toBe(false)
+    })
+    it('keeps running when handler throw errors', async () => {
+      const app = new Reshuffle()
+
+      const connector = new BaseConnector()
+      const anEvent = new EventConfiguration('id', connector, {})
+
+      app.when(anEvent, () => {
+        throw new Error()
+      })
+
+      expect(await app.handleEvent('id', anEvent)).toBe(true)
+    })
+  })
+  describe('http server', () => {
     it('registers http delegate and start web server', () => {
       const app = new Reshuffle()
 
@@ -224,6 +331,21 @@ describe('Reshuffle', () => {
 
         app.stopWebServer()
       })
+    })
+  })
+  describe('persistentStore', () => {
+    it('provides a default in memory persistentStore', async () => {
+      const app = new Reshuffle()
+      const store = app.getPersistentStore()
+
+      const myText = 'my text is the persistent store'
+      const myObject = { first: 'foo', second: 'bar' }
+
+      store.set('myText', myText)
+      store.set('myObject', myObject)
+
+      expect(await store.get('myText')).toEqual(myText)
+      expect(await store.get('myObject')).toEqual(myObject)
     })
   })
   describe('chaining', () => {
