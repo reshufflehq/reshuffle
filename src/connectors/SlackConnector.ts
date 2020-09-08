@@ -2,7 +2,7 @@ import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
 import Reshuffle from '../Reshuffle'
 
 export default class SlackConnector extends BaseConnector {
-  on(options: any, eventId: EventConfiguration['id']) {
+  on(options: any, eventId: EventConfiguration['id']): EventConfiguration {
     return new EventConfiguration(eventId, this, {})
   }
   send(message: string) {

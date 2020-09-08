@@ -25,7 +25,7 @@ export default class HttpConnector extends BaseHttpConnector<
   HttpConnectorConfigOptions,
   HttpConnectorEventOptions
 > {
-  on(options: HttpConnectorEventOptions, eventId?: string) {
+  on(options: HttpConnectorEventOptions, eventId?: string): EventConfiguration {
     const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
 
     if (!eventId) {
