@@ -12,7 +12,7 @@ export interface HttpConnectorConfigOptions {
 }
 
 export interface HttpConnectorEventOptions {
-  method: string
+  method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'
   path: string
 }
 
