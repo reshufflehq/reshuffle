@@ -1,7 +1,6 @@
 import request from 'supertest'
 import { CronConnector, HttpConnector, Reshuffle } from '../src'
-import { BaseConnector } from 'reshuffle-base-connector'
-import EventConfiguration from 'reshuffle-base-connector/dist/EventConfiguration'
+import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 describe('Reshuffle', () => {
   describe('create, start and restart', () => {
