@@ -11,7 +11,7 @@ app.when(connector.on({'method':'GET','path':'/test'}), (event) => {
 
 // the above is syntactically equivalent to:
 //connector.on({'method':'GET','path':'/test?foo'}).do((event) => {
-//    event.res.end("Hello World!");
+//    event.context.res.end("Hello World!");
 //})
 
 

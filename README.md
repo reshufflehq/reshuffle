@@ -34,20 +34,20 @@ const httpConnector = new HttpConnector();
 app.register(httpConnector);
 
 app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
-  event.res.end("Hello World!");
+  event.context.res.end("Hello World!");
 });
 
 ```
 A connector *on({eventOptions})* method is kinda smart, and enables short-handing, so:
 ```js
 app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
-  event.res.end("Hello World!");
+  event.context.res.end("Hello World!");
 });
 ```
 Is syntactically equivalent to: 
 ```js
 httpConnector.on({'method':'GET','path':'/test'}).do((event) => {
-    event.res.end("Hello World!");
+    event.context.res.end("Hello World!");
 });
 
 ```
@@ -55,7 +55,7 @@ Note: Remember to add the `app.register(connector)` prior to `when(...)` or `on(
 
 More examples [can be found here](./examples)
 
-### Connectors configuration 
+### Reshuffle Connectors 
 A critical aspect of building integrations is configuring how to connect to different services we want to integrate with. With Reshuffle you can configure Connector objects and inject them.
 
 Let's expand the example above and send a message to a Slack ‘reports’ channel every time someone triggers the 'HTTP/GET/test' event:
@@ -64,16 +64,17 @@ Let's expand the example above and send a message to a Slack ‘reports’ chann
 const {Reshuffle, HttpConnector, SlackConnector} = require('reshuffle')
 const app = new Reshuffle();
 
-const connectionOptions = {
-  'APIToken':process.env.SLACK_AUTH_KEY,
-  'team':'ourTeam',
-};
-
+// the httpConnector does not require any config
 const httpConnector = new HttpConnector();
 app.register(httpConnector);
 
+// configuration for the Slack connection
+const slackConnectionOptions = {
+  'APIToken':process.env.SLACK_AUTH_KEY,
+  'team':'ourTeam',
+};
 // the 2nd parameter is used to identify the connector later on
-const slackConnector = new SlackConnector(connectionOptions, 'connectors/Slack');
+const slackConnector = new SlackConnector(slackConnectionOptions, 'connectors/Slack');
 app.register(slackConnector);
 
 app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
@@ -92,7 +93,9 @@ You can use the Connector object to take action on a remote service (such as add
 A full list of Connectors, and how to create your own Connector, [can be found here](./docs/connectors.md)
 
 ### Events
-As we saw, connectors are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. Connectors can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems.
+As we saw, connectors are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. 
+Connectors can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
+To configure an event, use the `on(eventOptions)` method on the relevant connector.
 
 Here is how you would configure a SlackConnector to listen to a message from Slack:
 ```js

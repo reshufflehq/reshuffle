@@ -1,6 +1,6 @@
 {
   "name": "reshuffle",
-  "version": "0.9.13",
+  "version": "0.9.15",
   "description": "Reshuffle is a fast, unopinionated, minimalist integration framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,7 +35,7 @@
     "nanoid": "^3.1.12",
     "node-fetch": "^2.6.0",
     "prettier": "^2.1.1",
-    "reshuffle-base-connector": "^0.0.4",
+    "reshuffle-base-connector": "^0.0.5",
     "winston": "^3.3.3"
   },
   "devDependencies": {
