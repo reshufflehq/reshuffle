@@ -3,7 +3,7 @@ const {SMTPConnector} = require('reshuffle-smtp-connector')
 const app = new Reshuffle()
 
 const smtpConnector = new SMTPConnector(
-  {
+  app, {
     fromEmail: '<the "from" email address>',
     fromName: '<the "from" name>',
     host: '<smtp host>',
@@ -14,12 +14,10 @@ const smtpConnector = new SMTPConnector(
   'connectors/SMTP'
 );
 
-const dailyTimerConnector = new CronConnector()
-app.register(smtpConnector)
-app.register(dailyTimerConnector)
+const dailyTimerConnector = new CronConnector(app)
 
 const day = 1000 * 60 * 60 * 24
-app.when(dailyTimerConnector.on({'interval': day}), (event) => {
+dailyTimerConnector.on({'interval': day}, (event) => {
   smtpConnector.send({
     to: '<recipient email address>',
     subject: 'Daily Report From Reshuffle',
