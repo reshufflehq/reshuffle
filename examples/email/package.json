@@ -1,5 +1,5 @@
 {
-  "name": "email/smtp examples",
+  "name": "email-examples",
   "version": "1.0.0",
   "description": "Reshuffle example for email in apps",
   "main": "SMTPSendEmailExample.js",
