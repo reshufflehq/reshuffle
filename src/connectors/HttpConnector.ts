@@ -34,7 +34,7 @@ export default class HttpConnector extends BaseHttpConnector<
 
     const event = new EventConfiguration(eventId, this, optionsSanitized)
     this.eventConfigurations[event.id] = event
-    this.app?.when(event, handler);
+    this.app?.when(event, handler)
     this.app?.registerHTTPDelegate(event.options.path, this)
 
     return event
