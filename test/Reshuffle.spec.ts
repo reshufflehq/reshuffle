@@ -69,8 +69,6 @@ describe('Reshuffle', () => {
 
       const connector = new BaseConnector(app)
 
-      app.register(connector)
-
       expect(Object.keys(app.registry.connectors)).toHaveLength(1)
       expect(app.getConnector(connector.id)).toBe(connector)
 

@@ -114,7 +114,7 @@ const smtpConnector = new SMTPConnector(app, {
   fromEmail: 'admin@superheros.com'
 },'connectors/smtp');
 
-app.when(httpConnector.on({
+httpConnector.on({
   'method':'GET',
   'path':'/ping'
 }, (event) => {
