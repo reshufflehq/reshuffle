@@ -44,7 +44,7 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     this.app?.clearInterval(this.intervalsByEventId[event.id])
   }
 
-  onStart(app: Reshuffle) {
+  onStart() {
     Object.values(this.eventConfigurations).forEach((eventConfiguration) => {
       const intervalId = this.app?.setInterval(() => {
         this.app?.handleEvent(eventConfiguration.id, {})

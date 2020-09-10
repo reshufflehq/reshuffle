@@ -96,7 +96,7 @@ export default class Reshuffle {
     this.port = port || this.port
 
     // Start all connectors
-    Object.values(this.registry.connectors).forEach((connector) => connector.start(this))
+    Object.values(this.registry.connectors).forEach((connector) => connector.start())
 
     // Start the webserver if we have http delegates
     if (Object.keys(this.httpDelegates).length > 0 && !this.registry.common.webserver) {
