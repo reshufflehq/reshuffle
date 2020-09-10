@@ -25,7 +25,7 @@ export default class HttpConnector extends BaseHttpConnector<
   HttpConnectorConfigOptions,
   HttpConnectorEventOptions
 > {
-  on(options: HttpConnectorEventOptions, eventId?: string): EventConfiguration {
+  on(options: HttpConnectorEventOptions, handler: any, eventId?: string): EventConfiguration {
     const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
 
     if (!eventId) {
@@ -34,6 +34,7 @@ export default class HttpConnector extends BaseHttpConnector<
 
     const event = new EventConfiguration(eventId, this, optionsSanitized)
     this.eventConfigurations[event.id] = event
+    this.app?.when(event, handler);
     this.app?.registerHTTPDelegate(event.options.path, this)
 
     return event

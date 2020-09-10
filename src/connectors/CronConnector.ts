@@ -11,19 +11,21 @@ export interface CronEventOptions {
 export default class CronConnector extends BaseConnector<null, CronEventOptions> {
   intervalsByEventId: { [eventId: string]: Timer }
 
-  constructor(id?: string) {
-    super(undefined, id)
+  constructor(app: Reshuffle, id?: string) {
+    super(app, undefined, id)
     this.intervalsByEventId = {}
   }
 
-  on(options: CronEventOptions = DEFAULT_EVENT_OPTIONS, eventId?: string): EventConfiguration {
+  on(options: CronEventOptions = DEFAULT_EVENT_OPTIONS, handler?: any, eventId?: string): EventConfiguration {
     if (!eventId) {
       eventId = `CRON/${options.interval}/${this.id}`
     }
 
     const event = new EventConfiguration(eventId, this, options)
     this.eventConfigurations[event.id] = event
-
+    if(handler){
+      this.app!.when(event, handler)
+    }
     // lazy run if already running
     if (this.started && this.app) {
       const intervalId = this.app.setInterval(() => {

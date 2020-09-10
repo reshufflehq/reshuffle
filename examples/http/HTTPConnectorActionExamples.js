@@ -4,13 +4,11 @@ const httpConnectionName = 'myHttpConnection'
 
 const app = new Reshuffle();
 
-const cronConnector = new CronConnector();
-const httpConnector = new HttpConnector(undefined, httpConnectionName);
+const cronConnector = new CronConnector(app);
+const httpConnector = new HttpConnector(app, undefined, httpConnectionName);
 
-app.register(httpConnector);
-app.register(cronConnector);
 
-app.when(cronConnector.on({'interval':5000}), async (event) => {
+cronConnector.on({'interval':5000}, async (event) => {
   const HTTPConnection = event.getConnector(httpConnectionName)
 
   const parsedURL = HTTPConnection.parseURL('https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49/')
