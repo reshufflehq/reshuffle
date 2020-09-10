@@ -18,7 +18,7 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
 
   on(
     options: CronEventOptions = DEFAULT_EVENT_OPTIONS,
-    handler?: any,
+    handler: any,
     eventId?: string,
   ): EventConfiguration {
     if (!eventId) {
