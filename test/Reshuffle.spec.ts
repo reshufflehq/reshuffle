@@ -67,7 +67,7 @@ describe('Reshuffle', () => {
     it('registers a connector, getConnector and unregisters it', async () => {
       const app = new Reshuffle()
 
-      const connector = new BaseConnector()
+      const connector = new BaseConnector(app)
 
       app.register(connector)
 
@@ -82,17 +82,14 @@ describe('Reshuffle', () => {
     it('starts all registered connectors on application start', async () => {
       const app = new Reshuffle()
 
-      const connector1 = new BaseConnector()
+      const connector1 = new BaseConnector(app)
       connector1.start = jest.fn()
-      app.register(connector1)
 
-      const connector2 = new BaseConnector()
+      const connector2 = new BaseConnector(app)
       connector2.start = jest.fn()
-      app.register(connector2)
 
-      const connector3 = new BaseConnector()
+      const connector3 = new BaseConnector(app)
       connector3.start = jest.fn()
-      app.register(connector3)
 
       expect(Object.keys(app.registry.connectors)).toHaveLength(3)
 
@@ -107,16 +104,13 @@ describe('Reshuffle', () => {
     it('registers a new handler for the event', async (done) => {
       const app = new Reshuffle()
 
-      const httpConnector = new HttpConnector()
-      const cronConnector = new CronConnector()
-
-      app.register(httpConnector)
-      app.register(cronConnector)
+      const httpConnector = new HttpConnector(app)
+      const cronConnector = new CronConnector(app)
 
       const cronHandler = jest.fn()
 
-      app.when(httpConnector.on({ method: 'GET', path: '/test1' }), () => console.log('http'))
-      app.when(cronConnector.on({ interval: 20 }), cronHandler)
+      httpConnector.on({ method: 'GET', path: '/test1' }, () => console.log('http'))
+      cronConnector.on({ interval: 20 }, cronHandler)
 
       expect(Object.keys(app.registry.handlers)).toHaveLength(2)
 
@@ -136,17 +130,14 @@ describe('Reshuffle', () => {
     it('supports multi handlers per event', async (done) => {
       const app = new Reshuffle()
 
-      const cronConnector = new CronConnector()
+      const cronConnector = new CronConnector(app)
 
-      app.register(cronConnector)
 
       const cronHandler1 = jest.fn()
       const cronHandler2 = jest.fn()
 
-      const event = cronConnector.on({ interval: 20 })
-
-      app.when(event, cronHandler1)
-      app.when(event, cronHandler2)
+      const event = cronConnector.on({ interval: 20 }, cronHandler1)
+      cronConnector.on({ interval: 20 }, cronHandler2,event.id )
 
       expect(app.registry.handlers[event.id]).toHaveLength(2)
 
@@ -163,15 +154,12 @@ describe('Reshuffle', () => {
     it('supports passing our own Handler object', () => {
       const app = new Reshuffle()
 
-      const cronConnector = new CronConnector()
-
-      app.register(cronConnector)
+      const cronConnector = new CronConnector(app)
 
       const cronHandler = { handle: (e: any) => console.log(e), id: 'myCustomId' }
 
-      const event = cronConnector.on({ interval: 20 })
+      const event = cronConnector.on({ interval: 20 }, cronHandler)
 
-      app.when(event, cronHandler)
 
       expect(app.registry.handlers[event.id][0].id).toEqual('myCustomId')
     })
@@ -180,7 +168,7 @@ describe('Reshuffle', () => {
     it('returns false if no handler found', async () => {
       const app = new Reshuffle()
 
-      const connector = new BaseConnector()
+      const connector = new BaseConnector(app)
       const anEvent = new EventConfiguration('id', connector, {})
 
       expect(await app.handleEvent('id', anEvent)).toBe(false)
@@ -188,7 +176,7 @@ describe('Reshuffle', () => {
     it('keeps running when handler throw errors', async () => {
       const app = new Reshuffle()
 
-      const connector = new BaseConnector()
+      const connector = new BaseConnector(app)
       const anEvent = new EventConfiguration('id', connector, {})
 
       app.when(anEvent, () => {
@@ -204,13 +192,11 @@ describe('Reshuffle', () => {
 
       expect(app.registry.common.webserver).toBeUndefined()
 
-      const connector1 = new HttpConnector()
+      const connector1 = new HttpConnector(app)
       connector1.start = jest.fn()
-      app.register(connector1)
 
-      const connector2 = new HttpConnector()
+      const connector2 = new HttpConnector(app)
       connector2.start = jest.fn()
-      app.register(connector2)
 
       app.registerHTTPDelegate('/test1', connector1)
       app.registerHTTPDelegate('/test2', connector2)
@@ -228,11 +214,10 @@ describe('Reshuffle', () => {
 
       expect(app.registry.common.webserver).toBeUndefined()
 
-      const connector1 = new HttpConnector()
+      const connector1 = new HttpConnector(app)
       connector1.start = jest.fn()
-      app.register(connector1)
 
-      app.when(connector1.on({ method: 'GET', path: '/test1' }), () => console.log('test1'))
+      connector1.on({ method: 'GET', path: '/test1' }, () => console.log('test1'))
 
       expect(Object.keys(app.httpDelegates)).toHaveLength(1)
 
@@ -250,19 +235,17 @@ describe('Reshuffle', () => {
 
         expect(app.registry.common.webserver).toBeUndefined()
 
-        const connector1 = new HttpConnector()
+        const connector1 = new HttpConnector(app)
         connector1.start = jest.fn()
-        app.register(connector1)
 
-        const connector2 = new HttpConnector()
+        const connector2 = new HttpConnector(app)
         connector2.start = jest.fn()
-        app.register(connector2)
 
         const mockHandler = (key: string) =>
           jest.fn().mockImplementation((event) => event.context.res.end(`Success ${key}`))
 
-        app.when(connector1.on({ method: 'GET', path: '/test1' }), mockHandler('test1'))
-        app.when(connector1.on({ method: 'GET', path: '/test2' }), mockHandler('test2'))
+        connector1.on({ method: 'GET', path: '/test1' }, mockHandler('test1'))
+        connector1.on({ method: 'GET', path: '/test2' }, mockHandler('test2'))
 
         app.start()
 
@@ -279,11 +262,10 @@ describe('Reshuffle', () => {
 
         expect(app.registry.common.webserver).toBeUndefined()
 
-        const connector1 = new HttpConnector()
+        const connector1 = new HttpConnector(app)
         connector1.start = jest.fn()
-        app.register(connector1)
 
-        app.when(connector1.on({ method: 'GET', path: '/test1' }), () => console.log('test'))
+        connector1.on({ method: 'GET', path: '/test1' }, () => console.log('test'))
 
         app.start()
 
@@ -297,11 +279,10 @@ describe('Reshuffle', () => {
 
         expect(app.registry.common.webserver).toBeUndefined()
 
-        const connector1 = new HttpConnector()
+        const connector1 = new HttpConnector(app)
         connector1.start = jest.fn()
-        app.register(connector1)
 
-        app.when(connector1.on({ method: 'GET', path: '/test' }), () => console.log('test'))
+        connector1.on({ method: 'GET', path: '/test' }, () => console.log('test'))
 
         app.start()
 
@@ -315,11 +296,10 @@ describe('Reshuffle', () => {
 
         expect(app.registry.common.webserver).toBeUndefined()
 
-        const connector1 = new HttpConnector()
+        const connector1 = new HttpConnector(app)
         connector1.start = jest.fn()
-        app.register(connector1)
 
-        app.when(connector1.on({ method: 'GET', path: '/test' }), () => console.log('test'))
+        connector1.on({ method: 'GET', path: '/test' }, () => console.log('test'))
 
         app.start()
 
@@ -351,16 +331,14 @@ describe('Reshuffle', () => {
     it('supports chaining methods', () => {
       const app = new Reshuffle()
 
-      const connector1 = new HttpConnector()
-      const connector2 = new CronConnector()
+      const connector1 = new HttpConnector(app)
+      const connector2 = new CronConnector(app)
 
-      app
-        .register(connector1)
-        .register(connector2)
-        .when(connector1.on({ method: 'GET', path: 'test' }), () =>
+      connector1.on({ method: 'GET', path: 'test' }, () =>
           console.log('connector1 triggered'),
         )
-        .start()
+
+      app.start()
 
       expect(Object.keys(app.registry.connectors)).toHaveLength(2)
 

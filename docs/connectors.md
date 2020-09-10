@@ -6,7 +6,7 @@ Reshuffle achieves this by using **Connectors** as the connection mechanism to a
 Reshuffle ships with an existing ecosystem comprising several connectors you can use to connect to common systems. A list of these Reshuffle-provided connectors can be found in this page, and their code can be found in the various repositories [here](https://github.com/reshufflehq/).  
 
 The framework is extendable, meaning you can create connectors to services you use or even your own proprietary systems. 
-The process for building new connectors is described in the [manual](./building-connectors.md). 
+The process for building new connectors is described in the [manual](https://dev.reshuffle.com/docs/connectors). 
 
 ## Common Reshuffle Connectors
 
@@ -23,8 +23,8 @@ const {Reshuffle, CronConnector} = require('reshuffle')
 const {SMTPConnector} = require('reshuffle-smtp-connector')
 
 const app = new Reshuffle();
-const cronConnector = new CronConnector();
-const smtpConnector = new SMTPConnector({
+const cronConnector = new CronConnector(app);
+const smtpConnector = new SMTPConnector(app,{
   username:'superman',
   password:'hunter123',
   host:'email.some.com',
@@ -33,10 +33,8 @@ const smtpConnector = new SMTPConnector({
   fromEmail: 'admin@superheros.com'
 },'connectors/email');
 
-app.register(cronConnector);
-app.register(smtpConnector);
 
-app.when(cronConnector.on({'interval':86400000}), (event) => {
+cronConnector.on({'interval':86400000}, (event) => {
   event.getConnector('connectors/email')
     .send({
     to:'email@exmaple.com',
@@ -76,18 +74,15 @@ const {HttpConnector, Reshuffle} = require('reshuffle');
 const {SlackConnector} = require('reshuffle-slack-connector'); 
 
 const app = new Reshuffle();
-const httpConnector = new HttpConnector();
-const slackConnector = new SlackConnector({
+const httpConnector = new HttpConnector(app);
+const slackConnector = new SlackConnector(app, {
   'authkey': process.env.SLACK_AUTH_KEY
 }, 'connectors/Slack');
 
-app.register(httpConnector);
-app.register(slackConnector);
-
-app.when(httpConnector.on({
+httpConnector.on({
   'method':'GET',
   'path':'/status'
-}), (event) => {
+}, (event) => {
   event.getConnector('connectors/Slack')
     .setStatus("U8675636646",event.req.query.slack_status); 
 });
@@ -109,8 +104,8 @@ const {HttpConnector, Reshuffle} = require('reshuffle');
 const {SMTPConnector} = require('reshuffle-smtp-connector')
 
 const app = new Reshuffle();
-const httpConnector = new HttpConnector();
-const smtpConnector = new SMTPConnector({
+const httpConnector = new HttpConnector(app);
+const smtpConnector = new SMTPConnector(app, {
   username:'superman',
   password:'hunter123',
   host:'email.some.com',
@@ -119,13 +114,10 @@ const smtpConnector = new SMTPConnector({
   fromEmail: 'admin@superheros.com'
 },'connectors/smtp');
 
-app.register(httpConnector);
-app.register(smtpConnector);
-
 app.when(httpConnector.on({
   'method':'GET',
   'path':'/ping'
-}), (event) => {
+}, (event) => {
   event.getConnector('connectors/smtp')
     .send({
       to:event.req.query.to,

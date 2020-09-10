@@ -1,22 +1,35 @@
 # Reshuffle Integration Framework
-Reshuffle is a lightweight and open source integration framework. With Reshuffle you can build integrations, connect systems, and build workflows.
-<!--There are several common [use cases](./docs/use-cases.md) where Reshuffle is a good framework to use. -->
+Reshuffle is a lightweight and open source integration framework. With Reshuffle you can build integrations, workflows, and connect systems.
 
 Here is a simple workflow that listens to a cron event that runs every 5 sec:
  
 ```js
 const {Reshuffle, CronConnector} = require('reshuffle');
 const app = new Reshuffle();
-const cronConnector = new CronConnector();
+const cronConnector = new CronConnector(app);
 
-app.register(cronConnector);
 
-app.when(cronConnector.on({'interval':5000}), (event) => {
+cronConnector.on({'interval':5000}, (event) => {
   console.log('Hello World!')
 });
 
 app.start();
 ```
+
+## Installation
+```bash
+$ npm install reshuffle
+```
+
+For a full step by step tutorial on how to install and use Reshuffle please visit [this page](https://dev.reshuffle.com/docs/getting-started)
+
+## Reshuffle Core Features
+
+- Simple Express-style event handling model
+- Separation of configuration and execution
+- Connectors to many SAAS services
+- Highly extendable
+- Focus on high performance
 
 ## Basic concepts
 ### Event Based System
@@ -29,31 +42,18 @@ Here is an example of listening to a HTTP get event on /test, using the HTTP con
 ```js
 const {Reshuffle, HttpConnector} = require('reshuffle');
 const app = new Reshuffle();
-const httpConnector = new HttpConnector();
+const httpConnector = new HttpConnector(app);
 
-app.register(httpConnector);
 
-app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
+httpConnector.on({'method':'GET','path':'/test'}, (event) => {
   event.context.res.end("Hello World!");
 });
 
 ```
-A connector *on({eventOptions})* method is kinda smart, and enables short-handing, so:
-```js
-app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
-  event.context.res.end("Hello World!");
-});
-```
-Is syntactically equivalent to: 
-```js
-httpConnector.on({'method':'GET','path':'/test'}).do((event) => {
-    event.context.res.end("Hello World!");
-});
 
-```
-Note: Remember to add the `app.register(connector)` prior to `when(...)` or `on(...)`. 
+Connectors act _like_ [node eventEmitter](https://nodejs.org/api/events.html), so when the event is emitted the function is called. We will discuss Connectors in the next section.
 
-More examples [can be found here](./examples)
+More examples [can be found here](https://github.com/reshufflehq/reshuffle/tree/master/examples)
 
 ### Reshuffle Connectors 
 A critical aspect of building integrations is configuring how to connect to different services we want to integrate with. With Reshuffle you can configure Connector objects and inject them.
@@ -65,8 +65,7 @@ const {Reshuffle, HttpConnector, SlackConnector} = require('reshuffle')
 const app = new Reshuffle();
 
 // the httpConnector does not require any config
-const httpConnector = new HttpConnector();
-app.register(httpConnector);
+const httpConnector = new HttpConnector(app);
 
 // configuration for the Slack connection
 const slackConnectionOptions = {
@@ -74,28 +73,27 @@ const slackConnectionOptions = {
   'team':'ourTeam',
 };
 // the 2nd parameter is used to identify the connector later on
-const slackConnector = new SlackConnector(slackConnectionOptions, 'connectors/Slack');
-app.register(slackConnector);
+const slackConnector = new SlackConnector(app, slackConnectionOptions, 'connectors/Slack');
 
-app.when(httpConnector.on({'method':'GET','path':'/test'}), (event) => {
+httpConnector.on({'method':'GET','path':'/test'}, (event) => {
   event.getConnector('connectors/Slack')
     .send('Somebody called this event!', '#reports');
 })
 
 app.start();
 ```
-Connector objects expose the API and Events that the external connector (from a DB to an ERP) provides. You can specify an id when you register a connector to the app with the register(connector), providing an identifier in the connector constructor, and then access that connector using the getConnector(connectorId) method.
+Connector objects expose the API and Events that the external connector (from a DB to an ERP) provides. You can specify a connector id by providing an identifier in the connector constructor, and then access that connector using the `event.getConnector(connectorId)` method.
 
 You noticed in the code sample that we provided important information on how to connect to the 3rd party system (Slack in this case). Connectors are a way to separate the connection configuration from your code, configure a connection to a connector once and use it anywhere.
 
 You can use the Connector object to take action on a remote service (such as adding a row to a CRM) and configure events that trigger when something happens in that system. We will show you how to do that in the next section.
 
-A full list of Connectors, and how to create your own Connector, [can be found here](./docs/connectors.md)
+A full list of Connectors, and how to create your own Connector, [can be found here](https://dev.reshuffle.com/docs/connectors)
 
 ### Events
 As we saw, connectors are basically adapters that connect external systems, such as Slack, Database, CRM, or any other system. 
 Connectors can be configured to emit a Reshuffle event, when a preconfigured thing happens in these systems. 
-To configure an event, use the `on(eventOptions)` method on the relevant connector.
+To configure an event, use the `on(eventOptions, handler)` method on the relevant connector.
 
 Here is how you would configure a SlackConnector to listen to a message from Slack:
 ```js
@@ -107,8 +105,7 @@ const connectionOptions = {
   'team':'ourTeam',
 };
 
-const slackConnector = new SlackConnector(connectionOptions, 'connectors/Slack');
-app.register(slackConnector);
+const slackConnector = new SlackConnector(app, connectionOptions, 'connectors/Slack');
 
 const eventOptions = {
   'event_type':'new_message',
@@ -116,7 +113,7 @@ const eventOptions = {
   'type':'new_message'
   };
 
-app.when(slackConnector.on(eventOptions), (event) => {
+slackConnector.on(eventOptions, (event) => {
   event.getConnector('connectors/Slack').reply('Thank you for your message!');
 })
 
@@ -126,71 +123,6 @@ It is the responsibility of the SlackConnector to listen to the messages in Slac
 
 As you can see, both the event creation and the business logic, use the same Connector configuration. This makes configuration easier to manage.
 
-## Installation
-
-This is a [Node.js](https://nodejs.org/en/) module available through the
-[npm registry](https://www.npmjs.com/).
-
-Before installing, [download and install Node.js](https://nodejs.org/en/download/).
-Node.js 12 or higher is required.
-
-If this is a brand new project, make sure to create a `package.json` first with
-the [`npm init` command](https://docs.npmjs.com/creating-a-package-json-file).
-
-Installation is done using the
-[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
-
-```bash
-$ npm install reshuffle
-```
-
-## Features
-
-  * Standard Express-style event handling 
-  * Focus on high performance
-  * Separation of configuration and execution
-  * Connects out of the box with many SAAS services
-  * Highly extensible
-
-## Quick Start
-
-  
-  Install the engine
-
-```bash
-$ npm install -g reshuffle
-```
-
-Copy the `HTTPExample.js` example from the example folder into your /tmp/foo.
-
-Install dependencies:
-
-```bash
-$ npm install
-```
-
-```bash
-$ node helloWorldHTTPExample
-```
-
-got to http://localhost:8000/test
-
-## Development
-```bash
-npm run build:watch
-```
-Watching build mode for development. 
-Converts TS files from `src` folder to commonJS files into `dist` folder.
-
-```bash
-npm run build
-```
-Builds reshuffle package under `dist`, cleaning the folder first.
-
-```bash
-npm run lint
-```
-Lints all files in `src` folder.
 
 ## Examples
-Examples can be found in the `/examples` folder
+Examples can be found in the `/examples` [folder](https://github.com/reshufflehq/reshuffle/tree/master/examples)
