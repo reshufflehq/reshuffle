@@ -132,12 +132,11 @@ describe('Reshuffle', () => {
 
       const cronConnector = new CronConnector(app)
 
-
       const cronHandler1 = jest.fn()
       const cronHandler2 = jest.fn()
 
       const event = cronConnector.on({ interval: 20 }, cronHandler1)
-      cronConnector.on({ interval: 20 }, cronHandler2,event.id )
+      cronConnector.on({ interval: 20 }, cronHandler2, event.id)
 
       expect(app.registry.handlers[event.id]).toHaveLength(2)
 
@@ -159,7 +158,6 @@ describe('Reshuffle', () => {
       const cronHandler = { handle: (e: any) => console.log(e), id: 'myCustomId' }
 
       const event = cronConnector.on({ interval: 20 }, cronHandler)
-
 
       expect(app.registry.handlers[event.id][0].id).toEqual('myCustomId')
     })
@@ -334,9 +332,7 @@ describe('Reshuffle', () => {
       const connector1 = new HttpConnector(app)
       const connector2 = new CronConnector(app)
 
-      connector1.on({ method: 'GET', path: 'test' }, () =>
-          console.log('connector1 triggered'),
-        )
+      connector1.on({ method: 'GET', path: 'test' }, () => console.log('connector1 triggered'))
 
       app.start()
 
