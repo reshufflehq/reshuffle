@@ -4,7 +4,7 @@ const { IMAPConnector } = require ('reshuffle-imap-connector')
 // Can easily be tested using https://ethereal.email/
 
 const app = new Reshuffle()
-const imap = new IMAPConnector(
+const imap = new IMAPConnector(app,
   {
     host: '<imap host>',
     port: 993,
@@ -16,9 +16,8 @@ const imap = new IMAPConnector(
   },
   'connectors/IMAP'
 )
-app.register(imap)
 
-app.when(imap.on({name:'email'},'email'),(event) => {
+imap.on({name:'email'},'email',(event) => {
     console.log(event.mail.body.text)
 })
 

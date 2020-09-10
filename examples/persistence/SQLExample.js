@@ -3,7 +3,6 @@ const { Pool } = require('pg')
 const app = new Reshuffle();
 
 const connector = new CronConnector(app);
-app.register(connector);
 
 // see https://node-postgres.com/features/connecting on how to configure the pool
 const pool = new Pool();
