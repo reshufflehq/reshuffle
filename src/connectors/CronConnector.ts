@@ -16,14 +16,18 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     this.intervalsByEventId = {}
   }
 
-  on(options: CronEventOptions = DEFAULT_EVENT_OPTIONS, handler?: any, eventId?: string): EventConfiguration {
+  on(
+    options: CronEventOptions = DEFAULT_EVENT_OPTIONS,
+    handler?: any,
+    eventId?: string,
+  ): EventConfiguration {
     if (!eventId) {
       eventId = `CRON/${options.interval}/${this.id}`
     }
 
     const event = new EventConfiguration(eventId, this, options)
     this.eventConfigurations[event.id] = event
-    if(handler){
+    if (handler) {
       this.app!.when(event, handler)
     }
     // lazy run if already running
