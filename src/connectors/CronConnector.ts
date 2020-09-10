@@ -28,7 +28,7 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     const event = new EventConfiguration(eventId, this, options)
     this.eventConfigurations[event.id] = event
     if (handler) {
-      this.app!.when(event, handler)
+      this.app.when(event, handler)
     }
     // lazy run if already running
     if (this.started && this.app) {
