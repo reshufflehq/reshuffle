@@ -1,15 +1,13 @@
 const { HttpConnector, Reshuffle} = require('../..');
 
 const app = new Reshuffle();
-const connector = new HttpConnector();
-
-app.register(connector);
+const connector = new HttpConnector(app);
 
 // Check 2 starts
 app.start();
 app.start();
 
-app.when(connector.on({'method':'GET','path':'/test'}), (event) => {
+connector.on({'method':'GET','path':'/test'}, (event) => {
   event.context.res.end('Hello World!');
 });
 

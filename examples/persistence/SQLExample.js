@@ -2,7 +2,7 @@ const { Reshuffle, CronConnector, SQLStoreAdapter } = require('../..');
 const { Pool } = require('pg')
 const app = new Reshuffle();
 
-const connector = new CronConnector();
+const connector = new CronConnector(app);
 app.register(connector);
 
 // see https://node-postgres.com/features/connecting on how to configure the pool
@@ -10,7 +10,7 @@ const pool = new Pool();
 const persistentStore = new SQLStoreAdapter(pool, "reshuffledb");
 app.setPersistentStore(persistentStore);
 
-app.when(connector.on({'interval':5000}), async (event) =>  {
+connector.on({'interval':5000}, async (event) =>  {
   let store = event.getPersistentStore();
   // single server setup
   let times = await store.get('scripts/times-said-hello') || 0;
