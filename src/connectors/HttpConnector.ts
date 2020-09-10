@@ -40,9 +40,9 @@ export default class HttpConnector extends BaseHttpConnector<
     return event
   }
 
-  onStart(app: Reshuffle) {
+  onStart() {
     Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
-      app.registerHTTPDelegate(eventConfiguration.options.path, this),
+      this.app.registerHTTPDelegate(eventConfiguration.options.path, this),
     )
   }
 
