@@ -108,14 +108,14 @@ describe('Reshuffle', () => {
       const cronHandler = jest.fn()
 
       httpConnector.on({ method: 'GET', path: '/test1' }, () => console.log('http'))
-      cronConnector.on({ interval: 20 }, cronHandler)
+      cronConnector.on({ expression: '*/1 * * * * *' }, cronHandler)
 
       expect(Object.keys(app.registry.handlers)).toHaveLength(2)
 
       app.start()
 
       setTimeout(() => {
-        expect(cronHandler).toHaveBeenCalledTimes(2)
+        expect(cronHandler).toHaveBeenCalledTimes(1)
 
         app.unregister(httpConnector)
         app.unregister(cronConnector)
@@ -123,39 +123,39 @@ describe('Reshuffle', () => {
         app.stopWebServer()
 
         done()
-      }, 50)
+      }, 1000)
     })
     it('supports multi handlers per event', async (done) => {
       const app = new Reshuffle()
 
-      const cronConnector = new CronConnector(app)
+      const timerConnector = new CronConnector(app)
 
       const cronHandler1 = jest.fn()
       const cronHandler2 = jest.fn()
 
-      const event = cronConnector.on({ interval: 20 }, cronHandler1)
-      cronConnector.on({ interval: 20 }, cronHandler2, event.id)
+      const event = timerConnector.on({ expression: '*/1 * * * * *' }, cronHandler1)
+      timerConnector.on({ expression: '*/1 * * * * *' }, cronHandler2)
 
       expect(app.registry.handlers[event.id]).toHaveLength(2)
 
       app.start()
 
       setTimeout(() => {
-        expect(cronHandler1).toHaveBeenCalledTimes(2)
-        expect(cronHandler2).toHaveBeenCalledTimes(2)
+        expect(cronHandler1).toHaveBeenCalledTimes(1)
+        expect(cronHandler2).toHaveBeenCalledTimes(1)
         done()
 
         app.stopWebServer()
-      }, 50)
+      }, 1000)
     })
     it('supports passing our own Handler object', () => {
       const app = new Reshuffle()
 
-      const cronConnector = new CronConnector(app)
+      const timerConnector = new CronConnector(app)
 
       const cronHandler = { handle: (e: any) => console.log(e), id: 'myCustomId' }
 
-      const event = cronConnector.on({ interval: 20 }, cronHandler)
+      const event = timerConnector.on({ expression: '*/1 * * * *' }, cronHandler)
 
       expect(app.registry.handlers[event.id][0].id).toEqual('myCustomId')
     })
