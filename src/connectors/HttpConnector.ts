@@ -40,12 +40,6 @@ export default class HttpConnector extends BaseHttpConnector<
     return event
   }
 
-  onStart() {
-    Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
-      this.app.registerHTTPDelegate(eventConfiguration.options.path, this),
-    )
-  }
-
   async handle(req: Request, res: Response, next: NextFunction) {
     const { method, params } = req
     const requestPath = params[0]
