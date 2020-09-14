@@ -10,7 +10,7 @@
   "author": "Nimo Naamani",
   "license": "MIT",
   "dependencies": {
-    "reshuffle-imap-connector": "^0.0.1",
+    "reshuffle-imap-connector": "^0.0.3",
     "reshuffle-smtp-connector": "^0.0.1"
   }
 }
