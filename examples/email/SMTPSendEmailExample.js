@@ -17,9 +17,9 @@ const smtpConnector = new SMTPConnector(
 const dailyTimerConnector = new CronConnector(app)
 
 const day = 1000 * 60 * 60 * 24
-dailyTimerConnector.on({'interval': day}, (event) => {
-  smtpConnector.send({
-    to: '<recipient email address>',
+dailyTimerConnector.on({ interval: day }, async (event) => {
+  const res = await smtpConnector.send({
+    to: 'christophe@reshuffle.com',
     subject: 'Daily Report From Reshuffle',
     html: `<!doctype html>
             <html lang="en">
@@ -32,7 +32,7 @@ dailyTimerConnector.on({'interval': day}, (event) => {
               </body>
             </html>`
   })
-  console.log('Sent a daily report email')
+  console.log('Sent a daily report email', 'status', res.response)
 });
 
 app.start()
