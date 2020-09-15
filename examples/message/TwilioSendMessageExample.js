@@ -14,7 +14,14 @@ const twilioConnector = new TwilioConnector(
 // Instructions on how to test Twilio webhook locally: https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-node-js-and-express-development-environment#install-ngrok-for-local-development
 // To setup webhooks in Twilio, go to https://www.twilio.com/console/phone-numbers/incoming, select phone number, scroll all the way down to messaging, add method and path, save
 twilioConnector.on({method:'POST', path:'/sms'}, (event) => {
-  event.context.res.end("Thanks for your message, we'll contact you shortly")
+  const messageReceived = event.context.req.body.Body
+  console.log('message received:', messageReceived)
+
+  if(messageReceived.includes('test')) {
+    event.context.res.end("test successful")
+  } else {
+    event.context.res.end("Thanks for your message")
+  }
 })
 
 app.start()
