@@ -8,7 +8,7 @@ const {Reshuffle, CronConnector} = require('reshuffle');
 const app = new Reshuffle();
 const cronConnector = new CronConnector(app);
 
-cronConnector.on({'interval':5000}, (event) => {
+cronConnector.on({ expression : '*/5 * * * * *' }, (event) => {
   console.log('Hello World!')
 });
 
@@ -42,7 +42,6 @@ Here is an example of listening to an HTTP GET event on /test, using the HTTP co
 const {Reshuffle, HttpConnector} = require('reshuffle');
 const app = new Reshuffle();
 const httpConnector = new HttpConnector(app);
-
 
 httpConnector.on({'method':'GET','path':'/test'}, (event) => {
   event.context.res.end("Hello World!");

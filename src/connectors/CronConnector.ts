@@ -1,28 +1,24 @@
 import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
-import Timer = NodeJS.Timer
+import cron from 'node-cron'
+import { nanoid } from 'nanoid'
 import Reshuffle from '../Reshuffle'
 
-const DEFAULT_EVENT_OPTIONS = { interval: 5000 }
-
 export interface CronEventOptions {
-  interval: number
+  expression: string
+  timezone?: cron.ScheduleOptions['timezone']
 }
 
 export default class CronConnector extends BaseConnector<null, CronEventOptions> {
-  intervalsByEventId: { [eventId: string]: Timer }
+  tasksByEventId: { [eventId: string]: cron.ScheduledTask }
 
   constructor(app: Reshuffle, id?: string) {
-    super(app, undefined, id)
-    this.intervalsByEventId = {}
+    super(app, null, id)
+    this.tasksByEventId = {}
   }
 
-  on(
-    options: CronEventOptions = DEFAULT_EVENT_OPTIONS,
-    handler: any,
-    eventId?: string,
-  ): EventConfiguration {
+  on(options: CronEventOptions, handler: any, eventId?: string): EventConfiguration {
     if (!eventId) {
-      eventId = `CRON/${options.interval}/${this.id}`
+      eventId = `CRON/${this.id}/${eventId ? eventId : nanoid()}`
     }
 
     const event = new EventConfiguration(eventId, this, options)
@@ -30,34 +26,25 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     if (handler) {
       this.app.when(event, handler)
     }
-    // lazy run if already running
-    if (this.started && this.app) {
-      const intervalId = this.app.setInterval(() => {
-        this.app?.handleEvent(event.id, event)
-      }, event.options.interval)
-      this.intervalsByEventId[event.id] = intervalId
-    }
+    const task = cron.schedule(
+      event.options.expression,
+      () => this.app.handleEvent(event.id, event),
+      { timezone: event.options.timezone, scheduled: false },
+    )
+    this.tasksByEventId[event.id] = task
+    this.started && this.onStart()
     return event
   }
 
   onRemoveEvent(event: EventConfiguration) {
-    this.app?.clearInterval(this.intervalsByEventId[event.id])
+    this.tasksByEventId[event.id]?.destroy()
   }
 
   onStart() {
-    Object.values(this.eventConfigurations).forEach((eventConfiguration) => {
-      const intervalId = this.app?.setInterval(() => {
-        this.app?.handleEvent(eventConfiguration.id, {})
-      }, eventConfiguration.options.interval)
-      if (intervalId) {
-        this.intervalsByEventId[eventConfiguration.id] = intervalId
-      }
-    })
+    Object.values(this.tasksByEventId).forEach((task) => task.start())
   }
 
   onStop() {
-    Object.values(this.intervalsByEventId).forEach((intervalId: Timer) =>
-      this.app?.clearInterval(intervalId),
-    )
+    Object.values(this.tasksByEventId).forEach((task) => task.stop())
   }
 }
