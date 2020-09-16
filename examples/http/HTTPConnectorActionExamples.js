@@ -1,17 +1,18 @@
-const {CronConnector, HttpConnector, Reshuffle} = require('../..');
+const { CronConnector, HttpConnector, Reshuffle } = require('../..')
 
 const httpConnectionName = 'myHttpConnection'
 
-const app = new Reshuffle();
+const app = new Reshuffle()
 
-const cronConnector = new CronConnector(app);
-const httpConnector = new HttpConnector(app, undefined, httpConnectionName);
+const cronConnector = new CronConnector(app)
+const httpConnector = new HttpConnector(app, undefined, httpConnectionName)
 
-
-cronConnector.on({'interval':5000}, async (event) => {
+cronConnector.on({ expression: '*/5 * * * * *' }, async (event) => {
   const HTTPConnection = event.getConnector(httpConnectionName)
 
-  const parsedURL = HTTPConnection.parseURL('https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49/')
+  const parsedURL = HTTPConnection.parseURL(
+    'https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49/',
+  )
   console.log('parsedURL', parsedURL)
 
   const formattedURL = HTTPConnection.formatURL(parsedURL)
@@ -23,7 +24,7 @@ cronConnector.on({'interval':5000}, async (event) => {
 
   const data = await response.json()
 
-  console.log('data',  JSON.stringify(data))
-});
+  console.log('data', JSON.stringify(data))
+})
 
-app.start();
+app.start()
