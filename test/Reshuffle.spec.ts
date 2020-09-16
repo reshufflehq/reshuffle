@@ -134,7 +134,7 @@ describe('Reshuffle', () => {
       const cronHandler2 = jest.fn()
 
       const event = timerConnector.on({ expression: '*/1 * * * * *' }, cronHandler1)
-      timerConnector.on({ expression: '*/1 * * * * *' }, cronHandler2)
+      timerConnector.on({ expression: '*/1 * * * * *' }, cronHandler2, event.id)
 
       expect(app.registry.handlers[event.id]).toHaveLength(2)
 
