@@ -35,6 +35,7 @@ export default class Reshuffle {
 
   prepareWebServer(): Express {
     const server = express()
+    server.use(express.json(), express.urlencoded({ extended: true }))
     server.route('*').all(async (req: Request, res: Response, next: NextFunction) => {
       let handled = false
       if (this.httpDelegates[req.params[0]]) {

@@ -1,0 +1,14 @@
+{
+  "name": "reshuffle-twilio-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "TwilioSendMessageExample.js",
+  "scripts": {
+    "message": "node TwilioSendMessageExample.js"
+  },
+  "dependencies": {
+    "reshuffle-twilio-connector": "^0.0.1"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC"
+}

@@ -18,7 +18,7 @@ const dailyTimerConnector = new CronConnector(app)
 
 // Send daily at 8AM
 dailyTimerConnector.on({ expression: "0 8 * * *" }, (event) => {
-  smtpConnector.send({
+  const res = await smtpConnector.send({
     to: '<recipient email address>',
     subject: 'Daily Report From Reshuffle',
     html: `<!doctype html>
@@ -32,7 +32,7 @@ dailyTimerConnector.on({ expression: "0 8 * * *" }, (event) => {
               </body>
             </html>`
   })
-  console.log('Sent a daily report email')
+  console.log('Sent a daily report email', 'status', res.response)
 });
 
 app.start()

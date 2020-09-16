@@ -12,13 +12,13 @@ const imap = new IMAPConnector(app,
     password: '<inbox password>',
     tls: true,
    // tlsOptions: Record<string, any>
-    markSeen: false,
-  },
-  'connectors/IMAP'
+    markSeen: true,
+  }
 )
 
-imap.on({name:'email'},'email',(event) => {
-    console.log(event.mail.body.text)
+imap.on({ mailbox:'INBOX' },(event) => {
+    console.log(`New message in ${event.context.mailbox}`)
+    console.log(`Message is ${event.context.mail.body.text}`)
 })
 
 app.start()
