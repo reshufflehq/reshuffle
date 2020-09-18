@@ -2,6 +2,7 @@ const {Reshuffle} = require('reshuffle')
 const {GoogleSheetsConnector} = require('reshuffle-google-sheets-connector')
 const {NlpConnector} = require('reshuffle-nlp-connector')
 const app = new Reshuffle()
+const sheetTitle = 'autoNLP'
 
 const runSentimentAnalysis = async () => {
   const rows = await myGoogleSheetsConnector.getRows(sheetTitle) // Get rows in write access
@@ -19,7 +20,6 @@ const runSentimentAnalysis = async () => {
   })
 }
 
-const sheetTitle = 'autoNLP'
 const googleSheetConfig = {
   credentials: {
     client_email: '<your_client_email>',
@@ -27,11 +27,10 @@ const googleSheetConfig = {
   },
   spreadSheetId: '<your_spreadSheetId>'
 }
-
 const googleSheetEventOptions = {sheetIdOrTitle: sheetTitle, interval: 10 * 1000}
 
 const nlpConnector = new NlpConnector(app)
-const myGoogleSheetsConnector = new GoogleSheetsConnector(app, googleSheetConfig);
+const myGoogleSheetsConnector = new GoogleSheetsConnector(app, googleSheetConfig)
 
 /** Run sentiment analysis for each line without a score when changes are detected in spreadsheet document */
 myGoogleSheetsConnector.on(googleSheetEventOptions, runSentimentAnalysis)
