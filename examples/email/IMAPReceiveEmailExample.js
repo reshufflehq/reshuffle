@@ -1,4 +1,4 @@
-const { Reshuffle } = require('../..')
+const { Reshuffle } = require('reshuffle')
 const { IMAPConnector } = require ('reshuffle-imap-connector')
 
 // Can easily be tested using https://ethereal.email/
