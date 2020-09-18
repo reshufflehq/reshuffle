@@ -8,8 +8,9 @@
     "sheetsAutoNLP": "node GoogleSheetsSentimentAnalysisExample.js"
   },
   "dependencies": {
-    "reshuffle-google-sheets-connector": "^0.0.1",
-    "reshuffle-nlp-connector": "^0.0.1"
+    "reshuffle": "latest",
+    "reshuffle-google-sheets-connector": "latest",
+    "reshuffle-nlp-connector": "latest"
   },
   "author": "Christophe Gachiniard",
   "license": "ISC"
