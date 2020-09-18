@@ -2,9 +2,9 @@
   "name": "reshuffle-twilio-example",
   "version": "1.0.0",
   "description": "",
-  "main": "TwilioSendMessageExample.js",
+  "main": "TwilioSendReceiveSMSExample.js",
   "scripts": {
-    "message": "node TwilioSendMessageExample.js"
+    "message": "node TwilioSendReceiveSMSExample.js"
   },
   "dependencies": {
     "reshuffle": "latest",
