@@ -1,0 +1,16 @@
+{
+  "name": "reshuffle-google-sheets-example",
+  "version": "1.0.0",
+  "description": "Examples for Google Sheets Connector",
+  "main": "GoogleSheetsExamples.js",
+  "scripts": {
+    "sheets": "node GoogleSheetsExamples.js",
+    "sheetsAutoNLP": "node GoogleSheetsSentimentAnalysisExample.js"
+  },
+  "dependencies": {
+    "reshuffle-google-sheets-connector": "^0.0.1",
+    "reshuffle-nlp-connector": "^0.0.1"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC"
+}
