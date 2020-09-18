@@ -1,4 +1,4 @@
-const { Reshuffle } = require('../..')
+const { Reshuffle } = require('reshuffle')
 const { TwilioConnector } = require('reshuffle-twilio-connector')
 const app = new Reshuffle()
 
