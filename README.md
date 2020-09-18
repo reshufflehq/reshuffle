@@ -1,18 +1,24 @@
 # Reshuffle Integration Framework
 [Reshuffle](https://www.npmjs.com/package/reshuffle) is a lightweight and open source integration framework. With Reshuffle, you can build integrations, workflows, and connect systems.
 
-Here is a simple workflow that listens to a cron event that runs every 5 sec:
+Here is a simple workflow that sends a Text message when an urgent Email arrives:
  
 ```js
-const {Reshuffle, CronConnector} = require('reshuffle');
-const app = new Reshuffle();
-const cronConnector = new CronConnector(app);
+const { Reshuffle } = require('reshuffle')
+const { IMAPConnector } = require ('reshuffle-imap-connector')
+const { TwilioConnector } = require('reshuffle-twilio-connector')
 
-cronConnector.on({ expression : '*/5 * * * * *' }, (event) => {
-  console.log('Hello World!')
-});
+const app = new Reshuffle()
+const imap = new IMAPConnector(app, emailServerOptions)
+const twilioConnector = new TwilioConnector(app, twilioOptions);
 
-app.start();
+imap.on({ mailbox:'INBOX' },(event) => {
+   if(event.context.mail.headers.get("subject").startsWith("URGENT ALERT:")){
+        twilioConnector.sendSMS('We got urgent alet', '+16502224533' )
+   } 
+})
+
+app.start()
 ```
 
 ## Installation
