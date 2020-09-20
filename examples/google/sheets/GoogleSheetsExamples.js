@@ -1,5 +1,5 @@
 const { Reshuffle } = require('reshuffle')
-const { GoogleSheetsConnector } = require('reshuffle-google-sheets-connector')
+const { GoogleSheetsConnector } = require('reshuffle-google-connectors')
 const app = new Reshuffle()
 
 const myGoogleSheetsConnector = new GoogleSheetsConnector(
