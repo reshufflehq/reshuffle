@@ -35,7 +35,7 @@ const myHandler = (event) => {
 /** GoogleSheetsConnector Events */
 
 /** Trigger a handler when changes are detected in document <spreadSheetId> (it will check for changes every 10 seconds) */
-// myGoogleSheetsConnector.on({}, myHandler)
+myGoogleSheetsConnector.on({}, myHandler)
 
 /** Check for changes every minute (it overrides the default timer set to 10 sec) */
 const aMinuteMs = 60 * 1000
