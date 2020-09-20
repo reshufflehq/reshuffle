@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "reshuffle": "latest",
-    "reshuffle-google-sheets-connector": "latest",
+    "reshuffle-google-connectors": "latest",
     "reshuffle-nlp-connector": "latest"
   },
   "author": "Christophe Gachiniard",
