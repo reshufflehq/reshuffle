@@ -8,7 +8,7 @@ const myGoogleSheetsConnector = new GoogleSheetsConnector(
       client_email: '<your_client_email>',
       private_key: '<your_private_key>',
     },
-    spreadSheetId: '<your_sheetsId>'
+    sheetsId: '<your_sheetsId>'
 })
 
 const myHandler = (event) => {
