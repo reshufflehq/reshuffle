@@ -16,7 +16,9 @@ async function main() {
   const funcName = `function-${crypto.randomBytes(8).toString('hex')}`
 
   console.log('Deploying Lambda function:', funcName)
-  await awsLambdaConnector.createFromCode(funcName, `
+  await awsLambdaConnector.createFromCode(
+    funcName,
+    `
     exports.handler = async (event) => {
       const str = event.str || 'Hello, world!'
       const response = {
@@ -28,9 +30,10 @@ async function main() {
         body: JSON.stringify(response),
       }
     }
-  `)
+  `,
+  )
 
-  httpConnector.on({ method: 'GET', path:'/go' }, async (event) => {
+  httpConnector.on({ method: 'GET', path: '/go' }, async (event) => {
     const qid = await awsLambdaConnector.enqueue(funcName, [
       { str: 'Bruce Banner' },
       { str: 'Natasha Romanova' },

@@ -1,9 +1,10 @@
-const {Reshuffle, CronConnector} = require('../..')
-const {SMTPConnector} = require('reshuffle-smtp-connector')
+const { Reshuffle, CronConnector } = require('../..')
+const { SMTPConnector } = require('reshuffle-smtp-connector')
 const app = new Reshuffle()
 
 const smtpConnector = new SMTPConnector(
-  app, {
+  app,
+  {
     fromEmail: '<the "from" email address>',
     fromName: '<the "from" name>',
     host: '<smtp host>',
@@ -11,13 +12,13 @@ const smtpConnector = new SMTPConnector(
     username: '<username for smtp>',
     password: '<password for smtp>',
   },
-  'connectors/SMTP'
-);
+  'connectors/SMTP',
+)
 
 const dailyTimerConnector = new CronConnector(app)
 
 // Send daily at 8AM
-dailyTimerConnector.on({ expression: "0 8 * * *" }, (event) => {
+dailyTimerConnector.on({ expression: '0 8 * * *' }, async (event) => {
   const res = await smtpConnector.send({
     to: '<recipient email address>',
     subject: 'Daily Report From Reshuffle',
@@ -30,9 +31,9 @@ dailyTimerConnector.on({ expression: "0 8 * * *" }, (event) => {
                   <p>Everything is awesome!</p>
                   <small>Everything is cool when you&apos;re part of a team</small>
               </body>
-            </html>`
+            </html>`,
   })
   console.log('Sent a daily report email', 'status', res.response)
-});
+})
 
 app.start()

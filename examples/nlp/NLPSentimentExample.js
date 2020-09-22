@@ -8,8 +8,8 @@ const nlpConnector = new NlpConnector()
 app.start()
 
 async function main() {
-  const result = await nlpConnector.sentiment("My text to analyze")
-  console.log("Score: ", result.score, " Vote: ", result.vote, " Emoji: ", result.emoji)
+  const result = await nlpConnector.sentiment('My text to analyze')
+  console.log('Score: ', result.score, ' Vote: ', result.vote, ' Emoji: ', result.emoji)
 }
 
 main()

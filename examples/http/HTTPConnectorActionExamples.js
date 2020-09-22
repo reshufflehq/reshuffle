@@ -5,7 +5,7 @@ const httpConnectionName = 'myHttpConnection'
 const app = new Reshuffle()
 
 const cronConnector = new CronConnector(app)
-const httpConnector = new HttpConnector(app, undefined, httpConnectionName)
+new HttpConnector(app, undefined, httpConnectionName)
 
 cronConnector.on({ expression: '*/5 * * * * *' }, async (event) => {
   const HTTPConnection = event.getConnector(httpConnectionName)

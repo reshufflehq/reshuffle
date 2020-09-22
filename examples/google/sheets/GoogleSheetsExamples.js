@@ -2,34 +2,40 @@ const { Reshuffle } = require('reshuffle')
 const { GoogleSheetsConnector } = require('reshuffle-google-connectors')
 const app = new Reshuffle()
 
-const myGoogleSheetsConnector = new GoogleSheetsConnector(
-  app, {
-    credentials: {
-      client_email: '<your_client_email>',
-      private_key: '<your_private_key>',
-    },
-    sheetsId: '<your_sheetsId>'
+const myGoogleSheetsConnector = new GoogleSheetsConnector(app, {
+  credentials: {
+    client_email: '<your_client_email>',
+    private_key: '<your_private_key>',
+  },
+  sheetsId: '<your_sheetsId>',
 })
 
 const myHandler = (event) => {
   // event.context is { oldRows, newRows, worksheetsRemoved: WorkSheetChanges[], worksheetsAdded: WorkSheetChanges[], worksheetsChanged: WorkSheetChanges[] }
   // WorkSheetChanges is { worksheetId, rowsRemoved, rowsAdded, rowsChanged }
   console.log('New rows detected!')
-  event.options.sheetIdOrTitle && console.log(`'sheetIdOrTitle' is set in event options so it only checks for changes in sheet ${event.options.sheetIdOrTitle}`)
+  event.options.sheetIdOrTitle &&
+    console.log(
+      `'sheetIdOrTitle' is set in event options so it only checks for changes in sheet ${event.options.sheetIdOrTitle}`,
+    )
 
-  event.context.newRows.forEach(({worksheetId, rows}) => {
+  event.context.newRows.forEach(({ worksheetId, rows }) => {
     console.log(`workSheetId: ${worksheetId}`)
 
     rows.forEach((row, index) => {
       let rowString = `line ${index + 1}\t`
-      Object.values(row).forEach(val => rowString += `${val}\t`)
+      Object.values(row).forEach((val) => (rowString += `${val}\t`))
       console.log(rowString)
     })
   })
 
-  event.context.worksheetsChanged[0]
-    && event.context.worksheetsChanged[0].rowsAdded[0]
-    && console.log(`Example of new line values ${JSON.stringify(event.context.worksheetsChanged[0].rowsAdded[0])}`)
+  event.context.worksheetsChanged[0] &&
+    event.context.worksheetsChanged[0].rowsAdded[0] &&
+    console.log(
+      `Example of new line values ${JSON.stringify(
+        event.context.worksheetsChanged[0].rowsAdded[0],
+      )}`,
+    )
 }
 
 /** GoogleSheetsConnector Events */
@@ -69,7 +75,7 @@ const sheetTitle = 'Sheet1'
 // })
 
 /** Get cells for range in sheet by id|title */
-const range = {startRowIndex: 1, endRowIndex: 5, startColumnIndex: 0, endColumnIndex: 2}
+const range = { startRowIndex: 1, endRowIndex: 5, startColumnIndex: 0, endColumnIndex: 2 }
 // myGoogleSheetsConnector.getCells(sheetTitle, range).then((rows) => {
 //   console.log(`Sheets contains ${rows.length} row(s)`)
 //   rows.forEach(row => console.log(row))
@@ -108,7 +114,10 @@ const a1Address = 'B2'
 
 /** Add new sheet using the sdk */
 const newSheetTitle = 'new sheet'
-const newSheetProperties = {title: newSheetTitle, headerValues: ['header 1', 'header 2', 'header 3']}
+const newSheetProperties = {
+  title: newSheetTitle,
+  headerValues: ['header 1', 'header 2', 'header 3'],
+}
 // myGoogleSheetsConnector.sdk().then(async (doc) => {
 //   await doc.addSheet(newSheetProperties)
 // })
