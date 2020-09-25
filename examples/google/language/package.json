@@ -1,0 +1,14 @@
+{
+  "name": "reshuffle-google-language-example",
+  "version": "1.0.0",
+  "description": "Examples for Google Language Connector",
+  "main": "GoogleLanguageExample.js",
+  "scripts": {
+    "start": "node GoogleLanguageExample.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-google-connectors": "latest"
+  },
+  "license": "MIT"
+}
