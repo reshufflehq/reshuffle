@@ -4,9 +4,10 @@ const app = new Reshuffle()
 
 const main = async () => {
   const slackConnector = new SlackConnector(app, {
-    token: 'xoxb-1378697664115-1402336447888-Oy7qTjZ81TEJm9jwK0Trd6or',
-    signingSecret: 'a8c08ef8e59b9c08334d83580b013329',
-    port: 1234,
+    token: '<your_slack_token_starting_with_xox>',
+    signingSecret: '<your_slack_signing_secret>',
+    port: '<slack_receiver_port>', // Default to 3000
+    endpoints: '<slack_receiver_endpoints>', // Default to '/'
   })
 
   // Events
@@ -18,69 +19,76 @@ const main = async () => {
       },
     },
     (event) => {
-      console.log('new message posted on Slack!')
-      console.log(JSON.stringify(event.context))
+      const payload = event.context.payload
+      console.log(
+        `Slack - message event detected [channel: ${payload.channel}, type: ${payload.type}, subtype: ${payload.subtype}]!`,
+      )
+      payload.message && console.log(`message info: ${JSON.stringify(payload.message)}`)
     },
   )
 
   app.start()
 
   // Actions
-
-  // Send a message to channel
   const channel = 'C01AXNBH0QN'
-  // const responsePost = await slackConnector.postMessage(channel, 'Hello from Reshuffle nodeJs app')
-  // console.log(responsePost)
-  //
-  // const responseAmend = await slackConnector.updateMessage(
-  //   channel,
-  //   'Hello from Reshuffle nodeJs app amended amended',
-  //   responsePost.ts,
-  // )
-  // console.log(responseAmend)
-  //
-  // const deleteMessage = await slackConnector.deleteMessage(channel, responsePost.ts)
-  // console.log(deleteMessage)
-  //
-  // const now = new Date()
-  // now.setTime(now.getTime() + 30 * 1000)
-  // const scheduleMessage = await slackConnector.scheduleMessage(channel, now, 'Scheduled message!!!')
-  // console.log(scheduleMessage)
 
-  // const messageGenerator = (msg) => {
-  //   msg.text(
-  //     `The protagonists approach the Bridge of Death, whereupon the old man from Scene 24, who is the bridge-keeper, challenges them to correctly answer three questions to pass or they will be cast into the Gorge of Eternal Peril. Lancelot goes first, easily answers the elementary questions and crosses. Robin is done in by an unexpectedly difficult third question, and Galahad misses the answer to an easy one; both are flung into the gorge. The bridge keeper's final question is "What is the air-speed velocity of an unladen swallow?" Arthur responds with a question of his own, which the bridge keeper cannot answer, and is thrown in as well.`,
-  //   )
-  //   msg.image(
-  //     'https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg',
-  //     'Bridge',
-  //   )
-  //   msg.link(
-  //     'my link to image',
-  //     'https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg',
-  //   )
-  //   msg.button('Blue', 'favorite-color')
-  //   msg.button('Red', 'favorite-color')
-  //   msg.button('Yellow', 'favorite-color')
-  //
-  //   msg.divider()
-  //
-  //   msg.primaryButton('Publish', 'publish')
-  //   msg.dangerButton('Delete', 'publish')
-  // }
-  //
-  // const responsePostWithFunction = await slackConnector.postMessage(channel, messageGenerator)
-  // console.log(responsePostWithFunction)
+  /** Post a message to channel */
+  const responsePost = await slackConnector.postMessage(channel, 'Hello from Reshuffle app')
+  console.log(`Message posted: ${responsePost.ok}, ts: ${responsePost.ts}`)
 
-  // const responseSearch = await slackConnector.searchMessages('test')
-  // console.log(responseSearch)
-
-  await slackConnector.scheduleMessage(
+  /** Amend a message in channel */
+  const responseAmend = await slackConnector.updateMessage(
     channel,
-    new Date(Date.now() + 10000), // 10 seconds from current time
-    'Scheduled message!',
-    { mrkdwn: true },
+    'Hello from Reshuffle app amended',
+    responsePost.ts,
   )
+  console.log(`Message amended: ${responseAmend.ok}, ts: ${responseAmend.ts}`)
+
+  /** Delete a message in channel */
+  const deleteMessage = await slackConnector.deleteMessage(channel, responsePost.ts)
+  console.log(`Message deleted: ${deleteMessage.ok}, ts: ${deleteMessage.ts}`)
+
+  /** Post a schedule message to channel */
+  const now = new Date()
+  now.setTime(now.getTime() + 30 * 1000)
+  const scheduleMessage = await slackConnector.scheduleMessage(
+    channel,
+    now,
+    'Scheduled message from Reshuffle app',
+  )
+  console.log(`Message scheduled: ${scheduleMessage.ok}`)
+
+  /** Post a advanced message to channel using a function */
+  const messageGenerator = (msg) => {
+    msg.text(
+      `The Reshuffle framework allows you to interact with services such as AWS, Google Cloud and Twilio via Connectors.`,
+    )
+    msg.image(
+      'https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg',
+      'Bridge',
+    )
+    msg.link(
+      'my link to image',
+      'https://vignette.wikia.nocookie.net/montypython/images/c/c1/Bridge_of_Death_monty_python_and_the_holy_grail_591679_800_4411271399897.jpg',
+    )
+    msg.button('Blue', 'favorite-color')
+    msg.button('Red', 'favorite-color')
+    msg.button('Yellow', 'favorite-color')
+
+    msg.divider()
+
+    msg.primaryButton('Publish', 'publish')
+    msg.dangerButton('Delete', 'publish')
+  }
+
+  const responsePostWithFunction = await slackConnector.postMessage(channel, messageGenerator)
+  console.log(
+    `Message with function: ${responsePostWithFunction.ok}, ts: ${responsePostWithFunction.ts}`,
+  )
+
+  /** Search messages */
+  const responseSearch = await slackConnector.searchMessages('test')
+  console.log(`Search response: ${responseSearch}`)
 }
 
 main()
