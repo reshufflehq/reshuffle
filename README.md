@@ -133,3 +133,7 @@ You can read more about the Event class [here](https://dev.reshuffle.com/docs/th
 
 ## Examples
 Examples can be found in the `/examples` [folder](https://github.com/reshufflehq/reshuffle/tree/master/examples)
+
+## Connectors in this npm package
+* [Cron Connector](doc/CronConnector.md)
+* [Http Connector](doc/HttpConnector.md)
