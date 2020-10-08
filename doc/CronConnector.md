@@ -60,7 +60,7 @@ none, general event provided
 _Example:_
 
 ```js
-async (event) => {
+async (event, app) => {
   console.log('Task executed')
 }
 ```

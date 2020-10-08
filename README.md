@@ -13,7 +13,7 @@ const imap = new IMAPConnector(app, emailServerOptions)
 const twilioConnector = new TwilioConnector(app, twilioOptions);
 
 imap.on({ mailbox:'INBOX' },(event) => {
-   if(event.context.mail.headers.get("subject").startsWith("URGENT ALERT:")){
+   if(event.mail.headers.get("subject").startsWith("URGENT ALERT:")){
         twilioConnector.sendSMS('We got urgent alet', '+16502224533' )
    } 
 })
@@ -50,7 +50,7 @@ const app = new Reshuffle();
 const httpConnector = new HttpConnector(app);
 
 httpConnector.on({'method':'GET','path':'/test'}, (event) => {
-  event.context.res.end("Hello World!");
+  event.res.end("Hello World!");
 });
 
 ```
