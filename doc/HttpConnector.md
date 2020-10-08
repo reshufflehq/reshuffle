@@ -26,8 +26,8 @@ httpConnector.on(
     method: 'GET',
     path: '/status',
   },
-  (event) => {
-    event.getConnector('connectors/Slack').setStatus('U8675636646', event.req.query.slack_status)
+  (event, app) => {
+    app.getConnector('connectors/Slack').setStatus('U8675636646', event.req.query.slack_status)
   },
 )
 

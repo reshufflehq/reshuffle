@@ -12,7 +12,7 @@ const app = new Reshuffle()
 const imap = new IMAPConnector(app, emailServerOptions)
 const twilioConnector = new TwilioConnector(app, twilioOptions);
 
-imap.on({ mailbox:'INBOX' },(event) => {
+imap.on({ mailbox:'INBOX' },(event, app) => {
    if(event.mail.headers.get("subject").startsWith("URGENT ALERT:")){
         twilioConnector.sendSMS('We got urgent alet', '+16502224533' )
    } 
@@ -49,7 +49,7 @@ const {Reshuffle, HttpConnector} = require('reshuffle');
 const app = new Reshuffle();
 const httpConnector = new HttpConnector(app);
 
-httpConnector.on({'method':'GET','path':'/test'}, (event) => {
+httpConnector.on({'method':'GET','path':'/test'}, (event, app) => {
   event.res.end("Hello World!");
 });
 
@@ -79,7 +79,7 @@ const slackConnectionOptions = {
 // the 3rd parameter is used to identify the connector later on
 const slackConnector = new SlackConnector(app, slackConnectionOptions, 'connectors/Slack');
 
-httpConnector.on({'method':'GET','path':'/test'}, (event) => {
+httpConnector.on({'method':'GET','path':'/test'}, (event, app) => {
   event.getConnector('connectors/Slack')
     .send('Somebody triggered this event!', '#reports');
 })
@@ -119,8 +119,8 @@ const eventOptions = {
   'type':'new_message'
   };
 
-slackConnector.on(eventOptions, (event) => {
-  event.getConnector('connectors/Slack').reply('Thank you for your message!');
+slackConnector.on(eventOptions, (event, app) => {
+  app.getConnector('connectors/Slack').reply('Thank you for your message!');
 })
 
 app.start();
