@@ -8,7 +8,7 @@ import { Logger, LoggerOptions } from 'winston'
 import http from 'http'
 
 export interface Handler {
-  handle: (event?: any) => void
+  handle: (event: any, app: Reshuffle) => void
   id: string
 }
 
@@ -33,7 +33,7 @@ export default class Reshuffle {
     this.logger.info('Initializing Reshuffle')
   }
 
-  prepareWebServer(): Express {
+  private prepareWebServer(): Express {
     const server = express()
     server.use(express.json(), express.urlencoded({ extended: true }))
     server.route('*').all(async (req: Request, res: Response, next: NextFunction) => {
@@ -111,7 +111,7 @@ export default class Reshuffle {
     callback && callback()
   }
 
-  stopWebServer(): void {
+  private stopWebServer(): void {
     this.registry.common.webserver?.close()
   }
 
@@ -128,9 +128,6 @@ export default class Reshuffle {
       return false
     }
 
-    event.getPersistentStore = this.getPersistentStore.bind(this)
-    event.getConnector = this.getConnector.bind(this)
-
     for (const handler of eventHandlers) {
       await this.onHandleEvent(handler, event)
     }
@@ -141,7 +138,7 @@ export default class Reshuffle {
   async onHandleEvent(handler: Handler, event: any): Promise<void> {
     this.logger.defaultMeta = { handlerId: handler.id }
     try {
-      await handler.handle(event)
+      await handler.handle(event, this)
     } catch (error) {
       this.logger.error(error.stack)
     } finally {
@@ -158,7 +155,7 @@ export default class Reshuffle {
     return this.registry.common.persistentStore || this.setPersistentStore(new MemoryStoreAdapter())
   }
 
-  public getLogger(): Logger {
+  getLogger(): Logger {
     return this.logger
   }
 }
