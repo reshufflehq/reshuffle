@@ -238,7 +238,7 @@ describe('Reshuffle', () => {
         connector2.start = jest.fn()
 
         const mockHandler = (key: string) =>
-          jest.fn().mockImplementation((event) => event.context.res.end(`Success ${key}`))
+          jest.fn().mockImplementation((event) => event.res.end(`Success ${key}`))
 
         connector1.on({ method: 'GET', path: '/test1' }, mockHandler('test1'))
         connector1.on({ method: 'GET', path: '/test2' }, mockHandler('test2'))
