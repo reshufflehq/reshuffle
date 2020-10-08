@@ -80,13 +80,13 @@ const slackConnectionOptions = {
 const slackConnector = new SlackConnector(app, slackConnectionOptions, 'connectors/Slack');
 
 httpConnector.on({'method':'GET','path':'/test'}, (event, app) => {
-  event.getConnector('connectors/Slack')
+  app.getConnector('connectors/Slack')
     .send('Somebody triggered this event!', '#reports');
 })
 
 app.start();
 ```
-Connector objects expose the API and Events that the external connector (connecting to anything from a DB to an ERP) provides. You can specify a connector id by providing an identifier in the connector constructor, and then access that connector using the `event.getConnector(connectorId)` method.
+Connector objects expose the API and Events that the external connector (connecting to anything from a DB to an ERP) provides. You can specify a connector id by providing an identifier in the connector constructor, and then access that connector using the `app.getConnector(connectorId)` method.
 
 You noticed in the code sample above important information on how to connect to the 3rd party system (Slack in this case). Connectors are a way to separate the connection configuration from your code, configure a connection to a connector once and use it anywhere.
 
