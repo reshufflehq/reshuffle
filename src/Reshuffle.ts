@@ -111,7 +111,7 @@ export default class Reshuffle {
     callback && callback()
   }
 
-  private stopWebServer(): void {
+  stopWebServer(): void {
     this.registry.common.webserver?.close()
   }
 
