@@ -59,8 +59,8 @@ event.ctx.res: object - Express response object
 _Example:_
 
 ```js
-async (event) => {
-  event.context.res.status(200).send('Ok')
+async (event, app) => {
+  event.res.status(200).send('Ok')
 }
 ```
 
