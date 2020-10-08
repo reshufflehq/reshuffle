@@ -14,9 +14,9 @@ const imap = new IMAPConnector(app, {
   markSeen: true,
 })
 
-imap.on({ mailbox: 'INBOX' }, (event) => {
-  console.log(`New message in ${event.context.mailbox}`)
-  console.log(`Message is ${event.context.mail.body.text}`)
+imap.on({ mailbox: 'INBOX' }, (event, app) => {
+  console.log(`New message in ${event.mailbox}`)
+  console.log(`Message is ${event.mail.body.text}`)
 })
 
 app.start()

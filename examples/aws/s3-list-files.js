@@ -11,9 +11,9 @@ const s3Connector = new AWSS3Connector(app, {
 
 const httpConnector = new HttpConnector(app)
 
-httpConnector.on({ method: 'GET', path: '/list' }, async (event) => {
+httpConnector.on({ method: 'GET', path: '/list' }, async (event, app) => {
   const keys = await s3Connector.listObjectKeys()
-  event.context.res.json(keys)
+  event.res.json(keys)
 })
 
 app.start(8000)

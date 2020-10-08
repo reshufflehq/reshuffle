@@ -17,7 +17,7 @@ async function main() {
   await awsLambdaConnector.createFromCode(
     funcName,
     `
-    exports.handler = async (event) => {
+    exports.handler = async (event, app) => {
       const a = event.a || 0
       const b = event.b || 0
       const response = {

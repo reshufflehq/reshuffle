@@ -9,8 +9,8 @@ const pool = new Pool()
 const persistentStore = new SQLStoreAdapter(pool, 'reshuffledb')
 app.setPersistentStore(persistentStore)
 
-connector.on({ expression: '*/5 * * * * *' }, async (event) => {
-  let store = event.getPersistentStore()
+connector.on({ expression: '*/5 * * * * *' }, async (event, app) => {
+  const store = app.getPersistentStore()
   // single server setup
   let times = (await store.get('scripts/times-said-hello')) || 0
   console.log(`Hello World! ${times} times.`)

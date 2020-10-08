@@ -18,7 +18,7 @@ const smtpConnector = new SMTPConnector(
 const dailyTimerConnector = new CronConnector(app)
 
 // Send daily at 8AM
-dailyTimerConnector.on({ expression: '0 8 * * *' }, async (event) => {
+dailyTimerConnector.on({ expression: '0 8 * * *' }, async (event, app) => {
   const res = await smtpConnector.send({
     to: '<recipient email address>',
     subject: 'Daily Report From Reshuffle',

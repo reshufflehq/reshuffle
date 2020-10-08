@@ -10,8 +10,8 @@ const myGoogleSheetsConnector = new GoogleSheetsConnector(app, {
   sheetsId: '<your_sheetsId>',
 })
 
-const myHandler = (event) => {
-  // event.context is { oldRows, newRows, worksheetsRemoved: WorkSheetChanges[], worksheetsAdded: WorkSheetChanges[], worksheetsChanged: WorkSheetChanges[] }
+const myHandler = async (event, app) => {
+  // event is { oldRows, newRows, worksheetsRemoved: WorkSheetChanges[], worksheetsAdded: WorkSheetChanges[], worksheetsChanged: WorkSheetChanges[] }
   // WorkSheetChanges is { worksheetId, rowsRemoved, rowsAdded, rowsChanged }
   console.log('New rows detected!')
   event.options.sheetIdOrTitle &&
@@ -19,7 +19,7 @@ const myHandler = (event) => {
       `'sheetIdOrTitle' is set in event options so it only checks for changes in sheet ${event.options.sheetIdOrTitle}`,
     )
 
-  event.context.newRows.forEach(({ worksheetId, rows }) => {
+  event.newRows.forEach(({ worksheetId, rows }) => {
     console.log(`workSheetId: ${worksheetId}`)
 
     rows.forEach((row, index) => {
@@ -29,12 +29,10 @@ const myHandler = (event) => {
     })
   })
 
-  event.context.worksheetsChanged[0] &&
-    event.context.worksheetsChanged[0].rowsAdded[0] &&
+  event.worksheetsChanged[0] &&
+    event.worksheetsChanged[0].rowsAdded[0] &&
     console.log(
-      `Example of new line values ${JSON.stringify(
-        event.context.worksheetsChanged[0].rowsAdded[0],
-      )}`,
+      `Example of new line values ${JSON.stringify(event.worksheetsChanged[0].rowsAdded[0])}`,
     )
 }
 

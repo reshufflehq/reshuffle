@@ -9,7 +9,7 @@ const s3Connector = new AWSS3Connector(app, {
   bucket: process.env.AWS_BUCKET,
 })
 
-s3Connector.on({ type: 'ObjectAdded' }, async (event) => {
+s3Connector.on({ type: 'ObjectAdded' }, async (event, app) => {
   console.log(event)
 })
 

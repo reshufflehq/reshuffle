@@ -7,8 +7,8 @@ const app = new Reshuffle()
 const cronConnector = new CronConnector(app)
 new HttpConnector(app, undefined, httpConnectionName)
 
-cronConnector.on({ expression: '*/5 * * * * *' }, async (event) => {
-  const HTTPConnection = event.getConnector(httpConnectionName)
+cronConnector.on({ expression: '*/5 * * * * *' }, async (event, app) => {
+  const HTTPConnection = app.getConnector(httpConnectionName)
 
   const parsedURL = HTTPConnection.parseURL(
     'https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49/',
