@@ -2,7 +2,10 @@ const { Reshuffle } = require('reshuffle')
 const { SlackConnector, SlackEventType, SlackEvents } = require('reshuffle-slack-connector')
 const app = new Reshuffle()
 
+// Reshuffle Slack connector documentation: https://github.com/reshufflehq/reshuffle-slack-connector
+
 const main = async () => {
+  // Create a new Slack Connector: Token and signingSecret are found at https://api.slack.com/apps/<your_slack_app_id>/event-subscriptions
   const slackConnector = new SlackConnector(app, {
     token: '<your_slack_token_starting_with_xox>',
     signingSecret: '<your_slack_signing_secret>',
