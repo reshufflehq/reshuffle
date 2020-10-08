@@ -13,7 +13,14 @@ const main = async () => {
     endpoints: '<slack_receiver_endpoints>', // Default to '/'
   })
 
-  // Events
+  /** How to setup events in Slack: https://api.slack.com/apps/<your_slack_app_id>/event-subscriptions
+   1 - Change request URL to <your_runtime_url>:<slack_receiver_port>/<slack_receiver_endpoints>
+   2 - Subscribe to bot events. For example 'message.channels' for notifying Reshuffle when a new message was posted to a channel
+   3 - In Reshuffle, use the correct SlackEvents (e.g. SlackEvents.MESSAGE in example below)
+
+   Full list of Slack events type that Reshuffle can listen to: https://api.slack.com/events
+   Full list of Reshuffle constants mapping to Slack events type: https://github.com/reshufflehq/reshuffle-slack-connector/blob/master/src/SlackEvents.ts)
+   **/
   slackConnector.on(
     {
       type: SlackEventType.EVENT,
