@@ -12,8 +12,8 @@ const twilioConnector = new TwilioConnector(app, {
 // Reply to an incoming message on <twilioNumber>
 // Instructions on how to test Twilio webhook locally: https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-node-js-and-express-development-environment#install-ngrok-for-local-development
 // To setup webhooks in Twilio, go to https://www.twilio.com/console/phone-numbers/incoming, select phone number, scroll all the way down to messaging, add method and path, save
-twilioConnector.on({ method: 'POST', path: '/sms' }, (event) => {
-  console.log(event.context.req.body)
+twilioConnector.on({ method: 'POST', path: '/sms' }, (event, app) => {
+  console.log(event.req.body)
   // Example of console output:
   // {
   //   ToCountry = "US"
@@ -37,14 +37,14 @@ twilioConnector.on({ method: 'POST', path: '/sms' }, (event) => {
   //   ApiVersion = "2010-04-01"
   // }
 
-  const messageReceived = event.context.req.body.Body
-  const fromPhoneNumber = event.context.req.body.From
+  const messageReceived = event.req.body.Body
+  const fromPhoneNumber = event.req.body.From
   console.log(`New SMS received from ${fromPhoneNumber}: ${messageReceived}`)
 
   if (messageReceived.includes('test')) {
-    event.context.res.end('test successful')
+    event.res.end('test successful')
   } else {
-    event.context.res.end('Thanks for your message')
+    event.res.end('Thanks for your message')
   }
 })
 

@@ -6,11 +6,9 @@ const path = require('path')
 
 connector.on(
   { method: 'GET', path: '/test' },
-  async (event) =>
+  async (event, app) =>
     new Promise((resolve, reject) =>
-      event.context.res.sendFile(path.resolve('test.html'), (error) =>
-        error ? reject() : resolve(),
-      ),
+      event.res.sendFile(path.resolve('test.html'), (error) => (error ? reject() : resolve())),
     ),
 )
 

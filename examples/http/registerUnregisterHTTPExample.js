@@ -7,8 +7,8 @@ const connector = new HttpConnector(app)
 app.start()
 app.start()
 
-connector.on({ method: 'GET', path: '/test' }, (event) => {
-  event.context.res.end('Hello World!')
+connector.on({ method: 'GET', path: '/test' }, (event, app) => {
+  event.res.end('Hello World!')
 })
 
 app.restart()

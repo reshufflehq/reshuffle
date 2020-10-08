@@ -17,7 +17,7 @@ async function main() {
   )
   const preset = await awsElasticTranscoder.findPresetByDescription('240')
 
-  httpConnector.on({ method: 'GET', path: '/go' }, async (event) => {
+  httpConnector.on({ method: 'GET', path: '/go' }, async (event, app) => {
     const output = `video-${Date.now().toString(16)}.mp4`
 
     const job = await awsElasticTranscoder.createJob({
@@ -32,10 +32,10 @@ async function main() {
       },
     })
 
-    return event.context.res.json({ jobId: job.Id, output })
+    return event.res.json({ jobId: job.Id, output })
   })
 
-  awsElasticTranscoder.on({ pipelineId: pipeline.Id }, async (event) => {
+  awsElasticTranscoder.on({ pipelineId: pipeline.Id }, async (event, app) => {
     console.log(
       `Transcoding job progress ${event.jobId}: ${event.old.Status} -> ${event.current.Status}`,
     )

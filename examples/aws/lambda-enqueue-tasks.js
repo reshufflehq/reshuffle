@@ -19,7 +19,7 @@ async function main() {
   await awsLambdaConnector.createFromCode(
     funcName,
     `
-    exports.handler = async (event) => {
+    exports.handler = async (event, app) => {
       const str = event.str || 'Hello, world!'
       const response = {
         lower: str.toLowerCase(),
@@ -33,16 +33,16 @@ async function main() {
   `,
   )
 
-  httpConnector.on({ method: 'GET', path: '/go' }, async (event) => {
+  httpConnector.on({ method: 'GET', path: '/go' }, async (event, app) => {
     const qid = await awsLambdaConnector.enqueue(funcName, [
       { str: 'Bruce Banner' },
       { str: 'Natasha Romanova' },
       { str: 'Toni Stark' },
     ])
-    return event.context.res.json({ qid })
+    return event.res.json({ qid })
   })
 
-  awsLambdaConnector.on({ type: 'QueueComplete' }, async (event) => {
+  awsLambdaConnector.on({ type: 'QueueComplete' }, async (event, app) => {
     console.log('Queue processing complete:', event.qid)
     const count = event.payloads.length
     for (let i = 0; i < count; i++) {
