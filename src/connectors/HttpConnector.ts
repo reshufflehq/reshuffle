@@ -1,7 +1,6 @@
 import fetch, { RequestInfo, RequestInit } from 'node-fetch'
 import { format as _formatURL, URL } from 'url'
 import { Request, Response, NextFunction } from 'express'
-import Reshuffle from '../Reshuffle'
 import { BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 class TimeoutError extends Error {}
@@ -34,8 +33,8 @@ export default class HttpConnector extends BaseHttpConnector<
 
     const event = new EventConfiguration(eventId, this, optionsSanitized)
     this.eventConfigurations[event.id] = event
-    this.app?.when(event, handler)
-    this.app?.registerHTTPDelegate(event.options.path, this)
+    this.app.when(event, handler)
+    this.app.registerHTTPDelegate(event.options.path, this)
 
     return event
   }
@@ -50,13 +49,12 @@ export default class HttpConnector extends BaseHttpConnector<
     )
 
     if (eventConfiguration) {
-      this.app?.getLogger().info('Handling event')
-      handled = this.app
-        ? await this.app.handleEvent(eventConfiguration.id, {
-            ...eventConfiguration,
-            context: { req, res },
-          })
-        : false
+      this.app.getLogger().info('Handling event')
+      handled = await this.app.handleEvent(eventConfiguration.id, {
+        ...eventConfiguration,
+        req,
+        res,
+      })
     }
 
     next()
@@ -66,7 +64,7 @@ export default class HttpConnector extends BaseHttpConnector<
 
   onStop() {
     Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
-      this.app?.unregisterHTTPDelegate(eventConfiguration.options.path),
+      this.app.unregisterHTTPDelegate(eventConfiguration.options.path),
     )
   }
 
