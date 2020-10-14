@@ -4,6 +4,17 @@ const app = new Reshuffle()
 
 // Reshuffle Slack connector documentation: https://github.com/reshufflehq/reshuffle-slack-connector
 
+/**
+This connector required a Slack App to be configured:
+  - Go to https://api.slack.com/apps
+  - Click on `Create New App`
+- Enter a `name` and select a `workspace`
+- Click on `Create App`
+- Click on your new app
+- The signing secret is under `Basic Information` > `App Credentials`
+- The token is under `Settings` > `Install App` > OAuth Access Token
+*/
+
 const main = async () => {
   // Create a new Slack Connector: Token and signingSecret are found at https://api.slack.com/apps/<your_slack_app_id>/event-subscriptions
   const slackConnector = new SlackConnector(app, {
@@ -13,10 +24,11 @@ const main = async () => {
     endpoints: '<slack_receiver_endpoints>', // Default to '/'
   })
 
-  /** How to setup events in Slack: https://api.slack.com/apps/<your_slack_app_id>/event-subscriptions
-   1 - Change request URL to <your_runtime_url>:<slack_receiver_port>/<slack_receiver_endpoints>
-   2 - Subscribe to bot events. For example 'message.channels' for notifying Reshuffle when a new message was posted to a channel
-   3 - In Reshuffle, use the correct SlackEvents (e.g. SlackEvents.MESSAGE in example below)
+  /** How to setup events in Slack:
+   1 - Go to https://api.slack.com/apps/<your_slack_app_id>/event-subscriptions
+   2 - Change request URL to <your_runtime_url>:<slack_receiver_port>/<slack_receiver_endpoints>
+   3 - Subscribe to bot events. For example 'message.channels' for notifying Reshuffle when a new message was posted to a channel
+   4 - In Reshuffle, use the correct SlackEvents (e.g. SlackEvents.MESSAGE in example below)
 
    Full list of Slack events type that Reshuffle can listen to: https://api.slack.com/events
    Full list of Reshuffle constants mapping to Slack events type: https://github.com/reshufflehq/reshuffle-slack-connector/blob/master/src/SlackEvents.ts)
@@ -29,7 +41,7 @@ const main = async () => {
       },
     },
     (event) => {
-      const payload = event.context.payload
+      const payload = event.payload
       console.log(
         `Slack - message event detected [channel: ${payload.channel}, type: ${payload.type}, subtype: ${payload.subtype}]!`,
       )
