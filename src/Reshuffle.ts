@@ -60,15 +60,15 @@ export default class Reshuffle {
   }
 
   registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
-    let httpMultoplexer = this.httpDelegates[path]
-    if (!httpMultoplexer) {
-      httpMultoplexer = new HttpMultiplexer(path)
-      httpMultoplexer.delegates.push(delegate)
-      this.prepareWebServer().all(path, httpMultoplexer.handle.bind(httpMultoplexer))
+    let httpMultiplexer = this.httpDelegates[path]
+    if (!httpMultiplexer) {
+      httpMultiplexer = new HttpMultiplexer(path)
+      httpMultiplexer.delegates.push(delegate)
+      this.prepareWebServer().all(path, httpMultiplexer.handle.bind(httpMultiplexer))
     } else {
-      httpMultoplexer.delegets.push(delegate)
+      httpMultiplexer.delegets.push(delegate)
     }
-    this.httpDelegates[path] = httpMultoplexer
+    this.httpDelegates[path] = httpMultiplexer
     return this
   }
 
