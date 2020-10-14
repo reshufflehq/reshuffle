@@ -14,13 +14,14 @@ export interface Handler {
 
 export default class Reshuffle {
   availableConnectors: any
-  httpDelegates: { [path: string]: BaseHttpConnector }
+  httpDelegates: { [path: string]: any }
   port: number
   registry: {
     connectors: { [url: string]: BaseConnector }
     handlers: { [id: string]: Handler[] }
-    common: { webserver?: http.Server; persistentStore?: any }
+    common: { webserver?: Express; persistentStore?: any }
   }
+  httpServer?: http.Server
   logger: Logger
 
   constructor(loggerOptions?: LoggerOptions) {
@@ -34,19 +35,12 @@ export default class Reshuffle {
   }
 
   private prepareWebServer(): Express {
-    const server = express()
-    server.use(express.json(), express.urlencoded({ extended: true }))
-    server.route('*').all(async (req: Request, res: Response, next: NextFunction) => {
-      let handled = false
-      if (this.httpDelegates[req.params[0]]) {
-        handled = await this.httpDelegates[req.params[0]].handle(req, res, next)
-      }
-      if (!handled) {
-        res.end(`No handler registered for ${req.url}`)
-      }
-    })
+    if (!this.registry.common.webserver) {
+      this.registry.common.webserver = express()
+      this.registry.common.webserver.use(express.json(), express.urlencoded({ extended: true }))
+    }
 
-    return server
+    return this.registry.common.webserver
   }
 
   register(connector: BaseConnector): Reshuffle {
@@ -66,13 +60,24 @@ export default class Reshuffle {
   }
 
   registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
-    this.httpDelegates[path] = delegate
-
+    let httpMultoplexer = this.httpDelegates[path]
+    if (!httpMultoplexer) {
+      httpMultoplexer = new HttpMultiplexer(path)
+      httpMultoplexer.delegates.push(delegate)
+      this.prepareWebServer().all(path, httpMultoplexer.handle.bind(httpMultoplexer))
+    } else {
+      httpMultoplexer.delegets.push(delegate)
+    }
+    this.httpDelegates[path] = httpMultoplexer
     return this
   }
 
+  //we might to add a fine tuned method in the future that just removes one delegete
   unregisterHTTPDelegate(path: string): void {
-    delete this.httpDelegates[path]
+    const httpMultoplexer = this.httpDelegates[path]
+    if (!httpMultoplexer) {
+      httpMultoplexer.delegates = []
+    }
   }
 
   when(eventConfiguration: EventConfiguration, handler: (() => void) | Handler): Reshuffle {
@@ -100,10 +105,8 @@ export default class Reshuffle {
     Object.values(this.registry.connectors).forEach((connector) => connector.start())
 
     // Start the webserver if we have http delegates
-    if (Object.keys(this.httpDelegates).length > 0 && !this.registry.common.webserver) {
-      const express = this.prepareWebServer()
-
-      this.registry.common.webserver = express.listen(this.port, () => {
+    if (this.registry.common.webserver) {
+      this.httpServer = this.registry.common.webserver.listen(this.port, () => {
         this.logger.info(`Web server listening on port ${this.port}`)
       })
     }
@@ -112,7 +115,8 @@ export default class Reshuffle {
   }
 
   stopWebServer(): void {
-    this.registry.common.webserver?.close()
+    this.registry.common.webserver
+    this.httpServer?.close()
   }
 
   restart(port?: number): void {
@@ -161,3 +165,18 @@ export default class Reshuffle {
 }
 
 export { Reshuffle }
+
+class HttpMultiplexer {
+  delegates: any
+  originalPath: string
+  constructor(originalPath: string) {
+    this.originalPath = originalPath
+    this.delegates = []
+  }
+  handle(req: any, res: any, next: any) {
+    req.originalPath = this.originalPath
+    this.delegates.forEach(function (delegete: BaseHttpConnector) {
+      delegete.handle(req, res, next)
+    })
+  }
+}
