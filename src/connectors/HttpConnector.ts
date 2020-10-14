@@ -39,9 +39,9 @@ export default class HttpConnector extends BaseHttpConnector<
     return event
   }
 
-  async handle(req: Request, res: Response, next: NextFunction) {
+  async handle(req: any, res: Response, next: NextFunction) {
     const { method, params } = req
-    const requestPath = params[0]
+    const requestPath = req.originalPath
     let handled = false
 
     const eventConfiguration = Object.values(this.eventConfigurations).find(
