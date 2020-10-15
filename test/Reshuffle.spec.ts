@@ -266,7 +266,7 @@ describe('Reshuffle', () => {
         app.start()
 
         const responseTest3Call = await request(app.registry.common.webserver).post('/test')
-        expect(responseTest3Call.text).toEqual('No handler registered for /test')
+        expect(responseTest3Call.text).toEqual('No handler registered for POST /test')
 
         app.stopWebServer()
       })
@@ -283,7 +283,7 @@ describe('Reshuffle', () => {
         app.start()
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/foobar')
-        expect(responseTest3Call.text).toEqual('No handler registered for /foobar')
+        expect(responseTest3Call.text).toEqual('No handler registered for GET /foobar')
 
         app.stopWebServer()
       })
@@ -302,7 +302,7 @@ describe('Reshuffle', () => {
         await app.unregister(connector1)
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/test')
-        expect(responseTest3Call.text).toEqual('No handler registered for /test')
+        expect(responseTest3Call.text).toEqual('No handler registered for GET /test')
 
         app.stopWebServer()
       })
