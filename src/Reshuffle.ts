@@ -166,7 +166,7 @@ export default class Reshuffle {
 export { Reshuffle }
 
 class HttpMultiplexer {
-  delegates: any
+  delegates: BaseHttpConnector[]
   originalPath: string
   constructor(originalPath: string) {
     this.originalPath = originalPath
@@ -174,8 +174,8 @@ class HttpMultiplexer {
   }
   handle(req: any, res: any, next: any) {
     req.originalPath = this.originalPath
-    this.delegates.forEach(function (delegete: BaseHttpConnector) {
-      delegete.handle(req, res, next)
+    this.delegates.forEach(async function (delegate) {
+      await delegate.handle(req, res, next)
     })
   }
 }
