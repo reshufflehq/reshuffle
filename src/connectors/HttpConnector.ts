@@ -58,7 +58,7 @@ export default class HttpConnector extends BaseHttpConnector<
     } else {
       const errorMessage = `No handler registered for ${method} ${requestPath}`
       this.app.getLogger().error(errorMessage)
-      res.status(501).json(errorMessage)
+      res.status(501).send(errorMessage)
     }
 
     next()

@@ -266,7 +266,7 @@ describe('Reshuffle', () => {
         app.start()
 
         const responseTest3Call = await request(app.registry.common.webserver).post('/test')
-        expect(responseTest3Call.text).toEqual('No handler registered for POST /test')
+        expect(responseTest3Call.text).toContain('Cannot POST /test')
 
         app.stopWebServer()
       })
@@ -283,7 +283,7 @@ describe('Reshuffle', () => {
         app.start()
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/foobar')
-        expect(responseTest3Call.text).toEqual('No handler registered for GET /foobar')
+        expect(responseTest3Call.text).toContain('Cannot GET /foobar')
 
         app.stopWebServer()
       })
@@ -293,16 +293,18 @@ describe('Reshuffle', () => {
         expect(app.registry.common.webserver).toBeUndefined()
 
         const connector1 = new HttpConnector(app)
-        connector1.start = jest.fn()
 
-        connector1.on({ method: 'GET', path: '/test' }, () => console.log('test'))
+        connector1.on({ method: 'GET', path: '/test' }, (event: any) => event.res.end('Success'))
 
         app.start()
+
+        const res = await request(app.registry.common.webserver).get('/test')
+        expect(res.text).toContain('Success')
 
         await app.unregister(connector1)
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/test')
-        expect(responseTest3Call.text).toEqual('No handler registered for GET /test')
+        expect(responseTest3Call.text).toBe('No handler registered for GET /test')
 
         app.stopWebServer()
       })
