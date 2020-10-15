@@ -74,9 +74,9 @@ export default class Reshuffle {
 
   //we might to add a fine tuned method in the future that just removes one delegete
   unregisterHTTPDelegate(path: string): void {
-    const httpMultoplexer = this.httpDelegates[path]
-    if (!httpMultoplexer) {
-      httpMultoplexer.delegates = []
+    const httpMultiplexer = this.httpDelegates[path]
+    if (httpMultiplexer) {
+      httpMultiplexer.delegates = []
     }
   }
 
