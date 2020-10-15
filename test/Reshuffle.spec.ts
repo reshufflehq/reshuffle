@@ -215,13 +215,13 @@ describe('Reshuffle', () => {
 
       connector1.on({ method: 'GET', path: '/test1' }, () => console.log('test1'))
 
-      expect(Object.keys(app.httpDelegates)).toHaveLength(1)
+      expect(Object.keys(app.httpDelegates['/test1'].delegates)).toHaveLength(1)
 
       app.start()
 
       await app.unregister(connector1)
 
-      expect(Object.keys(app.httpDelegates)).toHaveLength(0)
+      expect(Object.keys(app.httpDelegates['/test1'].delegates)).toHaveLength(0)
 
       app.stopWebServer()
     })
