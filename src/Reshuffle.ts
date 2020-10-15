@@ -66,7 +66,7 @@ export default class Reshuffle {
       httpMultiplexer.delegates.push(delegate)
       this.prepareWebServer().all(path, httpMultiplexer.handle.bind(httpMultiplexer))
     } else {
-      httpMultiplexer.delegets.push(delegate)
+      httpMultiplexer.delegates.push(delegate)
     }
     this.httpDelegates[path] = httpMultiplexer
     return this
