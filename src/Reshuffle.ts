@@ -174,6 +174,10 @@ class HttpMultiplexer {
   }
   handle(req: any, res: any, next: any) {
     req.originalPath = this.originalPath
+    if (this.delegates.length === 0) {
+      const errorMessage = `No handler registered for ${req.method} ${req.originalPath}`
+      return res.status(501).send(errorMessage)
+    }
     this.delegates.forEach(async function (delegate) {
       await delegate.handle(req, res, next)
     })
