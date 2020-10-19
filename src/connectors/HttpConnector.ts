@@ -2,6 +2,7 @@ import fetch, { RequestInfo, RequestInit } from 'node-fetch'
 import { format as _formatURL, URL } from 'url'
 import { Request, Response, NextFunction } from 'express'
 import { BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
+import { error } from 'winston'
 
 class TimeoutError extends Error {}
 
@@ -40,7 +41,7 @@ export default class HttpConnector extends BaseHttpConnector<
   }
 
   async handle(req: any, res: Response, next: NextFunction) {
-    const { method, params } = req
+    const { method } = req
     const requestPath = req.originalPath
     let handled = false
 
@@ -50,11 +51,16 @@ export default class HttpConnector extends BaseHttpConnector<
 
     if (eventConfiguration) {
       this.app.getLogger().info('Handling event')
+
       handled = await this.app.handleEvent(eventConfiguration.id, {
         ...eventConfiguration,
         req,
         res,
       })
+
+      if (!handled) {
+        res.status(500).send()
+      }
     } else {
       const errorMessage = `No handler registered for ${method} ${requestPath}`
       this.app.getLogger().error(errorMessage)
