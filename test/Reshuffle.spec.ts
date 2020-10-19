@@ -179,7 +179,7 @@ describe('Reshuffle', () => {
         throw new Error()
       })
 
-      expect(await app.handleEvent('id', anEvent)).toBe(true)
+      expect(await app.handleEvent('id', anEvent)).toBe(false)
     })
   })
   describe('http server', () => {
@@ -226,7 +226,7 @@ describe('Reshuffle', () => {
       app.stopWebServer()
     })
     describe('web server', () => {
-      it('delegates to the connector handler if the route matches', async () => {
+      it('delegates to the connector handler if the route matches and returns a 200', async () => {
         const app = new Reshuffle()
 
         expect(app.registry.common.webserver).toBeUndefined()
@@ -246,31 +246,35 @@ describe('Reshuffle', () => {
         app.start()
 
         const responseTest1Call = await request(app.registry.common.webserver).get('/test1')
+        expect(responseTest1Call.status).toBe(200)
         expect(responseTest1Call.text).toEqual('Success test1')
 
         const responseTest2Call = await request(app.registry.common.webserver).get('/test2')
+        expect(responseTest2Call.status).toBe(200)
         expect(responseTest2Call.text).toEqual('Success test2')
 
         app.stopWebServer()
       })
-      it("returns a 200 with 'No handler registered for /route' when path matches but method doesn't", async () => {
+      it('returns a 500 when handler throw an exception', async () => {
         const app = new Reshuffle()
 
-        expect(app.registry.common.webserver).toBeUndefined()
+        const connector = new HttpConnector(app)
 
-        const connector1 = new HttpConnector(app)
-        connector1.start = jest.fn()
+        const mockHandler = () =>
+          jest.fn().mockImplementation(() => {
+            throw new Error(':(')
+          })
 
-        connector1.on({ method: 'GET', path: '/test1' }, () => console.log('test'))
+        connector.on({ method: 'GET', path: '/test' }, mockHandler())
 
         app.start()
 
-        const responseTest3Call = await request(app.registry.common.webserver).post('/test')
-        expect(responseTest3Call.text).toContain('Cannot POST /test')
+        const responseTest1Call = await request(app.registry.common.webserver).get('/test')
+        expect(responseTest1Call.status).toEqual(500)
 
         app.stopWebServer()
       })
-      it("returns a 200 with 'No handler registered for /route'", async () => {
+      it("returns a 501 with 'No handler registered for /route' when path matches but method doesn't", async () => {
         const app = new Reshuffle()
 
         expect(app.registry.common.webserver).toBeUndefined()
@@ -282,12 +286,31 @@ describe('Reshuffle', () => {
 
         app.start()
 
-        const responseTest3Call = await request(app.registry.common.webserver).get('/foobar')
-        expect(responseTest3Call.text).toContain('Cannot GET /foobar')
+        const responseTest3Call = await request(app.registry.common.webserver).post('/test')
+        expect(responseTest3Call.status).toBe(501)
+        expect(responseTest3Call.text).toEqual('No handler registered for POST /test')
 
         app.stopWebServer()
       })
-      it("returns a 200 with 'No handler registered for /route' if unregistered", async () => {
+      it("returns a 404 with 'No handler registered for /unknownPath' whe path unknown", async () => {
+        const app = new Reshuffle()
+
+        expect(app.registry.common.webserver).toBeUndefined()
+
+        const connector1 = new HttpConnector(app)
+        connector1.start = jest.fn()
+
+        connector1.on({ method: 'GET', path: '/test' }, () => console.log('test'))
+
+        app.start()
+
+        const responseTest3Call = await request(app.registry.common.webserver).get('/unknownPath')
+        expect(responseTest3Call.status).toBe(404)
+        expect(responseTest3Call.text).toContain('Cannot GET /unknownPath')
+
+        app.stopWebServer()
+      })
+      it("returns a 501 with 'No handler registered for /route' once the connector is unregistered", async () => {
         const app = new Reshuffle()
 
         expect(app.registry.common.webserver).toBeUndefined()
@@ -304,6 +327,7 @@ describe('Reshuffle', () => {
         await app.unregister(connector1)
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/test')
+        expect(responseTest3Call.status).toBe(501)
         expect(responseTest3Call.text).toBe('No handler registered for GET /test')
 
         app.stopWebServer()
