@@ -131,19 +131,22 @@ export default class Reshuffle {
       return false
     }
 
+    let handled = true
     for (const handler of eventHandlers) {
-      await this.onHandleEvent(handler, event)
+      handled &&= await this.onHandleEvent(handler, event)
     }
 
-    return true
+    return handled
   }
 
-  async onHandleEvent(handler: Handler, event: any): Promise<void> {
+  async onHandleEvent(handler: Handler, event: any): Promise<boolean> {
     this.logger.defaultMeta = { handlerId: handler.id }
     try {
       await handler.handle(event, this)
+      return true
     } catch (error) {
       this.logger.error(error.stack)
+      return false
     } finally {
       this.logger.defaultMeta = {}
     }
