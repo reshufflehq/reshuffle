@@ -64,7 +64,6 @@ export default class Reshuffle {
     if (!httpMultiplexer) {
       httpMultiplexer = new HttpMultiplexer(path)
       httpMultiplexer.delegates.push(delegate)
-      this.prepareWebServer().all(path, httpMultiplexer.handle.bind(httpMultiplexer))
     } else {
       httpMultiplexer.delegates.push(delegate)
     }
@@ -105,8 +104,22 @@ export default class Reshuffle {
     Object.values(this.registry.connectors).forEach((connector) => connector.start())
 
     // Start the webserver if we have http delegates
-    if (this.registry.common.webserver) {
-      this.httpServer = this.registry.common.webserver.listen(this.port, () => {
+    if (Object.keys(this.httpDelegates).length) {
+      const webserver = this.prepareWebServer()
+      Object.keys(this.httpDelegates)
+        .sort()
+        .reverse() // The sort().reverse() moves all generic routes (/:id) at the end
+        .forEach((path) => {
+          const httpMultiplexer = this.httpDelegates[path]
+          webserver.all(path, httpMultiplexer.handle.bind(httpMultiplexer))
+        })
+      webserver.all('*', (req, res) => {
+        const errorMessage = `No handler registered for ${req.method} ${req.url}`
+        this.logger.info(errorMessage)
+        return res.status(501).send(errorMessage)
+      })
+
+      this.httpServer = webserver.listen(this.port, () => {
         this.logger.info(`Web server listening on port ${this.port}`)
       })
     }
@@ -175,14 +188,20 @@ class HttpMultiplexer {
     this.originalPath = originalPath
     this.delegates = []
   }
-  handle(req: any, res: any, next: any) {
+  async handle(req: any, res: any, next: any) {
     req.originalPath = this.originalPath
-    if (this.delegates.length === 0) {
-      const errorMessage = `No handler registered for ${req.method} ${req.originalPath}`
-      return res.status(501).send(errorMessage)
+    let handled = false
+
+    if (this.delegates.length > 0) {
+      for (const delegate of this.delegates) {
+        if (!handled) {
+          handled = await delegate.handle(req, res, next)
+        }
+      }
     }
-    this.delegates.forEach(async function (delegate) {
-      await delegate.handle(req, res, next)
-    })
+
+    if (!handled) {
+      next()
+    }
   }
 }
