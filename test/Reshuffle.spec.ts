@@ -305,8 +305,8 @@ describe('Reshuffle', () => {
         app.start()
 
         const responseTest3Call = await request(app.registry.common.webserver).get('/unknownPath')
-        expect(responseTest3Call.status).toBe(404)
-        expect(responseTest3Call.text).toContain('Cannot GET /unknownPath')
+        expect(responseTest3Call.status).toBe(501)
+        expect(responseTest3Call.text).toContain('No handler registered for GET /unknownPath')
 
         app.stopWebServer()
       })
