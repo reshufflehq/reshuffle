@@ -194,9 +194,10 @@ class HttpMultiplexer {
 
     if (this.delegates.length > 0) {
       for (const delegate of this.delegates) {
-        if (!handled) {
-          handled = await delegate.handle(req, res, next)
+        if (handled) {
+          break
         }
+        handled = await delegate.handle(req, res, next)
       }
     }
 
