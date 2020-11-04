@@ -60,6 +60,7 @@ export default class HttpConnector extends BaseHttpConnector<
 
       if (!handled) {
         res.status(500).send()
+        return true // The script threw an exception, we returned a 500 with handled true to avoid calling the next handler.
       }
     }
 
