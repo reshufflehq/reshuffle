@@ -26,6 +26,7 @@ export default class SQLStoreAdapter implements PersistentStoreAdapter {
   }
 
   public async list(): Promise<string[]> {
+    await this.validateDB()
     const res = await this.pool.query(`SELECT id FROM ${this.table}`)
     return res.rows.map((row: any) => row.id)
   }
