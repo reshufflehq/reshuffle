@@ -3,7 +3,7 @@ const { NlpConnector } = require('reshuffle-nlp-connector')
 
 const app = new Reshuffle()
 
-const nlpConnector = new NlpConnector()
+const nlpConnector = new NlpConnector(app)
 
 app.start()
 
