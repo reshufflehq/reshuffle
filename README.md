@@ -5,17 +5,17 @@ Here is a simple workflow that sends a Text message when an urgent Email arrives
  
 ```js
 const { Reshuffle } = require('reshuffle')
-const { IMAPConnector } = require ('reshuffle-imap-connector')
+const { IMAPConnector } = require('reshuffle-imap-connector')
 const { TwilioConnector } = require('reshuffle-twilio-connector')
 
 const app = new Reshuffle()
 const imap = new IMAPConnector(app, emailServerOptions)
-const twilioConnector = new TwilioConnector(app, twilioOptions);
+const twilioConnector = new TwilioConnector(app, twilioOptions)
 
-imap.on({ mailbox:'INBOX' },(event, app) => {
-   if(event.mail.headers.get("subject").startsWith("URGENT ALERT:")){
-        twilioConnector.sendSMS('We got urgent alet', '+16502224533' )
-   } 
+imap.on({ mailbox: 'INBOX' }, (event, app) => {
+  if (event.mail.headers.get('subject').startsWith('URGENT ALERT:')) {
+    twilioConnector.sendSMS('We got urgent alert', '+16502224533')
+  }
 })
 
 app.start()
@@ -45,14 +45,13 @@ At its core Reshuffle is an event-based engine, very similar to programming with
 Here is an example of listening to an HTTP GET event on /test, using the HTTP connector:
 
 ```js
-const {Reshuffle, HttpConnector} = require('reshuffle');
-const app = new Reshuffle();
-const httpConnector = new HttpConnector(app);
+const { Reshuffle, HttpConnector } = require('reshuffle')
+const app = new Reshuffle()
+const httpConnector = new HttpConnector(app)
 
-httpConnector.on({'method':'GET','path':'/test'}, (event, app) => {
-  event.res.end("Hello World!");
-});
-
+httpConnector.on({ method: 'GET', path: '/test' }, (event, app) => {
+  event.res.end('Hello World!')
+})
 ```
 
 [Connectors](https://dev.reshuffle.com/docs/the-connector-class) act _like_ [node eventEmitter](https://nodejs.org/api/events.html), so when the event is emitted the function is called. We will discuss Connectors in the next section.
@@ -65,26 +64,25 @@ A critical aspect of building integrations is configuring how to connect to diff
 Let's expand the example above and send a message to a Slack ‘reports’ channel every time someone triggers the 'HTTP/GET/test' event:
 
 ```js
-const {Reshuffle, HttpConnector, SlackConnector} = require('reshuffle')
-const app = new Reshuffle();
+const { Reshuffle, HttpConnector, SlackConnector } = require('reshuffle')
+const app = new Reshuffle()
 
 // the httpConnector does not require any config
-const httpConnector = new HttpConnector(app);
+const httpConnector = new HttpConnector(app)
 
 // Slack connection configuration
 const slackConnectionOptions = {
-  'APIToken':process.env.SLACK_AUTH_KEY,
-  'team':'ourTeam',
-};
+  APIToken: process.env.SLACK_AUTH_KEY,
+  team: 'ourTeam',
+}
 // the 3rd parameter is used to identify the connector later on
-const slackConnector = new SlackConnector(app, slackConnectionOptions, 'connectors/Slack');
+new SlackConnector(app, slackConnectionOptions, 'connectors/Slack')
 
-httpConnector.on({'method':'GET','path':'/test'}, (event, app) => {
-  app.getConnector('connectors/Slack')
-    .send('Somebody triggered this event!', '#reports');
+httpConnector.on({ method: 'GET', path: '/test' }, (event, app) => {
+  app.getConnector('connectors/Slack').send('Somebody triggered this event!', '#reports')
 })
 
-app.start();
+app.start()
 ```
 Connector objects expose the API and Events that the external connector (connecting to anything from a DB to an ERP) provides. You can specify a connector id by providing an identifier in the connector constructor, and then access that connector using the `app.getConnector(connectorId)` method.
 
@@ -103,27 +101,27 @@ To configure an event, use the `on(eventOptions, handler)` method of the relevan
 
 Here is how you would configure a SlackConnector to listen to a message from Slack:
 ```js
-const {Reshuffle, SlackConnector} = require('reshuffle');
-const app = new Reshuffle();
+const { Reshuffle, SlackConnector } = require('reshuffle')
+const app = new Reshuffle()
 
 const connectionOptions = {
-  'APIToken':process.env.SLACK_AUTH_KEY,
-  'team':'ourTeam',
-};
+  APIToken: process.env.SLACK_AUTH_KEY,
+  team: 'ourTeam',
+}
 
-const slackConnector = new SlackConnector(app, connectionOptions, 'connectors/Slack');
+const slackConnector = new SlackConnector(app, connectionOptions, 'connectors/Slack')
 
 const eventOptions = {
-  'event_type':'new_message',
-  'channel':'C6646754636',
-  'type':'new_message'
-  };
+  event_type: 'new_message',
+  channel: 'C6646754636',
+  type: 'new_message',
+}
 
 slackConnector.on(eventOptions, (event, app) => {
-  app.getConnector('connectors/Slack').reply('Thank you for your message!');
+  app.getConnector('connectors/Slack').reply('Thank you for your message!')
 })
 
-app.start();
+app.start()
 ```
 It is the responsibility of the SlackConnector to listen to the messages in Slack and emit corresponding events in Reshuffle. Your code can listen to these events and run business logic.
 
