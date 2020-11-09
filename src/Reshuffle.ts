@@ -63,10 +63,8 @@ export default class Reshuffle {
     let httpMultiplexer = this.httpDelegates[path]
     if (!httpMultiplexer) {
       httpMultiplexer = new HttpMultiplexer(path)
-      httpMultiplexer.delegates.push(delegate)
-    } else {
-      httpMultiplexer.delegates.push(delegate)
     }
+    httpMultiplexer.delegates.push(delegate)
     this.httpDelegates[path] = httpMultiplexer
     return this
   }
