@@ -226,6 +226,22 @@ describe('Reshuffle', () => {
       app.stopWebServer()
     })
     describe('web server', () => {
+      it('performs an healthcheck', async () => {
+        const app = new Reshuffle()
+
+        const connector = new HttpConnector(app)
+        connector.on({ method: 'GET', path: '/test' }, () => console.log('test'))
+        app.start()
+
+        const response = await request(app.registry.common.webserver).get('/reshuffle-healthcheck')
+        expect(response.status).toBe(200)
+
+        const { ok, uptime } = JSON.parse(response.text)
+        expect(ok).toBe(true)
+        expect(uptime).toBeGreaterThan(0)
+
+        app.stopWebServer()
+      })
       it('delegates to the connector handler if the route matches and returns a 200', async () => {
         const app = new Reshuffle()
 

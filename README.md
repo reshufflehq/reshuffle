@@ -131,6 +131,14 @@ As you can see, both the event creation and the business logic, use the same Con
 
 You can read more about the Event class [here](https://dev.reshuffle.com/docs/the-event-class)
 
+## Health check
+To perform a health check for the Express webserver, call `/reshuffle-healthcheck`.
+It returns an object with:
+```ts
+ok: boolean
+uptime: Number //sec
+```
+
 ## Examples
 Examples can be found in the `/examples` [folder](https://github.com/reshufflehq/reshuffle/tree/master/examples)
 
