@@ -113,6 +113,9 @@ export default class Reshuffle {
           const httpMultiplexer = this.httpDelegates[path]
           webserver.all(path, httpMultiplexer.handle.bind(httpMultiplexer))
         })
+      webserver.use('/reshuffle-healthcheck', (req, res) =>
+        res.status(200).send({ ok: true, uptime: process.uptime() }),
+      )
       webserver.all('*', (req, res) => {
         const errorMessage = `No handler registered for ${req.method} ${req.url}`
         this.logger.info(errorMessage)
