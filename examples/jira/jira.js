@@ -1,5 +1,8 @@
 const { Reshuffle } = require('reshuffle')
-const { JiraConnector, J } = require('reshuffle-jira-connector')
+const { JiraConnector } = require('reshuffle-jira-connector')
+
+// This example uses reshuffle-jira-connector
+// Code and documentation available on Github: https://github.com/reshufflehq/reshuffle-jira-connecto
 
 const app = new Reshuffle()
 const connector = new JiraConnector(app, {
