@@ -226,14 +226,18 @@ describe('Reshuffle', () => {
       app.stopWebServer()
     })
     describe('web server', () => {
-      it('performs an healthcheck', async () => {
+      it('can perform an healthcheck when process.env.HEALTH_CHECK_PATH is set', async () => {
+        const myHealthCheckPath = '/reshuffle-healthcheck'
+        const OLD_ENV = process.env
+        process.env.HEALTH_CHECK_PATH = myHealthCheckPath
+
         const app = new Reshuffle()
 
         const connector = new HttpConnector(app)
         connector.on({ method: 'GET', path: '/test' }, () => console.log('test'))
         app.start()
 
-        const response = await request(app.registry.common.webserver).get('/reshuffle-healthcheck')
+        const response = await request(app.registry.common.webserver).get(myHealthCheckPath)
         expect(response.status).toBe(200)
 
         const { ok, uptime } = JSON.parse(response.text)
@@ -241,6 +245,7 @@ describe('Reshuffle', () => {
         expect(uptime).toBeGreaterThan(0)
 
         app.stopWebServer()
+        process.env = { ...OLD_ENV }
       })
       it('delegates to the connector handler if the route matches and returns a 200', async () => {
         const app = new Reshuffle()
