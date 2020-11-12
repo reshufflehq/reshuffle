@@ -7,8 +7,6 @@ import { createLogger } from './Logger'
 import { Logger, LoggerOptions } from 'winston'
 import http from 'http'
 
-const HEALTH_CHECK_PATH = process.env.HEALTH_CHECK_PATH || '/reshuffle-healthcheck'
-
 export interface Handler {
   handle: (event: any, app: Reshuffle) => void
   id: string
@@ -115,9 +113,12 @@ export default class Reshuffle {
           const httpMultiplexer = this.httpDelegates[path]
           webserver.all(path, httpMultiplexer.handle.bind(httpMultiplexer))
         })
-      webserver.use(HEALTH_CHECK_PATH, (req, res) =>
-        res.status(200).send({ ok: true, uptime: process.uptime() }),
-      )
+
+      if (process.env.HEALTH_CHECK_PATH) {
+        webserver.use(process.env.HEALTH_CHECK_PATH, (req, res) =>
+          res.status(200).send({ ok: true, uptime: process.uptime() }),
+        )
+      }
       webserver.all('*', (req, res) => {
         const errorMessage = `No handler registered for ${req.method} ${req.url}`
         this.logger.info(errorMessage)
