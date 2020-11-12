@@ -130,8 +130,8 @@ As you can see, both the event creation and the business logic, use the same Con
 You can read more about the Event class [here](https://dev.reshuffle.com/docs/the-event-class)
 
 ## Health check
-To perform a health check for the Express webserver, call `/reshuffle-healthcheck` per default.
-To override the default health check path, you can add an environment variable HEALTH_CHECK_PATH which has a valid server path starting with '/' as value.
+When setting environment variable HEALTH_CHECK_PATH with your desired health check path (e.g. `/reshuffle-healthcheck`)
+There is not default path, no health check available per default.
 
 The health check call returns a 200 Response with:
 ```ts
