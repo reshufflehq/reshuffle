@@ -1,0 +1,16 @@
+{
+  "name": "jira-example",
+  "version": "1.0.0",
+  "description": "Reshuffle Jira Example",
+  "main": "jira.js",
+  "scripts": {
+    "start": "node jira.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC",
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-jira-connector": "latest"
+  }
+}
