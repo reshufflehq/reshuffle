@@ -18,9 +18,10 @@ module.exports = {
   rules: {},
   overrides: [
     {
-      files: ['*.js'],
+      files: ['*.ts'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
       },
     },
   ],
