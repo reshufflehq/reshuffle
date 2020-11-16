@@ -9,13 +9,16 @@ const consoleFormat = printf(({ level, message, timestamp, handlerId }) => {
 
 const consoleLikeMessage = format((data: TransformableInfo) => {
   // @ts-ignore
-  const args = data[Symbol.for('splat')]
-  // @ts-ignore
-  const strArgs = util.format(...args)
-  const brIfNeeded = args && args.length && args[0].stack ? '\n  ' : ' '
+  const args = data[Symbol.for('splat')].map((elem) => {
+    if (elem instanceof Error) {
+      elem.stack = '\n  ' + elem.stack
+    }
+    return elem
+  })
+  const message = util.format(data.message.trim(), ...args)
   return {
     ...data,
-    message: `${data.message.trim()}${brIfNeeded}${strArgs}`,
+    message,
   }
 })
 
