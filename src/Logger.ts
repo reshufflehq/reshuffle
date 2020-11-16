@@ -9,7 +9,7 @@ const consoleFormat = printf(({ level, message, timestamp, handlerId }) => {
 
 const consoleLikeMessage = format((data: TransformableInfo) => {
   // @ts-ignore
-  const args = data[Symbol.for('splat')].map((elem) => {
+  const args = (data[Symbol.for('splat')] || []).map((elem) => {
     if (elem instanceof Error) {
       elem.stack = '\n  ' + elem.stack
     }
