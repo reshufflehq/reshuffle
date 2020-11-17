@@ -18,7 +18,7 @@ const consoleLikeMessage = format((data: TransformableInfo) => {
   const message = util.format(data.message.trim(), ...args)
   return {
     ...data,
-    message,
+    message: message.trim(),
   }
 })
 
@@ -49,13 +49,7 @@ const createLogger = (options: LoggerOptions = loggerOptions) => {
   // Print stacktrace for Errors
   levels.forEach((level) => {
     // @ts-ignore
-    logger[level] = (msg: any, ...remains: any) => {
-      if (typeof msg != 'string') {
-        return logger.log(level, '', msg, ...remains)
-      }
-
-      logger.log(level, msg, ...remains)
-    }
+    logger[level] = (msg: any, ...remains: any) => logger.log(level, '', msg, ...remains)
   })
 
   return logger
