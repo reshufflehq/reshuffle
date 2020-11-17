@@ -31,7 +31,7 @@ export default class Reshuffle {
     this.registry = { connectors: {}, handlers: {}, common: {} }
     this.logger = createLogger(loggerOptions)
 
-    this.logger.info('Initializing Reshuffle')
+    this.logger.info('Reshuffle Initializing')
   }
 
   private prepareWebServer(): Express {
@@ -60,14 +60,8 @@ export default class Reshuffle {
   }
 
   registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
-    let httpMultiplexer = this.httpDelegates[path]
-    if (!httpMultiplexer) {
-      httpMultiplexer = new HttpMultiplexer(path)
-      httpMultiplexer.delegates.push(delegate)
-    } else {
-      httpMultiplexer.delegates.push(delegate)
-    }
-    this.httpDelegates[path] = httpMultiplexer
+    this.httpDelegates[path] = this.httpDelegates[path] || new HttpMultiplexer(path)
+    this.httpDelegates[path].delegates.push(delegate)
     return this
   }
 
@@ -92,7 +86,7 @@ export default class Reshuffle {
     } else {
       this.registry.handlers[eventConfiguration.id] = [handlerWrapper]
     }
-    this.logger.info('Registering event ' + eventConfiguration.id)
+    this.logger.info('Reshuffle Registering event', eventConfiguration.id)
 
     return this
   }
@@ -126,7 +120,7 @@ export default class Reshuffle {
       })
 
       this.httpServer = webserver.listen(this.port, () => {
-        this.logger.info(`Web server listening on port ${this.port}`)
+        this.logger.info('Reshuffle Web server listening on port', this.port)
       })
     }
 
@@ -140,7 +134,7 @@ export default class Reshuffle {
   restart(port?: number): void {
     this.stopWebServer()
     this.start(port, () => {
-      this.logger.info('Refreshing Reshuffle configuration')
+      this.logger.info('Reshuffle Restarted')
     })
   }
 
@@ -194,7 +188,7 @@ class HttpMultiplexer {
     this.originalPath = originalPath
     this.delegates = []
   }
-  async handle(req: any, res: any, next: any) {
+  async handle(req: Request & { originalPath: string }, res: Response, next: NextFunction) {
     req.originalPath = this.originalPath
     let handled = false
 
