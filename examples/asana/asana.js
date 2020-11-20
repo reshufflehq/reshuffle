@@ -2,7 +2,7 @@ const { Reshuffle } = require('reshuffle')
 const { AsanaConnector } = require('reshuffle-asana-connector')
 
 // Your project id can be found in Asana project home page URL (e.g https://app.asana.com/0/<YOUR_PROJECT_ID>/board)
-const projectId = '<OUR_PROJECT_ID>'
+const projectId = '<YOUR_PROJECT_ID>'
 
 const app = new Reshuffle()
 
@@ -15,8 +15,8 @@ const app = new Reshuffle()
 // - Name it, then copy your token
 const connector = new AsanaConnector(app, {
   accessToken: process.env.ASANA_ACCESS_TOKEN,
-  baseURL: process.env.RUNTIME_BASE_URL,
-  workspaceId: process.env.ASANA_WORKSPACE_ID,
+  baseURL: process.env.RUNTIME_BASE_URL, // Your Reshuffle runtime base URL
+  workspaceId: process.env.ASANA_WORKSPACE_ID, // The workspaceId can be find in Asana Console page url (e.g. https://app.asana.com/admin/<YOUR_WORKSPACE_ID>)
 })
 
 // Listening to added entities in your project
