@@ -2,7 +2,7 @@ const { Reshuffle } = require('reshuffle')
 const { JiraConnector } = require('reshuffle-jira-connector')
 
 // This example uses reshuffle-jira-connector
-// Code and documentation available on Github: https://github.com/reshufflehq/reshuffle-jira-connecto
+// Code and documentation available on Github: https://github.com/reshufflehq/reshuffle-jira-connector
 
 const app = new Reshuffle()
 const connector = new JiraConnector(app, {
