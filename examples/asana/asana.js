@@ -27,7 +27,7 @@ connector.on({ gid: projectId, asanaEvent: 'added' }, async (event, app) => {
 
 async function main() {
   const me = await connector.sdk().users.me()
-  console.log(me) // { name: 'my name', email: 'email@foo.com', ... }
+  console.log('user details', me) // { name: 'my name', email: 'email@foo.com', ... }
 
   const project = await connector.sdk().projects.findById(projectId)
   console.log('project details', project) // { name: 'my project name', ... }
