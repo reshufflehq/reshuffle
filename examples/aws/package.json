@@ -1,0 +1,16 @@
+{
+  "name": "aws-examples",
+  "version": "1.0.0",
+  "description": "Reshuffle AWS Examples",
+  "main": "s3-list-files.js",
+  "scripts": {
+    "start": "node sns-messages.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC",
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-aws-connectors": "latest"
+  }
+}
