@@ -113,6 +113,11 @@ export default class Reshuffle {
           res.status(200).send({ ok: true, uptime: process.uptime() }),
         )
       }
+      webserver.all('/webhooks/*', (req, res) => {
+        const errorMessage = `Webhook not registered`
+        this.logger.info(`${errorMessage} for ${req.method} ${req.url}`)
+        return res.status(501).send(errorMessage)
+      })
       webserver.all('*', (req, res) => {
         const errorMessage = `No handler registered for ${req.method} ${req.url}`
         this.logger.info(errorMessage)
