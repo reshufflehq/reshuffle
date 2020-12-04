@@ -4,5 +4,8 @@
   "main": "GitHub.js",
   "scripts": {
     "start": "node GitHub.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest"
   }
 }
