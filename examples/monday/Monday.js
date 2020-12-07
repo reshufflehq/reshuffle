@@ -10,12 +10,12 @@ const EVENT_TYPE = 'change_column_value'
 const app = new Reshuffle()
 const connector = new MondayConnector(app, {
   token: MY_TOKEN,
+  baseURL: BASE_URL,
+  webhookPath: PATH,
 })
 
 connector.on(
   {
-    path: PATH,
-    baseUrl: BASE_URL,
     eventType: EVENT_TYPE,
     boardId: BOARD_ID,
   },
