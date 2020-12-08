@@ -20,9 +20,8 @@ const app = new Reshuffle()
 //   port: RESHUFFLE_DB_PORT})
 // const persistentStore = new SQLStoreAdapter(pool, 'reshuffledb')
 
-  const persistentStore = new MemoryStoreAdapter()
-  app.setPersistentStore(persistentStore)
-  
+const persistentStore = new MemoryStoreAdapter()
+app.setPersistentStore(persistentStore)
 
 const quickbooksConnector = new QuickbooksConnector(app, {
   realmId: 'YOUR_REALM_ID',
@@ -31,7 +30,7 @@ const quickbooksConnector = new QuickbooksConnector(app, {
   sandbox: true,
   debug: true,
   baseUrl: 'BASE_RUNTIME_URL',
-  webhooksVerifier: 'WEBHOOK_VERIFIER'
+  webhooksVerifier: 'WEBHOOK_VERIFIER',
 })
 
 // Calls handler when bill is updated
@@ -51,13 +50,13 @@ quickbooksConnector.on({ type: 'Bill/Create' }, async (event, app) => {
 })
 
 async function main() {
-  // The SDK call is inside a setTimeout to allow users clicking the authUri 
+  // The SDK call is inside a setTimeout to allow users clicking the authUri
   // and complete the authentication process
 
-  // Get company info, 
-  setTimeout(async function(){
+  // Get company info,
+  setTimeout(async function () {
     const sdk = await quickbooksConnector.sdk()
-    sdk.getCompanyInfo('YOUR_REALM_ID', function(err, result) {
+    sdk.getCompanyInfo('YOUR_REALM_ID', function (err, result) {
       console.log('getCompanyInfo: ', JSON.stringify(result))
     })
   }, 30000)
