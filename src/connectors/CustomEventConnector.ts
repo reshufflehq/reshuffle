@@ -2,7 +2,7 @@ import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
 
 export interface CustomEventConnectorEventOptions {
   channel: string
-  payLoad?: any
+  payload?: any
 }
 
 export default class CustomEventConnector extends BaseConnector<
@@ -25,7 +25,12 @@ export default class CustomEventConnector extends BaseConnector<
   }
 
   async fire(channel: string) {
-    const eventId = `CustomEvent/${channel}/${this.id}`
-    await this.app.handleEvent(eventId, this.eventConfigurations[eventId])
+    const eventsToExecute = Object.values(this.eventConfigurations).filter(
+      (e) => e.options.channel === channel,
+    )
+
+    for (const event of eventsToExecute) {
+      await this.app.handleEvent(event.id, this.eventConfigurations[event.id])
+    }
   }
 }
