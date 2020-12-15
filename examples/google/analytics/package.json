@@ -1,0 +1,14 @@
+{
+  "name": "reshuffle-google-analytics-example",
+  "version": "1.0.0",
+  "description": "Example for Google Analytics Connector",
+  "main": "GoogleAnalyticsExample.js",
+  "scripts": {
+    "start": "node GoogleAnalyticsTrackingExample.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-google-connectors": "latest"
+  },
+  "license": "MIT"
+}
