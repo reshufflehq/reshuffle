@@ -147,3 +147,4 @@ Examples can be found in the `/examples` [folder](https://github.com/reshufflehq
 ## Connectors in this npm package
 * [Cron Connector](doc/CronConnector.md)
 * [Http Connector](doc/HttpConnector.md)
+* [Custom Event Connector](doc/CustomEventConnector.md)
