@@ -2,7 +2,7 @@ const { Reshuffle } = require('reshuffle')
 const { GoogleAnalyticsConnector } = require('reshuffle-google-connectors')
 const app = new Reshuffle()
 
-const options = { trackingId: 'UA-185467427-2' }
+const options = { trackingId: process.env.GOOGLE_TRACKING_ID } // UA-XXXXXXXXX-Y
 
 const gaConnector = new GoogleAnalyticsConnector(app, options)
 
