@@ -1,0 +1,16 @@
+{
+  "name": "reshuffle-elastic-search-example",
+  "version": "1.0.0",
+  "description": "Examples for Google Sheets Connector",
+  "main": "GoogleSheetsExamples.js",
+  "scripts": {
+    "sheets": "node elastic.js",
+    "sheetsAutoNLP": "node elastic.js"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.10.0",
+    "reshuffle": "latest"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC"
+}
