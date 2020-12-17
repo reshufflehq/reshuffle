@@ -1,0 +1,15 @@
+{
+  "name": "reshuffle-mixpanel-example",
+  "version": "1.0.0",
+  "description": "Examples for Mixpanel Connector",
+  "main": "mixpanel.js",
+  "scripts": {
+    "start": "node mixpanel.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-mixpanel-connector": "latest"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC"
+}
