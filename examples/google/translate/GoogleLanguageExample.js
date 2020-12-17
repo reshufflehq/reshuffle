@@ -7,11 +7,15 @@ async function main() {
   const connector = new GoogleTranslateConnector(app, googleTranslateConfig)
 
   // Translate a string
-  const result = await connector.translateText('The text I want translate', 'en', 'fr')  
+  const result = await connector.translateText('The text I want translate', 'en', 'fr')
   console.log('Text translation:', result)
 
   // Translate array of strings
-  const results = await connector.translateTexts(['The text I want translate', 'Additional text'], 'en', 'fr')
+  const results = await connector.translateTexts(
+    ['The text I want translate', 'Additional text'],
+    'en',
+    'fr',
+  )
   console.log(JSON.stringify(results))
   for (const translation of results.translations) {
     console.log(translation.translatedText)
@@ -19,7 +23,7 @@ async function main() {
 
   // Translate using the sdk
   const [sdkResult] = await connector.sdk().translateText({
-    parent: '<PATH_TO_YOUR_PROJECT_LOCATION>', 
+    parent: '<PATH_TO_YOUR_PROJECT_LOCATION>',
     contents: ['The text I want translate', 'Additional text'],
     mimeType: 'text/plain',
     sourceLanguageCode: 'en',
@@ -29,9 +33,9 @@ async function main() {
   // Format: projects/{project-number-or-id}/locations/{location-id}
   // e.g.'projects/project-01/locations/global'
 
- for (const translation of sdkResult.translations) {
-   console.log(`Translation: ${translation.translatedText}`)
- }
+  for (const translation of sdkResult.translations) {
+    console.log(`Translation: ${translation.translatedText}`)
+  }
 }
 
 main()

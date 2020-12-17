@@ -15,7 +15,7 @@ connector.on(
   {
     owner: 'reshufflehq',
     repo: 'reshuffle',
-    githubEvent: 'push'
+    githubEvent: 'push',
   },
   (event) => {
     console.log('GitHub Event: ', event)
