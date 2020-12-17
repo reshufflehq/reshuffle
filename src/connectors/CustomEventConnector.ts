@@ -29,7 +29,10 @@ export default class CustomEventConnector extends BaseConnector<
     )
 
     for (const event of eventsToExecute) {
-      await this.app.handleEvent(event.id, payload)
+      await this.app.handleEvent(event.id, {
+        ...event,
+        payload,
+      })
     }
   }
 }

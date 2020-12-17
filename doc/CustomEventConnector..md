@@ -22,14 +22,14 @@ const connector = new CustomEventConnector(app)
 connector.on(
     { channel:'channel-one' },
     (event) => {
-      console.log('Custom Event One: ', event)
+      console.log('Custom Event One: ', event.payload)
     }
   )
   
   connector.on(
     { channel:'channel-two' },
     (event) => {
-      console.log('Custom Event Two: ', event)
+      console.log('Custom Event Two: ', event.payload)
     },
   )
 
@@ -52,7 +52,6 @@ Fire Custom events is executed inside the developer's script, you'll need to cap
 ```typescript
 interface CustomEventConnectorEventOptions {
   channel: string
-  payload?: any
 }
 ```
 
@@ -62,14 +61,14 @@ _Example:_
 connector.on(
   { channel:'channel-one' },
   (event) => {
-    console.log('Custom Event One: ', event)
+    console.log('Custom Event One: ', event.payload)
   },
 )
 
 connector.on(
   { channel:'channel-two' },
   (event) => {
-    console.log('Custom Event Two: ', event)
+    console.log('Custom Event Two: ', event.payload)
   },
 )
 ```
