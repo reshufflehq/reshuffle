@@ -20,16 +20,16 @@ const app = new Reshuffle()
 const connector = new CustomEventConnector(app)
 
 connector.on(
-    { channel:'channel-one', payload: { name: 'Jack', age: 25 } },
+    { channel:'channel-one' },
     (event) => {
-      console.log('Custom Event One: ', event.options)
+      console.log('Custom Event One: ', event)
     }
   )
   
   connector.on(
-    { channel:'channel-two', payload: 'A String to display' },
+    { channel:'channel-two' },
     (event) => {
-      console.log('Custom Event Two: ', event.options)
+      console.log('Custom Event Two: ', event)
     },
   )
 
@@ -60,9 +60,16 @@ _Example:_
 
 ```typescript
 connector.on(
-  { channel:'channel-two', payload: 'A String to display' },
+  { channel:'channel-one' },
   (event) => {
-    console.log('Custom Event Two: ', event.options)
+    console.log('Custom Event One: ', event)
+  },
+)
+
+connector.on(
+  { channel:'channel-two' },
+  (event) => {
+    console.log('Custom Event Two: ', event)
   },
 )
 ```
@@ -71,7 +78,7 @@ connector.on(
 _Example:_
 
 ```typescript
-  connector.fire('channel-one')
-  connector.fire('channel-two')
+  connector.fire('channel-one', { name: 'Jack', age: 25 })
+  connector.fire('channel-two', 'A String to display')
 ```
 
