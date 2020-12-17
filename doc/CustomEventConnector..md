@@ -8,9 +8,9 @@
 ### Reshuffle Custom Event Connector
 
 This package contains a [Reshuffle](https://github.com/reshufflehq/reshuffle)
-connector that can fire a customized event. Developer can fire it from a script.
+connector that can fire a custom event. This event can be fired from a script.
 
-The following example exposes an endpoint to return the data of a Custom event after it was fired.
+The following example exposes an endpoint to return the data of a custom event after it was fired.
 
 ```js
 const { CustomEventConnector, Reshuffle } = require('reshuffle')
@@ -44,9 +44,9 @@ app.start()
 
 ### <a name="events"></a> Events
 
-#### <a name="listen"></a> Fire Custom Events
+#### <a name="listen"></a> Fire Event
 
-Fire Custom events is executed inside the developer's script, you'll need to capture them with the connector's `on` function, providing a `CustomEventConnectorEventOptions` to it.
+Fire event is executed inside the developer's script, you'll need to capture it with the connector's `on` function, providing a `CustomEventConnectorEventOptions` to it.
 
 
 ```typescript
