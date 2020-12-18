@@ -7,7 +7,7 @@ const myGoogleSheetsConnector = new GoogleSheetsConnector(app, {
     client_email: '<your_client_email>',
     private_key: '<your_private_key>',
   },
-  sheetsId: '<your_sheetsId>',
+  documentId: '<your_sheetsId>',
 })
 
 const myHandler = async (event, app) => {

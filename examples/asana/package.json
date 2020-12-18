@@ -1,0 +1,16 @@
+{
+  "name": "asana-example",
+  "version": "1.0.0",
+  "description": "Reshuffle Asana Example",
+  "main": "asana.js",
+  "scripts": {
+    "start": "node asana.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC",
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-asana-connector": "latest"
+  }
+}

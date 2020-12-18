@@ -1,0 +1,11 @@
+{
+  "name": "github-example",
+  "version": "1.0.0",
+  "main": "GitHub.js",
+  "scripts": {
+    "start": "node GitHub.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest"
+  }
+}

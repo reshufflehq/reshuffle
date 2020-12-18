@@ -1,0 +1,16 @@
+{
+  "name": "shopify-example",
+  "version": "1.0.0",
+  "description": "A Reshuffle Shopify Example",
+  "main": "shopify.js",
+  "scripts": {
+    "start": "node shopify.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christophe Gachiniard",
+  "license": "ISC",
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-shopify-connector": "latest"
+  }
+}
