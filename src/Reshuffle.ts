@@ -6,6 +6,24 @@ import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-
 import { createLogger } from './Logger'
 import { Logger, LoggerOptions } from 'winston'
 import http from 'http'
+import fs from 'fs'
+
+function getReshufflePackagesList(directory = __dirname): Record<string, string> {
+  const filename = 'package.json'
+  const dirSplit = directory.split('/')
+  const dir = dirSplit.slice(0, dirSplit.length - 1).join('/')
+
+  try {
+    if (fs.readdirSync(dir).includes(filename)) {
+      const packageJson = fs.readFileSync(`${dir}/${filename}`, 'utf8')
+      return JSON.parse(packageJson).dependencies
+    }
+
+    return getReshufflePackagesList(directory + '../')
+  } catch (e) {
+    return {}
+  }
+}
 
 export interface Handler {
   handle: (event: any, app: Reshuffle) => void
@@ -100,19 +118,31 @@ export default class Reshuffle {
     // Start the webserver if we have http delegates
     if (Object.keys(this.httpDelegates).length) {
       const webserver = this.prepareWebServer()
-      Object.keys(this.httpDelegates)
-        .sort()
-        .reverse() // The sort().reverse() moves all generic routes (/:id) at the end
-        .forEach((path) => {
-          const httpMultiplexer = this.httpDelegates[path]
-          webserver.all(path, httpMultiplexer.handle.bind(httpMultiplexer))
-        })
 
-      if (process.env.HEALTH_CHECK_PATH) {
-        webserver.use(process.env.HEALTH_CHECK_PATH, (req, res) =>
+      if (process.env.RESHUFFLE_HEALTH_PATH) {
+        webserver.use(process.env.RESHUFFLE_HEALTH_PATH, (req, res) =>
           res.status(200).send({ ok: true, uptime: process.uptime() }),
         )
       }
+
+      if (process.env.RESHUFFLE_PKG_VERSION_PATH) {
+        webserver.use(process.env.RESHUFFLE_PKG_VERSION_PATH, (req, res) =>
+          res.json(getReshufflePackagesList()),
+        )
+      }
+
+      const specificPaths = Object.keys(this.httpDelegates).filter((p) => !p.includes(':'))
+      const genericPathsOrdered = Object.keys(this.httpDelegates)
+        .filter((p) => p.includes(':'))
+        .sort()
+        .reverse()
+
+      // Moves all generic routes (containing :) at the end,  with /specific/generic first (e.g. /foo/:id before /:bar)
+      specificPaths.concat(genericPathsOrdered).forEach((path) => {
+        const httpMultiplexer = this.httpDelegates[path]
+        webserver.all(path, httpMultiplexer.handle.bind(httpMultiplexer))
+      })
+
       webserver.all('/webhooks/*', (req, res) => {
         const errorMessage = `Webhook not registered`
         this.logger.info(`${errorMessage} for ${req.method} ${req.url}`)
