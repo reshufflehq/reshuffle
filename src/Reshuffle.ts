@@ -6,16 +6,17 @@ import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-
 import { createLogger } from './Logger'
 import { Logger, LoggerOptions } from 'winston'
 import http from 'http'
-import fs from 'fs'
+import { promises as fs } from 'fs'
 
-function getReshufflePackagesList(directory = __dirname): Record<string, string> {
+async function getReshufflePackagesList(directory = __dirname): Promise<Record<string, string>> {
   const filename = 'package.json'
   const dirSplit = directory.split('/')
   const dir = dirSplit.slice(0, dirSplit.length - 1).join('/')
 
   try {
-    if (fs.readdirSync(dir).includes(filename)) {
-      const packageJson = fs.readFileSync(`${dir}/${filename}`, 'utf8')
+    const listDir = await fs.readdir(dir)
+    if (listDir.includes(filename)) {
+      const packageJson = await fs.readFile(`${dir}/${filename}`, 'utf8')
       return JSON.parse(packageJson).dependencies
     }
 
@@ -126,8 +127,8 @@ export default class Reshuffle {
       }
 
       if (process.env.RESHUFFLE_PKG_VERSION_PATH) {
-        webserver.use(process.env.RESHUFFLE_PKG_VERSION_PATH, (req, res) =>
-          res.json(getReshufflePackagesList()),
+        webserver.use(process.env.RESHUFFLE_PKG_VERSION_PATH, async (req, res) =>
+          res.json(await getReshufflePackagesList()),
         )
       }
 
