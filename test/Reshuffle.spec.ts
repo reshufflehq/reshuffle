@@ -226,10 +226,10 @@ describe('Reshuffle', () => {
       app.stopWebServer()
     })
     describe('web server', () => {
-      it('can perform an healthcheck when process.env.HEALTH_CHECK_PATH is set', async () => {
+      it('can perform an healthcheck when process.env.RESHUFFLE_HEALTH_PATH is set', async () => {
         const myHealthCheckPath = '/reshuffle-healthcheck'
         const OLD_ENV = process.env
-        process.env.HEALTH_CHECK_PATH = myHealthCheckPath
+        process.env.RESHUFFLE_HEALTH_PATH = myHealthCheckPath
 
         const app = new Reshuffle()
 
