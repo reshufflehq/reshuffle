@@ -8,7 +8,7 @@ import { Logger, LoggerOptions } from 'winston'
 import http from 'http'
 import { promises as fs } from 'fs'
 
-async function getReshufflePackagesList(directory = __dirname): Promise<Record<string, string>> {
+async function getInstalledPackages(directory = __dirname): Promise<Record<string, string>> {
   const filename = 'package.json'
   const dirSplit = directory.split('/')
   const dir = dirSplit.slice(0, dirSplit.length - 1).join('/')
@@ -20,7 +20,7 @@ async function getReshufflePackagesList(directory = __dirname): Promise<Record<s
       return JSON.parse(packageJson).dependencies
     }
 
-    return getReshufflePackagesList(directory + '../')
+    return getInstalledPackages(directory + '../')
   } catch (e) {
     return {}
   }
@@ -128,7 +128,7 @@ export default class Reshuffle {
 
       if (process.env.RESHUFFLE_PKG_VERSION_PATH) {
         webserver.use(process.env.RESHUFFLE_PKG_VERSION_PATH, async (req, res) =>
-          res.json(await getReshufflePackagesList()),
+          res.json(await getInstalledPackages()),
         )
       }
 
