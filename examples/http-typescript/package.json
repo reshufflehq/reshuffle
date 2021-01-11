@@ -1,0 +1,13 @@
+{
+  "name": "http-typescript",
+  "scripts": {
+    "start": "tsc && node dist/HTTPExample.js"
+  },
+  "main": "dist/HTTPExample.js",
+  "dependencies": {
+    "reshuffle": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
