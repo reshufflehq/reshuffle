@@ -129,6 +129,10 @@ As you can see, both the event creation and the business logic, use the same Con
 
 You can read more about the Event class [here](https://dev.reshuffle.com/docs/the-event-class)
 
+### Custom Events
+Sometimes you just want to emit an event in your script without any relation to an external system, for this purpose you can use the Custom Event Connector.
+You can read more about the Custom Event Connector [here](doc/CustomEventConnector.md)
+
 ## Health check
 When setting environment variable HEALTH_CHECK_PATH with your desired health check path (e.g. `/reshuffle-healthcheck`)
 There is not default path, no health check available per default.
