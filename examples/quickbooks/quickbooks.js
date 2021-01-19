@@ -5,12 +5,6 @@ const { Pool } = require('pg')
 // This example uses reshuffle-quickbooks-connector
 // Code and documentation available on Github: https://github.com/reshufflehq/reshuffle-quickbooks-connector
 
-// Create an API token from your Shopify Admin Page:
-// 1. Go to https://<your_shop_name>.myshopify.com/admin/apps/private
-// 2. Click `Create new private app`,
-// 3. Provide a name and scopes (keeping in mind that permissions are very limited per default)
-// 4. Click Save, and you'll get api key and password
-
 const app = new Reshuffle()
 // Database Store:
 // const pool = new Pool({user: 'RESHUFFLE_DB_USER',
@@ -41,7 +35,7 @@ quickbooksConnector.on({ action: 'Bill/Update' }, async (event, app) => {
   console.log(event.action)
 })
 
-// Calls handler when invoice is created
+// Calls handler when bill is created
 quickbooksConnector.on({ type: 'Bill/Create' }, async (event, app) => {
   console.log('Bill/Create event ')
   console.log(event.id)
