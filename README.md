@@ -130,8 +130,9 @@ As you can see, both the event creation and the business logic, use the same Con
 You can read more about the Event class [here](https://dev.reshuffle.com/docs/the-event-class)
 
 ## Health check
-When setting environment variable HEALTH_CHECK_PATH with your desired health check path (e.g. `/reshuffle-healthcheck`)
-There is not default path, no health check available per default.
+Reshuffle can expose a health check path. This can be used to let automated tools check the availability of the system.
+To make use of this functionality, set the `RESHUFFLE_HEALTH_PATH` environment variable with your desired health check path (e.g. `/reshuffle-healthcheck`).
+Note that there is not default path for this capability, and therefore no automatic health check will be provisioned if the environment variable isn't configured.
 
 The health check call returns a 200 Response with:
 ```ts
