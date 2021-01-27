@@ -24,7 +24,7 @@ httpConnector.on({ method: 'GET', path: '/projects' }, async (event, app) => {
         event.res.json(err)
         return
       }
-      event.res.json(records.map(record => record.get('Name')))
+      event.res.json(records.map((record) => record.get('Name')))
     })
 })
 
