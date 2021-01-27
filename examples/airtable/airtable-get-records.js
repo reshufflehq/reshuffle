@@ -6,28 +6,26 @@ const { AirtableConnector } = require('reshuffle-airtable-connector')
 const app = new Reshuffle()
 
 const airtableConnector = new AirtableConnector(app, {
-    endpointUrl: 'https://api.airtable.com',
-    apiKey: 'YOUR_API_KEY',
-    base: 'YOUR_BASE'
+  endpointUrl: 'https://api.airtable.com',
+  apiKey: 'YOUR_API_KEY',
+  base: 'YOUR_BASE',
 })
-    
+
 const httpConnector = new HttpConnector(app)
 const base = airtableConnector.base()
 
 httpConnector.on({ method: 'GET', path: '/projects' }, async (event, app) => {
-  base('Design projects').select({
-    view: 'All projects'
-  }).firstPage(function(err, records) {
-    if (err) {
-      event.res.json(err)
-      return
-    }
-    const projects = []
-    records.forEach(function(record) {
-        projects.push(record.get('Name'))
+  base('Design projects')
+    .select({
+      view: 'All projects',
     })
-    event.res.json(projects)
-  })
+    .firstPage(function (err, records) {
+      if (err) {
+        event.res.json(err)
+        return
+      }
+      event.res.json(records.map(record => record.get('Name')))
+    })
 })
 
 app.start()
