@@ -50,7 +50,6 @@ export default class HttpConnector extends BaseHttpConnector<
     )
 
     if (eventConfiguration) {
-      this.app.getLogger().info('Handling event')
 
       handled = await this.app.handleEvent(eventConfiguration.id, {
         ...eventConfiguration,
