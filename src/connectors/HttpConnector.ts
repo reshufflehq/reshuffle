@@ -1,8 +1,14 @@
-import fetch, { RequestInfo, RequestInit } from 'node-fetch'
+import fetch, { RequestInit } from 'node-fetch'
 import { format as _formatURL, URL } from 'url'
-import { Request, Response, NextFunction } from 'express'
-import { BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
-import { error } from 'winston'
+import type { Request, Response } from 'express'
+import {
+  BaseHttpConnector,
+  EventConfiguration,
+  Handler,
+  ReshuffleEvent,
+  ReshuffleRequest,
+  ReshuffleResponse,
+} from 'reshuffle-base-connector'
 
 class TimeoutError extends Error {}
 
@@ -25,7 +31,7 @@ export default class HttpConnector extends BaseHttpConnector<
   HttpConnectorConfigOptions,
   HttpConnectorEventOptions
 > {
-  on(options: HttpConnectorEventOptions, handler: any, eventId?: string): EventConfiguration {
+  on(options: HttpConnectorEventOptions, handler: Handler, eventId?: string): EventConfiguration {
     const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
 
     if (!eventId) {
@@ -40,7 +46,7 @@ export default class HttpConnector extends BaseHttpConnector<
     return event
   }
 
-  async handle(req: any, res: Response, next: NextFunction) {
+  async handle(req: ReshuffleRequest<Request>, res: ReshuffleResponse<Response>): Promise<boolean> {
     const { method } = req
     const requestPath = req.originalPath
     let handled = false
@@ -56,7 +62,7 @@ export default class HttpConnector extends BaseHttpConnector<
         ...eventConfiguration,
         req,
         res,
-      })
+      } as ReshuffleEvent<Request, Response>)
 
       if (!handled) {
         res.status(500).send()
@@ -67,17 +73,21 @@ export default class HttpConnector extends BaseHttpConnector<
     return handled
   }
 
-  onStop() {
+  onStop(): void {
     Object.values(this.eventConfigurations).forEach((eventConfiguration) =>
       this.app.unregisterHTTPDelegate(eventConfiguration.options.path),
     )
   }
 
-  fetch(url: RequestInfo, options?: RequestInit) {
-    return fetch(url, options)
+  fetch(...params: Parameters<typeof fetch>): ReturnType<typeof fetch> {
+    return fetch(...params)
   }
 
-  async fetchWithRetries(url: string, options: RequestInit = {}, retry: Record<string, any> = {}) {
+  async fetchWithRetries(
+    url: string,
+    options: RequestInit = {},
+    retry: Record<string, any> = {},
+  ): Promise<unknown> {
     const interval = retry.interval !== undefined ? retry.interval : 2000
     if (typeof interval !== 'number' || interval < 50 || 5000 < interval) {
       throw new Error(`Http: Invalid retry interval: ${interval}`)
@@ -108,7 +118,7 @@ export default class HttpConnector extends BaseHttpConnector<
     throw new TimeoutError('Retries timed out')
   }
 
-  fetchWithTimeout(url: string, options: RequestInit, ms: number) {
+  fetchWithTimeout(url: string, options: RequestInit, ms: number): Promise<unknown> {
     if (typeof ms !== 'number' || ms < 1) {
       throw new Error(`Http: Invalid timeout: ${ms}`)
     }
@@ -119,11 +129,11 @@ export default class HttpConnector extends BaseHttpConnector<
     })
   }
 
-  formatURL(components: Record<string, any>) {
+  formatURL(components: Record<string, any>): string {
     return _formatURL(components)
   }
 
-  parseURL(url: string) {
+  parseURL(url: string): URL {
     return new URL(url)
   }
 }
