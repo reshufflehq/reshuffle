@@ -66,7 +66,7 @@ export default class MySQLStoreAdapter implements PersistentStoreAdapter {
         } else {
           await conn.query(`UPDATE ${this.table} SET value = ? WHERE id = ?`, [
             JSON.stringify(newValue),
-            key
+            key,
           ])
         }
       }
