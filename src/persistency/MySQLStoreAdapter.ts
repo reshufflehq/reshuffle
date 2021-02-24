@@ -22,22 +22,22 @@ export default class MySQLStoreAdapter implements PersistentStoreAdapter {
   public async get(key: string): Promise<any> {
     await this.validateDB()
     const res = await this.pool.query(`SELECT value FROM ${this.table} WHERE id = ?`, [key])
-    const row = res[0][0]
-    return !row || row.length === 0 ? undefined : JSON.parse(row.value)
+    const rows = res[0]
+    return rows?.length ? JSON.parse(rows[0].value) : undefined
   }
 
   public async list(): Promise<string[]> {
     await this.validateDB()
     const res = await this.pool.query(`SELECT id FROM ${this.table}`)
     const rows = res[0]
-    return !rows || rows.length === 0 ? undefined : rows.map((row: any) => row.id)
+    return rows?.length ? rows.map((row: any) => row.id) : undefined
   }
 
   public async set(key: string, value: any): Promise<any> {
     await this.validateDB()
     const stringifyValue = JSON.stringify(value)
-    await this.pool.query(
-      `INSERT INTO ${this.table}(id, value) VALUES(?, ?) ` + 'ON DUPLICATE KEY UPDATE value = ?',
+    const a = await this.pool.query(
+      `INSERT INTO ${this.table} (id, value) VALUES(?, ?) ON DUPLICATE KEY UPDATE value = ?`,
       [key, stringifyValue, stringifyValue],
     )
     return value
@@ -59,14 +59,14 @@ export default class MySQLStoreAdapter implements PersistentStoreAdapter {
       const newValue = await updater(oldValue)
       if (newValue !== undefined) {
         if (oldValue === undefined) {
-          await conn.query(`INSERT INTO ${this.table}(id, value) VALUES(?, ?)`, [
+          await conn.query(`INSERT INTO ${this.table} (id, value) VALUES(?, ?)`, [
             key,
             JSON.stringify(newValue),
           ])
         } else {
           await conn.query(`UPDATE ${this.table} SET value = ? WHERE id = ?`, [
-            key,
             JSON.stringify(newValue),
+            key
           ])
         }
       }
