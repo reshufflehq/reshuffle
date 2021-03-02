@@ -1,0 +1,11 @@
+{
+  "name": "reshuffle-microsoft-teams",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-microsoft-connectors": "latest"
+  }
+}
