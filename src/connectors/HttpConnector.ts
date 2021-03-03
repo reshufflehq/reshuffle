@@ -5,6 +5,7 @@ import {
   BaseHttpConnector,
   EventConfiguration,
   Handler,
+  HandlerWrapper,
   ReshuffleEvent,
   ReshuffleRequest,
   ReshuffleResponse,
@@ -31,7 +32,11 @@ export default class HttpConnector extends BaseHttpConnector<
   HttpConnectorConfigOptions,
   HttpConnectorEventOptions
 > {
-  on(options: HttpConnectorEventOptions, handler: Handler, eventId?: string): EventConfiguration {
+  on(
+    options: HttpConnectorEventOptions,
+    handler: Handler | HandlerWrapper,
+    eventId?: string,
+  ): EventConfiguration {
     const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
 
     if (!eventId) {
@@ -62,7 +67,7 @@ export default class HttpConnector extends BaseHttpConnector<
         ...eventConfiguration,
         req,
         res,
-      } as ReshuffleEvent<Request, Response>)
+      } as ReshuffleEvent<{ req: Request; res: Response }>)
 
       if (!handled) {
         res.status(500).send()

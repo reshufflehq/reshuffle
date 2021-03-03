@@ -12,6 +12,7 @@ import {
   ReshuffleRequest,
   ReshuffleResponse,
   ReshuffleBase,
+  HandlerWrapper,
 } from 'reshuffle-base-connector'
 import { createLogger } from './Logger'
 import { Logger, LoggerOptions } from 'winston'
@@ -23,7 +24,7 @@ export default class Reshuffle implements ReshuffleBase {
   port: number
   registry: {
     connectors: { [url: string]: BaseConnector }
-    handlers: { [id: string]: Handler[] }
+    handlers: { [id: string]: HandlerWrapper[] }
     common: { webserver?: Express; persistentStore?: any }
   }
   httpServer?: http.Server
@@ -47,7 +48,7 @@ export default class Reshuffle implements ReshuffleBase {
     return this.registry.common.webserver
   }
 
-  register(connector: BaseConnector): Reshuffle {
+  register(connector: BaseConnector) {
     connector.app = this
     this.registry.connectors[connector.id] = connector
 
@@ -63,7 +64,7 @@ export default class Reshuffle implements ReshuffleBase {
     return this.registry.connectors[connectorId]
   }
 
-  registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
+  registerHTTPDelegate(path: string, delegate: BaseHttpConnector) {
     this.httpDelegates[path] = this.httpDelegates[path] || new HttpMultiplexer(path)
     this.httpDelegates[path].delegates.push(delegate)
     return this
@@ -77,7 +78,7 @@ export default class Reshuffle implements ReshuffleBase {
     }
   }
 
-  when(eventConfiguration: EventConfiguration, handler: Handler): Reshuffle {
+  when(eventConfiguration: EventConfiguration, handler: Handler | HandlerWrapper) {
     const handlerWrapper =
       typeof handler === 'object'
         ? handler
@@ -167,7 +168,7 @@ export default class Reshuffle implements ReshuffleBase {
     return handled
   }
 
-  async onHandleEvent(handler: Handler, event: ReshuffleEvent): Promise<boolean> {
+  async onHandleEvent(handler: HandlerWrapper, event: ReshuffleEvent): Promise<boolean> {
     this.logger.defaultMeta = { handlerId: handler.id }
     try {
       await handler.handle(event, this)
