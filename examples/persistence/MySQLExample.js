@@ -5,8 +5,8 @@ const app = new Reshuffle()
 
 const connector = new CronConnector(app)
 
-// See more information about connection attributes in 
-// https://www.npmjs.com/package/mysql2 
+// See more information about connection attributes in
+// https://www.npmjs.com/package/mysql2
 // and https://github.com/mysqljs/mysql#connection-options
 
 const pool = mysql.createPool()
