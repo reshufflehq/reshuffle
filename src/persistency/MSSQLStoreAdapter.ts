@@ -8,17 +8,18 @@ export default class MSSQLStoreAdapter implements PersistentStoreAdapter {
 
   private async validateDB(): Promise<void> {
     if (!this.dbValidated) {
-      await this.pool.request().query(
-        `IF OBJECT_ID('${this.table}', 'U') IS NULL CREATE TABLE ${this.table} (id varchar(250) primary key, value varchar(500))`,
-      )
+      await this.pool
+        .request()
+        .query(
+          `IF OBJECT_ID('${this.table}', 'U') IS NULL CREATE TABLE ${this.table} (id varchar(250) primary key, value varchar(500))`,
+        )
       this.dbValidated = true
     }
   }
 
   public async del(key: string): Promise<void> {
     await this.validateDB()
-    await this.pool.request().input('id', key)
-      .query(`DELETE FROM ${this.table} WHERE id = @id`)
+    await this.pool.request().input('id', key).query(`DELETE FROM ${this.table} WHERE id = @id`)
   }
 
   public async get(key: string): Promise<any> {
@@ -27,7 +28,9 @@ export default class MSSQLStoreAdapter implements PersistentStoreAdapter {
   }
 
   private async getValueForKey(key: string): Promise<any> {
-    const res = await this.pool.request().input('id', key)
+    const res = await this.pool
+      .request()
+      .input('id', key)
       .query(`SELECT value FROM ${this.table} WHERE id = @id`)
     const rows = res.recordset
     return rows?.length ? JSON.parse(rows[0].value) : undefined
@@ -35,13 +38,17 @@ export default class MSSQLStoreAdapter implements PersistentStoreAdapter {
 
   private async insertUpdate(isInsert: boolean, key: string, value: string) {
     if (isInsert) {
-      await this.pool.request().input('id', key)
-      .input('value', value)
-      .query(`INSERT INTO ${this.table} (id, value) VALUES(@id, @value)`)
+      await this.pool
+        .request()
+        .input('id', key)
+        .input('value', value)
+        .query(`INSERT INTO ${this.table} (id, value) VALUES(@id, @value)`)
     } else {
-      await this.pool.request().input('id', key)
-      .input('value', value)
-      .query(`UPDATE ${this.table} SET value = @value WHERE id = @id`)
+      await this.pool
+        .request()
+        .input('id', key)
+        .input('value', value)
+        .query(`UPDATE ${this.table} SET value = @value WHERE id = @id`)
     }
   }
 
@@ -59,7 +66,7 @@ export default class MSSQLStoreAdapter implements PersistentStoreAdapter {
     try {
       await transaction.begin()
       const valueForKey = await this.getValueForKey(key)
-      await this.insertUpdate(valueForKey=== undefined, key, JSON.stringify(value))  
+      await this.insertUpdate(valueForKey === undefined, key, JSON.stringify(value))
       await transaction.commit()
     } catch (error) {
       await transaction.rollback()
@@ -78,13 +85,13 @@ export default class MSSQLStoreAdapter implements PersistentStoreAdapter {
       const oldValue = typeof val === 'object' ? { ...val } : val
       const newValue = await updater(oldValue)
       if (newValue !== undefined) {
-        await this.insertUpdate(oldValue=== undefined, key, JSON.stringify(newValue))  
+        await this.insertUpdate(oldValue === undefined, key, JSON.stringify(newValue))
       }
       await transaction.commit()
       return [oldValue, newValue]
     } catch (error) {
       await transaction.rollback()
       throw error
-    } 
+    }
   }
 }

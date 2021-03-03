@@ -7,5 +7,11 @@ import MSSQLStoreAdapter from './MSSQLStoreAdapter'
 
 export * from './types'
 
-export { PersistentStore, FileStoreAdapter, MemoryStoreAdapter, SQLStoreAdapter, 
-         MySQLStoreAdapter, MSSQLStoreAdapter }
+export {
+  PersistentStore,
+  FileStoreAdapter,
+  MemoryStoreAdapter,
+  SQLStoreAdapter,
+  MySQLStoreAdapter,
+  MSSQLStoreAdapter,
+}
