@@ -5,7 +5,7 @@ const app = new Reshuffle()
 
 const connector = new CronConnector(app)
 
-// See more information about connection attributes in 
+// See more information about connection attributes in
 // https://www.npmjs.com/package/mssql#general-same-for-all-drivers
 
 async function main() {
