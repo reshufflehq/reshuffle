@@ -1,0 +1,14 @@
+{
+  "name": "reshuffle-mssql-example",
+  "version": "1.0.0",
+  "description": "Examples for MSSQL Connector",
+  "main": "mssql.js",
+  "scripts": {
+    "start": "node mssql.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-mssql-connector": "latest"
+  },
+  "license": "ISC"
+}
