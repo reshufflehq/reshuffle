@@ -9,21 +9,19 @@ const mysql = new MySQLConnector(app, {
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
 })
 
 async function main() {
   let name = 'John'
   let age = 35
-  let result = await mysql.query('select * from users')          
-  console.log('==> Starting with this data in Users table: ',result.rows)
+  let result = await mysql.query('select * from users')
+  console.log('==> Starting with this data in Users table: ', result.rows)
 
-  await mysql.query(
-    'INSERT INTO Users  values (?, ?) ', [name, age]
-  )
+  await mysql.query('INSERT INTO Users  values (?, ?) ', [name, age])
 
   result = await mysql.query(`SELECT * FROM Users where name = ? `, [name, age])
-  console.log('==> After insert new row: ',result.rows)
+  console.log('==> After insert new row: ', result.rows)
 
   name = 'Tom'
   age = 35
@@ -35,7 +33,7 @@ async function main() {
   })
 
   result = await mysql.query('SELECT * FROM Users where name = ? and age = ?', params)
-  console.log('==> Result after transaction: ',result.rows)
+  console.log('==> Result after transaction: ', result.rows)
   mysql.close()
 }
 
