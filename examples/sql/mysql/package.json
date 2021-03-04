@@ -1,0 +1,14 @@
+{
+  "name": "reshuffle-mysql-example",
+  "version": "1.0.0",
+  "description": "Examples for MySQL Connector",
+  "main": "mysql.js",
+  "scripts": {
+    "start": "node mysql.js"
+  },
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-mssql-connector": "latest"
+  },
+  "license": "ISC"
+}
