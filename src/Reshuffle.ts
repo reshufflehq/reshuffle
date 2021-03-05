@@ -57,7 +57,10 @@ export default class Reshuffle {
   }
 
   getConnector(connectorId: BaseConnector['id']): BaseConnector {
-    return this.registry.connectors[connectorId]
+    if (!this.registry.connectors[connectorId]) {
+      this.logger.error(`Could not find connector [id=${connectorId}]`)
+    }
+    return this.registry.connectors[connectorId];
   }
 
   registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
