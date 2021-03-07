@@ -18,12 +18,12 @@ async function main() {
   let result = await mssql.query('select * from users')
   console.log('==> Starting with this data in Users table: ', result.rows)
 
-  await mssql.query('INSERT INTO Users  values (@name, @age) ', [
+  await mssql.query('INSERT INTO Users values (@name, @age)', [
     { name: 'name', type: mssql.Text, value: name },
     { name: 'age', type: mssql.Int, value: age },
   ])
 
-  result = await mssql.query(`SELECT * FROM Users where name = @name `, [
+  result = await mssql.query(`SELECT * FROM Users where name = @name`, [
     { name: 'name', type: mssql.Text, value: name },
   ])
   console.log('==> After insert new row: ', result.rows)
@@ -36,7 +36,7 @@ async function main() {
   ]
   await mssql.transaction(async (query) => {
     await query('delete from Users where name = @name and age = @age', params)
-    await query('INSERT INTO Users(name, age) VALUES (@name, @age) ', params)
+    await query('INSERT INTO Users(name, age) VALUES (@name, @age)', params)
     return query('SELECT * FROM Users where name = @name and age = @age', params)
   })
 
