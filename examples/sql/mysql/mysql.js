@@ -18,9 +18,9 @@ async function main() {
   let result = await mysql.query('select * from users')
   console.log('==> Starting with this data in Users table: ', result.rows)
 
-  await mysql.query('INSERT INTO Users  values (?, ?) ', [name, age])
+  await mysql.query('INSERT INTO Users  values (?, ?)', [name, age])
 
-  result = await mysql.query(`SELECT * FROM Users where name = ? `, [name, age])
+  result = await mysql.query(`SELECT * FROM Users where name = ?`, [name, age])
   console.log('==> After insert new row: ', result.rows)
 
   name = 'Tom'
@@ -28,7 +28,7 @@ async function main() {
   const params = [name, age]
   await mysql.transaction(async (query) => {
     await query('delete from Users where name = ? and age = ?', params)
-    await query('INSERT INTO Users(name, age) VALUES (?, ?) ', params)
+    await query('INSERT INTO Users(name, age) VALUES (?, ?)', params)
     return query('SELECT * FROM Users where name = ? and age = ?', params)
   })
 
