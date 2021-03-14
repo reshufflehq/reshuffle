@@ -10,21 +10,22 @@ const app = new Reshuffle()
 const queueName = 'my-queue'
 const queueUrl = 'amqp://localhost'
 
-const amqp = new AMQPConnector(app, { 
-  queueUrl: queueUrl, 
-  queueName: queueName, 
-  queueOptions: { durable: true } })
+const amqp = new AMQPConnector(app, {
+  queueUrl: queueUrl,
+  queueName: queueName,
+  queueOptions: { durable: true },
+})
 
-amqp.on({noAck: false}, messageHandler)
+amqp.on({ noAck: false }, messageHandler)
 
 function messageHandler(msg) {
   console.log(`==> Message ${msg.content.toString()} received `)
 }
 
-async function main() { 
-  setTimeout(function(){
-      amqp.sendMessage('MSG-011', {deliveryMode: true})
-      amqp.sendMessage('MSG-012')    
+async function main() {
+  setTimeout(function () {
+    amqp.sendMessage('MSG-011', { deliveryMode: true })
+    amqp.sendMessage('MSG-012')
   }, 2000)
 }
 
