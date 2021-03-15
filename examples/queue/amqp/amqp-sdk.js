@@ -3,7 +3,7 @@ const { AMQPConnector } = require('reshuffle-amqp-connector')
 
 // This example uses reshuffle-amqp-connector
 // Code and documentation available on Github: https://github.com/reshufflehq/reshuffle-amqp-connector
-// Examples can be found in https://www.npmjs.com/package/amqplib
+// More information can be found in https://www.npmjs.com/package/amqplib
 // and in https://www.rabbitmq.com/tutorials/tutorial-two-javascript.html
 
 const app = new Reshuffle()
@@ -17,7 +17,7 @@ const amqp = new AMQPConnector(app, {
 })
 
 function messageHandler(msg) {
-  console.log(`==> Message ${msg.content.toString()} received `)
+  console.log(`==> Message ${msg.content.toString()} received`)
 }
 
 async function main() {
