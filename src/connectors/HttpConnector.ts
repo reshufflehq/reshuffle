@@ -5,7 +5,6 @@ import {
   BaseHttpConnector,
   EventConfiguration,
   Handler,
-  HandlerWrapper,
   ReshuffleEvent,
   ReshuffleRequest,
   ReshuffleResponse,
@@ -32,11 +31,7 @@ export default class HttpConnector extends BaseHttpConnector<
   HttpConnectorConfigOptions,
   HttpConnectorEventOptions
 > {
-  on(
-    options: HttpConnectorEventOptions,
-    handler: Handler | HandlerWrapper,
-    eventId?: string,
-  ): EventConfiguration {
+  on(options: HttpConnectorEventOptions, handler: Handler, eventId?: string): EventConfiguration {
     const optionsSanitized = { method: options.method, path: sanitizePath(options.path) }
 
     if (!eventId) {

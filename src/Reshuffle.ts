@@ -48,7 +48,7 @@ export default class Reshuffle implements ReshuffleBase {
     return this.registry.common.webserver
   }
 
-  register(connector: BaseConnector) {
+  register(connector: BaseConnector): Reshuffle {
     connector.app = this
     this.registry.connectors[connector.id] = connector
 
@@ -64,7 +64,7 @@ export default class Reshuffle implements ReshuffleBase {
     return this.registry.connectors[connectorId]
   }
 
-  registerHTTPDelegate(path: string, delegate: BaseHttpConnector) {
+  registerHTTPDelegate(path: string, delegate: BaseHttpConnector): Reshuffle {
     this.httpDelegates[path] = this.httpDelegates[path] || new HttpMultiplexer(path)
     this.httpDelegates[path].delegates.push(delegate)
     return this
@@ -78,14 +78,11 @@ export default class Reshuffle implements ReshuffleBase {
     }
   }
 
-  when(eventConfiguration: EventConfiguration, handler: Handler | HandlerWrapper) {
-    const handlerWrapper =
-      typeof handler === 'object'
-        ? handler
-        : {
-            handle: handler,
-            id: nanoid(),
-          }
+  when(eventConfiguration: EventConfiguration, handler: Handler): Reshuffle {
+    const handlerWrapper: HandlerWrapper = {
+      handle: handler,
+      id: nanoid(),
+    }
     if (this.registry.handlers[eventConfiguration.id]) {
       this.registry.handlers[eventConfiguration.id].push(handlerWrapper)
     } else {
