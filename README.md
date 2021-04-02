@@ -26,7 +26,7 @@ app.start()
 $ npm install reshuffle
 ```
 
-For a full step by step tutorial on how to install and use Reshuffle please visit [this page](https://dev.reshuffle.com/docs/getting-started)
+For a full step by step tutorial on how to install and use Reshuffle please visit [this page](https://www.reshuffle.com/docs/getting-started)
 
 ## Reshuffle Core Features
 
