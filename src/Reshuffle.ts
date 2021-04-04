@@ -43,7 +43,7 @@ export default class Reshuffle {
   private prepareWebServer(): Express {
     if (!this.registry.common.webserver) {
       this.registry.common.webserver = express()
-      this.registry.common.webserver.use(middleware)
+      this.registry.common.webserver.use(this.middleware)
     }
 
     return this.registry.common.webserver
