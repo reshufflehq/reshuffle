@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from 'express'
+import express, { Express, Request, Response, NextFunction, RequestHandler } from 'express'
 import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { MemoryStoreAdapter, PersistentStoreAdapter } from './persistency'
@@ -24,6 +24,7 @@ export default class Reshuffle {
   }
   httpServer?: http.Server
   logger: Logger
+  middleware: RequestHandler[] = [ express.json(), express.urlencoded({ extended: true }) ]
 
   constructor(loggerOptions?: LoggerOptions) {
     this.availableConnectors = availableConnectors
@@ -35,10 +36,14 @@ export default class Reshuffle {
     this.logger.info('Reshuffle Initializing')
   }
 
+  addMiddleware(middleware: RequestHandler) {
+    this.middleware.push(middleware)
+  }
+
   private prepareWebServer(): Express {
     if (!this.registry.common.webserver) {
       this.registry.common.webserver = express()
-      this.registry.common.webserver.use(express.json(), express.urlencoded({ extended: true }))
+      this.registry.common.webserver.use(this.middleware)
     }
 
     return this.registry.common.webserver
