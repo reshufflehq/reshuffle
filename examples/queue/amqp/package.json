@@ -1,0 +1,16 @@
+{
+  "name": "amqp-examples",
+  "version": "1.0.0",
+  "description": "Reshuffle AMQP Examples",
+  "main": "amqp.js",
+  "scripts": {
+    "start": "node amqp.js",
+    "start-sdk": "node amqp-sdk.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "reshuffle": "latest",
+    "reshuffle-amqp-connector": "latest"
+  }
+}
