@@ -148,17 +148,6 @@ describe('Reshuffle', () => {
         app.stopWebServer()
       }, 1000)
     })
-    it('supports passing our own Handler object', () => {
-      const app = new Reshuffle()
-
-      const timerConnector = new CronConnector(app)
-
-      const cronHandler = { handle: (e: any) => console.log(e), id: 'myCustomId' }
-
-      const event = timerConnector.on({ expression: '*/1 * * * *' }, cronHandler)
-
-      expect(app.registry.handlers[event.id][0].id).toEqual('myCustomId')
-    })
   })
   describe('handleEvent', () => {
     it('returns false if no handler found', async () => {

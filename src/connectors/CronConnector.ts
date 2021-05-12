@@ -1,4 +1,4 @@
-import { BaseConnector, EventConfiguration } from 'reshuffle-base-connector'
+import { BaseConnector, EventConfiguration, Handler } from 'reshuffle-base-connector'
 import cron from 'node-cron'
 import { nanoid } from 'nanoid'
 import Reshuffle from '../Reshuffle'
@@ -16,7 +16,7 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     this.tasksByEventId = {}
   }
 
-  on(options: CronEventOptions, handler: any, eventId?: string): EventConfiguration {
+  on(options: CronEventOptions, handler: Handler, eventId?: string): EventConfiguration {
     if (!eventId) {
       eventId = `CRON/${this.id}/${eventId ? eventId : nanoid()}`
     }
@@ -36,15 +36,15 @@ export default class CronConnector extends BaseConnector<null, CronEventOptions>
     return event
   }
 
-  onRemoveEvent(event: EventConfiguration) {
+  onRemoveEvent(event: EventConfiguration): void {
     this.tasksByEventId[event.id]?.destroy()
   }
 
-  onStart() {
+  onStart(): void {
     Object.values(this.tasksByEventId).forEach((task) => task.start())
   }
 
-  onStop() {
+  onStop(): void {
     Object.values(this.tasksByEventId).forEach((task) => task.stop())
   }
 }

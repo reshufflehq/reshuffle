@@ -2,24 +2,29 @@ import express, { Express, Request, Response, NextFunction, RequestHandler } fro
 import { nanoid } from 'nanoid'
 import * as availableConnectors from './connectors'
 import { MemoryStoreAdapter, PersistentStoreAdapter } from './persistency'
-import { BaseConnector, BaseHttpConnector, EventConfiguration } from 'reshuffle-base-connector'
+import {
+  BaseConnector,
+  BaseHttpConnector,
+  EventConfiguration,
+  Handler,
+  PersistentStore,
+  ReshuffleEvent,
+  ReshuffleRequest,
+  ReshuffleResponse,
+  ReshuffleBase,
+  HandlerWrapper,
+} from 'reshuffle-base-connector'
 import { createLogger } from './Logger'
 import { Logger, LoggerOptions } from 'winston'
 import http from 'http'
-import { promises as fs } from 'fs'
 
-export interface Handler {
-  handle: (event: any, app: Reshuffle) => void
-  id: string
-}
-
-export default class Reshuffle {
+export default class Reshuffle implements ReshuffleBase {
   availableConnectors: any
   httpDelegates: { [path: string]: any }
   port: number
   registry: {
     connectors: { [url: string]: BaseConnector }
-    handlers: { [id: string]: Handler[] }
+    handlers: { [id: string]: HandlerWrapper[] }
     common: { webserver?: Express; persistentStore?: any }
   }
   httpServer?: http.Server
@@ -32,7 +37,6 @@ export default class Reshuffle {
     this.httpDelegates = {}
     this.registry = { connectors: {}, handlers: {}, common: {} }
     this.logger = createLogger(loggerOptions)
-
     this.logger.info('Reshuffle Initializing')
   }
 
@@ -82,14 +86,11 @@ export default class Reshuffle {
     }
   }
 
-  when(eventConfiguration: EventConfiguration, handler: (() => void) | Handler): Reshuffle {
-    const handlerWrapper =
-      typeof handler === 'object'
-        ? handler
-        : {
-            handle: handler,
-            id: nanoid(),
-          }
+  when(eventConfiguration: EventConfiguration, handler: Handler): Reshuffle {
+    const handlerWrapper: HandlerWrapper = {
+      handle: handler,
+      id: nanoid(),
+    }
     if (this.registry.handlers[eventConfiguration.id]) {
       this.registry.handlers[eventConfiguration.id].push(handlerWrapper)
     } else {
@@ -158,7 +159,7 @@ export default class Reshuffle {
     })
   }
 
-  async handleEvent(eventId: EventConfiguration['id'], event: any): Promise<boolean> {
+  async handleEvent(eventId: EventConfiguration['id'], event: ReshuffleEvent): Promise<boolean> {
     const eventHandlers = this.registry.handlers[eventId]
     if (!eventHandlers || eventHandlers.length === 0) {
       return false
@@ -172,7 +173,7 @@ export default class Reshuffle {
     return handled
   }
 
-  async onHandleEvent(handler: Handler, event: any): Promise<boolean> {
+  async onHandleEvent(handler: HandlerWrapper, event: ReshuffleEvent): Promise<boolean> {
     this.logger.defaultMeta = { handlerId: handler.id }
     try {
       await handler.handle(event, this)
@@ -185,12 +186,12 @@ export default class Reshuffle {
     }
   }
 
-  setPersistentStore(adapter: PersistentStoreAdapter) {
+  setPersistentStore(adapter: PersistentStoreAdapter): PersistentStoreAdapter {
     this.registry.common.persistentStore = adapter
     return adapter
   }
 
-  getPersistentStore() {
+  getPersistentStore(): PersistentStore {
     return this.registry.common.persistentStore || this.setPersistentStore(new MemoryStoreAdapter())
   }
 
@@ -208,7 +209,11 @@ class HttpMultiplexer {
     this.originalPath = originalPath
     this.delegates = []
   }
-  async handle(req: Request & { originalPath: string }, res: Response, next: NextFunction) {
+  async handle(
+    req: ReshuffleRequest<Request>,
+    res: ReshuffleResponse<Response>,
+    next: NextFunction,
+  ) {
     req.originalPath = this.originalPath
     let handled = false
 
