@@ -24,7 +24,7 @@ const smtpConnector = new SMTPConnector(
   'connectors/email',
 )
 
-cronConnector.on({ expression: '0 0 0 * * *' }, (event, app) => {
+cronConnector.on({ expression: '*/10 * * * * *' }, (event, app) => {
   app.getConnector('connectors/email').send({
     to: 'email@exmaple.com',
     subject: 'daily report!',
